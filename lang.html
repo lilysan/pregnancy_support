@@ -16,18 +16,14 @@
         withLoginOnExternalBrowser: true, // Enable automatic login process
     }).then(() => {
         // Start to use liff's api
-        alert("ready");
-        console.log("ok");
         const idToken = liff.getIDToken();
-        console.log(idToken);
-
         getLanguage(idToken);
     });
 
     function getLanguage(idToken){
         $.ajax({
             url: "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec",
-            type:'GET',
+            type:'POST',
             dataType: 'json',
             data : {
                 "path": "lang",
