@@ -33,13 +33,14 @@
             type:'POST',
             dataType: 'json',
             data: JSON.stringify(data),
-            timeout:3000,
+            timeout: 10000,
         }).done(function(data) {
             alert("ok");
             console.log(data);
             $("#lang").html(data.data.lang);
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
             alert("error");
+            liff.logout();
         })
 
     }
