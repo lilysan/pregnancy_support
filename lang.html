@@ -21,17 +21,18 @@
     });
 
     function getLanguage(idToken){
+        const data = {
+            path: "lang",
+            method : "get",
+            postData: {
+                idToken: idToken
+            }
+        };
         $.ajax({
             url: "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec",
             type:'POST',
             dataType: 'json',
-            data : {
-                "path": "lang",
-                "method" : "get",
-                "postData": {
-                    "idToken": idToken
-                }
-            },
+            data: JSON.stringify(data),
             timeout:3000,
         }).done(function(data) {
             alert("ok");
