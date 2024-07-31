@@ -18,6 +18,9 @@
         // Start to use liff's api
         const idToken = liff.getIDToken();
         getLanguage(idToken);
+    }).catch((err) => {
+        // Error happens during initialization
+        liff.logout();
     });
 
     function getLanguage(idToken){

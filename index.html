@@ -15,6 +15,9 @@
         withLoginOnExternalBrowser: true, // Enable automatic login process
     }).then(() => {
         // Start to use liff's api
+    }).catch((err) => {
+        // Error happens during initialization
+        liff.logout();
     });
 </script>
 
