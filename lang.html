@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weight</title>
+</head>
+<body>
+<h1>Weight</h1>
+<div id = "lang"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<script>
+    liff.init({
+        liffId: '2005594923-wN8OjyGd', // Use own liffId
+        withLoginOnExternalBrowser: true, // Enable automatic login process
+    }).then(() => {
+        // Start to use liff's api
+        const idToken = liff.getIDToken();
+        getLanguage(idToken);
+    });
+
+    function getLanguage(idToken){
+        $.ajax({
+            url: "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec",
+            type:'GET',
+            dataType: 'json',
+            data : {
+                "path": "lang",
+                "method" : "get",
+                "postData": {
+                    "idToken": idToken
+                }
+            },
+            timeout:3000,
+        }).done(function(data) {
+            alert("ok");
+            console.log(data);
+            $("#lang").html(data.data.lang);
+        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("error");
+        })
+
+    }
+
+</script>
+</body>
+</html>
