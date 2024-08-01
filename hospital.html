@@ -39,12 +39,7 @@
             data: JSON.stringify(data),
             timeout: 10000,
         }).done(function(data) {
-            if(data.statusCode !== 200){
-                console.error(data.message);
-            }
-            else {
-                $("#lang").html(data.data.lang);
-            }
+            $("#lang").html(data.data.lang);
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
             liff.logout();
         })
