@@ -41,6 +41,7 @@
         }).done(function(data) {
             if(data.statusCode !== 200){
                 console.error(data.message);
+                liff.logout();
             }
             else {
                 $("#lang").html(data.data.lang);

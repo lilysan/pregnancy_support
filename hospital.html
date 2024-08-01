@@ -18,33 +18,10 @@
     }).then(() => {
         // Start to use liff's api
         const idToken = liff.getIDToken();
-        getLanguage(idToken);
     }).catch((err) => {
         // Error happens during initialization
         liff.logout();
     });
-
-    function getLanguage(idToken){
-        const data = {
-            path: "lang",
-            method : "get",
-            postData: {
-                idToken: idToken
-            }
-        };
-        $.ajax({
-            url: "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec",
-            type:'POST',
-            dataType: 'json',
-            data: JSON.stringify(data),
-            timeout: 10000,
-        }).done(function(data) {
-            $("#lang").html(data.data.lang);
-        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            liff.logout();
-        })
-
-    }
 
 </script>
 </body>
