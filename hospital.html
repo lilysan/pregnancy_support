@@ -82,9 +82,8 @@
 
     function scanHospitalCode(idToken){
         liff.scanCodeV2().then(result => {
-            console.log(result);
             const hospitalIdToken = result.value;
-            if(hospitalIdToken === ""){
+            if(hospitalIdToken === null){// キャンセルの場合
                 return;
             }
             const data = {
