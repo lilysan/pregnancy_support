@@ -2,12 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Weight | Pregnancy Support</title>
+    <title>Hospital | Pregnancy Support</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Weight</h1>
-<div id="lang"></div>
+<div id="container">
+    <h1>Hospital</h1>
+    <p>
+        <button id="btn_scan">Scan a Hospital QR Code</button>
+    </p>
+    <p id="hospital_name"></p>
+    <p id="hospital_name_en"></p>
+    <p>
+        <button id="btn_unlink">Unlink</button>
+    </p>
+    <p>
+        <input id="card_no" type="text" value="" placeholder="Card No.">
+    </p>
+    <p>
+        <button id="btn_register">Register</button>
+    </p>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -18,10 +35,164 @@
     }).then(() => {
         // Start to use liff's api
         const idToken = liff.getIDToken();
+        getHospital(idToken);
+
+        $('#btn_register').on('click', function(){
+            setCardNo(idToken);
+        });
+        $('#btn_unlink').on('click', function(){
+            unLink(idToken);
+        });
+        $('#btn_scan').on('click', function(){
+            scanHospitalCode(idToken);
+        });
     }).catch((err) => {
         // Error happens during initialization
         liff.logout();
     });
+
+    function getHospital(idToken){
+        const data = {
+            path: "hospital",
+            method : "get",
+            postData: {
+                idToken: idToken,
+            }
+        };
+        $.ajax({
+            url: "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec",
+            type:'POST',
+            dataType: 'json',
+            data: JSON.stringify(data),
+            timeout: 10000,
+        }).done(function(data) {
+            if(data.statusCode !== 200){
+                console.error(data.message);
+            }
+            else {
+                $("#hospital_name").html(data.data.hospitalName);
+                $("#hospital_name_en").html(data.data.hospitalNameEn);
+                $("#card_no").val(data.data.cardNo);
+                changeLanguage(data.data.lang);
+            }
+        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+            liff.logout();
+        })
+    }
+
+    function scanHospitalCode(idToken){
+        liff.scanCodeV2().then(result => {
+            const hospitalIdToken = result.value;
+            const data = {
+                path: "hospital",
+                method : "post",
+                postData: {
+                    idToken: idToken,
+                    items: [{
+                        hospitalIdToken: hospitalIdToken
+                    }]
+                }
+            };
+            $.ajax({
+                url: "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec",
+                type:'POST',
+                dataType: 'json',
+                data: JSON.stringify(data),
+                timeout: 10000,
+            }).done(function(data) {
+                if(data.statusCode !== 200){
+                    console.error(data.message);
+                }
+                else {
+                    $("#hospital_name").html(data.data.hospitalName);
+                    $("#hospital_name_en").html(data.data.hospitalNameEn);
+                    alert("Success");
+                }
+            }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+                liff.logout();
+            })
+        }).catch(err => {
+            alert('ScanCode failed!');
+        });
+    }
+
+    function unLink(idToken){
+        const data = {
+            path: "hospital",
+            method : "delete",
+            postData: {
+                idToken: idToken,
+            }
+        };
+        $.ajax({
+            url: "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec",
+            type:'POST',
+            dataType: 'json',
+            data: JSON.stringify(data),
+            timeout: 10000,
+        }).done(function(data) {
+            if(data.statusCode !== 200){
+                console.error(data.message);
+            }
+            else {
+                $("#hospital_name").html("");
+                $("#hospital_name_en").html("");
+                $("#card_no").val("");
+                alert("Success");
+            }
+        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+            liff.logout();
+        })
+    }
+
+    function setCardNo(idToken){
+        const data = {
+            path: "hospital",
+            method : "post",
+            postData: {
+                idToken: idToken,
+                items: [{
+                    cardNo: $("#card_no").val()
+                }]
+            }
+        };
+        $.ajax({
+            url: "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec",
+            type:'POST',
+            dataType: 'json',
+            data: JSON.stringify(data),
+            timeout: 10000,
+        }).done(function(data) {
+            if(data.statusCode !== 200){
+                console.error(data.message);
+            }
+            else {
+                alert("Success");
+            }
+        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+            liff.logout();
+        })
+    }
+
+
+
+    function changeLanguage(lang){
+        const knownLang = ["ja", "en"];
+        lang = knownLang.includes(lang) ? lang : "en";
+
+        $.getJSON("lang/hospital.json", (data) => {
+            $.each(data, function (index, val) {
+                const elm = $("#" + val.id);
+                if(elm.length) {
+                    if (val.type === 'docs') {
+                        elm.html(val[lang]);
+                    } else if (val.type === 'placeholder') {
+                        elm.attr('placeholder', val[lang]);
+                    }
+                }
+            });
+        });
+    }
 
 </script>
 </body>

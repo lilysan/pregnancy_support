@@ -5,3 +5,34 @@ html {
 body {
     font-size: 1.8rem;
 }
+
+#container{
+    margin: 10px;
+}
+button{
+    margin: 10px 0;
+}
+
+a#scan_button{
+    padding: 0.5em;
+    margin: 10px auto;
+    display: inline-block;
+    color: #000 !important;
+    background: #7bcbcd;
+    text-decoration: none;
+    font-weight: bold;
+    font-size:16px;
+    border-radius: 3px;
+    text-align:center;
+    text-decoration:none !important;
+}
+a#scan_button:before {
+    content: "";
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    margin: -3px 5px 0 0;
+    background: url("https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/96/external-qr-library-tanah-basah-glyph-tanah-basah.png") no-repeat;
+    background-size: contain;
+    vertical-align: middle;
+}
