@@ -1,30 +1,30 @@
 [
   {
-    "id": "btn_scan",
+    "class": "btn_scan",
     "type": "docs",
     "en": "Scan a Hospital QR code",
     "ja": "病院QRコードを読み取る"
   },
   {
-    "id": "btn_unlink",
+    "class": "btn_unlink",
     "type": "docs",
     "en": "Unlink Your Health Care Provider",
     "ja": "連携解除"
   },
   {
-    "id": "btn_register",
+    "class": "btn_register",
     "type": "docs",
     "en": "Register",
     "ja": "登録"
   },
   {
-    "id": "card_no",
-    "type": "placeholder",
+    "class": "card_no",
+    "type": "docs",
     "en": "Patient ID Card No.",
     "ja": "診察券番号"
   },
   {
-    "id": "phone_number",
+    "class": "phone_number",
     "type": "docs",
     "en": "Phone Number for Labor",
     "ja": "陣痛時電話番号"

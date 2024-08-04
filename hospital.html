@@ -5,28 +5,42 @@
     <title>Hospital | Pregnancy Support</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="stylesheet" href="reset.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="container">
+<div class="container">
+    <div class="loader">
+        <div class="text-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
     <h1>Hospital</h1>
-    <p>
-        <button id="btn_scan">Scan a Hospital QR Code</button>
-    </p>
-    <p id="hospital_name"></p>
-    <p id="hospital_name_en"></p>
-    <p>
-        <button id="btn_unlink">Unlink</button>
-    </p>
-    <p>
-        <input id="card_no" type="text" value="" placeholder="Card No.">
-    </p>
-    <p>
-        <button id="btn_register">Register</button>
-    </p>
+    <div>
+        <button type="button" class="btn btn-lg btn-primary btn_scan">Scan a Hospital QR Code</button>
+    </div>
+    <div>
+        <p class="hospital_name_placeholder"></p>
+        <p class="hospital_name_en_placeholder"></p>
+        <p><span class="phone_number"></span>/ <span class="phone_number_placeholder"></span></p>
+        <p class="card_no_group">
+            <label class="card_no"></label>
+            <input class="card_no_placeholder" type="text" value="">
+        </p>
+    </div>
+    <div>
+        <button type="button" class="btn btn-warning btn_unlink">Unlink</button>
+    </div>
+    <div>
+        <button type="button" class="btn btn-primary btn_register">Register</button>
+    </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
     liff.init({
@@ -37,13 +51,13 @@
         const idToken = liff.getIDToken();
         getHospital(idToken);
 
-        $('#btn_register').on('click', function(){
+        $('.btn_register').on('click', function(){
             setCardNo(idToken);
         });
-        $('#btn_unlink').on('click', function(){
+        $('.btn_unlink').on('click', function(){
             unLink(idToken);
         });
-        $('#btn_scan').on('click', function(){
+        $('.btn_scan').on('click', function(){
             scanHospitalCode(idToken);
         });
     }).catch((err) => {
@@ -51,29 +65,54 @@
         liff.logout();
     });
 
-    function getHospital(idToken){
-        const data = {
-            path: "hospital",
-            method : "get",
-            postData: {
-                idToken: idToken,
-            }
-        };
-        $.ajax({
+    function getAccessObj(data){
+        return {
             url: "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec",
             type:'POST',
             dataType: 'json',
             data: JSON.stringify(data),
             timeout: 10000,
-        }).done(function(data) {
-            if(data.statusCode !== 200){
-                console.error(data.message);
+        }
+    }
+
+    function getHospital(idToken){
+        const data = {
+            path: "linkedHospital",
+            method : "get",
+            idToken: idToken
+        };
+        $.ajax(
+            getAccessObj(data)
+        ).done(function(response) {
+            if(response.statusCode !== 200){
+                console.error(response.message);
             }
             else {
-                $("#hospital_name").html(data.data.hospitalName);
-                $("#hospital_name_en").html(data.data.hospitalNameEn);
-                $("#card_no").val(data.data.cardNo);
-                changeLanguage(data.data.lang);
+                $(".hospital_name_placeholder").html(response.data.hospitalName);
+                $(".hospital_name_en_placeholder").html(response.data.hospitalNameEn);
+                $(".phone_number_placeholder").html(response.data.phoneNo);
+                $(".card_no_placeholder").val(response.data.cardNo);
+
+                if(response.data.hospitalName === ""){
+                    $(".btn_scan").show();
+                    $(".btn_unlink").hide();
+                    $(".card_no_group").hide();
+                }
+                else{
+                    $(".btn_scan").hide();
+                    $(".btn_unlink").show();
+                    $(".card_no_group").show();
+                    if(response.data.cardNo === ""){
+                        $(".btn_register").show();
+                        $(".card_no_placeholder").prop("readOnly", false);
+                    }
+                    else{
+                        $(".btn_register").hide();
+                        $(".card_no_placeholder").prop("readOnly", true);
+                    }
+                }
+
+                changeLanguage(response.data.lang);
             }
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
             liff.logout();
@@ -86,32 +125,38 @@
             if(hospitalIdToken === null){// キャンセルの場合
                 return;
             }
+            $(".loader").show();
             const data = {
-                path: "hospital",
+                path: "linkedHospital",
                 method : "post",
-                postData: {
-                    idToken: idToken,
-                    items: [{
-                        hospitalIdToken: hospitalIdToken
-                    }]
-                }
+                idToken: idToken,
+                postData: [{
+                    hospitalIdToken: hospitalIdToken
+                }]
             };
-            $.ajax({
-                url: "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec",
-                type:'POST',
-                dataType: 'json',
-                data: JSON.stringify(data),
-                timeout: 10000,
-            }).done(function(data) {
-                if(data.statusCode !== 200){
-                    console.error(data.message);
+            $.ajax(
+                getAccessObj(data)
+            ).done(function(response) {
+                if(response.statusCode !== 200){
+                    console.error(response.message);
                 }
                 else {
-                    $("#hospital_name").html(data.data.hospitalName);
-                    $("#hospital_name_en").html(data.data.hospitalNameEn);
+                    $(".hospital_name_placeholder").html(response.data.hospitalName);
+                    $(".hospital_name_en_placeholder").html(response.data.hospitalNameEn);
+                    $(".phone_number_placeholder").html(response.data.phoneNo);
+
+                    $(".btn_scan").hide();
+                    $(".btn_unlink").show();
+                    $(".btn_register").show();
+                    $(".card_no_group").show();
+
+                    $(".card_no_placeholder").prop("readOnly", false);
+
                     alert("Success");
                 }
+                $(".loader").hide();
             }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+                $(".loader").hide();
                 liff.logout();
             })
         }).catch(err => {
@@ -120,44 +165,47 @@
     }
 
     function unLink(idToken){
+        $(".loader").show();
         const data = {
-            path: "hospital",
+            path: "linkedHospital",
             method : "delete",
-            postData: {
-                idToken: idToken,
-            }
+            idToken: idToken,
         };
-        $.ajax({
-            url: "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec",
-            type:'POST',
-            dataType: 'json',
-            data: JSON.stringify(data),
-            timeout: 10000,
-        }).done(function(data) {
+        $.ajax(
+            getAccessObj(data)
+        ).done(function(data) {
             if(data.statusCode !== 200){
                 console.error(data.message);
             }
             else {
-                $("#hospital_name").html("");
-                $("#hospital_name_en").html("");
-                $("#card_no").val("");
+                $(".hospital_name_placeholder").html("");
+                $(".hospital_name_en_placeholder").html("");
+                $(".phone_number_placeholder").html("");
+                $(".card_no_placeholder").val("");
+
+                $(".btn_scan").show();
+                $(".btn_unlink").hide();
+                $(".btn_register").hide();
+                $(".card_no_group").hide();
+
                 alert("Success");
             }
+            $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+            $(".loader").hide();
             liff.logout();
         })
     }
 
     function setCardNo(idToken){
+        $(".loader").show();
         const data = {
-            path: "hospital",
+            path: "linkedHospital",
             method : "post",
-            postData: {
-                idToken: idToken,
-                items: [{
-                    cardNo: $("#card_no").val()
-                }]
-            }
+            idToken: idToken,
+            postData: [{
+                cardNo: $(".card_no").val()
+            }]
         };
         $.ajax({
             url: "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec",
@@ -170,9 +218,14 @@
                 console.error(data.message);
             }
             else {
+                $(".btn_register").hide();
+                $(".card_no_placeholder").prop("readOnly", true);
+
                 alert("Success");
             }
+            $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+            $(".loader").hide();
             liff.logout();
         })
     }
@@ -185,7 +238,7 @@
 
         $.getJSON("lang/hospital.json", (data) => {
             $.each(data, function (index, val) {
-                const elm = $("#" + val.id);
+                const elm = $("." + val.class);
                 if(elm.length) {
                     if (val.type === 'docs') {
                         elm.html(val[lang]);
@@ -194,6 +247,7 @@
                     }
                 }
             });
+            $(".loader").hide();
         });
     }
 
