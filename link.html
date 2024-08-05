@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Hospital | Pregnancy Support</title>
@@ -18,22 +18,39 @@
         </div>
     </div>
 
+    <h1 class="title_link">Linked Hospital</h1>
     <div>
         <button type="button" class="btn btn-lg btn-primary btn_scan">Scan a Hospital QR Code</button>
     </div>
-    <div class="hospital_group">
-        <p class="hospital_name_placeholder"></p>
-        <p class="hospital_name_en_placeholder"></p>
-        <p><span class="phone_number"></span>/ <span class="phone_number_placeholder"></span></p>
+    <form name="form_link">
+        <div class="hospital_group">
+            <p class="hospital_name_placeholder"></p>
+            <p class="hospital_name_en_placeholder"></p>
+            <p><span class="phone_number"></span>/ <span class="phone_number_placeholder"></span></p>
+            <p>
+                <label class="card_no">Patient ID Card No.</label>
+                <input class="card_no_placeholder" type="text" value="" required>
+            </p>
+        </div>
+        <div>
+            <button type="button" class="btn btn-outline-warning btn_unlink">Unlink</button>
+            <button type="button" class="btn btn-primary btn_register">Register</button>
+        </div>
+    </form>
+
+
+    <h1 class="title_taxi">Labor Taxi</h1>
+    <form class="form_taxi">
         <p>
-            <label class="card_no"></label>
-            <input class="card_no_placeholder" type="text" value="">
+            <label class="taxi_number">Phone Number</label>
+            <input class="taxi_number_placeholder" type="tel" value="" required>
         </p>
-    </div>
-    <div>
-        <button type="button" class="btn btn-outline-warning btn_unlink">Unlink</button>
-        <button type="button" class="btn btn-primary btn_register">Register</button>
-    </div>
+        <div>
+            <button type="button" class="btn btn-outline-warning btn_reset_taxi">Reset</button>
+            <button type="button" class="btn btn-primary btn_register_taxi">Register</button>
+        </div>
+    </form>
+
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -48,14 +65,28 @@
         const idToken = liff.getIDToken();
         getHospital(idToken);
 
-        $('.btn_register').on('click', function(){
-            setCardNo(idToken);
+        $('.btn_register').on('click', function(e){
+            if (!$('form[name="form_link"]')[0].reportValidity()) {
+                return false;
+            } else {
+                setCardNo(idToken);
+            }
         });
-        $('.btn_unlink').on('click', function(){
+        $('.btn_unlink').on('click', function(e){
             unLink(idToken);
         });
-        $('.btn_scan').on('click', function(){
+        $('.btn_scan').on('click', function(e){
             scanHospitalCode(idToken);
+        });
+        $('.btn_register_taxi').on('click', function(e){
+            if (!$('form[name="form_taxi"]')[0].reportValidity()) {
+                return false;
+            } else {
+                setTaxiNumber(idToken);
+            }
+        });
+        $('.btn_reset_taxi').on('click', function(e){
+            resetTaxiNumber(idToken);
         });
     }).catch((err) => {
         // Error happens during initialization
@@ -73,13 +104,12 @@
     }
 
     function getHospital(idToken){
-        const data = {
-            path: "link",
-            method : "get",
-            idToken: idToken
-        };
         $.ajax(
-            getAccessObj(data)
+            getAccessObj({
+                path: "link",
+                method : "get",
+                idToken: idToken
+            })
         ).done(function(response) {
             if(response.statusCode !== 200){
                 console.error(response.message);
@@ -89,6 +119,7 @@
                 $(".hospital_name_en_placeholder").html(response.data.hospitalNameEn);
                 $(".phone_number_placeholder").html(response.data.phoneNo);
                 $(".card_no_placeholder").val(response.data.cardNo);
+                $(".taxi_number_placeholder").val(response.data.taxiNumber);
 
                 if(response.data.hospitalName === ""){
                     $(".btn_scan").show();
@@ -110,6 +141,17 @@
                     }
                 }
 
+                if(response.data.taxiNumber === ""){
+                    $(".btn_reset_taxi").hide();
+                    $(".btn_register_taxi").show();
+                    $(".taxi_number_placeholder").prop("readOnly", false);
+                }
+                else{
+                    $(".btn_reset_taxi").show();
+                    $(".btn_register_taxi").hide();
+                    $(".taxi_number_placeholder").prop("readOnly", true);
+                }
+
                 changeLanguage(response.data.lang);
             }
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
@@ -124,16 +166,16 @@
                 return;
             }
             $(".loader").show();
-            const data = {
-                path: "link",
-                method : "post",
-                idToken: idToken,
-                postData: [{
-                    hospitalCode: hospitalCode
-                }]
-            };
+
             $.ajax(
-                getAccessObj(data)
+                getAccessObj({
+                    path: "link",
+                    method : "post",
+                    idToken: idToken,
+                    postData: [{
+                        hospitalCode: hospitalCode
+                    }]
+                })
             ).done(function(response) {
                 if(response.statusCode !== 200){
                     console.error(response.message);
@@ -164,13 +206,12 @@
 
     function unLink(idToken){
         $(".loader").show();
-        const data = {
-            path: "link",
-            method : "delete",
-            idToken: idToken,
-        };
         $.ajax(
-            getAccessObj(data)
+            getAccessObj({
+                path: "link",
+                method : "delete",
+                idToken: idToken,
+            })
         ).done(function(data) {
             if(data.statusCode !== 200){
                 console.error(data.message);
@@ -197,16 +238,15 @@
 
     function setCardNo(idToken){
         $(".loader").show();
-        const data = {
-            path: "link",
-            method : "post",
-            idToken: idToken,
-            postData: [{
-                cardNo: $(".card_no_placeholder").val()
-            }]
-        };
         $.ajax(
-            getAccessObj(data)
+            getAccessObj({
+                path: "link",
+                method : "post",
+                idToken: idToken,
+                postData: [{
+                    cardNo: $(".card_no_placeholder").val()
+                }]
+            })
         ).done(function(data) {
             if(data.statusCode !== 200){
                 console.error(data.message);
@@ -214,6 +254,61 @@
             else {
                 $(".btn_register").hide();
                 $(".card_no_placeholder").prop("readOnly", true);
+
+                alert("Success");
+            }
+            $(".loader").hide();
+        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+            $(".loader").hide();
+            liff.logout();
+        })
+    }
+
+    function setTaxiNumber(idToken){
+        $(".loader").show();
+        $.ajax(
+            getAccessObj({
+                path: "taxi",
+                method : "post",
+                idToken: idToken,
+                postData: [{
+                    taxiNumber: $(".taxi_number_placeholder").val()
+                }]
+            })
+        ).done(function(data) {
+            if(data.statusCode !== 200){
+                console.error(data.message);
+            }
+            else {
+                $(".btn_reset_taxi").show();
+                $(".btn_register_taxi").hide();
+                $(".taxi_number_placeholder").prop("readOnly", true);
+
+                alert("Success");
+            }
+            $(".loader").hide();
+        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+            $(".loader").hide();
+            liff.logout();
+        })
+    }
+
+    function resetTaxiNumber(idToken){
+        $(".loader").show();
+        $.ajax(
+            getAccessObj({
+                path: "taxi",
+                method : "delete",
+                idToken: idToken
+            })
+        ).done(function(data) {
+            if(data.statusCode !== 200){
+                console.error(data.message);
+            }
+            else {
+                $(".btn_reset_taxi").hide();
+                $(".btn_register_taxi").show();
+                $(".taxi_number_placeholder").prop("readOnly", false);
 
                 alert("Success");
             }

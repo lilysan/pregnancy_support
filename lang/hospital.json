@@ -8,11 +8,23 @@
   {
     "class": "btn_unlink",
     "type": "docs",
-    "en": "Unlink Your Health Care Provider",
+    "en": "Unlink",
     "ja": "連携解除"
   },
   {
     "class": "btn_register",
+    "type": "docs",
+    "en": "Register",
+    "ja": "登録"
+  },
+  {
+    "class": "btn_reset_taxi",
+    "type": "docs",
+    "en": "Reset",
+    "ja": "リセット"
+  },
+  {
+    "class": "btn_register_taxi",
     "type": "docs",
     "en": "Register",
     "ja": "登録"
@@ -28,5 +40,11 @@
     "type": "docs",
     "en": "Phone Number for Labor",
     "ja": "陣痛時電話番号"
+  },
+  {
+    "class": "taxi_number",
+    "type": "docs",
+    "en": "Phone Number",
+    "ja": "陣痛タクシー電話番号"
   }
 ]
