@@ -1,5 +1,17 @@
 [
   {
+    "class": "title_link",
+    "type": "docs",
+    "en": "Linked Hospital",
+    "ja": "病院データ"
+  },
+  {
+    "class": "title_taxi",
+    "type": "docs",
+    "en": "Labor Taxi",
+    "ja": "陣痛タクシー"
+  },
+  {
     "class": "btn_scan",
     "type": "docs",
     "en": "Scan a Hospital QR code",
@@ -38,8 +50,8 @@
   {
     "class": "phone_number",
     "type": "docs",
-    "en": "Phone Number for Labor",
-    "ja": "陣痛時電話番号"
+    "en": "Phone Number for Labor/ ",
+    "ja": "陣痛時電話番号/ "
   },
   {
     "class": "taxi_number",
