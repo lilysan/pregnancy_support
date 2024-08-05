@@ -29,7 +29,7 @@
             <p><span class="phone_number"></span><span class="phone_number_placeholder"></span></p>
             <p>
                 <label class="card_no">Patient ID Card No.</label>
-                <input class="card_no_placeholder" type="text" value="" required>
+                <input class="card_no_placeholder form-control" type="text" value="" required>
             </p>
         </div>
         <div>
@@ -44,7 +44,7 @@
     <form name="form_taxi">
         <p>
             <label class="taxi_number">Phone Number</label>
-            <input class="taxi_number_placeholder" type="tel" value="" required>
+            <input class="taxi_number_placeholder form-control" type="tel" value="" required>
         </p>
         <div>
             <button type="button" class="btn btn-outline-warning btn_reset_taxi">Reset</button>
@@ -119,7 +119,7 @@
             else {
                 $(".hospital_name_placeholder").html(response.data.hospitalName);
                 $(".hospital_name_en_placeholder").html(response.data.hospitalNameEn);
-                $(".phone_number_placeholder").html(response.data.phoneNo);
+                $(".phone_number_placeholder").html(response.data.phoneNumber);
                 $(".card_no_placeholder").val(response.data.cardNo);
                 $(".taxi_number_placeholder").val(response.data.taxiNumber);
 
@@ -186,7 +186,7 @@
                 else {
                     $(".hospital_name_placeholder").html(response.data.hospitalName);
                     $(".hospital_name_en_placeholder").html(response.data.hospitalNameEn);
-                    $(".phone_number_placeholder").html(response.data.phoneNo);
+                    $(".phone_number_placeholder").html(response.data.phoneNumber);
 
                     $(".btn_scan").hide();
                     $(".btn_unlink").show();
@@ -334,7 +334,7 @@
         const knownLang = ["ja", "en"];
         lang = knownLang.includes(lang) ? lang : "en";
 
-        $.getJSON("lang/hospital.json", (data) => {
+        $.getJSON("lang/link.json", (data) => {
             $.each(data, function (index, val) {
                 const elm = $("." + val.class);
                 if(elm.length) {
