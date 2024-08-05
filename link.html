@@ -114,6 +114,7 @@
         ).done(function(response) {
             if(response.statusCode !== 200){
                 console.error(response.message);
+                alert(response.message)
             }
             else {
                 $(".hospital_name_placeholder").html(response.data.hospitalName);
@@ -180,6 +181,7 @@
             ).done(function(response) {
                 if(response.statusCode !== 200){
                     console.error(response.message);
+                    alert(response.message);
                 }
                 else {
                     $(".hospital_name_placeholder").html(response.data.hospitalName);
@@ -213,9 +215,10 @@
                 method : "delete",
                 idToken: idToken,
             })
-        ).done(function(data) {
-            if(data.statusCode !== 200){
-                console.error(data.message);
+        ).done(function(response) {
+            if(response.statusCode !== 200){
+                console.error(response.message);
+                alert(response.message)
             }
             else {
                 $(".hospital_name_placeholder").html("");
@@ -248,9 +251,10 @@
                     cardNo: $(".card_no_placeholder").val()
                 }]
             })
-        ).done(function(data) {
-            if(data.statusCode !== 200){
-                console.error(data.message);
+        ).done(function(response) {
+            if(response.statusCode !== 200){
+                console.error(response.message);
+                alert(response.message)
             }
             else {
                 $(".btn_register").hide();
@@ -276,9 +280,10 @@
                     taxiNumber: $(".taxi_number_placeholder").val()
                 }]
             })
-        ).done(function(data) {
-            if(data.statusCode !== 200){
-                console.error(data.message);
+        ).done(function(response) {
+            if(response.statusCode !== 200){
+                console.error(response.message);
+                alert(response.message)
             }
             else {
                 $(".btn_reset_taxi").show();
@@ -302,9 +307,10 @@
                 method : "delete",
                 idToken: idToken
             })
-        ).done(function(data) {
-            if(data.statusCode !== 200){
-                console.error(data.message);
+        ).done(function(response) {
+            if(response.statusCode !== 200){
+                console.error(response.message);
+                alert(response.message)
             }
             else {
                 $(".taxi_number_placeholder").val("");
