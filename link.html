@@ -61,8 +61,8 @@
         // Error happens during initialization
         liff.logout();
     });
-
-    function getAccessObj(data){
+    
+    const getAccessObj = (data) => {
         return {
             url: "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec",
             type:'POST',
@@ -74,7 +74,7 @@
 
     function getHospital(idToken){
         const data = {
-            path: "linkedHospital",
+            path: "link",
             method : "get",
             idToken: idToken
         };
@@ -119,17 +119,17 @@
 
     function scanHospitalCode(idToken){
         liff.scanCodeV2().then(result => {
-            const hospitalIdToken = result.value;
-            if(hospitalIdToken === null){// キャンセルの場合
+            const hospitalCode = result.value;
+            if(hospitalCode === null){// キャンセルの場合
                 return;
             }
             $(".loader").show();
             const data = {
-                path: "linkedHospital",
+                path: "link",
                 method : "post",
                 idToken: idToken,
                 postData: [{
-                    hospitalIdToken: hospitalIdToken
+                    hospitalCode: hospitalCode
                 }]
             };
             $.ajax(
@@ -165,7 +165,7 @@
     function unLink(idToken){
         $(".loader").show();
         const data = {
-            path: "linkedHospital",
+            path: "link",
             method : "delete",
             idToken: idToken,
         };
@@ -198,20 +198,16 @@
     function setCardNo(idToken){
         $(".loader").show();
         const data = {
-            path: "linkedHospital",
+            path: "link",
             method : "post",
             idToken: idToken,
             postData: [{
                 cardNo: $(".card_no_placeholder").val()
             }]
         };
-        $.ajax({
-            url: "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec",
-            type:'POST',
-            dataType: 'json',
-            data: JSON.stringify(data),
-            timeout: 10000,
-        }).done(function(data) {
+        $.ajax(
+            getAccessObj(data)
+        ).done(function(data) {
             if(data.statusCode !== 200){
                 console.error(data.message);
             }
