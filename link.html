@@ -307,6 +307,8 @@
                 console.error(data.message);
             }
             else {
+                $(".taxi_number_placeholder").val("");
+
                 $(".btn_reset_taxi").hide();
                 $(".btn_register_taxi").show();
                 $(".taxi_number_placeholder").prop("readOnly", false);
