@@ -78,7 +78,7 @@
     }).catch((err) => {
         // Error happens during initialization
         liff.logout();
-        window.location.reload();
+        alert("LIFF init failed.");
     });
 
     const getAccessObj = (data) => {
@@ -133,8 +133,7 @@
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            liff.logout();
-            window.location.reload();
+            alert("Network error!");
         });
     }
 
@@ -176,8 +175,7 @@
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            liff.logout();
-            window.location.reload();
+            alert("Network error!");
         });
     }
 
@@ -214,8 +212,7 @@
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            liff.logout();
-            window.location.reload();
+            alert("Network error!");
         });
     }
 

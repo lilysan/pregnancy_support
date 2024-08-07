@@ -92,7 +92,7 @@
     }).catch((err) => {
         // Error happens during initialization
         liff.logout();
-        window.location.reload();
+        alert("LIFF init failed.");
     });
     
     const getAccessObj = (data) => {
@@ -162,8 +162,7 @@
                 changeLanguage(response.data.lang);
             }
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            liff.logout();
-            window.location.reload();
+            alert("Network error!");
         });
     }
 
@@ -209,8 +208,7 @@
                 }
                 $(".loader").hide();
             }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-                liff.logout();
-                window.location.reload();
+                alert("Network error!");
             });
         }).catch(err => {
             alert('ScanCode failed!');
@@ -249,7 +247,7 @@
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            liff.logout();
+            alert("Network error!");
         });
     }
 
@@ -281,8 +279,7 @@
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            liff.logout();
-            window.location.reload();
+            alert("Network error!");
         });
     }
 
@@ -315,8 +312,7 @@
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            liff.logout();
-            window.location.reload();
+            alert("Network error!");
         });
     }
 
@@ -348,8 +344,7 @@
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            liff.logout();
-            window.location.reload();
+            alert("Network error!");
         });
     }
 
