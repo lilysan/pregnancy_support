@@ -92,6 +92,7 @@
     }).catch((err) => {
         // Error happens during initialization
         liff.logout();
+        window.location.reload();
     });
     
     const getAccessObj = (data) => {
@@ -114,6 +115,7 @@
         ).done(function(response) {
             if(response.statusCode === 401){
                 liff.logout();
+                window.location.reload();
             }
             else if(response.statusCode !== 200){
                 console.error(response.message);
@@ -161,6 +163,7 @@
             }
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
             liff.logout();
+            window.location.reload();
         });
     }
 
@@ -184,6 +187,7 @@
             ).done(function(response) {
                 if(response.statusCode === 401){
                     liff.logout();
+                    window.location.reload();
                 }
                 else if(response.statusCode !== 200){
                     console.error(response.message);
@@ -206,6 +210,7 @@
                 $(".loader").hide();
             }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
                 liff.logout();
+                window.location.reload();
             });
         }).catch(err => {
             alert('ScanCode failed!');
@@ -223,6 +228,7 @@
         ).done(function(response) {
             if(response.statusCode === 401){
                 liff.logout();
+                window.location.reload();
             }
             else if(response.statusCode !== 200){
                 console.error(response.message);
@@ -261,6 +267,7 @@
         ).done(function(response) {
             if(response.statusCode === 401){
                 liff.logout();
+                window.location.reload();
             }
             else if(response.statusCode !== 200){
                 console.error(response.message);
@@ -275,6 +282,7 @@
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
             liff.logout();
+            window.location.reload();
         });
     }
 
@@ -292,6 +300,7 @@
         ).done(function(response) {
             if(response.statusCode === 401){
                 liff.logout();
+                window.location.reload();
             }
             else if(response.statusCode !== 200){
                 console.error(response.message);
@@ -307,6 +316,7 @@
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
             liff.logout();
+            window.location.reload();
         });
     }
 
@@ -321,6 +331,7 @@
         ).done(function(response) {
             if(response.statusCode === 401){
                 liff.logout();
+                window.location.reload();
             }
             else if(response.statusCode !== 200){
                 console.error(response.message);
@@ -338,6 +349,7 @@
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
             liff.logout();
+            window.location.reload();
         });
     }
 
