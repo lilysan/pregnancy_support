@@ -42,7 +42,7 @@
     </form>
     <div class="mt-3 text-center">
         <img src="" class="qrcode d-block mx-auto" width="250px">
-        <button type="button" class="btn btn-primary btn_download">QRコードをダウンロード</button>
+        <a href="" type="button" class="btn btn-primary btn_download">QRコードをダウンロード</a>
     </div>
 </div>
 
@@ -70,10 +70,6 @@
         });
         $('.btn_delete').on('click', function(e){
             deleteHospital(idToken);
-        });
-        $('.btn_download').on('click', function(e){
-            const url = $(".qrcode").attr('src');
-            download(url);
         });
     }).catch((err) => {
         // Error happens during initialization
@@ -112,7 +108,8 @@
                 $(".hospital_name_placeholder").val(response.data.hospitalName);
                 $(".hospital_name_en_placeholder").val(response.data.hospitalNameEn);
                 $(".phone_number_placeholder").val(response.data.phoneNumber);
-                $(".qrcode").attr("src", response.data.qrcode);
+                $(".qrcode").attr("src", response.data.qrcodeImageUrl);
+                $(".btn_download").attr("href", response.data.qrcodeDownloadUrl);
 
                 if(response.data.hospitalName === ""){
                     $(".btn_delete").hide();
@@ -161,7 +158,8 @@
                 alert(response.message)
             }
             else {
-                $(".qrcode").attr("src", response.data.qrcode);
+                $(".qrcode").attr("src", response.data.qrcodeImageUrl);
+                $(".btn_download").attr("href", response.data.qrcodeDownloadUrl);
 
                 $(".btn_delete").show();
                 $(".btn_edit").show();
@@ -200,6 +198,7 @@
             }
             else {
                 $(".qrcode").attr("src", "");
+                $(".btn_download").attr("href", "");
 
                 $(".btn_delete").hide();
                 $(".btn_edit").hide();
@@ -227,19 +226,6 @@
         $(".hospital_name_placeholder").prop("readOnly", false);
         $(".hospital_name_en_placeholder").prop("readOnly", false);
         $(".phone_number_placeholder").prop("readOnly", false);
-    }
-
-    function download(url){
-        $(".loader").show();
-
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = true;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-
-        $(".loader").hide();
     }
 
 </script>
