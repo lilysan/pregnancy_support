@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="ja" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Hospital for Staff | Pregnancy Support</title>
@@ -58,30 +58,33 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
+    const LIFF_ID = "2005594923-wN8OjyGd";
+
     liff.init({
-        liffId: '2005594923-wN8OjyGd', // Use own liffId
+        liffId: LIFF_ID, // Use own liffId
         withLoginOnExternalBrowser: true, // Enable automatic login process
     }).then(() => {
         // Start to use liff's api
         const idToken = liff.getIDToken();
         getHospital(idToken);
 
-        $('.btn_register').on('click', function(e){
+        $(".btn_register").on("click", function(e){
             if (!$('form[name="form_hospital"]')[0].reportValidity()) {
                 return false;
             } else {
                 setHospital(idToken);
             }
         });
-        $('.btn_edit').on('click', function(e){
+        $(".btn_edit").on("click", function(e){
             editHospital(idToken);
         });
-        $('.btn_delete').on('click', function(e){
+        $(".btn_delete").on("click", function(e){
             deleteHospital(idToken);
         });
-        $('.btn_download').on('click', function(e){
+        $(".btn_download").on("click", function(e){
             e.preventDefault();
-            const url = $(".btn_download").attr('href');
+            const url = $(".btn_download").attr("href");
             liff.openWindow({
                 url: url,
                 external: true,
@@ -95,11 +98,11 @@
 
     const getAccessObj = (data) => {
         return {
-            url: "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec",
-            type:'POST',
-            dataType: 'json',
+            url: API_URL,
+            type: "POST",
+            dataType: "json",
             data: JSON.stringify(data),
-            timeout: 10000,
+            timeout: 30000,
         }
     }
 
