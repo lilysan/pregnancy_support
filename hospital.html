@@ -71,6 +71,14 @@
         $('.btn_delete').on('click', function(e){
             deleteHospital(idToken);
         });
+        $('.btn_download').on('click', function(e){
+            e.preventDefault();
+            const url = $(".btn_download").attr('href');
+            liff.openWindow({
+                url: url,
+                external: true,
+            });
+        });
     }).catch((err) => {
         // Error happens during initialization
         liff.logout();
@@ -109,7 +117,7 @@
                 $(".hospital_name_en_placeholder").val(response.data.hospitalNameEn);
                 $(".phone_number_placeholder").val(response.data.phoneNumber);
                 $(".qrcode").attr("src", response.data.qrcodeImageUrl);
-                $(".btn_download").attr("href", response.data.qrcodeDownloadUrl + "&openExternalBrowser=1");
+                $(".btn_download").attr("href", response.data.qrcodeDownloadUrl);
 
                 if(response.data.hospitalName === ""){
                     $(".btn_delete").hide();
@@ -159,7 +167,7 @@
             }
             else {
                 $(".qrcode").attr("src", response.data.qrcodeImageUrl);
-                $(".btn_download").attr("href", response.data.qrcodeDownloadUrl + "&openExternalBrowser=1");
+                $(".btn_download").attr("href", response.data.qrcodeDownloadUrl);
 
                 $(".btn_delete").show();
                 $(".btn_edit").show();
