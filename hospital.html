@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="ja" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Hospital for Staff | Pregnancy Support</title>
@@ -18,20 +18,28 @@
         </div>
     </div>
 
-    <h1 class="mt-3">病院データの登録</h1>
+    <h1 class="mt-3">
+        産院データの登録
+        <small class="text-body-secondary">STAFF ONLY</small>
+    </h1>
+    <div class="alert alert-info" role="alert">
+        以下の産院データを登録すると、QRコードが発行されます。<br>
+        発行されたQRコードを患者さまにご提示し、産院設定の画面からQRコードを読み取るようご依頼ください。<br>
+        患者さまからの緊急メッセージが、このLINEアカウント宛てに届くようになります。
+    </div>
     <form name="form_hospital">
         <div>
             <p>
-                <label>病院名（日本語）</label>
+                <label>産院名（日本語）</label>
                 <input class="hospital_name_placeholder form-control" type="text" value="" required>
             </p>
             <p>
-                <label>病院名（英語）</label>
+                <label>産院名（英語）</label>
                 <input class="hospital_name_en_placeholder form-control" type="text" value="" required>
             </p>
             <p>
                 <label>陣痛時の電話番号</label>
-                <input class="phone_number_placeholder form-control" type="text" value="" required>
+                <input class="phone_number_placeholder form-control" type="tel" value="" required>
             </p>
         </div>
         <div>
@@ -40,9 +48,9 @@
             <button type="button" class="btn btn-primary btn_register">登録</button>
         </div>
     </form>
-    <div class="mt-3 text-center">
-        <img src="" class="qrcode d-block mx-auto" width="250px">
-        <button type="button" class="btn btn-primary btn_download">QRコードをダウンロード</button>
+    <div class="mt-3 mb-3 text-center">
+        <img src="" class="qrcode d-block mx-auto mt-3 mb-3" width="250px">
+        <a href="" type="button" class="btn btn-primary btn_download">QRコードをダウンロード</a>
     </div>
 </div>
 
@@ -50,43 +58,51 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
+    const LIFF_ID = "2005594923-wN8OjyGd";
+
     liff.init({
-        liffId: '2005594923-wN8OjyGd', // Use own liffId
+        liffId: LIFF_ID, // Use own liffId
         withLoginOnExternalBrowser: true, // Enable automatic login process
     }).then(() => {
         // Start to use liff's api
         const idToken = liff.getIDToken();
         getHospital(idToken);
 
-        $('.btn_register').on('click', function(e){
+        $(".btn_register").on("click", function(e){
             if (!$('form[name="form_hospital"]')[0].reportValidity()) {
                 return false;
             } else {
                 setHospital(idToken);
             }
         });
-        $('.btn_edit').on('click', function(e){
+        $(".btn_edit").on("click", function(e){
             editHospital(idToken);
         });
-        $('.btn_delete').on('click', function(e){
+        $(".btn_delete").on("click", function(e){
             deleteHospital(idToken);
         });
-        $('.btn_download').on('click', function(e){
-            const url = $(".qrcode").attr('src');
-            download(url);
+        $(".btn_download").on("click", function(e){
+            e.preventDefault();
+            const url = $(".btn_download").attr("href");
+            liff.openWindow({
+                url: url,
+                external: true,
+            });
         });
     }).catch((err) => {
         // Error happens during initialization
         liff.logout();
+        alert("LIFF init failed.");
     });
 
     const getAccessObj = (data) => {
         return {
-            url: "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec",
-            type:'POST',
-            dataType: 'json',
+            url: API_URL,
+            type: "POST",
+            dataType: "json",
             data: JSON.stringify(data),
-            timeout: 10000,
+            timeout: 30000,
         }
     }
 
@@ -98,8 +114,10 @@
                 idToken: idToken
             })
         ).done(function(response) {
+            console.log(response);
             if(response.statusCode === 401){
                 liff.logout();
+                window.location.reload();
             }
             else if(response.statusCode !== 200){
                 console.error(response.message);
@@ -109,7 +127,8 @@
                 $(".hospital_name_placeholder").val(response.data.hospitalName);
                 $(".hospital_name_en_placeholder").val(response.data.hospitalNameEn);
                 $(".phone_number_placeholder").val(response.data.phoneNumber);
-                $(".qrcode").attr("str", response.data.qrcode);
+                $(".qrcode").attr("src", response.data.qrcodeImageUrl);
+                $(".btn_download").attr("href", response.data.qrcodeDownloadUrl);
 
                 if(response.data.hospitalName === ""){
                     $(".btn_delete").hide();
@@ -130,7 +149,8 @@
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            liff.logout();
+            alert("Network error!");
+            $(".loader").hide();
         });
     }
 
@@ -150,13 +170,15 @@
         ).done(function(response) {
             if(response.statusCode === 401){
                 liff.logout();
+                window.location.reload();
             }
             else if(response.statusCode !== 200){
                 console.error(response.message);
                 alert(response.message)
             }
             else {
-                $(".qrcode").attr("str", response.data.qrcode);
+                $(".qrcode").attr("src", response.data.qrcodeImageUrl);
+                $(".btn_download").attr("href", response.data.qrcodeDownloadUrl);
 
                 $(".btn_delete").show();
                 $(".btn_edit").show();
@@ -171,7 +193,8 @@
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            liff.logout();
+            $(".loader").hide();
+            alert("Network error!");
         });
     }
 
@@ -186,6 +209,7 @@
         ).done(function(response) {
             if(response.statusCode === 401){
                 liff.logout();
+                window.location.reload();
             }
             else if(response.statusCode !== 200){
                 console.error(response.message);
@@ -193,6 +217,7 @@
             }
             else {
                 $(".qrcode").attr("src", "");
+                $(".btn_download").attr("href", "");
 
                 $(".btn_delete").hide();
                 $(".btn_edit").hide();
@@ -207,7 +232,8 @@
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            liff.logout();
+            $(".loader").hide();
+            alert("Network error!");
         });
     }
 
@@ -219,19 +245,6 @@
         $(".hospital_name_placeholder").prop("readOnly", false);
         $(".hospital_name_en_placeholder").prop("readOnly", false);
         $(".phone_number_placeholder").prop("readOnly", false);
-    }
-
-    function download(url){
-        $(".loader").show();
-
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = true;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-
-        $(".loader").hide();
     }
 
 </script>

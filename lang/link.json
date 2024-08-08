@@ -3,7 +3,7 @@
     "class": "title_link",
     "type": "docs",
     "en": "Linked Hospital",
-    "ja": "病院データ"
+    "ja": "産院データ"
   },
   {
     "class": "title_taxi",
@@ -15,7 +15,7 @@
     "class": "btn_scan",
     "type": "docs",
     "en": "Scan a Hospital QR code",
-    "ja": "病院QRコードを読み取る"
+    "ja": "産院QRコードを読み取る"
   },
   {
     "class": "btn_unlink",
