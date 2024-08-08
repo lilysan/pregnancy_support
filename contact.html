@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <h1 class="title_link mt-3">Linked Hospital</h1>
+    <h1 class="title_contact mt-3">Maternity Hospital</h1>
     <div>
         <button type="button" class="btn btn-lg btn-primary btn_scan">Scan a Hospital QR Code</button>
     </div>
@@ -111,7 +111,7 @@
     function getHospital(idToken){
         $.ajax(
             getAccessObj({
-                path: "link",
+                path: "contact",
                 method : "get",
                 idToken: idToken
             })
@@ -180,7 +180,7 @@
 
             $.ajax(
                 getAccessObj({
-                    path: "link",
+                    path: "contact",
                     method : "post",
                     idToken: idToken,
                     postData: {
@@ -224,7 +224,7 @@
         $(".loader").show();
         $.ajax(
             getAccessObj({
-                path: "link",
+                path: "contact",
                 method : "delete",
                 idToken: idToken,
             })
@@ -261,7 +261,7 @@
         $(".loader").show();
         $.ajax(
             getAccessObj({
-                path: "link",
+                path: "contact",
                 method : "post",
                 idToken: idToken,
                 postData: {
@@ -363,7 +363,7 @@
         const knownLang = ["ja", "en"];
         lang = knownLang.includes(lang) ? lang : "en";
 
-        $.getJSON("lang/link.json", (data) => {
+        $.getJSON("lang/contact.json", (data) => {
             $.each(data, function (index, val) {
                 const elm = $("." + val.class);
                 if(elm.length) {
