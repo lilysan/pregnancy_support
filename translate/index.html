@@ -105,7 +105,7 @@
             }
         });
         $(".btn_google2").on("click", function(e){
-            document.location = APP_URL.google.ANDROID_APP_LINK;
+            window.open(APP_URL.google.ANDROID_APP_LINK, '_blank');
             e.preventDefault();
         });
       }).catch((err) => {
