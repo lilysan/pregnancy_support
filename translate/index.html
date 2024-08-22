@@ -22,7 +22,8 @@
     <div class="d-grid gap-2 mt-3 mb-3">
         <a href="https://translate.google.com/m/translate" class="btn btn-primary btn_google" type="button">Google Translate</a>
         <a href="https://translate.google.com/m/translate" class="btn btn-primary" type="button">Google Translate2</a>
-        <a href="https://translate.google.com" class="btn btn-primary" type="button">Google Translate3</a>
+        <a href="https://translate.google.com/m/translate?openExternalBrowser=1" class="btn btn-primary" type="button">Google Translate3</a>
+        <a href="" class="btn btn-primary btn_google2" type="button">Google Translate4</a>
         <a href="https://www.deepl.com/" class="btn btn-primary btn_deepl" type="button">DeepL</a>
     </div>
 
@@ -64,8 +65,8 @@
             IPHONE_STORE_URL: 'https://apps.apple.com/id414706506',
             IPHONE_URL_SCHEME: 'googletranslate://',
             ANDROID_STORE_URL: 'https://play.google.com/store/apps/details?id=com.google.android.apps.translate',
-            ANDROID_URL_SCHEME: 'googletranslate://',
-            CHROME_URL_SCHEME: 'intent://#Intent;scheme=googletranslate;package=com.google.android.apps.translate;end',
+            ANDROID_URL_SCHEME: 'googletranslate://*',
+            CHROME_URL_SCHEME: 'intent://*/#Intent;scheme=googletranslate;package=com.google.android.apps.translate;end',
             ANDROID_APP_LINK: 'https://translate.google.com/m/translate'
         }
     }
@@ -102,6 +103,10 @@
             if(!ret){
                 e.preventDefault();
             }
+        });
+        $(".btn_google2").on("click", function(e){
+            document.location = APP_URL.google.ANDROID_APP_LINK;
+            e.preventDefault();
         });
       }).catch((err) => {
         // Error happens during initialization
