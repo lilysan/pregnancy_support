@@ -137,9 +137,8 @@
             }, 300);
         }
 
-        // const agent = navigator.userAgent;
-        const agent = 'Mozilla/5.0 (Linux; U; Android 7.0; WAS-LX2J Build/HUAWEIWAS-LX2J; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.116 Mobile Safari/537.36 OPR/46.0.2254.145391';
-        if (agent.search(/iPhone|iPod|iPad/) !== -1 || (agent.search(/ipad|macintosh/) && "ontouchend" in document)) {
+        const agent = navigator.userAgent;
+        if (agent.search(/iPhone|iPod|iPad/) !== -1 || (agent.search(/ipad|macintosh/) && ("ontouchend" in document))) {
             // iPhone
             alert("iOS");
             execute(APP_URL[app].IPHONE_URL_SCHEME, APP_URL[app].IPHONE_STORE_URL, true);
