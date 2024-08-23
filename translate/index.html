@@ -138,7 +138,8 @@
         }
 
         const agent = navigator.userAgent;
-        if (agent.search(/iPhone|iPod|iPad/) !== -1 || (agent.search(/ipad|macintosh/) && ("ontouchend" in document))) {
+        alert(agent);
+        if (agent.search(/iPhone|iPod|iPad/) !== -1 || (agent.search(/ipad|macintosh/) !== -1  && "ontouchend" in document)) {
             // iPhone
             alert("iOS");
             execute(APP_URL[app].IPHONE_URL_SCHEME, APP_URL[app].IPHONE_STORE_URL, true);
