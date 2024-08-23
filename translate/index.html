@@ -228,8 +228,10 @@
 
         const agent = navigator.userAgent;
 
+        alert(agent);
         if (agent.search(/iPhone|iPod|iPad/) !== -1 || (agent.search(/ipad|macintosh/) !== -1  && "ontouchend" in document)) {
             // iPhone
+            alert("iOS");
             if(APP_URL[app].IPHONE_URL_SCHEME !== ""){
                 execute(APP_URL[app].IPHONE_URL_SCHEME, APP_URL[app].IPHONE_STORE_URL, false);
                 return false;
