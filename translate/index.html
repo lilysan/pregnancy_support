@@ -278,7 +278,7 @@
         } else if (agent.search(/Android/) !== -1) {
             // Android
             if(APP_URL[app].ANDROID_URL_SCHEME !== ""){
-                execute(APP_URL[app].ANDROID_URL_SCHEME, APP_URL[app].ANDROID_STORE_URL + "?openExternalBrowser=1", "android");
+                execute(APP_URL[app].ANDROID_URL_SCHEME, APP_URL[app].ANDROID_STORE_SCHEME, "android");
                 return false;
             }
             else if(APP_URL[app].ANDROID_APP_LINK !== ""){
@@ -286,7 +286,7 @@
                 return true;
             }
             else{
-                $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_URL + "?openExternalBrowser=1");
+                $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_SCHEME, "android");
                 return true;
             }
         }
