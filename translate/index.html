@@ -120,6 +120,7 @@
             ANDROID_STORE_URL: 'https://play.google.com/store/apps/details?id=com.deepl.mobiletranslator',
             ANDROID_URL_SCHEME: '',
             CHROME_URL_SCHEME: '',
+            ANDROID_STORE_SCHEME: 'market://details?id=com.deepl.mobiletranslator',
             ANDROID_APP_LINK: '',
             WEB_URL: 'https://deepl.com'
         },
@@ -130,6 +131,7 @@
             ANDROID_STORE_URL: 'https://play.google.com/store/apps/details?id=com.google.android.apps.translate',
             ANDROID_URL_SCHEME: 'googletranslate://*/open',
             CHROME_URL_SCHEME: 'intent://*/open/#Intent;scheme=googletranslate;package=com.google.android.apps.translate;end',
+            ANDROID_STORE_SCHEME: 'market://details?id=com.google.android.apps.translate',
             ANDROID_APP_LINK: 'https://translate.google.com/m/translate',
             WEB_URL: 'https://translate.google.com'
         },
@@ -140,6 +142,7 @@
             ANDROID_STORE_URL: 'https://play.google.com/store/apps/details?id=at.nk.tools.iTranslate',
             ANDROID_URL_SCHEME: '',
             CHROME_URL_SCHEME: '',
+            ANDROID_STORE_SCHEME: 'market://details?id=at.nk.tools.iTranslate',
             ANDROID_APP_LINK: 'https://whfs.app.link',
             WEB_URL: ""
         },
@@ -150,6 +153,7 @@
             ANDROID_STORE_URL: 'https://play.google.com/store/apps/details?id=com.microsoft.translator',
             ANDROID_URL_SCHEME: '',
             CHROME_URL_SCHEME: '',
+            ANDROID_STORE_SCHEME: 'market://details?id=com.microsoft.translator',
             ANDROID_APP_LINK: '',//オプションリンク
             WEB_URL: 'https://translate.it'
         },
@@ -160,6 +164,7 @@
             ANDROID_STORE_URL: 'https://play.google.com/store/apps/details?id=com.naver.labs.translator',
             ANDROID_URL_SCHEME: '',
             CHROME_URL_SCHEME: '',
+            ANDROID_STORE_SCHEME: 'market://details?id=com.naver.labs.translator',
             ANDROID_APP_LINK: '',
             WEB_URL: 'https://papago.naver.com/'
         },
@@ -170,6 +175,7 @@
             ANDROID_STORE_URL: 'https://play.google.com/store/apps/details?id=jp.go.nict.voicetra',
             ANDROID_URL_SCHEME: '',
             CHROME_URL_SCHEME: '',
+            ANDROID_STORE_SCHEME: 'market://details?id=jp.go.nict.voicetra',
             ANDROID_APP_LINK: '',
             WEB_URL: ''
         },
@@ -272,7 +278,7 @@
         } else if (agent.search(/Android/) !== -1) {
             // Android
             if(APP_URL[app].ANDROID_URL_SCHEME !== ""){
-                execute(APP_URL[app].ANDROID_URL_SCHEME, APP_URL[app].ANDROID_STORE_URL, "android");
+                execute(APP_URL[app].ANDROID_URL_SCHEME, APP_URL[app].ANDROID_STORE_URL + "?openExternalBrowser=1", "android");
                 return false;
             }
             else if(APP_URL[app].ANDROID_APP_LINK !== ""){
@@ -280,7 +286,7 @@
                 return true;
             }
             else{
-                $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_URL);
+                $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_URL + "?openExternalBrowser=1");
                 return true;
             }
         }
