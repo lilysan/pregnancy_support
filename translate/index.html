@@ -270,7 +270,7 @@
                 // return true;
             }
             else{
-                document.location = APP_URL[app].ANDROID_STORE_URL;
+                document.location = APP_URL[app].ANDROID_STORE_SCHEME;
                 return false;
                 // $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_SCHEME);
                 // return true;
@@ -297,7 +297,7 @@
         } else if (agent.search(/Android/) !== -1) {
             // Android
             if(APP_URL[app].ANDROID_URL_SCHEME !== ""){
-                execute(APP_URL[app].ANDROID_URL_SCHEME, APP_URL[app].ANDROID_STORE_URL, "android");
+                execute(APP_URL[app].ANDROID_URL_SCHEME, APP_URL[app].ANDROID_STORE_SCHEME, "android");
                 return false;
             }
             else if(APP_URL[app].ANDROID_APP_LINK !== ""){
