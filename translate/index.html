@@ -258,23 +258,23 @@
                 return true;
             }
         } else if (agent.search(/Android/) !== -1 && agent.search(/Chrome/) !== -1) {
-            // Chrome in Android
+            // Chrome in Android　or LIFF
             // https://developer.chrome.com/multidevice/android/intentsを参考。
             if(APP_URL[app].CHROME_URL_SCHEME !== ""){
                 $(`.app-${app}`).attr('href', APP_URL[app].CHROME_URL_SCHEME);
                 return true;
             }
             else if(APP_URL[app].ANDROID_APP_LINK !== ""){
-                document.location = APP_URL[app].ANDROID_APP_LINK;
-                return false;
-                // $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_APP_LINK);
-                // return true;
+                // document.location = APP_URL[app].ANDROID_APP_LINK;
+                // return false;
+                $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_APP_LINK);
+                return true;
             }
             else{
-                document.location = APP_URL[app].ANDROID_STORE_SCHEME;
-                return false;
-                // $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_URL);
-                // return true;
+                // document.location = APP_URL[app].ANDROID_STORE_SCHEME;
+                // return false;
+                $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_SCHEME);
+                return true;
             }
         } else if (agent.search(/Android/) !== -1) {
             // Android
@@ -283,16 +283,16 @@
                 return false;
             }
             else if(APP_URL[app].ANDROID_APP_LINK !== ""){
-                document.location = APP_URL[app].ANDROID_APP_LINK;
-                return false;
-                // $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_APP_LINK);
-                // return true;
+                // document.location = APP_URL[app].ANDROID_APP_LINK;
+                // return false;
+                $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_APP_LINK);
+                return true;
             }
             else{
-                document.location = APP_URL[app].ANDROID_STORE_SCHEME;
-                return false;
-                // $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_SCHEME);
-                // return true;
+                // document.location = APP_URL[app].ANDROID_STORE_SCHEME;
+                // return false;
+                $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_SCHEME);
+                return true;
             }
         }
 
