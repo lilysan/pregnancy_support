@@ -221,7 +221,7 @@
                 document.location = appUrl;
             }
             else if(os === "android"){
-                const iframe = document.createElement('iframe');
+                iframe = document.createElement('iframe');
                 iframe.style.visibility = "hidden";
                 iframe.src = appUrl;
                 document.body.appendChild(iframe);
@@ -286,8 +286,10 @@
                 return true;
             }
             else{
-                $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_SCHEME);
-                return true;
+                document.location = APP_URL[app].ANDROID_STORE_SCHEME;
+                return false;
+                // $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_SCHEME);
+                // return true;
             }
         }
 
