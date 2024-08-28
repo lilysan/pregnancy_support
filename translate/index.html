@@ -219,11 +219,10 @@
                 iframe.style.visibility = "hidden";
                 iframe.src = appUrl;
                 document.body.appendChild(iframe);
-
             }
 
             const time = (new Date()).getTime();
-            setTimeout(function(){
+            const timer = setTimeout(function(){
                 const now = (new Date()).getTime();
                 if(iframe !== null) {
                     document.body.removeChild(iframe);
@@ -234,6 +233,9 @@
                 }
                 document.location = storeUrl;
             }, 300);
+            window.onblur = function(){
+                clearTimeout(timer);
+            }
         }
 
         const agent = navigator.userAgent;
@@ -241,12 +243,10 @@
         if (agent.search(/iPhone|iPod|iPad/) !== -1 || (agent.search(/iPad|Macintosh/) !== -1  && "ontouchend" in document)) {
             // iPhone
             if(APP_URL[app].IPHONE_URL_SCHEME !== ""){
-                alert("URL SCHEME");
                 execute(APP_URL[app].IPHONE_URL_SCHEME, APP_URL[app].IPHONE_STORE_URL, "ios");
                 return false;
             }
             else if(APP_URL[app].IPHONE_UNI_LINK !== ""){
-                alert("universal link");
                 $(`.app-${app}`).attr('href', APP_URL[app].IPHONE_UNI_LINK);
                 return true;
             }
