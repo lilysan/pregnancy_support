@@ -209,15 +209,25 @@
     // });
 
     function lunchApp(app) {
-        function execute(appUrl, storeUrl) {
-            const iframe = document.createElement('iframe');
-            iframe.style.visibility = "hidden";
-            iframe.src = appUrl;
-            document.body.appendChild(iframe);
+        function execute(appUrl, storeUrl, os) {
+            let iframe = null;
+            if(os === "ios"){
+                document.location = appUrl;
+            }
+            else if(os === "android"){
+                const iframe = document.createElement('iframe');
+                iframe.style.visibility = "hidden";
+                iframe.src = appUrl;
+                document.body.appendChild(iframe);
+
+            }
+
             const time = (new Date()).getTime();
             setTimeout(function(){
                 const now = (new Date()).getTime();
-                document.body.removeChild(iframe);
+                if(iframe !== null) {
+                    document.body.removeChild(iframe);
+                }
                 if((now-time)>400) {
                     // 元の画面に戻ってきた時にポップアップを抑制するため
                     return;
@@ -232,7 +242,7 @@
             // iPhone
             if(APP_URL[app].IPHONE_URL_SCHEME !== ""){
                 alert("URL SCHEME");
-                execute(APP_URL[app].IPHONE_URL_SCHEME, APP_URL[app].IPHONE_STORE_URL, false);
+                execute(APP_URL[app].IPHONE_URL_SCHEME, APP_URL[app].IPHONE_STORE_URL, "ios");
                 return false;
             }
             else if(APP_URL[app].IPHONE_UNI_LINK !== ""){
@@ -262,7 +272,7 @@
         } else if (agent.search(/Android/) !== -1) {
             // Android
             if(APP_URL[app].ANDROID_URL_SCHEME !== ""){
-                execute(APP_URL[app].ANDROID_URL_SCHEME, APP_URL[app].ANDROID_STORE_URL, false);
+                execute(APP_URL[app].ANDROID_URL_SCHEME, APP_URL[app].ANDROID_STORE_URL, "android");
                 return false;
             }
             else if(APP_URL[app].ANDROID_APP_LINK !== ""){
