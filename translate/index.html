@@ -261,6 +261,7 @@
                 return true;
             }
         } else if (agent.search(/Android/) !== -1 && agent.search(/Chrome/) !== -1) {
+            alert("chrome");
             // Chrome in Android
             // https://developer.chrome.com/multidevice/android/intentsを参考。
             if(APP_URL[app].CHROME_URL_SCHEME !== ""){
@@ -277,8 +278,9 @@
             }
         } else if (agent.search(/Android/) !== -1) {
             // Android
+            alert("android");
             if(APP_URL[app].ANDROID_URL_SCHEME !== ""){
-                execute(APP_URL[app].ANDROID_URL_SCHEME, APP_URL[app].ANDROID_STORE_SCHEME, "android");
+                execute(APP_URL[app].ANDROID_URL_SCHEME, APP_URL[app].ANDROID_STORE_URL, "android");
                 return false;
             }
             else if(APP_URL[app].ANDROID_APP_LINK !== ""){
@@ -286,8 +288,7 @@
                 return true;
             }
             else{
-                alert("android");
-                document.location = APP_URL[app].ANDROID_STORE_SCHEME;
+                document.location = APP_URL[app].ANDROID_STORE_URL;
                 return false;
                 // $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_SCHEME);
                 // return true;
