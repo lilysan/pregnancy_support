@@ -259,9 +259,9 @@
             }
         } else if (agent.search(/LIFF/) !== -1) {
             // Android
-            if(APP_URL[app].ANDROID_URL_SCHEME !== ""){
-                execute(APP_URL[app].ANDROID_URL_SCHEME, APP_URL[app].ANDROID_STORE_SCHEME, "android");
-                return false;
+            if(APP_URL[app].CHROME_URL_SCHEME !== ""){
+                $(`.app-${app}`).attr('href', APP_URL[app].CHROME_URL_SCHEME);
+                return true;
             }
             else if(APP_URL[app].ANDROID_APP_LINK !== ""){
                 document.location = APP_URL[app].ANDROID_APP_LINK;
@@ -270,7 +270,7 @@
                 // return true;
             }
             else{
-                document.location = APP_URL[app].ANDROID_STORE_SCHEME;
+                document.location = APP_URL[app].ANDROID_STORE_URL;
                 return false;
                 // $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_SCHEME);
                 // return true;
@@ -301,16 +301,16 @@
                 return false;
             }
             else if(APP_URL[app].ANDROID_APP_LINK !== ""){
-                document.location = APP_URL[app].ANDROID_APP_LINK;
-                return false;
-                // $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_APP_LINK);
-                // return true;
+                // document.location = APP_URL[app].ANDROID_APP_LINK;
+                // return false;
+                $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_APP_LINK);
+                return true;
             }
             else{
-                document.location = APP_URL[app].ANDROID_STORE_URL;
-                return false;
-                // $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_SCHEME);
-                // return true;
+                // document.location = APP_URL[app].ANDROID_STORE_URL;
+                // return false;
+                $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_SCHEME);
+                return true;
             }
         }
 
