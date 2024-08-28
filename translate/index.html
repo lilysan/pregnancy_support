@@ -216,12 +216,11 @@
 
     function lunchApp(app) {
         function execute(appUrl, storeUrl, os) {
-            let iframe = null;
+            const iframe = document.createElement('iframe');
             if(os === "ios"){
                 document.location = appUrl;
             }
             else if(os === "android"){
-                iframe = document.createElement('iframe');
                 iframe.style.visibility = "hidden";
                 iframe.src = appUrl;
                 document.body.appendChild(iframe);
@@ -230,9 +229,7 @@
             const time = (new Date()).getTime();
             const timer = setTimeout(function(){
                 const now = (new Date()).getTime();
-                if(iframe !== null) {
-                    document.body.removeChild(iframe);
-                }
+                document.body.removeChild(iframe);
                 if((now-time)>400) {
                     // 元の画面に戻ってきた時にポップアップを抑制するため
                     return;
@@ -262,7 +259,6 @@
             }
         } else if (agent.search(/LIFF/) !== -1) {
             // Android
-            alert("liff");
             if(APP_URL[app].ANDROID_URL_SCHEME !== ""){
                 execute(APP_URL[app].ANDROID_URL_SCHEME, APP_URL[app].ANDROID_STORE_SCHEME, "android");
                 return false;
@@ -280,7 +276,6 @@
                 // return true;
             }
         } else if (agent.search(/Android/) !== -1 && agent.search(/Chrome/) !== -1) {
-            alert("chrome");
             // Chrome in Android
             // https://developer.chrome.com/multidevice/android/intentsを参考。
             if(APP_URL[app].CHROME_URL_SCHEME !== ""){
@@ -301,7 +296,6 @@
             }
         } else if (agent.search(/Android/) !== -1) {
             // Android
-            alert("android");
             if(APP_URL[app].ANDROID_URL_SCHEME !== ""){
                 execute(APP_URL[app].ANDROID_URL_SCHEME, APP_URL[app].ANDROID_STORE_URL, "android");
                 return false;
