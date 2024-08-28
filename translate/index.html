@@ -260,6 +260,25 @@
                 $(`.app-${app}`).attr('href', APP_URL[app].IPHONE_STORE_URL);
                 return true;
             }
+        } else if (agent.search(/LIFF/) !== -1) {
+            // Android
+            alert("liff");
+            if(APP_URL[app].ANDROID_URL_SCHEME !== ""){
+                execute(APP_URL[app].ANDROID_URL_SCHEME, APP_URL[app].ANDROID_STORE_SCHEME, "android");
+                return false;
+            }
+            else if(APP_URL[app].ANDROID_APP_LINK !== ""){
+                document.location = APP_URL[app].ANDROID_APP_LINK;
+                return false;
+                // $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_APP_LINK);
+                // return true;
+            }
+            else{
+                document.location = APP_URL[app].ANDROID_STORE_SCHEME;
+                return false;
+                // $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_SCHEME);
+                // return true;
+            }
         } else if (agent.search(/Android/) !== -1 && agent.search(/Chrome/) !== -1) {
             alert("chrome");
             // Chrome in Android
@@ -269,12 +288,16 @@
                 return true;
             }
             else if(APP_URL[app].ANDROID_APP_LINK !== ""){
-                $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_APP_LINK);
-                return true;
+                document.location = APP_URL[app].ANDROID_APP_LINK;
+                return false;
+                // $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_APP_LINK);
+                // return true;
             }
             else{
-                $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_URL);
-                return true;
+                document.location = APP_URL[app].ANDROID_STORE_URL;
+                return false;
+                // $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_URL);
+                // return true;
             }
         } else if (agent.search(/Android/) !== -1) {
             // Android
@@ -284,8 +307,10 @@
                 return false;
             }
             else if(APP_URL[app].ANDROID_APP_LINK !== ""){
-                $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_APP_LINK);
-                return true;
+                document.location = APP_URL[app].ANDROID_APP_LINK;
+                return false;
+                // $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_APP_LINK);
+                // return true;
             }
             else{
                 document.location = APP_URL[app].ANDROID_STORE_URL;
