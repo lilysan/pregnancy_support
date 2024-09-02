@@ -236,6 +236,7 @@
                 }
                 document.location = storeUrl;
             }, 300);
+            // アプリへの遷移時にポップアップが出てきた場合の対応
             window.onblur = function(){
                 clearTimeout(timer);
             }
@@ -265,14 +266,10 @@
                 return true;
             }
             else if(APP_URL[app].ANDROID_APP_LINK !== ""){
-                // document.location = APP_URL[app].ANDROID_APP_LINK;
-                // return false;
                 $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_APP_LINK);
                 return true;
             }
             else{
-                // document.location = APP_URL[app].ANDROID_STORE_SCHEME;
-                // return false;
                 $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_SCHEME);
                 return true;
             }
@@ -283,14 +280,10 @@
                 return false;
             }
             else if(APP_URL[app].ANDROID_APP_LINK !== ""){
-                // document.location = APP_URL[app].ANDROID_APP_LINK;
-                // return false;
                 $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_APP_LINK);
                 return true;
             }
             else{
-                // document.location = APP_URL[app].ANDROID_STORE_SCHEME;
-                // return false;
                 $(`.app-${app}`).attr('href', APP_URL[app].ANDROID_STORE_SCHEME);
                 return true;
             }
