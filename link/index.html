@@ -208,8 +208,6 @@
                     $(".hospital_group").show();
 
                     $(".card_no_placeholder").prop("readOnly", false);
-
-                    alert("Success");
                 }
                 $(".loader").hide();
             }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
@@ -248,8 +246,6 @@
                 $(".btn_unlink").hide();
                 $(".btn_register").hide();
                 $(".hospital_group").hide();
-
-                alert("Success");
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
@@ -281,8 +277,6 @@
             else {
                 $(".btn_register").hide();
                 $(".card_no_placeholder").prop("readOnly", true);
-
-                alert("Success");
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
@@ -315,8 +309,6 @@
                 $(".btn_reset_taxi").show();
                 $(".btn_register_taxi").hide();
                 $(".taxi_number_placeholder").prop("readOnly", true);
-
-                alert("Success");
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
@@ -348,8 +340,6 @@
                 $(".btn_reset_taxi").hide();
                 $(".btn_register_taxi").show();
                 $(".taxi_number_placeholder").prop("readOnly", false);
-
-                alert("Success");
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
@@ -375,10 +365,7 @@
                     }
                 }
             });
-        })
-        .done(function() { alert("second success"); })
-        .fail(function() { alert("error"); })
-        .always(function() { alert("complete"); });
+        });
     }
 
 </script>
