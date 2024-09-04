@@ -163,6 +163,7 @@
                 }
 
                 changeLanguage(response.data.lang);
+                $(".loader").hide();
             }
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
             alert("Network error!");
@@ -362,6 +363,7 @@
     function changeLanguage(lang){
         const knownLang = ["ja", "en"];
         lang = knownLang.includes(lang) ? lang : "en";
+        console.log(lang);
 
         $.getJSON("lang.json", (data) => {
             $.each(data, function (index, val) {
@@ -374,7 +376,16 @@
                     }
                 }
             });
-            $(".loader").hide();
+        })
+        .success(function(json) {
+            console.log("成功");
+        })
+        .error(function(jqXHR, textStatus, errorThrown) {
+            console.log("エラー：" + textStatus);
+            console.log("テキスト：" + jqXHR.responseText);
+        })
+        .complete(function() {
+            console.log("完了");
         });
     }
 
