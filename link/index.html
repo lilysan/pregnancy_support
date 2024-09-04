@@ -363,7 +363,7 @@
     function changeLanguage(lang){
         const knownLang = ["ja", "en"];
         lang = knownLang.includes(lang) ? lang : "en";
-        console.log(lang);
+        alert(lang);
 
         $.getJSON("lang.json", (data) => {
             $.each(data, function (index, val) {
@@ -378,14 +378,14 @@
             });
         })
         .success(function(json) {
-            console.log("成功");
+            alert("成功");
         })
         .error(function(jqXHR, textStatus, errorThrown) {
-            console.log("エラー：" + textStatus);
-            console.log("テキスト：" + jqXHR.responseText);
+            alert("エラー：" + textStatus);
+            alert("テキスト：" + jqXHR.responseText);
         })
         .complete(function() {
-            console.log("完了");
+            alert("完了");
         });
     }
 
