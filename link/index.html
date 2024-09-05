@@ -67,6 +67,9 @@
     }).then(() => {
         // Start to use liff's api
         const idToken = liff.getIDToken();
+        const lang = liff.getAppLanguage();
+
+        changeLanguage(lang);
         getHospital(idToken);
 
         $(".btn_register").on("click", function(e){
@@ -162,7 +165,6 @@
                     $(".taxi_number_placeholder").prop("readOnly", true);
                 }
 
-                changeLanguage(response.data.lang);
                 $(".loader").hide();
             }
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
