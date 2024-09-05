@@ -24,11 +24,14 @@
     </div>
     <form name="form_link">
         <div class="hospital_group">
-            <p class="hospital_name_placeholder"></p>
-            <p class="hospital_name_en_placeholder"></p>
-            <p><span class="phone_number"></span><span class="phone_number_placeholder"></span></p>
+            <small class="hospital_name text-body-secondary mt-3"></small>
+            <h4 class="hospital_name_placeholder"></h4>
+            <small class="hospital_name_en text-body-secondary mt-3"></small>
+            <h4 class="hospital_name_en_placeholder"></h4>
+            <small class="phone_number text-body-secondary mt-3"></small>
+            <h4 class="phone_number_placeholder"></h4>
             <p>
-                <label class="card_no">Patient ID Card No.</label>
+                <label class="card_no text-body-secondary">Patient ID Card No.</label>
                 <input class="card_no_placeholder form-control" type="text" value="" required>
             </p>
         </div>
@@ -43,7 +46,7 @@
     <h1 class="title_taxi mt-3">Labor Taxi</h1>
     <form name="form_taxi">
         <p>
-            <label class="taxi_number">Phone Number</label>
+            <label class="taxi_number text-body-secondary">Phone Number</label>
             <input class="taxi_number_placeholder form-control" type="tel" value="" required>
         </p>
         <div>
@@ -61,45 +64,45 @@
     const API_URL = "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
     const LIFF_ID = "2005594923-wN8OjyGd";
 
-    liff.init({
-        liffId: LIFF_ID, // Use own liffId
-        withLoginOnExternalBrowser: true, // Enable automatic login process
-    }).then(() => {
-        // Start to use liff's api
-        const idToken = liff.getIDToken();
-        const lang = liff.getAppLanguage();
-
-        changeLanguage(lang);
-        getHospital(idToken);
-
-        $(".btn_register").on("click", function(e){
-            if (!$('form[name="form_link"]')[0].reportValidity()) {
-                return false;
-            } else {
-                setCardNo(idToken);
-            }
-        });
-        $(".btn_unlink").on("click", function(e){
-            unLink(idToken);
-        });
-        $(".btn_scan").on("click", function(e){
-            scanHospitalCode(idToken);
-        });
-        $(".btn_register_taxi").on("click", function(e){
-            if (!$('form[name="form_taxi"]')[0].reportValidity()) {
-                return false;
-            } else {
-                setTaxiNumber(idToken);
-            }
-        });
-        $(".btn_reset_taxi").on("click", function(e){
-            resetTaxiNumber(idToken);
-        });
-    }).catch((err) => {
-        // Error happens during initialization
-        liff.logout();
-        alert("LIFF init failed.");
-    });
+    // liff.init({
+    //     liffId: LIFF_ID, // Use own liffId
+    //     withLoginOnExternalBrowser: true, // Enable automatic login process
+    // }).then(() => {
+    //     // Start to use liff's api
+    //     const idToken = liff.getIDToken();
+    //     const lang = liff.getAppLanguage();
+    //
+    //     changeLanguage(lang);
+    //     getHospital(idToken);
+    //
+    //     $(".btn_register").on("click", function(e){
+    //         if (!$('form[name="form_link"]')[0].reportValidity()) {
+    //             return false;
+    //         } else {
+    //             setCardNo(idToken);
+    //         }
+    //     });
+    //     $(".btn_unlink").on("click", function(e){
+    //         unLink(idToken);
+    //     });
+    //     $(".btn_scan").on("click", function(e){
+    //         scanHospitalCode(idToken);
+    //     });
+    //     $(".btn_register_taxi").on("click", function(e){
+    //         if (!$('form[name="form_taxi"]')[0].reportValidity()) {
+    //             return false;
+    //         } else {
+    //             setTaxiNumber(idToken);
+    //         }
+    //     });
+    //     $(".btn_reset_taxi").on("click", function(e){
+    //         resetTaxiNumber(idToken);
+    //     });
+    // }).catch((err) => {
+    //     // Error happens during initialization
+    //     liff.logout();
+    //     alert("LIFF init failed.");
+    // });
     
     const getAccessObj = (data) => {
         return {
