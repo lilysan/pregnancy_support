@@ -14,14 +14,14 @@
   {
     "class": "btn_scan",
     "type": "docs",
-    "en": "Scan a Hospital QR code",
-    "ja": "産院QRコードを読み取る"
+    "en": "<i class=\"fa-solid fa-qrcode\"></i> Scan a Hospital QR code",
+    "ja": "<i class=\"fa-solid fa-qrcode\"></i> 産院QRコードを読み取る"
   },
   {
     "class": "btn_unlink",
     "type": "docs",
-    "en": "Unlink",
-    "ja": "連携解除"
+    "en": "<i class=\"fa-solid fa-link-slash\"></i> Unlink",
+    "ja": "<i class=\"fa-solid fa-link-slash\"></i> 連携解除"
   },
   {
     "class": "btn_register",

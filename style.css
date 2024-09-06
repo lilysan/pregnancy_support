@@ -10,3 +10,13 @@
     justify-content: center;
     align-items: center;
 }
+
+.title{
+    background-color: #eee;
+    margin-bottom: 15px;
+}
+.title div {
+    font-size: x-large;
+    font-weight: bold;
+    padding: 15px 0;
+}
