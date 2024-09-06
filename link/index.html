@@ -76,48 +76,48 @@
     const API_URL = "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
     const LIFF_ID = "2005594923-wN8OjyGd";
 
-    // liff.init({
-    //     liffId: LIFF_ID, // Use own liffId
-    //     withLoginOnExternalBrowser: true, // Enable automatic login process
-    // }).then(() => {
-    //     // Start to use liff's api
-    //     const idToken = liff.getIDToken();
-    //     const lang = liff.getAppLanguage();
-    //
-    //     changeLanguage(lang);
-    //     getHospital(idToken);
-    //
-    //     $(".btn_register").on("click", function(e){
-    //         if (!$('form[name="form_cardNo"]')[0].reportValidity()) {
-    //             return false;
-    //         } else {
-    //             setCardNo(idToken);
-    //         }
-    //     });
-    //     $(".btn_unlink").on("click", function(e){
-    //         unLink(idToken);
-    //     });
-    //     $(".btn_reset").on("click", function(e){
-    //         resetCardNo(idToken);
-    //     });
-    //     $(".btn_scan").on("click", function(e){
-    //         scanHospitalCode(idToken);
-    //     });
-    //     $(".btn_register_taxi").on("click", function(e){
-    //         if (!$('form[name="form_taxi"]')[0].reportValidity()) {
-    //             return false;
-    //         } else {
-    //             setTaxiNumber(idToken);
-    //         }
-    //     });
-    //     $(".btn_reset_taxi").on("click", function(e){
-    //         resetTaxiNumber(idToken);
-    //     });
-    // }).catch((err) => {
-    //     // Error happens during initialization
-    //     liff.logout();
-    //     alert("LIFF init failed.");
-    // });
+    liff.init({
+        liffId: LIFF_ID, // Use own liffId
+        withLoginOnExternalBrowser: true, // Enable automatic login process
+    }).then(() => {
+        // Start to use liff's api
+        const idToken = liff.getIDToken();
+        const lang = liff.getAppLanguage();
+
+        changeLanguage(lang);
+        getHospital(idToken);
+
+        $(".btn_register").on("click", function(e){
+            if (!$('form[name="form_cardNo"]')[0].reportValidity()) {
+                return false;
+            } else {
+                setCardNo(idToken);
+            }
+        });
+        $(".btn_unlink").on("click", function(e){
+            unLink(idToken);
+        });
+        $(".btn_reset").on("click", function(e){
+            resetCardNo(idToken);
+        });
+        $(".btn_scan").on("click", function(e){
+            scanHospitalCode(idToken);
+        });
+        $(".btn_register_taxi").on("click", function(e){
+            if (!$('form[name="form_taxi"]')[0].reportValidity()) {
+                return false;
+            } else {
+                setTaxiNumber(idToken);
+            }
+        });
+        $(".btn_reset_taxi").on("click", function(e){
+            resetTaxiNumber(idToken);
+        });
+    }).catch((err) => {
+        // Error happens during initialization
+        liff.logout();
+        alert("LIFF init failed.");
+    });
     
     const getAccessObj = (data) => {
         return {
