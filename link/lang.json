@@ -30,6 +30,12 @@
     "ja": "登録"
   },
   {
+    "class": "btn_reset",
+    "type": "docs",
+    "en": "Reset",
+    "ja": "リセット"
+  },
+  {
     "class": "btn_reset_taxi",
     "type": "docs",
     "en": "Reset",
