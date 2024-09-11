@@ -14,20 +14,26 @@
   {
     "class": "btn_scan",
     "type": "docs",
-    "en": "Scan a Hospital QR code",
-    "ja": "産院QRコードを読み取る"
+    "en": "<i class=\"fa-solid fa-qrcode\"></i> Scan a Hospital QR code",
+    "ja": "<i class=\"fa-solid fa-qrcode\"></i> 産院QRコードを読み取る"
   },
   {
     "class": "btn_unlink",
     "type": "docs",
-    "en": "Unlink",
-    "ja": "連携解除"
+    "en": "<i class=\"fa-solid fa-link-slash\"></i> Unlink",
+    "ja": "<i class=\"fa-solid fa-link-slash\"></i> 連携解除"
   },
   {
     "class": "btn_register",
     "type": "docs",
     "en": "Register",
     "ja": "登録"
+  },
+  {
+    "class": "btn_reset",
+    "type": "docs",
+    "en": "Reset",
+    "ja": "リセット"
   },
   {
     "class": "btn_reset_taxi",
@@ -48,10 +54,22 @@
     "ja": "診察券番号"
   },
   {
+    "class": "hospital_name",
+    "type": "docs",
+    "en": "Hospital Name/ ",
+    "ja": "病院名"
+  },
+  {
+    "class": "hospital_name_en",
+    "type": "docs",
+    "en": "Hospital Name (EN)/ ",
+    "ja": "病院名（英語）"
+  },
+  {
     "class": "phone_number",
     "type": "docs",
     "en": "Phone Number for Labor/ ",
-    "ja": "陣痛時電話番号/ "
+    "ja": "陣痛時電話番号"
   },
   {
     "class": "taxi_number",

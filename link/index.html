@@ -4,53 +4,69 @@
     <meta charset="UTF-8">
     <title>Contact | Pregnancy Support</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="../reset.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-<div class="container">
-    <div class="loader">
-        <div class="text-center">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
+
+<div class="loader">
+    <div class="text-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
         </div>
     </div>
+</div>
 
-    <h1 class="title_contact mt-3">Maternity Hospital</h1>
-    <div>
-        <button type="button" class="btn btn-lg btn-primary btn_scan">Scan a Hospital QR Code</button>
-    </div>
+<div class="container title">
+    <div class="title_contact">Maternity Hospital</div>
+</div>
+
+<div class="container mb-5">
     <form name="form_link">
+        <div>
+            <button type="button" class="btn btn-lg btn-primary btn_scan"><i class="fa-solid fa-qrcode"></i> Scan a Hospital QR Code</button>
+        </div>
         <div class="hospital_group">
-            <p class="hospital_name_placeholder"></p>
-            <p class="hospital_name_en_placeholder"></p>
-            <p><span class="phone_number"></span><span class="phone_number_placeholder"></span></p>
-            <p>
-                <label class="card_no">Patient ID Card No.</label>
-                <input class="card_no_placeholder form-control" type="text" value="" required>
-            </p>
+            <small class="hospital_name text-body-secondary mt-4"></small>
+            <h4 class="hospital_name_placeholder"></h4>
+            <small class="hospital_name_en text-body-secondary mt-4"></small>
+            <h4 class="hospital_name_en_placeholder"></h4>
+            <small class="phone_number text-body-secondary mt-4"></small>
+            <h4 class="phone_number_placeholder"></h4>
         </div>
         <div>
-            <button type="button" class="btn btn-outline-warning btn_unlink">Unlink</button>
+            <button type="button" class="btn btn-outline-warning btn_unlink"><i class="fa-solid fa-link-slash"></i> Unlink</button>
+        </div>
+    </form>
+    <form name="form_cardNo" class="mt-4">
+        <div>
+            <label class="card_no text-body-secondary">Patient ID Card No.</label>
+            <input class="card_no_placeholder form-control" type="text" value="" required>
+        </div>
+        <div class="mt-2">
+            <button type="button" class="btn btn-outline-warning btn_reset">Reset</button>
             <button type="button" class="btn btn-primary btn_register">Register</button>
         </div>
     </form>
+</div>
 
-    <hr>
+<div class="container title">
+    <div class="title_taxi">Labor Taxi</div>
+</div>
 
-    <h1 class="title_taxi mt-3">Labor Taxi</h1>
+<div class="container mb-5">
     <form name="form_taxi">
-        <p>
-            <label class="taxi_number">Phone Number</label>
-            <input class="taxi_number_placeholder form-control" type="tel" value="" required>
-        </p>
         <div>
+            <label class="taxi_number text-body-secondary">Phone Number</label>
+            <input class="taxi_number_placeholder form-control" type="tel" value="" required>
+        </div>
+        <div class="mt-2">
             <button type="button" class="btn btn-outline-warning btn_reset_taxi">Reset</button>
             <button type="button" class="btn btn-primary btn_register_taxi">Register</button>
         </div>
     </form>
-
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -66,10 +82,13 @@
     }).then(() => {
         // Start to use liff's api
         const idToken = liff.getIDToken();
+        const lang = liff.getAppLanguage();
+
+        changeLanguage(lang);
         getHospital(idToken);
 
         $(".btn_register").on("click", function(e){
-            if (!$('form[name="form_link"]')[0].reportValidity()) {
+            if (!$('form[name="form_cardNo"]')[0].reportValidity()) {
                 return false;
             } else {
                 setCardNo(idToken);
@@ -77,6 +96,9 @@
         });
         $(".btn_unlink").on("click", function(e){
             unLink(idToken);
+        });
+        $(".btn_reset").on("click", function(e){
+            resetCardNo(idToken);
         });
         $(".btn_scan").on("click", function(e){
             scanHospitalCode(idToken);
@@ -133,21 +155,23 @@
                 if(response.data.hospitalName === ""){
                     $(".btn_scan").show();
                     $(".btn_unlink").hide();
-                    $(".btn_register").hide();
                     $(".hospital_group").hide();
                 }
                 else{
                     $(".btn_scan").hide();
                     $(".btn_unlink").show();
                     $(".hospital_group").show();
-                    if(response.data.cardNo === ""){
-                        $(".btn_register").show();
-                        $(".card_no_placeholder").prop("readOnly", false);
-                    }
-                    else{
-                        $(".btn_register").hide();
-                        $(".card_no_placeholder").prop("readOnly", true);
-                    }
+                }
+
+                if(response.data.cardNo === ""){
+                    $(".btn_register").show();
+                    $(".btn_reset").hide();
+                    $(".card_no_placeholder").prop("readOnly", false);
+                }
+                else{
+                    $(".btn_register").hide();
+                    $(".btn_reset").show();
+                    $(".card_no_placeholder").prop("readOnly", true);
                 }
 
                 if(response.data.taxiNumber === ""){
@@ -161,7 +185,7 @@
                     $(".taxi_number_placeholder").prop("readOnly", true);
                 }
 
-                changeLanguage(response.data.lang);
+                $(".loader").hide();
             }
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
             alert("Network error!");
@@ -202,12 +226,7 @@
 
                     $(".btn_scan").hide();
                     $(".btn_unlink").show();
-                    $(".btn_register").show();
                     $(".hospital_group").show();
-
-                    $(".card_no_placeholder").prop("readOnly", false);
-
-                    alert("Success");
                 }
                 $(".loader").hide();
             }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
@@ -240,14 +259,39 @@
                 $(".hospital_name_placeholder").html("");
                 $(".hospital_name_en_placeholder").html("");
                 $(".phone_number_placeholder").html("");
-                $(".card_no_placeholder").val("");
 
                 $(".btn_scan").show();
                 $(".btn_unlink").hide();
-                $(".btn_register").hide();
                 $(".hospital_group").hide();
+            }
+            $(".loader").hide();
+        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+            $(".loader").hide();
+            alert("Network error!");
+        });
+    }
 
-                alert("Success");
+    function resetCardNo(idToken){
+        $(".loader").show();
+        $.ajax(
+            getAccessObj({
+                path: "cardNo",
+                method : "delete",
+                idToken: idToken,
+            })
+        ).done(function(response) {
+            if(response.statusCode === 401){
+                liff.logout();
+                window.location.reload();
+            }
+            else if(response.statusCode !== 200){
+                console.error(response.message);
+                alert(response.message);
+            }
+            else {
+                $(".btn_register").show();
+                $(".btn_reset").hide();
+                $(".card_no_placeholder").prop("readOnly", false);
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
@@ -260,7 +304,7 @@
         $(".loader").show();
         $.ajax(
             getAccessObj({
-                path: "link",
+                path: "cardNo",
                 method : "post",
                 idToken: idToken,
                 postData: {
@@ -278,9 +322,8 @@
             }
             else {
                 $(".btn_register").hide();
+                $(".btn_reset").show();
                 $(".card_no_placeholder").prop("readOnly", true);
-
-                alert("Success");
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
@@ -313,8 +356,6 @@
                 $(".btn_reset_taxi").show();
                 $(".btn_register_taxi").hide();
                 $(".taxi_number_placeholder").prop("readOnly", true);
-
-                alert("Success");
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
@@ -346,8 +387,6 @@
                 $(".btn_reset_taxi").hide();
                 $(".btn_register_taxi").show();
                 $(".taxi_number_placeholder").prop("readOnly", false);
-
-                alert("Success");
             }
             $(".loader").hide();
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
@@ -362,7 +401,7 @@
         const knownLang = ["ja", "en"];
         lang = knownLang.includes(lang) ? lang : "en";
 
-        $.getJSON("lang/contact.json", (data) => {
+        $.getJSON("lang.json", (data) => {
             $.each(data, function (index, val) {
                 const elm = $("." + val.class);
                 if(elm.length) {
@@ -373,7 +412,6 @@
                     }
                 }
             });
-            $(".loader").hide();
         });
     }
 
