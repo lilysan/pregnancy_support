@@ -1,0 +1,62 @@
+[
+  {
+    "class": "title_vaccination",
+    "type": "docs",
+    "en": "My Vaccination Record",
+    "ja": "自身の予防接種記録"
+  },
+  {
+    "class": "title_flu",
+    "type": "docs",
+    "en": "Influenza",
+    "ja": "インフルエンザ"
+  },
+  {
+    "class": "title_diphtheria",
+    "type": "docs",
+    "en": "Diphtheria",
+    "ja": "ジフテリア"
+  },
+  {
+    "class": "title_tetanus",
+    "type": "docs",
+    "en": "Tetanus",
+    "ja": "破傷風"
+  },
+  {
+    "class": "title_pertussis",
+    "type": "docs",
+    "en": "Pertussis",
+    "ja": "百日咳"
+  },
+  {
+    "class": "yes",
+    "type": "docs",
+    "en": "Vaccinated",
+    "ja": "接種済み"
+  },
+  {
+    "class": "no",
+    "type": "docs",
+    "en": "Not vaccinated",
+    "ja": "未接種"
+  },
+  {
+    "class": "unknown",
+    "type": "docs",
+    "en": "Unknown",
+    "ja": "不明"
+  },
+  {
+    "class": "btn_save",
+    "type": "docs",
+    "en": "Save",
+    "ja": "保存"
+  },
+  {
+    "class": "btn_edit",
+    "type": "docs",
+    "en": "Edit",
+    "ja": "編集"
+  }
+]

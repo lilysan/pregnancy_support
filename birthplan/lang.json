@@ -1,0 +1,110 @@
+[
+  {
+    "class": "title_birthplan",
+    "type": "docs",
+    "en": "Birth Plan",
+    "ja": "バースプラン"
+  },
+  {
+    "class": "title_delivery",
+    "type": "docs",
+    "en": "During labor/delivery",
+    "ja": "出産のとき"
+  },
+  {
+    "class": "title_after",
+    "type": "docs",
+    "en": "Post delivery",
+    "ja": "出産のあと"
+  },
+  {
+    "class": "title_baby",
+    "type": "docs",
+    "en": "For your baby",
+    "ja": "赤ちゃんのこと"
+  },
+  {
+    "class": "no_pain",
+    "type": "docs",
+    "en": "I want to use epidural",
+    "ja": "無痛分娩をしたい"
+  },
+  {
+    "class": "partner",
+    "type": "docs",
+    "en": "I want to be with my partner",
+    "ja": "パートナーと一緒にいたい"
+  },
+  {
+    "class": "pray",
+    "type": "docs",
+    "en": "I want to pray",
+    "ja": "お祈りをしたい"
+  },
+  {
+    "class": "aroma",
+    "type": "docs",
+    "en": "I want to use aroma therapy",
+    "ja": "アロマセラピーをしたい"
+  },
+  {
+    "class": "record",
+    "type": "docs",
+    "en": "I want to record when my baby is born",
+    "ja": "赤ちゃんが生まれるときビデオをとりたい"
+  },
+  {
+    "class": "no_pork",
+    "type": "docs",
+    "en": "I do not eat pork",
+    "ja": "豚肉はたべない"
+  },
+  {
+    "class": "soup",
+    "type": "docs",
+    "en": "I want to have soup my family makes",
+    "ja": "家族がつくったスープをのみたい"
+  },
+  {
+    "class": "no_shower",
+    "type": "docs",
+    "en": "I do not want to take shower",
+    "ja": "シャワーをあびない"
+  },
+  {
+    "class": "no_milk",
+    "type": "docs",
+    "en": "I do not want to give my baby milk",
+    "ja": "ミルクはあげない"
+  },
+  {
+    "class": "own_milk",
+    "type": "docs",
+    "en": "I want to feed my baby the milk I brought",
+    "ja": "もってきたミルクをあげたい"
+  },
+  {
+    "class": "hold",
+    "type": "docs",
+    "en": "I want to hold my baby as soon as s/he is born",
+    "ja": "生まれたらすぐにだっこしたい"
+  },
+  {
+    "class": "other",
+    "type": "docs",
+    "en": "Other requests",
+    "ja": "そのほかの希望"
+  },
+  {
+    "class": "btn_save",
+    "type": "docs",
+    "en": "Save",
+    "ja": "保存"
+  },
+  {
+    "class": "btn_edit",
+    "type": "docs",
+    "en": "Edit",
+    "ja": "編集"
+  }
+]
