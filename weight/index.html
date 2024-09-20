@@ -80,7 +80,7 @@
 
         .edit-btn {
             border: none;
-            background-color: #f48fb1;
+            background-color: #077ba1;
             color: white;
             border-radius: 20px;
             padding: 5px 10px;
@@ -89,6 +89,20 @@
         }
 
         .edit-btn:hover {
+            background-color: #4340ec;
+        }
+
+        .delete-btn {
+            border: none;
+            background-color: #f50505;
+            color: white;
+            border-radius: 20px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .delete-btn:hover {
             background-color: #ec407a;
         }
 
@@ -248,6 +262,10 @@
         </form>
     </div>
 
+    <div id="dialog-delete" style="display:none;">
+        データを削除します
+    </div>
+
     <div id="dialog-add-form" title="追加" style="display:none;">
         <form>
             <fieldset>
@@ -274,7 +292,7 @@
             "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
         const LIFF_ID = "2005594923-wN8OjyGd";
         var allData;
-
+        var token;
         const ctx = document.getElementById('weightChart').getContext('2d');
         weightChart = new Chart(ctx, {
             type: 'line',
@@ -326,7 +344,7 @@
 
             changeLanguage(lang);
             //getVaccination(idToken);
-
+            token = idToken;
             allData = loadWeightData(idToken);
 
 
@@ -378,7 +396,7 @@
             $.ajax(
                 getAccessObj({
                     path: "weight",
-                    method: "post",
+                    method: "get",
                     idToken: idToken
                 })
             ).done(function (response) {
@@ -392,6 +410,63 @@
                     const data = response.json();
                     updateChart(data.data.items); // チャートとテーブルを更新
                     return data.data.items
+                }
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Network error!");
+            });
+        }
+
+        function setWeight(_weight, _date) {
+            $.ajax(
+                getAccessObj({
+                    path: "weight",
+                    method: "post",
+                    idToken: idToken,
+                    postData: {
+                        datetime: _date,
+                        weight: _weitht
+                    }
+                })
+            ).done(function (response) {
+                if (response.statusCode === 401) {
+                    liff.logout();
+                    window.location.reload();
+                } else if (response.statusCode !== 200) {
+                    console.error(response.message);
+                    alert(response.message)
+                } else {
+                    //const data = response.json();
+                    //updateChart(data.data.items); // チャートとテーブルを更新
+                    //return data.data.items
+                    alert("Success");
+                }
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Network error!");
+            });
+        }
+
+        function deleteWeight(_date) {
+            $.ajax(
+                getAccessObj({
+                    path: "weight",
+                    method: "delete",
+                    idToken: idToken,
+                    postData: {
+                        datetime: _date
+                    }
+                })
+            ).done(function (response) {
+                if (response.statusCode === 401) {
+                    liff.logout();
+                    window.location.reload();
+                } else if (response.statusCode !== 200) {
+                    console.error(response.message);
+                    alert(response.message)
+                } else {
+                    //const data = response.json();
+                    //updateChart(data.data.items); // チャートとテーブルを更新
+                    //return data.data.items
+                    alert("Success");
                 }
             }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Network error!");
@@ -431,7 +506,7 @@
                 <td>${time}</td>
                 <td>${weight}</td>
                 <td><button class="edit-btn">edit</button></td>
-    
+                <td><button class="delete-btn">delete</button></td>
             </tr>`;
                 tableBody.append(newRow);
 
@@ -504,9 +579,19 @@
                                 // `data` の該当アイテムを更新
                                 allData[dataIndex].datetime = dateTimeStr_new;
                                 allData[dataIndex].weight = parseFloat(newWeight);
+                                setWeight(parseFloat(newWeight), dateTimeStr_new)
+                            } else {
+                                deleteWeight(id)
+                                setWeight(parseFloat(newWeight), dateTimeStr_new)
+                                alldata.push({
+                                    weight: parseFloat(newWeight),
+                                    datetime: dateTimeStr_new
+                                })
                             }
                             sortTable();
                             updateChart(allData);
+
+
                             $(this).dialog("close");
                         },
                         "キャンセル": function () {
@@ -514,6 +599,30 @@
                         }
                     }
                 });
+            });
+            $(".delete-btn").off("click").on("click", function () {
+                const row = $(this).closest('tr');
+                const date = row.find('td').eq(0).text();
+                const time = row.find('td').eq(1).text();
+                const weight = row.find('td').eq(2).text();
+                const id = row.attr('time');
+                $("#edit-date").val(date);
+                $("#edit-time").val(time);
+                $("#edit-weight").val(weight);
+
+                $("#dialog-form").dialog({
+                    modal: true,
+                    buttons: {
+                        "キャンセル": function () {
+                            $(this).dialog("close");
+                        },
+                        "削除": function () {
+                            deleteWeight(id);
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+
             });
         }
 
@@ -582,6 +691,8 @@
                         bindEditButtons();
                         sortTable();
                         updateChart(data);
+                        setWeight(parseFloat(newWeight), formattedDateTime1)
+
                         $(this).dialog("close");
                     },
                     "キャンセル": function () {
