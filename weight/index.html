@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weight Tracker</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
+    <style>
+        body,
+        html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #fce4ec;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+        }
+
+        h1 {
+            color: #ad1457;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        #chart-container1 {
+            overflow-x: auto;
+            height: 40%;
+        }
+
+
+        #table-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 10px 0;
+            height: 40%;
+        }
+
+        #chart-container {
+            width: 200%;
+            height: 100%;
+        }
+
+        #chart-container canvas {
+            width: 100% !important;
+        }
+
+        #weightTable {
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            width: 90%;
+        }
+
+        #weightTable th {
+            background-color: #f8bbd0;
+            color: #880e4f;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #weightTable td {
+            padding: 10px;
+            text-align: center;
+            border-top: 1px solid #f8bbd0;
+        }
+
+        table,
+        th,
+        td {
+            border: none;
+        }
+
+        .edit-btn {
+            border: none;
+            background-color: #f48fb1;
+            color: white;
+            border-radius: 20px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .edit-btn:hover {
+            background-color: #ec407a;
+        }
+
+        #add-row-btn {
+            margin: 20px 0;
+            background-color: #f48fb1;
+            border: none;
+            color: white;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #add-row-btn:hover {
+            background-color: #ec407a;
+        }
+
+        #dialog-form label,
+        #dialog-add-form label {
+            display: block;
+            margin-top: 10px;
+            color: #880e4f;
+        }
+
+        #dialog-form input,
+        #dialog-add-form input {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-top: 5px;
+            border: 2px solid #f48fb1;
+            border-radius: 5px;
+        }
+
+        #dialog-form fieldset,
+        #dialog-add-form fieldset {
+            border: none;
+            padding: 0;
+        }
+
+        #dialog-form,
+        #dialog-add-form {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-container {
+            max-height: 60vh;
+            /* コンテナの最大高さを画面の60%に設定 */
+            overflow-y: auto;
+            /* 縦方向にスクロールを許可 */
+            margin-bottom: 20px;
+        }
+
+        .table-container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-container thead {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+            /* 列の幅を固定 */
+            background-color: #f1f1f1;
+            /* ヘッダーの背景色 */
+        }
+
+        .table-container tbody {
+            display: block;
+            max-height: 60vh;
+            /* tbodyの最大高さをコンテナに合わせる */
+            overflow-y: auto;
+            /* tbodyにスクロールバーを表示 */
+            width: 100%;
+        }
+
+        .table-container tbody tr {
+            display: table;
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        .table-container th,
+        .table-container td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .table-container th {
+            background-color: #f2f2f2;
+            position: sticky;
+            top: 0;
+            /* スクロールしてもtheadが固定される */
+            z-index: 1;
+            /* z-indexでtheadを優先表示 */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>体重カウンター</h1>
+    <div id="chart-container1">
+        <div id="chart-container">
+            <canvas id="weightChart"></canvas>
+        </div>
+    </div>
+    <div id="table-container" class="table-container">
+        <table id="weightTable">
+            <thead>
+                <tr>
+                    <th>日にち</th>
+                    <th>時間</th>
+                    <th>体重 (kg)</th>
+                    <th>編集</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2024-07-30</td>
+                    <td>08:00</td>
+                    <td>70</td>
+                    <td><button class="edit-btn">edit</button></td>
+                </tr>
+                <tr>
+                    <td>2024-07-31</td>
+                    <td>09:00</td>
+                    <td>69</td>
+                    <td><button class="edit-btn">edit</button></td>
+                </tr>
+                <tr>
+                    <td>2024-08-01</td>
+                    <td>08:00</td>
+                    <td>85</td>
+                    <td><button class="edit-btn">edit</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button id="add-row-btn">行を追加</button>
+
+    <div id="dialog-form" title="編集" style="display:none;">
+        <form>
+            <fieldset>
+                <label for="edit-date">日にち</label>
+                <input type="text" name="edit-date" id="edit-date" value="">
+                <label for="edit-time">時間</label>
+                <input type="text" name="edit-time" id="edit-time" value="">
+                <label for="edit-weight">体重 (kg)</label>
+                <input type="number" name="edit-weight" id="edit-weight" value="">
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
+    </div>
+
+    <div id="dialog-add-form" title="追加" style="display:none;">
+        <form>
+            <fieldset>
+                <label for="add-date">日にち</label>
+                <input type="text" name="add-date" id="add-date" value="">
+                <label for="add-time">時間</label>
+                <input type="text" name="add-time" id="add-time" value="">
+                <label for="add-weight">体重 (kg)</label>
+                <input type="number" name="add-weight" id="add-weight" value="">
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.21.1/dist/date-fns.min.js"></script>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script>
+        const API_URL =
+            "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
+        const LIFF_ID = "2005594923-wN8OjyGd";
+        var allData;
+
+        const ctx = document.getElementById('weightChart').getContext('2d');
+        weightChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '体重 (kg)',
+                    data: [],
+                    borderColor: 'blue',
+                    borderWidth: 1,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true, // ここを追加
+                maintainAspectRatio: false, // ここを追加
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'day',
+                            displayFormats: {
+                                day: 'yyyy-MM-dd'
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: '日にち + 時間'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: '体重 (kg)'
+                        }
+                    }
+                }
+            }
+        });
+
+
+        liff.init({
+            liffId: LIFF_ID, // Use own liffId
+            withLoginOnExternalBrowser: true, // Enable automatic login process
+        }).then(() => {
+            // Start to use liff's api
+            const idToken = liff.getIDToken();
+            const lang = liff.getAppLanguage();
+
+            changeLanguage(lang);
+            //getVaccination(idToken);
+
+            allData = loadWeightData(idToken);
+
+
+        }).catch((err) => {
+            // Error happens during initialization
+            liff.logout();
+            alert("LIFF init failed.");
+        });
+
+
+
+
+
+
+
+
+
+        const getAccessObj = (data) => {
+            return {
+                url: API_URL,
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify(data),
+                timeout: 30000,
+            }
+        }
+
+        function changeLanguage(lang) {
+            const knownLang = ["ja", "en"];
+            lang = knownLang.includes(lang) ? lang : "en";
+
+            $.getJSON("lang.json", (data) => {
+                $.each(data, function (index, val) {
+                    const elm = $("." + val.class);
+                    if (elm.length) {
+                        if (val.type === "docs") {
+                            elm.html(val[lang]);
+                        } else if (val.type === "placeholder") {
+                            elm.attr("placeholder", val[lang]);
+                        }
+                    }
+                });
+            });
+        }
+        var weightChart;
+        var data;
+
+        function loadWeightData(idToken) {
+            $.ajax(
+                getAccessObj({
+                    path: "weight",
+                    method: "post",
+                    idToken: idToken
+                })
+            ).done(function (response) {
+                if (response.statusCode === 401) {
+                    liff.logout();
+                    window.location.reload();
+                } else if (response.statusCode !== 200) {
+                    console.error(response.message);
+                    alert(response.message)
+                } else {
+                    const data = response.json();
+                    updateChart(data.data.items); // チャートとテーブルを更新
+                    return data.data.items
+                }
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Network error!");
+            });
+        }
+
+        function updateChart(data) {
+            const labels = [];
+            const weightData = [];
+            const tableBody = $('#weightTable tbody');
+            tableBody.empty(); // テーブルをクリア
+
+            // 日にち順にdataを並び替える
+            data.sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
+
+            data.forEach(item => {
+                const dateTime = new Date(item.datetime);
+                const date = dateTime.toLocaleDateString('ja-JP');
+                const time = dateTime.toLocaleTimeString('ja-JP', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                const weight = item.weight;
+
+                const formattedDateTime = new Date(item.datetime).toLocaleString("ja-JP", {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    second: 'numeric'
+                });
+
+                // テーブルに行を追加
+                const newRow = `<tr time="${formattedDateTime}">
+                <td>${date}</td>
+                <td>${time}</td>
+                <td>${weight}</td>
+                <td><button class="edit-btn">edit</button></td>
+    
+            </tr>`;
+                tableBody.append(newRow);
+
+                // グラフ用のデータに追加
+                labels.push(dateTime);
+                weightData.push(weight);
+            });
+
+            // labelsとweightDataを逆順にする
+            labels.reverse();
+            weightData.reverse();
+            // チャートのデータを更新
+            weightChart.data.labels = labels;
+            weightChart.data.datasets[0].data = weightData;
+            weightChart.update();
+            bindEditButtons();
+        }
+
+        function sortTable() {
+            const rows = $('#weightTable tbody tr').get();
+            rows.sort(function (a, b) {
+                const keyA = new Date($(a).children('td').eq(0).text() + 'T' + $(a).children('td').eq(1)
+                    .text() + ':00');
+                const keyB = new Date($(b).children('td').eq(0).text() + 'T' + $(b).children('td').eq(1)
+                    .text() + ':00');
+                return keyA - keyB;
+            });
+            $.each(rows, function (index, row) {
+                $('#weightTable tbody').append(row);
+            });
+        }
+
+        function bindEditButtons() {
+            $(".edit-btn").off("click").on("click", function () {
+                const row = $(this).closest('tr');
+                const date = row.find('td').eq(0).text();
+                const time = row.find('td').eq(1).text();
+                const weight = row.find('td').eq(2).text();
+                const id = row.attr('time');
+                $("#edit-date").val(date);
+                $("#edit-time").val(time);
+                $("#edit-weight").val(weight);
+
+
+                $("#dialog-form").dialog({
+                    modal: true,
+                    buttons: {
+                        "保存": function () {
+                            const newDate = $("#edit-date").val();
+                            const newTime = $("#edit-time").val();
+                            const newWeight = $("#edit-weight").val();
+
+                            if (newDate === "" || newTime === "" || newWeight === "") {
+                                alert("すべてのフィールドに値を入力してください。");
+                                return;
+                            }
+                            row.find('td').eq(0).text($("#edit-date").val());
+                            row.find('td').eq(1).text($("#edit-time").val());
+                            row.find('td').eq(2).text($("#edit-weight").val());
+
+
+                            // `data` 配列内の対応するアイテムを更新
+                            const dateTimeStr_new = `${newDate} ${newTime}`;
+                            const dataIndex = allData.findIndex(item => {
+                                return id === item.datetime
+                                //return itemDateTime.getTime() === dateTime.getTime();
+                            });
+
+                            if (dataIndex !== -1) {
+                                // `data` の該当アイテムを更新
+                                allData[dataIndex].datetime = dateTimeStr_new;
+                                allData[dataIndex].weight = parseFloat(newWeight);
+                            }
+                            sortTable();
+                            updateChart(allData);
+                            $(this).dialog("close");
+                        },
+                        "キャンセル": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
+        }
+
+        bindEditButtons();
+
+        $("#edit-date").datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+        $("#edit-time").timepicker({
+            timeFormat: 'H:i',
+            interval: 30,
+            dynamic: false,
+            dropdown: true,
+            scrollbar: true
+        });
+        $("#add-date").datepicker({
+            dateFormat: "yy/mm/dd"
+        });
+        $("#add-time").timepicker({
+            timeFormat: 'H:i',
+            interval: 30,
+            dynamic: false,
+            dropdown: true,
+            scrollbar: true
+        });
+
+        $("#add-row-btn").on("click", function () {
+
+            const now = new Date();
+
+            // 年、月、日、時間、分、秒を取得
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1; // getMonth() は 0 が1月なので +1 する
+            const day = now.getDate();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            $("#add-date").val(`${year}/${month}/${String(day).padStart(2, '0')}`);
+            $("#add-time").val(`${hours}:${String(minutes).padStart(2, '0')}`);
+
+
+
+            $("#dialog-add-form").dialog({
+                modal: true,
+                buttons: {
+                    "追加": function () {
+
+                        const newDate = $("#add-date").val();
+                        const newTime = $("#add-time").val();
+                        const newWeight = $("#add-weight").val();
+
+                        if (newDate === "" || newTime === "" || newWeight === "") {
+                            alert("すべてのフィールドに値を入力してください。");
+                            return;
+                        }
+
+                        const formattedDateTime1 =
+                            `${newDate} ${newTime}:${String(seconds).padStart(2, '0')}`;
+                        console.log(formattedDateTime1)
+                        allData.push({
+                            datetime: formattedDateTime1,
+                            weight: newWeight
+                        });
+
+                        bindEditButtons();
+                        sortTable();
+                        updateChart(data);
+                        $(this).dialog("close");
+                    },
+                    "キャンセル": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
