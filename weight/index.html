@@ -225,24 +225,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>2024-07-30</td>
-                    <td>08:00</td>
-                    <td>70</td>
-                    <td><button class="edit-btn">edit</button></td>
-                </tr>
-                <tr>
-                    <td>2024-07-31</td>
-                    <td>09:00</td>
-                    <td>69</td>
-                    <td><button class="edit-btn">edit</button></td>
-                </tr>
-                <tr>
-                    <td>2024-08-01</td>
-                    <td>08:00</td>
-                    <td>85</td>
-                    <td><button class="edit-btn">edit</button></td>
-                </tr>
+
             </tbody>
         </table>
     </div>
@@ -342,7 +325,7 @@
             const idToken = liff.getIDToken();
             const lang = liff.getAppLanguage();
 
-            changeLanguage(lang);
+            //changeLanguage(lang);
             //getVaccination(idToken);
             token = idToken;
             allData = loadWeightData(idToken);
@@ -407,9 +390,10 @@
                     console.error(response.message);
                     alert(response.message)
                 } else {
-                    updateChart(data.data.items); // チャートとテーブルを更新
-                    console.log(allData)
-                    return data.data.items
+                    console.log(response.data)
+                    updateChart(response.data.items); // チャートとテーブルを更新
+
+                    return response.data.items
                 }
             }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Network error!");
