@@ -407,8 +407,8 @@
                     console.error(response.message);
                     alert(response.message)
                 } else {
-                    const data = response.json();
                     updateChart(data.data.items); // チャートとテーブルを更新
+                    console.log(allData)
                     return data.data.items
                 }
             }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
