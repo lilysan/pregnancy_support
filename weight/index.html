@@ -42,7 +42,7 @@
         }
 
         #chart-container {
-            width: 100%;
+            width: 200%;
             height: 100%;
         }
 
@@ -246,6 +246,9 @@
     </div>
 
     <div id="dialog-delete" style="display:none;">
+        <p id="delete1"></p>
+        <p id="delete2"></p>
+        <p id="delete3"></p>
         データを削除します
     </div>
 
@@ -490,8 +493,7 @@
                 <td>${date}</td>
                 <td>${time}</td>
                 <td>${weight}</td>
-                <td><button class="edit-btn">edit</button></td>
-                <td><button class="delete-btn">delete</button></td>
+                <td><button class="edit-btn">edit</button><button class="delete-btn">delete</button></td>
             </tr>`;
                 tableBody.append(newRow);
 
@@ -568,7 +570,7 @@
                             } else {
                                 deleteWeight(id)
                                 setWeight(parseFloat(newWeight), dateTimeStr_new)
-                                allData.push({
+                                alldata.push({
                                     weight: parseFloat(newWeight),
                                     datetime: dateTimeStr_new
                                 })
@@ -591,11 +593,11 @@
                 const time = row.find('td').eq(1).text();
                 const weight = row.find('td').eq(2).text();
                 const id = row.attr('time');
-                $("#edit-date").val(date);
-                $("#edit-time").val(time);
-                $("#edit-weight").val(weight);
+                $("#delete1").val(date);
+                $("#delete2").val(time);
+                $("#delete3").val(weight);
 
-                $("#dialog-form").dialog({
+                $("#dialog-delete").dialog({
                     modal: true,
                     buttons: {
                         "キャンセル": function () {
