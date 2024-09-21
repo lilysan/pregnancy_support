@@ -391,6 +391,7 @@
                     alert(response.message)
                 } else {
                     console.log(response.data)
+                    allData = response.data.items
                     updateChart(response.data.items); // チャートとテーブルを更新
 
                     return response.data.items
