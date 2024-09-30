@@ -208,7 +208,7 @@
 </head>
 
 <body>
-    <h1>体重カウンター</h1>
+    <h1 class="title_weight">体重カウンター</h1>
     <div id="chart-container1">
         <div id="chart-container">
             <canvas id="weightChart"></canvas>
@@ -218,10 +218,10 @@
         <table id="weightTable">
             <thead>
                 <tr>
-                    <th>日にち</th>
-                    <th>時間</th>
-                    <th>体重 (kg)</th>
-                    <th>編集</th>
+                    <th class="tr_date">日にち</th>
+                    <th class="tr_time">時間</th>
+                    <th class="tr_weight">体重</th>
+                    <th class="btn_edit">編集</th>
                 </tr>
             </thead>
             <tbody>
@@ -229,16 +229,16 @@
             </tbody>
         </table>
     </div>
-    <button id="add-row-btn">行を追加</button>
+    <button id="add-row-btn" class="btn_add">体重を記録</button>
 
     <div id="dialog-form" title="編集" style="display:none;">
         <form>
             <fieldset>
-                <label for="edit-date">日にち</label>
+                <label for="edit-date" class="tr_date">日にち</label>
                 <input type="text" name="edit-date" id="edit-date" value="">
-                <label for="edit-time">時間</label>
+                <label for="edit-time" class="tr_time">時間</label>
                 <input type="text" name="edit-time" id="edit-time" value="">
-                <label for="edit-weight">体重 (kg)</label>
+                <label for="edit-weight" class="tr_weight">体重</label>
                 <input type="number" name="edit-weight" id="edit-weight" value="">
                 <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
             </fieldset>
@@ -249,17 +249,17 @@
         <p id="delete1"></p>
         <p id="delete2"></p>
         <p id="delete3"></p>
-        データを削除します
+        <span class="confirm_delete">データを削除します</span>
     </div>
 
     <div id="dialog-add-form" title="追加" style="display:none;">
         <form>
             <fieldset>
-                <label for="add-date">日にち</label>
+                <label for="add-date" class="tr_date">日にち</label>
                 <input type="text" name="add-date" id="add-date" value="">
-                <label for="add-time">時間</label>
+                <label for="add-time" class="tr_time">時間</label>
                 <input type="text" name="add-time" id="add-time" value="">
-                <label for="add-weight">体重 (kg)</label>
+                <label for="add-weight" class="tr_weight">体重</label>
                 <input type="number" name="add-weight" id="add-weight" value="">
                 <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
             </fieldset>
@@ -285,7 +285,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: '体重 (kg)',
+                    label: '体重/Weight',
                     data: [],
                     borderColor: 'blue',
                     borderWidth: 1,
@@ -306,13 +306,13 @@
                         },
                         title: {
                             display: true,
-                            text: '日にち + 時間'
+                            text: '日にち/Date'
                         }
                     },
                     y: {
                         title: {
                             display: true,
-                            text: '体重 (kg)'
+                            text: '体重/Weight'
                         }
                     }
                 }
@@ -328,8 +328,7 @@
             const idToken = liff.getIDToken();
             const lang = liff.getAppLanguage();
 
-            //changeLanguage(lang);
-            //getVaccination(idToken);
+            changeLanguage(lang);
             token = idToken;
             allData = loadWeightData(idToken);
 
@@ -368,8 +367,6 @@
                     if (elm.length) {
                         if (val.type === "docs") {
                             elm.html(val[lang]);
-                        } else if (val.type === "placeholder") {
-                            elm.attr("placeholder", val[lang]);
                         }
                     }
                 });
@@ -541,13 +538,13 @@
                 $("#dialog-form").dialog({
                     modal: true,
                     buttons: {
-                        "保存": function () {
+                        "Save": function () {
                             const newDate = $("#edit-date").val();
                             const newTime = $("#edit-time").val();
                             const newWeight = $("#edit-weight").val();
 
                             if (newDate === "" || newTime === "" || newWeight === "") {
-                                alert("すべてのフィールドに値を入力してください。");
+                                alert("すべてのフィールドに値を入力してください。/All fields must be filled in.");
                                 return;
                             }
                             row.find('td').eq(0).text($("#edit-date").val());
@@ -581,7 +578,7 @@
 
                             $(this).dialog("close");
                         },
-                        "キャンセル": function () {
+                        "Cancel": function () {
                             $(this).dialog("close");
                         }
                     }
@@ -600,10 +597,10 @@
                 $("#dialog-delete").dialog({
                     modal: true,
                     buttons: {
-                        "キャンセル": function () {
+                        "Cancel": function () {
                             $(this).dialog("close");
                         },
-                        "削除": function () {
+                        "Delete": function () {
                             deleteWeight(id);
 
                             allData = allData.filter(item => item.datetime !== id);
