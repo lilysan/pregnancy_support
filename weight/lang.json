@@ -1,0 +1,68 @@
+[
+  {
+    "class": "title_weight",
+    "type": "docs",
+    "en": "My Weight Records",
+    "ja": "体重記録"
+  },
+  {
+    "class": "tr_date",
+    "type": "docs",
+    "en": "Date",
+    "ja": "日にち"
+  },
+  {
+    "class": "tr_time",
+    "type": "docs",
+    "en": "Time",
+    "ja": "時間"
+  },
+  {
+    "class": "tr_weight",
+    "type": "docs",
+    "en": "Weights",
+    "ja": "体重"
+  },
+  {
+    "class": "btn_edit",
+    "type": "docs",
+    "en": "edit",
+    "ja": "編集"
+  },
+  {
+    "class": "btn_delete",
+    "type": "docs",
+    "en": "delete",
+    "ja": "削除"
+  },
+  {
+    "class": "btn_cancel",
+    "type": "docs",
+    "en": "cancel",
+    "ja": "キャンセル"
+  },
+  {
+    "class": "btn_save",
+    "type": "docs",
+    "en": "Save",
+    "ja": "保存"
+  },
+  {
+    "class": "btn_save",
+    "type": "docs",
+    "en": "Save",
+    "ja": "保存"
+  },
+  {
+    "class": "btn_add",
+    "type": "docs",
+    "en": "Add",
+    "ja": "体重を追加"
+  },
+  {
+    "class": "confirm_delete",
+    "type": "docs",
+    "en": "Delete this data",
+    "ja": "データを削除します"
+  }
+]
