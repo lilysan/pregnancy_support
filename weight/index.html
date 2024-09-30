@@ -605,6 +605,12 @@
                         },
                         "削除": function () {
                             deleteWeight(id);
+
+                            allData = allData.filter(item => item.datetime !== id);
+
+                            // テーブルとチャートを更新
+                            sortTable();
+                            updateChart(allData);
                             $(this).dialog("close");
                         }
                     }
