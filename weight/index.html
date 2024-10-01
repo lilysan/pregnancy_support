@@ -212,12 +212,12 @@
 </head>
 
 <body>
-    <div class="loader">
-        <div class="text-center">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
+    <div class="loader"></div>
+    <div class="text-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
         </div>
+    </div>
     </div>
 
     <h1 class="title_weight">体重カウンター</h1>
@@ -637,8 +637,7 @@
         bindEditButtons();
 
         $("#edit-date").datepicker({
-            dateFormat: "yy-mm-dd",
-            showOn:"both"
+            dateFormat: "yy-mm-dd"
         });
         $("#edit-time").timepicker({
             timeFormat: 'H:i',
@@ -648,8 +647,7 @@
             scrollbar: true
         });
         $("#add-date").datepicker({
-            dateFormat: "yy/mm/dd",
-            showOn:"both"
+            dateFormat: "yy/mm/dd"
         });
         $("#add-time").timepicker({
             timeFormat: 'H:i',
