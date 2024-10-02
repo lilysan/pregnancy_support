@@ -645,21 +645,18 @@
                             });
                             console.log(newDate)
 
-                            if (dataIndex !== -1) {
+                
                                 // `data` の該当アイテムを更新
-                                allData[dataIndex].date = newDate;
-                                allData[dataIndex].period = selectedValue;
-                                allData[dataIndex].sugar = parseInt(newsugar);
+                                deletesugar(id.split("_")[0], id.split("_")[1])
+                                allData.splice(dataIndex, 1);
                                 setsugar(parseInt(newsugar), newDate, selectedValue)
-                            } else {
-                                deletesugar(id.split("_")[0], selectedValue)
-                                setsugar(parseInt(newsugar), newDate, selectedValue)
-                                allData.push({
+
+allData.push({
                                     sugar: parseInt(newsugar),
                                     date: newDate,
                                     period: selectedValue,
                                 })
-                            }
+                            
                             sortTable();
                             updateChart(allData);
 
@@ -689,8 +686,7 @@
                             $(this).dialog("close");
                         },
                         "Delete": function () {
-                            deletesugar(id);
-
+                            deletesugar(id.split("_")[0],dataArray.indexOf(time));
                             allData = allData.filter(item => item.date + "_" + item.period !==
                                 id);
 
