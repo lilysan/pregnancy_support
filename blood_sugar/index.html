@@ -493,13 +493,13 @@
                 } else if (response.statusCode !== 200) {
                     console.error(response.message);
                     alert(response.message)
-                } else {
-                    $(".loader").hide();
                 }
+                pharse
             }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                $(".loader").hide();
+
                 alert("Network error!");
             });
+            $(".loader").hide();
         }
 
         function deletesugar(_date, _period) {
@@ -648,12 +648,12 @@
                                 // `data` の該当アイテムを更新
                                 allData[dataIndex].date = dateTimeStr_new;
                                 allData[dataIndex].sugar = parseFloat(newsugar);
-                                setsugar(parseFloat(newsugar), dateTimeStr_new, selectedValue)
+                                setsugar(parseInt(newsugar), dateTimeStr_new, selectedValue)
                             } else {
                                 deletesugar(id, selectedValue)
-                                setsugar(parseFloat(newsugar), dateTimeStr_new, selectedValue)
+                                setsugar(parseInt(newsugar), dateTimeStr_new, selectedValue)
                                 allData.push({
-                                    sugar: parseFloat(newsugar),
+                                    sugar: parseInt(newsugar),
                                     date: dateTimeStr_new,
                                     period: selectedValue,
                                 })
