@@ -576,7 +576,7 @@
                 tableBody.append(newRow);
 
                 // グラフ用のデータに追加
-                labels.push(dateTime);
+                labels.push(String(dateTime));
                 sugarData.push(sugar);
             });
             console.log(labels)
@@ -587,7 +587,8 @@
             // チャートのデータを更新
             sugarChart.data.labels = labels;
             sugarChart.data.datasets[0].data = sugarData;
-            sugarChart.update();
+            sugarChart
+                .update();
             bindEditButtons();
         }
 
@@ -637,7 +638,8 @@
 
 
                             // `data` 配列内の対応するアイテムを更新
-                            const dateTimeStr_new = `${newDate}`;
+                            const dateTimeStr_new = new Date(newDate + " " + dataArray2[
+                                selectedValue]);
                             const dataIndex = allData.findIndex(item => {
                                 return id === item.date + "_" + item.period
                                 //return itemDateTime.getTime() === dateTime.getTime();
@@ -688,7 +690,8 @@
                         "Delete": function () {
                             deletesugar(id);
 
-                            allData = allData.filter(item => item.date + "_" + item.period !== id);
+                            allData = allData.filter(item => item.date + "_" + item.period !==
+                                id);
 
                             // テーブルとチャートを更新
                             sortTable();
@@ -753,7 +756,7 @@
                         const formattedDateTime1 =
                             `${newDate}`;
 
-                        console.log(formattedDateTime1)
+                        console.log("aaaa" + formattedDateTime1)
                         allData.push({
                             date: formattedDateTime1,
                             sugar: newsugar,
