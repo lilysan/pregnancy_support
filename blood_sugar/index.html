@@ -576,7 +576,7 @@
                 tableBody.append(newRow);
 
                 // グラフ用のデータに追加
-                labels.push(String(dateTime));
+                labels.push(item.date + " " + dataArray2[item.period]);
                 sugarData.push(sugar);
             });
             console.log(labels)
