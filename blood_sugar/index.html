@@ -462,7 +462,7 @@
                     console.error(response.message);
                     alert(response.message)
                 } else {
-                    console.log(response.data)
+                    
                     allData = response.data.items
                     updateChart(response.data.items); // チャートとテーブルを更新
 
@@ -503,6 +503,7 @@
         }
 
         function deletesugar(_date, _period) {
+            console.log(_date + " " + _period)
             $(".loader").show();
             $.ajax(
                 getAccessObj({
@@ -558,7 +559,7 @@
                 const date = dateTime.toLocaleDateString('ja-JP');
                 const time = item.period >= 1 && item.period < dataArray.length ? dataArray[item.period] :
                     "Out of range";
-                console.log(dateTime)
+                
                 const sugar = item.sugar;
 
                 const formattedDateTime = new Date(item.date).toLocaleString("ja-JP", {
@@ -580,8 +581,7 @@
                 labels.push(dateTime);
                 sugarData.push(sugar);
             });
-            console.log(labels)
-            console.log(sugarData)
+
             // labelsとsugarDataを逆順にする
             labels.reverse();
             sugarData.reverse();
@@ -625,7 +625,7 @@
                             const newDate = $("#edit-date").val();
                             const periodSelect = document.getElementById("periodSelect");
                             const selectedValue = periodSelect.value;
-                            console.log(selectedValue)
+           
                             const newsugar = $("#edit-sugar").val();
 
                             if (newDate === "" || selectedValue === "" || newsugar === "") {
@@ -644,13 +644,13 @@
                                 return id === item.date + "_" + item.period
                                 //return itemDateTime.getTime() === dateTime.getTime();
                             });
-                            console.log(newDate)
+               
 
                 
                                 // `data` の該当アイテムを更新
                                 deletesugar(id.split("_")[0], id.split("_")[1])
                                 allData.splice(dataIndex, 1);
-                                setsugar(parseInt(newsugar), newDate, selectedValue)
+                                setsugar(parseInt(newsugar), newDate, selectedValue))
 
 allData.push({
                                     sugar: parseInt(newsugar),
@@ -757,7 +757,7 @@ allData.push({
                             day: 'numeric',
                         });
 
-                        console.log("aaaa" + formattedDateTime)
+                        
                         allData.push({
                             date: formattedDateTime,
                             sugar: newsugar,
