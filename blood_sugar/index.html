@@ -760,11 +760,18 @@
                         });
 
                         console.log("aaaa" + formattedDateTime)
-                        allData.push({
+
+                        if (Array.isArray(allData)) {
+     allData.push({
                             date: formattedDateTime,
                             sugar: newsugar,
                             period: selectedValue
                         });
+} else {
+                        console.log(allData)
+    console.error('定義されていません');
+}
+                       
 
                         bindEditButtons();
                         sortTable();
