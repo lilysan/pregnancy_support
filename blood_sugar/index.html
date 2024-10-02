@@ -753,12 +753,15 @@
                             return;
                         }
 
-                        const formattedDateTime1 =
-                            `${newDate}`;
+                        const formattedDateTime = new Date(newDate).toLocaleString('ja-JP', {
+                            year: 'numeric',
+                            month: 'numeric',
+                            day: 'numeric',
+                        });
 
-                        console.log("aaaa" + formattedDateTime1)
+                        console.log("aaaa" + formattedDateTime)
                         allData.push({
-                            date: formattedDateTime1,
+                            date: formattedDateTime,
                             sugar: newsugar,
                             period: selectedValue
                         });
@@ -766,7 +769,7 @@
                         bindEditButtons();
                         sortTable();
                         updateChart(allData);
-                        setsugar(parseInt(newsugar), formattedDateTime1, selectedValue)
+                        setsugar(parseInt(newsugar), formattedDateTime, selectedValue)
 
                         $(this).dialog("close");
                     },
