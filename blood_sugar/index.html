@@ -481,9 +481,9 @@
                     method: "post",
                     idToken: token,
                     postData: {
-                        date: _date,
-                        period: _period,
-                        sugar: _sugar
+                        date: String(_date),
+                        period: parseInt(_period),
+                        sugar: parseInt(_sugar)
                     }
                 })
             ).done(function (response) {
@@ -587,8 +587,7 @@
             // チャートのデータを更新
             sugarChart.data.labels = labels;
             sugarChart.data.datasets[0].data = sugarData;
-            sugarChart
-                .update();
+            sugarChart.update();
             bindEditButtons();
         }
 
@@ -760,18 +759,11 @@
                         });
 
                         console.log("aaaa" + formattedDateTime)
-
-                        if (Array.isArray(allData)) {
-     allData.push({
+                        allData.push({
                             date: formattedDateTime,
                             sugar: newsugar,
                             period: selectedValue
                         });
-} else {
-                        console.log(allData)
-    console.error('定義されていません');
-}
-                       
 
                         bindEditButtons();
                         sortTable();
