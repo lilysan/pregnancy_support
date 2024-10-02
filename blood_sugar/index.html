@@ -387,8 +387,8 @@
             alert("LIFF init failed.");
         });
 
-
         /*
+
                 response = {
                     "statusCode": 200,
                     "data": {
@@ -414,8 +414,8 @@
                 }
                 allData = response.data.items
                 updateChart(response.data.items)
-
         */
+
 
 
         const getAccessObj = (data) => {
@@ -643,18 +643,20 @@
                                 return id === item.date + "_" + item.period
                                 //return itemDateTime.getTime() === dateTime.getTime();
                             });
+                            console.log(newDate)
 
                             if (dataIndex !== -1) {
                                 // `data` の該当アイテムを更新
-                                allData[dataIndex].date = dateTimeStr_new;
-                                allData[dataIndex].sugar = parseFloat(newsugar);
-                                setsugar(parseInt(newsugar), dateTimeStr_new, selectedValue)
+                                allData[dataIndex].date = newDate;
+                                allData[dataIndex].period = selectedValue;
+                                allData[dataIndex].sugar = parseInt(newsugar);
+                                setsugar(parseInt(newsugar), newDate, selectedValue)
                             } else {
-                                deletesugar(id, selectedValue)
-                                setsugar(parseInt(newsugar), dateTimeStr_new, selectedValue)
+                                deletesugar(id.split("_")[0], selectedValue)
+                                setsugar(parseInt(newsugar), newDate, selectedValue)
                                 allData.push({
                                     sugar: parseInt(newsugar),
-                                    date: dateTimeStr_new,
+                                    date: newDate,
                                     period: selectedValue,
                                 })
                             }
