@@ -474,6 +474,7 @@
         }
 
         function setsugar(_sugar, _date, _period) {
+            console.log(_sugar+" "+ _date + " " + _period)
             $(".loader").show();
             $.ajax(
                 getAccessObj({
@@ -763,10 +764,12 @@ allData.push({
                             period: selectedValue
                         });
 
+                        setsugar(parseInt(newsugar), formattedDateTime, selectedValue)
+                        
                         bindEditButtons();
                         sortTable();
                         updateChart(allData);
-                        setsugar(parseInt(newsugar), formattedDateTime, selectedValue)
+                        
 
                         $(this).dialog("close");
                     },
