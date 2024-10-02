@@ -494,7 +494,6 @@
                     console.error(response.message);
                     alert(response.message)
                 }
-                pharse
             }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
 
                 alert("Network error!");
@@ -764,7 +763,7 @@
                         bindEditButtons();
                         sortTable();
                         updateChart(allData);
-                        setsugar(parseFloat(newsugar), formattedDateTime1, selectedValue)
+                        setsugar(parseInt(newsugar), formattedDateTime1, selectedValue)
 
                         $(this).dialog("close");
                     },
