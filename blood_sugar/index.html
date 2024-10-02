@@ -475,6 +475,7 @@
 
         function setsugar(_sugar, _date, _period) {
             console.log(_sugar+" "+ _date + " " + _period)
+            var date1 = _date.replace( '-', '/' );
             $(".loader").show();
             $.ajax(
                 getAccessObj({
@@ -482,7 +483,7 @@
                     method: "post",
                     idToken: token,
                     postData: {
-                        date: String(_date),
+                        date: String(date1),
                         period: parseInt(_period),
                         sugar: parseInt(_sugar)
                     }
@@ -504,6 +505,7 @@
 
         function deletesugar(_date, _period) {
             console.log(_date + " " + _period)
+            var date1 = _date.replace( '-', '/' );
             $(".loader").show();
             $.ajax(
                 getAccessObj({
@@ -511,7 +513,7 @@
                     method: "delete",
                     idToken: token,
                     postData: {
-                        date: _date,
+                        date: date1,
                         period: _period
                     }
                 })
