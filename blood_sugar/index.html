@@ -519,7 +519,7 @@
                         liff.logout();
                         window.location.reload();
                     } else if (response.statusCode !== 200) {
-                        console.error(response.message);
+                        console.log(response);
                         alert(response.message)
                     } else {
                         $(".loader").hide();
