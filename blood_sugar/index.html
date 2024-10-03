@@ -447,6 +447,7 @@
         var data;
 
         function loadsugarData(idToken) {
+            $(".loader").show();
             $.ajax(
                 getAccessObj({
                     path: "sugar",
@@ -462,7 +463,7 @@
                     console.error(response.message);
                     alert(response.message)
                 } else {
-                    
+
                     allData = response.data.items
                     updateChart(response.data.items); // チャートとテーブルを更新
 
@@ -474,64 +475,58 @@
         }
 
         function setsugar(_sugar, _date, _period) {
-            console.log(_sugar+" "+ _date + " " + _period)
-            var date1 = _date.replace( '-', '/' );
+            console.log(_sugar + " " + _date + " " + _period)
             $(".loader").show();
             $.ajax(
-                getAccessObj({
-                    path: "sugar",
-                    method: "post",
-                    idToken: token,
-                    postData: {
-                        date: String(date1),
-                        period: parseInt(_period),
-                        sugar: parseInt(_sugar)
+                    getAccessObj({
+                        path: "sugar",
+                        method: "post",
+                        idToken: token,
+                        postData: {
+                            date: String(_date),
+                            period: parseInt(_period),
+                            sugar: parseInt(_sugar)
+                        }
+                    })
+                ).done(function (response) {
+                    if (response.statusCode === 401) {
+                        liff.logout();
+                        window.location.reload();
+                    } else if (response.statusCode !== 200) {
+                        console.error(response.message);
+                        alert(response.message)
                     }
                 })
-            ).done(function (response) {
-                if (response.statusCode === 401) {
-                    liff.logout();
-                    window.location.reload();
-                } else if (response.statusCode !== 200) {
-                    console.error(response.message);
-                    alert(response.message)
-                }
-            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-
-                alert("Network error!");
-            });
-            $(".loader").hide();
+                .fail(() => alert("Network error!"))
+                .always(() => $(".loader").hide());
         }
 
         function deletesugar(_date, _period) {
             console.log(_date + " " + _period)
-            var date1 = _date.replace( '-', '/' );
             $(".loader").show();
             $.ajax(
-                getAccessObj({
-                    path: "sugar",
-                    method: "delete",
-                    idToken: token,
-                    postData: {
-                        date: date1,
-                        period: _period
+                    getAccessObj({
+                        path: "sugar",
+                        method: "delete",
+                        idToken: token,
+                        postData: {
+                            date: _date,
+                            period: _period
+                        }
+                    })
+                ).done(function (response) {
+                    if (response.statusCode === 401) {
+                        liff.logout();
+                        window.location.reload();
+                    } else if (response.statusCode !== 200) {
+                        console.error(response.message);
+                        alert(response.message)
+                    } else {
+                        $(".loader").hide();
                     }
                 })
-            ).done(function (response) {
-                if (response.statusCode === 401) {
-                    liff.logout();
-                    window.location.reload();
-                } else if (response.statusCode !== 200) {
-                    console.error(response.message);
-                    alert(response.message)
-                } else {
-                    $(".loader").hide();
-                }
-            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                $(".loader").hide();
-                alert("Network error!");
-
-            });
+                .fail(() => alert("Network error!"))
+                .always(() => $(".loader").hide());
         }
 
         function updateChart(data) {
@@ -561,7 +556,7 @@
                 const date = dateTime.toLocaleDateString('ja-JP');
                 const time = item.period >= 1 && item.period < dataArray.length ? dataArray[item.period] :
                     "Out of range";
-                
+
                 const sugar = item.sugar;
 
                 const formattedDateTime = new Date(item.date).toLocaleString("ja-JP", {
@@ -625,41 +620,26 @@
                     buttons: {
                         "Save": function () {
                             const newDate = $("#edit-date").val();
-                            const periodSelect = document.getElementById("periodSelect");
-                            const selectedValue = periodSelect.value;
-           
+                            const selectedValue = $("periodSelect").val();
                             const newsugar = $("#edit-sugar").val();
 
                             if (newDate === "" || selectedValue === "" || newsugar === "") {
                                 alert("aすべてのフィールドに値を入力してください。/All fields must be filled in.");
                                 return;
                             }
-                            row.find('td').eq(0).text($("#edit-date").val());
-                            row.find('td').eq(1).text($("#edit-time").val());
-                            row.find('td').eq(2).text($("#edit-sugar").val());
 
+                            // `data` の該当アイテムを更新
+                            deletesugar(id.split("_")[0], id.split("_")[1])
+                            allData = allData.filter(item => item.date + "_" + item.period !==
+                                id);
+                            setsugar(parseInt(newsugar), newDate, selectedValue)
 
-                            // `data` 配列内の対応するアイテムを更新
-                            const dateTimeStr_new = new Date(newDate + " " + dataArray2[
-                                selectedValue]);
-                            const dataIndex = allData.findIndex(item => {
-                                return id === item.date + "_" + item.period
-                                //return itemDateTime.getTime() === dateTime.getTime();
-                            });
-               
+                            allData.push({
+                                sugar: parseInt(newsugar),
+                                date: newDate,
+                                period: selectedValue,
+                            })
 
-                
-                                // `data` の該当アイテムを更新
-                                deletesugar(id.split("_")[0], id.split("_")[1])
-                                allData.splice(dataIndex, 1);
-                                setsugar(parseInt(newsugar), newDate, selectedValue)
-
-allData.push({
-                                    sugar: parseInt(newsugar),
-                                    date: newDate,
-                                    period: selectedValue,
-                                })
-                            
                             sortTable();
                             updateChart(allData);
 
@@ -689,7 +669,7 @@ allData.push({
                             $(this).dialog("close");
                         },
                         "Delete": function () {
-                            deletesugar(id.split("_")[0],dataArray.indexOf(time));
+                            deletesugar(id.split("_")[0], id.split("_")[1]);
                             allData = allData.filter(item => item.date + "_" + item.period !==
                                 id);
 
@@ -743,9 +723,7 @@ allData.push({
                     "追加": function () {
 
                         const newDate = $("#add-date").val();
-                        const periodSelect = document.getElementById("periodSelect1");
-                        const selectedValue = periodSelect.value;
-
+                        const selectedValue = $("#periodSelect1").val();
                         const newsugar = $("#add-sugar").val();
 
                         if (newDate === "" || selectedValue === "" || newsugar === "") {
@@ -759,7 +737,7 @@ allData.push({
                             day: 'numeric',
                         });
 
-                        
+
                         allData.push({
                             date: formattedDateTime,
                             sugar: newsugar,
@@ -767,11 +745,9 @@ allData.push({
                         });
 
                         setsugar(parseInt(newsugar), formattedDateTime, selectedValue)
-                        
-                        bindEditButtons();
                         sortTable();
                         updateChart(allData);
-                        
+
 
                         $(this).dialog("close");
                     },
