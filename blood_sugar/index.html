@@ -621,7 +621,7 @@
                     buttons: {
                         "Save": function () {
                             const newDate = $("#edit-date").val();
-                            const selectedValue = $("periodSelect").val();
+                            const selectedValue = $("#periodSelect").val();
                             const newsugar = $("#edit-sugar").val();
 
                             if (newDate === "" || selectedValue === "" || newsugar === "") {
@@ -634,7 +634,6 @@
                             allData = allData.filter(item => item.date + "_" + item.period !==
                                 id);
                             setsugar(parseInt(newsugar), newDate, selectedValue)
-
                             allData.push({
                                 sugar: parseInt(newsugar),
                                 date: newDate,
