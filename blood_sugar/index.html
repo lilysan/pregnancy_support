@@ -605,6 +605,7 @@
 
         function bindEditButtons() {
             $(".edit-btn").off("click").on("click", function () {
+                $("ui-datepicker-div").hide();
                 const row = $(this).closest('tr');
                 const date = row.find('td').eq(0).text();
                 const time = row.find('td').eq(1).text();
@@ -653,6 +654,8 @@
                 });
             });
             $(".delete-btn").off("click").on("click", function () {
+                $("ui-datepicker-div").hide();
+
                 const row = $(this).closest('tr');
                 const date = row.find('td').eq(0).text();
                 const time = row.find('td').eq(1).text();
