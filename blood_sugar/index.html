@@ -510,8 +510,8 @@
                         method: "delete",
                         idToken: token,
                         postData: {
-                            date: _date,
-                            period: _period
+                            date: String(_date),
+                            period: parseInt(_period)
                         }
                     })
                 ).done(function (response) {
