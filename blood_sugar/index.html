@@ -272,36 +272,6 @@
         var data;
 
 
-        function saveTableData() {
-
-
-            const tableBody = document.querySelector("#editTable tbody");
-            const rows = tableBody.querySelectorAll("tr");
-            const modifiedData = [];
-
-            modifiedRows.forEach((index) => {
-                const row = rows[index];
-                const dateValue = row.querySelector(".date-picker").value;
-                const periodValue = row.querySelector(".period-select").value;
-                const sugarValue = row.querySelector("td[contenteditable='true']").innerText;
-
-                modifiedData.push({
-                    date: dateValue,
-                    period: parseInt(periodValue, 10),
-                    sugar: parseFloat(sugarValue)
-                });
-
-                setsugar(sugarValue, dateValue, periodValue)
-            });
-
-            console.log("変更されたデータ:", modifiedData);
-
-            // 変更があった行のデータを必要に応じて保存する処理を追加
-            modifiedRows = []; // 保存後にリセット
-
-
-        }
-
         function loadsugarData(idToken) {
             $(".loader").show();
             $.ajax(
@@ -477,22 +447,6 @@
                     currentRow.remove();
                     // ダイアログを閉じる
                     dialog.style.display = "none";
-                });
-
-
-                // ここでdeleteボタンのクリックイベントを追加
-                tableBody.querySelectorAll(".delete-btn").forEach((button) => {
-                    button.addEventListener("click", function () {
-                        const row = this.closest("tr");
-                        const dateInput = row.querySelector(".date-picker");
-                        const dateValue = dateInput.value; // 日付の値を取得
-                        console.log("取得した日付:", dateValue);
-
-                        // 必要に応じて行を削除するなどの処理を追加
-                        const periodSelect = row.querySelector(".period-select");
-                        const periodValue = periodSelect.value; // 選択された値を取得
-                        deleteData(before_dateValue, before_periodValue)
-                    });
                 });
 
             }
