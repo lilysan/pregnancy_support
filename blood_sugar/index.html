@@ -77,14 +77,40 @@
                             <th>日付</th>
                             <th>時間帯</th>
                             <th>血糖 (mg/dl)</th>
+                            <th>edit</th>
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
                 </table>
-                <button type="button" onclick="saveTableData()">保存</button>
             </div>
         </div>
+    </div>
+
+    <!-- ダイアログ -->
+    <div id="editDialog" style="display:none;">
+        <form id="editForm">
+            <label for="editDate">日付:</label>
+            <input type="text" id="editDate"><br><br>
+
+            <label for="editPeriod">時間帯:</label>
+            <select id="editPeriod">
+                <option value="1">朝前</option>
+                <option value="2">朝後</option>
+                <option value="3">昼前</option>
+                <option value="4">昼後</option>
+                <option value="5">夕前</option>
+                <option value="6">夕後</option>
+                <option value="7">眠前</option>
+            </select><br><br>
+
+            <label for="editSugar">血糖 (mg/dl):</label>
+            <input type="number" id="editSugar"><br><br>
+
+            <button type="button" id="saveButton">保存</button>
+            <button type="button" id="cancelButton">キャンセル</button>
+            <button type="button" id="deleteButton">削除</button>
+        </form>
     </div>
 
     <!-- 下部タブメニュー -->
@@ -349,7 +375,7 @@
         <!-- 血糖部分: contenteditable -->
         <td contenteditable="true">${label.sugar}</td>
 
-        <td><button class="delete-btn">delete</button></td>
+        <td><button class="edit-btn">delete</button></td>
     </tr>`;
 
 
@@ -359,31 +385,31 @@
                     });
                 });
 
-                document.querySelectorAll("#editTable tbody tr").forEach((row, index) => {
-                    // 日付入力欄の変更を監視
-                    const dateInput = row.querySelector(".date-picker");
-                    dateInput.addEventListener("change", () => {
-                        if (!modifiedRows.includes(index)) {
-                            modifiedRows.push(index);
-                        }
-                    });
 
-                    // 時間帯の選択を監視
-                    const periodSelect = row.querySelector(".period-select");
-                    periodSelect.addEventListener("change", () => {
-                        if (!modifiedRows.includes(index)) {
-                            modifiedRows.push(index);
-                        }
-                    });
 
-                    // 血糖値の変更を監視
-                    const sugarCell = row.querySelector("td[contenteditable='true']");
-                    sugarCell.addEventListener("input", () => {
-                        if (!modifiedRows.includes(index)) {
-                            modifiedRows.push(index);
-                        }
+                const editButtons = document.querySelectorAll(".edit-btn");
+                const dialog = document.getElementById("editDialog");
+                let currentRow; // 編集中の行を記憶
+
+                editButtons.forEach((button) => {
+                    button.addEventListener("click", function () {
+                        currentRow = this.closest("tr");
+
+                        // 元の値を取得してダイアログに設定
+                        const dateValue = currentRow.querySelector(".date-picker").value;
+                        const periodValue = currentRow.querySelector(".period-select").value;
+                        const sugarValue = currentRow.querySelector("td[contenteditable='true']")
+                            .innerText;
+
+                        document.getElementById("editDate").value = dateValue;
+                        document.getElementById("editPeriod").value = periodValue;
+                        document.getElementById("editSugar").value = sugarValue;
+
+                        // ダイアログを表示
+                        dialog.style.display = "block";
                     });
                 });
+
 
                 // ここでdeleteボタンのクリックイベントを追加
                 tableBody.querySelectorAll(".delete-btn").forEach((button) => {
@@ -546,6 +572,32 @@
                 $('#sugarTable tbody').append(row);
             });
         }
+
+
+
+        const editButtons = document.querySelectorAll(".edit-btn");
+        const dialog = document.getElementById("editDialog");
+        let currentRow; // 編集中の行を記憶
+
+        editButtons.forEach((button) => {
+            button.addEventListener("click", function () {
+                currentRow = this.closest("tr");
+
+                // 元の値を取得してダイアログに設定
+                const dateValue = currentRow.querySelector(".date-picker").value;
+                const periodValue = currentRow.querySelector(".period-select").value;
+                const sugarValue = currentRow.querySelector("td[contenteditable='true']").innerText;
+
+                document.getElementById("editDate").value = dateValue;
+                document.getElementById("editPeriod").value = periodValue;
+                document.getElementById("editSugar").value = sugarValue;
+
+                // ダイアログを表示
+                dialog.style.display = "block";
+            });
+        });
+
+
 
 
         $("#date").datepicker({
