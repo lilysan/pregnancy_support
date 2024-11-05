@@ -13,7 +13,22 @@
     <link rel="stylesheet" href="../kokimastyle.css">
 
     <style>
+        div#editDialog {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            background: #66666666;
+            width: 100%;
+            height: 100%;
+        }
 
+        #editForm {
+            margin: 40% auto;
+            width: 81%;
+            padding: 49px;
+            background: white;
+        }
     </style>
 </head>
 
@@ -315,6 +330,10 @@
             });
         }
 
+
+
+
+
         // タブ切り替えの処理
         function switchTab(contentId, event) {
             id = contentId;
@@ -391,6 +410,10 @@
                 const dialog = document.getElementById("editDialog");
                 let currentRow; // 編集中の行を記憶
 
+                let before_dateValue
+                let before_periodValue
+                let before_sugarValue
+
                 editButtons.forEach((button) => {
                     button.addEventListener("click", function () {
                         currentRow = this.closest("tr");
@@ -405,9 +428,55 @@
                         document.getElementById("editPeriod").value = periodValue;
                         document.getElementById("editSugar").value = sugarValue;
 
+                        before_dateValue = dateValue
+                        before_periodValue = periodValue
+                        before_sugarValue = sugarValue
                         // ダイアログを表示
                         dialog.style.display = "block";
+
                     });
+                });
+
+                // 保存ボタンの処理
+                document.getElementById("saveButton").addEventListener("click", () => {
+                    const newDate = document.getElementById("editDate").value;
+                    const newPeriod = document.getElementById("editPeriod").value;
+                    const newSugar = document.getElementById("editSugar").value;
+
+                    // 値を更新
+                    currentRow.querySelector(".date-picker").value = newDate;
+                    currentRow.querySelector(".period-select").value = newPeriod;
+                    currentRow.querySelector("td[contenteditable='true']").innerText = newSugar;
+
+                    // ダイアログを閉じる
+                    dialog.style.display = "none";
+
+                    deleteData(before_dateValue, before_periodValue)
+                    setsugar(newSugar, newDate, newPeriod)
+
+                    allData = allData.filter(item => !(item.date === before_dateValue && item.period ===
+                        before_periodValue));
+
+                    allData.push({
+                        date: newDate,
+                        period: newPeriod,
+                        sugar: newSugar,
+                    })
+
+                });
+
+                // キャンセルボタンの処理
+                document.getElementById("cancelButton").addEventListener("click", () => {
+                    // ダイアログを閉じる
+                    dialog.style.display = "none";
+                });
+
+                // 削除ボタンの処理
+                document.getElementById("deleteButton").addEventListener("click", () => {
+                    deleteData(before_dateValue, before_periodValue)
+                    currentRow.remove();
+                    // ダイアログを閉じる
+                    dialog.style.display = "none";
                 });
 
 
@@ -422,7 +491,7 @@
                         // 必要に応じて行を削除するなどの処理を追加
                         const periodSelect = row.querySelector(".period-select");
                         const periodValue = periodSelect.value; // 選択された値を取得
-                        deleteData(dateValue, periodValue)
+                        deleteData(before_dateValue, before_periodValue)
                     });
                 });
 
