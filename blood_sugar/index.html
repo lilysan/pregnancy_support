@@ -297,7 +297,7 @@
 
                     const row = `<tr>
         <!-- 日付部分: datepickerを使用 -->
-        <td><input type="text" class="date-picker" value="'${String(datePart)}'" placeholder="日付を選択"></td>
+        <td><input type="text" class="date-picker" value="${String(datePart)}" placeholder="日付を選択"></td>
 
         <!-- 朝/夜部分: ドロップダウンで選択 -->
         <td>
@@ -316,7 +316,7 @@
         <!-- 血糖部分: contenteditable -->
         <td contenteditable="true">${label.sugar}</td>
 
-        <td><button class="delete-btn" onclick="deleteData('${String(datePart)}',${label.period})">delete</button></td>
+        <td><button class="delete-btn">delete</button></td>
     </tr>`;
 
 
@@ -325,6 +325,24 @@
                         dateFormat: 'yy-mm-dd'
                     });
                 });
+
+
+                // ここでdeleteボタンのクリックイベントを追加
+                tableBody.querySelectorAll(".delete-btn").forEach((button) => {
+                    button.addEventListener("click", function () {
+                        const row = this.closest("tr");
+                        const dateInput = row.querySelector(".date-picker");
+                        const dateValue = dateInput.value; // 日付の値を取得
+                        console.log("取得した日付:", dateValue);
+
+                        // 必要に応じて行を削除するなどの処理を追加
+                        const periodSelect = row.querySelector(".period-select");
+                        const periodValue = periodSelect.value; // 選択された値を取得
+                        row.remove();
+                        deleteData(dateValue, periodValue)
+                    });
+                });
+
             }
 
 
@@ -402,6 +420,7 @@
                         console.log(response);
                         alert(response.message)
                     } else {
+                        allData = allData.filter(item => !(item.date === _date && item.period === _period));
                         $(".loader").hide();
                     }
                 })
