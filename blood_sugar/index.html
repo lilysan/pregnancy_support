@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="../kokimastyle.css">
 
     <style>
-
+        .modified-row {
+            background-color: yellow;
+        }
     </style>
 </head>
 
@@ -250,6 +252,7 @@
                     sugar: parseFloat(sugarValue)
                 });
 
+
                 setsugar(sugarValue, dateValue, periodValue)
             });
 
@@ -365,6 +368,7 @@
                     dateInput.addEventListener("change", () => {
                         if (!modifiedRows.includes(index)) {
                             modifiedRows.push(index);
+                            row.classList.add("modified-row"); // 背景色を追加
                         }
                     });
 
@@ -373,6 +377,7 @@
                     periodSelect.addEventListener("change", () => {
                         if (!modifiedRows.includes(index)) {
                             modifiedRows.push(index);
+                            row.classList.add("modified-row"); // 背景色を追加
                         }
                     });
 
@@ -381,6 +386,7 @@
                     sugarCell.addEventListener("input", () => {
                         if (!modifiedRows.includes(index)) {
                             modifiedRows.push(index);
+                            row.classList.add("modified-row"); // 背景色を追加
                         }
                     });
                 });
