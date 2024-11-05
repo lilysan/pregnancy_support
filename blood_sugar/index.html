@@ -420,8 +420,8 @@
                         console.log(response);
                         alert(response.message)
                     } else {
-                        console.log(type(item.date))
-                        console.log(type(_date))
+                        console.log(typeof item.date)
+                        console.log(typeof _date)
                         allData = allData.filter(item => !(item.date === _date && item.period === _period));
                         $(".loader").hide();
                     }
