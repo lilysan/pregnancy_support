@@ -297,7 +297,7 @@
 
                     const row = `<tr>
         <!-- 日付部分: datepickerを使用 -->
-        <td><input type="text" class="date-picker" value="${datePart}" placeholder="日付を選択"></td>
+        <td><input type="text" class="date-picker" value="${String(datePart)}" placeholder="日付を選択"></td>
 
         <!-- 朝/夜部分: ドロップダウンで選択 -->
         <td>
@@ -382,7 +382,7 @@
         }
 
         function deleteData(_date, _period) {
-            console.log(_date + " " + _period)
+            console.log(String(_date) + " " + _period)
             $(".loader").show();
             $.ajax(
                     getAccessObj({
