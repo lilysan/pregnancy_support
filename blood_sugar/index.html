@@ -13,9 +13,7 @@
     <link rel="stylesheet" href="../kokimastyle.css">
 
     <style>
-        .modified-row {
-            background-color: yellow;
-        }
+
     </style>
 </head>
 
@@ -112,8 +110,6 @@
         var token;
         var dataArray = ["", "朝前", "朝後", "昼前", "昼後", "夕前", "夕後", "眠前"]
         var dataArray2 = ["", " 6:00", "7:00", "12:00", "13:00", "18:00", "19:00", "24:00"]
-        var sugarChart;
-        var data;
 
         const ctx = document.getElementById('sugarChart').getContext('2d');
         sugarChart = new Chart(ctx, {
@@ -175,6 +171,36 @@
             alert("LIFF init failed.");
         });
 
+        /*
+
+                response = {
+                    "statusCode": 200,
+                    "data": {
+                        "items": [{
+                            "date": "2024/9/2",
+                            "period": 2,
+                            "sugar": 110
+                        }, {
+                            "date": "2024/9/2",
+                            "period": 3,
+                            "sugar": 130
+                        }, {
+                            "date": "2024/9/2",
+                            "period": 5,
+                            "sugar": 120
+                        }, {
+                            "date": "2024/9/3",
+                            "period": 6,
+                            "sugar": 160
+                        }],
+                        "lang": "ja"
+                    }
+                }
+                allData = response.data.items
+                updateChart(response.data.items)
+        */
+
+
 
         const getAccessObj = (data) => {
             return {
@@ -185,6 +211,24 @@
                 timeout: 30000,
             }
         }
+
+        function changeLanguage(lang) {
+            const knownLang = ["ja", "en"];
+            lang = knownLang.includes(lang) ? lang : "en";
+
+            $.getJSON("lang.json", (data) => {
+                $.each(data, function (index, val) {
+                    const elm = $("." + val.class);
+                    if (elm.length) {
+                        if (val.type === "docs") {
+                            elm.html(val[lang]);
+                        }
+                    }
+                });
+            });
+        }
+        var sugarChart;
+        var data;
 
 
         function saveTableData() {
@@ -205,7 +249,6 @@
                     period: parseInt(periodValue, 10),
                     sugar: parseFloat(sugarValue)
                 });
-
 
                 setsugar(sugarValue, dateValue, periodValue)
             });
@@ -246,7 +289,29 @@
             });
         }
 
+        // タブ切り替えの処理
+        function switchTab(contentId, event) {
+            id = contentId;
+            if (contentId != "chart-container") {
+                populateTable(contentId)
+            } else {
+                updateChart(allData);
+            }
+            // すべてのコンテンツを非表示にする
+            document.querySelectorAll('.chart-container, .table-container, .edit-container').forEach(content => {
+                content.classList.remove('active-content');
+            });
 
+            // 選択されたコンテンツを表示する
+            document.getElementById(contentId).classList.add('active-content');
+
+            // タブのアクティブ状態を変更する
+            const buttons = document.querySelectorAll('.tab-bar button');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
 
         // 変更があった行を追跡するための配列
         let modifiedRows = [];
@@ -284,7 +349,7 @@
         <!-- 血糖部分: contenteditable -->
         <td contenteditable="true">${label.sugar}</td>
 
-        <td><button class="edit-btn">edit</button></td>
+        <td><button class="delete-btn">delete</button></td>
     </tr>`;
 
 
@@ -294,8 +359,34 @@
                     });
                 });
 
+                document.querySelectorAll("#editTable tbody tr").forEach((row, index) => {
+                    // 日付入力欄の変更を監視
+                    const dateInput = row.querySelector(".date-picker");
+                    dateInput.addEventListener("change", () => {
+                        if (!modifiedRows.includes(index)) {
+                            modifiedRows.push(index);
+                        }
+                    });
+
+                    // 時間帯の選択を監視
+                    const periodSelect = row.querySelector(".period-select");
+                    periodSelect.addEventListener("change", () => {
+                        if (!modifiedRows.includes(index)) {
+                            modifiedRows.push(index);
+                        }
+                    });
+
+                    // 血糖値の変更を監視
+                    const sugarCell = row.querySelector("td[contenteditable='true']");
+                    sugarCell.addEventListener("input", () => {
+                        if (!modifiedRows.includes(index)) {
+                            modifiedRows.push(index);
+                        }
+                    });
+                });
+
                 // ここでdeleteボタンのクリックイベントを追加
-                tableBody.querySelectorAll(".edit-btn").forEach((button) => {
+                tableBody.querySelectorAll(".delete-btn").forEach((button) => {
                     button.addEventListener("click", function () {
                         const row = this.closest("tr");
                         const dateInput = row.querySelector(".date-picker");
@@ -303,11 +394,9 @@
                         console.log("取得した日付:", dateValue);
 
                         // 必要に応じて行を削除するなどの処理を追加
-                        //const periodSelect = row.querySelector(".period-select");
-                        //const periodValue = periodSelect.value; // 選択された値を取得
-                        //deleteData(dateValue, periodValue)
-                        updateChart(allData)
-                        populateTable("edit-container")
+                        const periodSelect = row.querySelector(".period-select");
+                        const periodValue = periodSelect.value; // 選択された値を取得
+                        deleteData(dateValue, periodValue)
                     });
                 });
 
@@ -341,6 +430,7 @@
         }
 
         function setsugar(_sugar, _date, _period) {
+            console.log(_sugar + " " + _date + " " + _period)
             $(".loader").show();
             $.ajax(
                     getAccessObj({
@@ -390,6 +480,8 @@
                     } else {
                         console.log("できたよ");
                         allData = allData.filter(item => !(item.date === _date && item.period === _period));
+                        updateChart(allData)
+                        populateTable("edit-container")
                         $(".loader").hide();
                     }
                 })
@@ -441,6 +533,31 @@
             sugarChart.update();
         }
 
+        function sortTable() {
+            const rows = $('#sugarTable tbody tr').get();
+            rows.sort(function (a, b) {
+                const keyA = new Date($(a).children('td').eq(0).text() + 'T' + $(a).children('td').eq(1)
+                    .text() + ':00');
+                const keyB = new Date($(b).children('td').eq(0).text() + 'T' + $(b).children('td').eq(1)
+                    .text() + ':00');
+                return keyA - keyB;
+            });
+            $.each(rows, function (index, row) {
+                $('#sugarTable tbody').append(row);
+            });
+        }
+
+
+        $("#date").datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+        $("#add-time").timepicker({
+            timeFormat: 'H:i',
+            interval: 30,
+            dynamic: false,
+            dropdown: true,
+            scrollbar: true
+        });
 
         function addData() {
             const date = document.getElementById('date').value;
