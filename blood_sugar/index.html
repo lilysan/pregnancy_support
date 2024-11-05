@@ -230,6 +230,37 @@
         var sugarChart;
         var data;
 
+
+        function saveTableData() {
+
+
+            const tableBody = document.querySelector("#editTable tbody");
+            const rows = tableBody.querySelectorAll("tr");
+            const modifiedData = [];
+
+            modifiedRows.forEach((index) => {
+                const row = rows[index];
+                const dateValue = row.querySelector(".date-picker").value;
+                const periodValue = row.querySelector(".period-select").value;
+                const sugarValue = row.querySelector("td[contenteditable='true']").innerText;
+
+                modifiedData.push({
+                    date: dateValue,
+                    period: parseInt(periodValue, 10),
+                    sugar: parseFloat(sugarValue)
+                });
+
+                setsugar(sugarValue, dateValue, periodValue)
+            });
+
+            console.log("変更されたデータ:", modifiedData);
+
+            // 変更があった行のデータを必要に応じて保存する処理を追加
+            modifiedRows = []; // 保存後にリセット
+
+
+        }
+
         function loadsugarData(idToken) {
             $(".loader").show();
             $.ajax(
@@ -282,6 +313,8 @@
             event.currentTarget.classList.add('active');
         }
 
+        // 変更があった行を追跡するための配列
+        let modifiedRows = [];
 
         // データをテーブルに表示する関数
         function populateTable(id) {
@@ -326,6 +359,31 @@
                     });
                 });
 
+                document.querySelectorAll("#editTable tbody tr").forEach((row, index) => {
+                    // 日付入力欄の変更を監視
+                    const dateInput = row.querySelector(".date-picker");
+                    dateInput.addEventListener("change", () => {
+                        if (!modifiedRows.includes(index)) {
+                            modifiedRows.push(index);
+                        }
+                    });
+
+                    // 時間帯の選択を監視
+                    const periodSelect = row.querySelector(".period-select");
+                    periodSelect.addEventListener("change", () => {
+                        if (!modifiedRows.includes(index)) {
+                            modifiedRows.push(index);
+                        }
+                    });
+
+                    // 血糖値の変更を監視
+                    const sugarCell = row.querySelector("td[contenteditable='true']");
+                    sugarCell.addEventListener("input", () => {
+                        if (!modifiedRows.includes(index)) {
+                            modifiedRows.push(index);
+                        }
+                    });
+                });
 
                 // ここでdeleteボタンのクリックイベントを追加
                 tableBody.querySelectorAll(".delete-btn").forEach((button) => {
@@ -420,6 +478,7 @@
                         console.log(response);
                         alert(response.message)
                     } else {
+                        console.log("できたよ");
                         allData = allData.filter(item => !(item.date === _date && item.period === _period));
                         updateChart(allData)
                         populateTable("edit-container")
