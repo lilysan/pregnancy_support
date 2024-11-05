@@ -413,6 +413,7 @@
                     })
                 ).done(function (response) {
                     if (response.statusCode === 401) {
+                        console.log("response");
                         liff.logout();
                         window.location.reload();
                     } else if (response.statusCode !== 200) {
