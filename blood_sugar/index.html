@@ -338,7 +338,6 @@
                         // 必要に応じて行を削除するなどの処理を追加
                         const periodSelect = row.querySelector(".period-select");
                         const periodValue = periodSelect.value; // 選択された値を取得
-                        row.remove();
                         deleteData(dateValue, periodValue)
                     });
                 });
@@ -420,6 +419,8 @@
                         console.log(response);
                         alert(response.message)
                     } else {
+                        console.log(type(item.date))
+                        console.log(type(_date))
                         allData = allData.filter(item => !(item.date === _date && item.period === _period));
                         $(".loader").hide();
                     }
