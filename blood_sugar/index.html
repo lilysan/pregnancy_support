@@ -258,6 +258,30 @@
             });
         }
 
+        // タブ切り替えの処理
+        function switchTab(contentId, event) {
+            id = contentId;
+            if (contentId != "chart-container") {
+                populateTable(contentId)
+            } else {
+                updateChart(allData);
+            }
+            // すべてのコンテンツを非表示にする
+            document.querySelectorAll('.chart-container, .table-container, .edit-container').forEach(content => {
+                content.classList.remove('active-content');
+            });
+
+            // 選択されたコンテンツを表示する
+            document.getElementById(contentId).classList.add('active-content');
+
+            // タブのアクティブ状態を変更する
+            const buttons = document.querySelectorAll('.tab-bar button');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
         function setsugar(_sugar, _date, _period) {
             console.log(_sugar + " " + _date + " " + _period)
             $(".loader").show();
@@ -379,90 +403,6 @@
             });
         }
 
-        function bindEditButtons() {
-            $(".edit-btn").off("click").on("click", function () {
-                $("ui-datepicker-div").hide();
-                const row = $(this).closest('tr');
-                const date = row.find('td').eq(0).text();
-                const time = row.find('td').eq(1).text();
-                const sugar = row.find('td').eq(2).text();
-                const id = row.attr('time');
-                $("#edit-date").val(date);
-                $("#edit-time").val(time);
-                $("#edit-sugar").val(sugar);
-                $("ui-datepicker-div").hide();
-
-                $("#dialog-form").dialog({
-                    modal: true,
-                    buttons: {
-                        "Save": function () {
-                            const newDate = $("#edit-date").val();
-                            const selectedValue = $("#periodSelect").val();
-                            const newsugar = $("#edit-sugar").val();
-
-                            if (newDate === "" || selectedValue === "" || newsugar === "") {
-                                alert("aすべてのフィールドに値を入力してください。/All fields must be filled in.");
-                                return;
-                            }
-
-                            // `data` の該当アイテムを更新
-                            deletesugar(id.split("_")[0], id.split("_")[1])
-                            allData = allData.filter(item => item.date + "_" + item.period !==
-                                id);
-                            setsugar(parseInt(newsugar), newDate, selectedValue)
-                            allData.push({
-                                sugar: parseInt(newsugar),
-                                date: newDate,
-                                period: selectedValue,
-                            })
-
-                            sortTable();
-                            updateChart(allData);
-
-
-                            $(this).dialog("close");
-                        },
-                        "Cancel": function () {
-                            $(this).dialog("close");
-                        }
-                    }
-                });
-            });
-            $(".delete-btn").off("click").on("click", function () {
-                $("ui-datepicker-div").hide();
-
-                const row = $(this).closest('tr');
-                const date = row.find('td').eq(0).text();
-                const time = row.find('td').eq(1).text();
-                const sugar = row.find('td').eq(2).text();
-                const id = row.attr('time');
-                $("#delete1").val(date);
-                $("#delete2").val(time);
-                $("#delete3").val(sugar);
-
-                $("#dialog-delete").dialog({
-                    modal: true,
-                    buttons: {
-                        "Cancel": function () {
-                            $(this).dialog("close");
-                        },
-                        "Delete": function () {
-                            deletesugar(id.split("_")[0], id.split("_")[1]);
-                            allData = allData.filter(item => item.date + "_" + item.period !==
-                                id);
-
-                            // テーブルとチャートを更新
-                            sortTable();
-                            updateChart(allData);
-                            $(this).dialog("close");
-                        }
-                    }
-                });
-
-            });
-        }
-
-        bindEditButtons();
 
         $("#date").datepicker({
             dateFormat: "yy/mm/dd"
@@ -475,7 +415,11 @@
             scrollbar: true
         });
 
-        $("#add-row-btn").on("click", function () {
+        function addData() {
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('periodSelect').value;
+            const sugar = parseInt(document.getElementById('sugar').value);
+
 
             const now = new Date();
 
@@ -487,51 +431,26 @@
             const minutes = now.getMinutes();
             const seconds = now.getSeconds();
 
-            $("#add-date").val(`${year}/${month}/${String(day).padStart(2, '0')}`);
-            $("#add-time").val(`${hours}:${String(minutes).padStart(2, '0')}`);
+            // フォームの値が入力されているかチェック
+            if (date && sugar) {
+                allData.push({
+                    date: date,
+                    period: time,
+                    high: systolic,
+                    low: diastolic
+                })
+                console.log(allData)
+                setsugar(sugar, date, time)
+                updateChart(allData); // グラフを更新
+                populateTable(id); // テーブルを更新
 
-
-
-            $("#dialog-add-form").dialog({
-                modal: true,
-                buttons: {
-                    "追加": function () {
-
-                        const newDate = $("#add-date").val();
-                        const selectedValue = $("#periodSelect1").val();
-                        const newsugar = $("#add-sugar").val();
-
-                        if (newDate === "" || selectedValue === "" || newsugar === "") {
-                            alert("すべてのフィールドに値を入力してください。");
-                            return;
-                        }
-
-                        const formattedDateTime = new Date(newDate).toLocaleString('ja-JP', {
-                            year: 'numeric',
-                            month: 'numeric',
-                            day: 'numeric',
-                        });
-
-
-                        allData.push({
-                            date: formattedDateTime,
-                            sugar: newsugar,
-                            period: selectedValue
-                        });
-
-                        setsugar(parseInt(newsugar), formattedDateTime, selectedValue)
-                        sortTable();
-                        updateChart(allData);
-
-
-                        $(this).dialog("close");
-                    },
-                    "キャンセル": function () {
-                        $(this).dialog("close");
-                    }
-                }
-            });
-        });
+                // フォームのリセット
+                document.getElementById('date').value = '';
+                document.getElementById('sugar').value = '';
+            } else {
+                alert('すべてのフィールドに値を入力してください。');
+            }
+        };
     </script>
 </body>
 
