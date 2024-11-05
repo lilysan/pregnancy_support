@@ -292,7 +292,7 @@
                 tableBody.innerHTML = ''; // テーブルをクリア
 
                 allData.forEach((label, index) => {
-                    const datePart = label.date; // 日付部分
+                    const datePart = String(label.date); // 日付部分
                     const periodPart = label.period; // 朝/夜部分
 
                     const row = `<tr>
