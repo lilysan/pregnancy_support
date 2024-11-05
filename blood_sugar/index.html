@@ -367,14 +367,6 @@
 
                 const sugar = item.sugar;
 
-                const formattedDateTime = new Date(item.date).toLocaleString("ja-JP", {
-                    year: 'numeric',
-                    month: 'numeric',
-                    day: 'numeric'
-                });
-
-                tableBody.append(newRow);
-
                 // グラフ用のデータに追加
                 labels.push(dateTime);
                 sugarData.push(sugar);
