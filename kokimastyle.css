@@ -1,207 +1,166 @@
-body,
-        html {
+ body {
+            overflow: hidden;
             height: 100%;
             width: 100%;
             margin: 0;
-            display: flex;
-            flex-direction: column;
+
             align-items: center;
             justify-content: center;
             background-color: #fce4ec;
             font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+
         }
 
         h1 {
             color: #ad1457;
             font-size: 1.5em;
-            margin-bottom: 20px;
+            margin: 10px;
+            text-align: center;
         }
 
-        #chart-container1 {
+        .chart-container {
+            width: 100%;
             overflow-x: auto;
-            height: 40%;
-            width: 100%;
         }
 
-
-        #table-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 10px 0;
-            height: 40%;
+        form {
+            margin-top: 20px;
         }
 
-        #chart-container {
-            width: 100%;
-            height: 100%;
+        label {
+            margin-right: 10px;
         }
 
-        #chart-container canvas {
-            width: 100% !important;
-        }
-
-        #sugarTable {
-            background-color: #ffffff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            margin: 0 auto;
-            width: 90%;
-        }
-
-        #sugarTable th {
-            background-color: #f8bbd0;
-            color: #880e4f;
-            padding: 10px;
-            text-align: center;
-        }
-
-        #sugarTable td {
-            padding: 10px;
-            text-align: center;
-            border-top: 1px solid #f8bbd0;
+        table {
+            margin-top: 20px;
+            table-layout: fixed;
+            /* 各列の幅を均等にする */
+            border-collapse: collapse;
         }
 
         table,
         th,
         td {
-            border: none;
+            border: 1px solid black;
         }
 
-        .edit-btn {
-            border: none;
-            background-color: #077ba1;
-            color: white;
-            border-radius: 20px;
-            padding: 5px 10px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        th,
+        td {
+            padding: 8px;
+            text-align: center;
         }
 
-        .edit-btn:hover {
-            background-color: #4340ec;
+        td {
+            width: 25%;
         }
 
-        .delete-btn {
-            border: none;
-            background-color: #f50505;
-            color: white;
-            border-radius: 20px;
-            padding: 5px 10px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        /* 日付の input フィールドと select フィールドの幅を調整 */
+        .date-picker,
+        .period-select {
+            width: 100%;
+            /* セルの幅に合わせて100%にする */
         }
 
-        .delete-btn:hover {
-            background-color: #ec407a;
-        }
-
-        #add-row-btn {
-            margin: 20px 0;
-            background-color: #f48fb1;
-            border: none;
-            color: white;
-            border-radius: 50px;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        #add-row-btn:hover {
-            background-color: #ec407a;
-        }
-
-        #dialog-form label,
-        #dialog-add-form label {
-            display: block;
+        button {
             margin-top: 10px;
-            color: #880e4f;
         }
 
-        #dialog-form input,
-        #dialog-add-form input {
-            width: calc(100% - 20px);
-            padding: 8px;
-            margin-top: 5px;
-            border: 2px solid #f48fb1;
-            border-radius: 5px;
+        #edit_table,
+        #table_show-container {
+
+            /* left: 5%; */
+            background-color: white;
+            width: 100%;
+            height: 70vh;
         }
 
-        #dialog-form fieldset,
-        #dialog-add-form fieldset {
-            border: none;
-            padding: 0;
+        #table_show-container {
+            padding: 5%;
         }
 
-        #dialog-form,
-        #dialog-add-form {
-            background-color: #ffffff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .table-container {
-            max-height: 60vh;
-            /* コンテナの最大高さを画面の60%に設定 */
+        #edit_table_container,
+        #table_show {
+            width: 100%;
+            padding: 5%;
             overflow-y: auto;
-            /* 縦方向にスクロールを許可 */
-            margin-bottom: 20px;
+
         }
 
-        .table-container table {
-            width: 100%;
-            border-collapse: collapse;
+        /* フォーム内の各要素を一行に配置するためのスタイル */
+        #addDataForm label,
+        #addDataForm input,
+        #addDataForm .dropdown,
+        #addDataForm button {
+            display: inline-block;
+            margin-right: 10px;
+            /* 各要素の間に少しスペースを追加 */
+            vertical-align: middle;
+            /* 中央揃え */
         }
 
-        .table-container thead {
-            display: table;
-            width: 100%;
-            table-layout: fixed;
-            /* 列の幅を固定 */
-            background-color: #f1f1f1;
-            /* ヘッダーの背景色 */
-        }
-
-        .table-container tbody {
-            display: block;
-            max-height: 60vh;
-            /* tbodyの最大高さをコンテナに合わせる */
-            overflow-y: auto;
-            /* tbodyにスクロールバーを表示 */
-            width: 100%;
-        }
-
-        .table-container tbody tr {
-            display: table;
-            table-layout: fixed;
-            width: 100%;
-        }
-
-        .table-container th,
-        .table-container td {
-            padding: 8px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-
-        .table-container th {
-            background-color: #f2f2f2;
-            position: sticky;
-            top: 0;
-            /* スクロールしてもtheadが固定される */
-            z-index: 1;
-            /* z-indexでtheadを優先表示 */
-        }
-
-        /* ドロップダウンメニューの基本スタイル */
-        .dropdown {
-            margin: 10px 0;
-        }
-
+        /* セレクトボックスの高さを他の入力と合わせる */
         .dropdown select {
+            height: 36px;
+            /* 他のinput要素と高さを揃える */
+            padding: 5px;
+        }
+
+        .chart-container,
+        .table-container,
+        .edit-container {
+            display: none;
+        }
+
+        .active-content {
+            display: block;
+        }
+
+        /* グラフの高さをウィンドウの高さの80%に設定 */
+        .chart-container {
+            width: 100%;
+            height: 70vh;
+            /* ウィンドウの高さの80% */
+        }
+
+        canvas {
+            width: 100%;
+            height: 100% !important
+                /* コンテナの高さに合わせる */
+        }
+
+        /* タブのデザイン */
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+            border-top: 1px solid #ddd;
+        }
+
+        .tab-bar button {
+            flex-grow: 1;
             padding: 10px;
+            background-color: #ffffff;
+            border: none;
+            border-top: 2px solid transparent;
+            cursor: pointer;
             font-size: 16px;
-            width: 200px;
+            color: #555;
+        }
+
+        .tab-bar button.active {
+            border-top: 2px solid #007bff;
+            color: #007bff;
+        }
+
+        /* モバイル向けにフォーカス時のボタン */
+        .tab-bar button:focus {
+            outline: none;
+        }
+
+        #editTable {
+            width: 100%;
         }
