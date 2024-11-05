@@ -316,7 +316,7 @@
         <!-- 血糖部分: contenteditable -->
         <td contenteditable="true">${label.sugar}</td>
 
-        <td><button class="delete-btn" onclick="deletepressure(${String(datePart)},${label.period})">delete</button></td>
+        <td><button class="delete-btn" onclick="deleteData(${String(datePart)},${label.period})">delete</button></td>
     </tr>`;
 
 
@@ -381,7 +381,7 @@
                 .always(() => $(".loader").hide());
         }
 
-        function deletesugar(_date, _period) {
+        function deleteData(_date, _period) {
             console.log(_date + " " + _period)
             $(".loader").show();
             $.ajax(
@@ -412,7 +412,7 @@
         function updateChart(data) {
             const labels = [];
             const sugarData = [];
-            const tableBody = $('#sugarTable tbody');
+            const tableBody = $('#table tbody');
             tableBody.empty(); // テーブルをクリア
 
             // 日にち順にdataを並び替える
