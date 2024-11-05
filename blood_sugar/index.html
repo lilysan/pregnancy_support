@@ -420,9 +420,9 @@
                         console.log(response);
                         alert(response.message)
                     } else {
-                        console.log(typeof item.date)
-                        console.log(typeof _date)
                         allData = allData.filter(item => !(item.date === _date && item.period === _period));
+                        updateChart(allData)
+                        populateTable("edit-container")
                         $(".loader").hide();
                     }
                 })
