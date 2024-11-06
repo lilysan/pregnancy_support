@@ -253,7 +253,8 @@
 
                     const row = `<tr>
                             <!-- 日付部分: datepickerを使用 -->
-                            <td class="date-picker">${String(datePart)}</td>
+                            <td class="date-picker">${String(datePart).split(" ")[0]}</td>
+                            <td class="time-picker">${String(datePart).split(" ")[1]}</td>
 
                             <!-- 体重部分: contenteditable -->
                             <td class="weight1">${label.weight}</td>
@@ -275,7 +276,7 @@
 
 
                 let before_dateValue
-                let before_periodValue
+                let before_timeValue
                 let before_weightValue
 
                 editButtons.forEach((button) => {
@@ -284,12 +285,14 @@
 
                         // 元の値を取得してダイアログに設定
                         const dateValue = currentRow1.querySelector(".date-picker").innerText;
+                        const timeValue = currentRow1.querySelector(".time-picker").innerText;
+
                         const weightValue = currentRow1.querySelector(".weight1").innerText;
 
                         document.getElementById("editDate").value = dateValue;
                         document.getElementById("editWeight").value = weightValue;
 
-                        before_dateValue = dateValue
+                        before_dateValue = dateValue + " " + timeValue
                         before_weightValue = weightValue
                         // ダイアログを表示
                         dialog.style.display = "block";
@@ -300,10 +303,12 @@
                 // 保存ボタンの処理
                 document.getElementById("saveButton").addEventListener("click", () => {
                     const newDate = document.getElementById("editDate").value;
+                    const newTime = document.getElementById("edit-time2").value;
                     const newWeight = document.getElementById("editWeight").value;
 
                     // 値を更新
                     currentRow1.querySelector(".date-picker").innerText = newDate;
+                    currentRow1.querySelector(".time-picker").innerText = newTime;
                     currentRow1.querySelector(".weight1").innerText = newWeight;
 
                     // ダイアログを閉じる
@@ -517,8 +522,9 @@
                 populateTable("table-container"); // テーブルを更新
                 populateTable("edit-container");
                 // フォームのリセット
-                document.getElementById('date').value = '';
-                document.getElementById('sugar').value = '';
+                document.getElementById('weightdate').value = '';
+                document.getElementById('edit-time').value = '';
+                document.getElementById('weight').value = '';
             } else {
                 alert('すべてのフィールドに値を入力してください。');
             }
