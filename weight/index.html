@@ -398,7 +398,7 @@
                         alert(response.message)
                     } else {
                         console.log("できたよ");
-                        allData = allData.filter(item => !(item.datetime === _datetime && item.weight === _weight));
+                        allData = allData.filter(item => !(item.datetime === _date && item.weight === _weight));
                         currentRow1.remove();
                         updateChart(allData)
                         populateTable("edit-container")
