@@ -328,6 +328,9 @@
             event.currentTarget.classList.add('active');
         }
 
+        // 変更があった行を追跡するための配列
+        let modifiedRows = [];
+
         // データをテーブルに表示する関数
         function populateTable(id) {
             console.log(id)
@@ -400,9 +403,9 @@
                     const newSugar = document.getElementById("editSugar").value;
 
                     // 値を更新
-                    currentRow.querySelector(".datepicker2").innerText = newDate;
-                    currentRow.querySelector(".periodpicker").innerText = newPeriod;
-                    currentRow.querySelector(".sugar2").innerText = newSugar;
+                    currentRow.querySelector(".datepicker").innerText = newDate;
+                    currentRow.querySelector(".period-select").innerText = newPeriod;
+                    currentRow.querySelector(".sugar1").innerText = newSugar;
 
                     // ダイアログを閉じる
                     dialog.style.display = "none";
