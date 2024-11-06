@@ -345,24 +345,14 @@
 
                     const row = `<tr>
         <!-- 日付部分: datepickerを使用 -->
-        <td><input type="text" class="date-picker" value="${String(datePart)}" placeholder="日付を選択"></td>
+        <td class="date-picker">${String(datePart)}</td>
 
         <!-- 朝/夜部分: ドロップダウンで選択 -->
-        <td>
-            <select class="period-select">
-                <option value="1" ${periodPart === '朝前' ? 'selected' : ''}>朝前</option>
-                <option value="2" ${periodPart === '朝後' ? 'selected' : ''}>朝後</option>
-                <option value="3" ${periodPart === '昼前' ? 'selected' : ''}>昼前</option>
-                <option value="4" ${periodPart === '昼後' ? 'selected' : ''}>昼後</option>
-                <option value="5" ${periodPart === '夕前' ? 'selected' : ''}>夕前</option>
-                <option value="6" ${periodPart === '夕後' ? 'selected' : ''}>夕後</option>
-                <option value="7" ${periodPart === '眠前' ? 'selected' : ''}>眠前</option>
-            
-                </select>
+        <td class="period-select">${periodPart}
         </td>
 
         <!-- 血糖部分: contenteditable -->
-        <td contenteditable="true">${label.sugar}</td>
+        <td class="sugar1">${label.sugar}</td>
 
         <td><button class="edit-btn">edit</button></td>
     </tr>`;
@@ -389,10 +379,9 @@
                         currentRow = this.closest("tr");
 
                         // 元の値を取得してダイアログに設定
-                        const dateValue = currentRow.querySelector(".date-picker").value;
-                        const periodValue = currentRow.querySelector(".period-select").value;
-                        const sugarValue = currentRow.querySelector("td[contenteditable='true']")
-                            .innerText;
+                        const dateValue = currentRow.querySelector(".date-picker").innerText;
+                        const periodValue = currentRow.querySelector(".period-select").innerText;
+                        const sugarValue = currentRow.querySelector(".sugar1").innerText;
 
                         document.getElementById("editDate").value = dateValue;
                         document.getElementById("editPeriod").value = periodValue;
