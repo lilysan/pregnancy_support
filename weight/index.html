@@ -11,208 +11,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../kokimastyle.css">
+
     <style>
-        body,
-        html {
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #fce4ec;
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-        }
 
-        h1 {
-            color: #ad1457;
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-
-        #chart-container1 {
-            overflow-x: auto;
-            height: 40%;
-            width: 100%;
-        }
-
-
-        #table-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 10px 0;
-            height: 40%;
-        }
-
-        #chart-container {
-            width: 100%;
-            height: 100%;
-        }
-
-        #chart-container canvas {
-            width: 100% !important;
-        }
-
-        #weightTable {
-            background-color: #ffffff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            margin: 0 auto;
-            width: 90%;
-        }
-
-        #weightTable th {
-            background-color: #f8bbd0;
-            color: #880e4f;
-            padding: 10px;
-            text-align: center;
-        }
-
-        #weightTable td {
-            padding: 10px;
-            text-align: center;
-            border-top: 1px solid #f8bbd0;
-        }
-
-        table,
-        th,
-        td {
-            border: none;
-        }
-
-        .edit-btn {
-            border: none;
-            background-color: #077ba1;
-            color: white;
-            border-radius: 20px;
-            padding: 5px 10px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .edit-btn:hover {
-            background-color: #4340ec;
-        }
-
-        .delete-btn {
-            border: none;
-            background-color: #f50505;
-            color: white;
-            border-radius: 20px;
-            padding: 5px 10px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .delete-btn:hover {
-            background-color: #ec407a;
-        }
-
-        #add-row-btn {
-            margin: 20px 0;
-            background-color: #f48fb1;
-            border: none;
-            color: white;
-            border-radius: 50px;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        #add-row-btn:hover {
-            background-color: #ec407a;
-        }
-
-        #dialog-form label,
-        #dialog-add-form label {
-            display: block;
-            margin-top: 10px;
-            color: #880e4f;
-        }
-
-        #dialog-form input,
-        #dialog-add-form input {
-            width: calc(100% - 20px);
-            padding: 8px;
-            margin-top: 5px;
-            border: 2px solid #f48fb1;
-            border-radius: 5px;
-        }
-
-        #dialog-form fieldset,
-        #dialog-add-form fieldset {
-            border: none;
-            padding: 0;
-        }
-
-        #dialog-form,
-        #dialog-add-form {
-            background-color: #ffffff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .table-container {
-            max-height: 60vh;
-            /* コンテナの最大高さを画面の60%に設定 */
-            overflow-y: auto;
-            /* 縦方向にスクロールを許可 */
-            margin-bottom: 20px;
-        }
-
-        .table-container table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .table-container thead {
-            display: table;
-            width: 100%;
-            table-layout: fixed;
-            /* 列の幅を固定 */
-            background-color: #f1f1f1;
-            /* ヘッダーの背景色 */
-        }
-
-        .table-container tbody {
-            display: block;
-            max-height: 60vh;
-            /* tbodyの最大高さをコンテナに合わせる */
-            overflow-y: auto;
-            /* tbodyにスクロールバーを表示 */
-            width: 100%;
-        }
-
-        .table-container tbody tr {
-            display: table;
-            table-layout: fixed;
-            width: 100%;
-        }
-
-        .table-container th,
-        .table-container td {
-            padding: 8px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-
-        .table-container th {
-            background-color: #f2f2f2;
-            position: sticky;
-            top: 0;
-            /* スクロールしてもtheadが固定される */
-            z-index: 1;
-            /* z-indexでtheadを優先表示 */
-        }
     </style>
 </head>
 
 <body>
-    <div class="loader"></div>
+    <div class="loader" style="display: none;"></div>
     <div class="text-center">
         <div class="spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
@@ -221,61 +28,72 @@
     </div>
 
     <h1 class="title_weight">体重カウンター</h1>
-    <div id="chart-container1">
-        <div id="chart-container">
-            <canvas id="weightChart"></canvas>
-        </div>
+
+    <form id="addDataForm">
+        <label for="date">日時:</label>
+        <input type="text" id="weightdate" placeholder="日付を選択"><br>
+        <label for="weight">体重:</label>
+        <input type="number" id="weight" placeholder="体重"><br>
+        <button type="button" onclick="addData()">データを追加</button>
+    </form>
+
+
+    <div id="chart-container" class="chart-container active-content">
+        <canvas id="weightChart"></canvas>
     </div>
-    <div id="table-container" class="table-container">
-        <table id="weightTable">
+
+    <div id="table-container" class="table-container content">
+        <table id="table">
             <thead>
                 <tr>
-                    <th class="tr_date">日にち</th>
-                    <th class="tr_time">時間</th>
-                    <th class="tr_weight">体重</th>
-                    <th class="btn_edit">編集</th>
+                    <th class="tr_date">日時</th>
+                    <th class="tr_weight">体重(kg)</th>
                 </tr>
             </thead>
             <tbody>
-
             </tbody>
         </table>
     </div>
-    <button id="add-row-btn" class="btn_add">体重を記録</button>
 
-    <div id="dialog-form" title="編集" style="display:none;">
-        <form>
-            <fieldset>
-                <label for="edit-date" class="tr_date">日にち</label>
-                <input type="text" name="edit-date" id="edit-date" value="">
-                <label for="edit-time" class="tr_time">時間</label>
-                <input type="text" name="edit-time" id="edit-time" value="">
-                <label for="edit-weight" class="tr_weight">体重</label>
-                <input type="number" name="edit-weight" id="edit-weight" value="">
-                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-            </fieldset>
+    <div id="edit-container" class="edit-container content">
+        <div id="edit_table">
+            <div id="edit_table_container">
+                <!-- データ編集テーブル -->
+                <table id="editTable">
+                    <thead>
+                        <tr>
+                            <th>日時</th>
+                            <th>体重(kg)</th>
+                            <th>edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ダイアログ -->
+    <div id="editDialog" style="display:none;">
+        <form id="editForm">
+            <label for="editDate">日時:</label>
+            <input type="text" id="editDate2" class="weightdate2"><br><br>
+
+            <label for="editWeight">体重 (kg):</label>
+            <input type="number" id="editWeight" class="sugar2"><br><br>
+
+            <button type="button" id="saveButton">保存</button>
+            <button type="button" id="cancelButton">キャンセル</button>
+            <button type="button" id="deleteButton">削除</button>
         </form>
     </div>
 
-    <div id="dialog-delete" style="display:none;">
-        <p id="delete1"></p>
-        <p id="delete2"></p>
-        <p id="delete3"></p>
-        <span class="confirm_delete">データを削除します</span>
-    </div>
-
-    <div id="dialog-add-form" title="追加" style="display:none;">
-        <form>
-            <fieldset>
-                <label for="add-date" class="tr_date">日にち</label>
-                <input type="text" name="add-date" id="add-date" value="">
-                <label for="add-time" class="tr_time">時間</label>
-                <input type="text" name="add-time" id="add-time" value="">
-                <label for="add-weight" class="tr_weight">体重</label>
-                <input type="number" name="add-weight" id="add-weight" value="">
-                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-            </fieldset>
-        </form>
+    <!-- 下部タブメニュー -->
+    <div class="tab-bar">
+        <button class="tab-button active" onclick="switchTab('chart-container', event)">グラフ</button>
+        <button class="tab-button" onclick="switchTab('table-container', event)">テーブル</button>
+        <button class="tab-button" onclick="switchTab('edit-container', event)">編集</button>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -354,11 +172,6 @@
 
 
 
-
-
-
-
-
         const getAccessObj = (data) => {
             return {
                 url: API_URL,
@@ -413,6 +226,139 @@
                 alert("Network error!");
             });
         }
+
+        let currentRow1; // 編集中の行を記憶
+
+
+
+        function populateTable(id) {
+            console.log(id)
+            var tableBody;
+            if (id == "edit-container") {
+                tableBody = document.querySelector('#editTable tbody');
+                tableBody.innerHTML = ''; // テーブルをクリア
+
+                allData.forEach((label, index) => {
+                    const datePart = String(label.datetime); // 日付部分
+
+                    const row = `<tr>
+                            <!-- 日付部分: datepickerを使用 -->
+                            <td class="date-picker">${String(datePart)}</td>
+
+                            <!-- 体重部分: contenteditable -->
+                            <td class="weight1">${label.weight}</td>
+
+                            <td><button class="edit-btn">edit</button></td>
+                        </tr>`;
+
+
+                    tableBody.insertAdjacentHTML('beforeend', row);
+                    $(".date-picker").datepicker({
+                        dateFormat: 'yy-mm-dd HH:mm'
+                    });
+                });
+
+
+
+                const editButtons = document.querySelectorAll(".edit-btn");
+                const dialog = document.getElementById("editDialog");
+
+
+                let before_dateValue
+                let before_periodValue
+                let before_weightValue
+
+                editButtons.forEach((button) => {
+                    button.addEventListener("click", function () {
+                        currentRow1 = this.closest("tr");
+
+                        // 元の値を取得してダイアログに設定
+                        const dateValue = currentRow1.querySelector(".date-picker").innerText;
+                        const weightValue = currentRow1.querySelector(".weight1").innerText;
+
+                        document.getElementById("editDate").value = dateValue;
+                        document.getElementById("editWeight").value = weightValue;
+
+                        before_dateValue = dateValue
+                        before_weightValue = weightValue
+                        // ダイアログを表示
+                        dialog.style.display = "block";
+
+                    });
+                });
+
+                // 保存ボタンの処理
+                document.getElementById("saveButton").addEventListener("click", () => {
+                    const newDate = document.getElementById("editDate").value;
+                    const newWeight = document.getElementById("editWeight").value;
+
+                    // 値を更新
+                    currentRow1.querySelector(".date-picker").innerText = newDate;
+                    currentRow1.querySelector(".weight1").innerText = newWeight;
+
+                    // ダイアログを閉じる
+                    dialog.style.display = "none";
+
+                    deleteData(before_dateValue, before_weightValue)
+                    setWeight(newWeight, newDate)
+
+                    allData = allData.filter(item => !(item.datetime === before_dateValue && item.weight ===
+                        dataArray.indexOf(before_weightValue)));
+
+                    console.log(before_dateValue)
+                    console.log(before_weightValue)
+
+                    allData.push({
+                        datetime: newDate,
+                        weight: newWeight,
+                    })
+
+                });
+
+                // キャンセルボタンの処理
+                document.getElementById("cancelButton").addEventListener("click", () => {
+                    // ダイアログを閉じる
+                    dialog.style.display = "none";
+                });
+
+                // 削除ボタンの処理
+                document.getElementById("deleteButton").addEventListener("click", () => {
+                    deleteData(before_dateValue, before_weightValue)
+
+                    // ダイアログを閉じる
+                    dialog.style.display = "none";
+                });
+
+            }
+
+
+
+            if (id == "table-container") {
+                tableBody = document.querySelector('#table tbody');
+                tableBody.innerHTML = ''; // テーブルをクリア
+
+                allData.forEach((label, index) => {
+                    const row = `<tr>
+        <!-- 日付部分: datepickerを使用 -->
+        <td>${label.datetime}</td>
+
+        <!-- 最高血圧部分: contenteditable -->
+        <td >${label.weight}</td>
+
+    </tr>`;
+
+
+                    tableBody.insertAdjacentHTML('beforeend', row);
+                    $(".date-picker").datepicker({
+                        dateFormat: 'yy-mm-dd HH:mm'
+                    });
+                });
+            }
+
+        }
+
+
+
 
         function setWeight(_weight, _date) {
             $(".loader").show();
@@ -487,31 +433,7 @@
 
             data.forEach(item => {
                 const dateTime = new Date(item.datetime);
-                const date = dateTime.toLocaleDateString('ja-JP');
-                const time = dateTime.toLocaleTimeString('ja-JP', {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
                 const weight = item.weight;
-
-                const formattedDateTime = new Date(item.datetime).toLocaleString("ja-JP", {
-                    year: 'numeric',
-                    month: 'numeric',
-                    day: 'numeric',
-                    hour: 'numeric',
-                    minute: 'numeric',
-                    second: 'numeric'
-                });
-
-                // テーブルに行を追加
-                const newRow = `<tr time="${formattedDateTime}">
-                <td>${date}</td>
-                <td>${time}</td>
-                <td>${weight}</td>
-                <td><button class="edit-btn">edit</button><button class="delete-btn">delete</button></td>
-            </tr>`;
-                tableBody.append(newRow);
-
                 // グラフ用のデータに追加
                 labels.push(dateTime);
                 weightData.push(weight);
@@ -524,7 +446,6 @@
             weightChart.data.labels = labels;
             weightChart.data.datasets[0].data = weightData;
             weightChart.update();
-            bindEditButtons();
         }
 
         function sortTable() {
@@ -541,175 +462,14 @@
             });
         }
 
-        function bindEditButtons() {
-            $(".edit-btn").off("click").on("click", function () {
-                const row = $(this).closest('tr');
-                const date = row.find('td').eq(0).text();
-                const time = row.find('td').eq(1).text();
-                const weight = row.find('td').eq(2).text();
-                const id = row.attr('time');
-                $("#edit-date").val(date);
-                $("#edit-time").val(time);
-                $("#edit-weight").val(weight);
-
-
-                $("#dialog-form").dialog({
-                    modal: true,
-                    buttons: {
-                        "Save": function () {
-                            const newDate = $("#edit-date").val();
-                            const newTime = $("#edit-time").val();
-                            const newWeight = $("#edit-weight").val();
-
-                            if (newDate === "" || newTime === "" || newWeight === "") {
-                                alert("すべてのフィールドに値を入力してください。/All fields must be filled in.");
-                                return;
-                            }
-                            row.find('td').eq(0).text($("#edit-date").val());
-                            row.find('td').eq(1).text($("#edit-time").val());
-                            row.find('td').eq(2).text($("#edit-weight").val());
-
-
-                            // `data` 配列内の対応するアイテムを更新
-                            const dateTimeStr_new = `${newDate} ${newTime}`;
-                            const dataIndex = allData.findIndex(item => {
-                                return id === item.datetime
-                                //return itemDateTime.getTime() === dateTime.getTime();
-                            });
-
-                            if (dataIndex !== -1) {
-                                // `data` の該当アイテムを更新
-                                allData[dataIndex].datetime = dateTimeStr_new;
-                                allData[dataIndex].weight = parseFloat(newWeight);
-                                setWeight(parseFloat(newWeight), dateTimeStr_new)
-                            } else {
-                                deleteWeight(id)
-                                setWeight(parseFloat(newWeight), dateTimeStr_new)
-                                alldata.push({
-                                    weight: parseFloat(newWeight),
-                                    datetime: dateTimeStr_new
-                                })
-                            }
-                            sortTable();
-                            updateChart(allData);
-
-
-                            $(this).dialog("close");
-                        },
-                        "Cancel": function () {
-                            $(this).dialog("close");
-                        }
-                    }
-                });
-            });
-            $(".delete-btn").off("click").on("click", function () {
-                const row = $(this).closest('tr');
-                const date = row.find('td').eq(0).text();
-                const time = row.find('td').eq(1).text();
-                const weight = row.find('td').eq(2).text();
-                const id = row.attr('time');
-                $("#delete1").val(date);
-                $("#delete2").val(time);
-                $("#delete3").val(weight);
-
-                $("#dialog-delete").dialog({
-                    modal: true,
-                    buttons: {
-                        "Cancel": function () {
-                            $(this).dialog("close");
-                        },
-                        "Delete": function () {
-                            deleteWeight(id);
-
-                            allData = allData.filter(item => item.datetime !== id);
-
-                            // テーブルとチャートを更新
-                            sortTable();
-                            updateChart(allData);
-                            $(this).dialog("close");
-                        }
-                    }
-                });
-
-            });
-        }
-
-        bindEditButtons();
-
-        $("#edit-date").datepicker({
-            dateFormat: "yy-mm-dd"
+        $("#weightdate").datepicker({
+            dateFormat: "yy-mm-dd HH:mm"
         });
-        $("#edit-time").timepicker({
-            timeFormat: 'H:i',
-            interval: 30,
-            dynamic: false,
-            dropdown: true,
-            scrollbar: true
-        });
-        $("#add-date").datepicker({
-            dateFormat: "yy/mm/dd"
-        });
-        $("#add-time").timepicker({
-            timeFormat: 'H:i',
-            interval: 30,
-            dynamic: false,
-            dropdown: true,
-            scrollbar: true
-        });
-
-        $("#add-row-btn").on("click", function () {
-
-            const now = new Date();
-
-            // 年、月、日、時間、分、秒を取得
-            const year = now.getFullYear();
-            const month = now.getMonth() + 1; // getMonth() は 0 が1月なので +1 する
-            const day = now.getDate();
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const seconds = now.getSeconds();
-
-            $("#add-date").val(`${year}/${month}/${String(day).padStart(2, '0')}`);
-            $("#add-time").val(`${hours}:${String(minutes).padStart(2, '0')}`);
-
-
-
-            $("#dialog-add-form").dialog({
-                modal: true,
-                buttons: {
-                    "追加": function () {
-
-                        const newDate = $("#add-date").val();
-                        const newTime = $("#add-time").val();
-                        const newWeight = $("#add-weight").val();
-
-                        if (newDate === "" || newTime === "" || newWeight === "") {
-                            alert("すべてのフィールドに値を入力してください。");
-                            return;
-                        }
-
-                        const formattedDateTime1 =
-                            `${newDate} ${newTime}:${String(seconds).padStart(2, '0')}`;
-                        console.log(formattedDateTime1)
-                        allData.push({
-                            datetime: formattedDateTime1,
-                            weight: newWeight
-                        });
-
-                        bindEditButtons();
-                        sortTable();
-                        updateChart(allData);
-                        setWeight(parseFloat(newWeight), formattedDateTime1)
-
-                        $(this).dialog("close");
-                    },
-                    "キャンセル": function () {
-                        $(this).dialog("close");
-                    }
-                }
-            });
+        $("#editDate2").datepicker({
+            dateFormat: "yy-mm-dd HH:mm"
         });
     </script>
+    <script src="../commonkokima.js"></script>
 </body>
 
 </html>
