@@ -1,664 +1,185 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sugar Tracker</title>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../kokimastyle.css">
-
-    <style>
-        div#editDialog {
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            transform: translateX(-50%) translateY(-50%);
-            background: #66666666;
-            width: 100%;
+ body {
+            overflow: hidden;
             height: 100%;
-        }
-
-        #editForm {
-            margin: 40% auto;
-            width: 81%;
-            padding: 49px;
-            background: white;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="loader" style="display: none;">
-        <div class="text-center">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
-    </div>
-    <h1 class="title_sugar">血糖カウンター</h1>
-
-    <form id="addDataForm">
-        <label for="date">日付:</label>
-        <input type="text" id="date" placeholder="日付を選択"><br>
-        <label for="date">時間:</label>
-        <section class="dropdown">
-            <select id="periodSelect">
-                <option value="1">朝前</option>
-                <option value="2">朝後</option>
-                <option value="3">昼前</option>
-                <option value="4">昼後</option>
-                <option value="5">夕前</option>
-                <option value="6">夕後</option>
-                <option value="7">眠前</option>
-            </select>
-        </section><br>
-        <label for="sugar">血糖</label>:</label>
-        <input type="number" id="sugar" placeholder="血糖"><br>
-        <button type="button" onclick="addData()">データを追加</button>
-    </form>
-
-
-    <div id="chart-container" class="chart-container active-content">
-        <canvas id="sugarChart"></canvas>
-    </div>
-
-    <div id="table-container" class="table-container content">
-        <table id="table">
-            <thead>
-                <tr>
-                    <th class="tr_date">日にち</th>
-                    <th class="tr_time">時間</th>
-                    <th class="tr_sugar">血糖 (mg/dl)</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
-
-
-    <div id="edit-container" class="edit-container content">
-        <div id="edit_table">
-            <div id="edit_table_container">
-                <!-- データ編集テーブル -->
-                <table id="editTable">
-                    <thead>
-                        <tr>
-                            <th>日付</th>
-                            <th>時間帯</th>
-                            <th>血糖 (mg/dl)</th>
-                            <th>edit</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- ダイアログ -->
-    <div id="editDialog" style="display:none;">
-        <form id="editForm">
-            <label for="editDate">日付:</label>
-            <input type="text" id="editDate"><br><br>
-
-            <label for="editPeriod">時間帯:</label>
-            <select id="editPeriod">
-                <option value="1">朝前</option>
-                <option value="2">朝後</option>
-                <option value="3">昼前</option>
-                <option value="4">昼後</option>
-                <option value="5">夕前</option>
-                <option value="6">夕後</option>
-                <option value="7">眠前</option>
-            </select><br><br>
-
-            <label for="editSugar">血糖 (mg/dl):</label>
-            <input type="number" id="editSugar"><br><br>
-
-            <button type="button" id="saveButton">保存</button>
-            <button type="button" id="cancelButton">キャンセル</button>
-            <button type="button" id="deleteButton">削除</button>
-        </form>
-    </div>
-
-    <!-- 下部タブメニュー -->
-    <div class="tab-bar">
-        <button class="tab-button active" onclick="switchTab('chart-container', event)">グラフ</button>
-        <button class="tab-button" onclick="switchTab('table-container', event)">テーブル</button>
-        <button class="tab-button" onclick="switchTab('edit-container', event)">編集</button>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.21.1/dist/date-fns.min.js"></script>
-    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-
-    <script>
-        const API_URL =
-            "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
-        const LIFF_ID = "2005594923-wN8OjyGd";
-        var allData = [];
-        var token;
-        var dataArray = ["", "朝前", "朝後", "昼前", "昼後", "夕前", "夕後", "眠前"]
-        var dataArray2 = ["", " 6:00", "7:00", "12:00", "13:00", "18:00", "19:00", "24:00"]
-
-        const ctx = document.getElementById('sugarChart').getContext('2d');
-        sugarChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: '血糖/sugar',
-                    data: [],
-                    borderColor: 'blue',
-                    borderWidth: 1,
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true, // ここを追加
-                maintainAspectRatio: false, // ここを追加
-                scales: {
-                    x: {
-                        type: 'time',
-                        time: {
-                            unit: 'day',
-                            displayFormats: {
-                                day: 'yyyy-MM-dd'
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: '日にち/Date'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: '血糖/sugar'
-                        }
-                    }
-                }
-            }
-        });
-
-
-        liff.init({
-            liffId: LIFF_ID, // Use own liffId
-            withLoginOnExternalBrowser: true, // Enable automatic login process
-        }).then(() => {
-            // Start to use liff's api
-            const idToken = liff.getIDToken();
-            const lang = liff.getAppLanguage();
-
-            changeLanguage(lang);
-            token = idToken;
-            allData = loadsugarData(idToken);
-
-
-        }).catch((err) => {
-            // Error happens during initialization
-            liff.logout();
-            alert("LIFF init failed.");
-        });
-
-        /*
-
-                response = {
-                    "statusCode": 200,
-                    "data": {
-                        "items": [{
-                            "date": "2024/9/2",
-                            "period": 2,
-                            "sugar": 110
-                        }, {
-                            "date": "2024/9/2",
-                            "period": 3,
-                            "sugar": 130
-                        }, {
-                            "date": "2024/9/2",
-                            "period": 5,
-                            "sugar": 120
-                        }, {
-                            "date": "2024/9/3",
-                            "period": 6,
-                            "sugar": 160
-                        }],
-                        "lang": "ja"
-                    }
-                }
-                allData = response.data.items
-                updateChart(response.data.items)
-        */
-
-
-
-        const getAccessObj = (data) => {
-            return {
-                url: API_URL,
-                type: "POST",
-                dataType: "json",
-                data: JSON.stringify(data),
-                timeout: 30000,
-            }
-        }
-
-        function changeLanguage(lang) {
-            const knownLang = ["ja", "en"];
-            lang = knownLang.includes(lang) ? lang : "en";
-
-            $.getJSON("lang.json", (data) => {
-                $.each(data, function (index, val) {
-                    const elm = $("." + val.class);
-                    if (elm.length) {
-                        if (val.type === "docs") {
-                            elm.html(val[lang]);
-                        }
-                    }
-                });
-            });
-        }
-        var sugarChart;
-        var data;
-
-
-        function loadsugarData(idToken) {
-            $(".loader").show();
-            $.ajax(
-                getAccessObj({
-                    path: "sugar",
-                    method: "get",
-                    idToken: idToken
-                })
-            ).done(function (response) {
-                $(".loader").hide();
-                if (response.statusCode === 401) {
-                    liff.logout();
-                    window.location.reload();
-                } else if (response.statusCode !== 200) {
-                    console.error(response.message);
-                    alert(response.message)
-                } else {
-
-                    allData = response.data.items
-                    updateChart(response.data.items); // チャートとテーブルを更新
-
-                    return response.data.items
-                }
-            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("Network error!");
-            });
-        }
-
-
-
-
-
-        // タブ切り替えの処理
-        function switchTab(contentId, event) {
-            id = contentId;
-            if (contentId != "chart-container") {
-                populateTable(contentId)
-            } else {
-                updateChart(allData);
-            }
-            // すべてのコンテンツを非表示にする
-            document.querySelectorAll('.chart-container, .table-container, .edit-container').forEach(content => {
-                content.classList.remove('active-content');
-            });
-
-            // 選択されたコンテンツを表示する
-            document.getElementById(contentId).classList.add('active-content');
-
-            // タブのアクティブ状態を変更する
-            const buttons = document.querySelectorAll('.tab-bar button');
-            buttons.forEach(button => {
-                button.classList.remove('active');
-            });
-            event.currentTarget.classList.add('active');
-        }
-
-        // 変更があった行を追跡するための配列
-        let modifiedRows = [];
-
-        // データをテーブルに表示する関数
-        function populateTable(id) {
-            console.log(id)
-            var tableBody;
-            if (id == "edit-container") {
-                tableBody = document.querySelector('#editTable tbody');
-                tableBody.innerHTML = ''; // テーブルをクリア
-
-                allData.forEach((label, index) => {
-                    const datePart = String(label.date); // 日付部分
-                    const periodPart = label.period; // 朝/夜部分
-
-                    const row = `<tr>
-        <!-- 日付部分: datepickerを使用 -->
-        <td class="date-picker">${String(datePart)}</td>
-
-        <!-- 朝/夜部分: ドロップダウンで選択 -->
-        <td class="period-select">${periodPart}
-        </td>
-
-        <!-- 血糖部分: contenteditable -->
-        <td class="sugar1">${label.sugar}</td>
-
-        <td><button class="edit-btn">edit</button></td>
-    </tr>`;
-
-
-                    tableBody.insertAdjacentHTML('beforeend', row);
-                    $(".date-picker").datepicker({
-                        dateFormat: 'yy-mm-dd'
-                    });
-                });
-
-
-
-                const editButtons = document.querySelectorAll(".edit-btn");
-                const dialog = document.getElementById("editDialog");
-                let currentRow; // 編集中の行を記憶
-
-                let before_dateValue
-                let before_periodValue
-                let before_sugarValue
-
-                editButtons.forEach((button) => {
-                    button.addEventListener("click", function () {
-                        currentRow = this.closest("tr");
-
-                        // 元の値を取得してダイアログに設定
-                        const dateValue = currentRow.querySelector(".date-picker").innerText;
-                        const periodValue = currentRow.querySelector(".period-select").innerText;
-                        const sugarValue = currentRow.querySelector(".sugar1").innerText;
-
-                        document.getElementById("editDate").value = dateValue;
-                        document.getElementById("editPeriod").value = periodValue;
-                        document.getElementById("editSugar").value = sugarValue;
-
-                        before_dateValue = dateValue
-                        before_periodValue = periodValue
-                        before_sugarValue = sugarValue
-                        // ダイアログを表示
-                        dialog.style.display = "block";
-
-                    });
-                });
-
-                // 保存ボタンの処理
-                document.getElementById("saveButton").addEventListener("click", () => {
-                    const newDate = document.getElementById("editDate").value;
-                    const newPeriod = document.getElementById("editPeriod").value;
-                    const newSugar = document.getElementById("editSugar").value;
-
-                    // 値を更新
-                    currentRow.querySelector(".date-picker").innerText = newDate;
-                    currentRow.querySelector(".period-select").innerText = newPeriod;
-                    currentRow.querySelector(".sugar1").innerText = newSugar;
-
-                    // ダイアログを閉じる
-                    dialog.style.display = "none";
-
-                    deleteData(before_dateValue, before_periodValue)
-                    setsugar(newSugar, newDate, newPeriod)
-
-                    allData = allData.filter(item => !(item.date === before_dateValue && item.period ===
-                        before_periodValue));
-
-                    allData.push({
-                        date: newDate,
-                        period: newPeriod,
-                        sugar: newSugar,
-                    })
-
-                });
-
-                // キャンセルボタンの処理
-                document.getElementById("cancelButton").addEventListener("click", () => {
-                    // ダイアログを閉じる
-                    dialog.style.display = "none";
-                });
-
-                // 削除ボタンの処理
-                document.getElementById("deleteButton").addEventListener("click", () => {
-                    deleteData(before_dateValue, before_periodValue)
-                    currentRow.remove();
-                    // ダイアログを閉じる
-                    dialog.style.display = "none";
-                });
-
-            }
-
-
-
-            if (id == "table-container") {
-                tableBody = document.querySelector('#table tbody');
-                tableBody.innerHTML = ''; // テーブルをクリア
-
-                allData.forEach((label, index) => {
-                    const row = `<tr>
-        <!-- 日付部分: datepickerを使用 -->
-        <td>${label.date}</td>
-        <td>${dataArray[label.period]}</td>
-
-        <!-- 最高血圧部分: contenteditable -->
-        <td >${label.sugar}</td>
-
-    </tr>`;
-
-
-                    tableBody.insertAdjacentHTML('beforeend', row);
-                    $(".date-picker").datepicker({
-                        dateFormat: 'yy-mm-dd'
-                    });
-                });
-            }
+            width: 100%;
+            margin: 0;
+
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
 
         }
 
-        function setsugar(_sugar, _date, _period) {
-            console.log(_sugar + " " + _date + " " + _period)
-            $(".loader").show();
-            $.ajax(
-                    getAccessObj({
-                        path: "sugar",
-                        method: "post",
-                        idToken: token,
-                        postData: {
-                            date: String(_date),
-                            period: parseInt(_period),
-                            sugar: parseInt(_sugar)
-                        }
-                    })
-                ).done(function (response) {
-                    if (response.statusCode === 401) {
-                        liff.logout();
-                        window.location.reload();
-                    } else if (response.statusCode !== 200) {
-                        console.error(response.message);
-                        alert(response.message)
-                    }
-                })
-                .fail(() => alert("Network error!"))
-                .always(() => $(".loader").hide());
+        h1 {
+            color: #ad1457;
+            font-size: 1.5em;
+            margin: 10px;
+            text-align: center;
         }
 
-        function deleteData(_date, _period) {
-            console.log(String(_date) + " " + _period)
-            $(".loader").show();
-            $.ajax(
-                    getAccessObj({
-                        path: "sugar",
-                        method: "delete",
-                        idToken: token,
-                        postData: {
-                            date: String(_date),
-                            period: parseInt(_period)
-                        }
-                    })
-                ).done(function (response) {
-                    if (response.statusCode === 401) {
-                        console.log("response");
-                        liff.logout();
-                        window.location.reload();
-                    } else if (response.statusCode !== 200) {
-                        console.log(response);
-                        alert(response.message)
-                    } else {
-                        console.log("できたよ");
-                        allData = allData.filter(item => !(item.date === _date && item.period === _period));
-                        updateChart(allData)
-                        populateTable("edit-container")
-                        $(".loader").hide();
-                    }
-                })
-                .fail(() => alert("Network error!"))
-                .always(() => $(".loader").hide());
+        .chart-container {
+            width: 100%;
+            overflow-x: auto;
         }
 
-        function updateChart(data) {
-            const labels = [];
-            const sugarData = [];
-            const tableBody = $('#table tbody');
-            tableBody.empty(); // テーブルをクリア
-
-            // 日にち順にdataを並び替える
-            data.sort((a, b) => {
-                // 日付を比較するためにDateオブジェクトに変換
-                const dateA = new Date(a.date);
-                const dateB = new Date(b.date);
-
-                // 日付が異なる場合は日付順に並び替え
-                if (dateB - dateA !== 0) {
-                    return dateB - dateA;
-                }
-
-                // 日付が同じ場合は period の値で並び替え
-                return b.period - a.period;
-            });
-
-
-            data.forEach(item => {
-                const dateTime = new Date(item.date + " " + dataArray2[item.period]);
-                const date = dateTime.toLocaleDateString('ja-JP');
-                const time = item.period >= 1 && item.period < dataArray.length ? dataArray[item.period] :
-                    "Out of range";
-
-                const sugar = item.sugar;
-
-                // グラフ用のデータに追加
-                labels.push(dateTime);
-                sugarData.push(sugar);
-            });
-
-            // labelsとsugarDataを逆順にする
-            labels.reverse();
-            sugarData.reverse();
-            // チャートのデータを更新
-            sugarChart.data.labels = labels;
-            sugarChart.data.datasets[0].data = sugarData;
-            sugarChart.update();
+        form {
+            margin-top: 20px;
         }
 
-        function sortTable() {
-            const rows = $('#sugarTable tbody tr').get();
-            rows.sort(function (a, b) {
-                const keyA = new Date($(a).children('td').eq(0).text() + 'T' + $(a).children('td').eq(1)
-                    .text() + ':00');
-                const keyB = new Date($(b).children('td').eq(0).text() + 'T' + $(b).children('td').eq(1)
-                    .text() + ':00');
-                return keyA - keyB;
-            });
-            $.each(rows, function (index, row) {
-                $('#sugarTable tbody').append(row);
-            });
+        label {
+            margin-right: 10px;
         }
 
+        table {
+            margin-top: 20px;
+            table-layout: fixed;
+            /* 各列の幅を均等にする */
+            border-collapse: collapse;
+            width: 95%;
+            margin: 0 auto;
+        }
 
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
 
-        const editButtons = document.querySelectorAll(".edit-btn");
-        const dialog = document.getElementById("editDialog");
-        let currentRow; // 編集中の行を記憶
+        th,
+        td {
+            padding: 8px;
+            text-align: center;
+        }
 
-        editButtons.forEach((button) => {
-            button.addEventListener("click", function () {
-                currentRow = this.closest("tr");
+        td {
+            width: 25%;
+        }
 
-                // 元の値を取得してダイアログに設定
-                const dateValue = currentRow.querySelector(".date-picker").value;
-                const periodValue = currentRow.querySelector(".period-select").value;
-                const sugarValue = currentRow.querySelector("td[contenteditable='true']").innerText;
+        /* 日付の input フィールドと select フィールドの幅を調整 */
+        .date-picker,
+        .period-select {
+            width: 100%;
+            /* セルの幅に合わせて100%にする */
+        }
 
-                document.getElementById("editDate").value = dateValue;
-                document.getElementById("editPeriod").value = periodValue;
-                document.getElementById("editSugar").value = sugarValue;
+        button {
+            margin-top: 10px;
+        }
 
-                // ダイアログを表示
-                dialog.style.display = "block";
-            });
-        });
+        #edit_table,
+        #table_show-container {
 
+            /* left: 5%; */
+            background-color: white;
+            width: 100%;
+            height: 70vh;
+        }
 
+        #table_show-container {
+            padding: 5%;
+        }
 
+        #edit_table_container,
+        #table_show {
+            width: 100%;
+            padding: 5%;
+            overflow-y: auto;
 
-        $("#date").datepicker({
-            dateFormat: "yy-mm-dd"
-        });
-        $("#add-time").timepicker({
-            timeFormat: 'H:i',
-            interval: 30,
-            dynamic: false,
-            dropdown: true,
-            scrollbar: true
-        });
+        }
 
-        function addData() {
-            const date = document.getElementById('date').value;
-            const time = document.getElementById('periodSelect').value;
-            const sugar = parseInt(document.getElementById('sugar').value);
+        /* フォーム内の各要素を一行に配置するためのスタイル */
+        #addDataForm label,
+        #addDataForm input,
+        #addDataForm .dropdown,
+        #addDataForm button {
+            display: inline-block;
+            margin-right: 10px;
+            /* 各要素の間に少しスペースを追加 */
+            vertical-align: middle;
+            /* 中央揃え */
+        }
 
+        /* セレクトボックスの高さを他の入力と合わせる */
+        .dropdown select {
+            height: 36px;
+            /* 他のinput要素と高さを揃える */
+            padding: 5px;
+        }
 
-            const now = new Date();
+        .chart-container,
+        .table-container,
+        .edit-container {
+            display: none;
+        }
 
-            // 年、月、日、時間、分、秒を取得
-            const year = now.getFullYear();
-            const month = now.getMonth() + 1; // getMonth() は 0 が1月なので +1 する
-            const day = now.getDate();
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const seconds = now.getSeconds();
+        .active-content {
+            display: block;
+        }
 
-            // フォームの値が入力されているかチェック
-            if (date && sugar) {
-                allData.push({
-                    date: date,
-                    period: time,
-                    sugar: sugar,
-                })
-                console.log(allData)
-                setsugar(sugar, date, time)
-                updateChart(allData); // グラフを更新
-                populateTable("table-container"); // テーブルを更新
-                populateTable("edit-container");
-                // フォームのリセット
-                document.getElementById('date').value = '';
-                document.getElementById('sugar').value = '';
-            } else {
-                alert('すべてのフィールドに値を入力してください。');
-            }
-        };
-    </script>
-</body>
+        /* グラフの高さをウィンドウの高さの80%に設定 */
+        .chart-container {
+            width: 100%;
+            height: 70vh;
+            /* ウィンドウの高さの80% */
+        }
 
-</html>
+        canvas {
+            width: 100%;
+            height: 100% !important
+                /* コンテナの高さに合わせる */
+        }
+
+        /* タブのデザイン */
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+            border-top: 1px solid #ddd;
+        }
+
+        .tab-bar button {
+            flex-grow: 1;
+            padding: 10px;
+            background-color: #ffffff;
+            border: none;
+            border-top: 2px solid transparent;
+            cursor: pointer;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .tab-bar button.active {
+            border-top: 2px solid #007bff;
+            color: #007bff;
+        }
+
+        /* モバイル向けにフォーカス時のボタン */
+        .tab-bar button:focus {
+            outline: none;
+        }
+
+        #editTable {
+            width: 100%;
+        }
+ table{
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  button{
+    display: block;
+    margin: auto;
+    color: #332000;
+    /* height: 80%; */
+    width: 80%;
+    margin: 5px auto;
+    background-color: #f9cae1;
+    text-align: center;
+    padding: 5px;
+    border-radius: 20px;
+  }
