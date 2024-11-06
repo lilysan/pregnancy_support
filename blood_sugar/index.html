@@ -424,7 +424,7 @@
 
                     allData = allData.filter(item => !(item.date === before_dateValue && item.period ===
                         dataArray.indexOf(before_periodValue)));
-                        
+
                     console.log(before_dateValue)
                     console.log(dataArray.indexOf(before_periodValue))
 
@@ -444,8 +444,8 @@
 
                 // 削除ボタンの処理
                 document.getElementById("deleteButton").addEventListener("click", () => {
-                    deleteData(before_dateValue, before_periodValue)
-                    currentRow1.remove();
+                    deleteData(before_dateValue, dataArray.indexOf(before_periodValue))
+
                     // ダイアログを閉じる
                     dialog.style.display = "none";
                 });
@@ -530,6 +530,7 @@
                     } else {
                         console.log("できたよ");
                         allData = allData.filter(item => !(item.date === _date && item.period === _period));
+                        currentRow1.remove();
                         updateChart(allData)
                         populateTable("edit-container")
                         $(".loader").hide();
