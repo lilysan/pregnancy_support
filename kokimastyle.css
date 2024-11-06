@@ -166,3 +166,20 @@
         #editTable {
             width: 100%;
         }
+ table{
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  button{
+    display: block;
+    margin: auto;
+    color: #332000;
+    /* height: 80%; */
+    width: 80%;
+    margin: 5px auto;
+    background-color: #f9cae1;
+    text-align: center;
+    padding: 5px;
+    border-radius: 20px;
+  }
