@@ -375,6 +375,39 @@
         }
 
 
+        function deleteData(_date, _weight) {
+            console.log(String(_date) + " " + _weight)
+            $(".loader").show();
+            $.ajax(
+                    getAccessObj({
+                        path: "sugar",
+                        method: "delete",
+                        idToken: token,
+                        postData: {
+                            datetime: String(_date),
+                            weight: parseInt(_weight)
+                        }
+                    })
+                ).done(function (response) {
+                    if (response.statusCode === 401) {
+                        console.log("response");
+                        liff.logout();
+                        window.location.reload();
+                    } else if (response.statusCode !== 200) {
+                        console.log(response);
+                        alert(response.message)
+                    } else {
+                        console.log("できたよ");
+                        allData = allData.filter(item => !(item.datetime === _datetime && item.weight === _weight));
+                        currentRow1.remove();
+                        updateChart(allData)
+                        populateTable("edit-container")
+                        $(".loader").hide();
+                    }
+                })
+                .fail(() => alert("Network error!"))
+                .always(() => $(".loader").hide());
+        }
 
 
         function setWeight(_weight, _date) {
