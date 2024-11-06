@@ -34,7 +34,7 @@
         <input type="text" id="weightdate" placeholder="日付を選択"><br>
 
         <label for="edit-time" class="tr_time">時間</label>
-        <input type="text" name="edit-time" id="edit-time" value="">
+        <input type="text" name="edit-time" id="edit-time" value=""><br>
 
         <label for="weight">体重:</label>
         <input type="number" id="weight" placeholder="体重"><br>
@@ -473,10 +473,10 @@
         }
 
         $("#weightdate").datepicker({
-            dateFormat: "yy-mm-dd HH:mm"
+            dateFormat: "yy-mm-dd"
         });
         $("#editDate2").datepicker({
-            dateFormat: "yy-mm-dd HH:mm"
+            dateFormat: "yy-mm-dd"
         });
 
         $("#edit-time").timepicker({
@@ -502,15 +502,17 @@
 
             console.log(date)
             console.log(time)
+            aa = String(date) + " " + String(time)
+            console.log(aa)
 
             // フォームの値が入力されているかチェック
             if (date && weight && time) {
                 allData.push({
-                    datetime: time,
+                    datetime: aa,
                     weight: weight,
                 })
                 console.log(allData)
-                setWugar(weight, date, time)
+                setWeight(weight, date, time)
                 updateChart(allData); // グラフを更新
                 populateTable("table-container"); // テーブルを更新
                 populateTable("edit-container");
