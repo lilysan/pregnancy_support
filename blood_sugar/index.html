@@ -330,7 +330,7 @@
 
         // 変更があった行を追跡するための配列
         let modifiedRows = [];
-
+        let currentRow1; // 編集中の行を記憶
         // データをテーブルに表示する関数
         function populateTable(id) {
             console.log(id)
@@ -368,7 +368,7 @@
 
                 const editButtons = document.querySelectorAll(".edit-btn");
                 const dialog = document.getElementById("editDialog");
-                let currentRow; // 編集中の行を記憶
+
 
                 let before_dateValue
                 let before_periodValue
@@ -376,12 +376,12 @@
 
                 editButtons.forEach((button) => {
                     button.addEventListener("click", function () {
-                        currentRow = this.closest("tr");
+                        currentRow1 = this.closest("tr");
 
                         // 元の値を取得してダイアログに設定
-                        const dateValue = currentRow.querySelector(".date-picker").innerText;
-                        const periodValue = currentRow.querySelector(".period-select").innerText;
-                        const sugarValue = currentRow.querySelector(".sugar1").innerText;
+                        const dateValue = currentRow1.querySelector(".date-picker").innerText;
+                        const periodValue = currentRow1.querySelector(".period-select").innerText;
+                        const sugarValue = currentRow1.querySelector(".sugar1").innerText;
 
                         document.getElementById("editDate").value = dateValue;
                         document.getElementById("editPeriod").value = periodValue;
@@ -403,9 +403,9 @@
                     const newSugar = document.getElementById("editSugar").value;
 
                     // 値を更新
-                    currentRow.querySelector(".datepicker").innerText = newDate;
-                    currentRow.querySelector(".period-select").innerText = newPeriod;
-                    currentRow.querySelector(".sugar1").innerText = newSugar;
+                    currentRow1.querySelector(".datepicker").innerText = newDate;
+                    currentRow1.querySelector(".period-select").innerText = newPeriod;
+                    currentRow1.querySelector(".sugar1").innerText = newSugar;
 
                     // ダイアログを閉じる
                     dialog.style.display = "none";
@@ -433,7 +433,7 @@
                 // 削除ボタンの処理
                 document.getElementById("deleteButton").addEventListener("click", () => {
                     deleteData(before_dateValue, before_periodValue)
-                    currentRow.remove();
+                    currentRow1.remove();
                     // ダイアログを閉じる
                     dialog.style.display = "none";
                 });
