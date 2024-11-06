@@ -1,186 +1,215 @@
- body {
-            overflow: hidden;
-            height: 100%;
-            width: 100%;
-            margin: 0;
+body {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  margin: 0;
 
-            align-items: center;
-            justify-content: center;
-            background-color: #ffffff;
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
 
-        }
+}
 
-        h1 {
-            color: #ad1457;
-            font-size: 1.5em;
-            margin: 10px;
-            text-align: center;
-        }
+h1 {
+  color: #ad1457;
+  font-size: 1.5em;
+  margin: 10px;
+  text-align: center;
+}
 
-        .chart-container {
-            width: 100%;
-            overflow-x: auto;
-        }
+.chart-container {
+  width: 100%;
+  overflow-x: auto;
+}
 
-        form {
-            margin-top: 20px;
-        }
+form {
+  margin-top: 20px;
+}
 
-        label {
-            margin-right: 10px;
-        }
+label {
+  margin-right: 10px;
+}
 
-        table {
-            margin-top: 20px;
-            table-layout: fixed;
-            /* 各列の幅を均等にする */
-            border-collapse: collapse;
-            width: 95%;
-            margin: 0 auto;
-        }
+table {
+  margin-top: 20px;
+  table-layout: fixed;
+  /* 各列の幅を均等にする */
+  border-collapse: collapse;
+  width: 95%;
+  margin: 0 auto;
+}
 
-        table,
-        th,
-        td {
-            border: 1px solid black;
-        }
+table,
+th,
+td {
+  border: 1px solid black;
+}
 
-        th,
-        td {
-            padding: 8px;
-            text-align: center;
-        }
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
 
-        td {
-            width: 25%;
-        }
+td {
+  width: 25%;
+}
 
-        /* 日付の input フィールドと select フィールドの幅を調整 */
-        .date-picker,
-        .period-select {
-            width: 100%;
-            /* セルの幅に合わせて100%にする */
-        }
+/* 日付の input フィールドと select フィールドの幅を調整 */
+.date-picker,
+.period-select {
+  width: 100%;
+  /* セルの幅に合わせて100%にする */
+}
 
-        #edit_table,
-        #table_show-container {
+#edit_table,
+#table_show-container {
 
-            /* left: 5%; */
-            background-color: white;
-            width: 100%;
-            height: 70vh;
-        }
+  /* left: 5%; */
+  background-color: white;
+  width: 100%;
+  height: 70vh;
+}
 
-        #table_show-container {
-            padding: 5%;
-        }
+#table_show-container {
+  padding: 5%;
+}
 
-        #edit_table_container,
-        #table_show {
-            width: 100%;
-            padding: 5%;
-            overflow-y: auto;
+#edit_table_container,
+#table_show {
+  width: 100%;
+  padding: 5%;
+  overflow-y: auto;
 
-        }
+}
 
-        /* フォーム内の各要素を一行に配置するためのスタイル */
-        #addDataForm label,
-        #addDataForm input,
-        #addDataForm .dropdown {
-            display: inline-block;
-            margin-right: 10px;
-            /* 各要素の間に少しスペースを追加 */
-            vertical-align: middle;
-            /* 中央揃え */
-        }
+/* フォーム内の各要素を一行に配置するためのスタイル */
+#addDataForm label,
+#addDataForm input,
+#addDataForm .dropdown {
+  display: inline-block;
+  margin-right: 10px;
+  /* 各要素の間に少しスペースを追加 */
+  vertical-align: middle;
+  color: #880e4f;
+  /* 中央揃え */
+}
 
-        /* セレクトボックスの高さを他の入力と合わせる */
-        .dropdown select {
-            height: 36px;
-            /* 他のinput要素と高さを揃える */
-            padding: 5px;
-        }
+/* セレクトボックスの高さを他の入力と合わせる */
+.dropdown select {
+  height: 36px;
+  /* 他のinput要素と高さを揃える */
+  padding: 5px;
+}
 
-        .chart-container,
-        .table-container,
-        .edit-container {
-            display: none;
-        }
+.chart-container,
+.table-container,
+.edit-container {
+  display: none;
+}
 
-        .active-content {
-            display: block;
-        }
+.active-content {
+  display: block;
+}
 
-        /* グラフの高さをウィンドウの高さの80%に設定 */
-        .chart-container {
-            width: 100%;
-            height: 70vh;
-            /* ウィンドウの高さの80% */
-        }
+/* グラフの高さをウィンドウの高さの80%に設定 */
+.chart-container {
+  width: 100%;
+  height: 70vh;
+  /* ウィンドウの高さの80% */
+}
 
-        canvas {
-            width: 100%;
-            height: 100% !important
-                /* コンテナの高さに合わせる */
-        }
+canvas {
+  width: 100%;
+  height: 100% !important
+      /* コンテナの高さに合わせる */
+}
 
-        /* タブのデザイン */
-        .tab-bar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: #ffffff;
-            display: flex;
-            justify-content: space-around;
-            box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
-            border-top: 1px solid #ddd;
-        }
+/* タブのデザイン */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+  border-top: 1px solid #ddd;
+}
 
-        .tab-bar button {
-            flex-grow: 1;
-            padding: 10px;
-            background-color: #ffffff;
-            border: none;
-            border-top: 2px solid transparent;
-            cursor: pointer;
-            font-size: 16px;
-            color: #555;
-            margin: 6px auto;
-        }
+.tab-bar button {
+  flex-grow: 1;
+  padding: 10px;
+  background-color: #ffffff;
+  border: none;
+  border-top: 2px solid transparent;
+  cursor: pointer;
+  font-size: 16px;
+  color: #555;
+  margin: 6px auto;
+}
 
-        .tab-bar button.active {
-            border-top: 2px solid #facae1;
-            color: #f42cce;
-            font-weight: 600;
-        }
+.tab-bar button.active {
+  border-top: 2px solid #facae1;
+  color: #f42cce;
+  font-weight: 600;
+}
 
-        /* モバイル向けにフォーカス時のボタン */
-        .tab-bar button:focus {
-            outline: none;
-        }
+/* モバイル向けにフォーカス時のボタン */
+.tab-bar button:focus {
+  outline: none;
+}
 
-        #editTable {
-            width: 100%;
-        }
- table{
-    width: 95%;
-    margin: 0 auto;
-  }
+#editTable {
+  width: 100%;
+}
+table{
+width: 95%;
+margin: 0 auto;
+}
 
-  button{
-    display: block;
-    margin: auto;
-    color: #332000;
-    /* height: 80%; */
-    width: 80%;
-    margin: 15px auto;
-    background-color: #f9cae1;
-    text-align: center;
-    padding: 5px;
-    border-radius: 20px;
-    border-color: #ffffff;
-  }
+button{
+display: block;
+margin: auto;
+color: #332000;
+/* height: 80%; */
+width: 80%;
+margin: 15px auto;
+background-color: #f9cae1;
+text-align: center;
+padding: 5px;
+border-radius: 20px;
+border-color: #ffffff;
+}
+
 button.edit-btn {
-    margin: 0 auto;
+margin: 0 auto;
+}
+
+button.delete-btn {
+  border: none;
+  background-color: #f50505;
+  color: white;
+  border-radius: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+div#editDialog {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background: #66666666;
+  width: 100%;
+  height: 100%;
+}
+
+#editForm {
+  margin: 40% auto;
+  width: 81%;
+  padding: 49px;
+  background: white;
 }
