@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sugar Tracker</title>
+    <title>Blood Pressure Tracker</title>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../kokimastyle.css">
 
     <style>
@@ -25,49 +26,51 @@
             </div>
         </div>
     </div>
-    <h1 class="title_sugar">血糖カウンター</h1>
 
+    <h1>血圧のグラフ</h1>
+    <!-- データ追加フォーム -->
     <form id="addDataForm">
         <label for="date">日付:</label>
         <input type="text" id="date" placeholder="日付を選択"><br>
         <label for="date">時間:</label>
         <section class="dropdown">
             <select id="periodSelect">
-                <option value="1">朝前</option>
-                <option value="2">朝後</option>
-                <option value="3">昼前</option>
-                <option value="4">昼後</option>
-                <option value="5">夕前</option>
-                <option value="6">夕後</option>
-                <option value="7">眠前</option>
+                <option value="1">朝</option>
+                <option value="2">夜</option>
             </select>
         </section><br>
-        <label for="sugar">血糖</label>:</label>
-        <input type="number" id="sugar" placeholder="血糖"><br>
+        <label for="systolic">最高血圧:</label>
+        <input type="number" id="systolic" placeholder="最高血圧"><br>
+        <label for="diastolic">最低血圧:</label>
+        <input type="number" id="diastolic" placeholder="最低血圧">
         <button type="button" onclick="addData()">データを追加</button>
     </form>
 
-
     <div id="chart-container" class="chart-container active-content">
-        <canvas id="sugarChart"></canvas>
+        <canvas id="bloodPressureChart"></canvas>
     </div>
 
-    <div id="table-container" class="table-container content">
-        <table id="table">
-            <thead>
-                <tr>
-                    <th class="tr_date">日にち</th>
-                    <th class="tr_time">時間</th>
-                    <th class="tr_sugar">血糖 (mg/dl)</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+    <div id="table-container" class="table-container" class="content">
+        <div id="table_show-container">
+            <!-- データ編集テーブル -->
+
+            <table id="table_show">
+                <thead>
+                    <tr>
+                        <th>日付</th>
+                        <th>時間帯</th>
+                        <th>最高血圧</th>
+                        <th>最低血圧</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
-
-    <div id="edit-container" class="edit-container content">
+    <div id="edit-container" class="edit-container" class="content">
         <div id="edit_table">
             <div id="edit_table_container">
                 <!-- データ編集テーブル -->
@@ -76,42 +79,18 @@
                         <tr>
                             <th>日付</th>
                             <th>時間帯</th>
-                            <th>血糖 (mg/dl)</th>
-                            <th>edit</th>
+                            <th>最高血圧</th>
+                            <th>最低血圧</th>
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
                 </table>
+                <button type="button" onclick="saveTableData()">保存</button>
             </div>
         </div>
     </div>
 
-    <!-- ダイアログ -->
-    <div id="editDialog" style="display:none;">
-        <form id="editForm">
-            <label for="editDate">日付:</label>
-            <input type="text" id="editDate" class="datepicker2"><br><br>
-
-            <label for="editPeriod">時間帯:</label>
-            <select id="editPeriod" class="periodpicker2">
-                <option value="1">朝前</option>
-                <option value="2">朝後</option>
-                <option value="3">昼前</option>
-                <option value="4">昼後</option>
-                <option value="5">夕前</option>
-                <option value="6">夕後</option>
-                <option value="7">眠前</option>
-            </select><br><br>
-
-            <label for="editSugar">血糖 (mg/dl):</label>
-            <input type="number" id="editSugar" class="sugar2"><br><br>
-
-            <button type="button" id="saveButton">保存</button>
-            <button type="button" id="cancelButton">キャンセル</button>
-            <button type="button" id="deleteButton">削除</button>
-        </form>
-    </div>
 
     <!-- 下部タブメニュー -->
     <div class="tab-bar">
@@ -122,7 +101,8 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/date-fns@2.21.1/dist/date-fns.min.js"></script>
@@ -134,49 +114,13 @@
         const LIFF_ID = "2005594923-wN8OjyGd";
         var allData = [];
         var token;
-        var dataArray = ["", "朝前", "朝後", "昼前", "昼後", "夕前", "夕後", "眠前"]
-        var dataArray2 = ["", " 6:00", "7:00", "12:00", "13:00", "18:00", "19:00", "24:00"]
+        var dataArray = ["", "朝", "夜"]
+        var dataArray2 = ["", " 6:00", "18:00"]
+        let labels = ['12/1 朝', '12/1 夜', '12/2 朝', '12/2 夜', '12/3 朝', '12/3 夜'];
+        let systolicData = [140, 130, 145, 135, 138, 128]; // 最高血圧データ
+        let diastolicData = [90, 85, 88, 83, 85, 80]; // 最低血圧データ
 
-        const ctx = document.getElementById('sugarChart').getContext('2d');
-        sugarChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: '血糖/sugar',
-                    data: [],
-                    borderColor: 'blue',
-                    borderWidth: 1,
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true, // ここを追加
-                maintainAspectRatio: false, // ここを追加
-                scales: {
-                    x: {
-                        type: 'time',
-                        time: {
-                            unit: 'day',
-                            displayFormats: {
-                                day: 'yyyy-MM-dd'
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: '日にち/Date'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: '血糖/sugar'
-                        }
-                    }
-                }
-            }
-        });
-
+        var id;
 
         liff.init({
             liffId: LIFF_ID, // Use own liffId
@@ -188,7 +132,7 @@
 
             changeLanguage(lang);
             token = idToken;
-            allData = loadsugarData(idToken);
+            allData = loadpressuredata(idToken);
 
 
         }).catch((err) => {
@@ -197,36 +141,10 @@
             alert("LIFF init failed.");
         });
 
-        /*
 
-                response = {
-                    "statusCode": 200,
-                    "data": {
-                        "items": [{
-                            "date": "2024/9/2",
-                            "period": 2,
-                            "sugar": 110
-                        }, {
-                            "date": "2024/9/2",
-                            "period": 3,
-                            "sugar": 130
-                        }, {
-                            "date": "2024/9/2",
-                            "period": 5,
-                            "sugar": 120
-                        }, {
-                            "date": "2024/9/3",
-                            "period": 6,
-                            "sugar": 160
-                        }],
-                        "lang": "ja"
-                    }
-                }
-                allData = response.data.items
-                updateChart(response.data.items)
-        */
-
-
+        // ウィンドウのリサイズやロード時に高さを再設定
+        window.addEventListener('resize', setChartHeight);
+        window.addEventListener('load', setChartHeight);
 
         const getAccessObj = (data) => {
             return {
@@ -253,15 +171,12 @@
                 });
             });
         }
-        var sugarChart;
-        var data;
 
-
-        function loadsugarData(idToken) {
+        function loadpressuredata(idToken) {
             $(".loader").show();
             $.ajax(
                 getAccessObj({
-                    path: "sugar",
+                    path: "pressure",
                     method: "get",
                     idToken: idToken
                 })
@@ -285,167 +200,19 @@
             });
         }
 
-        let currentRow1; // 編集中の行を記憶
-        // データをテーブルに表示する関数
-        function populateTable(id) {
-            console.log(id)
-            var tableBody;
-            if (id == "edit-container") {
-                tableBody = document.querySelector('#editTable tbody');
-                tableBody.innerHTML = ''; // テーブルをクリア
-
-                allData.forEach((label, index) => {
-                    const datePart = String(label.date); // 日付部分
-                    const periodPart = label.period; // 朝/夜部分
-
-                    const row = `<tr>
-        <!-- 日付部分: datepickerを使用 -->
-        <td class="date-picker">${String(datePart)}</td>
-
-        <!-- 朝/夜部分: ドロップダウンで選択 -->
-        <td class="period-select">${dataArray[periodPart]}
-        </td>
-
-        <!-- 血糖部分: contenteditable -->
-        <td class="sugar1">${label.sugar}</td>
-
-        <td><button class="edit-btn">edit</button></td>
-    </tr>`;
-
-
-                    tableBody.insertAdjacentHTML('beforeend', row);
-                    $(".date-picker").datepicker({
-                        dateFormat: 'yy-mm-dd'
-                    });
-                });
-
-
-
-                const editButtons = document.querySelectorAll(".edit-btn");
-                const dialog = document.getElementById("editDialog");
-
-
-                let before_dateValue
-                let before_periodValue
-                let before_sugarValue
-
-                editButtons.forEach((button) => {
-                    button.addEventListener("click", function () {
-                        currentRow1 = this.closest("tr");
-
-                        // 元の値を取得してダイアログに設定
-                        const dateValue = currentRow1.querySelector(".date-picker").innerText;
-                        const periodValue = currentRow1.querySelector(".period-select").innerText;
-                        const sugarValue = currentRow1.querySelector(".sugar1").innerText;
-
-                        document.getElementById("editDate").value = dateValue;
-
-                        document.getElementById("editSugar").value = sugarValue;
-
-                        // 時間帯 (period) の選択を設定
-                        const periodSelect = document.getElementById("editPeriod");
-                        for (let option of periodSelect.options) {
-                            if (option.text === periodValue) {
-                                option.selected = true;
-                                break;
-                            }
-                        }
-
-                        before_dateValue = dateValue
-                        before_periodValue = periodValue
-                        before_sugarValue = sugarValue
-                        // ダイアログを表示
-                        dialog.style.display = "block";
-
-                    });
-                });
-
-                // 保存ボタンの処理
-                document.getElementById("saveButton").addEventListener("click", () => {
-                    const newDate = document.getElementById("editDate").value;
-                    const newPeriod = document.getElementById("editPeriod").value;
-                    const newSugar = document.getElementById("editSugar").value;
-
-                    // 値を更新
-                    currentRow1.querySelector(".date-picker").innerText = newDate;
-                    currentRow1.querySelector(".period-select").innerText = dataArray[newPeriod];
-                    currentRow1.querySelector(".sugar1").innerText = newSugar;
-
-                    // ダイアログを閉じる
-                    dialog.style.display = "none";
-
-                    deleteData(before_dateValue, before_periodValue)
-                    setsugar(newSugar, newDate, newPeriod)
-
-                    allData = allData.filter(item => !(item.date === before_dateValue && item.period ===
-                        dataArray.indexOf(before_periodValue)));
-
-                    console.log(before_dateValue)
-                    console.log(dataArray.indexOf(before_periodValue))
-
-                    allData.push({
-                        date: newDate,
-                        period: newPeriod,
-                        sugar: newSugar,
-                    })
-
-                });
-
-                // キャンセルボタンの処理
-                document.getElementById("cancelButton").addEventListener("click", () => {
-                    // ダイアログを閉じる
-                    dialog.style.display = "none";
-                });
-
-                // 削除ボタンの処理
-                document.getElementById("deleteButton").addEventListener("click", () => {
-                    deleteData(before_dateValue, dataArray.indexOf(before_periodValue))
-
-                    // ダイアログを閉じる
-                    dialog.style.display = "none";
-                });
-
-            }
-
-
-
-            if (id == "table-container") {
-                tableBody = document.querySelector('#table tbody');
-                tableBody.innerHTML = ''; // テーブルをクリア
-
-                allData.forEach((label, index) => {
-                    const row = `<tr>
-        <!-- 日付部分: datepickerを使用 -->
-        <td>${label.date}</td>
-        <td>${dataArray[label.period]}</td>
-
-        <!-- 最高血圧部分: contenteditable -->
-        <td >${label.sugar}</td>
-
-    </tr>`;
-
-
-                    tableBody.insertAdjacentHTML('beforeend', row);
-                    $(".date-picker").datepicker({
-                        dateFormat: 'yy-mm-dd'
-                    });
-                });
-            }
-
-        }
-
-        function setsugar(_sugar, _date, _period) {
-            console.log(_sugar + " " + _date + " " + _period)
+        function setpressure(_high, _low, _date, _period) {
+            console.log(_high + " " + _low + " " + _date + " " + _period)
             $(".loader").show();
             $.ajax(
                     getAccessObj({
-                        path: "sugar",
+                        path: "pressure",
                         method: "post",
                         idToken: token,
                         postData: {
                             date: String(_date),
                             period: parseInt(_period),
-                            sugar: parseInt(_sugar)
+                            high: parseInt(_high),
+                            low: parseInt(_low),
                         }
                     })
                 ).done(function (response) {
@@ -461,8 +228,8 @@
                 .always(() => $(".loader").hide());
         }
 
-        function deleteData(_date, _period) {
-            console.log(String(_date) + " " + _period)
+        function deletepressure(_date, _period) {
+            console.log(_date + "あああ" + _period)
             $(".loader").show();
             $.ajax(
                     getAccessObj({
@@ -476,18 +243,12 @@
                     })
                 ).done(function (response) {
                     if (response.statusCode === 401) {
-                        console.log("response");
                         liff.logout();
                         window.location.reload();
                     } else if (response.statusCode !== 200) {
                         console.log(response);
                         alert(response.message)
                     } else {
-                        console.log("できたよ");
-                        allData = allData.filter(item => !(item.date === _date && item.period === _period));
-                        currentRow1.remove();
-                        updateChart(allData)
-                        populateTable("edit-container")
                         $(".loader").hide();
                     }
                 })
@@ -496,11 +257,9 @@
         }
 
         function updateChart(data) {
-            const labels = [];
-            const sugarData = [];
-            const tableBody = $('#table tbody');
-            tableBody.empty(); // テーブルをクリア
-
+            labels = []
+            systolicData = []
+            diastolicData = []
             // 日にち順にdataを並び替える
             data.sort((a, b) => {
                 // 日付を比較するためにDateオブジェクトに変換
@@ -516,27 +275,35 @@
                 return b.period - a.period;
             });
 
-
+            console.log(data)
             data.forEach(item => {
-                const dateTime = new Date(item.date + " " + dataArray2[item.period]);
-                const date = dateTime.toLocaleDateString('ja-JP');
-                const time = item.period >= 1 && item.period < dataArray.length ? dataArray[item.period] :
-                    "Out of range";
-
-                const sugar = item.sugar;
+                const dateTime = item.date + " " + dataArray[item.period];
+                const high = item.high;
+                const low = item.low;
 
                 // グラフ用のデータに追加
-                labels.push(dateTime);
-                sugarData.push(sugar);
+                labels.push(dataArray[item.period]);
+                systolicData.push(high);
+                diastolicData.push(low)
             });
 
             // labelsとsugarDataを逆順にする
             labels.reverse();
-            sugarData.reverse();
+            systolicData.reverse();
+            diastolicData.reverse();
+
+            console.log(systolicData)
+            console.log(diastolicData)
+            console.log(labels)
+
             // チャートのデータを更新
-            sugarChart.data.labels = labels;
-            sugarChart.data.datasets[0].data = sugarData;
-            sugarChart.update();
+            bloodPressureChart.data.labels = labels; // X軸ラベルを更新
+            bloodPressureChart.data.datasets[0].data = systolicData; // 最高血圧データを更新
+            bloodPressureChart.data.datasets[1].data = diastolicData; // 最低血圧データを更新
+
+            // グラフを再描画
+            bloodPressureChart.update();
+
         }
 
         function sortTable() {
@@ -553,58 +320,296 @@
             });
         }
 
+        function bindEditButtons() {
+            $(".edit-btn").off("click").on("click", function () {
+                $("ui-datepicker-div").hide();
+                const row = $(this).closest('tr');
+                const date = row.find('td').eq(0).text();
+                const time = row.find('td').eq(1).text();
+                const sugar = row.find('td').eq(2).text();
+                const id = row.attr('time');
+                $("#edit-date").val(date);
+                $("#edit-time").val(time);
+                $("#edit-sugar").val(sugar);
+                $("ui-datepicker-div").hide();
+
+                $("#dialog-form").dialog({
+                    modal: true,
+                    buttons: {
+                        "Save": function () {
+                            const newDate = $("#edit-date").val();
+                            const selectedValue = $("#periodSelect").val();
+                            const newsugar = $("#edit-sugar").val();
+
+                            if (newDate === "" || selectedValue === "" || newsugar === "") {
+                                alert("aすべてのフィールドに値を入力してください。/All fields must be filled in.");
+                                return;
+                            }
+
+                            // `data` の該当アイテムを更新
+                            deletesugar(id.split("_")[0], id.split("_")[1])
+                            allData = allData.filter(item => item.date + "_" + item.period !==
+                                id);
+                            setsugar(parseInt(newsugar), newDate, selectedValue)
+                            allData.push({
+                                sugar: parseInt(newsugar),
+                                date: newDate,
+                                period: selectedValue,
+                            })
+
+                            sortTable();
+                            updateChart(allData);
 
 
-        const editButtons = document.querySelectorAll(".edit-btn");
-        const dialog = document.getElementById("editDialog");
-        let currentRow; // 編集中の行を記憶
+                            $(this).dialog("close");
+                        },
+                        "Cancel": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
+            $(".delete-btn").off("click").on("click", function () {
+                $("ui-datepicker-div").hide();
 
-        editButtons.forEach((button) => {
-            button.addEventListener("click", function () {
-                currentRow = this.closest("tr");
+                const row = $(this).closest('tr');
+                const date = row.find('td').eq(0).text();
+                const time = row.find('td').eq(1).text();
+                const sugar = row.find('td').eq(2).text();
+                const id = row.attr('time');
+                $("#delete1").val(date);
+                $("#delete2").val(time);
+                $("#delete3").val(sugar);
 
-                // 元の値を取得してダイアログに設定
-                const dateValue = currentRow.querySelector(".date-picker").value;
-                const periodValue = currentRow.querySelector(".period-select").value;
-                const sugarValue = currentRow.querySelector("td[contenteditable='true']").innerText;
+                $("#dialog-delete").dialog({
+                    modal: true,
+                    buttons: {
+                        "Cancel": function () {
+                            $(this).dialog("close");
+                        },
+                        "Delete": function () {
+                            deletesugar(id.split("_")[0], id.split("_")[1]);
+                            allData = allData.filter(item => item.date + "_" + item.period !==
+                                id);
 
-                document.getElementById("editDate").value = dateValue;
-                document.getElementById("editPeriod").value = periodValue;
-                document.getElementById("editSugar").value = sugarValue;
+                            // テーブルとチャートを更新
+                            sortTable();
+                            updateChart(allData);
+                            $(this).dialog("close");
+                        }
+                    }
+                });
 
-                // ダイアログを表示
-                dialog.style.display = "block";
+            });
+        }
+
+        //bindEditButtons();
+
+
+        const ctx = document.getElementById('bloodPressureChart').getContext('2d');
+
+        // カスタムプラグインを定義（特定のy座標範囲の背景色を塗る）
+        const rangeBackgroundPlugin = {
+            id: 'rangeBackground',
+            beforeDraw: function (chart) {
+                const ctx = chart.ctx;
+                const chartArea = chart.chartArea;
+                const yAxis = chart.scales.y;
+
+                ctx.save();
+
+                // 140以上の背景を赤色に塗る
+                const topY = yAxis.getPixelForValue(140); // Y=140のピクセル位置を取得
+                ctx.fillStyle = 'rgba(255, 99, 132, 0.2)'; // 赤色
+                ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, topY - chartArea
+                    .top);
+
+                // 70未満の背景を青色に塗る
+                const bottomY = yAxis.getPixelForValue(70); // Y=70のピクセル位置を取得
+                ctx.fillStyle = 'rgba(54, 162, 235, 0.2)'; // 青色
+                ctx.fillRect(chartArea.left, bottomY, chartArea.right - chartArea.left, chartArea.bottom -
+                    bottomY);
+
+                ctx.restore();
+            }
+        };
+        // Chart.jsの設定
+        const bloodPressureChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                        label: '最高血圧 (mmHg)',
+                        data: systolicData,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        fill: false,
+                        lineTension: 0,
+                        pointRadius: 5
+                    },
+                    {
+                        label: '最低血圧 (mmHg)',
+                        data: diastolicData,
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        fill: false,
+                        lineTension: 0,
+                        pointRadius: 5
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        title: {
+                            display: true,
+                            text: '血圧 (mmHg)'
+                        },
+                        min: 50,
+                        max: 200,
+                        ticks: {
+                            stepSize: 10
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: '日付と時間帯'
+                        },
+                        ticks: {
+                            minRotation: 45,
+                            autoSkip: false,
+                            maxRotation: 45
+                        }
+                    }
+                }
+            },
+            plugins: [rangeBackgroundPlugin] // プラグインを追加
+        });
+
+        // jQuery UIのdatepickerの初期化
+        $(function () {
+            $("#date").datepicker({
+                dateFormat: 'yy/mm/dd'
             });
         });
 
-
-
-
-
+        // データを追加する関数
         function addData() {
             const date = document.getElementById('date').value;
             const time = document.getElementById('periodSelect').value;
-            const sugar = parseInt(document.getElementById('sugar').value);
+            const systolic = parseInt(document.getElementById('systolic').value);
+            const diastolic = parseInt(document.getElementById('diastolic').value);
 
             // フォームの値が入力されているかチェック
-            if (date && sugar) {
+            if (date && systolic && diastolic) {
                 allData.push({
                     date: date,
                     period: time,
-                    sugar: sugar,
+                    high: systolic,
+                    low: diastolic
                 })
                 console.log(allData)
-                setsugar(sugar, date, time)
+                setpressure(systolic, diastolic, date, time)
                 updateChart(allData); // グラフを更新
-                populateTable("table-container"); // テーブルを更新
-                populateTable("edit-container");
+                populateTable(id); // テーブルを更新
+
                 // フォームのリセット
                 document.getElementById('date').value = '';
-                document.getElementById('sugar').value = '';
+                document.getElementById('systolic').value = '';
+                document.getElementById('diastolic').value = '';
             } else {
                 alert('すべてのフィールドに値を入力してください。');
             }
-        };
+        }
+
+        // データをテーブルに表示する関数
+        function populateTable(id) {
+            console.log(id)
+            var tableBody;
+            if (id == "edit-container") {
+                tableBody = document.querySelector('#editTable tbody');
+                tableBody.innerHTML = ''; // テーブルをクリア
+
+                allData.forEach((label, index) => {
+                    const datePart = label.date; // 日付部分
+                    const periodPart = label.period; // 朝/夜部分
+
+                    const row = `<tr>
+        <!-- 日付部分: datepickerを使用 -->
+        <td><input type="text" class="date-picker" value="${datePart}" placeholder="日付を選択"></td>
+
+        <!-- 朝/夜部分: ドロップダウンで選択 -->
+        <td>
+            <select class="period-select">
+                <option value="1" ${periodPart === '朝' ? 'selected' : ''}>朝</option>
+                <option value="2" ${periodPart === '夜' ? 'selected' : ''}>夜</option>
+            </select>
+        </td>
+
+        <!-- 最高血圧部分: contenteditable -->
+        <td contenteditable="true">${label.high}</td>
+
+        <!-- 最低血圧部分: contenteditable -->
+        <td contenteditable="true">${label.low}</td>
+        <td><button class="delete-btn" onclick="deletepressure(${String(datePart)},${label.period})">delete</button></td>
+    </tr>`;
+
+
+                    tableBody.insertAdjacentHTML('beforeend', row);
+                    $(".date-picker").datepicker({
+                        dateFormat: 'yy/mm/dd'
+                    });
+                });
+            }
+            if (id == "table-container") {
+                tableBody = document.querySelector('#table_show tbody');
+                tableBody.innerHTML = ''; // テーブルをクリア
+
+                allData.forEach((label, index) => {
+                    const row = `<tr>
+        <!-- 日付部分: datepickerを使用 -->
+        <td>${label.date}</td>
+        <td>${dataArray[label.period]}</td>
+
+        <!-- 最高血圧部分: contenteditable -->
+        <td >${label.high}</td>
+
+        <!-- 最低血圧部分: contenteditable -->
+        <td >${label.low}</td>
+    </tr>`;
+
+
+                    tableBody.insertAdjacentHTML('beforeend', row);
+                    $(".date-picker").datepicker({
+                        dateFormat: 'yy/mm/dd'
+                    });
+                });
+            }
+
+        }
+
+        $(function () {
+            $(".date-picker").datepicker({
+                dateFormat: 'yy/mm/dd'
+            });
+        });
+
+        // テーブルで編集されたデータを保存する関数
+        function saveTableData() {
+            const tableBody = document.querySelector('#editTable tbody');
+            const rows = tableBody.querySelectorAll('tr');
+
+            rows.forEach((row, index) => {
+                const cells = row.querySelectorAll('td');
+                labels[index] = cells[0].textContent;
+                systolicData[index] = parseInt(cells[1].textContent);
+                diastolicData[index] = parseInt(cells[2].textContent);
+            });
+
+            bloodPressureChart.update(); // グラフを更新
+        }
     </script>
     <script src="../commonkokima.js"></script>
 
