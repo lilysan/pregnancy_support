@@ -141,11 +141,6 @@
             alert("LIFF init failed.");
         });
 
-
-        // ウィンドウのリサイズやロード時に高さを再設定
-        window.addEventListener('resize', setChartHeight);
-        window.addEventListener('load', setChartHeight);
-
         const getAccessObj = (data) => {
             return {
                 url: API_URL,
