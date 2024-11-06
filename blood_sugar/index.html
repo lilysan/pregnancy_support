@@ -384,8 +384,17 @@
                         const sugarValue = currentRow1.querySelector(".sugar1").innerText;
 
                         document.getElementById("editDate").value = dateValue;
-                        document.getElementById("editPeriod").value = periodValue;
+
                         document.getElementById("editSugar").value = sugarValue;
+
+                        // 時間帯 (period) の選択を設定
+                        const periodSelect = document.getElementById("editPeriod");
+                        for (let option of periodSelect.options) {
+                            if (option.text === periodValue) {
+                                option.selected = true;
+                                break;
+                            }
+                        }
 
                         before_dateValue = dateValue
                         before_periodValue = periodValue
