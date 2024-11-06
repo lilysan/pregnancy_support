@@ -150,8 +150,8 @@
         }
 
         .tab-bar button.active {
-            border-top: 2px solid #007bff;
-            color: #007bff;
+            border-top: 2px solid #facae1;
+            color: #facae1;
         }
 
         /* モバイル向けにフォーカス時のボタン */
