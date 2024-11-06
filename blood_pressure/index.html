@@ -39,10 +39,10 @@
                 <option value="2">夜</option>
             </select>
         </section><br>
-        <label for="systolic">最高血圧:</label>
-        <input type="number" id="systolic" placeholder="最高血圧"><br>
-        <label for="diastolic">最低血圧:</label>
-        <input type="number" id="diastolic" placeholder="最低血圧">
+        <label for="higth">最高血圧:</label>
+        <input type="number" id="higth" placeholder="最高血圧"><br>
+        <label for="low">最低血圧:</label>
+        <input type="number" id="low" placeholder="最低血圧">
         <button type="button" onclick="addData()">データを追加</button>
     </form>
 
@@ -117,8 +117,8 @@
         var dataArray = ["", "朝", "夜"]
         var dataArray2 = ["", " 6:00", "18:00"]
         let labels = ['12/1 朝', '12/1 夜', '12/2 朝', '12/2 夜', '12/3 朝', '12/3 夜'];
-        let systolicData = [140, 130, 145, 135, 138, 128]; // 最高血圧データ
-        let diastolicData = [90, 85, 88, 83, 85, 80]; // 最低血圧データ
+        let higthData = [140, 130, 145, 135, 138, 128]; // 最高血圧データ
+        let lowData = [90, 85, 88, 83, 85, 80]; // 最低血圧データ
 
         var id;
 
@@ -198,6 +198,63 @@
             }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Network error!");
             });
+        }
+
+        function addData() {
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('periodSelect').value;
+            const higth = parseInt(document.getElementById('higth').value);
+            const low = parseInt(document.getElementById('low').value);
+
+            // フォームの値が入力されているかチェック
+            if (date && higth && low) {
+                allData.push({
+                    date: date,
+                    period: time,
+                    high: higth,
+                    low: low
+                })
+                console.log(allData)
+                setpressure(higth, low, date, time)
+                updateChart(allData); // グラフを更新
+                populateTable(id); // テーブルを更新
+
+                // フォームのリセット
+                document.getElementById('date').value = '';
+                document.getElementById('higth').value = '';
+                document.getElementById('low').value = '';
+            } else {
+                alert('すべてのフィールドに値を入力してください。');
+            }
+        }
+
+        function setpressure(higth, low, date, time) {
+            $(".loader").show();
+
+            $.ajax(
+                    getAccessObj({
+                        path: "pressure",
+                        method: "post",
+                        idToken: token,
+                        postData: {
+                            date: String(_date),
+                            period: parseInt(time),
+                            high: parseInt(high),
+                            low: parseInt(low),
+                        }
+                    })
+                ).done(function (response) {
+                    if (response.statusCode === 401) {
+                        liff.logout();
+                        window.location.reload();
+                    } else if (response.statusCode !== 200) {
+                        console.error(response.message);
+                        alert(response.message)
+                    }
+                })
+                .fail(() => alert("Network error!"))
+                .always(() => $(".loader").hide());
+
         }
     </script>
     <script src="../commonkokima.js"></script>
