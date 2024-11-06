@@ -29,6 +29,8 @@
     $("#date").datepicker({
         dateFormat: "yy-mm-dd"
     });
+
+
     $("#add-time").timepicker({
         timeFormat: 'H:i',
         interval: 30,
