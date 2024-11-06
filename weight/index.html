@@ -30,8 +30,12 @@
     <h1 class="title_weight">体重カウンター</h1>
 
     <form id="addDataForm">
-        <label for="date">日時:</label>
+        <label for="date">日にち:</label>
         <input type="text" id="weightdate" placeholder="日付を選択"><br>
+
+        <label for="edit-time" class="tr_time">時間</label>
+        <input type="text" name="edit-time" id="edit-time" value="">
+
         <label for="weight">体重:</label>
         <input type="number" id="weight" placeholder="体重"><br>
         <button type="button" onclick="addData()">データを追加</button>
@@ -46,7 +50,8 @@
         <table id="table">
             <thead>
                 <tr>
-                    <th class="tr_date">日時</th>
+                    <th class="tr_date">日にち</th>
+                    <th class="tr_time">時間</th>
                     <th class="tr_weight">体重(kg)</th>
                 </tr>
             </thead>
@@ -62,7 +67,8 @@
                 <table id="editTable">
                     <thead>
                         <tr>
-                            <th>日時</th>
+                            <th>日にち</th>
+                            <th>時間</th>
                             <th>体重(kg)</th>
                             <th>edit</th>
                         </tr>
@@ -77,8 +83,12 @@
     <!-- ダイアログ -->
     <div id="editDialog" style="display:none;">
         <form id="editForm">
-            <label for="editDate">日時:</label>
+            <label for="editDate">日にち:</label>
             <input type="text" id="editDate2" class="weightdate2"><br><br>
+
+            <label for="edit-time" class="tr_time2">時間</label>
+            <input type="text" name="editTime2" id="edit-time2" value="">
+
 
             <label for="editWeight">体重 (kg):</label>
             <input type="number" id="editWeight" class="sugar2"><br><br>
@@ -468,6 +478,49 @@
         $("#editDate2").datepicker({
             dateFormat: "yy-mm-dd HH:mm"
         });
+
+        $("#edit-time").timepicker({
+            timeFormat: 'H:i',
+            interval: 30,
+            dynamic: false,
+            dropdown: true,
+            scrollbar: true
+        });
+
+        $("#edit-time2").timepicker({
+            timeFormat: 'H:i',
+            interval: 30,
+            dynamic: false,
+            dropdown: true,
+            scrollbar: true
+        });
+
+        function addData() {
+            const date = document.getElementById('weightdate').value;
+            const time = document.getElementById('edit-time').value;
+            const weight = parseInt(document.getElementById('weight').value);
+
+            console.log(date)
+            console.log(time)
+
+            // フォームの値が入力されているかチェック
+            if (date && weight && time) {
+                allData.push({
+                    datetime: time,
+                    weight: weight,
+                })
+                console.log(allData)
+                setWugar(weight, date, time)
+                updateChart(allData); // グラフを更新
+                populateTable("table-container"); // テーブルを更新
+                populateTable("edit-container");
+                // フォームのリセット
+                document.getElementById('date').value = '';
+                document.getElementById('sugar').value = '';
+            } else {
+                alert('すべてのフィールドに値を入力してください。');
+            }
+        };
     </script>
     <script src="../commonkokima.js"></script>
 </body>
