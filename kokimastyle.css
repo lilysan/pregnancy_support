@@ -91,8 +91,7 @@
         /* フォーム内の各要素を一行に配置するためのスタイル */
         #addDataForm label,
         #addDataForm input,
-        #addDataForm .dropdown,
-        #addDataForm button {
+        #addDataForm .dropdown {
             display: inline-block;
             margin-right: 10px;
             /* 各要素の間に少しスペースを追加 */
