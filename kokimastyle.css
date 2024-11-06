@@ -6,7 +6,7 @@
 
             align-items: center;
             justify-content: center;
-            background-color: #fce4ec;
+            background-color: #ffffff;
             font-family: 'Comic Sans MS', 'Comic Sans', cursive;
 
         }
@@ -36,6 +36,8 @@
             table-layout: fixed;
             /* 各列の幅を均等にする */
             border-collapse: collapse;
+            width: 95%;
+            margin: 0 auto;
         }
 
         table,
