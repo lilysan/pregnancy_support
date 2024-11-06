@@ -200,6 +200,145 @@
             });
         }
 
+        function updateChart(data) {
+            labels = []
+            highData = []
+            lowData = []
+            // 日にち順にdataを並び替える
+            data.sort((a, b) => {
+                // 日付を比較するためにDateオブジェクトに変換
+                const dateA = new Date(a.date);
+                const dateB = new Date(b.date);
+
+                // 日付が異なる場合は日付順に並び替え
+                if (dateB - dateA !== 0) {
+                    return dateB - dateA;
+                }
+
+                // 日付が同じ場合は period の値で並び替え
+                return b.period - a.period;
+            });
+
+            console.log(data)
+            data.forEach(item => {
+                const dateTime = item.date + " " + dataArray[item.period];
+                const high = item.high;
+                const low = item.low;
+
+                // グラフ用のデータに追加
+                labels.push(dataArray[item.period]);
+                highData.push(high);
+                lowData.push(low)
+            });
+
+            // labelsとsugarDataを逆順にする
+            labels.reverse();
+            highData.reverse();
+            lowData.reverse();
+
+            console.log(highData)
+            console.log(lowData)
+            console.log(labels)
+
+            // チャートのデータを更新
+            bloodPressureChart.data.labels = labels; // X軸ラベルを更新
+            bloodPressureChart.data.datasets[0].data = highData; // 最高血圧データを更新
+            bloodPressureChart.data.datasets[1].data = lowData; // 最低血圧データを更新
+
+            // グラフを再描画
+            bloodPressureChart.update();
+
+        }
+
+        const ctx = document.getElementById('bloodPressureChart').getContext('2d');
+
+        // カスタムプラグインを定義（特定のy座標範囲の背景色を塗る）
+        const rangeBackgroundPlugin = {
+            id: 'rangeBackground',
+            beforeDraw: function (chart) {
+                const ctx = chart.ctx;
+                const chartArea = chart.chartArea;
+                const yAxis = chart.scales.y;
+
+                ctx.save();
+
+                // 140以上の背景を赤色に塗る
+                const topY = yAxis.getPixelForValue(140); // Y=140のピクセル位置を取得
+                ctx.fillStyle = 'rgba(255, 99, 132, 0.2)'; // 赤色
+                ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, topY - chartArea
+                    .top);
+
+                // 70未満の背景を青色に塗る
+                const bottomY = yAxis.getPixelForValue(70); // Y=70のピクセル位置を取得
+                ctx.fillStyle = 'rgba(54, 162, 235, 0.2)'; // 青色
+                ctx.fillRect(chartArea.left, bottomY, chartArea.right - chartArea.left, chartArea.bottom -
+                    bottomY);
+
+                ctx.restore();
+            }
+        };
+        // Chart.jsの設定
+        const bloodPressureChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                        label: '最高血圧 (mmHg)',
+                        data: systolicData,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        fill: false,
+                        lineTension: 0,
+                        pointRadius: 5
+                    },
+                    {
+                        label: '最低血圧 (mmHg)',
+                        data: diastolicData,
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        fill: false,
+                        lineTension: 0,
+                        pointRadius: 5
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        title: {
+                            display: true,
+                            text: '血圧 (mmHg)'
+                        },
+                        min: 50,
+                        max: 200,
+                        ticks: {
+                            stepSize: 10
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: '日付と時間帯'
+                        },
+                        ticks: {
+                            minRotation: 45,
+                            autoSkip: false,
+                            maxRotation: 45
+                        }
+                    }
+                }
+            },
+            plugins: [rangeBackgroundPlugin] // プラグインを追加
+        });
+
+        // jQuery UIのdatepickerの初期化
+        $(function () {
+            $("#date").datepicker({
+                dateFormat: 'yy/mm/dd'
+            });
+        });
+
         function addData() {
             const date = document.getElementById('date').value;
             const time = document.getElementById('periodSelect').value;
