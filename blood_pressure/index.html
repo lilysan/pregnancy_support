@@ -40,9 +40,9 @@
             </select>
         </section><br>
         <label for="higth">最高血圧:</label>
-        <input type="number" id="higth" placeholder="最高血圧"><br>
+        <input type="number" id="higth" class="high" placeholder="最高血圧"><br>
         <label for="low">最低血圧:</label>
-        <input type="number" id="low" placeholder="最低血圧">
+        <input type="number" id="low" class="low" placeholder="最低血圧">
         <button type="button" onclick="addData()">データを追加</button>
     </form>
 
@@ -91,6 +91,29 @@
         </div>
     </div>
 
+    <!-- ダイアログ -->
+    <div id="editDialog" style="display:none;">
+        <form id="editForm">
+            <label for="editDate">日付:</label>
+            <input type="text" id="editDate" class="datepicker2"><br><br>
+
+            <label for="editPeriod">時間:</label>
+            <select id="editPeriod" class="periodpicker2">
+                <option value="1">朝</option>
+                <option value="2">夜</option>
+            </select><br><br>
+
+            <label for="editHigh">最高血圧:</label>
+            <input type="number" id="editHigh" class="high2"><br><br>
+            <label for="editLow">最高血圧:</label>
+            <input type="number" id="editLow" class="low2"><br><br>
+
+
+            <button type="button" id="saveButton">保存</button>
+            <button type="button" id="cancelButton">キャンセル</button>
+            <button type="button" id="deleteButton">削除</button>
+        </form>
+    </div>
 
     <!-- 下部タブメニュー -->
     <div class="tab-bar">
@@ -362,6 +385,150 @@
             }
         }
 
+
+        function populateTable(id) {
+            console.log(id)
+            var tableBody;
+            if (id == "edit-container") {
+                tableBody = document.querySelector('#editTable tbody');
+                tableBody.innerHTML = ''; // テーブルをクリア
+
+                allData.forEach((label, index) => {
+                    const datePart = String(label.date); // 日付部分
+                    const periodPart = label.period; // 朝/夜部分
+
+                    const row = `<tr>
+                            <!-- 日付部分: datepickerを使用 -->
+                            <td class="date-picker">${String(datePart)}</td>
+                            <td class="time-picker">${dataArray[periodPart]}</td>
+
+                            <!-- 体重部分: contenteditable -->
+                            <td class="high1">${label.high}</td>
+                            <td class="low1">${label.low}</td>
+
+                            <td><button class="edit-btn">edit</button></td>
+                        </tr>`;
+
+
+                    tableBody.insertAdjacentHTML('beforeend', row);
+                    $(".date-picker").datepicker({
+                        dateFormat: 'yy-mm-dd'
+                    });
+                });
+
+
+
+                const editButtons = document.querySelectorAll(".edit-btn");
+                const dialog = document.getElementById("editDialog");
+
+
+                let before_dateValue
+                let before_periodValue
+
+                editButtons.forEach((button) => {
+                    button.addEventListener("click", function () {
+                        currentRow1 = this.closest("tr");
+
+                        // 元の値を取得してダイアログに設定
+                        const dateValue = currentRow1.querySelector(".date-picker").innerText;
+                        const timeValue = currentRow1.querySelector(".period-select").innerText;
+
+                        const highValue = currentRow1.querySelector(".high").innerText;
+                        const lowValue = currentRow1.querySelector(".low").innerText;
+
+                        document.getElementById("editDate2").value = dateValue;
+                        document.getElementById("editPeriod").value = timeValue;
+                        document.getElementById("editHigh").value = highValue;
+                        document.getElementById("editLow").value = lowValue;
+
+                        before_dateValue = dateValue
+                        before_periodValue = timeValue
+                        // ダイアログを表示
+                        dialog.style.display = "block";
+
+                    });
+                });
+
+                // 保存ボタンの処理
+                document.getElementById("saveButton").addEventListener("click", () => {
+                    const newDate = document.getElementById("editDate").value;
+                    const newTime = document.getElementById("editPeriod").value;
+                    const newHigh = document.getElementById("editHigh").value;
+                    const newLow = document.getElementById("editLow").value;
+
+                    // 値を更新
+                    currentRow1.querySelector(".date-picker").innerText = newDate;
+                    currentRow1.querySelector(".time-picker").innerText = newTime;
+                    currentRow1.querySelector(".high1").innerText = newHigh;
+                    currentRow1.querySelector(".low1").innerText = newLow;
+
+                    // ダイアログを閉じる
+                    dialog.style.display = "none";
+
+                    deleteData(before_dateValue, before_periodValue)
+                    setWeight(newWeight, newDate)
+
+                    allData = allData.filter(item => !(item.datetime === before_dateValue && item.weight ===
+                        dataArray.indexOf(before_weightValue)));
+
+                    console.log(before_dateValue)
+                    console.log(before_weightValue)
+
+                    allData.push({
+                        date: newDate,
+                        period: newTime,
+                        high: newHigh,
+                        low: newLow
+                    })
+
+                });
+
+                // キャンセルボタンの処理
+                document.getElementById("cancelButton").addEventListener("click", () => {
+                    // ダイアログを閉じる
+                    dialog.style.display = "none";
+                });
+
+                // 削除ボタンの処理
+                document.getElementById("deleteButton").addEventListener("click", () => {
+                    deleteData(before_dateValue, before_periodValue)
+
+                    // ダイアログを閉じる
+                    dialog.style.display = "none";
+                });
+
+            }
+
+
+
+            if (id == "table-container") {
+                tableBody = document.querySelector('#table tbody');
+                tableBody.innerHTML = ''; // テーブルをクリア
+
+                allData.forEach((label, index) => {
+                    datetime = label.date
+                    const row = `<tr>
+        <!-- 日付部分: datepickerを使用 -->
+        <td>${datetime}</td>
+        <td>${dataArray[label.period]}</td>
+        <!-- 最高血圧部分: contenteditable -->
+        <td >${label.high}</td>
+        <td >${label.low}</td>
+
+    </tr>`;
+
+
+                    tableBody.insertAdjacentHTML('beforeend', row);
+                    $(".date-picker").datepicker({
+                        dateFormat: 'yy-mm-dd HH:mm'
+                    });
+                });
+            }
+
+        }
+
+
+
         function setpressure(higth, low, date, time) {
             $(".loader").show();
 
@@ -371,7 +538,7 @@
                         method: "post",
                         idToken: token,
                         postData: {
-                            date: String(_date),
+                            date: String(date),
                             period: parseInt(time),
                             high: parseInt(high),
                             low: parseInt(low),
