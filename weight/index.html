@@ -353,10 +353,11 @@
                 tableBody.innerHTML = ''; // テーブルをクリア
 
                 allData.forEach((label, index) => {
+                    datetime = label.datetime
                     const row = `<tr>
         <!-- 日付部分: datepickerを使用 -->
-        <td>${label.datetime}</td>
-
+        <td>${datetime.split(" ")[0]}</td>
+        <td>${datetime.split(" ")[1]}</td>
         <!-- 最高血圧部分: contenteditable -->
         <td >${label.weight}</td>
 
