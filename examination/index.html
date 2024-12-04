@@ -1,0 +1,296 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>test</title>
+</head>
+<style>
+    /* General Styles */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f9f9f9;
+        overflow-y: auto;
+        /* ページ全体でスクロールを有効に */
+    }
+
+    .tlans {
+        display: inline-block;
+        transform: rotate(180deg);
+    }
+
+    #sample1 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .langCng {
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        background-color: #e0e0e0;
+        margin: 0 5px;
+        font-size: 14px;
+        color: #333;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .langCng.selected {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .parent {
+        display: flex;
+        flex-wrap: wrap;
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+    }
+
+    .item._A {
+        flex: 1;
+        padding-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    .item._B {
+        flex: 3;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .buttonA {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        transition: background-color 0.3s;
+    }
+
+    .buttonA:hover {
+        background-color: #0056b3;
+    }
+
+    .smallB {
+        background-color: #f0f8ff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 8px;
+        margin: 5px;
+        cursor: pointer;
+        flex: 1 1 calc(33.333% - 10px);
+        text-align: center;
+        transition: background-color 0.3s;
+    }
+
+    .smallB:hover {
+        background-color: #e6f7ff;
+    }
+
+    .ja_text {
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .lan {
+        font-size: 13px;
+        color: #666;
+        margin-top: 5px;
+    }
+
+    .buttonA p,
+    .buttonA span {
+        display: block;
+        /* 各言語のテキストをブロック要素にし、改行 */
+        margin: 0;
+        /* 不要な余白を除去 */
+    }
+</style>
+
+<body>
+    <script>
+        var languageArray = ["en-US", "zh", "de"]
+        var dataArray = []
+        var localData = [];
+        var enData = [];
+        var zhData = [];
+        var deData = [];
+        let indexLanguage;
+        window.onload = function () {
+            //getJsonp_GAS();
+            if ('speechSynthesis' in window) {
+                alert("このブラウザは音声合成に対応しています")
+            } else {
+                alert("このブラウザは音声合成に対応していません")
+            }
+            var wDef = (navigator.browserLanguage || navigator.language || navigator.userLanguage).substr(0, 2);
+
+
+            langSet("en-US");
+        }
+
+        function langSet(argLang) {
+            var elm = document.getElementsByClassName("langCng");
+            for (var i = 0; i < elm.length; i++) {
+
+                if (elm[i].getAttribute("lang") == argLang) {
+                    elm[i].classList.add("selected")
+                } else {
+                    elm[i].classList.remove("selected")
+                }
+
+            }
+            indexLanguage = languageArray.indexOf(argLang);
+            createTable(dataArray[indexLanguage]);
+        }
+
+        function say(a) {
+            console.log(a);
+            const uttr = new SpeechSynthesisUtterance(a[0])
+            uttr.lang = 'ja-JP';
+            speechSynthesis.speak(uttr)
+            const uttr2 = new SpeechSynthesisUtterance(a[1])
+            uttr2.lang = languageArray[indexLanguage];
+            speechSynthesis.speak(uttr2)
+        }
+
+        function createTable(d) {
+
+            var len = localData.length;
+            var html = '';
+            for (var i = 0; i < len; i++) {
+                var answer = "";
+                for (var j = 0; j < 6; j++) {
+                    if (localData[i].data[j].length > 0) {
+                        answer +=
+                            `<div class="smallB" id="B${i}-${j}" ><p class="ja_text tlans">${localData[i].data[j]}</p><p class="lan"  >${d[i].data[j]}</p></div>`
+                    }
+                }
+                html += `<div class="parent">
+                    <div class ="item _A"><div class = "buttonA" id = "A${i}"><p class="tlans">${localData[i].category}</p><span>${d[i].category}</span></div></div>
+                    <div class ="item _B">${answer}</div>
+                    </div>`;
+
+                //localData[i].category + ' ' + localData[i].data1 + '<br>';
+                document.getElementById('whole').innerHTML = html;
+
+            }
+            for (let i = 0; i < len; i++) {
+
+                let elemId = `A${i}`;
+                let elem = document.getElementById(elemId);
+                if (elem) {
+                    elem.onclick = function () {
+                        say([localData[i].category, d[i].category]);
+                    };
+                }
+
+                for (let j = 0; j < 6; j++) {
+                    let elemId = `B${i}-${j}`;
+                    let elem = document.getElementById(elemId);
+                    if (elem) {
+                        elem.onclick = function () {
+                            say([localData[i].data[j], d[i].data[j]]);
+                        };
+                    }
+
+                }
+            }
+
+        }
+
+        //https://script.google.com/macros/s/AKfycbyOlGXRp2fgyV4AaGxFobqrsGSpg68Nfnz2joCmznrp87vD3F1swBU-SEniFppKSm0UzQ/exec
+        async function getDataFromGAS(sheetName) {
+            const url =
+                `https://script.google.com/macros/s/AKfycbyOlGXRp2fgyV4AaGxFobqrsGSpg68Nfnz2joCmznrp87vD3F1swBU-SEniFppKSm0UzQ/exec?sheet=${sheetName}`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+
+                const convertedData = data.map(item => ({
+                    type: item.type,
+                    category: item.category,
+                    data: [
+                        item.data1,
+                        item.data2,
+                        item.data3,
+                        item.data4,
+                        item.data5,
+                        item.data6,
+                        item.data7
+                    ]
+                }));
+                if (sheetName == "enData") {
+                    createTable(convertedData);
+                }
+                return convertedData; // 非同期処理の結果を返す
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                return null; // エラー時はnullを返す
+            }
+        }
+
+
+        async function fetchData() {
+            localData = await getDataFromGAS('localData');
+            enData = await getDataFromGAS('enData');
+            zhData = await getDataFromGAS('zhData');
+            deData = await getDataFromGAS('deData');
+
+            console.log(localData); // 取得したデータを確認
+            console.log(enData);
+            console.log(zhData);
+            console.log(deData);
+
+            dataArray.push(enData)
+            dataArray.push(zhData)
+            dataArray.push(deData)
+
+        }
+
+        fetchData(); // データを取得して使用する
+
+        // 【main-script】 スプレッドシート内の記述をjsonデータとして読み込み html 内へ入れ込む
+        function getJsonp_GAS() {
+            $.ajax({
+                type: 'GET',
+                url: 'https://script.google.com/macros/s/AKfycbxM-lAGFlZjhAv_rRdhvYA-8F8YKDpO8Oqxi4pN3EIi68rmGevgBmP9sOVEuACA_bje/exec',
+                dataType: 'jsonp',
+                jsonpCallback: 'jsondata',
+                success: function (json) {
+                    var len = localData.length;
+                    var html = '';
+                    for (var i = 0; i < len; i++) {
+                        html += localData[i].category + ' ' + json[i].data1 + '<br>';
+                    }
+                    document.getElementById('whole').append(html);
+                }
+            });
+        }
+    </script>
+    <div id="sample1">
+        <span class="langCng en selected" lang="en-US" onClick="langSet('en-US')">英語/English</span>
+        <span class="langCng zh" lang="zh" onClick="langSet('zh')">中国語/中文</span>
+        <span class="langCng de" lang="de" onClick="langSet('de')">ドイツ語/Deutsch</span>
+
+    </div>
+    <div id="whole">
+    </div>
+</body>
+
+</html>
