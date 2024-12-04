@@ -426,7 +426,7 @@
                 editButtons.forEach((button) => {
                     button.addEventListener("click", function () {
                         currentRow1 = this.closest("tr");
-
+                        $("dialog").show()
                         // 元の値を取得してダイアログに設定
                         const dateValue = currentRow1.querySelector(".date-picker").innerText;
                         const timeValue = currentRow1.querySelector(".time-picker").innerText;
@@ -442,7 +442,7 @@
                         before_dateValue = dateValue
                         before_periodValue = timeValue
                         // ダイアログを表示
-                        dialog.style.display = "block";
+                        
 
                     });
                 });
@@ -461,7 +461,7 @@
                     currentRow1.querySelector(".low1").innerText = newLow;
 
                     // ダイアログを閉じる
-                    dialog.style.display = "none";
+                    $("dialog").hide()
 
                     deleteData(before_dateValue, before_periodValue)
                     setWeight(newWeight, newDate)
@@ -484,7 +484,7 @@
                 // キャンセルボタンの処理
                 document.getElementById("cancelButton").addEventListener("click", () => {
                     // ダイアログを閉じる
-                    dialog.style.display = "none";
+                    $("dialog").hide()
                 });
 
                 // 削除ボタンの処理
@@ -492,7 +492,7 @@
                     deleteData(before_dateValue, before_periodValue)
 
                     // ダイアログを閉じる
-                    dialog.style.display = "none";
+                    $("dialog").hide()
                 });
 
             }
