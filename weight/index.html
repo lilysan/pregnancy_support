@@ -299,7 +299,8 @@
                         before_dateValue = dateValue + " " + timeValue
                         before_weightValue = weightValue
                         // ダイアログを表示
-                        dialog.style.display = "block";
+                        
+                        $("#editDialog").show()
 
                     });
                 });
@@ -316,7 +317,7 @@
                     currentRow1.querySelector(".weight1").innerText = newWeight;
 
                     // ダイアログを閉じる
-                    dialog.style.display = "none";
+                    $("#editDialog").hide()
 
                     deleteData(before_dateValue, before_weightValue)
                     setWeight(newWeight, newDate)
@@ -337,7 +338,7 @@
                 // キャンセルボタンの処理
                 document.getElementById("cancelButton").addEventListener("click", () => {
                     // ダイアログを閉じる
-                    dialog.style.display = "none";
+                    $("#editDialog").hide()
                 });
 
                 // 削除ボタンの処理
@@ -345,7 +346,7 @@
                     deleteData(before_dateValue, before_weightValue)
 
                     // ダイアログを閉じる
-                    dialog.style.display = "none";
+                    $("#editDialog").hide()
                 });
 
             }
