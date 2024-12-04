@@ -1,6 +1,7 @@
       // タブ切り替えの処理
       function switchTab(contentId, event) {
         id = contentId;
+        $("#editDialog").show()
         if (contentId != "chart-container") {
             populateTable(contentId)
         } else {
