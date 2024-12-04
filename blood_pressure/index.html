@@ -524,7 +524,32 @@
             }
 
         }
-
+        function deleteData(before_dateValue, before_periodValue){
+        $(".loader").show();
+            console.log(before_periodValue)
+            console.log(before_dateValue)
+        $.ajax(
+                    getAccessObj({
+                        path: "pressure",
+                        method: "post",
+                        idToken: token,
+                        postData: {
+                            date: String(before_dateValue),
+                            period: parseInt(before_periodValue)
+                        }
+                    })
+                ).done(function (response) {
+                    if (response.statusCode === 401) {
+                        liff.logout();
+                        window.location.reload();
+                    } else if (response.statusCode !== 200) {
+                        console.error(response.message);
+                        alert(response.message)
+                    }
+                })
+                .fail(() => alert("Network error!"))
+                .always(() => $(".loader").hide());
+        }
 
 
         function setpressure(high, low, date, time) {
