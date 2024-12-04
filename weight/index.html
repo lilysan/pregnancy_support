@@ -19,13 +19,12 @@
 </head>
 
 <body>
-    <div class="loader" style="display: none;">
-    <div class="text-center">
-        <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
+    <div class="loader" >
+        <div class="text-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
         </div>
-    </div>
-    </div>
     </div>
 
     <h1 class="title_weight">体重カウンター</h1>
@@ -171,6 +170,7 @@
 
             changeLanguage(lang);
             token = idToken;
+            $(".loader").hide();
             allData = loadWeightData(idToken);
 
 
@@ -212,6 +212,7 @@
         var data;
 
         function loadWeightData(idToken) {
+            $(".loader").show();
             $.ajax(
                 getAccessObj({
                     path: "weight",
@@ -219,7 +220,7 @@
                     idToken: idToken
                 })
             ).done(function (response) {
-                $(".loader").hide();
+                
                 if (response.statusCode === 401) {
                     liff.logout();
                     window.location.reload();
@@ -229,6 +230,7 @@
                 } else {
                     console.log(response.data)
                     allData = response.data.items
+                    $(".loader").hide();
                     updateChart(response.data.items); // チャートとテーブルを更新
 
                     return response.data.items
@@ -396,7 +398,9 @@
                         window.location.reload();
                     } else if (response.statusCode !== 200) {
                         console.log(response);
+                        
                         alert(response.message)
+                        $(".loader").hide();
                     } else {
                         console.log("できたよ");
                         allData = allData.filter(item => !(item.datetime === _date && item.weight === _weight));
@@ -429,7 +433,9 @@
                     window.location.reload();
                 } else if (response.statusCode !== 200) {
                     console.error(response.message);
+                   
                     alert(response.message)
+                    $(".loader").hide();
                 } else {
                     //const data = response.json();
                     //updateChart(data.data.items); // チャートとテーブルを更新
@@ -459,7 +465,9 @@
                     window.location.reload();
                 } else if (response.statusCode !== 200) {
                     console.error(response.message);
+                    
                     alert(response.message)
+                    $(".loader").hide();
                 } else {
                     //const data = response.json();
                     //updateChart(data.data.items); // チャートとテーブルを更新
