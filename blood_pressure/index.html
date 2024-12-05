@@ -464,7 +464,7 @@
                     $("#editDialog").hide()
 
                     deleteData(before_dateValue, before_periodValue)
-                    setWeight(newWeight, newDate)
+                    setpressure(newWeight, newDate, newHigh, newLow )
 
                     allData = allData.filter(item => !(item.datetime === before_dateValue && item.weight ===
                         dataArray.indexOf(before_weightValue)));
