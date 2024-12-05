@@ -469,7 +469,7 @@
 
                     deleteData(before_dateValue, before_periodValue)
                     console.log(newHigh, newLow, newDate, dataArray.indexOf(newTime))
-                    setpressure( newHigh, newLow, newDate, dataArray.indexOf(newTime) )
+                    setpressure( newHigh, newLow, newDate, newTime )
 
                     allData.push({
                         date: newDate,
@@ -563,6 +563,7 @@
 
 
         function setpressure(high, low, date, time) {
+            console.log(high, low, date, time)
             $(".loader").show();
 
             $.ajax(
