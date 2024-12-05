@@ -235,7 +235,6 @@
                 return b.period - a.period;
             });
 
-            console.log(data)
             data.forEach(item => {
                 const dateTime = item.date + " " + dataArray[item.period];
                 const high = item.high;
@@ -251,10 +250,6 @@
             labels.reverse();
             highData.reverse();
             lowData.reverse();
-
-            console.log(highData)
-            console.log(lowData)
-            console.log(labels)
 
             // チャートのデータを更新
             bloodPressureChart.data.labels = labels; // X軸ラベルを更新
