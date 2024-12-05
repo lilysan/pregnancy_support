@@ -472,13 +472,13 @@
 
                     allData = allData.filter(item => !(item.datetime === before_dateValue && item.period ===
                         parseInt(before_periodValue)));
-
+                    
                     console.log(before_dateValue)
                     console.log(before_periodValue)
 
                     allData.push({
                         date: newDate,
-                        period: parseInt(newTime),
+                        period: dataArray.indexOf(newTime),
                         high: newHigh,
                         low: newLow
                     })
