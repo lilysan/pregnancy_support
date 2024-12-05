@@ -130,6 +130,13 @@
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
     <script>
+
+        function areDatesEqual(date1, date2) {
+            const normalizedDate1 = new Date(date1).toISOString().split('T')[0];
+            const normalizedDate2 = new Date(date2).toISOString().split('T')[0];
+            return normalizedDate1 === normalizedDate2;
+        }
+
         const API_URL =
             "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
         const LIFF_ID = "2005594923-wN8OjyGd";
@@ -468,7 +475,7 @@
                     try {
                         // deleteDataが完了してからsetpressureを実行
                         await deleteData(before_dateValue, before_periodValue);
-                        allData = allData.filter(item => !(item.date === toString(before_dateValue) && item.period === parseInt(before_periodValue)));
+                        allData = allData.filter(item => !(areDatesEqual(item.date,toString(before_dateValue)) && item.period === parseInt(before_periodValue)));
                         console.log(newHigh, newLow, newDate, newTime)
                         await setpressure(newHigh, newLow, newDate, newTime);
 
