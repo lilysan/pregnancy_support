@@ -468,7 +468,7 @@
                     try {
                         // deleteDataが完了してからsetpressureを実行
                         await deleteData(before_dateValue, before_periodValue);
-                        allData = allData.filter(item => !(item.date === before_dateValue && item.period === before_periodValue));
+                        allData = allData.filter(item => !(item.date === parseString(before_dateValue) && item.period === before_periodValue));
                         console.log(newHigh, newLow, newDate, newTime)
                         await setpressure(newHigh, newLow, newDate, newTime);
 
