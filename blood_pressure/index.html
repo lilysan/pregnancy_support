@@ -32,7 +32,7 @@
     <form id="addDataForm">
         <label for="date">日付:</label>
         <input type="text" id="date" placeholder="日付を選択"><br>
-        <label for="date">時間:</label>
+        <label for="periodtime">時間:</label>
         <section class="dropdown">
             <select id="periodSelect">
                 <option value="1">朝</option>
@@ -50,7 +50,7 @@
         <canvas id="bloodPressureChart"></canvas>
     </div>
 
-    <div id="table-container" class="table-container" class="content">
+    <div id="table-container" class="table-container content">
         <!-- データ編集テーブル -->
 
         <table id="table">
@@ -103,7 +103,7 @@
 
             <label for="editHigh">最高血圧:</label>
             <input type="number" id="editHigh" class="high2"><br><br>
-            <label for="editLow">最高血圧:</label>
+            <label for="editLow">最低血圧:</label>
             <input type="number" id="editLow" class="low2"><br><br>
 
 
@@ -361,6 +361,10 @@
             const higth = parseInt(document.getElementById('higth').value);
             const low = parseInt(document.getElementById('low').value);
 
+            if (!date || !higth || !low || isNaN(higth) || isNaN(low) || higth <= 0 || low <= 0) {
+                alert('日付と正の数値を入力してください。');
+                return;
+            }
             // フォームの値が入力されているかチェック
             if (date && higth && low) {
                 allData.push({
@@ -541,6 +545,7 @@
                         }
                     })
                 ).done(function (response) {
+            $(".loader").hide();
                     if (response.statusCode === 401) {
                         liff.logout();
                         window.location.reload();
@@ -549,8 +554,10 @@
                         alert(response.message)
                     }
                 })
-                .fail(() => alert("Network error!"))
-                .always(() => $(".loader").hide());
+                .fail(function () {
+                    $(".loader").hide();
+                    alert("Network error!");
+                });
         }
 
 
