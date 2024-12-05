@@ -394,7 +394,7 @@
                 allData.forEach((label, index) => {
                     const datePart = String(label.date); // 日付部分
                     const periodPart = label.period; // 朝/夜部分
-
+                    
                     const row = `<tr>
                             <!-- 日付部分: datepickerを使用 -->
                             <td class="date-picker">${String(datePart)}</td>
@@ -435,7 +435,7 @@
                         const lowValue = currentRow1.querySelector(".low1").innerText;
 
                         document.getElementById("editDate").value = dateValue;
-                        document.getElementById("editPeriod").value = timeValue;
+                        document.getElementById("editPeriod").value = dataArray.indexOf(timeValue);
                         document.getElementById("editHigh").value = highValue;
                         document.getElementById("editLow").value = lowValue;
 
@@ -464,7 +464,7 @@
                     $("#editDialog").hide()
 
                     deleteData(before_dateValue, before_periodValue)
-                    setpressure(newWeight, newDate, newHigh, newLow )
+                    setpressure(newDate, newTime, newHigh, newLow )
 
                     allData = allData.filter(item => !(item.datetime === before_dateValue && item.weight ===
                         dataArray.indexOf(before_weightValue)));
