@@ -376,7 +376,7 @@
                 console.log(allData)
                 setpressure(higth, low, date, time)
                 updateChart(allData); // グラフを更新
-                populateTable(id); // テーブルを更新
+                populateTable("table-container"); // テーブルを更新
 
                 // フォームのリセット
                 document.getElementById('date').value = '';
@@ -477,6 +477,9 @@
                         high: newHigh,
                         low: newLow
                     })
+
+                    updateChart(allData); // グラフを更新
+                    populateTable(id); // テーブルを更新
 
                 });
 
