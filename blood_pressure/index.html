@@ -366,6 +366,16 @@
                 console.log(allData)
                 setpressure(higth, low, date, time)
 
+                allData.push({
+                            date: date,
+                            period:  parseInt(time),
+                            high: parseInt(higth),
+                            low: parseInt(low)
+                        })
+                // グラフとテーブルの更新
+        updateChart(allData);
+        populateTable("table-container");
+        populateTable("edit-container");
                 // フォームのリセット
                 document.getElementById('date').value = '';
                 document.getElementById('higth').value = '';
@@ -458,7 +468,21 @@
                     try {
                         // deleteDataが完了してからsetpressureを実行
                         await deleteData(before_dateValue, before_periodValue);
-                        setpressure(newHigh, newLow, newDate, newTime);
+                        allData = allData.filter(item => !(item.date === before_dateValue && item.period === before_periodValue));
+                        await setpressure(newHigh, newLow, newDate, newTime);
+
+                        allData.push({
+                            date: newDate,
+                            period:  parseInt(newTime),
+                            high: parseInt(newHigh),
+                            low: parseInt(newLow)
+                        })
+
+                        // グラフとテーブルの更新
+        updateChart(allData);
+        populateTable("table-container");
+        populateTable("edit-container");
+                        
                         $("#editDialog").hide()
                     } catch (error) {
                         console.error("Error during deleteData:", error);
@@ -540,9 +564,6 @@
                         console.error(response.message);
                         alert(response.message)
                     }
-                    else{
-                        allData = allData.filter(item => !(item.date === before_dateValue && item.period === parseInt(before_periodValue)));
-                    }
                 })
                 .fail(function () {
                     $(".loader").hide();
@@ -580,12 +601,7 @@
                     }
                     else{
                         alert("done")
-                        allData.push({
-                            date: date,
-                            period:  parseInt(time),
-                            high: parseInt(high),
-                            low: parseInt(low)
-                        })
+                        
                         updateChart(allData); // グラフを更新
                         populateTable(id); // テーブルを更新
                         
