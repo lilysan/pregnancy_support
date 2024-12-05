@@ -464,17 +464,17 @@
                     $("#editDialog").hide()
 
                     deleteData(before_dateValue, before_periodValue)
-                    setpressure(newDate, dataArray.indexOf(newTime), newHigh, newLow )
+                    setpressure( newHigh, newLow, newDate, dataArray.indexOf(newTime) )
 
                     allData = allData.filter(item => !(item.datetime === before_dateValue && item.period ===
-                        before_periodValue));
+                        parseInt(before_periodValue)));
 
                     console.log(before_dateValue)
                     console.log(before_periodValue)
 
                     allData.push({
                         date: newDate,
-                        period: newTime,
+                        period: parseInt(newTime),
                         high: newHigh,
                         low: newLow
                     })
