@@ -369,7 +369,7 @@
             if (date && higth && low) {
                 allData.push({
                     date: date,
-                    period: time,
+                    period:  parseInt(time),
                     high: higth,
                     low: low
                 })
@@ -478,7 +478,7 @@
 
                     allData.push({
                         date: newDate,
-                        period: dataArray.indexOf(newTime),
+                        period:  parseInt(dataArray.indexOf(newTime)),
                         high: newHigh,
                         low: newLow
                     })
