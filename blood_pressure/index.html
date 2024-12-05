@@ -464,10 +464,10 @@
                     $("#editDialog").hide()
 
                     deleteData(before_dateValue, before_periodValue)
-                    setpressure(newDate, newTime, newHigh, newLow )
+                    setpressure(newDate, dataArray.indexOf(newTime), newHigh, newLow )
 
                     allData = allData.filter(item => !(item.datetime === before_dateValue && item.period ===
-                        dataArray.indexOf(before_periodValue)));
+                        before_periodValue));
 
                     console.log(before_dateValue)
                     console.log(before_periodValue)
