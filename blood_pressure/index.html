@@ -367,16 +367,9 @@
             }
             // フォームの値が入力されているかチェック
             if (date && higth && low) {
-                allData.push({
-                    date: date,
-                    period:  parseInt(time),
-                    high: higth,
-                    low: low
-                })
+                
                 console.log(allData)
                 setpressure(higth, low, date, time)
-                updateChart(allData); // グラフを更新
-                populateTable("table-container"); // テーブルを更新
 
                 // フォームのリセット
                 document.getElementById('date').value = '';
@@ -471,15 +464,9 @@
                     console.log(newHigh, newLow, newDate, dataArray.indexOf(newTime))
                     setpressure( newHigh, newLow, newDate, newTime )
 
-                    allData.push({
-                        date: newDate,
-                        period:  newTime,
-                        high: newHigh,
-                        low: newLow
-                    })
+                
 
-                    updateChart(allData); // グラフを更新
-                    populateTable(id); // テーブルを更新
+                    
 
                 });
 
@@ -528,10 +515,9 @@
         }
         function deleteData(before_dateValue, before_periodValue){
         $(".loader").show();
-            console.log(before_periodValue)
-            console.log(before_dateValue)
+
             before_periodValue = dataArray.indexOf(before_periodValue)
-            console.log(before_periodValue)
+            
         $.ajax(
                     getAccessObj({
                         path: "pressure",
@@ -543,7 +529,7 @@
                         }
                     })
                 ).done(function (response) {
-            allData = allData.filter(item => !(item.date === before_dateValue && item.period === parseInt(before_periodValue)));
+            
 
             $(".loader").hide();
             
@@ -553,6 +539,10 @@
                     } else if (response.statusCode !== 200) {
                         console.error(response.message);
                         alert(response.message)
+                    }
+                    else{
+                        alert("done")
+                        allData = allData.filter(item => !(item.date === before_dateValue && item.period === parseInt(before_periodValue)));
                     }
                 })
                 .fail(function () {
@@ -579,12 +569,27 @@
                         }
                     })
                 ).done(function (response) {
+
+
+                
                     if (response.statusCode === 401) {
                         liff.logout();
                         window.location.reload();
                     } else if (response.statusCode !== 200) {
                         console.error(response.message);
                         alert(response.message)
+                    }
+                    else{
+                        alert("done")
+                        allData.push({
+                            date: date,
+                            period:  parseInt(time),
+                            high: parseInt(high),
+                            low: parseInt(low)
+                        })
+                        updateChart(allData); // グラフを更新
+                        populateTable(id); // テーブルを更新
+                        
                     }
                 })
                 .fail(() => alert("Network error!"))
