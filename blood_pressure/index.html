@@ -374,7 +374,7 @@
                 setpressure(higth, low, date, time)
 
                 allData.push({
-                            date: toString(date),
+                            date: date,
                             period:  parseInt(time),
                             high: parseInt(higth),
                             low: parseInt(low)
@@ -480,7 +480,7 @@
                         await setpressure(newHigh, newLow, newDate, newTime);
 
                         allData.push({
-                            date: toString(newDate),
+                            date: newDate,
                             period:  parseInt(newTime),
                             high: parseInt(newHigh),
                             low: parseInt(newLow)
