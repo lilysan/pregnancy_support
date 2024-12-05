@@ -529,11 +529,11 @@
             console.log(before_periodValue)
             console.log(before_dateValue)
             before_periodValue = dataArray.indexOf(before_periodValue)
-
+            console.log(before_periodValue)
         $.ajax(
                     getAccessObj({
                         path: "pressure",
-                        method: "post",
+                        method: "delete",
                         idToken: token,
                         postData: {
                             date: String(before_dateValue),
