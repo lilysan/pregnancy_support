@@ -466,11 +466,11 @@
                     deleteData(before_dateValue, before_periodValue)
                     setpressure(newDate, newTime, newHigh, newLow )
 
-                    allData = allData.filter(item => !(item.datetime === before_dateValue && item.weight ===
-                        dataArray.indexOf(before_weightValue)));
+                    allData = allData.filter(item => !(item.datetime === before_dateValue && item.period ===
+                        dataArray.indexOf(before_periodValue)));
 
                     console.log(before_dateValue)
-                    console.log(before_weightValue)
+                    console.log(before_periodValue)
 
                     allData.push({
                         date: newDate,
