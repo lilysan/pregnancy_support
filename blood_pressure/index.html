@@ -445,7 +445,7 @@
                 });
 
                 // 保存ボタンの処理
-                document.getElementById("saveButton").addEventListener("click", () => {
+                document.getElementById("saveButton").addEventListener("click", async () => {
                     const newDate = document.getElementById("editDate").value;
                     const newTime = document.getElementById("editPeriod").value;
                     const newHigh = document.getElementById("editHigh").value;
@@ -458,11 +458,16 @@
                     currentRow1.querySelector(".low1").innerText = newLow;
 
                     // ダイアログを閉じる
-                    $("#editDialog").hide()
-
-                    deleteData(before_dateValue, before_periodValue)
                     
-                    setpressure( newHigh, newLow, newDate, newTime )
+
+                    try {
+                        // deleteDataが完了してからsetpressureを実行
+                        await deleteData(before_dateValue, before_periodValue);
+                        setpressure(newHigh, newLow, newDate, newTime);
+                        $("#editDialog").hide()
+                    } catch (error) {
+                        console.error("Error during deleteData:", error);
+                    }
 
                 
 
