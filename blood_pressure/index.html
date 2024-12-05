@@ -545,7 +545,10 @@
                         }
                     })
                 ).done(function (response) {
+            allData = allData.filter(item => !(item.date === before_dateValue && item.period === parseInt(before_periodValue)));
+
             $(".loader").hide();
+            
                     if (response.statusCode === 401) {
                         liff.logout();
                         window.location.reload();
