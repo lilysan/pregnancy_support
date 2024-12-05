@@ -528,6 +528,8 @@
         $(".loader").show();
             console.log(before_periodValue)
             console.log(before_dateValue)
+            before_periodValue = dataArray.indexOf(before_periodValue)
+
         $.ajax(
                     getAccessObj({
                         path: "pressure",
