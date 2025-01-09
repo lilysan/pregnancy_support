@@ -2,8 +2,8 @@
   {
     "class": "title_contact",
     "type": "docs",
-    "en": "Maternity Hospital",
-    "ja": "産院"
+    "en": "Hospital",
+    "ja": "病院"
   },
   {
     "class": "title_taxi",
@@ -15,7 +15,7 @@
     "class": "btn_scan",
     "type": "docs",
     "en": "<i class=\"fa-solid fa-qrcode\"></i> Scan a Hospital QR code",
-    "ja": "<i class=\"fa-solid fa-qrcode\"></i> 産院QRコードを読み取る"
+    "ja": "<i class=\"fa-solid fa-qrcode\"></i> 病院QRコードを読み取る"
   },
   {
     "class": "btn_unlink",
