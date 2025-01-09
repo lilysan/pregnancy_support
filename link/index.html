@@ -87,7 +87,6 @@
         // Start to use liff's api
         const idToken = liff.getIDToken();
         const lang = liff.getAppLanguage();
-        alert(lang);
 
         changeLanguage(lang);
         getHospital(idToken);
@@ -403,8 +402,9 @@
 
 
     function changeLanguage(lang){
+        const newLang = lang.replace(/-.+$/g, "");
         const knownLang = ["ja", "en"];
-        lang = knownLang.includes(lang) ? lang : "en";
+        lang = knownLang.includes(newLang) ? newLang : "en";
 
         $.getJSON("lang.json", (data) => {
             $.each(data, function (index, val) {
