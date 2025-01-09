@@ -87,6 +87,7 @@
         // Start to use liff's api
         const idToken = liff.getIDToken();
         const lang = liff.getAppLanguage();
+        alert(lang);
 
         changeLanguage(lang);
         getHospital(idToken);
