@@ -19,28 +19,36 @@
     </div>
 
     <h1 class="mt-3">
-        産院データの登録
+        病院データの登録
         <small class="text-body-secondary">STAFF ONLY</small>
     </h1>
     <div class="alert alert-info" role="alert">
-        以下の産院データを登録すると、QRコードが発行されます。<br>
-        発行されたQRコードを患者さまにご提示し、産院設定の画面からQRコードを読み取るようご依頼ください。<br>
+        以下の病院データを登録すると、病院QRコードが発行されます。<br>
+        発行された病院QRコードを患者さまにご提示し、病院設定の画面から病院QRコードを読み取るようご依頼ください。<br>
         患者さまからの緊急メッセージが、このLINEアカウント宛てに届くようになります。
     </div>
     <form name="form_hospital">
         <div>
-            <p>
-                <label>産院名（日本語）</label>
+            <div class="mb-3">
+                <label>病院名（日本語） <sup><span class="badge text-bg-danger">必須</span></sup></label>
                 <input class="hospital_name_placeholder form-control" type="text" value="" required>
-            </p>
-            <p>
-                <label>産院名（英語）</label>
+            </div>
+            <div class="mb-3">
+                <label>病院名（英語） <sup><span class="badge text-bg-danger">必須</span></sup></label>
                 <input class="hospital_name_en_placeholder form-control" type="text" value="" required>
-            </p>
-            <p>
-                <label>陣痛時の電話番号</label>
-                <input class="phone_number_placeholder form-control" type="tel" value="" required>
-            </p>
+            </div>
+            <div class="mb-3">
+                <label>代表電話番号 <sup><span class="badge text-bg-danger">必須</span></sup></label>
+                <input class="phone_number1_placeholder form-control" type="tel" value="" required>
+            </div>
+            <div class="mb-3">
+                <label>産科外来電話番号 <sup><span class="badge text-bg-secondary">任意</span></sup></label>
+                <input class="phone_number2_placeholder form-control" type="tel" value="">
+            </div>
+            <div class="mb-3">
+                <label>夜間（診察時間外）電話番号 <sup><span class="badge text-bg-secondary">任意</span></sup></label>
+                <input class="phone_number3_placeholder form-control" type="tel" value="">
+            </div>
         </div>
         <div>
             <button type="button" class="btn btn-danger btn_delete">削除</button>
@@ -50,7 +58,8 @@
     </form>
     <div class="mt-3 mb-3 text-center">
         <img src="" class="qrcode d-block mx-auto mt-3 mb-3" width="250px">
-        <a href="" type="button" class="btn btn-primary btn_download">QRコードをダウンロード</a>
+        <a href="" type="button" class="btn btn-primary mb-3 btn_download">病院QRコードのみをダウンロード</a>
+        <button type="button" class="btn btn-primary btn_sheet" data-qrcode="" data-qrsheet="">病院QRコードの案内シートをダウンロード</button>
     </div>
 </div>
 
@@ -61,40 +70,45 @@
     const API_URL = "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
     const LIFF_ID = "2005594923-wN8OjyGd";
 
-    liff.init({
-        liffId: LIFF_ID, // Use own liffId
-        withLoginOnExternalBrowser: true, // Enable automatic login process
-    }).then(() => {
-        // Start to use liff's api
-        const idToken = liff.getIDToken();
-        getHospital(idToken);
-
-        $(".btn_register").on("click", function(e){
-            if (!$('form[name="form_hospital"]')[0].reportValidity()) {
-                return false;
-            } else {
-                setHospital(idToken);
-            }
-        });
-        $(".btn_edit").on("click", function(e){
-            editHospital(idToken);
-        });
-        $(".btn_delete").on("click", function(e){
-            deleteHospital(idToken);
-        });
-        $(".btn_download").on("click", function(e){
-            e.preventDefault();
-            const url = $(".btn_download").attr("href");
-            liff.openWindow({
-                url: url,
-                external: true,
-            });
-        });
-    }).catch((err) => {
-        // Error happens during initialization
-        liff.logout();
-        alert("LIFF init failed.");
-    });
+    // liff.init({
+    //     liffId: LIFF_ID, // Use own liffId
+    //     withLoginOnExternalBrowser: true, // Enable automatic login process
+    // }).then(() => {
+    //     // Start to use liff's api
+    //     const idToken = liff.getIDToken();
+    //     getHospital(idToken);
+    //
+    //     $(".btn_register").on("click", function(e){
+    //         if (!$('form[name="form_hospital"]')[0].reportValidity()) {
+    //             return false;
+    //         } else {
+    //             setHospital(idToken);
+    //         }
+    //     });
+    //     $(".btn_edit").on("click", function(e){
+    //         editHospital(idToken);
+    //     });
+    //     $(".btn_delete").on("click", function(e){
+    //         deleteHospital(idToken);
+    //     });
+    //     $(".btn_download").on("click", function(e){
+    //         e.preventDefault();
+    //         const url = $(".btn_download").attr("href");
+    //         liff.openWindow({
+    //             url: url,
+    //             external: true,
+    //         });
+    //     });
+    //     $(".btn_sheet").on("click", function(e){
+    //         e.preventDefault();
+    //         downloadSheet(idToken);
+    //     });
+    //
+    // }).catch((err) => {
+    //     // Error happens during initialization
+    //     liff.logout();
+    //     alert("LIFF init failed.");
+    // });
 
     const getAccessObj = (data) => {
         return {
@@ -114,37 +128,46 @@
                 idToken: idToken
             })
         ).done(function(response) {
-            console.log(response);
             if(response.statusCode === 401){
                 liff.logout();
                 window.location.reload();
             }
             else if(response.statusCode !== 200){
                 console.error(response.message);
-                alert(response.message)
+                alert(response.message);
             }
             else {
                 $(".hospital_name_placeholder").val(response.data.hospitalName);
                 $(".hospital_name_en_placeholder").val(response.data.hospitalNameEn);
-                $(".phone_number_placeholder").val(response.data.phoneNumber);
+                $(".phone_number1_placeholder").val(response.data.phoneNumber1);
+                $(".phone_number2_placeholder").val(response.data.phoneNumber2);
+                $(".phone_number3_placeholder").val(response.data.phoneNumber3);
                 $(".qrcode").attr("src", response.data.qrcodeImageUrl);
                 $(".btn_download").attr("href", response.data.qrcodeDownloadUrl);
+                $('.btn_sheet').attr({
+                    'data-qrcode': response.data.qrcodeId,
+                    'data-qrsheet': response.data.qrSheetId
+                });
 
                 if(response.data.hospitalName === ""){
                     $(".btn_delete").hide();
                     $(".btn_edit").hide();
                     $(".btn_register").show();
                     $(".btn_download").hide();
+                    $(".btn_sheet").hide();
                 }
                 else{
                     $(".btn_delete").show();
                     $(".btn_edit").show();
                     $(".btn_register").hide();
                     $(".btn_download").show();
+                    $(".btn_sheet").show();
 
                     $(".hospital_name_placeholder").prop("readOnly", true);
                     $(".hospital_name_en_placeholder").prop("readOnly", true);
-                    $(".phone_number_placeholder").prop("readOnly", true);
+                    $(".phone_number1_placeholder").prop("readOnly", true);
+                    $(".phone_number2_placeholder").prop("readOnly", true);
+                    $(".phone_number3_placeholder").prop("readOnly", true);
                 }
             }
             $(".loader").hide();
@@ -164,7 +187,9 @@
                 postData: {
                     hospitalName: $(".hospital_name_placeholder").val(),
                     hospitalNameEn: $(".hospital_name_en_placeholder").val(),
-                    phoneNumber: $(".phone_number_placeholder").val()
+                    phoneNumber1: $(".phone_number1_placeholder").val(),
+                    phoneNumber2: $(".phone_number2_placeholder").val(),
+                    phoneNumber3: $(".phone_number3_placeholder").val()
                 }
             })
         ).done(function(response) {
@@ -174,20 +199,27 @@
             }
             else if(response.statusCode !== 200){
                 console.error(response.message);
-                alert(response.message)
+                alert(response.message);
             }
             else {
                 $(".qrcode").attr("src", response.data.qrcodeImageUrl);
                 $(".btn_download").attr("href", response.data.qrcodeDownloadUrl);
+                $('.btn_sheet').attr({
+                    'data-qrcode': response.data.qrcodeId,
+                    'data-qrsheet': response.data.qrSheetId
+                });
 
                 $(".btn_delete").show();
                 $(".btn_edit").show();
                 $(".btn_register").hide();
                 $(".btn_download").show();
+                $(".btn_sheet").show();
 
                 $(".hospital_name_placeholder").prop("readOnly", true);
                 $(".hospital_name_en_placeholder").prop("readOnly", true);
-                $(".phone_number_placeholder").prop("readOnly", true);
+                $(".phone_number1_placeholder").prop("readOnly", true);
+                $(".phone_number2_placeholder").prop("readOnly", true);
+                $(".phone_number3_placeholder").prop("readOnly", true);
 
                 alert("Success");
             }
@@ -213,20 +245,27 @@
             }
             else if(response.statusCode !== 200){
                 console.error(response.message);
-                alert(response.message)
+                alert(response.message);
             }
             else {
                 $(".qrcode").attr("src", "");
                 $(".btn_download").attr("href", "");
+                $('.btn_sheet').attr({
+                    'data-qrcode': "",
+                    'data-qrsheet': ""
+                });
 
                 $(".btn_delete").hide();
                 $(".btn_edit").hide();
                 $(".btn_register").show();
                 $(".btn_download").hide();
+                $(".btn_sheet").hide();
 
                 $(".hospital_name_placeholder").prop("readOnly", false);
                 $(".hospital_name_en_placeholder").prop("readOnly", false);
-                $(".phone_number_placeholder").prop("readOnly", false);
+                $(".phone_number1_placeholder").prop("readOnly", false);
+                $(".phone_number2_placeholder").prop("readOnly", false);
+                $(".phone_number3_placeholder").prop("readOnly", false);
 
                 alert("Success");
             }
@@ -244,7 +283,43 @@
 
         $(".hospital_name_placeholder").prop("readOnly", false);
         $(".hospital_name_en_placeholder").prop("readOnly", false);
-        $(".phone_number_placeholder").prop("readOnly", false);
+        $(".phone_number1_placeholder").prop("readOnly", false);
+        $(".phone_number2_placeholder").prop("readOnly", false);
+        $(".phone_number3_placeholder").prop("readOnly", false);
+    }
+
+    function downloadSheet(idToken){
+        $(".loader").show();
+        $.ajax(
+            getAccessObj({
+                path: "qrsheet",
+                method : "post",
+                idToken: idToken,
+                postData: {
+                    qrcodeId: $(".btn_sheet").data("qrcode"),
+                    qrSheetId: $(".btn_sheet").data("qrsheet"),
+                }
+            })
+        ).done(function(response) {
+            if(response.statusCode === 401){
+                liff.logout();
+                window.location.reload();
+            }
+            else if(response.statusCode !== 200){
+                console.error(response.message);
+                alert(response.message);
+            }
+            else {
+                liff.openWindow({
+                    url: response.data.qrSheetDownloadUrl,
+                    external: true,
+                });
+            }
+            $(".loader").hide();
+        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("Network error!");
+            $(".loader").hide();
+        });
     }
 
 </script>
