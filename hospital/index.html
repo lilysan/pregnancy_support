@@ -70,45 +70,45 @@
     const API_URL = "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
     const LIFF_ID = "2005594923-wN8OjyGd";
 
-    // liff.init({
-    //     liffId: LIFF_ID, // Use own liffId
-    //     withLoginOnExternalBrowser: true, // Enable automatic login process
-    // }).then(() => {
-    //     // Start to use liff's api
-    //     const idToken = liff.getIDToken();
-    //     getHospital(idToken);
-    //
-    //     $(".btn_register").on("click", function(e){
-    //         if (!$('form[name="form_hospital"]')[0].reportValidity()) {
-    //             return false;
-    //         } else {
-    //             setHospital(idToken);
-    //         }
-    //     });
-    //     $(".btn_edit").on("click", function(e){
-    //         editHospital(idToken);
-    //     });
-    //     $(".btn_delete").on("click", function(e){
-    //         deleteHospital(idToken);
-    //     });
-    //     $(".btn_download").on("click", function(e){
-    //         e.preventDefault();
-    //         const url = $(".btn_download").attr("href");
-    //         liff.openWindow({
-    //             url: url,
-    //             external: true,
-    //         });
-    //     });
-    //     $(".btn_sheet").on("click", function(e){
-    //         e.preventDefault();
-    //         downloadSheet(idToken);
-    //     });
-    //
-    // }).catch((err) => {
-    //     // Error happens during initialization
-    //     liff.logout();
-    //     alert("LIFF init failed.");
-    // });
+    liff.init({
+        liffId: LIFF_ID, // Use own liffId
+        withLoginOnExternalBrowser: true, // Enable automatic login process
+    }).then(() => {
+        // Start to use liff's api
+        const idToken = liff.getIDToken();
+        getHospital(idToken);
+
+        $(".btn_register").on("click", function(e){
+            if (!$('form[name="form_hospital"]')[0].reportValidity()) {
+                return false;
+            } else {
+                setHospital(idToken);
+            }
+        });
+        $(".btn_edit").on("click", function(e){
+            editHospital(idToken);
+        });
+        $(".btn_delete").on("click", function(e){
+            deleteHospital(idToken);
+        });
+        $(".btn_download").on("click", function(e){
+            e.preventDefault();
+            const url = $(".btn_download").attr("href");
+            liff.openWindow({
+                url: url,
+                external: true,
+            });
+        });
+        $(".btn_sheet").on("click", function(e){
+            e.preventDefault();
+            downloadSheet(idToken);
+        });
+
+    }).catch((err) => {
+        // Error happens during initialization
+        liff.logout();
+        alert("LIFF init failed.");
+    });
 
     const getAccessObj = (data) => {
         return {
