@@ -246,6 +246,7 @@
 
 
         async function handleUpdate(before_dateValue, before_weightValue, newWeight, newDate, newTime) {
+            alert("handle")
             await deleteData(before_dateValue, before_weightValue);
             setWeight(newWeight, newDate + " " + newTime);
         }
@@ -333,6 +334,8 @@
                     }
 
                     // 呼び出し
+                    $(".loader").show();
+
                     handleUpdate(before_dateValue, before_weightValue, newWeight, newDate, newTime);
 
                 });
