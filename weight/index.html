@@ -240,6 +240,9 @@
         let currentRow1; // 編集中の行を記憶
 
 
+        let before_dateValue
+        let before_timeValue
+        let before_weightValue
 
         function populateTable(id) {
             console.log(id)
@@ -275,9 +278,6 @@
                 const dialog = document.getElementById("editDialog");
 
 
-                let before_dateValue
-                let before_timeValue
-                let before_weightValue
 
                 editButtons.forEach((button) => {
                     button.addEventListener("click", function () {
