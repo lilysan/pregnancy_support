@@ -19,12 +19,12 @@
 </head>
 
 <body>
-    <div class="loader" >
-        <div class="text-center">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
+    <div class="loader" style="display: none;"></div>
+    <div class="text-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
         </div>
+    </div>
     </div>
 
     <h1 class="title_weight">体重カウンター</h1>
@@ -38,7 +38,7 @@
 
         <label for="weight">　体重(kg):</label>
         <input type="number" id="weight" placeholder="体重"><br>
-        <button type="button" onclick="addData()">データを追加</button>
+        <button type="button" id="senddata">データを追加</button>
     </form>
 
 
@@ -170,7 +170,6 @@
 
             changeLanguage(lang);
             token = idToken;
-            $(".loader").hide();
             allData = loadWeightData(idToken);
 
 
@@ -212,7 +211,6 @@
         var data;
 
         function loadWeightData(idToken) {
-            $(".loader").show();
             $.ajax(
                 getAccessObj({
                     path: "weight",
@@ -220,7 +218,7 @@
                     idToken: idToken
                 })
             ).done(function (response) {
-                
+                $(".loader").hide();
                 if (response.statusCode === 401) {
                     liff.logout();
                     window.location.reload();
@@ -230,7 +228,6 @@
                 } else {
                     console.log(response.data)
                     allData = response.data.items
-                    $(".loader").hide();
                     updateChart(response.data.items); // チャートとテーブルを更新
 
                     return response.data.items
@@ -299,15 +296,14 @@
                         before_dateValue = dateValue + " " + timeValue
                         before_weightValue = weightValue
                         // ダイアログを表示
-                        
-                        $("#editDialog").show()
+                        dialog.style.display = "block";
 
                     });
                 });
 
                 // 保存ボタンの処理
                 document.getElementById("saveButton").addEventListener("click", () => {
-                    const newDate = document.getElementById("editDate2").value;
+                    const newDate = document.getElementById("editDate").value;
                     const newTime = document.getElementById("edit-time2").value;
                     const newWeight = document.getElementById("editWeight").value;
 
@@ -317,7 +313,7 @@
                     currentRow1.querySelector(".weight1").innerText = newWeight;
 
                     // ダイアログを閉じる
-                    $("#editDialog").hide()
+                    dialog.style.display = "none";
 
                     deleteData(before_dateValue, before_weightValue)
                     setWeight(newWeight, newDate)
@@ -338,7 +334,7 @@
                 // キャンセルボタンの処理
                 document.getElementById("cancelButton").addEventListener("click", () => {
                     // ダイアログを閉じる
-                    $("#editDialog").hide()
+                    dialog.style.display = "none";
                 });
 
                 // 削除ボタンの処理
@@ -346,7 +342,7 @@
                     deleteData(before_dateValue, before_weightValue)
 
                     // ダイアログを閉じる
-                    $("#editDialog").hide()
+                    dialog.style.display = "none";
                 });
 
             }
@@ -399,9 +395,7 @@
                         window.location.reload();
                     } else if (response.statusCode !== 200) {
                         console.log(response);
-                        
                         alert(response.message)
-                        $(".loader").hide();
                     } else {
                         console.log("できたよ");
                         allData = allData.filter(item => !(item.datetime === _date && item.weight === _weight));
@@ -434,9 +428,7 @@
                     window.location.reload();
                 } else if (response.statusCode !== 200) {
                     console.error(response.message);
-                   
                     alert(response.message)
-                    $(".loader").hide();
                 } else {
                     //const data = response.json();
                     //updateChart(data.data.items); // チャートとテーブルを更新
@@ -466,9 +458,7 @@
                     window.location.reload();
                 } else if (response.statusCode !== 200) {
                     console.error(response.message);
-                    
                     alert(response.message)
-                    $(".loader").hide();
                 } else {
                     //const data = response.json();
                     //updateChart(data.data.items); // チャートとテーブルを更新
@@ -545,10 +535,15 @@
             scrollbar: true
         });
 
-        function addData() {
+        document.getElementById("senddata").onclick = function () {
             const date = document.getElementById('weightdate').value;
             const time = document.getElementById('edit-time').value;
             const weight = parseInt(document.getElementById('weight').value);
+            addData(date, time, weight);
+        };
+
+        function addData(date, time, data) {
+
 
             console.log(date)
             console.log(time)
@@ -556,7 +551,7 @@
             console.log(aa)
 
             // フォームの値が入力されているかチェック
-            if (date && weight && time) {
+            if (date && data && time) {
                 allData.push({
                     datetime: aa,
                     weight: weight,
