@@ -403,6 +403,7 @@
                         console.log(response);
                         alert(response.message)
                     } else {
+                        console.log(_date)
                         allData = allData.filter(item => !(item.datetime === _date && item.weight === _weight));
                         currentRow1.remove();
                         updateChart(allData)
