@@ -405,7 +405,7 @@
                     } else {
                         console.log(typeof (_weight))
                         allData = allData.filter(item => !(item.datetime === String(_date) && item.weight ===
-                            _weight));
+                            parseInt(_weight)));
                         currentRow1.remove();
                         updateChart(allData)
                         populateTable("edit-container")
