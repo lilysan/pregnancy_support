@@ -322,21 +322,22 @@
                     // ダイアログを閉じる
                     dialog.style.display = "none";
 
-                    if (date && weight && time) {
+                    if (newDate && newWeight && newTime) {
                         allData.push({
                             datetime: newDate + " " + newTime,
                             weight: newWeight,
                         })
-                        setWeight(weight, aa)
+
+                        // 呼び出し
+                        $(".loader").show();
+
+                        handleUpdate(before_dateValue, before_weightValue, newWeight, newDate, newTime);
+
 
                     } else {
                         alert('すべてのフィールドに値を入力してください。');
                     }
 
-                    // 呼び出し
-                    $(".loader").show();
-
-                    handleUpdate(before_dateValue, before_weightValue, newWeight, newDate, newTime);
 
                 });
 
