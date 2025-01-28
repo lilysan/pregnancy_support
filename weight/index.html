@@ -244,6 +244,12 @@
         let before_timeValue
         let before_weightValue
 
+
+        async function handleUpdate(before_dateValue, before_weightValue, newWeight, newDate, newTime) {
+            await deleteData(before_dateValue, before_weightValue);
+            setWeight(newWeight, newDate + " " + newTime);
+        }
+
         function populateTable(id) {
             console.log(id)
             var tableBody;
@@ -315,19 +321,19 @@
                     // ダイアログを閉じる
                     dialog.style.display = "none";
 
-                    deleteData(before_dateValue, before_weightValue)
-                    setWeight(newWeight, newDate)
+                    if (date && weight && time) {
+                        allData.push({
+                            datetime: newDate + " " + newTime,
+                            weight: newWeight,
+                        })
+                        setWeight(weight, aa)
 
-                    allData = allData.filter(item => !(item.datetime === before_dateValue && item.weight ===
-                        dataArray.indexOf(before_weightValue)));
+                    } else {
+                        alert('すべてのフィールドに値を入力してください。');
+                    }
 
-                    console.log(before_dateValue)
-                    console.log(before_weightValue)
-
-                    allData.push({
-                        datetime: newDate,
-                        weight: newWeight,
-                    })
+                    // 呼び出し
+                    handleUpdate(before_dateValue, before_weightValue, newWeight, newDate, newTime);
 
                 });
 
@@ -397,11 +403,11 @@
                         console.log(response);
                         alert(response.message)
                     } else {
-                        console.log("できたよ");
                         allData = allData.filter(item => !(item.datetime === _date && item.weight === _weight));
                         currentRow1.remove();
                         updateChart(allData)
                         populateTable("edit-container")
+                        alert("Deleted!")
                         $(".loader").hide();
                     }
                 })
@@ -433,6 +439,15 @@
                     //const data = response.json();
                     //updateChart(data.data.items); // チャートとテーブルを更新
                     //return data.data.items
+
+                    updateChart(allData); // グラフを更新
+                    populateTable("table-container"); // テーブルを更新
+                    populateTable("edit-container");
+                    // フォームのリセット
+                    document.getElementById('weightdate').value = '';
+                    document.getElementById('edit-time').value = '';
+                    document.getElementById('weight').value = '';
+
                     $(".loader").hide();
                 }
             }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
@@ -552,14 +567,8 @@
                     weight: weight,
                 })
                 console.log(allData)
-                setWeight(weight, date, time)
-                updateChart(allData); // グラフを更新
-                populateTable("table-container"); // テーブルを更新
-                populateTable("edit-container");
-                // フォームのリセット
-                document.getElementById('weightdate').value = '';
-                document.getElementById('edit-time').value = '';
-                document.getElementById('weight').value = '';
+                setWeight(weight, aa)
+
             } else {
                 alert('すべてのフィールドに値を入力してください。');
             }
