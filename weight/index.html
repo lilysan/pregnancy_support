@@ -210,8 +210,12 @@
             }
 
         }
+
         async function handleUpdate(before_dateValue, before_weightValue, newWeight, newDate, newTime) {
             alert("handle")
+            var data = {
+                datatime: String(before_dateValue)
+            }
             await deleteData(before_dateValue, before_weightValue);
             setWeight(newWeight, newDate + " " + newTime);
         }
@@ -314,8 +318,10 @@
 
                 // 削除ボタンの処理
                 document.getElementById("deleteButton").addEventListener("click", () => {
-                    deleteData(before_dateValue, before_weightValue)
-
+                    list = {
+                        datetime: before_dateValue
+                    }
+                    deleteData(list, "weight")
                     // ダイアログを閉じる
                     dialog.style.display = "none";
                 });
@@ -383,38 +389,6 @@
                     }
                 })
                 .fail(() => alert("Network error!"))
-        }
-
-
-        function deleteWeight(_date) {
-            $(".loader").show();
-            $.ajax(
-                getAccessObj({
-                    path: "weight",
-                    method: "delete",
-                    idToken: token,
-                    postData: {
-                        datetime: _date
-                    }
-                })
-            ).done(function (response) {
-                if (response.statusCode === 401) {
-                    liff.logout();
-                    window.location.reload();
-                } else if (response.statusCode !== 200) {
-                    console.error(response.message);
-                    alert(response.message)
-                } else {
-                    //const data = response.json();
-                    //updateChart(data.data.items); // チャートとテーブルを更新
-                    //return data.data.items
-                    $(".loader").hide();
-                }
-            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                $(".loader").hide();
-                alert("Network error!");
-
-            });
         }
 
         function updateChart(data) {
