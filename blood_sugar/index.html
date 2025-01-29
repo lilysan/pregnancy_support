@@ -372,7 +372,11 @@
 
                 // 削除ボタンの処理
                 document.getElementById("deleteButton").addEventListener("click", () => {
-                    deleteData(before_dateValue, dataArray.indexOf(before_periodValue))
+                    list = {
+                        date: before_dateValue,
+                        period: dataArray.indexOf(before_periodValue),
+                    }
+                    deleteData(list, "sugar")
 
                     // ダイアログを閉じる
                     dialog.style.display = "none";
