@@ -215,6 +215,7 @@
             alert("handle")
             var data = {
                 datatime: String(before_dateValue)
+
             }
             await deleteData(before_dateValue, before_weightValue);
             setWeight(newWeight, newDate + " " + newTime);
@@ -355,41 +356,15 @@
 
         }
 
+        function setallData() {
+            allData = allData.filter(item => !(item.datetime == String(before_dateValue) && item.weight ==
+                parseInt(before_weightValue)));
+            currentRow1.remove();
+            updateChart(allData)
+            populateTable("edit-container")
 
-        function deleteData(_date, _weight) {
-            console.log(String(_date) + " " + _weight)
-            $(".loader").show();
-            $.ajax(
-                    getAccessObj({
-                        path: "weight",
-                        method: "delete",
-                        idToken: token,
-                        postData: {
-                            datetime: String(_date),
-                            weight: parseInt(_weight)
-                        }
-                    })
-                ).done(function (response) {
-                    if (response.statusCode === 401) {
-                        console.log("response");
-                        liff.logout();
-                        window.location.reload();
-                    } else if (response.statusCode !== 200) {
-                        console.log(response);
-                        alert(response.message)
-                    } else {
-                        console.log(typeof (_weight))
-                        allData = allData.filter(item => !(item.datetime == String(_date) && item.weight ==
-                            parseInt(_weight)));
-                        currentRow1.remove();
-                        updateChart(allData)
-                        populateTable("edit-container")
-                        alert("Deleted!")
-                        $(".loader").hide();
-                    }
-                })
-                .fail(() => alert("Network error!"))
         }
+
 
         function updateChart(data) {
             const labels = [];
