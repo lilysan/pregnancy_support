@@ -38,7 +38,7 @@
 
         <label for="weight">　体重(kg):</label>
         <input type="number" id="weight" placeholder="体重"><br>
-        <button type="button" onclick="addData()">データを追加</button>
+        <button type="button" id="adddata">データを追加</button>
     </form>
 
 
@@ -170,7 +170,7 @@
 
             changeLanguage(lang);
             token = idToken;
-            allData = loadWeightData(idToken);
+            allData = loadData(idToken, "weight");
 
 
         }).catch((err) => {
@@ -180,71 +180,36 @@
         });
 
 
-
-
-        const getAccessObj = (data) => {
-            return {
-                url: API_URL,
-                type: "POST",
-                dataType: "json",
-                data: JSON.stringify(data),
-                timeout: 30000,
-            }
-        }
-
-        function changeLanguage(lang) {
-            const knownLang = ["ja", "en"];
-            lang = knownLang.includes(lang) ? lang : "en";
-
-            $.getJSON("lang.json", (data) => {
-                $.each(data, function (index, val) {
-                    const elm = $("." + val.class);
-                    if (elm.length) {
-                        if (val.type === "docs") {
-                            elm.html(val[lang]);
-                        }
-                    }
-                });
-            });
-        }
         var weightChart;
         var data;
-
-        function loadWeightData(idToken) {
-            $.ajax(
-                getAccessObj({
-                    path: "weight",
-                    method: "get",
-                    idToken: idToken
-                })
-            ).done(function (response) {
-                $(".loader").hide();
-                if (response.statusCode === 401) {
-                    liff.logout();
-                    window.location.reload();
-                } else if (response.statusCode !== 200) {
-                    console.error(response.message);
-                    alert(response.message)
-                } else {
-                    console.log(response.data)
-                    allData = response.data.items
-                    updateChart(response.data.items); // チャートとテーブルを更新
-
-                    return response.data.items
-                }
-            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("Network error!");
-            });
-        }
-
         let currentRow1; // 編集中の行を記憶
-
-
         let before_dateValue
         let before_timeValue
         let before_weightValue
 
 
+        document.getElementById("adddata").onclick = function () {
+            const date = document.getElementById('weightdate').value;
+            const time = document.getElementById('edit-time').value;
+            const weight = parseInt(document.getElementById('weight').value);
+
+            if (date && weight && time) {
+                aa = String(date) + " " + String(time)
+                var list = {
+                    datetime: aa,
+                    weight: weight
+                }
+                addData(list, "weight")
+                // フォームのリセット
+                document.getElementById('weightdate').value = '';
+                document.getElementById('edit-time').value = '';
+                document.getElementById('weight').value = '';
+
+            } else {
+                alert('すべてのフィールドに値を入力してください。');
+            }
+
+        }
         async function handleUpdate(before_dateValue, before_weightValue, newWeight, newDate, newTime) {
             alert("handle")
             await deleteData(before_dateValue, before_weightValue);
@@ -421,46 +386,6 @@
         }
 
 
-        function setWeight(_weight, _date) {
-            $(".loader").show();
-            $.ajax(
-                getAccessObj({
-                    path: "weight",
-                    method: "post",
-                    idToken: token,
-                    postData: {
-                        datetime: _date,
-                        weight: _weight
-                    }
-                })
-            ).done(function (response) {
-                if (response.statusCode === 401) {
-                    liff.logout();
-                    window.location.reload();
-                } else if (response.statusCode !== 200) {
-                    console.error(response.message);
-                    alert(response.message)
-                } else {
-                    //const data = response.json();
-                    //updateChart(data.data.items); // チャートとテーブルを更新
-                    //return data.data.items
-
-                    updateChart(allData); // グラフを更新
-                    populateTable("table-container"); // テーブルを更新
-                    populateTable("edit-container");
-                    // フォームのリセット
-                    document.getElementById('weightdate').value = '';
-                    document.getElementById('edit-time').value = '';
-                    document.getElementById('weight').value = '';
-
-                    $(".loader").hide();
-                }
-            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                $(".loader").hide();
-                alert("Network error!");
-            });
-        }
-
         function deleteWeight(_date) {
             $(".loader").show();
             $.ajax(
@@ -554,30 +479,6 @@
             dropdown: true,
             scrollbar: true
         });
-
-        function addData() {
-            const date = document.getElementById('weightdate').value;
-            const time = document.getElementById('edit-time').value;
-            const weight = parseInt(document.getElementById('weight').value);
-
-            console.log(date)
-            console.log(time)
-            aa = String(date) + " " + String(time)
-            console.log(aa)
-
-            // フォームの値が入力されているかチェック
-            if (date && weight && time) {
-                allData.push({
-                    datetime: aa,
-                    weight: weight,
-                })
-                console.log(allData)
-                setWeight(weight, aa)
-
-            } else {
-                alert('すべてのフィールドに値を入力してください。');
-            }
-        };
     </script>
     <script src="../commonkokima.js"></script>
 </body>
