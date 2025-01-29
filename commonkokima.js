@@ -122,4 +122,31 @@
         $(".loader").hide();
         alert("Network error!");
     });
-}
+    }
+
+    function deleteData(_data,type) {
+        $(".loader").show();
+        $.ajax(
+            getAccessObj({
+                path: type,
+                method: "delete",
+                idToken: token,
+                postData: _data
+            })
+        ).done(function (response) {
+            if (response.statusCode === 401) {
+                liff.logout();
+                window.location.reload();
+            } else if (response.statusCode !== 200) {
+                console.error(response.message);
+                alert(response.message)
+            } else {
+                setallData()
+                $(".loader").hide();
+            }
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            $(".loader").hide();
+            alert("Network error!");
+
+        });
+    }
