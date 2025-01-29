@@ -476,6 +476,14 @@
             }
 
         }
+
+
+        function setallData() {
+            allData = allData.filter(item => !(item.date === before_dateValue && item.period === before_periodValue));
+            currentRow1.remove();
+            updateChart(allData)
+            populateTable("edit-container")
+        }
     </script>
     <script src="../commonkokima.js"></script>
 
