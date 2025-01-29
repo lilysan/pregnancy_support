@@ -527,7 +527,7 @@
         document.getElementById("adddata").onclick = function () {
             const date = document.getElementById('date').value;
             const time = document.getElementById('periodSelect').value;
-            const sugar = parseInt(document.getElementById('sugar').value);
+            const sugar = parseFloat(document.getElementById('sugar').value);
 
             if (date && sugar && time) {
                 var list = {
