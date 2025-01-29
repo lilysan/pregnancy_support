@@ -376,6 +376,7 @@
                         date: before_dateValue,
                         period: dataArray.indexOf(before_periodValue),
                     }
+
                     deleteData(list, "sugar")
 
                     // ダイアログを閉じる
@@ -411,39 +412,14 @@
 
         }
 
-        function deleteData(_date, _period) {
-            console.log(String(_date) + " " + _period)
-            $(".loader").show();
-            $.ajax(
-                    getAccessObj({
-                        path: "sugar",
-                        method: "delete",
-                        idToken: token,
-                        postData: {
-                            date: String(_date),
-                            period: parseInt(_period)
-                        }
-                    })
-                ).done(function (response) {
-                    if (response.statusCode === 401) {
-                        console.log("response");
-                        liff.logout();
-                        window.location.reload();
-                    } else if (response.statusCode !== 200) {
-                        console.log(response);
-                        alert(response.message)
-                    } else {
-                        console.log("できたよ");
-                        allData = allData.filter(item => !(item.date === _date && item.period === _period));
-                        currentRow1.remove();
-                        updateChart(allData)
-                        populateTable("edit-container")
-                        $(".loader").hide();
-                    }
-                })
-                .fail(() => alert("Network error!"))
-                .always(() => $(".loader").hide());
+        function setallData() {
+
+            allData = allData.filter(item => !(item.date === before_dateValue && item.period === before_periodValue));
+            currentRow1.remove();
+            updateChart(allData)
+            populateTable("edit-container")
         }
+
 
         function updateChart(data) {
             const labels = [];
