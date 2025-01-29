@@ -436,8 +436,13 @@
 
                 // 削除ボタンの処理
                 document.getElementById("deleteButton").addEventListener("click", () => {
-                    deleteData(before_dateValue, before_periodValue)
+                    list = {
+                        date: before_dateValue,
+                        period: before_periodValue
+                    }
 
+                    console.log(list)
+                    deleteData(list, "pressure")
                     // ダイアログを閉じる
                     dialog.style.display = "none";
                 });
