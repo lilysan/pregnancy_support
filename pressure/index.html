@@ -43,7 +43,7 @@
         <input type="number" id="higth" class="high" placeholder="最高血圧"><br>
         <label for="low">最低血圧:</label>
         <input type="number" id="low" class="low" placeholder="最低血圧">
-        <button type="button" onclick="addData()">データを追加</button>
+        <button type="button" id="adddata">データを追加</button>
     </form>
 
     <div id="chart-container" class="chart-container active-content">
@@ -153,7 +153,7 @@
 
             changeLanguage(lang);
             token = idToken;
-            allData = loadpressuredata(idToken);
+            allData = loadData(idToken, "pressure");
 
 
         }).catch((err) => {
@@ -161,60 +161,6 @@
             liff.logout();
             alert("LIFF init failed.");
         });
-
-        const getAccessObj = (data) => {
-            return {
-                url: API_URL,
-                type: "POST",
-                dataType: "json",
-                data: JSON.stringify(data),
-                timeout: 30000,
-            }
-        }
-
-        function changeLanguage(lang) {
-            const knownLang = ["ja", "en"];
-            lang = knownLang.includes(lang) ? lang : "en";
-
-            $.getJSON("lang.json", (data) => {
-                $.each(data, function (index, val) {
-                    const elm = $("." + val.class);
-                    if (elm.length) {
-                        if (val.type === "docs") {
-                            elm.html(val[lang]);
-                        }
-                    }
-                });
-            });
-        }
-
-        function loadpressuredata(idToken) {
-            $(".loader").show();
-            $.ajax(
-                getAccessObj({
-                    path: "pressure",
-                    method: "get",
-                    idToken: idToken
-                })
-            ).done(function (response) {
-                $(".loader").hide();
-                if (response.statusCode === 401) {
-                    liff.logout();
-                    window.location.reload();
-                } else if (response.statusCode !== 200) {
-                    console.error(response.message);
-                    alert(response.message)
-                } else {
-
-                    allData = response.data.items
-                    updateChart(response.data.items); // チャートとテーブルを更新
-
-                    return response.data.items
-                }
-            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("Network error!");
-            });
-        }
 
         function updateChart(data) {
             labels = []
@@ -355,22 +301,21 @@
             });
         });
 
-        function addData() {
+        document.getElementById("adddata").onclick = function () {
             const date = document.getElementById('date').value;
             const time = document.getElementById('periodSelect').value;
             const higth = parseInt(document.getElementById('higth').value);
             const low = parseInt(document.getElementById('low').value);
 
-            // フォームの値が入力されているかチェック
-            if (date && higth && low) {
-                allData.push({
-                    date: date,
+            if (date && higth && time && low) {
+                var list = {
+                    date: String(date),
                     period: time,
                     high: higth,
                     low: low
-                })
-                console.log(allData)
-                setpressure(higth, low, date, time)
+                }
+                addData(list, "pressure")
+                // フォームのリセット
                 updateChart(allData); // グラフを更新
                 populateTable(id); // テーブルを更新
 
@@ -378,9 +323,11 @@
                 document.getElementById('date').value = '';
                 document.getElementById('higth').value = '';
                 document.getElementById('low').value = '';
+
             } else {
                 alert('すべてのフィールドに値を入力してください。');
             }
+
         }
 
 
@@ -522,37 +469,6 @@
                     });
                 });
             }
-
-        }
-
-
-
-        function setpressure(high, low, date, time) {
-            $(".loader").show();
-
-            $.ajax(
-                    getAccessObj({
-                        path: "pressure",
-                        method: "post",
-                        idToken: token,
-                        postData: {
-                            date: String(date),
-                            period: parseInt(time),
-                            high: parseInt(high),
-                            low: parseInt(low),
-                        }
-                    })
-                ).done(function (response) {
-                    if (response.statusCode === 401) {
-                        liff.logout();
-                        window.location.reload();
-                    } else if (response.statusCode !== 200) {
-                        console.error(response.message);
-                        alert(response.message)
-                    }
-                })
-                .fail(() => alert("Network error!"))
-                .always(() => $(".loader").hide());
 
         }
     </script>
