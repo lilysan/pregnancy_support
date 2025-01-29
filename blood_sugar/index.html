@@ -58,7 +58,7 @@
         </section><br>
         <label for="sugar">血糖</label>:</label>
         <input type="number" id="sugar" placeholder="血糖"><br>
-        <button type="button" onclick="addData()">データを追加</button>
+        <button type="button" id="adddata">データを追加</button>
     </form>
 
 
@@ -448,33 +448,6 @@
 
         }
 
-        function setsugar(_sugar, _date, _period) {
-            console.log(_sugar + " " + _date + " " + _period)
-            $(".loader").show();
-            $.ajax(
-                    getAccessObj({
-                        path: "sugar",
-                        method: "post",
-                        idToken: token,
-                        postData: {
-                            date: String(_date),
-                            period: parseInt(_period),
-                            sugar: parseInt(_sugar)
-                        }
-                    })
-                ).done(function (response) {
-                    if (response.statusCode === 401) {
-                        liff.logout();
-                        window.location.reload();
-                    } else if (response.statusCode !== 200) {
-                        console.error(response.message);
-                        alert(response.message)
-                    }
-                })
-                .fail(() => alert("Network error!"))
-                .always(() => $(".loader").hide());
-        }
-
         function deleteData(_date, _period) {
             console.log(String(_date) + " " + _period)
             $(".loader").show();
@@ -592,33 +565,30 @@
         });
 
 
-
-
-
-        function addData() {
+        document.getElementById("adddata").onclick = function () {
             const date = document.getElementById('date').value;
             const time = document.getElementById('periodSelect').value;
             const sugar = parseInt(document.getElementById('sugar').value);
 
-            // フォームの値が入力されているかチェック
-            if (date && sugar) {
-                allData.push({
-                    date: date,
+            if (date && sugar && time) {
+                var list = {
+                    date: String(date),
                     period: time,
-                    sugar: sugar,
-                })
-                console.log(allData)
-                setsugar(sugar, date, time)
+                    sugar: sugar
+                }
+                addData(list, "pressure")
                 updateChart(allData); // グラフを更新
                 populateTable("table-container"); // テーブルを更新
                 populateTable("edit-container");
                 // フォームのリセット
                 document.getElementById('date').value = '';
                 document.getElementById('sugar').value = '';
+
             } else {
                 alert('すべてのフィールドに値を入力してください。');
             }
-        };
+
+        }
     </script>
     <script src="../commonkokima.js"></script>
 
