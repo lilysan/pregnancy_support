@@ -32,7 +32,7 @@
     <form id="addDataForm">
         <label for="date">日付:</label>
         <input type="text" id="date" placeholder="日付を選択"><br>
-        <label for="periodtime">時間:</label>
+        <label for="date">時間:</label>
         <section class="dropdown">
             <select id="periodSelect">
                 <option value="1">朝</option>
@@ -43,14 +43,14 @@
         <input type="number" id="higth" class="high" placeholder="最高血圧"><br>
         <label for="low">最低血圧:</label>
         <input type="number" id="low" class="low" placeholder="最低血圧">
-        <button type="button" onclick="addData()">データを追加</button>
+        <button type="button" id="adddata">データを追加</button>
     </form>
 
     <div id="chart-container" class="chart-container active-content">
         <canvas id="bloodPressureChart"></canvas>
     </div>
 
-    <div id="table-container" class="table-container content">
+    <div id="table-container" class="table-container" class="content">
         <!-- データ編集テーブル -->
 
         <table id="table">
@@ -103,7 +103,7 @@
 
             <label for="editHigh">最高血圧:</label>
             <input type="number" id="editHigh" class="high2"><br><br>
-            <label for="editLow">最低血圧:</label>
+            <label for="editLow">最高血圧:</label>
             <input type="number" id="editLow" class="low2"><br><br>
 
 
@@ -130,13 +130,6 @@
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
     <script>
-
-        function areDatesEqual(date1, date2) {
-            const normalizedDate1 = new Date(date1).toISOString().split('T')[0];
-            const normalizedDate2 = new Date(date2).toISOString().split('T')[0];
-            return normalizedDate1 === normalizedDate2;
-        }
-
         const API_URL =
             "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
         const LIFF_ID = "2005594923-wN8OjyGd";
@@ -160,7 +153,7 @@
 
             changeLanguage(lang);
             token = idToken;
-            allData = loadpressuredata(idToken);
+            allData = loadData(idToken, "pressure");
 
 
         }).catch((err) => {
@@ -168,60 +161,6 @@
             liff.logout();
             alert("LIFF init failed.");
         });
-
-        const getAccessObj = (data) => {
-            return {
-                url: API_URL,
-                type: "POST",
-                dataType: "json",
-                data: JSON.stringify(data),
-                timeout: 30000,
-            }
-        }
-
-        function changeLanguage(lang) {
-            const knownLang = ["ja", "en"];
-            lang = knownLang.includes(lang) ? lang : "en";
-
-            $.getJSON("lang.json", (data) => {
-                $.each(data, function (index, val) {
-                    const elm = $("." + val.class);
-                    if (elm.length) {
-                        if (val.type === "docs") {
-                            elm.html(val[lang]);
-                        }
-                    }
-                });
-            });
-        }
-
-        function loadpressuredata(idToken) {
-            $(".loader").show();
-            $.ajax(
-                getAccessObj({
-                    path: "pressure",
-                    method: "get",
-                    idToken: idToken
-                })
-            ).done(function (response) {
-                $(".loader").hide();
-                if (response.statusCode === 401) {
-                    liff.logout();
-                    window.location.reload();
-                } else if (response.statusCode !== 200) {
-                    console.error(response.message);
-                    alert(response.message)
-                } else {
-
-                    allData = response.data.items
-                    updateChart(response.data.items); // チャートとテーブルを更新
-
-                    return response.data.items
-                }
-            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("Network error!");
-            });
-        }
 
         function updateChart(data) {
             labels = []
@@ -242,6 +181,7 @@
                 return b.period - a.period;
             });
 
+            console.log(data)
             data.forEach(item => {
                 const dateTime = item.date + " " + dataArray[item.period];
                 const high = item.high;
@@ -257,6 +197,10 @@
             labels.reverse();
             highData.reverse();
             lowData.reverse();
+
+            console.log(highData)
+            console.log(lowData)
+            console.log(labels)
 
             // チャートのデータを更新
             bloodPressureChart.data.labels = labels; // X軸ラベルを更新
@@ -357,39 +301,33 @@
             });
         });
 
-        function addData() {
+        document.getElementById("adddata").onclick = function () {
             const date = document.getElementById('date').value;
             const time = document.getElementById('periodSelect').value;
             const higth = parseInt(document.getElementById('higth').value);
             const low = parseInt(document.getElementById('low').value);
 
-            if (!date || !higth || !low || isNaN(higth) || isNaN(low) || higth <= 0 || low <= 0) {
-                alert('日付と正の数値を入力してください。');
-                return;
-            }
-            // フォームの値が入力されているかチェック
-            if (date && higth && low) {
-                
-                console.log(allData)
-                setpressure(higth, low, date, time)
+            if (date && higth && time && low) {
+                var list = {
+                    date: String(date),
+                    period: time,
+                    high: higth,
+                    low: low
+                }
+                addData(list, "pressure")
+                // フォームのリセット
+                updateChart(allData); // グラフを更新
+                populateTable(id); // テーブルを更新
 
-                allData.push({
-                            date: date,
-                            period:  parseInt(time),
-                            high: parseInt(higth),
-                            low: parseInt(low)
-                        })
-                // グラフとテーブルの更新
-        updateChart(allData);
-        populateTable("table-container");
-        populateTable("edit-container");
                 // フォームのリセット
                 document.getElementById('date').value = '';
                 document.getElementById('higth').value = '';
                 document.getElementById('low').value = '';
+
             } else {
                 alert('すべてのフィールドに値を入力してください。');
             }
+
         }
 
 
@@ -403,7 +341,7 @@
                 allData.forEach((label, index) => {
                     const datePart = String(label.date); // 日付部分
                     const periodPart = label.period; // 朝/夜部分
-                    
+
                     const row = `<tr>
                             <!-- 日付部分: datepickerを使用 -->
                             <td class="date-picker">${String(datePart)}</td>
@@ -435,7 +373,7 @@
                 editButtons.forEach((button) => {
                     button.addEventListener("click", function () {
                         currentRow1 = this.closest("tr");
-                        $("#editDialog").show()
+
                         // 元の値を取得してダイアログに設定
                         const dateValue = currentRow1.querySelector(".date-picker").innerText;
                         const timeValue = currentRow1.querySelector(".time-picker").innerText;
@@ -443,21 +381,21 @@
                         const highValue = currentRow1.querySelector(".high1").innerText;
                         const lowValue = currentRow1.querySelector(".low1").innerText;
 
-                        document.getElementById("editDate").value = dateValue;
-                        document.getElementById("editPeriod").value = dataArray.indexOf(timeValue);
+                        document.getElementById("editDate2").value = dateValue;
+                        document.getElementById("editPeriod").value = timeValue;
                         document.getElementById("editHigh").value = highValue;
                         document.getElementById("editLow").value = lowValue;
 
                         before_dateValue = dateValue
                         before_periodValue = timeValue
                         // ダイアログを表示
-                        
+                        dialog.style.display = "block";
 
                     });
                 });
 
                 // 保存ボタンの処理
-                document.getElementById("saveButton").addEventListener("click", async () => {
+                document.getElementById("saveButton").addEventListener("click", () => {
                     const newDate = document.getElementById("editDate").value;
                     const newTime = document.getElementById("editPeriod").value;
                     const newHigh = document.getElementById("editHigh").value;
@@ -465,47 +403,35 @@
 
                     // 値を更新
                     currentRow1.querySelector(".date-picker").innerText = newDate;
-                    currentRow1.querySelector(".time-picker").innerText = dataArray[newTime];
+                    currentRow1.querySelector(".time-picker").innerText = newTime;
                     currentRow1.querySelector(".high1").innerText = newHigh;
                     currentRow1.querySelector(".low1").innerText = newLow;
 
                     // ダイアログを閉じる
-                    
+                    dialog.style.display = "none";
 
-                    try {
-                        // deleteDataが完了してからsetpressureを実行
-                        await deleteData(before_dateValue, before_periodValue);
-                        allData = allData.filter(item => !(areDatesEqual(item.date,before_dateValue) && item.period === parseInt(before_periodValue)));
-                        console.log(newHigh, newLow, newDate, newTime)
-                        await setpressure(newHigh, newLow, newDate, newTime);
+                    deleteData(before_dateValue, before_periodValue)
+                    setWeight(newWeight, newDate)
 
-                        allData.push({
-                            date: newDate,
-                            period:  parseInt(newTime),
-                            high: parseInt(newHigh),
-                            low: parseInt(newLow)
-                        })
+                    allData = allData.filter(item => !(item.datetime === before_dateValue && item.weight ===
+                        dataArray.indexOf(before_weightValue)));
 
-                        // グラフとテーブルの更新
-        updateChart(allData);
-        populateTable("table-container");
-        populateTable("edit-container");
-                        
-                        $("#editDialog").hide()
-                    } catch (error) {
-                        console.error("Error during deleteData:", error);
-                    }
+                    console.log(before_dateValue)
+                    console.log(before_weightValue)
 
-                
+                    allData.push({
+                        date: newDate,
+                        period: newTime,
+                        high: newHigh,
+                        low: newLow
+                    })
 
-                    
-
-                }, { once: true });
+                });
 
                 // キャンセルボタンの処理
                 document.getElementById("cancelButton").addEventListener("click", () => {
                     // ダイアログを閉じる
-                    $("#editDialog").hide()
+                    dialog.style.display = "none";
                 });
 
                 // 削除ボタンの処理
@@ -513,7 +439,7 @@
                     deleteData(before_dateValue, before_periodValue)
 
                     // ダイアログを閉じる
-                    $("#editDialog").hide()
+                    dialog.style.display = "none";
                 });
 
             }
@@ -543,80 +469,6 @@
                     });
                 });
             }
-
-        }
-        function deleteData(before_dateValue, before_periodValue){
-        $(".loader").show();
-
-            before_periodValue = dataArray.indexOf(before_periodValue)
-            
-        $.ajax(
-                    getAccessObj({
-                        path: "pressure",
-                        method: "delete",
-                        idToken: token,
-                        postData: {
-                            date: String(before_dateValue),
-                            period: parseInt(before_periodValue)
-                        }
-                    })
-                ).done(function (response) {
-            
-
-            $(".loader").hide();
-            
-                    if (response.statusCode === 401) {
-                        liff.logout();
-                        window.location.reload();
-                    } else if (response.statusCode !== 200) {
-                        console.error(response.message);
-                        alert(response.message)
-                    }
-                })
-                .fail(function () {
-                    $(".loader").hide();
-                    alert("Network error!");
-                });
-        }
-
-
-        function setpressure(high, low, date, time) {
-            console.log(high, low, date, time)
-            $(".loader").show();
-
-            $.ajax(
-                    getAccessObj({
-                        path: "pressure",
-                        method: "post",
-                        idToken: token,
-                        postData: {
-                            date: String(date),
-                            period: parseInt(time),
-                            high: parseInt(high),
-                            low: parseInt(low),
-                        }
-                    })
-                ).done(function (response) {
-
-
-                
-                    if (response.statusCode === 401) {
-                        liff.logout();
-                        window.location.reload();
-                    } else if (response.statusCode !== 200) {
-                        console.error(response.message);
-                        alert(response.message)
-                    }
-                    else{
-                        alert("done")
-                        
-                        updateChart(allData); // グラフを更新
-                        populateTable(id); // テーブルを更新
-                        
-                    }
-                })
-                .fail(() => alert("Network error!"))
-                .always(() => $(".loader").hide());
 
         }
     </script>
