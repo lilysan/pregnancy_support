@@ -241,17 +241,6 @@
         */
 
 
-
-        const getAccessObj = (data) => {
-            return {
-                url: API_URL,
-                type: "POST",
-                dataType: "json",
-                data: JSON.stringify(data),
-                timeout: 30000,
-            }
-        }
-
         function changeLanguage(lang) {
             const knownLang = ["ja", "en"];
             lang = knownLang.includes(lang) ? lang : "en";
@@ -269,36 +258,6 @@
         }
         var sugarChart;
         var data;
-
-
-        function loadsugarData(idToken) {
-            $(".loader").show();
-            $.ajax(
-                getAccessObj({
-                    path: "sugar",
-                    method: "get",
-                    idToken: idToken
-                })
-            ).done(function (response) {
-                $(".loader").hide();
-                if (response.statusCode === 401) {
-                    liff.logout();
-                    window.location.reload();
-                } else if (response.statusCode !== 200) {
-                    console.error(response.message);
-                    alert(response.message)
-                } else {
-
-                    allData = response.data.items
-                    updateChart(response.data.items); // チャートとテーブルを更新
-
-                    return response.data.items
-                }
-            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("Network error!");
-            });
-        }
-
         let currentRow1; // 編集中の行を記憶
         // データをテーブルに表示する関数
         function populateTable(id) {
