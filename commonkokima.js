@@ -155,11 +155,9 @@
         });
     }
 
-async function handleUpdate(olddata, newdata, type) {
-    deleteData(olddata, type)
-        .then(
-            addData(newdata, type)
-        
-        )
-}
+    async function handleUpdate(olddata, newdata, type) {
+        deleteData(olddata, type)
+            .then(() => addData(newdata, type)) // ここで `addData` を `then` に渡す
+            .catch(error => console.error("Error:", error)); // エラーハンドリングを追加
+    }
     
