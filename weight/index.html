@@ -286,7 +286,7 @@
                 if (newDate && newWeight && newTime) {
                     var newdata = {
                         datetime: newDate + " " + newTime,
-                        weight: newWeight,
+                        weight: parseInt(newWeight),
                     }
                     var olddata = {
                         datetime: before_dateValue
