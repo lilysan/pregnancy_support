@@ -413,17 +413,18 @@
 
                 var olddata = {
                     date: before_dateValue,
-                    period: before_periodValue
+                    period: dataArray.indexOf(before_periodValue)
                 }
 
                 var newdata = {
                     date: String(dnewDate),
-                    period: parseInt(newTime),
+                    period: dataArray.indexOf(newTime),
                     high: newHigh,
                     low: newLow
 
                 }
-
+                console.log(olddata)
+                console.log(newdata)
                 handleUpdate(olddata, newdata, "pressure");
 
 
@@ -452,7 +453,7 @@
             document.getElementById("deleteButton").addEventListener("click", () => {
                 list = {
                     date: before_dateValue,
-                    period: before_periodValue
+                    period: dataArray.indexOf(before_periodValue)
                 }
 
                 console.log(list)
