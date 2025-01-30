@@ -1,7 +1,7 @@
       // タブ切り替えの処理
       function switchTab(contentId, event) {
         id = contentId;
-        if (id == "ctable-container") {
+        if (id == "table-container") {
             createTablePage()
         }
         else if (id == "edit-container") {
