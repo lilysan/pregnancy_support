@@ -377,7 +377,7 @@
                     // 元の値を取得してダイアログに設定
                     const dateValue = currentRow1.querySelector(".date-picker").innerText;
                     const timeValue = currentRow1.querySelector(".time-picker").innerText;
-
+                    console.log(timeValue)
                     const highValue = currentRow1.querySelector(".high1").innerText;
                     const lowValue = currentRow1.querySelector(".low1").innerText;
 
@@ -417,7 +417,7 @@
                 }
 
                 var newdata = {
-                    date: String(dnewDate),
+                    date: String(newDate),
                     period: dataArray.indexOf(newTime),
                     high: newHigh,
                     low: newLow
