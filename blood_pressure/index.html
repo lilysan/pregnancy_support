@@ -330,6 +330,8 @@
 
         }
 
+        let before_dateValue
+        let before_periodValue
 
         function populateTable(id) {
             console.log(id)
@@ -367,8 +369,7 @@
             const dialog = document.getElementById("editDialog");
 
 
-            let before_dateValue
-            let before_periodValue
+
 
             editButtons.forEach((button) => {
                 button.addEventListener("click", function () {
