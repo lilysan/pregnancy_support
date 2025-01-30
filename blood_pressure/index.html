@@ -334,15 +334,15 @@
         function populateTable(id) {
             console.log(id)
             var tableBody;
-            if (id == "edit-container") {
-                tableBody = document.querySelector('#editTable tbody');
-                tableBody.innerHTML = ''; // テーブルをクリア
 
-                allData.forEach((label, index) => {
-                    const datePart = String(label.date); // 日付部分
-                    const periodPart = label.period; // 朝/夜部分
+            tableBody = document.querySelector('#editTable tbody');
+            tableBody.innerHTML = ''; // テーブルをクリア
 
-                    const row = `<tr>
+            allData.forEach((label, index) => {
+                const datePart = String(label.date); // 日付部分
+                const periodPart = label.period; // 朝/夜部分
+
+                const row = `<tr>
                             <!-- 日付部分: datepickerを使用 -->
                             <td class="date-picker">${String(datePart)}</td>
                             <td class="time-picker">${dataArray[periodPart]}</td>
@@ -355,134 +355,142 @@
                         </tr>`;
 
 
-                    tableBody.insertAdjacentHTML('beforeend', row);
-                    $(".date-picker").datepicker({
-                        dateFormat: 'yy-mm-dd'
-                    });
+                tableBody.insertAdjacentHTML('beforeend', row);
+                $(".date-picker").datepicker({
+                    dateFormat: 'yy-mm-dd'
                 });
+            });
 
 
 
-                const editButtons = document.querySelectorAll(".edit-btn");
-                const dialog = document.getElementById("editDialog");
+            const editButtons = document.querySelectorAll(".edit-btn");
+            const dialog = document.getElementById("editDialog");
 
 
-                let before_dateValue
-                let before_periodValue
+            let before_dateValue
+            let before_periodValue
 
-                editButtons.forEach((button) => {
-                    button.addEventListener("click", function () {
-                        currentRow1 = this.closest("tr");
+            editButtons.forEach((button) => {
+                button.addEventListener("click", function () {
+                    currentRow1 = this.closest("tr");
 
-                        // 元の値を取得してダイアログに設定
-                        const dateValue = currentRow1.querySelector(".date-picker").innerText;
-                        const timeValue = currentRow1.querySelector(".time-picker").innerText;
+                    // 元の値を取得してダイアログに設定
+                    const dateValue = currentRow1.querySelector(".date-picker").innerText;
+                    const timeValue = currentRow1.querySelector(".time-picker").innerText;
 
-                        const highValue = currentRow1.querySelector(".high1").innerText;
-                        const lowValue = currentRow1.querySelector(".low1").innerText;
+                    const highValue = currentRow1.querySelector(".high1").innerText;
+                    const lowValue = currentRow1.querySelector(".low1").innerText;
 
-                        document.getElementById("editDate2").value = dateValue;
-                        document.getElementById("editPeriod").value = timeValue;
-                        document.getElementById("editHigh").value = highValue;
-                        document.getElementById("editLow").value = lowValue;
+                    document.getElementById("modalInputDate").value = dateValue;
+                    document.getElementById("editPeriod").value = timeValue;
+                    document.getElementById("editHigh").value = highValue;
+                    document.getElementById("editLow").value = lowValue;
 
-                        before_dateValue = dateValue
-                        before_periodValue = timeValue
-                        // ダイアログを表示
-                        dialog.style.display = "block";
-
-                    });
-                });
-
-                // 保存ボタンの処理
-                document.getElementById("saveButton").addEventListener("click", () => {
-                    const newDate = document.getElementById("editDate").value;
-                    const newTime = document.getElementById("editPeriod").value;
-                    const newHigh = document.getElementById("editHigh").value;
-                    const newLow = document.getElementById("editLow").value;
-
-                    // 値を更新
-                    currentRow1.querySelector(".date-picker").innerText = newDate;
-                    currentRow1.querySelector(".time-picker").innerText = newTime;
-                    currentRow1.querySelector(".high1").innerText = newHigh;
-                    currentRow1.querySelector(".low1").innerText = newLow;
-
-                    // ダイアログを閉じる
-                    dialog.style.display = "none";
-
-                    deleteData(before_dateValue, before_periodValue)
-                    setWeight(newWeight, newDate)
-
-                    allData = allData.filter(item => !(item.datetime === before_dateValue && item.weight ===
-                        dataArray.indexOf(before_weightValue)));
-
-                    console.log(before_dateValue)
-                    console.log(before_weightValue)
-
-                    allData.push({
-                        date: newDate,
-                        period: newTime,
-                        high: newHigh,
-                        low: newLow
-                    })
+                    before_dateValue = dateValue
+                    before_periodValue = timeValue
+                    // ダイアログを表示
+                    dialog.style.display = "block";
 
                 });
+            });
 
-                // キャンセルボタンの処理
-                document.getElementById("cancelButton").addEventListener("click", () => {
-                    // ダイアログを閉じる
-                    dialog.style.display = "none";
-                });
+            // 保存ボタンの処理
+            document.getElementById("saveButton").addEventListener("click", () => {
+                const newDate = document.getElementById("editDate").value;
+                const newTime = document.getElementById("editPeriod").value;
+                const newHigh = document.getElementById("editHigh").value;
+                const newLow = document.getElementById("editLow").value;
 
-                // 削除ボタンの処理
-                document.getElementById("deleteButton").addEventListener("click", () => {
-                    list = {
-                        date: before_dateValue,
-                        period: before_periodValue
-                    }
+                // 値を更新
+                currentRow1.querySelector(".date-picker").innerText = newDate;
+                currentRow1.querySelector(".time-picker").innerText = newTime;
+                currentRow1.querySelector(".high1").innerText = newHigh;
+                currentRow1.querySelector(".low1").innerText = newLow;
 
-                    console.log(list)
-                    deleteData(list, "pressure")
-                    // ダイアログを閉じる
-                    dialog.style.display = "none";
-                });
-
-            }
+                // ダイアログを閉じる
+                dialog.style.display = "none";
 
 
+                var olddata = {
+                    date: before_dateValue,
+                    period: before_periodValue
+                }
 
-            if (id == "table-container") {
-                tableBody = document.querySelector('#table tbody');
-                tableBody.innerHTML = ''; // テーブルをクリア
+                var newdata = {
+                    date: String(dnewDate),
+                    period: parseInt(newTime),
+                    high: newHigh,
+                    low: newLow
 
-                allData.forEach((label, index) => {
-                    datetime = label.date
-                    const row = `<tr>
-        <!-- 日付部分: datepickerを使用 -->
-        <td>${datetime}</td>
-        <td>${dataArray[label.period]}</td>
-        <!-- 最高血圧部分: contenteditable -->
-        <td >${label.high}</td>
-        <td >${label.low}</td>
+                }
 
-    </tr>`;
+                handleUpdate(olddata, newdata, "pressure");
 
 
-                    tableBody.insertAdjacentHTML('beforeend', row);
-                    $(".date-picker").datepicker({
-                        dateFormat: 'yy-mm-dd HH:mm'
-                    });
-                });
-            }
+                allData = allData.filter(item => !(item.datetime === before_dateValue && item.weight ===
+                    dataArray.indexOf(before_weightValue)));
+
+                console.log(before_dateValue)
+                console.log(before_weightValue)
+
+                allData.push({
+                    date: newDate,
+                    period: newTime,
+                    high: newHigh,
+                    low: newLow
+                })
+
+            });
+
+            // キャンセルボタンの処理
+            document.getElementById("cancelButton").addEventListener("click", () => {
+                // ダイアログを閉じる
+                dialog.style.display = "none";
+            });
+
+            // 削除ボタンの処理
+            document.getElementById("deleteButton").addEventListener("click", () => {
+                list = {
+                    date: before_dateValue,
+                    period: before_periodValue
+                }
+
+                console.log(list)
+                deleteData(list, "pressure")
+                // ダイアログを閉じる
+                dialog.style.display = "none";
+            });
+
 
         }
 
 
+        function createTablePage() {
+            tableBody = document.querySelector('#table tbody');
+            tableBody.innerHTML = ''; // テーブルをクリア
+
+            allData.forEach((label, index) => {
+                datetime = label.date
+                const row = `<tr>
+                    <!-- 日付部分: datepickerを使用 -->
+                    <td>${datetime}</td>
+                    <td>${dataArray[label.period]}</td>
+                    <!-- 最高血圧部分: contenteditable -->
+                    <td >${label.high}</td>
+                    <td >${label.low}</td>
+
+                </tr>`;
+
+                tableBody.insertAdjacentHTML('beforeend', row);
+                $(".date-picker").datepicker({
+                    dateFormat: 'yy-mm-dd HH:mm'
+                });
+            });
+        }
+
         function setallData() {
             allData = allData.filter(item => !(item.date === before_dateValue && item.period === before_periodValue));
             currentRow1.remove();
-            updateChart(allData)
-            populateTable("edit-container")
         }
     </script>
     <script src="../commonkokima.js"></script>
