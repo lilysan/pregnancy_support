@@ -1,9 +1,13 @@
       // タブ切り替えの処理
       function switchTab(contentId, event) {
         id = contentId;
-        if (contentId != "chart-container") {
+        if (id == "ctable-container") {
+            createTablePage()
+        }
+        else if (id == "edit-container") {
             populateTable(contentId)
-        } else {
+        }
+        else {
             updateChart(allData);
         }
         // すべてのコンテンツを非表示にする
@@ -114,7 +118,7 @@
             allData.push(data)
 
             updateChart(allData); // グラフを更新
-            populateTable("table-container"); // テーブルを更新
+            createTablePage(); // テーブルを更新
             populateTable("edit-container");
             $(".loader").hide();
         }
@@ -150,3 +154,12 @@
 
         });
     }
+
+async function handleUpdate(olddata, newdata, type) {
+    deleteData(olddata, type)
+        .then(
+            addData(newdata, type)
+        
+        )
+}
+    
