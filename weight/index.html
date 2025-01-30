@@ -349,8 +349,7 @@
         }
 
         function setallData() {
-            allData = allData.filter(item => !(item.datetime == String(before_dateValue) && item.weight ==
-                parseInt(before_weightValue)));
+            allData = allData.filter(item => !(item.datetime == String(before_dateValue)));
             currentRow1.remove();
         }
 
