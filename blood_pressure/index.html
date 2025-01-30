@@ -382,12 +382,12 @@
                     const lowValue = currentRow1.querySelector(".low1").innerText;
 
                     document.getElementById("editDate").value = dateValue;
-                    document.getElementById("editPeriod").value = timeValue;
+                    document.getElementById("editPeriod").value = dataArray.indexOf(timeValue);
                     document.getElementById("editHigh").value = highValue;
                     document.getElementById("editLow").value = lowValue;
 
                     before_dateValue = dateValue
-                    before_periodValue = timeValue
+                    before_periodValue = dataArray.indexOf(timeValue)
                     // ダイアログを表示
                     dialog.style.display = "block";
 
@@ -413,7 +413,7 @@
 
                 var olddata = {
                     date: before_dateValue,
-                    period: dataArray.indexOf(before_periodValue)
+                    period: before_periodValue
                 }
 
                 var newdata = {
@@ -453,7 +453,7 @@
             document.getElementById("deleteButton").addEventListener("click", () => {
                 list = {
                     date: before_dateValue,
-                    period: dataArray.indexOf(before_periodValue)
+                    period: before_periodValue
                 }
 
                 console.log(list)
@@ -490,7 +490,7 @@
         }
 
         function setallData() {
-            allData = allData.filter(item => !(item.date === before_dateValue && item.period === before_periodValue));
+            allData = allData.filter(item => !(item.date == before_dateValue && item.period == before_periodValue));
             currentRow1.remove();
         }
     </script>
