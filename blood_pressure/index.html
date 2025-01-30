@@ -334,7 +334,6 @@
         let before_periodValue
 
         function populateTable(id) {
-            console.log(id)
             var tableBody;
 
             tableBody = document.querySelector('#editTable tbody');
@@ -395,54 +394,12 @@
                 });
             });
 
-            // 保存ボタンの処理
-            document.getElementById("saveButton").addEventListener("click", () => {
-                const newDate = document.getElementById("editDate").value;
-                const newTime = document.getElementById("editPeriod").value;
-                const newHigh = document.getElementById("editHigh").value;
-                const newLow = document.getElementById("editLow").value;
-
-                // 値を更新
-                currentRow1.querySelector(".date-picker").innerText = newDate;
-                currentRow1.querySelector(".time-picker").innerText = newTime;
-                currentRow1.querySelector(".high1").innerText = newHigh;
-                currentRow1.querySelector(".low1").innerText = newLow;
-
-                // ダイアログを閉じる
-                dialog.style.display = "none";
+            const saveButton = document.getElementById("saveButton");
+            saveButton.removeEventListener("click", savebutton); // 既存のリスナーを削除
+            saveButton.addEventListener("click", savebutton); // 新しいリスナーを登録
 
 
-                var olddata = {
-                    date: before_dateValue,
-                    period: before_periodValue
-                }
 
-                var newdata = {
-                    date: String(newDate),
-                    period: dataArray.indexOf(newTime),
-                    high: newHigh,
-                    low: newLow
-
-                }
-                console.log(olddata)
-                console.log(newdata)
-                handleUpdate(olddata, newdata, "pressure");
-
-
-                allData = allData.filter(item => !(item.date == before_dateValue && item.period ==
-                    before_periodValue));
-
-                console.log(before_dateValue)
-                console.log(before_periodValue)
-
-                allData.push({
-                    date: newDate,
-                    period: newTime,
-                    high: newHigh,
-                    low: newLow
-                })
-
-            });
 
             // キャンセルボタンの処理
             document.getElementById("cancelButton").addEventListener("click", () => {
@@ -466,6 +423,59 @@
 
         }
 
+
+        function savebutton() {
+
+            let dialog = document.getElementById("editDialog");
+
+            // 保存ボタンの処理
+            const newDate = document.getElementById("editDate").value;
+            const newTime = document.getElementById("editPeriod").value;
+            const newHigh = document.getElementById("editHigh").value;
+            const newLow = document.getElementById("editLow").value;
+
+            // 値を更新
+            currentRow1.querySelector(".date-picker").innerText = newDate;
+            currentRow1.querySelector(".time-picker").innerText = newTime;
+            currentRow1.querySelector(".high1").innerText = newHigh;
+            currentRow1.querySelector(".low1").innerText = newLow;
+
+            // ダイアログを閉じる
+            dialog.style.display = "none";
+
+            if (newDate && newHigh && newTime && newLow) {
+                var olddata = {
+                    date: before_dateValue,
+                    period: before_periodValue
+                }
+
+                var newdata = {
+                    date: String(newDate),
+                    period: dataArray.indexOf(newTime),
+                    high: newHigh,
+                    low: newLow
+
+                }
+                console.log(olddata)
+                console.log(newdata)
+                handleUpdate(olddata, newdata, "pressure");
+
+            } else {
+                alert('すべてのフィールドに値を入力してください。');
+            }
+            //                allData = allData.filter(item => !(item.date == before_dateValue && item.period ==
+            //                    before_periodValue));
+
+
+            //               allData.push({
+            //                   date: newDate,
+            //                   period: newTime,
+            //                   high: newHigh,
+            //                   low: newLow
+            //               })
+
+
+        }
 
         function createTablePage() {
             tableBody = document.querySelector('#table tbody');
