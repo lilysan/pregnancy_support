@@ -325,8 +325,8 @@
         function createTablePage() {
 
             tableBody = document.querySelector('#table tbody');
-            tableBody.innerHTML = ''; // テーブルをクリア
-
+            tableBodyf.innerHTML = ''; // テーブルをクリア
+            console.log("tt")
             allData.forEach((label, index) => {
                 datetime = label.datetime
                 const row = `<tr>
