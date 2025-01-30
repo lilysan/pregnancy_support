@@ -120,12 +120,15 @@
 
 <body>
     <script>
-        var languageArray = ["en-US", "zh", "de"]
+        var languageArray = ["en-US", "zh", "de","ve","pr","ko"]
         var dataArray = []
         var localData = [];
         var enData = [];
         var zhData = [];
         var deData = [];
+        var veData = [];
+        var koData = [];
+        var prData = [];
         let indexLanguage;
         window.onload = function () {
             //getJsonp_GAS();
@@ -251,6 +254,9 @@
             enData = await getDataFromGAS('enData');
             zhData = await getDataFromGAS('zhData');
             deData = await getDataFromGAS('deData');
+            prData = await getDataFromGAS('pr');
+            koData = await getDataFromGAS('ko');
+            veData = await getDataFromGAS('ve');
 
             console.log(localData); // 取得したデータを確認
             console.log(enData);
@@ -260,6 +266,9 @@
             dataArray.push(enData)
             dataArray.push(zhData)
             dataArray.push(deData)
+            dataArray.push(veData)
+            dataArray.push(prData)
+            dataArray.push(koData)
 
         }
 
@@ -287,7 +296,12 @@
         <span class="langCng en selected" lang="en-US" onClick="langSet('en-US')">英語/English</span>
         <span class="langCng zh" lang="zh" onClick="langSet('zh')">中国語/中文</span>
         <span class="langCng de" lang="de" onClick="langSet('de')">ドイツ語/Deutsch</span>
+        <span class="langCng ve" lang="ve" onClick="langSet('ve')">ベトナム語/Deutsch</span>
+        <span class="langCng pr" lang="pr" onClick="langSet('pr')">ポルトガル語/Deutsch</span>
+        <span class="langCng ko" lang="ko" onClick="langSet('ko')">韓国語/Deutsch</span>
 
+        
+        
     </div>
     <div id="whole">
     </div>
