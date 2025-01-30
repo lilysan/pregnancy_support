@@ -436,7 +436,7 @@
 
             // 値を更新
             currentRow1.querySelector(".date-picker").innerText = newDate;
-            currentRow1.querySelector(".time-picker").innerText = newTime;
+            currentRow1.querySelector(".time-picker").innerText = dataArray[newTime];
             currentRow1.querySelector(".high1").innerText = newHigh;
             currentRow1.querySelector(".low1").innerText = newLow;
 
@@ -451,7 +451,7 @@
 
                 var newdata = {
                     date: String(newDate),
-                    period: dataArray.indexOf(newTime),
+                    period: parseInt(newTime),
                     high: newHigh,
                     low: newLow
 
