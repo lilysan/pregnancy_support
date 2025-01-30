@@ -84,14 +84,14 @@
     <div id="editDialog" style="display:none;">
         <form id="editForm">
             <label for="editDate">日にち:</label>
-            <input type="text" id="editDate2" class="weightdate2"><br><br>
+            <input type="text" id="modalInputDate" class="weightdate2"><br><br>
 
             <label for="edit-time" class="tr_time2">時間</label>
-            <input type="text" name="editTime2" id="edit-time2" value="">
+            <input type="text" name="editTime2" id="modalInputTime" value="">
 
 
-            <label for="editWeight">体重 (kg):</label>
-            <input type="number" id="editWeight" class="sugar2"><br><br>
+            <label for="modalData1">体重 (kg):</label>
+            <input type="number" id="modalData1" class="sugar2"><br><br>
 
             <button type="button" id="saveButton">保存</button>
             <button type="button" id="cancelButton">キャンセル</button>
@@ -211,27 +211,18 @@
 
         }
 
-        async function handleUpdate(before_dateValue, before_weightValue, newWeight, newDate, newTime) {
-            alert("handle")
-            var data = {
-                datatime: String(before_dateValue)
-
-            }
-            await deleteData(before_dateValue, before_weightValue);
-            setWeight(newWeight, newDate + " " + newTime);
-        }
 
         function populateTable(id) {
             console.log(id)
             var tableBody;
-            if (id == "edit-container") {
-                tableBody = document.querySelector('#editTable tbody');
-                tableBody.innerHTML = ''; // テーブルをクリア
 
-                allData.forEach((label, index) => {
-                    const datePart = String(label.datetime); // 日付部分
+            tableBody = document.querySelector('#editTable tbody');
+            tableBody.innerHTML = ''; // テーブルをクリア
 
-                    const row = `<tr>
+            allData.forEach((label, index) => {
+                const datePart = String(label.datetime); // 日付部分
+
+                const row = `<tr>
                             <!-- 日付部分: datepickerを使用 -->
                             <td class="date-picker">${String(datePart).split(" ")[0]}</td>
                             <td class="time-picker">${String(datePart).split(" ")[1]}</td>
@@ -243,126 +234,122 @@
                         </tr>`;
 
 
-                    tableBody.insertAdjacentHTML('beforeend', row);
-                    $(".date-picker").datepicker({
-                        dateFormat: 'yy-mm-dd HH:mm'
-                    });
+                tableBody.insertAdjacentHTML('beforeend', row);
+                $(".date-picker").datepicker({
+                    dateFormat: 'yy-mm-dd HH:mm'
                 });
+            });
 
 
 
-                let editButtons = document.querySelectorAll(".edit-btn");
-                let dialog = document.getElementById("editDialog");
+            let editButtons = document.querySelectorAll(".edit-btn");
+            let dialog = document.getElementById("editDialog");
 
 
 
-                editButtons.forEach((button) => {
-                    button.addEventListener("click", function () {
-                        currentRow1 = this.closest("tr");
+            editButtons.forEach((button) => {
+                button.addEventListener("click", function () {
+                    currentRow1 = this.closest("tr");
 
-                        // 元の値を取得してダイアログに設定
-                        const dateValue = currentRow1.querySelector(".date-picker").innerText;
-                        const timeValue = currentRow1.querySelector(".time-picker").innerText;
+                    // 元の値を取得してダイアログに設定
+                    const dateValue = currentRow1.querySelector(".date-picker").innerText;
+                    const timeValue = currentRow1.querySelector(".time-picker").innerText;
 
-                        const weightValue = currentRow1.querySelector(".weight1").innerText;
+                    const weightValue = currentRow1.querySelector(".weight1").innerText;
 
-                        document.getElementById("editDate2").value = dateValue;
-                        document.getElementById("edit-time2").value = timeValue;
-                        document.getElementById("editWeight").value = weightValue;
+                    document.getElementById("modalInputDate").value = dateValue;
+                    document.getElementById("modalInputTime").value = timeValue;
+                    document.getElementById("modalData1").value = weightValue;
 
-                        before_dateValue = dateValue + " " + timeValue
-                        before_weightValue = weightValue
-                        // ダイアログを表示
-                        dialog.style.display = "block";
+                    before_dateValue = dateValue + " " + timeValue
+                    before_weightValue = weightValue
+                    // ダイアログを表示
+                    dialog.style.display = "block";
 
-                    });
                 });
+            });
 
-                // 保存ボタンの処理
-                document.getElementById("saveButton").addEventListener("click", () => {
-                    const newDate = document.getElementById("editDate2").value;
-                    const newTime = document.getElementById("edit-time2").value;
-                    const newWeight = document.getElementById("editWeight").value;
+            // 保存ボタンの処理
+            document.getElementById("saveButton").addEventListener("click", () => {
+                const newDate = document.getElementById("modalInputDate").value;
+                const newTime = document.getElementById("modalInputTime").value;
+                const newWeight = document.getElementById("modalData1").value;
 
-                    // 値を更新
-                    currentRow1.querySelector(".date-picker").innerText = newDate;
-                    currentRow1.querySelector(".time-picker").innerText = newTime;
-                    currentRow1.querySelector(".weight1").innerText = newWeight;
+                // 値を更新
+                currentRow1.querySelector(".date-picker").innerText = newDate;
+                currentRow1.querySelector(".time-picker").innerText = newTime;
+                currentRow1.querySelector(".weight1").innerText = newWeight;
 
-                    // ダイアログを閉じる
-                    dialog.style.display = "none";
+                // ダイアログを閉じる
+                dialog.style.display = "none";
 
-                    if (newDate && newWeight && newTime) {
-                        allData.push({
-                            datetime: newDate + " " + newTime,
-                            weight: newWeight,
-                        })
-
-                        // 呼び出し
-                        $(".loader").show();
-
-                        handleUpdate(before_dateValue, before_weightValue, newWeight, newDate, newTime);
-
-
-                    } else {
-                        alert('すべてのフィールドに値を入力してください。');
+                if (newDate && newWeight && newTime) {
+                    var newdata = {
+                        datetime: newDate + " " + newTime,
+                        weight: newWeight,
                     }
-
-
-                });
-
-                // キャンセルボタンの処理
-                document.getElementById("cancelButton").addEventListener("click", () => {
-                    // ダイアログを閉じる
-                    dialog.style.display = "none";
-                });
-
-                // 削除ボタンの処理
-                document.getElementById("deleteButton").addEventListener("click", () => {
-                    list = {
+                    var olddata = {
                         datetime: before_dateValue
                     }
-                    deleteData(list, "weight")
-                    // ダイアログを閉じる
-                    dialog.style.display = "none";
+                    // 呼び出し
+                    $(".loader").show();
+
+                    handleUpdate(olddata, newdata, "weight");
+
+
+                } else {
+                    alert('すべてのフィールドに値を入力してください。');
+                }
+
+
+            });
+
+            // キャンセルボタンの処理
+            document.getElementById("cancelButton").addEventListener("click", () => {
+                // ダイアログを閉じる
+                dialog.style.display = "none";
+            });
+
+            // 削除ボタンの処理
+            document.getElementById("deleteButton").addEventListener("click", () => {
+                list = {
+                    datetime: before_dateValue
+                }
+                deleteData(list, "weight")
+                // ダイアログを閉じる
+                dialog.style.display = "none";
+            });
+
+        }
+
+        function createTablePage() {
+
+            tableBody = document.querySelector('#table tbody');
+            tableBody.innerHTML = ''; // テーブルをクリア
+
+            allData.forEach((label, index) => {
+                datetime = label.datetime
+                const row = `<tr>
+                    <!-- 日付部分: datepickerを使用 -->
+                    <td>${datetime.split(" ")[0]}</td>
+                    <td>${datetime.split(" ")[1]}</td>
+                    <!-- 最高血圧部分: contenteditable -->
+                    <td >${label.weight}</td>
+
+                </tr>`;
+
+
+                tableBody.insertAdjacentHTML('beforeend', row);
+                $(".date-picker").datepicker({
+                    dateFormat: 'yy-mm-dd HH:mm'
                 });
-
-            }
-
-
-
-            if (id == "table-container") {
-                tableBody = document.querySelector('#table tbody');
-                tableBody.innerHTML = ''; // テーブルをクリア
-
-                allData.forEach((label, index) => {
-                    datetime = label.datetime
-                    const row = `<tr>
-        <!-- 日付部分: datepickerを使用 -->
-        <td>${datetime.split(" ")[0]}</td>
-        <td>${datetime.split(" ")[1]}</td>
-        <!-- 最高血圧部分: contenteditable -->
-        <td >${label.weight}</td>
-
-    </tr>`;
-
-
-                    tableBody.insertAdjacentHTML('beforeend', row);
-                    $(".date-picker").datepicker({
-                        dateFormat: 'yy-mm-dd HH:mm'
-                    });
-                });
-            }
-
+            });
         }
 
         function setallData() {
             allData = allData.filter(item => !(item.datetime == String(before_dateValue) && item.weight ==
                 parseInt(before_weightValue)));
             currentRow1.remove();
-            updateChart(allData)
-            populateTable("edit-container")
-
         }
 
 
@@ -409,7 +396,7 @@
         $("#weightdate").datepicker({
             dateFormat: "yy-mm-dd"
         });
-        $("#editDate2").datepicker({
+        $("#modalInputDate").datepicker({
             dateFormat: "yy-mm-dd"
         });
 
@@ -421,7 +408,7 @@
             scrollbar: true
         });
 
-        $("#edit-time2").timepicker({
+        $("#modalInputTime").timepicker({
             timeFormat: 'H:i',
             interval: 30,
             dynamic: false,
