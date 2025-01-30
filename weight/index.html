@@ -268,42 +268,10 @@
                 });
             });
 
-            // 保存ボタンの処理
-            document.getElementById("saveButton").addEventListener("click", () => {
-                console.log("save")
 
-                const newDate = document.getElementById("modalInputDate").value;
-                const newTime = document.getElementById("modalInputTime").value;
-                const newWeight = document.getElementById("modalData1").value;
-
-                // 値を更新
-                currentRow1.querySelector(".date-picker").innerText = newDate;
-                currentRow1.querySelector(".time-picker").innerText = newTime;
-                currentRow1.querySelector(".weight1").innerText = newWeight;
-
-                // ダイアログを閉じる
-                dialog.style.display = "none";
-
-                if (newDate && newWeight && newTime) {
-                    var newdata = {
-                        datetime: newDate + " " + newTime,
-                        weight: parseInt(newWeight),
-                    }
-                    var olddata = {
-                        datetime: before_dateValue
-                    }
-                    // 呼び出し
-                    $(".loader").show();
-
-                    handleUpdate(olddata, newdata, "weight");
-
-
-                } else {
-                    alert('すべてのフィールドに値を入力してください。');
-                }
-
-
-            });
+            const saveButton = document.getElementById("saveButton");
+            saveButton.removeEventListener("click", savebutton); // 既存のリスナーを削除
+            saveButton.addEventListener("click", savebutton); // 新しいリスナーを登録
 
             // キャンセルボタンの処理
             document.getElementById("cancelButton").addEventListener("click", () => {
@@ -321,6 +289,40 @@
                 dialog.style.display = "none";
             });
 
+        }
+
+        function savebutton() {
+            console.log("save")
+
+            const newDate = document.getElementById("modalInputDate").value;
+            const newTime = document.getElementById("modalInputTime").value;
+            const newWeight = document.getElementById("modalData1").value;
+
+            // 値を更新
+            currentRow1.querySelector(".date-picker").innerText = newDate;
+            currentRow1.querySelector(".time-picker").innerText = newTime;
+            currentRow1.querySelector(".weight1").innerText = newWeight;
+
+            // ダイアログを閉じる
+            dialog.style.display = "none";
+
+            if (newDate && newWeight && newTime) {
+                var newdata = {
+                    datetime: newDate + " " + newTime,
+                    weight: parseInt(newWeight),
+                }
+                var olddata = {
+                    datetime: before_dateValue
+                }
+                // 呼び出し
+                $(".loader").show();
+
+                handleUpdate(olddata, newdata, "weight");
+
+
+            } else {
+                alert('すべてのフィールドに値を入力してください。');
+            }
         }
 
         function createTablePage() {
