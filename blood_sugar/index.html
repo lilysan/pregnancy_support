@@ -239,7 +239,9 @@
                 allData = response.data.items
                 updateChart(response.data.items)
         */
-
+        let before_dateValue
+        let before_periodValue
+        let before_sugarValue
 
         function changeLanguage(lang) {
             const knownLang = ["ja", "en"];
@@ -261,7 +263,6 @@
         let currentRow1; // 編集中の行を記憶
         // データをテーブルに表示する関数
         function populateTable(id) {
-            console.log(id)
             var tableBody;
 
             tableBody = document.querySelector('#editTable tbody');
@@ -298,9 +299,7 @@
             const dialog = document.getElementById("editDialog");
 
 
-            let before_dateValue
-            let before_periodValue
-            let before_sugarValue
+
 
             editButtons.forEach((button) => {
                 button.addEventListener("click", function () {
@@ -333,46 +332,9 @@
                 });
             });
 
-            // 保存ボタンの処理
-            document.getElementById("saveButton").addEventListener("click", () => {
-                const newDate = document.getElementById("editDate").value;
-                const newPeriod = document.getElementById("editPeriod").value;
-                const newSugar = document.getElementById("editSugar").value;
-
-                // 値を更新
-                currentRow1.querySelector(".date-picker").innerText = newDate;
-                currentRow1.querySelector(".period-select").innerText = dataArray[newPeriod];
-                currentRow1.querySelector(".sugar1").innerText = newSugar;
-
-                // ダイアログを閉じる
-                dialog.style.display = "none";
-
-                var olddata = {
-                    date: before_dateValue,
-                    period: dataArray.indexOf(before_periodValue),
-                }
-                var newsata = {
-                    date: String(newDate),
-                    period: parseInt(newPeriod),
-                    sugar: newSugar
-                }
-                handleUpdate(olddata, newdata, "sugar");
-
-
-
-                allData = allData.filter(item => !(item.date === before_dateValue && item.period ===
-                    dataArray.indexOf(before_periodValue)));
-
-                console.log(before_dateValue)
-                console.log(dataArray.indexOf(before_periodValue))
-
-                allData.push({
-                    date: newDate,
-                    period: newPeriod,
-                    sugar: newSugar,
-                })
-
-            });
+            const saveButton = document.getElementById("saveButton");
+            saveButton.removeEventListener("click", savebutton); // 既存のリスナーを削除
+            saveButton.addEventListener("click", savebutton); // 新しいリスナーを登録
 
             // キャンセルボタンの処理
             document.getElementById("cancelButton").addEventListener("click", () => {
@@ -393,6 +355,39 @@
                 dialog.style.display = "none";
             });
 
+
+        }
+
+        function savebutton() {
+            // 保存ボタンの処理
+            let dialog = document.getElementById("editDialog");
+
+            const newDate = document.getElementById("editDate").value;
+            const newPeriod = document.getElementById("editPeriod").value;
+            const newSugar = document.getElementById("editSugar").value;
+
+            // 値を更新
+            currentRow1.querySelector(".date-picker").innerText = newDate;
+            currentRow1.querySelector(".period-select").innerText = dataArray[newPeriod];
+            currentRow1.querySelector(".sugar1").innerText = newSugar;
+
+            // ダイアログを閉じる
+            dialog.style.display = "none";
+            if (newDate && newPeriod && newSugar) {
+
+                var olddata = {
+                    date: before_dateValue,
+                    period: dataArray.indexOf(before_periodValue),
+                }
+                var newsata = {
+                    date: String(newDate),
+                    period: parseInt(newPeriod),
+                    sugar: newSugar
+                }
+                handleUpdate(olddata, newdata, "sugar");
+            } else {
+                alert('すべてのフィールドに値を入力してください。');
+            }
 
         }
 
