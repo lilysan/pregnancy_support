@@ -24,10 +24,11 @@
         }
 
         #editForm {
-            margin: 40% auto;
-            width: 81%;
-            padding: 49px;
-            background: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+            background-color: #ffffff;
         }
     </style>
 </head>
@@ -379,7 +380,7 @@
                     date: before_dateValue,
                     period: dataArray.indexOf(before_periodValue),
                 }
-                var newsata = {
+                var newdata = {
                     date: String(newDate),
                     period: parseInt(newPeriod),
                     sugar: newSugar
