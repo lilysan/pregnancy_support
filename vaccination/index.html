@@ -18,80 +18,81 @@
         </div>
     </div>
 
-    <h1 class="title_vaccination mt-3">自身の予防接種記録</h1>
+    <h1 class="title_vaccination mt-3"></h1>
+    <p class="lead">（自身の予防接種記録）</p>
 
     <form>
         <!-- インフルエンザ -->
         <fieldset class="mb-4">
-            <legend class="title_flu">インフルエンザ</legend>
+            <legend><span class="title_flu"></span> （インフルエンザ）</legend>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="influenza" id="influenzaYes" value="yes">
-                <label class="form-check-label yes" for="influenzaYes">接種済み</label>
+                <label for="influenzaYes"><span class="form-check-label yes"></span> （接種済み）</label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="influenza" id="influenzaNo" value="no">
-                <label class="form-check-labeln no " for="influenzaNo">未接種</label>
+                <label for="influenzaNo"><span class="form-check-labeln no"></span> （未接種）</label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="influenza" id="influenzaUnknown" value="unknown">
-                <label class="form-check-label unknown" for="influenzaUnknown">不明</label>
+                <label for="influenzaUnknown"><span class="form-check-label unknown"></span> （不明）</label>
             </div>
         </fieldset>
 
         <!-- ジフテリア -->
         <fieldset class="mb-4">
-            <legend class="title_diphtheria">ジフテリア</legend>
+            <legend><span class="title_diphtheria"></span> （ジフテリア）</legend>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="diphtheria" id="diphtheriaYes" value="yes">
-                <label class="form-check-label yes" for="diphtheriaYes">接種済み</label>
+                <label for="diphtheriaYes"><span class="form-check-label yes"></span> （接種済み）</label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="diphtheria" id="diphtheriaNo" value="no">
-                <label class="form-check-label no" for="diphtheriaNo">未接種</label>
+                <label for="diphtheriaNo"><span class="form-check-label no"></span> （未接種）</label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="diphtheria" id="diphtheriaUnknown" value="unknown">
-                <label class="form-check-label unknown" for="diphtheriaUnknown">不明</label>
+                <label for="diphtheriaUnknown"><span class="form-check-label unknown"></span> （不明）</label>
             </div>
         </fieldset>
 
         <!-- 破傷風 -->
         <fieldset class="mb-4">
-            <legend class="title_tetanus">破傷風</legend>
+            <legend><span class="title_tetanus"></span> （破傷風）</legend>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="tetanus" id="tetanusYes" value="yes">
-                <label class="form-check-label yes" for="tetanusYes">接種済み</label>
+                <label for="tetanusYes"><span class="form-check-label yes"></span> （接種済み）</label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="tetanus" id="tetanusNo" value="no">
-                <label class="form-check-label no" for="tetanusNo">未接種</label>
+                <label for="tetanusNo"><span class="form-check-label no"></span> （未接種）</label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="tetanus" id="tetanusUnknown" value="unknown">
-                <label class="form-check-label unknown" for="tetanusUnknown">不明</label>
+                <label for="tetanusUnknown"><span class="form-check-label unknown"></span> （不明）</label>
             </div>
         </fieldset>
 
         <!-- 百日咳ワクチン -->
         <fieldset class="mb-4">
-            <legend class="title_pertussis">百日咳</legend>
+            <legend><span class="title_pertussis"></span> （百日咳）</legend>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="pertussis" id="pertussisYes" value="yes">
-                <label class="form-check-label yes" for="pertussisYes">接種済み</label>
+                <label for="pertussisYes"><span class="form-check-label yes"></span> （接種済み）</label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="pertussis" id="pertussisNo" value="no">
-                <label class="form-check-label no" for="pertussisNo">未接種</label>
+                <label for="pertussisNo"><span class="form-check-label no"></span> （未接種）</label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="pertussis" id="pertussisUnknown" value="unknown">
-                <label class="form-check-label unknown" for="pertussisUnknown">不明</label>
+                <label for="pertussisUnknown"><span class="form-check-label unknown"></span> （不明）</label>
             </div>
         </fieldset>
 
         <!-- 保存ボタン -->
         <button type="button" class="btn btn-primary btn_save">Save</button>
-        <p>* Data will not be saved as this is a sample.</p>
+        <p>* Data will not be saved as this is a sample. （サンプルのため、入力されたデータは保存されません。）</p>
     </form>
 </div>
 
@@ -138,7 +139,7 @@
     }
 
     function changeLanguage(lang){
-        const knownLang = ["ja", "en"];
+        const knownLang = ["en"];
         lang = knownLang.includes(lang) ? lang : "en";
 
         $.getJSON("lang.json", (data) => {
