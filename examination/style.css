@@ -1,215 +1,408 @@
+:root {
+  --bg: #fffaf4;
+  --card: #ffffff;
+  --ink: #3a2f2f;
+  --sub: #6f6161;
+  --accent: #f07f5a;
+  --accent-soft: #ffe2d6;
+  --tab: #f2ece5;
+  --line: #ebded3;
+  --shadow: 0 8px 20px rgba(137, 94, 67, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
   margin: 0;
-
-  align-items: center;
-  justify-content: center;
-  background-color: #ffffff;
-  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-
+  min-height: 100vh;
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 10% 10%, #fff0e7 0%, transparent 40%),
+    radial-gradient(circle at 90% 20%, #ffefe0 0%, transparent 36%),
+    var(--bg);
 }
 
-h1 {
-  color: #ad1457;
-  font-size: 1.5em;
-  margin: 10px;
-  text-align: center;
+.app-header {
+  padding: 20px 16px 10px;
 }
 
-.chart-container {
-  width: 100%;
-  overflow-x: auto;
+.app-header h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.35;
 }
 
-form {
-  margin-top: 20px;
+.app-header p {
+  margin: 6px 0 0;
+  color: var(--sub);
+  font-size: 0.96rem;
 }
 
-label {
-  margin-right: 10px;
+.language-picker {
+  position: static;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 10px 12px;
+  background: linear-gradient(to bottom, rgba(255, 250, 244, 0.98), rgba(255, 250, 244, 0.92));
+  backdrop-filter: blur(4px);
 }
 
-table {
-  margin-top: 20px;
-  table-layout: fixed;
-  /* 各列の幅を均等にする */
-  border-collapse: collapse;
-  width: 95%;
-  margin: 0 auto;
+.language-btn {
+  border: 2px solid var(--line);
+  background: #fff;
+  border-radius: 16px;
+  padding: 12px 8px;
+  min-height: 56px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--ink);
 }
 
-table,
-th,
-td {
-  border: 1px solid black;
+.language-btn.active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
 }
 
-th,
-td {
-  padding: 8px;
-  text-align: center;
+.app-shell {
+  padding: 0 12px 24px;
+  margin-bottom: 30px;
 }
 
-td {
-  width: 25%;
-}
-
-/* 日付の input フィールドと select フィールドの幅を調整 */
-.date-picker,
-.period-select {
-  width: 100%;
-  /* セルの幅に合わせて100%にする */
-}
-
-#edit_table,
-#table_show-container {
-
-  /* left: 5%; */
-  background-color: white;
-  width: 100%;
-  height: 70vh;
-}
-
-#table_show-container {
-  padding: 5%;
-}
-
-#edit_table_container,
-#table_show {
-  width: 100%;
-  padding: 5%;
-  overflow-y: auto;
-
-}
-
-/* フォーム内の各要素を一行に配置するためのスタイル */
-#addDataForm label,
-#addDataForm input,
-#addDataForm .dropdown {
-  display: inline-block;
-  margin-right: 10px;
-  /* 各要素の間に少しスペースを追加 */
-  vertical-align: middle;
-  color: #880e4f;
-  /* 中央揃え */
-}
-
-/* セレクトボックスの高さを他の入力と合わせる */
-.dropdown select {
-  height: 36px;
-  /* 他のinput要素と高さを揃える */
-  padding: 5px;
-}
-
-.chart-container,
-.table-container,
-.edit-container {
-  display: none;
-}
-
-.active-content {
-  display: block;
-}
-
-/* グラフの高さをウィンドウの高さの80%に設定 */
-.chart-container {
-  width: 100%;
-  height: 70vh;
-  /* ウィンドウの高さの80% */
-}
-
-canvas {
-  width: 100%;
-  height: 100% !important
-      /* コンテナの高さに合わせる */
-}
-
-/* タブのデザイン */
-.tab-bar {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #ffffff;
+.category-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 25;
   display: flex;
-  justify-content: space-around;
-  box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
-  border-top: 1px solid #ddd;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 10px 0;
+  background: rgba(255, 250, 244, 0.95);
 }
 
-.tab-bar button {
-  flex-grow: 1;
-  padding: 10px;
-  background-color: #ffffff;
-  border: none;
-  border-top: 2px solid transparent;
-  cursor: pointer;
-  font-size: 16px;
-  color: #555;
-  margin: 6px auto;
+.tab-btn {
+  flex: 0 0 auto;
+  border: 2px solid transparent;
+  background: var(--tab);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 10px 16px;
+  min-height: 50px;
+  font-size: 1rem;
+  font-weight: 700;
+  white-space: nowrap;
+  text-align: left;
+  display: grid;
+  gap: 2px;
+  align-content: center;
 }
 
-.tab-bar button.active {
-  border-top: 2px solid #facae1;
-  color: #f42cce;
+.tab-btn.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.tab-ja {
+  font-size: 0.95rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.tab-tr {
+  font-size: 0.72rem;
+  line-height: 1.2;
+  opacity: 0.85;
   font-weight: 600;
 }
 
-/* モバイル向けにフォーカス時のボタン */
-.tab-bar button:focus {
-  outline: none;
+.accordion-list {
+  display: grid;
+  gap: 14px;
+  padding-bottom: 20px;
 }
 
-#editTable {
-  width: 100%;
-}
-table{
-width: 95%;
-margin: 0 auto;
-}
-
-button{
-display: block;
-margin: auto;
-color: #332000;
-/* height: 80%; */
-width: 80%;
-margin: 15px auto;
-background-color: #f9cae1;
-text-align: center;
-padding: 5px;
-border-radius: 20px;
-border-color: #ffffff;
-}
-
-button.edit-btn {
-margin: 0 auto;
-}
-
-button.delete-btn {
-  border: none;
-  background-color: #f50505;
-  color: white;
+.talk-card {
   border-radius: 20px;
-  padding: 5px 10px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  overflow: hidden;
 }
 
-div#editDialog {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  background: #66666666;
+.talk-summary {
+  list-style: none;
+  align-items: center;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.talk-summary::-webkit-details-marker {
+  display: none;
+}
+
+.summary-illustration {
+  width: 86px;
+  height: 86px;
+}
+
+.summary-illustration svg {
   width: 100%;
   height: 100%;
+  display: block;
 }
 
-#editForm {
-  margin: 40% auto;
-  width: 81%;
-  padding: 49px;
-  background: white;
+.talk-title {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--sub);
+}
+
+.ja-text {
+  margin: 4px 0 0;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.translated-text {
+  margin: 6px 0 0;
+  font-size: 1rem;
+  color: var(--sub);
+  line-height: 1.35;
+}
+
+.talk-panel {
+  border-top: 1px solid var(--line);
+  padding: 12px;
+  background: #fffdfb;
+}
+
+.answer-grid {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.token-wrap {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px;
+  background: #fff6f2;
+}
+
+.token-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.token-hint {
+  margin: 4px 0 10px;
+  font-size: 0.9rem;
+  color: var(--sub);
+}
+
+.token-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.token-btn {
+  background: #fff;
+}
+
+.large-btn {
+  width: 100%;
+  min-height: 74px;
+  border-radius: 16px;
+  border: 2px solid var(--line);
+  background: #ffffff;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: left;
+  padding: 12px;
+}
+
+.large-btn:active {
+  transform: scale(0.99);
+}
+
+.speak-btn {
+  background: var(--accent-soft);
+  border-color: #ffc1ad;
+  text-align: center;
+}
+
+.answer-btn {
+  display: grid;
+  gap: 4px;
+}
+
+.answer-btn.selected-highlight {
+  background: #ffe6a8;
+  border-color: #f3b233;
+  box-shadow: inset 0 0 0 2px rgba(243, 178, 51, 0.25);
+}
+
+.answer-ja {
+  font-size: 1.08rem;
+  line-height: 1.35;
+}
+
+.answer-tr {
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: var(--sub);
+}
+
+.loading-text {
+  margin: 16px 2px;
+  color: var(--sub);
+  font-weight: 700;
+}
+
+.free-translate-btn {
+  position: fixed;
+  left: 14px;
+  bottom: 18px;
+  min-height: 56px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 999px;
+  background: #3f7f6f;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(30, 66, 57, 0.25);
+  z-index: 50;
+}
+
+.free-translate-panel {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 84px;
+  z-index: 55;
+  background: #fffdf9;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 12px;
+  display: none;
+}
+
+.free-translate-panel.open {
+  display: block;
+}
+
+.free-translate-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.free-translate-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.free-translate-close {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  border-radius: 999px;
+  min-height: 36px;
+  padding: 0 12px;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.free-translate-input {
+  width: 100%;
+  min-height: 96px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.free-translate-run {
+  margin-top: 10px;
+  width: 100%;
+  min-height: 52px;
+  border: none;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.free-translate-status {
+  margin: 8px 0 0;
+  color: var(--sub);
+  font-size: 0.9rem;
+}
+
+.free-translate-output {
+  margin-top: 8px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--line);
+  padding: 10px;
+  min-height: 56px;
+  font-size: 1rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.scroll-top-btn {
+  position: fixed;
+  right: 14px;
+  bottom: 18px;
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(82, 42, 20, 0.28);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 50;
+}
+
+.scroll-top-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+@media (min-width: 720px) {
+  .app-shell {
+    max-width: 760px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+  }
+
+  .language-picker {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .category-tabs {
+    top: 0;
+  }
 }
