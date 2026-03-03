@@ -1,732 +1,758 @@
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <title>test</title>
+    <title>しんさつコミュニケーションボード</title>
 </head>
-<style>
-    /* General Styles */
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 1%;
-        background-color: #f9f9f9;
-        overflow-y: auto;
-        width: 98%;
-
-        /* ページ全体でスクロールを有効に */
-    }
-
-    html,
-    body {
-        scroll-padding-top: 60px;
-    }
-
-    #container {
-        display: flex;
-    }
-
-    #left {
-        width: 20vw;
-        height: 100vh;
-        overflow-y: auto;
-        padding: 0 10px
-    }
-
-    #sample1 {
-        text-align: center;
-        width: 98%;
-    }
-
-    #right {
-        width: 80vw;
-        height: 100vh;
-        overflow-y: auto;
-    }
-
-    .tlans {
-        display: inline-block;
-        transform: rotate(180deg);
-    }
-
-    .non-tlans {
-        display: inline-block;
-        transform: rotate(0);
-    }
-
-
-
-    .langCng {
-        padding: 10px;
-        cursor: pointer;
-        border-radius: 5px;
-        background-color: #e0e0e0;
-        margin: 5px 0;
-        font-size: 14px;
-        color: #333;
-        transition: background-color 0.3s, color 0.3s;
-    }
-
-    .selected {
-        background-color: #007bff !important;
-        color: #fff !important;
-    }
-
-    .parent {
-        background-color: #fff;
-        padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin-bottom: 15px;
-    }
-
-    .item._A {
-        flex: 1;
-        padding-right: 10px;
-        margin-bottom: 10px;
-    }
-
-    .item._B {
-        flex: 3;
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .buttonA {
-        background-color: #007bff;
-        color: #fff;
-        padding: 10px;
-        border-radius: 5px;
-        cursor: pointer;
-        text-align: center;
-        transition: background-color 0.3s;
-    }
-
-    .buttonA:hover {
-        background-color: #0056b3;
-    }
-
-    .smallB {
-        background-color: #f0f8ff;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 8px;
-        margin: 5px;
-        cursor: pointer;
-        flex: 1 1 calc(33.333% - 10px);
-        text-align: center;
-        transition: background-color 0.3s;
-    }
-
-    .smallB:hover {
-        background-color: #e6f7ff;
-    }
-
-    .ja_text {
-        font-size: 14px;
-        font-weight: bold;
-        color: #333;
-    }
-
-    .lan {
-        font-size: 13px;
-        color: #666;
-        margin-top: 5px;
-    }
-
-    .buttonA p,
-    .buttonA span {
-        display: block;
-        /* 各言語のテキストをブロック要素にし、改行 */
-        margin: 0;
-        /* 不要な余白を除去 */
-    }
-
-
-    .toggle-button {
-        display: inline-block;
-        position: relative;
-        width: 100px;
-        height: 50px;
-        border-radius: 50px;
-        background-color: #dddddd;
-        cursor: pointer;
-        transition: background-color .4s;
-    }
-
-    .toggle-button:has(:checked) {
-        background-color: #d84b9b;
-    }
-
-    .toggle-button::after {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        box-shadow: 0 0 5px rgb(0 0 0 / 20%);
-        background-color: #fff;
-        content: '';
-        transition: left .4s;
-    }
-
-    .toggle-button:has(:checked)::after {
-        left: 50px;
-    }
-
-    .toggle-button input {
-        display: none;
-    }
-
-    .tbox {
-        top: 0;
-    }
-
-
-    /* タブ全体のスタイル */
-    .tabs {
-        /* 横並びにする */
-        border-bottom: 2px solid #ccc;
-        /* 下線 */
-        margin: 0;
-        padding: 0;
-    }
-
-    /* 各タブのスタイル */
-    .tab {
-        list-style: none;
-        /* 点を消す */
-        padding: 10px 20px;
-        cursor: pointer;
-        /* カーソルをポインターに */
-        border: 1px solid #ccc;
-        border-bottom: none;
-        /* 下線を消す */
-        background-color: #f9f9f9;
-        transition: background-color 0.3s;
-    }
-
-    /* ホバー時のスタイル */
-    .tab:hover {
-        background-color: #e0e0e0;
-    }
-
-    /* アクティブタブのスタイル */
-    .tab.active {
-        background-color: #ffffff;
-        font-weight: bold;
-        border-bottom: 2px solid #fff;
-        /* 下線を背景と同じ色で消す */
-    }
-
-    .category {
-
-        text-align: center;
-        margin: 20px auto 20px;
-        font-size: large;
-        background-color: #ffd3e3;
-        padding: 30px;
-        font-weight: bold;
-    }
-
-    .accordion {
-        max-width: 500px;
-        margin-bottom: 7px;
-        border: 2px solid #d0d0d0;
-        border-radius: 5px;
-    }
-
-    .accordion summary {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: relative;
-        padding: 1em 2em;
-        color: #333333;
-        font-weight: 600;
-        cursor: pointer;
-    }
-
-    .accordion summary::-webkit-details-marker {
-        display: none;
-    }
-
-    .accordion summary::after {
-        transform: translateY(-25%) rotate(45deg);
-        width: 7px;
-        height: 7px;
-        margin-left: 10px;
-        border-bottom: 3px solid #333333b3;
-        border-right: 3px solid #333333b3;
-        content: '';
-        transition: transform .3s;
-    }
-
-    .accordion[open] summary::after {
-        transform: rotate(225deg);
-    }
-
-    .accordion p {
-        transform: translateY(-10px);
-        opacity: 0;
-        margin: 0;
-        padding-left: 2em;
-        color: #333333;
-        transition: transform .5s, opacity .5s;
-    }
-
-    .accordion[open] p {
-        transform: none;
-        opacity: 1;
-    }
-
-    .counter {
-        width: 99%;
-        display: flex;
-        justify-content: space-between;
-        overflow-x: auto;
-    }
-
-    .counter p {
-        padding: 18px;
-        cursor: pointer;
-        border-radius: 5px;
-        background-color: #e0e0e0;
-        margin: 5px 0;
-        font-size: 14px;
-        color: #333;
-        transition: background-color 0.3s, color 0.3s;
-    }
-
-    .counter_tani {
-        display: flex;
-        justify-content: space-around;
-        width: 105%;
-    }
-
-    .counter_tani p {
-        padding: 5px;
-        cursor: pointer;
-        border-radius: 5px;
-        background-color: #e0e0e0;
-        margin: 5px 0;
-        font-size: 14px;
-        color: #333;
-        transition: background-color 0.3s, color 0.3s;
-    }
-</style>
 
 <body>
+    <header class="app-header">
+        <h1>しんさつコミュニケーションボード</h1>
+        <p>カテゴリごとに、必要なやり取りだけテキストと音でお手伝いします。</p>
+    </header>
+
+    <section id="languagePicker" class="language-picker" aria-label="言語選択"></section>
+
+    <main class="app-shell">
+        <nav id="categoryTabs" class="category-tabs" aria-label="カテゴリ"></nav>
+        <section id="accordionList" class="accordion-list" aria-live="polite"></section>
+    </main>
+    <button id="freeTranslateBtn" class="free-translate-btn" type="button" aria-label="自由入力翻訳">自由入力/翻訳</button>
+    <section id="freeTranslatePanel" class="free-translate-panel" aria-label="自由入力翻訳パネル">
+        <div class="free-translate-head">
+            <p class="free-translate-title">自由入力翻訳</p>
+            <button id="freeTranslateCloseBtn" class="free-translate-close" type="button" aria-label="閉じる">閉じる</button>
+        </div>
+        <textarea id="freeTranslateInput" class="free-translate-input" placeholder="日本語を入力"></textarea>
+        <button id="freeTranslateRunBtn" class="free-translate-run" type="button">翻訳する</button>
+        <p id="freeTranslateStatus" class="free-translate-status"></p>
+        <div id="freeTranslateOutput" class="free-translate-output"></div>
+    </section>
+    <button id="scrollTopBtn" class="scroll-top-btn" type="button" aria-label="ページトップへ戻る">▲</button>
+
     <script>
-        var categoryArray = [];
-        var number = [
-            ["〇times a day", "breakfast", "lunch", "dinner", "bedtime", "before", "after", "none"],
-            ["每天〇次", "早餐", "午餐", "晚餐", "睡前", "之前", "之后", "无"],
-            ["〇 Mal am Tag", "Frühstück", "Mittagessen", "Abendessen", "Schlafenszeit", "vorher", "nachher",
-                "keine"
-            ]
-            ["〇 lần một ngày", "bữa sáng", "bữa trưa", "bữa tối", "trước khi ngủ", "trước", "sau", "không có"],
-            ["〇 vezes por dia", "café da manhã", "almoço", "jantar", "antes de dormir", "antes", "depois",
-                "nenhum"
-            ],
-            ["하루에 〇 번", "아침 식사", "점심 식사", "저녁 식사", "잠자기 전", "이전", "이후", "없음"],
-            ["〇 beses sa isang araw", "almusal", "tanghalian", "hapunan", "bago matulog", "bago", "pagkatapos",
-                "wala"
-            ]
-        ]
-        var number1 = [
-            // 英語
-            ["hours ago", "days ago", "weeks ago", "times"],
-            // 中国語
-            ["小时前", "天前", "周前", "次"],
-            // ドイツ語
-            ["Stunden vorher", "Tage vorher", "Wochen vorher", "Mal"],
-            // ベトナム語
-            ["giờ trước", "ngày trước", "tuần trước", "lần"],
-            // ポルトガル語
-            ["horas atrás", "dias atrás", "semanas atrás", "vezes"],
-            // 韓国語
-            ["시간 전", "일 전", "주 전", "회"],
-            // タガログ語
-            ["oras ang nakalipas", "araw ang nakalipas", "linggo ang nakalipas", "beses"]
+        const languageConfig = [{
+                code: "en-US",
+                label: "英語 / English",
+                csv: "enData.csv",
+                speech: "en-US"
+            },
+            {
+                code: "zh",
+                label: "中国語 / 中文",
+                csv: "zhData.csv",
+                speech: "zh-CN"
+            },
+            {
+                code: "de",
+                label: "ドイツ語 / Deutsch",
+                csv: "deData.csv",
+                speech: "de-DE"
+            },
+            {
+                code: "ve",
+                label: "ベトナム語 / Tiếng Việt",
+                csv: "ve.csv",
+                speech: "vi-VN"
+            },
+            {
+                code: "pr",
+                label: "ポルトガル語 / Português",
+                csv: "pr.csv",
+                speech: "pt-PT"
+            },
+            {
+                code: "ko",
+                label: "韓国語 / 한국어",
+                csv: "ko.csv",
+                speech: "ko-KR"
+            }
         ];
 
-        var languageArray = ["en-US", "zh", "de", "ve", "pr", "ko", "tg"]
-        var dataArray = []
-        var localData = [];
-        var enData = [];
-        var zhData = [];
-        var deData = [];
-        var veData = [];
-        var koData = [];
-        var prData = [];
-        var tgData = [];
-        let indexLanguage;
-        window.onload = function () {
-            if ('speechSynthesis' in window) {
-                alert("このブラウザは音声合成に対応しています")
-            } else {
-                alert("このブラウザは音声合成に対応していません")
-            }
-            var wDef = (navigator.browserLanguage || navigator.language || navigator.userLanguage).substr(0, 2);
+        let localData = [];
+        let translatedByLanguage = {};
+        let selectedLanguage = "en-US";
+        let selectedType = "";
+        let scrollTopBtn = null;
+        let freeTranslatePanel = null;
+        let freeTranslateStatus = null;
+        let freeTranslateOutput = null;
+        const pharmacySelections = new Set();
 
+        window.addEventListener("load", init);
 
-            langSet("en-US");
+        async function init() {
+            setupScrollTopButton();
+            setupFreeTranslatePanel();
+            renderLanguagePicker();
+            setLoading("データを読み込んでいます...");
+
+            await fetchAllData();
+
+            const types = [...new Set(localData.map(item => item.type || "その他"))];
+            selectedType = types[0] || "";
+            renderAll();
         }
 
-        function langSet(argLang) {
-            categorycheck = []
-            var elm = document.getElementsByClassName("langCng");
-            for (var i = 0; i < elm.length; i++) {
+        function setupFreeTranslatePanel() {
+            const trigger = document.getElementById("freeTranslateBtn");
+            freeTranslatePanel = document.getElementById("freeTranslatePanel");
+            const runBtn = document.getElementById("freeTranslateRunBtn");
+            const input = document.getElementById("freeTranslateInput");
+            const closeBtn = document.getElementById("freeTranslateCloseBtn");
+            freeTranslateStatus = document.getElementById("freeTranslateStatus");
+            freeTranslateOutput = document.getElementById("freeTranslateOutput");
+            if (!trigger || !freeTranslatePanel || !runBtn || !input || !closeBtn || !freeTranslateStatus || !freeTranslateOutput) return;
 
-                if (elm[i].getAttribute("lang") == argLang) {
-                    elm[i].classList.add("selected")
-                } else {
-                    elm[i].classList.remove("selected")
-                }
-
-            }
-            indexLanguage = languageArray.indexOf(argLang);
-            createTable(dataArray[indexLanguage]);
-        }
-
-        function say(a) {
-            console.log(a);
-            const uttr = new SpeechSynthesisUtterance(a[0])
-            uttr.lang = 'ja-JP';
-            speechSynthesis.speak(uttr)
-            const uttr2 = new SpeechSynthesisUtterance(a[1])
-            uttr2.lang = languageArray[indexLanguage];
-            speechSynthesis.speak(uttr2)
-        }
-
-        var categorycheck = []
-
-        function createTable(d) {
-
-            var len = localData.length;
-            var html = '';
-            for (var i = 0; i < len; i++) {
-                var answer = "";
-
-                if (localData[i].data[0] == "counter") {
-                    var text = "";
-                    for (var p = 1; p < 13; p++) {
-                        text += "<p class ='ii'>" + p + "</p>"
-                    }
-
-                    answer += `
-                    <div class = "counter">
-                    ${text}
-                    </div>
-
-                    <div class = "counter_tani">
-                    <p class ='ii'>時間前/${number1[indexLanguage][0]}</p>
-                    <p class ='ii'>日前/${number1[indexLanguage][1]}</p>
-                    <p class ='ii'>週間前/${number1[indexLanguage][2]}</p>
-                    <p class ='ii'>回/${number1[indexLanguage][3]}</p>
-                    </div>
-                    `
-
-                } else if (localData[i].data[0] == "number") {
-
-                    answer += `<label for="timesPerDay">1日〇回/${number[indexLanguage][0]}：</label>
-        <select id="timesPerDay" name="timesPerDay">
-            <!-- 1〜10まで選択可能 -->
-            <option value="" disabled selected>選択してください</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
-        <br><br>
-
-        <!-- 朝食 -->
-        <fieldset>
-            <legend>朝食/${number[indexLanguage][1]}</legend>
-            <label>
-                <input type="radio" name="breakfast" value="before"> 前/${number[indexLanguage][5]}
-            </label>
-            <label>
-                <input type="radio" name="breakfast" value="after"> 後/${number[indexLanguage][6]}
-            </label>
-            <label>
-                <input type="radio" name="breakfast" value="before"> 無し/${number[indexLanguage][7]}
-            </label>
-        </fieldset>
-
-        <!-- 昼食 -->
-        <fieldset>
-            <legend>昼食/${number[indexLanguage][2]}</legend>
-            <label>
-                <input type="radio" name="lunch" value="before"> 前/${number[indexLanguage][5]}
-            </label>
-            <label>
-                <input type="radio" name="lunch" value="after"> 後/${number[indexLanguage][6]}
-            </label>
-            <label>
-                <input type="radio" name="breakfast" value="before"> 無し/${number[indexLanguage][7]}
-            </label>
-        </fieldset>
-
-        <!-- 夕食 -->
-        <fieldset>
-            <legend>夕食/${number[indexLanguage][3]}</legend>
-            <label>
-                <input type="radio" name="dinner" value="before"> 前/${number[indexLanguage][5]}
-            </label>
-            <label>
-                <input type="radio" name="dinner" value="after"> 後/${number[indexLanguage][6]}
-            </label>
-            <label>
-                <input type="radio" name="breakfast" value="before"> 無し/${number[indexLanguage][7]}
-            </label>
-        </fieldset>
-
-        <!-- 就寝時 -->
-        <fieldset>
-            <legend>就寝時/${number[indexLanguage][4]}</legend>
-            <label>
-                <input type="radio" name="bedtime" value="before"> 前/${number[indexLanguage][5]}
-            </label>
-            <label>
-                <input type="radio" name="bedtime" value="after"> 後/${number[indexLanguage][6]}
-            </label>
-            <label>
-                <input type="radio" name="bedtime" value="before"> 無し/${number[indexLanguage][7]}
-            </label>
-        </fieldset>`
-
-                } else {
-                    for (var j = 0; j < localData[i].data.length; j++) {
-                        if (localData[i].data[j].length > 0) {
-                            answer +=
-                                `<div class="smallB" id="B${i}-${j}" ><p class="lan tlans"  >${d[i].data[j]}</p><p class="ja_text">${localData[i].data[j]}</p></div>`
-                        }
-                    }
-                }
-
-                if (categorycheck.indexOf(localData[i].type) == -1) {
-                    var id = categorycheck.length
-                    html += `<div id = "category${id}" class="category">${localData[i].type}</div>`
-                    var id1 = categoryArray.indexOf(localData[i].type)
-                    categorycheck.push(localData[i].type)
-                }
-
-                if (localData[i].category) {
-                    html += `<div class="parent">
-                    <div class ="item _A"><div class = "buttonA" id = "A${i}"><span class="tlans">${d[i].category}</span><p class="">${localData[i].category}</p></div></div>
-                    <div class ="item _B">${answer}</div>
-                    </div>`;
-                }
-                //localData[i].category + ' ' + localData[i].data1 + '<br>';
-
-
-
-                document.getElementById('whole').innerHTML = html;
-                // クリックイベントの設定
-                // クリックイベントの設定
-                // "ii" クラスを持つ要素を取得
-                const elements = document.getElementsByClassName("ii");
-
-                // 各要素にクリックイベントを設定
-                for (let i = 0; i < elements.length; i++) {
-                    elements[i].addEventListener("click", function (event) {
-                        // クリックされた要素に "selected" クラスをトグル
-                        event.target.classList.toggle("selected");
-                    });
-                }
-
-            }
-
-
-
-            for (let i = 0; i < len; i++) {
-
-                let elemId = `A${i}`;
-                let elem = document.getElementById(elemId);
-                if (elem) {
-                    elem.onclick = function () {
-                        say([localData[i].category, d[i].category]);
-                    };
-                }
-
-                for (let j = 0; j < 6; j++) {
-                    let elemId = `B${i}-${j}`;
-                    let elem = document.getElementById(elemId);
-                    if (elem) {
-                        elem.onclick = function () {
-                            say([localData[i].data[j], d[i].data[j]]);
-                        };
-                    }
-
-                }
-            }
-
-        }
-
-        //https://script.google.com/macros/s/AKfycbyOlGXRp2fgyV4AaGxFobqrsGSpg68Nfnz2joCmznrp87vD3F1swBU-SEniFppKSm0UzQ/exec
-        async function getDataFromGAS(sheetName) {
-            const url =
-                `https://script.google.com/macros/s/AKfycbyOlGXRp2fgyV4AaGxFobqrsGSpg68Nfnz2joCmznrp87vD3F1swBU-SEniFppKSm0UzQ/exec?sheet=${sheetName}`;
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await response.json();
-
-                const convertedData = data.map(item => ({
-                    type: item.type,
-                    type2: item.type2,
-                    category: item.category,
-                    data: [
-                        item.data1,
-                        item.data2,
-                        item.data3,
-                        item.data4,
-                        item.data5,
-                        item.data6,
-                        item.data7
-                    ]
-                }));
-                if (sheetName == "enData") {
-                    createTable(convertedData);
-
-                }
-                return convertedData; // 非同期処理の結果を返す
-            } catch (error) {
-                console.error("Error fetching data:", error);
-                return null; // エラー時はnullを返す
-            }
-        }
-
-        var detailArray = []
-        async function fetchData() {
-            localData = await getDataFromGAS('localData');
-            for (var i = 0; i < localData.length; i++) {
-                categoryArray.push(localData[i].type)
-            }
-            categoryArray = Array.from(new Set(categoryArray));
-
-            for (let i in categoryArray) {
-                var array = []
-                detailArray[categoryArray[i]] = array
-            }
-
-            for (var i = 0; i < localData.length; i++) {
-                var array =
-                    detailArray[localData[i].type].push(localData[i].type2)
-            }
-
-            for (let i in detailArray) {
-                detailArray[i] = Array.from(new Set(detailArray[i]));
-            }
-
-            var tab = `<select id="categorySelect">
-             <option value="">カテゴリを選択</option>`;
-            for (var i = 0; i < categoryArray.length; i++) {
-                tab += `<option value="category${i}">${categoryArray[i]}</option>`;
-            }
-            tab += `</select>`;
-            document.getElementById("tab").innerHTML = tab;
-
-            // セレクトボックスのイベント設定
-            document.getElementById("categorySelect").addEventListener("change", function () {
-                var target = this.value;
-                if (target) {
-                    location.hash = target; // 該当カテゴリーにスクロール
-                }
+            trigger.addEventListener("click", () => {
+                freeTranslatePanel.classList.toggle("open");
+                if (freeTranslatePanel.classList.contains("open")) input.focus();
+            });
+            closeBtn.addEventListener("click", () => {
+                freeTranslatePanel.classList.remove("open");
             });
 
-            console.log(categoryArray)
+            runBtn.addEventListener("click", async () => {
+                const text = String(input.value || "").trim();
+                if (!text) {
+                    freeTranslateStatus.textContent = "日本語を入力してください。";
+                    freeTranslateOutput.textContent = "";
+                    return;
+                }
 
+                freeTranslateStatus.textContent = "翻訳中...";
+                freeTranslateOutput.textContent = "";
+                const target = getFreeTranslateTargetCode(selectedLanguage);
 
-            zhData = await getDataFromGAS('zhData');
-            deData = await getDataFromGAS('deData');
-            enData = await getDataFromGAS('enData');
-            prData = await getDataFromGAS('pr');
-            koData = await getDataFromGAS('ko');
-            veData = await getDataFromGAS('ve');
-            tgData = await getDataFromGAS('tg');
-
-            console.log(localData); // 取得したデータを確認
-            console.log(enData);
-            console.log(zhData);
-            console.log(deData);
-
-            dataArray.push(enData)
-            dataArray.push(zhData)
-            dataArray.push(deData)
-            dataArray.push(veData)
-            dataArray.push(prData)
-            dataArray.push(koData)
-            dataArray.push(tgData)
-
+                try {
+                    const translated = await translateFreeFromJapanese(text, target);
+                    freeTranslateStatus.textContent = "";
+                    freeTranslateOutput.textContent = translated || "(翻訳結果なし)";
+                    if (translated) {
+                        speakPair(text, translated);
+                    }
+                } catch (err) {
+                    freeTranslateStatus.textContent = "翻訳に失敗しました。通信環境をご確認ください。";
+                    freeTranslateOutput.textContent = "";
+                    console.error(err);
+                }
+            });
         }
 
-        fetchData(); // データを取得して使用する
-    </script>
-    <div id="container">
-        <div id="left">
-            <div class="tbox"><label class="toggle-button">
-                    <input type="checkbox" id="toggleSwitch" />
-                </label>
-                <p class="tlans">向きを変える</p>
-            </div>
-            <div id="sample1">
-                <div class="langCng en selected" lang="en-US" onClick="langSet('en-US')">英語/English</div>
-                <div class="langCng zh" lang="zh" onClick="langSet('zh')">中国語/中文</div>
-                <div class="langCng de" lang="de" onClick="langSet('de')">ドイツ語/Deutsch</div>
-                <div class="langCng ve" lang="ve" onClick="langSet('ve')">ベトナム語/Tiếng Việt</div>
-                <div class="langCng pr" lang="pr" onClick="langSet('pr')">ポルトガル語/Português</div>
-                <div class="langCng ko" lang="ko" onClick="langSet('ko')">韓国語/한국어</div>
-                <div class="langCng tg" lang="tg" onClick="langSet('tg')">タガログ語/Tagalog</div>
+        function getFreeTranslateTargetCode(langCode) {
+            const map = {
+                "en-US": "en",
+                "zh": "zh-CN",
+                "de": "de",
+                "ve": "vi",
+                "pr": "pt",
+                "ko": "ko"
+            };
+            return map[langCode] || "en";
+        }
 
+        async function translateFreeFromJapanese(text, targetCode) {
+            const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=ja&tl=${encodeURIComponent(targetCode)}&dt=t&q=${encodeURIComponent(text)}`;
+            const response = await fetch(url);
+            if (!response.ok) throw new Error("Translate API failed");
+            const data = await response.json();
+            if (!Array.isArray(data) || !Array.isArray(data[0])) return "";
+            return data[0].map(part => Array.isArray(part) ? (part[0] || "") : "").join("");
+        }
 
-            </div>
-        </div>
-        <div id="right">
-            <div id="tab">
-            </div>
-            <div id="whole">
-            </div>
-        </div>
-    </div>
+        function setupScrollTopButton() {
+            scrollTopBtn = document.getElementById("scrollTopBtn");
+            if (!scrollTopBtn) return;
 
-    <script>
-        // トグルスイッチの状態を取得
-        const toggleSwitch = document.getElementById("toggleSwitch");
-
-        toggleSwitch.addEventListener("change", () => {
-
-            if (toggleSwitch.checked) {
-                const elements = document.querySelectorAll(".tlans");
-                elements.forEach(element => {
-
-                    element.classList.remove("tlans");
-                    element.classList.add("non-tlans");
+            scrollTopBtn.addEventListener("click", () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
                 });
+            });
+
+            window.addEventListener("scroll", updateScrollTopButtonVisibility, {
+                passive: true
+            });
+            updateScrollTopButtonVisibility();
+        }
+
+        function updateScrollTopButtonVisibility() {
+            if (!scrollTopBtn) return;
+            if (window.scrollY > 200) {
+                scrollTopBtn.classList.add("visible");
             } else {
-                const elements = document.querySelectorAll(".non-tlans");
-                elements.forEach(element => {
-                    element.classList.remove("non-tlans");
-                    element.classList.add("tlans");
+                scrollTopBtn.classList.remove("visible");
+            }
+        }
+
+        function normalizeDataRow(item) {
+            return {
+                type: String((item && item.type) || "その他").trim() || "その他",
+                category: String((item && item.category) || "").trim(),
+                data: [
+                    item && item.data1,
+                    item && item.data2,
+                    item && item.data3,
+                    item && item.data4,
+                    item && item.data5,
+                    item && item.data6,
+                    item && item.data7,
+                    item && item.data8,
+                    item && item.data9,
+                    item && item.data10,
+                    item && item.data11,
+                    item && item.data12,
+                    item && item.data13,
+                    item && item.data14,
+                    item && item.data15,
+                    item && item.data16,
+                    item && item.data17,
+                    item && item.data18,
+                    item && item.data19,
+                    item && item.data20,
+                    item && item.data21
+                ].map(function (v) {
+                    return String(v || "").trim();
+                })
+            };
+        }
+
+        function isPregnancyScope(row) {
+            const text = `${row.type} ${row.category}`.toLowerCase();
+            return !/産後|postpartum|postnatal|puerper/i.test(text);
+        }
+
+        async function fetchAllData() {
+            const localRaw = await getDataFromCSV("localData.csv");
+            const keepIndexes = [];
+            localRaw.forEach((row, idx) => {
+                if (isPregnancyScope(row)) keepIndexes.push(idx);
+            });
+
+            localData = keepIndexes.map(idx => localRaw[idx]);
+
+            for (const lang of languageConfig) {
+                const translatedRaw = await getDataFromCSV(lang.csv);
+                translatedByLanguage[lang.code] = keepIndexes.map(idx => translatedRaw[idx] || {
+                    type: "",
+                    category: "",
+                    data: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+                        ""
+                    ]
                 });
             }
-        });
+        }
+
+        async function getDataFromCSV(fileName) {
+            try {
+                const response = await fetch(fileName);
+                if (!response.ok) throw new Error(`Failed to fetch ${fileName}`);
+                const csvText = await response.text();
+                const rows = parseCSV(csvText).filter(row => row.some(v => String(v || "").trim() !== ""));
+                if (!rows.length) return [];
+                const header = rows[0].map(h => String(h || "").trim());
+                const hIndex = {};
+                header.forEach((h, i) => {
+                    hIndex[h] = i;
+                });
+
+                const dataRows = rows.slice(1);
+                return dataRows.map(row => {
+                    const obj = {
+                        type: row[hIndex.type] || "",
+                        type2: row[hIndex.type2] || "",
+                        category: row[hIndex.category] || "",
+                        data1: row[hIndex.data1] || "",
+                        data2: row[hIndex.data2] || "",
+                        data3: row[hIndex.data3] || "",
+                        data4: row[hIndex.data4] || "",
+                        data5: row[hIndex.data5] || "",
+                        data6: row[hIndex.data6] || "",
+                        data7: row[hIndex.data7] || "",
+                        data8: row[hIndex.data8] || "",
+                        data9: row[hIndex.data9] || "",
+                        data10: row[hIndex.data10] || "",
+                        data11: row[hIndex.data11] || "",
+                        data12: row[hIndex.data12] || "",
+                        data13: row[hIndex.data13] || "",
+                        data14: row[hIndex.data14] || "",
+                        data15: row[hIndex.data15] || "",
+                        data16: row[hIndex.data16] || "",
+                        data17: row[hIndex.data17] || "",
+                        data18: row[hIndex.data18] || "",
+                        data19: row[hIndex.data19] || "",
+                        data20: row[hIndex.data20] || "",
+                        data21: row[hIndex.data21] || "",
+                    };
+                    return normalizeDataRow(obj);
+                }).filter(row => row.category || row.data.some(v => v));
+            } catch (error) {
+                console.error(error);
+                return [];
+            }
+        }
+
+        function parseCSV(text) {
+            const rows = [];
+            let row = [];
+            let field = "";
+            let inQuotes = false;
+
+            for (let i = 0; i < text.length; i++) {
+                const ch = text[i];
+                const next = text[i + 1];
+
+                if (ch === "\"") {
+                    if (inQuotes && next === "\"") {
+                        field += "\"";
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                    continue;
+                }
+
+                if (ch === "," && !inQuotes) {
+                    row.push(field);
+                    field = "";
+                    continue;
+                }
+
+                if ((ch === "\n" || ch === "\r") && !inQuotes) {
+                    if (ch === "\r" && next === "\n") i++;
+                    row.push(field);
+                    rows.push(row);
+                    row = [];
+                    field = "";
+                    continue;
+                }
+
+                field += ch;
+            }
+
+            if (field.length > 0 || row.length > 0) {
+                row.push(field);
+                rows.push(row);
+            }
+
+            return rows;
+        }
+
+        function renderLanguagePicker() {
+            const picker = document.getElementById("languagePicker");
+            picker.innerHTML = "";
+
+            languageConfig.forEach(lang => {
+                const btn = document.createElement("button");
+                btn.className = "language-btn" + (lang.code === selectedLanguage ? " active" : "");
+                btn.type = "button";
+                btn.textContent = lang.label;
+                btn.addEventListener("click", () => {
+                    selectedLanguage = lang.code;
+                    renderAll();
+                });
+                picker.appendChild(btn);
+            });
+        }
+
+        function renderCategoryTabs() {
+            const tabs = document.getElementById("categoryTabs");
+            tabs.innerHTML = "";
+
+            const types = [...new Set(localData.map(item => item.type || "その他"))];
+            types.forEach(type => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "tab-btn" + (type === selectedType ? " active" : "");
+                const translatedType = getTranslatedTypeLabel(type);
+                btn.innerHTML = `
+                    <span class="tab-ja">${escapeHtml(type)}</span>
+                    <span class="tab-tr">${escapeHtml(translatedType)}</span>
+                `;
+                btn.addEventListener("click", () => {
+                    selectedType = type;
+                    renderAccordion();
+                    renderCategoryTabs();
+                });
+                tabs.appendChild(btn);
+            });
+        }
+
+        function getTranslatedTypeLabel(localType) {
+            if (selectedLanguage === "ja" || selectedLanguage === "ja-JP") return "";
+            const translated = translatedByLanguage[selectedLanguage] || [];
+            for (let i = 0; i < localData.length; i++) {
+                const row = localData[i];
+                if ((row.type || "その他") !== localType) continue;
+                const tRow = translated[i];
+                const tType = tRow && tRow.type ? String(tRow.type).trim() : "";
+                if (tType && tType !== localType) return tType;
+            }
+            return "";
+        }
+
+        function renderAccordion() {
+            const container = document.getElementById("accordionList");
+            container.innerHTML = "";
+
+            const translated = translatedByLanguage[selectedLanguage] || [];
+            const rows = [];
+
+            localData.forEach((row, index) => {
+                if ((row.type || "その他") === selectedType) rows.push({
+                    row,
+                    index
+                });
+            });
+
+            if (!rows.length) {
+                setLoading("このカテゴリには表示できるやり取りがありません。");
+                return;
+            }
+
+            rows.forEach((item, orderIndex) => {
+                const row = item.row;
+                const rowIndex = item.index;
+                const isPharmacyCategory = ((row.type || "").trim() === "薬局");
+                const tRow = translated[rowIndex] || {
+                    category: "",
+                    data: []
+                };
+
+                const details = document.createElement("details");
+                details.className = "talk-card";
+                if ((row.type || "").trim() === "ママと赤ちゃんのサポートシリーズ") {
+                    details.open = true;
+                }
+
+                const summary = document.createElement("summary");
+                summary.className = "talk-summary";
+                summary.innerHTML = `
+                    <div class="summary-texts">
+                        <p class="talk-title">やり取り ${orderIndex + 1}</p>
+                        <p class="ja-text">${escapeHtml(row.category)}</p>
+                        <p class="translated-text">${escapeHtml(tRow.category || "")}</p>
+                    </div>
+                `;
+
+                const panel = document.createElement("div");
+                panel.className = "talk-panel";
+
+                const speakCategoryBtn = document.createElement("button");
+                speakCategoryBtn.type = "button";
+                speakCategoryBtn.className = "speak-btn large-btn";
+                speakCategoryBtn.textContent = "この質問を読み上げ";
+                speakCategoryBtn.addEventListener("click", () => {
+                    speakPair(row.category, tRow.category || "");
+                });
+
+                const answerGrid = document.createElement("div");
+                answerGrid.className = "answer-grid";
+
+                row.data.forEach((jaText, answerIndex) => {
+                    if (!jaText) return;
+                    const translatedText = (tRow.data && tRow.data[answerIndex]) ? tRow.data[
+                        answerIndex] : "";
+                    const jaParsed = parseLinkText(jaText);
+                    const trParsed = parseLinkText(translatedText);
+                    const specialItems = buildSpecialItems(jaText);
+
+                    if (specialItems) {
+                        const tokenWrap = document.createElement("div");
+                        tokenWrap.className = "token-wrap";
+
+                        const tokenTitle = document.createElement("p");
+                        tokenTitle.className = "token-title";
+                        tokenTitle.textContent = specialItems.titleJa;
+
+                        const tokenHint = document.createElement("p");
+                        tokenHint.className = "token-hint";
+                        tokenHint.textContent = specialItems.titleTr;
+
+                        const tokenGrid = document.createElement("div");
+                        tokenGrid.className = "token-grid";
+
+                        specialItems.options.forEach(option => {
+                            const optionBtn = document.createElement("button");
+                            optionBtn.type = "button";
+                            optionBtn.className = "answer-btn large-btn token-btn";
+                            const pharmacyKey = `pharmacy-token-${rowIndex}-${answerIndex}-${option.ja}`;
+                            if (isPharmacyCategory && pharmacySelections.has(pharmacyKey)) {
+                                optionBtn.classList.add("selected-highlight");
+                            }
+                            optionBtn.innerHTML = `
+                                <span class="answer-ja">${escapeHtml(option.ja)}</span>
+                                <span class="answer-tr">${escapeHtml(option.tr)}</span>
+                            `;
+                            optionBtn.addEventListener("click", () => {
+                                if (isPharmacyCategory) {
+                                    togglePharmacySelection(optionBtn, pharmacyKey);
+                                }
+                                speakPair(option.ja, option.tr);
+                            });
+                            tokenGrid.appendChild(optionBtn);
+                        });
+
+                        tokenWrap.appendChild(tokenTitle);
+                        tokenWrap.appendChild(tokenHint);
+                        tokenWrap.appendChild(tokenGrid);
+                        answerGrid.appendChild(tokenWrap);
+                        return;
+                    }
+
+                    const answerBtn = document.createElement("button");
+                    answerBtn.type = "button";
+                    answerBtn.className = "answer-btn large-btn";
+                    const pharmacyKey = `pharmacy-${rowIndex}-${answerIndex}`;
+                    if (isPharmacyCategory && pharmacySelections.has(pharmacyKey)) {
+                        answerBtn.classList.add("selected-highlight");
+                    }
+                    answerBtn.innerHTML = `
+                        <span class="answer-ja">${escapeHtml(jaParsed.label)}</span>
+                        <span class="answer-tr">${escapeHtml(trParsed.label)}</span>
+                    `;
+                    answerBtn.addEventListener("click", () => {
+                        if (isPharmacyCategory) {
+                            togglePharmacySelection(answerBtn, pharmacyKey);
+                        }
+                        const url = trParsed.url || jaParsed.url;
+                        if (url) {
+                            openLink(url);
+                            return;
+                        }
+                        speakPair(jaText, translatedText);
+                    });
+                    answerGrid.appendChild(answerBtn);
+                });
+
+                panel.appendChild(speakCategoryBtn);
+                panel.appendChild(answerGrid);
+                details.appendChild(summary);
+                details.appendChild(panel);
+                container.appendChild(details);
+            });
+        }
+
+        function renderAll() {
+            renderLanguagePicker();
+            renderCategoryTabs();
+            renderAccordion();
+        }
+
+        function speakPair(localText, translatedText) {
+            if (!("speechSynthesis" in window)) {
+                alert("このブラウザは音声合成に対応していません。");
+                return;
+            }
+
+            speechSynthesis.cancel();
+
+            const localUttr = new SpeechSynthesisUtterance(localText);
+            localUttr.lang = "ja-JP";
+            speechSynthesis.speak(localUttr);
+
+            if (translatedText) {
+                const lang = languageConfig.find(item => item.code === selectedLanguage);
+                const translatedUttr = new SpeechSynthesisUtterance(translatedText);
+                translatedUttr.lang = lang ? lang.speech : selectedLanguage;
+                speechSynthesis.speak(translatedUttr);
+            }
+        }
+
+        function setLoading(text) {
+            const container = document.getElementById("accordionList");
+            container.innerHTML = `<p class="loading-text">${escapeHtml(text)}</p>`;
+        }
+
+        function getIllustrationSVG(type, index) {
+            const styleA =
+                `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="illustration"><rect width="120" height="120" rx="24" fill="#fde4d6"/><circle cx="60" cy="42" r="20" fill="#f7b799"/><ellipse cx="60" cy="84" rx="32" ry="24" fill="#ef8f72"/><circle cx="47" cy="40" r="3" fill="#673b2a"/><circle cx="73" cy="40" r="3" fill="#673b2a"/><path d="M50 50 Q60 58 70 50" stroke="#673b2a" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`;
+            const styleB =
+                `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="illustration"><rect width="120" height="120" rx="24" fill="#dbf1ff"/><rect x="28" y="22" width="64" height="76" rx="10" fill="#ffffff" stroke="#4f8dc9" stroke-width="4"/><circle cx="60" cy="48" r="9" fill="#4f8dc9"/><path d="M43 74h34M43 84h24" stroke="#4f8dc9" stroke-width="5" stroke-linecap="round"/></svg>`;
+            const styleC =
+                `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="illustration"><rect width="120" height="120" rx="24" fill="#e7f9e9"/><circle cx="60" cy="60" r="35" fill="#8ccf95"/><path d="M45 62l10 10 20-22" stroke="#ffffff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+            const set = [styleA, styleB, styleC];
+
+            if (/痛み|症状|体調/.test(type)) return styleA;
+            if (/検査|診察|受付|予約/.test(type)) return styleB;
+            return set[index % set.length];
+        }
+
+        function buildSpecialItems(token) {
+            const localized = getTokenLocalizedOptions(selectedLanguage);
+            if (!localized[token]) return null;
+            return localized[token];
+        }
+
+        function parseLinkText(value) {
+            const text = String(value || "").trim();
+            const marker = "||";
+            if (!text.includes(marker)) {
+                return {
+                    label: text,
+                    url: ""
+                };
+            }
+            const splitIndex = text.indexOf(marker);
+            const label = text.slice(0, splitIndex).trim();
+            const url = text.slice(splitIndex + marker.length).trim();
+            return {
+                label,
+                url
+            };
+        }
+
+        function openLink(url) {
+            if (typeof url !== "string") return;
+            if (!url.startsWith("http://") && !url.startsWith("https://")) return;
+
+            window.open(url, "_blank", "noopener,noreferrer");
+        }
+
+        function togglePharmacySelection(buttonEl, key) {
+            if (pharmacySelections.has(key)) {
+                pharmacySelections.delete(key);
+                buttonEl.classList.remove("selected-highlight");
+                return;
+            }
+            pharmacySelections.add(key);
+            buttonEl.classList.add("selected-highlight");
+        }
+
+        function getTokenLocalizedOptions(langCode) {
+            const base = {
+                counter_kara: {
+                    titleJa: "いつからですか",
+                    optionsJa: ["今日から", "昨日から", "2〜3日前から", "1週間以上前から"]
+                },
+                counter_kai: {
+                    titleJa: "1日に何回張りますか",
+                    optionsJa: ["1〜2回", "3〜5回", "6〜10回", "11回以上"]
+                },
+                kusurikaisuu: {
+                    titleJa: "1日の使用回数",
+                    optionsJa: ["1日1回", "1日2回", "1日3回", "必要時のみ"]
+                }
+            };
+
+            const trByLang = {
+                "en-US": {
+                    counter_kara: {
+                        titleTr: "Since when?",
+                        optionsTr: ["Since today", "Since yesterday", "Since 2-3 days ago", "For more than a week"]
+                    },
+                    counter_kai: {
+                        titleTr: "How many times a day?",
+                        optionsTr: ["1-2 times", "3-5 times", "6-10 times", "11+ times"]
+                    },
+                    kusurikaisuu: {
+                        titleTr: "How many times per day?",
+                        optionsTr: ["Once a day", "Twice a day", "Three times a day", "Only when needed"]
+                    }
+                },
+                "zh": {
+                    counter_kara: {
+                        titleTr: "从什么时候开始？",
+                        optionsTr: ["从今天开始", "从昨天开始", "从2-3天前开始", "超过1周"]
+                    },
+                    counter_kai: {
+                        titleTr: "一天几次？",
+                        optionsTr: ["1-2次", "3-5次", "6-10次", "11次以上"]
+                    },
+                    kusurikaisuu: {
+                        titleTr: "每天使用几次？",
+                        optionsTr: ["每天1次", "每天2次", "每天3次", "仅在需要时"]
+                    }
+                },
+                "de": {
+                    counter_kara: {
+                        titleTr: "Seit wann?",
+                        optionsTr: ["Seit heute", "Seit gestern", "Seit 2-3 Tagen", "Seit mehr als einer Woche"]
+                    },
+                    counter_kai: {
+                        titleTr: "Wie oft pro Tag?",
+                        optionsTr: ["1-2 Mal", "3-5 Mal", "6-10 Mal", "11 Mal oder mehr"]
+                    },
+                    kusurikaisuu: {
+                        titleTr: "Wie oft pro Tag anwenden?",
+                        optionsTr: ["1 Mal täglich", "2 Mal täglich", "3 Mal täglich", "Nur bei Bedarf"]
+                    }
+                },
+                "ve": {
+                    counter_kara: {
+                        titleTr: "Từ khi nào?",
+                        optionsTr: ["Từ hôm nay", "Từ hôm qua", "Từ 2-3 ngày trước", "Hơn 1 tuần rồi"]
+                    },
+                    counter_kai: {
+                        titleTr: "Mỗi ngày bao nhiêu lần?",
+                        optionsTr: ["1-2 lần", "3-5 lần", "6-10 lần", "Từ 11 lần trở lên"]
+                    },
+                    kusurikaisuu: {
+                        titleTr: "Số lần dùng trong ngày?",
+                        optionsTr: ["Ngày 1 lần", "Ngày 2 lần", "Ngày 3 lần", "Chỉ khi cần"]
+                    }
+                },
+                "pr": {
+                    counter_kara: {
+                        titleTr: "Desde quando?",
+                        optionsTr: ["Desde hoje", "Desde ontem", "Desde 2-3 dias atrás", "Há mais de 1 semana"]
+                    },
+                    counter_kai: {
+                        titleTr: "Quantas vezes por dia?",
+                        optionsTr: ["1-2 vezes", "3-5 vezes", "6-10 vezes", "11 vezes ou mais"]
+                    },
+                    kusurikaisuu: {
+                        titleTr: "Quantas vezes por dia usar?",
+                        optionsTr: ["1 vez ao dia", "2 vezes ao dia", "3 vezes ao dia", "Somente quando necessário"]
+                    }
+                },
+                "ko": {
+                    counter_kara: {
+                        titleTr: "언제부터인가요?",
+                        optionsTr: ["오늘부터", "어제부터", "2-3일 전부터", "1주일 이상 전부터"]
+                    },
+                    counter_kai: {
+                        titleTr: "하루에 몇 번인가요?",
+                        optionsTr: ["1-2회", "3-5회", "6-10회", "11회 이상"]
+                    },
+                    kusurikaisuu: {
+                        titleTr: "하루 사용 횟수는?",
+                        optionsTr: ["하루 1회", "하루 2회", "하루 3회", "필요할 때만"]
+                    }
+                }
+            };
+
+            const fallback = trByLang["en-US"];
+            const tr = trByLang[langCode] || fallback;
+            const out = {};
+
+            Object.keys(base).forEach(key => {
+                out[key] = {
+                    titleJa: base[key].titleJa,
+                    titleTr: tr[key].titleTr,
+                    options: base[key].optionsJa.map((ja, idx) => ({
+                        ja,
+                        tr: tr[key].optionsTr[idx]
+                    }))
+                };
+            });
+
+            return out;
+        }
+
+        function escapeHtml(str) {
+            return String(str || "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
     </script>
 </body>
 
