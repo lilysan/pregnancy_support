@@ -1,408 +1,840 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yubisashi</title>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
-    </script>
-    <script src="language.js">
-    </script>
+    <title>受付コミュニケーションボード</title>
+    <script src="language.js"></script>
     <style>
-        .selected {
-            background-color: #ffe6e6 !important;
-            /* 薄ピンク */
+        :root {
+            --bg: #fffaf5;
+            --card: #ffffff;
+            --ink: #342e2b;
+            --sub: #6e6460;
+            --accent: #e46f47;
+            --accent-soft: #ffe5db;
+            --line: #eadccf;
+            --tab: #f4ece5;
+            --ok: #fff0b8;
+            --ok-line: #ecbf45;
+            --shadow: 0 8px 20px rgba(129, 84, 56, 0.14);
         }
 
-        .selected1 {
-            background-color: #90c9e48a !important;
-            /* 薄ピンク */
+        * {
+            box-sizing: border-box;
         }
 
-        .clickable {
-            margin-top: 22px;
-            border: 2px solid #a2e4908a;
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 8% 8%, #fff0e9 0%, transparent 36%),
+                radial-gradient(circle at 92% 10%, #ffefe1 0%, transparent 34%),
+                var(--bg);
+            color: var(--ink);
+            font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+        }
+
+        .app-header {
+            padding: 18px 14px 8px;
+        }
+
+        .app-header h1 {
+            margin: 0;
+            font-size: 1.3rem;
+            line-height: 1.35;
+        }
+
+        .app-header p {
+            margin: 6px 0 0;
+            font-size: 0.92rem;
+            color: var(--sub);
+        }
+
+        .language-picker {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+            padding: 10px 12px;
+            background: linear-gradient(to bottom, rgba(255, 250, 245, 0.97), rgba(255, 250, 245, 0.9));
+        }
+
+        .language-btn {
+            border: 2px solid var(--line);
             border-radius: 14px;
-            margin: 20px 0;
+            background: #fff;
+            color: var(--ink);
+            font-size: 0.88rem;
+            min-height: 54px;
+            padding: 8px;
+            text-align: left;
+            font-weight: 700;
         }
 
-        .clickable1 {
-            margin-top: 22px;
-            border: 2px solid #a2e4908a;
+        .language-btn.active {
+            background: var(--accent-soft);
+            border-color: var(--accent);
+        }
+
+        .main {
+            padding: 0 12px 24px;
+            margin-bottom: 60px;
+        }
+
+        .category-tabs {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            background: rgba(255, 250, 245, 0.94);
+            padding: 10px 0;
+        }
+
+        .tab-btn {
+            flex: 0 0 auto;
+            border: none;
+            border-radius: 999px;
+            background: var(--tab);
+            color: var(--ink);
+            min-height: 46px;
+            padding: 10px 14px;
+            font-size: 0.94rem;
+            font-weight: 700;
+        }
+
+        .tab-btn.active {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .accordion-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .talk-card {
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--card);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .talk-summary {
+            list-style: none;
+            padding: 12px;
+            cursor: pointer;
+        }
+
+        .talk-summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .talk-title {
+            margin: 0;
+            font-size: 0.88rem;
+            color: var(--sub);
+        }
+
+        .talk-ja {
+            margin: 4px 0 0;
+            font-size: 1.08rem;
+            line-height: 1.35;
+            font-weight: 700;
+        }
+
+        .talk-tr {
+            margin: 4px 0 0;
+            font-size: 0.96rem;
+            line-height: 1.35;
+            color: var(--sub);
+        }
+
+        .talk-panel {
+            border-top: 1px solid var(--line);
+            background: #fffdfb;
+            padding: 12px;
+        }
+
+        .option-grid {
+            display: grid;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .large-btn {
+            width: 100%;
+            min-height: 72px;
+            border: 2px solid var(--line);
             border-radius: 14px;
-            margin: 20px 0;
+            background: #fff;
+            color: var(--ink);
+            padding: 10px;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 700;
         }
 
-        .ja {
-            display: inline-block;
-            transform: rotate(180deg);
+        .speak-btn {
+            text-align: center;
+            background: var(--accent-soft);
+            border-color: #ffc2ae;
         }
 
-        .g-col-4 {
-            margin: 5px 0;
+        .option-btn.selected {
+            background: var(--ok);
+            border-color: var(--ok-line);
+            box-shadow: inset 0 0 0 2px rgba(236, 191, 69, 0.22);
+        }
+
+        .option-ja {
+            display: block;
+            font-size: 1.03rem;
+            line-height: 1.35;
+        }
+
+        .option-tr {
+            display: block;
+            margin-top: 4px;
+            font-size: 0.92rem;
+            line-height: 1.3;
+            color: var(--sub);
+        }
+
+        .questionnaire-wrap {
+            margin-top: 10px;
+        }
+
+        .questionnaire-note {
+            margin: 0 0 8px;
+            color: var(--sub);
+            font-size: 0.9rem;
+        }
+
+        .free-translate-btn {
+            position: fixed;
+            left: 12px;
+            bottom: 18px;
+            z-index: 50;
+            min-height: 56px;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 999px;
+            background: #3f7f6f;
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 700;
+            box-shadow: 0 8px 18px rgba(30, 66, 57, 0.25);
+        }
+
+        .free-translate-panel {
+            position: fixed;
+            left: 12px;
+            right: 12px;
+            bottom: 84px;
+            z-index: 55;
+            display: none;
+            background: #fffdf9;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            padding: 12px;
+        }
+
+        .free-translate-panel.open {
+            display: block;
+        }
+
+        .free-translate-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .free-translate-title {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .free-translate-close {
+            border: 1px solid var(--line);
+            background: #fff;
+            color: var(--ink);
+            border-radius: 999px;
+            min-height: 36px;
+            padding: 0 12px;
+            font-size: 0.86rem;
+            font-weight: 700;
+        }
+
+        .free-translate-input {
+            width: 100%;
+            min-height: 96px;
+            border: 2px solid var(--line);
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 1rem;
+            resize: vertical;
+        }
+
+        .free-translate-run {
+            margin-top: 10px;
+            width: 100%;
+            min-height: 52px;
+            border: none;
+            border-radius: 12px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .free-translate-status {
+            margin: 8px 0 0;
+            color: var(--sub);
+            font-size: 0.9rem;
+        }
+
+        .free-translate-output {
+            margin-top: 8px;
+            border-radius: 10px;
+            background: #fff;
+            border: 1px solid var(--line);
+            padding: 10px;
+            min-height: 56px;
+            font-size: 1rem;
+            line-height: 1.4;
+            white-space: pre-wrap;
+        }
+
+        .scroll-top-btn {
+            position: fixed;
+            right: 12px;
+            bottom: 18px;
+            width: 56px;
+            height: 56px;
+            border: none;
+            border-radius: 999px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            box-shadow: 0 8px 18px rgba(82, 42, 20, 0.28);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(10px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 50;
+        }
+
+        .scroll-top-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        @media (min-width: 760px) {
+            .main {
+                max-width: 760px;
+                margin: 0 auto;
+            }
+
+            .language-picker {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+
+            .free-translate-panel {
+                max-width: 760px;
+                margin: 0 auto;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                width: calc(100% - 24px);
+            }
         }
     </style>
 </head>
 
 <body>
+    <header class="app-header">
+        <h1>受付コミュニケーションボード</h1>
+        <p>受付〜会計までの説明を、言語切替と音声で案内します。</p>
+    </header>
 
-    <div class="container">
-        <h2>言語の選択</h2>
-        <div class="d-grid gap-2 col-6 mx-auto">
+    <section id="languagePicker" class="language-picker" aria-label="言語選択"></section>
 
-            <button type="button" class="btn btn-primary language-btn" data-url="./questionnaire/english">Please
-                choose the language you can understand.</button>
+    <main class="main">
+        <nav id="categoryTabs" class="category-tabs" aria-label="カテゴリ"></nav>
+        <section id="accordionList" class="accordion-list" aria-live="polite"></section>
+    </main>
 
-            <button type="button" class="btn btn-primary language-btn"
-                data-url="./questionnaire/chinese">请选您能理解的语言。</button>
-
-            <button type="button" class="btn btn-primary language-btn" data-url="./questionnaire/korean">이해
-                가능한 언어를 선택해 주십시오.</button>
-
-            <button type="button" class="btn btn-primary language-btn" data-url="./questionnaire/russian">Выберите язык,
-                который для Вас удобен.</button>
-
-            <button type="button" class="btn btn-primary language-btn" data-url="./questionnaire/portuguese">Escolha o
-                idioma de sua compreensão.</button>
-
-            <button type="button" class="btn btn-primary language-btn" data-url="./questionnaire/filipino">Piliin lamang
-                ang wikang inyong naiintindihan.</button>
-
-
-            <button type="button" class="btn btn-primary language-btn"
-                data-url="./questionnaire/indonesian">Tolong/Mohon pilih bahasa yang Anda mengerti.</button>
-
-            <button type="button" class="btn btn-primary language-btn" data-url="./questionnaire/japanese">あなたが
-                理解 りかいできる ことば を 選 えら んで ください。</button>
-
+    <button id="freeTranslateBtn" class="free-translate-btn" type="button" aria-label="自由入力翻訳">自由入力/翻訳</button>
+    <section id="freeTranslatePanel" class="free-translate-panel" aria-label="自由入力翻訳パネル">
+        <div class="free-translate-head">
+            <p class="free-translate-title">自由入力翻訳</p>
+            <button id="freeTranslateCloseBtn" class="free-translate-close" type="button" aria-label="閉じる">閉じる</button>
         </div>
-    </div>
-    <div class="container">
-        <h2>
-            <p class="ja">受付</p>
-            <p id="#reseption1">Resption
-        </h2>
+        <textarea id="freeTranslateInput" class="free-translate-input" placeholder="日本語を入力"></textarea>
+        <button id="freeTranslateRunBtn" class="free-translate-run" type="button">翻訳する</button>
+        <p id="freeTranslateStatus" class="free-translate-status"></p>
+        <div id="freeTranslateOutput" class="free-translate-output"></div>
+    </section>
 
-        <div class="clickable">
-            <p class="ja">初めてですか？</p>
-            <p class="lan" id=first_time>It it first time?<br>
-            </p>
-
-        </div>
-        <div class="col-md-3">
-            <input type="checkbox" id="reception"> <label for="reception">
-                <p class="ja" id="yes">はい</p> / Yes
-            </label>
-        </div>
-        <div class="col-md-3">
-            <input type="checkbox" id="waiting_room"> <label for="waiting_room">
-                <p class="ja" id="no">いいえ</p> / No
-            </label>
-        </div>
-
-
-        <div class="clickable">
-            <p class="ja">今日きょうはどうしましたか？あてはまるところに☑をつけ
-                てください。</p>
-            <p class="lan" id="visit_reason">
-                please tell us the reasons of your visit today and check ☑ all the boxes that apply
-            </p>
-        </div>
-        <table class="table table-bordered">
-            <tr>
-                <td class="clickable1">
-                    <span class="ja">生理がとまった</span><br><span id="absence_period">Absence of
-                        monthly period</span>
-
-                </td>
-            </tr>
-            <tr>
-                <td class="clickable1"><input type="checkbox"> <span class="ja">吐き気</span><br><span id=nausea>Feelings
-                        of nausea</span></td>
-            </tr>
-            <tr>
-                <td class="clickable1"><input type="checkbox"> <span class="ja">妊娠かもしれない</span><br><span
-                        id="possible_pregnancy">Possible
-                        pregnancy➡ </span>
-
-                    <span class="ja">自分で検査した</span> <input type="checkbox" id="self-check-yes">
-
-                    <label for="self-check-yes">
-                        <span id="yes1">はい</span>
-                    </label> <input type="checkbox" id="self-check-no">
-                    <label for="self-check-no">
-                        <span id="no1">いいえ</span>
-                    </label><br><span id="self"></span></td>
-            </tr>
-            <tr>
-                <td class="clickable1"><input type="checkbox"> <span class="ja">生理が規則的にこない</span><br>
-                    <span id="inconsistent_period">Inconsistent period</span></td>
-            </tr>
-            <tr>
-                <td class="clickable1"><input type="checkbox"> <span class="ja">生理のときお腹が痛い</span><br><span
-                        id="period_pain">Stomachache
-                        during your period</span></td>
-            </tr>
-            <tr>
-                <td class="clickable1"><input type="checkbox"> <span class="ja">外陰部がかゆい</span><br><span
-                        id="itching">Itchiness
-                        near the
-                        external part of the genitalia</span></td>
-            </tr>
-            <tr>
-                <td class="clickable1"><input type="checkbox"> <span class="ja">お腹が痛い</span><br><span
-                        id="stomach_pain">Have
-                        stomachache</span></td>
-            </tr>
-            <tr>
-                <td class="clickable1"><input type="checkbox"> <span class="ja">不妊について聞きたい</span><br><span
-                        id="infertility_question">Want to
-                        ask about infertility</span></td>
-            </tr>
-            <tr>
-                <td class="clickable1"><input type="checkbox"> <span class="ja">その他(　　　　　　　　　　)</span><br><span
-                        id="other">Others
-                        (　　　　　　　　　　)</span></td>
-            </tr>
-        </table>
-
-
-        <div class="clickable">
-            <p class="ja">待合室で問診票をご記入ください。</p>
-            <p class="lan" id="fill_form_waiting_room">
-                Please fill out the medical questionnaire in the waiting room</p>
-        </div>
-        <div class="clickable">
-            <p class="ja">問診票の記入が終わったら持ってきてください。</p>
-            <p class="lan" id="finished_filling_form">
-                When you have finished filling out the medical questionnaire, please bring it with you.</p>
-        </div>
-        <div class="section1 text-center">
-            <button type="button" class="btn btn-success" id="questionnaire">
-                <p class="ja">問診票</p>
-                <p class="lan" id="question">medical questionnaire</p>
-            </button>
-        </div>
-
-        <div class="clickable">
-            <p class="ja"> 診察まで、体重、血圧、おしっこをとってください。その後、次の場所で待っていてください。</p>
-            <p class="lan" id="take_weight">Please take your weight, blood pressure, and urine. Atert that, please wait
-                in the following
-                area until you are called for your examination.<br>
-            </p>
-
-        </div>
-
-        <div class="row">
-            <div class="clickable">
-                <p class="ja"> 診察まで、次の場所でお待ちください。</p>
-                <p class="lan" id="weit_here">Please wait in the following area until you are called for your
-                    examination.<br>
-                </p>
-
-            </div>
-            <div class="col-md-3">
-                <input type="checkbox"> <label for="reception">
-                    <p class="ja">受付</p> / <span id="reception">Reception</span>
-                </label>
-            </div>
-            <div class="col-md-3">
-                <input type="checkbox"> <label for="waiting-room">
-                    <p class="ja">待合室</p> /
-                    <span id="waiting-room">Waiting room</span>
-                </label>
-            </div>
-            <div class="col-md-3">
-                <input type="checkbox" id="consultation-room"> <label for="consultation-room">
-                    <p class="ja">診察室</p> /
-                    <span id="consultation-room"></span> Consultation
-                    room</span>
-                </label>
-            </div>
-            <!-- Add other checkboxes similarly as above -->
-        </div>
-
-        <div class="clickable">
-            <p class="ja">どこへ行けば良いか、職員がお知らせします。</p>
-            <p class="lan" id="staff_notification">A member of the staff will inform you where you should go.</p>
-        </div>
-
-        <div class="clickable">
-            <p class="ja">名前（名前 / 番号）が早い方からお呼びします。</p>
-            <p class="lan" id="call_order">Your (name / number) will be called in a first-come, first-serve basis.</p>
-
-        </div>
-
-        <div class="clickable">
-            <p class="ja">*状況により順番が前後する場合があります。</p>
-            <p class="lan" id="call_order2">*Depending on the circumstances, there are cases the order may be changed.
-            </p>
-        </div>
-
-
-        <div class="clickable">
-            <p class="ja">診察券をお渡しします。次から受付に出してください。</p>
-            <p class="lan" id="card">We will give you a patient ID card.</p>
-        </div>
-
-        <hr class="my-4">
-
-
-        <h2>
-            <p class="ja">薬</p>/ <span id="medicines">medicines</span>
-        </h2>
-
-        <div class="clickable">
-            <p class="ja">薬は診察後に、この病院内でお渡しします。</p>
-            <p class="lan" id="give_medicines_in_hospital">We will give you your medicines in this hospital after your
-                examination.</p>
-        </div>
-
-        <div class="clickable">
-            <p class="ja">薬はここでは渡せません。処方箋を渡しますので薬は技外の薬局で買ってください。</p>
-            <p class="lan" id="give_medicines_out_of_hospital">We cannot provide you with medicines here. We will give
-                you a prescription and you can
-                buy the medicines in a pharmacy outside the hospital.</p>
-        </div>
-
-        <div class="clickable">
-            <p class="ja">その場合、処方箋の有効期限は発行日から4日間です。</p>
-            <p class="lan" id="prescription_validity">In this case, the validity of the prescription is 4 days from the
-                issued date.</p>
-        </div>
-
-        <hr class="my-4">
-
-        <div class="clickable">
-            <p class="ja">会計は自動精算機で行なってください。</p>
-
-            <p class="lan" id="payment_instructions_machine">Please pay your bill at the automated accounting machine.
-            </p>
-        </div>
-
-        <div class="clickable">
-            <p class="ja">会計は会計窓口で行なってください。</p>
-            <p class="lan" id="payment_instructions_cashier">Please pay your bill at the cashier counter.</p>
-        </div>
-
-    </div>
-
-
-    <ul class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-5 shadow-sm" id="pillNav2" role="tablist"
-        style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: var(--bs-primary); --bs-nav-pills-link-active-bg: var(--bs-white);">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active rounded-5" id="home-tab2" data-bs-toggle="tab" type="button" role="tab"
-                aria-selected="true">Home</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link rounded-5" id="profile-tab2" data-bs-toggle="tab" type="button" role="tab"
-                aria-selected="false">Profile</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link rounded-5" id="contact-tab2" data-bs-toggle="tab" type="button" role="tab"
-                aria-selected="false">Contact</button>
-        </li>
-    </ul>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <button id="scrollTopBtn" class="scroll-top-btn" type="button" aria-label="ページトップへ戻る">▲</button>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const languageButtons = document.querySelectorAll(".language-btn");
-            const elementsToTranslate = {
-                language_instruction: document.querySelector("#language_instruction"),
-                reception: document.querySelector("#reseption"),
-                reception1: document.querySelector("#reseption1"),
-                waitingroom: document.querySelector("#waiting-room"),
-                first_time: document.querySelector("#first_time"),
-                yes: document.querySelector("#yes"),
-                no: document.querySelector("#no"),
-                yes1: document.querySelector("#yes1"),
-                no1: document.querySelector("#no1"),
-                self: document.querySelector("#self"),
-                visit_reason: document.querySelector("#visit_reason"),
-                absence_period: document.querySelector("#absence_period"),
-                nausea: document.querySelector("#nausea"),
-                possible_pregnancy: document.querySelector("#possible_pregnancy"),
-                inconsistent_period: document.querySelector("#inconsistent_period"),
-                period_pain: document.querySelector("#period_pain"),
-                weit_here: document.querySelector("#weit_here"),
-                itching: document.querySelector("#itching"),
-                stomach_pain: document.querySelector("#stomach_pain"),
-                infertility_question: document.querySelector("#infertility_question"),
-                other: document.querySelector("#other"),
-                question: document.querySelector("#question"),
-                fill_form_waiting_room: document.querySelector("#fill_form_waiting_room"),
-                finished_filling_form: document.querySelector("#finished_filling_form"),
-                take_weight: document.querySelector("#take_weight"),
-                wait_here: document.querySelector("#wait_here"),
-                staff_notification: document.querySelector("#staff_notification"),
-                call_order: document.querySelector("#call_order"),
-                call_order2: document.querySelector("#call_order2"),
-                medicines: document.querySelector("#medicines"),
-                give_medicines_in_hospital: document.querySelector("#give_medicines_in_hospital"),
-                give_medicines_out_of_hospital: document.querySelector("#give_medicines_out_of_hospital"),
-                prescription_validity: document.querySelector("#prescription_validity"),
-                payment_instructions_machine: document.querySelector("#payment_instructions_machine"),
-                payment_instructions_cashier: document.querySelector("#payment_instructions_cashier")
-            };
+        const languageOptions = [{
+                code: "english",
+                label: "英語 / English",
+                speech: "en-US",
+                translateTarget: "en",
+                questionnairePdf: "./questionnaire/english.pdf"
+            },
+            {
+                code: "chinese",
+                label: "中国語 / 中文",
+                speech: "zh-CN",
+                translateTarget: "zh-CN",
+                questionnairePdf: "./questionnaire/chinese.pdf"
+            },
+            {
+                code: "korean",
+                label: "韓国語 / 한국어",
+                speech: "ko-KR",
+                translateTarget: "ko",
+                questionnairePdf: "./questionnaire/korean.pdf"
+            },
+            {
+                code: "russian",
+                label: "ロシア語 / Русский",
+                speech: "ru-RU",
+                translateTarget: "ru",
+                questionnairePdf: null
+            },
+            {
+                code: "portuguese",
+                label: "ポルトガル語 / Português",
+                speech: "pt-PT",
+                translateTarget: "pt",
+                questionnairePdf: "./questionnaire/portuguese.pdf"
+            },
+            {
+                code: "filipino",
+                label: "フィリピノ語 / Filipino",
+                speech: "tl-PH",
+                translateTarget: "tl",
+                questionnairePdf: "./questionnaire/filipino.pdf"
+            },
+            {
+                code: "indonesian",
+                label: "インドネシア語 / Indonesia",
+                speech: "id-ID",
+                translateTarget: "id",
+                questionnairePdf: "./questionnaire/indonesian.pdf"
+            },
+            {
+                code: "japanese",
+                label: "やさしい日本語",
+                speech: "ja-JP",
+                translateTarget: "ja",
+                questionnairePdf: null
+            }
+        ];
 
+        const sections = [{
+                id: "reception",
+                titleJa: "受付",
+                titleFallback: "Reception",
+                cards: [{
+                        key: "first_time",
+                        ja: "初めてですか？",
+                        options: [{
+                            key: "yes",
+                            ja: "はい"
+                        }, {
+                            key: "no",
+                            ja: "いいえ"
+                        }],
+                        multi: false
+                    },
+                    {
+                        key: "visit_reason",
+                        ja: "今日の受診理由を選んでください",
+                        options: [{
+                                key: "absence_period",
+                                ja: "生理がとまった"
+                            },
+                            {
+                                key: "nausea",
+                                ja: "吐き気"
+                            },
+                            {
+                                key: "possible_pregnancy",
+                                ja: "妊娠かもしれない"
+                            },
+                            {
+                                key: "inconsistent_period",
+                                ja: "生理が規則的にこない"
+                            },
+                            {
+                                key: "period_pain",
+                                ja: "生理のときお腹が痛い"
+                            },
+                            {
+                                key: "itching",
+                                ja: "外陰部がかゆい"
+                            },
+                            {
+                                key: "stomach_pain",
+                                ja: "お腹が痛い"
+                            },
+                            {
+                                key: "infertility_question",
+                                ja: "不妊について聞きたい"
+                            },
+                            {
+                                key: "other",
+                                ja: "その他"
+                            }
+                        ],
+                        multi: true
+                    }
+                ]
+            },
+            {
+                id: "waiting",
+                titleJa: "問診と待機",
+                titleFallback: "Waiting Flow",
+                cards: [{
+                        key: "fill_form_waiting_room",
+                        ja: "待合室で問診票をご記入ください。"
+                    },
+                    {
+                        key: "question",
+                        ja: "選択している言語の問診票PDFを開く",
+                        questionnaire: true
+                    },
+                    {
+                        key: "finished_filling_form",
+                        ja: "記入が終わったら持ってきてください。"
+                    },
+                    {
+                        key: "take_weight",
+                        ja: "診察まで、体重・血圧・尿検査をお願いします。"
+                    },
+                    {
+                        key: "weit_here",
+                        ja: "診察まで、指定の場所でお待ちください。"
+                    },
+                    {
+                        key: "staff_notification",
+                        ja: "どこへ行くかは職員が案内します。"
+                    },
+                    {
+                        key: "call_order",
+                        ja: "名前（番号）の早い方からお呼びします。"
+                    },
+                    {
+                        key: "call_order2",
+                        ja: "状況により順番が前後する場合があります。"
+                    },
+                    {
+                        key: "card",
+                        ja: "診察券をお渡しします。次回から提示してください。"
+                    }
+                ]
+            },
+            {
+                id: "medicine",
+                titleJa: "薬と会計",
+                titleFallback: "Medicine & Payment",
+                cards: [{
+                        key: "give_medicines_in_hospital",
+                        ja: "薬は診察後に病院内でお渡しします。"
+                    },
+                    {
+                        key: "give_medicines_out_of_hospital",
+                        ja: "院外薬局で購入いただく場合があります。"
+                    },
+                    {
+                        key: "prescription_validity",
+                        ja: "処方箋には発行日を含めて4日間の有効期限があります。"
+                    },
+                    {
+                        key: "payment_instructions_machine",
+                        ja: "会計は自動精算機で行ってください。"
+                    },
+                    {
+                        key: "payment_instructions_cashier",
+                        ja: "会計は会計窓口で行ってください。"
+                    }
+                ]
+            }
+        ];
 
+        let selectedLanguage = "english";
+        let selectedSection = sections[0].id;
+        const selectedOptions = new Set();
 
-            // クリックイベントを設定
-            document.querySelectorAll('.clickable').forEach(function (element) {
-                element.addEventListener('click', function () {
-                    element.classList.toggle('selected'); // 背景色の切り替え
+        window.addEventListener("load", init);
+
+        function init() {
+            setupScrollTopButton();
+            setupFreeTranslatePanel();
+            renderLanguageButtons();
+            renderSectionTabs();
+            renderCards();
+        }
+
+        function t(key, fallback) {
+            const data = window.languagedata && window.languagedata[selectedLanguage];
+            if (!data) return fallback || "";
+            return data[key] || fallback || "";
+        }
+
+        function getSelectedLang() {
+            return languageOptions.find(item => item.code === selectedLanguage) || languageOptions[0];
+        }
+
+        function renderLanguageButtons() {
+            const picker = document.getElementById("languagePicker");
+            picker.innerHTML = "";
+            languageOptions.forEach(lang => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "language-btn" + (selectedLanguage === lang.code ? " active" : "");
+                btn.textContent = lang.label;
+                btn.addEventListener("click", () => {
+                    selectedLanguage = lang.code;
+                    renderLanguageButtons();
+                    renderSectionTabs();
+                    renderCards();
                 });
+                picker.appendChild(btn);
+            });
+        }
+
+        function renderSectionTabs() {
+            const tabs = document.getElementById("categoryTabs");
+            tabs.innerHTML = "";
+            sections.forEach(section => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "tab-btn" + (selectedSection === section.id ? " active" : "");
+                btn.textContent = section.titleJa;
+                btn.addEventListener("click", () => {
+                    selectedSection = section.id;
+                    renderSectionTabs();
+                    renderCards();
+                });
+                tabs.appendChild(btn);
+            });
+        }
+
+        function renderCards() {
+            const list = document.getElementById("accordionList");
+            list.innerHTML = "";
+            const section = sections.find(s => s.id === selectedSection);
+            if (!section) return;
+
+            section.cards.forEach((card, index) => {
+                const details = document.createElement("details");
+                details.className = "talk-card";
+                const summary = document.createElement("summary");
+                summary.className = "talk-summary";
+                summary.innerHTML = `
+                    <p class="talk-title">項目 ${index + 1}</p>
+                    <p class="talk-ja">${escapeHtml(card.ja)}</p>
+                    <p class="talk-tr">${escapeHtml(t(card.key, card.titleFallback || ""))}</p>
+                `;
+
+                const panel = document.createElement("div");
+                panel.className = "talk-panel";
+
+                const speakBtn = document.createElement("button");
+                speakBtn.type = "button";
+                speakBtn.className = "large-btn speak-btn";
+                speakBtn.textContent = "この項目を読み上げ";
+                speakBtn.addEventListener("click", () => {
+                    speakPair(card.ja, t(card.key, ""));
+                });
+                panel.appendChild(speakBtn);
+
+                if (card.questionnaire) {
+                    const wrap = document.createElement("div");
+                    wrap.className = "questionnaire-wrap";
+                    const note = document.createElement("p");
+                    note.className = "questionnaire-note";
+                    note.textContent = `${getSelectedLanguageNameForNote()}の問診票PDFを開く`;
+                    const qBtn = document.createElement("button");
+                    qBtn.type = "button";
+                    qBtn.className = "large-btn";
+                    qBtn.textContent = t("question", "medical questionnaire");
+                    qBtn.addEventListener("click", () => {
+                        const lang = getSelectedLang();
+                        if (!lang.questionnairePdf) {
+                            alert("この言語の問診票PDFは未設定です。");
+                            return;
+                        }
+                        window.open(lang.questionnairePdf, "_blank", "noopener,noreferrer");
+                    });
+                    wrap.appendChild(note);
+                    wrap.appendChild(qBtn);
+                    panel.appendChild(wrap);
+                }
+
+                if (Array.isArray(card.options) && card.options.length) {
+                    const grid = document.createElement("div");
+                    grid.className = "option-grid";
+                    card.options.forEach(opt => {
+                        const btn = document.createElement("button");
+                        btn.type = "button";
+                        btn.className = "large-btn option-btn";
+                        const key = `${section.id}-${card.key}-${opt.key}`;
+                        if (selectedOptions.has(key)) btn.classList.add("selected");
+
+                        const tr = t(opt.key, "");
+                        btn.innerHTML = `
+                            <span class="option-ja">${escapeHtml(opt.ja)}</span>
+                            <span class="option-tr">${escapeHtml(tr)}</span>
+                        `;
+                        btn.addEventListener("click", () => {
+                            if (!card.multi) {
+                                Array.from(selectedOptions).forEach(k => {
+                                    if (k.startsWith(`${section.id}-${card.key}-`))
+                                        selectedOptions.delete(k);
+                                });
+                                grid.querySelectorAll(".option-btn").forEach(el => el.classList
+                                    .remove("selected"));
+                            }
+                            if (selectedOptions.has(key)) {
+                                selectedOptions.delete(key);
+                                btn.classList.remove("selected");
+                            } else {
+                                selectedOptions.add(key);
+                                btn.classList.add("selected");
+                            }
+                            speakPair(opt.ja, tr);
+                        });
+                        grid.appendChild(btn);
+                    });
+                    panel.appendChild(grid);
+                }
+
+                details.appendChild(summary);
+                details.appendChild(panel);
+                list.appendChild(details);
+            });
+        }
+
+        function getSelectedLanguageNameForNote() {
+            const lang = getSelectedLang();
+            const parts = String(lang.label || "").split("/");
+            return (parts[0] || String(lang.label || "選択中の言語")).trim();
+        }
+
+        function speakPair(jaText, trText) {
+            if (!("speechSynthesis" in window)) {
+                alert("このブラウザは音声合成に対応していません。");
+                return;
+            }
+            speechSynthesis.cancel();
+
+            const ja = new SpeechSynthesisUtterance(String(jaText || ""));
+            ja.lang = "ja-JP";
+            speechSynthesis.speak(ja);
+
+            if (trText) {
+                const tr = new SpeechSynthesisUtterance(String(trText));
+                tr.lang = getSelectedLang().speech;
+                speechSynthesis.speak(tr);
+            }
+        }
+
+        function setupFreeTranslatePanel() {
+            const trigger = document.getElementById("freeTranslateBtn");
+            const panel = document.getElementById("freeTranslatePanel");
+            const closeBtn = document.getElementById("freeTranslateCloseBtn");
+            const runBtn = document.getElementById("freeTranslateRunBtn");
+            const input = document.getElementById("freeTranslateInput");
+            const status = document.getElementById("freeTranslateStatus");
+            const output = document.getElementById("freeTranslateOutput");
+            if (!trigger || !panel || !closeBtn || !runBtn || !input || !status || !output) return;
+
+            trigger.addEventListener("click", () => {
+                panel.classList.toggle("open");
+                if (panel.classList.contains("open")) input.focus();
+            });
+            closeBtn.addEventListener("click", () => {
+                panel.classList.remove("open");
             });
 
-            document.querySelectorAll('.clickable1').forEach(function (element) {
-                element.addEventListener('click', function () {
-                    element.classList.toggle('selected1'); // 背景色の切り替え
-                });
-            });
+            runBtn.addEventListener("click", async () => {
+                const text = String(input.value || "").trim();
+                if (!text) {
+                    status.textContent = "日本語を入力してください。";
+                    output.textContent = "";
+                    return;
+                }
+                status.textContent = "翻訳中...";
+                output.textContent = "";
 
-            // questionnaireボタンがクリックされたときに設定されたリンクに飛ぶ
-            document.getElementById('questionnaire').addEventListener('click', function () {
-                const url = this.getAttribute('data-url') + ".pdf";
-                console.log(url)
-                if (url) {
-                    window.open(url, '_blank');
-                } else {
-                    alert("Please select a language first.");
+                try {
+                    const target = getSelectedLang().translateTarget || "en";
+                    const translated = await translateFreeFromJapanese(text, target);
+                    status.textContent = "";
+                    output.textContent = translated || "(翻訳結果なし)";
+                    if (translated) speakPair(text, translated);
+                } catch (err) {
+                    status.textContent = "翻訳に失敗しました。通信環境をご確認ください。";
+                    output.textContent = "";
+                    console.error(err);
                 }
             });
+        }
 
-            languageButtons.forEach(button => {
-                button.addEventListener("click", () => {
+        async function translateFreeFromJapanese(text, targetCode) {
+            const url =
+                `https://translate.googleapis.com/translate_a/single?client=gtx&sl=ja&tl=${encodeURIComponent(targetCode)}&dt=t&q=${encodeURIComponent(text)}`;
+            const response = await fetch(url);
+            if (!response.ok) throw new Error("Translate API failed");
+            const data = await response.json();
+            if (!Array.isArray(data) || !Array.isArray(data[0])) return "";
+            return data[0].map(part => Array.isArray(part) ? (part[0] || "") : "").join("");
+        }
 
-                    const url = button.getAttribute('data-url');
-                    document.getElementById('questionnaire').setAttribute('data-url', url);
-
-
-                    const language = button.dataset.url.split("/")
-                        .pop(); // Get the language part from URL
-                    console.log(language)
-                    var textdata = languagedata[language]
-
-                    Object.keys(elementsToTranslate).forEach(key => {
-                        console.log(key)
-                        if (elementsToTranslate[key]) {
-                            elementsToTranslate[key].textContent =
-                                textdata[key];
-                        }
-                    });
-                })
-
+        function setupScrollTopButton() {
+            const btn = document.getElementById("scrollTopBtn");
+            if (!btn) return;
+            btn.addEventListener("click", () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
             });
-        });
-    </script>
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 200) btn.classList.add("visible");
+                else btn.classList.remove("visible");
+            }, {
+                passive: true
+            });
+        }
 
+        function escapeHtml(str) {
+            return String(str || "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/\"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
+    </script>
 </body>
 
 </html>
