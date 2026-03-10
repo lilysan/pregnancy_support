@@ -118,6 +118,14 @@
         });
     }
 
+    
+    // 血圧登録（GAS側 UserSheet.setPressure を利用）
+    function setPressure(data) {
+        return addData(data, "pressure");
+    }
+
+
+
     function addData(data,type) {
 //function setWeight(data) {
     $(".loader").show();
@@ -146,6 +154,11 @@
     }).always(function () {
         $(".loader").hide();
     });
+    }
+
+    // 血圧登録（GAS側 UserSheet.setPressure を利用）
+    function setPressure(data) {
+        return addData(data, "pressure");
     }
 
     function deleteData(_data,type) {
