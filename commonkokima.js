@@ -160,4 +160,9 @@
             .then(() => addData(newdata, type)) // ここで `addData` を `then` に渡す
             .catch(error => console.error("Error:", error)); // エラーハンドリングを追加
     }
-    
+
+    // 血圧登録（GAS側 UserSheet.setPressure を利用）
+    function setPressure(data) {
+        return addData(data, "pressure");
+    }
+
