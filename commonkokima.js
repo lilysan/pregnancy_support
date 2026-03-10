@@ -1,29 +1,40 @@
       // タブ切り替えの処理
       function switchTab(contentId, event) {
-        id = contentId;
-        if (id == "table-container") {
-            createTablePage()
-        }
-        else if (id == "edit-container") {
-            populateTable(contentId)
-        }
-        else {
-            updateChart(allData);
-        }
-        // すべてのコンテンツを非表示にする
-        document.querySelectorAll('.chart-container, .table-container, .edit-container').forEach(content => {
+        // 先に表示切替を行い、後段処理でエラーが起きてもタブ表示は維持する
+        document.querySelectorAll('.input-container, .chart-container, .table-container, .edit-container').forEach(content => {
             content.classList.remove('active-content');
         });
+        const chartContainerAll = document.getElementById('chart-container-all');
+        if (chartContainerAll) {
+            chartContainerAll.style.display = contentId === "chart-container" ? "block" : "none";
+        }
+        const nextContent = document.getElementById(contentId);
+        if (nextContent) {
+            nextContent.classList.add('active-content');
+        }
 
-        // 選択されたコンテンツを表示する
-        document.getElementById(contentId).classList.add('active-content');
-
-        // タブのアクティブ状態を変更する
         const buttons = document.querySelectorAll('.tab-bar button');
         buttons.forEach(button => {
             button.classList.remove('active');
         });
-        event.currentTarget.classList.add('active');
+        if (event && event.currentTarget) {
+            event.currentTarget.classList.add('active');
+        }
+
+        try {
+            if (contentId === "table-container" && typeof createTablePage === "function") {
+                createTablePage();
+            } else if (contentId === "edit-container" && typeof populateTable === "function") {
+                populateTable(contentId);
+            } else if (typeof updateChart === "function") {
+                updateChart(allData);
+            }
+        } catch (e) {
+            console.error("switchTab rendering error:", e);
+        }
+        if (typeof updateGraphUnitButtonVisibility === "function") {
+            updateGraphUnitButtonVisibility();
+        }
       }
     
       $(".datepicker2").datepicker({
@@ -53,31 +64,41 @@
         }
     }
 
-    function loadData(idToken,type) {
+    function loadData(idToken,type,postData,mergeMode) {
         $(".loader").show();
-        $.ajax(
+        const safePostData = postData || {};
+        const safeMergeMode = mergeMode || "replace";
+        return $.ajax(
             getAccessObj({
                 path: type,
                 method: "get",
-                idToken: idToken
+                idToken: idToken,
+                postData: safePostData
             })
-        ).done(function (response) {
-            $(".loader").hide();
+        ).then(function (response) {
             if (response.statusCode === 401) {
                 liff.logout();
                 window.location.reload();
+                return [];
             } else if (response.statusCode !== 200) {
                 console.error(response.message);
                 alert(response.message)
+                return [];
             } else {
-
-                allData = response.data.items
-                updateChart(response.data.items); // チャートとテーブルを更新
-
-                return response.data.items
+                const items = (response.data && Array.isArray(response.data.items)) ? response.data.items : [];
+                if (safeMergeMode === "append") {
+                    allData = (Array.isArray(allData) ? allData : []).concat(items);
+                } else {
+                    allData = items;
+                }
+                updateChart(allData); // チャートとテーブルを更新
+                return items;
             }
-        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        }, function () {
             alert("Network error!");
+            return [];
+        }).always(function () {
+            $(".loader").hide();
         });
     }
 
@@ -97,10 +118,14 @@
         });
     }
 
+    
+
+
+
     function addData(data,type) {
 //function setWeight(data) {
     $(".loader").show();
-    $.ajax(
+    return $.ajax(
         getAccessObj({
             path: type,
             method: "post",
@@ -113,24 +138,28 @@
             window.location.reload();
         } else if (response.statusCode !== 200) {
             console.error(response.message);
-            alert(response.message)
+            alert(response.message);
         } else {
             allData.push(data)
             populateTable(allData);
             updateChart(allData); // グラフを更新
             createTablePage(); // テーブルを更新
-            
-            $(".loader").hide();
         }
     }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-        $(".loader").hide();
         alert("Network error!");
+    }).always(function () {
+        $(".loader").hide();
     });
+    }
+
+    // 血圧登録（GAS側 UserSheet.setPressure を利用）
+    function setPressure(data) {
+        return addData(data, "pressure");
     }
 
     function deleteData(_data,type) {
         $(".loader").show();
-        $.ajax(
+        return $.ajax(
             getAccessObj({
                 path: type,
                 method: "delete",
@@ -143,15 +172,14 @@
                 window.location.reload();
             } else if (response.statusCode !== 200) {
                 console.error(response.message);
-                alert(response.message)
+                alert(response.message);
             } else {
                 setallData()
-                $(".loader").hide();
             }
         }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-            $(".loader").hide();
             alert("Network error!");
-
+        }).always(function () {
+            $(".loader").hide();
         });
     }
 
@@ -160,9 +188,4 @@
             .then(() => addData(newdata, type)) // ここで `addData` を `then` に渡す
             .catch(error => console.error("Error:", error)); // エラーハンドリングを追加
     }
-
-    // 血圧登録（GAS側 UserSheet.setPressure を利用）
-    function setPressure(data) {
-        return addData(data, "pressure");
-    }
-
+    
