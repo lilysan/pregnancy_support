@@ -1528,7 +1528,10 @@
                     alert("登録処理の読み込みに失敗しました。ページを再読み込みしてください。");
                     return;
                 }
-                Promise.resolve(addData(list, "pressure")).then(() => {
+                const savePressure = (typeof setPressure === "function") ?
+                    setPressure :
+                    ((payload) => addData(payload, "pressure"));
+                Promise.resolve(savePressure(list)).then(() => {
                     pressurePage = 1;
                     loadedWeekPages = 1;
                     hasOlderPressure = true;
@@ -1659,15 +1662,6 @@
             const newHigh = document.getElementById("editHigh").value;
             const newLow = document.getElementById("editLow").value;
 
-            // 値を更新
-            currentRow1.querySelector(".date-picker").innerText = newDate;
-            currentRow1.querySelector(".time-picker").innerText = dataArray[newTime];
-            currentRow1.querySelector(".high1").innerText = newHigh;
-            currentRow1.querySelector(".low1").innerText = newLow;
-
-            // ダイアログを閉じる
-            dialog.style.display = "none";
-
             if (newDate && newHigh && newTime && newLow) {
                 var olddata = {
                     date: before_dateValue,
@@ -1681,7 +1675,33 @@
                     low: parseInt(newLow)
 
                 }
-                handleUpdate(olddata, newdata, "pressure");
+                const sameKey =
+                    String(olddata.date) === String(newdata.date) &&
+                    Number(olddata.period) === Number(newdata.period);
+
+                const savePressure = (typeof setPressure === "function") ?
+                    setPressure :
+                    ((payload) => addData(payload, "pressure"));
+                const request = sameKey ?
+                    Promise.resolve(savePressure(newdata)) :
+                    Promise.resolve(savePressure(newdata))
+                    .then(() => deleteData(olddata, "pressure"));
+
+                request.then(() => {
+                    // 保存後は再取得して表示を揃える
+                    pressurePage = 1;
+                    loadedWeekPages = 1;
+                    hasOlderPressure = true;
+                    loadingOlderPressure = false;
+                    return loadInitialPressureWindow();
+                }).then(() => {
+                    createTablePage();
+                    populateTable();
+                    dialog.style.display = "none";
+                }).catch((error) => {
+                    console.error("save/update error:", error);
+                    alert("保存処理でエラーが発生しました。");
+                });
 
             } else {
                 alert(bt("fillAll"));
