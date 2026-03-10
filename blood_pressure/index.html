@@ -70,7 +70,7 @@
         </div>
 
         <div id="olderChartsContainer" class="older-charts-container"></div>
-        <button type="button" id="loadOlderChartBtn" class="load-older-btn">以前の情報をみる</button>
+        <button type="button" id="loadOlderChartBtn" class="load-older-btn">以前の情報を見る</button>
 
     </div>
     <div id="table-container" class="table-container content">
@@ -88,7 +88,7 @@
             <tbody>
             </tbody>
         </table>
-        <button type="button" id="loadOlderTableBtn" class="load-older-btn">以前の情報をみる</button>
+        <button type="button" id="loadOlderTableBtn" class="load-older-btn">以前の情報を見る</button>
 
     </div>
 
@@ -281,7 +281,7 @@
                 high: "最高血圧",
                 low: "最低血圧",
                 add: "データを追加",
-                older: "以前の情報をみる",
+                older: "以前の情報を見る",
                 noMore: "これ以上ありません",
                 loading: "読み込み中...",
                 register: "登録",
@@ -1034,29 +1034,17 @@
             if (loadingOlderPressure || !hasOlderPressure) return;
             loadingOlderPressure = true;
             syncOlderButtons();
-            const startPage = loadedWeekPages + 1;
-            const maxSearchPages = 120;
-            const walk = (page) => {
-                if (page > maxSearchPages) {
+            const nextPage = loadedWeekPages + 1;
+            fetchPressurePage(nextPage, "append").then((items) => {
+                if (!items.length) {
                     hasOlderPressure = false;
-                    return Promise.resolve(false);
-                }
-                return fetchPressurePage(page, "append").then((items) => {
-                    if (!items.length) {
-                        return walk(page + 1);
-                    }
-                    pressurePage = page;
-                    loadedWeekPages = page;
+                } else {
+                    pressurePage = nextPage;
+                    loadedWeekPages = nextPage;
                     allData = dedupePressureItems(allData);
                     updateChart(allData);
                     createTablePage();
                     populateTable();
-                    return true;
-                });
-            };
-            walk(startPage).then((found) => {
-                if (!found) {
-                    hasOlderPressure = false;
                 }
             }).catch((e) => {
                 console.error("load older error:", e);
@@ -1158,9 +1146,10 @@
                 }
                 // If there is no record in the latest week, auto-load older weeks
                 // so the screen is not empty at startup.
-                const maxAutoPages = 120;
+                const maxAutoPages = 12;
                 const walk = (page) => {
                     if (page > maxAutoPages) {
+                        hasOlderPressure = false;
                         syncOlderButtons();
                         allData = [];
                         updateChart(allData);
@@ -1182,17 +1171,6 @@
             });
         }
 
-        function reloadPressureDataAndRender() {
-            pressurePage = 1;
-            loadedWeekPages = 1;
-            hasOlderPressure = true;
-            loadingOlderPressure = false;
-            return loadInitialPressureWindow().then(() => {
-                createTablePage();
-                populateTable();
-            });
-        }
-
         function bootPressureApp() {
             if (window.IS_TEST_MODE) {
                 // Skip LIFF auth in test mode so UI/data flow can be verified locally.
@@ -1204,7 +1182,6 @@
                 withLoginOnExternalBrowser: true,
             }).then(() => {
                 const idToken = liff.getIDToken();
-                alert(idToken);
                 const lang = liff.getAppLanguage();
                 if (!isSupportedLang(initialSavedLang)) {
                     selectedUiLang = normalizeLangToUi(lang);
@@ -1551,12 +1528,15 @@
                     alert("登録処理の読み込みに失敗しました。ページを再読み込みしてください。");
                     return;
                 }
-                const savePressure = (typeof setPressure === "function") ?
-                    setPressure :
-                    ((payload) => addData(payload, "pressure"));
-                Promise.resolve(savePressure(list)).then(() => {
-                    return reloadPressureDataAndRender();
+                Promise.resolve(addData(list, "pressure")).then(() => {
+                    pressurePage = 1;
+                    loadedWeekPages = 1;
+                    hasOlderPressure = true;
+                    loadingOlderPressure = false;
+                    return loadInitialPressureWindow();
                 }).then(() => {
+                    createTablePage();
+                    populateTable();
                     switchTab("chart-container", {
                         currentTarget: document.getElementById("tabChart")
                     });
@@ -1648,28 +1628,22 @@
 
 
             // キャンセルボタンの処理
-            document.getElementById("cancelButton").onclick = () => {
+            document.getElementById("cancelButton").addEventListener("click", () => {
                 // ダイアログを閉じる
                 dialog.style.display = "none";
-            };
+            });
 
             // 削除ボタンの処理
-            document.getElementById("deleteButton").onclick = () => {
+            document.getElementById("deleteButton").addEventListener("click", () => {
                 list = {
                     date: before_dateValue,
                     period: before_periodValue
                 }
 
-                Promise.resolve(deleteData(list, "pressure"))
-                    .then(() => reloadPressureDataAndRender())
-                    .then(() => {
-                        dialog.style.display = "none";
-                    })
-                    .catch((error) => {
-                        console.error("delete error:", error);
-                        alert("削除処理でエラーが発生しました。");
-                    });
-            };
+                deleteData(list, "pressure")
+                // ダイアログを閉じる
+                dialog.style.display = "none";
+            });
 
 
         }
@@ -1685,6 +1659,15 @@
             const newHigh = document.getElementById("editHigh").value;
             const newLow = document.getElementById("editLow").value;
 
+            // 値を更新
+            currentRow1.querySelector(".date-picker").innerText = newDate;
+            currentRow1.querySelector(".time-picker").innerText = dataArray[newTime];
+            currentRow1.querySelector(".high1").innerText = newHigh;
+            currentRow1.querySelector(".low1").innerText = newLow;
+
+            // ダイアログを閉じる
+            dialog.style.display = "none";
+
             if (newDate && newHigh && newTime && newLow) {
                 var olddata = {
                     date: before_dateValue,
@@ -1698,27 +1681,7 @@
                     low: parseInt(newLow)
 
                 }
-                const sameKey =
-                    String(olddata.date) === String(newdata.date) &&
-                    Number(olddata.period) === Number(newdata.period);
-
-                const savePressure = (typeof setPressure === "function") ?
-                    setPressure :
-                    ((payload) => addData(payload, "pressure"));
-                const request = sameKey ?
-                    Promise.resolve(savePressure(newdata)) :
-                    Promise.resolve(savePressure(newdata))
-                    .then(() => deleteData(olddata, "pressure"));
-
-                request.then(() => {
-                    // 保存後は再取得して表示を揃える
-                    return reloadPressureDataAndRender();
-                }).then(() => {
-                    dialog.style.display = "none";
-                }).catch((error) => {
-                    console.error("save/update error:", error);
-                    alert("保存処理でエラーが発生しました。");
-                });
+                handleUpdate(olddata, newdata, "pressure");
 
             } else {
                 alert(bt("fillAll"));
