@@ -1034,17 +1034,29 @@
             if (loadingOlderPressure || !hasOlderPressure) return;
             loadingOlderPressure = true;
             syncOlderButtons();
-            const nextPage = loadedWeekPages + 1;
-            fetchPressurePage(nextPage, "append").then((items) => {
-                if (!items.length) {
+            const startPage = loadedWeekPages + 1;
+            const maxSearchPages = 120;
+            const walk = (page) => {
+                if (page > maxSearchPages) {
                     hasOlderPressure = false;
-                } else {
-                    pressurePage = nextPage;
-                    loadedWeekPages = nextPage;
+                    return Promise.resolve(false);
+                }
+                return fetchPressurePage(page, "append").then((items) => {
+                    if (!items.length) {
+                        return walk(page + 1);
+                    }
+                    pressurePage = page;
+                    loadedWeekPages = page;
                     allData = dedupePressureItems(allData);
                     updateChart(allData);
                     createTablePage();
                     populateTable();
+                    return true;
+                });
+            };
+            walk(startPage).then((found) => {
+                if (!found) {
+                    hasOlderPressure = false;
                 }
             }).catch((e) => {
                 console.error("load older error:", e);
@@ -1146,7 +1158,7 @@
                 }
                 // If there is no record in the latest week, auto-load older weeks
                 // so the screen is not empty at startup.
-                const maxAutoPages = 12;
+                const maxAutoPages = 120;
                 const walk = (page) => {
                     if (page > maxAutoPages) {
                         hasOlderPressure = false;
