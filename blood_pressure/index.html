@@ -1204,6 +1204,7 @@
                 withLoginOnExternalBrowser: true,
             }).then(() => {
                 const idToken = liff.getIDToken();
+                alert(idToken);
                 const lang = liff.getAppLanguage();
                 if (!isSupportedLang(initialSavedLang)) {
                     selectedUiLang = normalizeLangToUi(lang);
