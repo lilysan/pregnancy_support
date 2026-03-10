@@ -1302,6 +1302,20 @@
                                 font: {
                                     size: 12,
                                     weight: "700"
+                                },
+                                generateLabels: function (chart) {
+                                    const originalLabels = Chart.defaults.plugins.legend.labels.generateLabels(
+                                        chart);
+                                    originalLabels.forEach(label => {
+                                        // 中の色（fillStyle）を「白」に固定
+                                        label.fillStyle = '#ffffff';
+                                        // 枠線の色（strokeStyle）を各データセットの色（赤/青）に合わせる
+                                        const dataset = chart.data.datasets[label.datasetIndex];
+                                        label.strokeStyle = dataset.borderColor;
+                                        // 枠線の太さを少し出すと見やすいです
+                                        label.lineWidth = 2;
+                                    });
+                                    return originalLabels;
                                 }
                             }
                         },
@@ -1718,7 +1732,7 @@
         applyI18n();
         window.addEventListener("load", bootPressureApp);
     </script>
-    <script src="../commonkokima_pressure.js"></script>
+    <script src="../commonkokima.js"></script>
     <script src="../commonkokima_test.js"></script>
 
 </body>
