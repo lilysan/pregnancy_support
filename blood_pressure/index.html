@@ -70,7 +70,7 @@
         </div>
 
         <div id="olderChartsContainer" class="older-charts-container"></div>
-        <button type="button" id="loadOlderChartBtn" class="load-older-btn">以前の情報を見る</button>
+        <button type="button" id="loadOlderChartBtn" class="load-older-btn">以前の情報をみる</button>
 
     </div>
     <div id="table-container" class="table-container content">
@@ -88,7 +88,7 @@
             <tbody>
             </tbody>
         </table>
-        <button type="button" id="loadOlderTableBtn" class="load-older-btn">以前の情報を見る</button>
+        <button type="button" id="loadOlderTableBtn" class="load-older-btn">以前の情報をみる</button>
 
     </div>
 
@@ -281,7 +281,7 @@
                 high: "最高血圧",
                 low: "最低血圧",
                 add: "データを追加",
-                older: "以前の情報を見る",
+                older: "以前の情報をみる",
                 noMore: "これ以上ありません",
                 loading: "読み込み中...",
                 register: "登録",
@@ -1161,7 +1161,6 @@
                 const maxAutoPages = 120;
                 const walk = (page) => {
                     if (page > maxAutoPages) {
-                        hasOlderPressure = false;
                         syncOlderButtons();
                         allData = [];
                         updateChart(allData);
