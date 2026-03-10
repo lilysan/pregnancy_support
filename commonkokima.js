@@ -95,7 +95,7 @@
                 return items;
             }
         }, function () {
-            alert("Network error!");
+            alert("Network error!loadData");
             return [];
         }).always(function () {
             $(".loader").hide();
@@ -146,7 +146,7 @@
             createTablePage(); // テーブルを更新
         }
     }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-        alert("Network error!");
+        alert("Network error!addData");
     }).always(function () {
         $(".loader").hide();
     });
@@ -177,7 +177,7 @@
                 setallData()
             }
         }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("Network error!");
+            alert("Network error!deleteData");
         }).always(function () {
             $(".loader").hide();
         });
