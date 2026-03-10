@@ -1171,6 +1171,17 @@
             });
         }
 
+        function reloadPressureDataAndRender() {
+            pressurePage = 1;
+            loadedWeekPages = 1;
+            hasOlderPressure = true;
+            loadingOlderPressure = false;
+            return loadInitialPressureWindow().then(() => {
+                createTablePage();
+                populateTable();
+            });
+        }
+
         function bootPressureApp() {
             if (window.IS_TEST_MODE) {
                 // Skip LIFF auth in test mode so UI/data flow can be verified locally.
@@ -1532,14 +1543,8 @@
                     setPressure :
                     ((payload) => addData(payload, "pressure"));
                 Promise.resolve(savePressure(list)).then(() => {
-                    pressurePage = 1;
-                    loadedWeekPages = 1;
-                    hasOlderPressure = true;
-                    loadingOlderPressure = false;
-                    return loadInitialPressureWindow();
+                    return reloadPressureDataAndRender();
                 }).then(() => {
-                    createTablePage();
-                    populateTable();
                     switchTab("chart-container", {
                         currentTarget: document.getElementById("tabChart")
                     });
@@ -1631,22 +1636,28 @@
 
 
             // キャンセルボタンの処理
-            document.getElementById("cancelButton").addEventListener("click", () => {
+            document.getElementById("cancelButton").onclick = () => {
                 // ダイアログを閉じる
                 dialog.style.display = "none";
-            });
+            };
 
             // 削除ボタンの処理
-            document.getElementById("deleteButton").addEventListener("click", () => {
+            document.getElementById("deleteButton").onclick = () => {
                 list = {
                     date: before_dateValue,
                     period: before_periodValue
                 }
 
-                deleteData(list, "pressure")
-                // ダイアログを閉じる
-                dialog.style.display = "none";
-            });
+                Promise.resolve(deleteData(list, "pressure"))
+                    .then(() => reloadPressureDataAndRender())
+                    .then(() => {
+                        dialog.style.display = "none";
+                    })
+                    .catch((error) => {
+                        console.error("delete error:", error);
+                        alert("削除処理でエラーが発生しました。");
+                    });
+            };
 
 
         }
@@ -1689,14 +1700,8 @@
 
                 request.then(() => {
                     // 保存後は再取得して表示を揃える
-                    pressurePage = 1;
-                    loadedWeekPages = 1;
-                    hasOlderPressure = true;
-                    loadingOlderPressure = false;
-                    return loadInitialPressureWindow();
+                    return reloadPressureDataAndRender();
                 }).then(() => {
-                    createTablePage();
-                    populateTable();
                     dialog.style.display = "none";
                 }).catch((error) => {
                     console.error("save/update error:", error);
@@ -1752,7 +1757,7 @@
         applyI18n();
         window.addEventListener("load", bootPressureApp);
     </script>
-    <script src="../commonkokima.js"></script>
+    <script src="../commonkokima_pressure.js"></script>
     <script src="../commonkokima_test.js"></script>
 
 </body>
