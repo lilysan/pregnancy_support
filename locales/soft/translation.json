@@ -1,0 +1,30 @@
+{
+  "title": {
+    "template": "<ruby>言語切替<rt>げんごきりかえ</rt></ruby>について",
+    "style": "<ruby>見本<rt>みほん</rt></ruby>ページ"
+  },
+  "template": {
+    "sample1": "<ruby>文字<rt>もじ</rt></ruby>の <ruby>置換<rt>ちかん</rt></ruby>について",
+    "sample2": "ふつうの パターン",
+    "sample3": "HTMLタグを <ruby>使<rt>つか</rt></ruby>う パターン",
+    "sample4": "<ruby>動的<rt>どうてき</rt></ruby>に <ruby>変<rt>か</rt></ruby>える パターン",
+    "sample5": "placeholderの <ruby>翻訳<rt>ほんやく</rt></ruby>",
+    "desc": "あらかじめ\"/locales/{<ruby>言語<rt>げんご</rt></ruby>コード}/translation.json\"ファイルを <ruby>用意<rt>ようい</rt></ruby>しておきます。",
+    "desc1": "<ruby>変数<rt>へんすう</rt></ruby>を <ruby>使<rt>つか</rt></ruby>って <ruby>文字<rt>もじ</rt></ruby>を <ruby>置換<rt>ちかん</rt></ruby>することもできます。",
+    "content": "このように <ruby>書<rt>か</rt></ruby>くと、タグの <ruby>中<rt>なか</rt></ruby>が <ruby>自動的<rt>じどうてき</rt></ruby>にtranslation.json<ruby>内<rt>ない</rt></ruby>のtemplate.contentの <ruby>文字<rt>もじ</rt></ruby>に <ruby>置<rt>お</rt></ruby>き<ruby>換<rt>か</rt></ruby>わります。",
+    "content1": "タグの <ruby>中<rt>なか</rt></ruby>だけでなくplaceholderも <ruby>翻訳<rt>ほんやく</rt></ruby>できます。",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "なまえ"
+  },
+  "style": {
+    "header": "ヘッダー <ruby>配置<rt>はいち</rt></ruby>の <ruby>見本<rt>みほん</rt></ruby>",
+    "typography": "もじの デザイン"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "キャンセル",
+    "back": "もどる"
+  }
+}

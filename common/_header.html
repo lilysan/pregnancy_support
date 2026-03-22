@@ -1,0 +1,56 @@
+<header class="header">
+
+    <img src="../common/assets/logo.svg" alt="logo" class="site-title-logo">
+
+    <div class="site-title-wrap">
+        <h1 class="site-title">Pregnancy Support</h1>
+    </div>
+
+    <div class="header-actions" id="headerMenuGroup">
+        <button class="lang-btn" id="langBtn" type="button" aria-expanded="false">
+            <iconify-icon icon="material-symbols:language" width="20" height="20"></iconify-icon>
+            <span class="lang-label" id="currentLanguage">日本語</span>
+            <iconify-icon icon="material-symbols:keyboard-arrow-down-rounded" width="20" height="20"></iconify-icon>
+        </button>
+        <div class="divider-v"></div>
+        <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false">
+            <iconify-icon icon="material-symbols:menu-rounded" width="22" height="22"></iconify-icon>
+        </button>
+
+        <div class="dropdown language" id="languageDropdown">
+            <div class="dropdown-head">
+                <span>言語を選択</span>
+                <span class="dropdown-head-hint">
+                  <iconify-icon icon="material-symbols:swap-vert-rounded" width="16" height="16"></iconify-icon>
+                  スクロール
+                </span>
+            </div>
+            <div class="dropdown-list-wrap">
+                <div class="fade-top"></div>
+                <div class="dropdown-list" id="languageList"></div>
+                <div class="fade-bottom">
+                    <iconify-icon icon="material-symbols:keyboard-arrow-down-rounded" width="20" height="20"
+                                  style="color:var(--sub-text)"></iconify-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="menu-overlay" id="menuOverlay">
+    <div class="header-wrapper">
+        <div class="menu-header">
+            <div class="menu-branding">
+                <img src="../common/assets/logo.svg" alt="logo" class="site-title-logo">
+                <div class="site-title-wrap">
+                    <h1 class="site-title">Pregnancy Support</h1>
+                </div>
+            </div>
+            <button class="menu-close-btn" id="menuCloseBtn" type="button">
+                <iconify-icon icon="material-symbols:close-rounded" width="28" height="28"></iconify-icon>
+            </button>
+        </div>
+    </div>
+    <div class="menu-content" id="menuDropdown">
+        <!-- Menu items will be injected here by JavaScript -->
+    </div>
+</div>

@@ -1,41 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Pregnancy Support</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="stylesheet" href="reset.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="common/js/config.js"></script>
+    <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-<div class="loader">
-    <div class="text-center">
-        <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
+
+<div id="header-container" class="header-wrapper"></div>
+
+<!--メインコンテンツ-->
+<main>
+
+</main>
+
+<!--ローディング画面-->
+<div class="overlay is-open" id="loadingOverlay">
+    <div class="spinner"></div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
-    const LIFF_ID = "2005594923-wN8OjyGd";
+    /** @type {import('@line/liff').Liff} */
+    const liff = window.liff;
+    // const currentLanguageId = liff.getAppLanguage(); //言語を取る場合使用
+    const currentPage = "template"; //基本的にはページのパスをセット
 
-    liff.init({
-        liffId: LIFF_ID, // Use own liffId
-        withLoginOnExternalBrowser: true, // Enable automatic login process
-    }).then(() => {
-        // Start to use liff's api
-        $(".loader").hide();
-        liff.closeWindow();
-    }).catch((err) => {
-        // Error happens during initialization
-        liff.logout();
-        alert("LIFF init failed.");
+    $(function () {
+        // 開発環境（localhost または 127.0.0.1）かどうかを判定
+        const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+
+        // IDToken不要の場合は、liff.initせず、直接main()を実行。
+        liff.init({
+            liffId: LIFF_ID,
+            withLoginOnExternalBrowser: !isDev,
+        }).then(() => {
+            // main(liff.getIDToken());
+            main();
+            loadHeader();
+        }).catch(() => {
+            alert("LIFF init failed.");
+        });
+
+        /**
+         * 各ページ特有の処理
+         */
+        function main(){
+            /**
+             * メインの処理を書く
+             */
+
+            /**
+             * 言語変更イベントのリスナー（header.jsでイベントを発火済み）
+             * Canvas内の文字の言語などを切り替える場合に使用
+             */
+            document.addEventListener('language-changed', function(e) {
+                // const lang = e.detail.langId;//戻り値は"ja", "en"など
+
+                /**
+                 * Canvas内の文字の言語などをアップデート
+                 */
+            });
+        }
+
+        /**
+         * ヘッダーの読み込み
+         */
+        function loadHeader(){
+            $("#header-container").load("common/_header.html", function() {
+                // header.js内の翻訳初期化完了イベントを待機
+                document.addEventListener('i18n-initialized', function() {
+                    $('#test').html(i18next.t('template.content-sample3', { name: 'World' })); //動的に文字を追加したい場合
+                    $("#loadingOverlay").removeClass('is-open');
+                }, { once: true });
+
+                $.getScript("common/js/header.js");
+            });
+        }
     });
 </script>
-
 </body>
 </html>

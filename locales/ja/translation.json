@@ -1,0 +1,30 @@
+{
+  "title": {
+    "template": "言語切替について",
+    "style": "スタイルガイド"
+  },
+  "template": {
+    "sample1": "置換文字について",
+    "sample2": "ノーマルパターン",
+    "sample3": "htmlタグを有効にするパターン",
+    "sample4": "動的に変更パターン",
+    "sample5": "placeholderの翻訳",
+    "desc": "あらかじめ\"/locales/{言語コード}/translation.json\"ファイルを用意しておきます。",
+    "desc1": "変数を使って文字を置換することもできます。",
+    "content": "このように書くと、タグ内が自動的にtranslation.json内のtemplate.contentの文字に置き換わります。",
+    "content1": "タグ内だけでなくplaceholderも翻訳可能です。",
+    "content-sample1": "",
+    "content-sample2": "{{name}}" ,
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "名前"
+  },
+  "style": {
+    "header": "ヘッダーレイアウトサンプル",
+    "typography": "タイポグラフィー"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "キャンセル",
+    "back": "戻る"
+  }
+}
