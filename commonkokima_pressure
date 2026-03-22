@@ -95,7 +95,7 @@
                 return items;
             }
         }, function () {
-            alert("Network error!loadData");
+            alert("Network error!");
             return [];
         }).always(function () {
             $(".loader").hide();
@@ -119,6 +119,10 @@
     }
 
     
+    // 血圧登録（GAS側 UserSheet.setPressure を利用）
+    function setPressure(data) {
+        return addData(data, "pressure");
+    }
 
 
 
@@ -146,7 +150,7 @@
             createTablePage(); // テーブルを更新
         }
     }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-        alert("Network error!addData");
+        alert("Network error!");
     }).always(function () {
         $(".loader").hide();
     });
@@ -177,7 +181,7 @@
                 setallData()
             }
         }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("Network error!deleteData");
+            alert("Network error!");
         }).always(function () {
             $(".loader").hide();
         });
