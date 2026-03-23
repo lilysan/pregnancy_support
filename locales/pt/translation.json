@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "Pré-natal",
+    "info": "Informações",
+    "check": "Verificação",
+    "other": "Outros"
+  },
+  "subgroupTitle": {
+    "board": "Quadro de comunicação",
+    "mydata": "Meus dados",
+    "other": "Outros"
+  },
+  "title": {
+    "template": "Sobre a troca de idioma",
+    "style": "Guia de estilo",
+    "reception": "Recepção",
+    "examination": "Consulta",
+    "guidance": "Orientação de saúde",
+    "mypage": "Configurações da minha página",
+    "vaccination": "Vacinação",
+    "birthplan": "Plano de parto",
+    "weight": "Peso",
+    "bloodPressure": "Pressão arterial",
+    "bloodSugar": "Glicemia",
+    "memo": "Memo",
+    "guidebook": "Guia",
+    "faq": "Perguntas frequentes",
+    "usage": "Como usar",
+    "laborCounter": "Contador de contrações",
+    "movementCounter": "Contador de movimentos fetais",
+    "translation": "Aplicativo de tradução",
+    "data": "Obtenção de dados"
+  },
+  "header": {
+    "selectLanguage": "Selecionar idioma",
+    "scroll": "Rolar"
+  },
+  "template": {
+    "sample1": "Sobre substituição de texto",
+    "sample2": "Padrão normal",
+    "sample3": "Padrão com tags HTML ativadas",
+    "sample4": "Padrão alterado dinamicamente",
+    "sample5": "Tradução de placeholder",
+    "desc": "Prepare com antecedência o arquivo \"/locales/{language-code}/translation.json\".",
+    "desc1": "Também é possível substituir texto usando variáveis.",
+    "content": "Se escrever assim, o texto dentro da tag será substituído automaticamente pelo template.content de translation.json.",
+    "content1": "Não apenas o texto da tag, mas também o placeholder pode ser traduzido.",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "Nome"
+  },
+  "style": {
+    "header": "Exemplo de layout de cabeçalho",
+    "typography": "Tipografia"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "Cancelar",
+    "back": "Voltar"
+  }
+}

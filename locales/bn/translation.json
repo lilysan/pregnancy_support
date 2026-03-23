@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "গর্ভকালীন পরীক্ষা",
+    "info": "তথ্য",
+    "check": "পরীক্ষা",
+    "other": "অন্যান্য"
+  },
+  "subgroupTitle": {
+    "board": "যোগাযোগ বোর্ড",
+    "mydata": "আমার ডেটা",
+    "other": "অন্যান্য"
+  },
+  "title": {
+    "template": "ভাষা পরিবর্তন সম্পর্কে",
+    "style": "স্টাইল গাইড",
+    "reception": "রিসেপশন",
+    "examination": "পরীক্ষা",
+    "guidance": "স্বাস্থ্য নির্দেশনা",
+    "mypage": "আমার পেজ সেটিংস",
+    "vaccination": "টিকাদান",
+    "birthplan": "প্রসব পরিকল্পনা",
+    "weight": "ওজন",
+    "bloodPressure": "রক্তচাপ",
+    "bloodSugar": "রক্তে শর্করা",
+    "memo": "মেমো",
+    "guidebook": "গাইডবুক",
+    "faq": "প্রায়শই জিজ্ঞাসিত প্রশ্ন",
+    "usage": "ব্যবহারের নিয়ম",
+    "laborCounter": "প্রসব ব্যথা কাউন্টার",
+    "movementCounter": "ভ্রূণের নড়াচড়া কাউন্টার",
+    "translation": "অনুবাদ অ্যাপ",
+    "data": "ডেটা সংগ্রহ"
+  },
+  "header": {
+    "selectLanguage": "ভাষা নির্বাচন করুন",
+    "scroll": "স্ক্রল"
+  },
+  "template": {
+    "sample1": "টেক্সট প্রতিস্থাপন সম্পর্কে",
+    "sample2": "স্বাভাবিক প্যাটার্ন",
+    "sample3": "HTML ট্যাগ সক্রিয় করার প্যাটার্ন",
+    "sample4": "ডাইনামিকভাবে পরিবর্তনযোগ্য প্যাটার্ন",
+    "sample5": "placeholder অনুবাদ",
+    "desc": "আগে থেকেই \"/locales/{language-code}/translation.json\" ফাইল প্রস্তুত রাখুন।",
+    "desc1": "ভেরিয়েবল ব্যবহার করে টেক্সট প্রতিস্থাপনও করা যায়।",
+    "content": "এভাবে লিখলে ট্যাগের ভেতরের লেখা স্বয়ংক্রিয়ভাবে translation.json এর template.content এ প্রতিস্থাপিত হবে।",
+    "content1": "শুধু ট্যাগের ভেতরের লেখা নয়, placeholder-ও অনুবাদ করা যায়।",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "নাম"
+  },
+  "style": {
+    "header": "হেডার লেআউট নমুনা",
+    "typography": "টাইপোগ্রাফি"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "বাতিল",
+    "back": "ফিরে যান"
+  }
+}

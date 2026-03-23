@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "مراقبت بارداری",
+    "info": "راهنما",
+    "check": "بررسی",
+    "other": "سایر"
+  },
+  "subgroupTitle": {
+    "board": "تابلوی ارتباط",
+    "mydata": "داده‌های من",
+    "other": "سایر"
+  },
+  "title": {
+    "template": "درباره تغییر زبان",
+    "style": "راهنمای سبک",
+    "reception": "پذیرش",
+    "examination": "معاینه",
+    "guidance": "راهنمایی صحی",
+    "mypage": "تنظیمات صفحه من",
+    "vaccination": "واکسیناسیون",
+    "birthplan": "پلان ولادت",
+    "weight": "وزن",
+    "bloodPressure": "فشار خون",
+    "bloodSugar": "قند خون",
+    "memo": "یادداشت",
+    "guidebook": "کتابچه راهنما",
+    "faq": "پرسش‌های متداول",
+    "usage": "روش استفاده",
+    "laborCounter": "شمارنده درد زایمان",
+    "movementCounter": "شمارنده حرکات جنین",
+    "translation": "اپ ترجمه",
+    "data": "دریافت داده"
+  },
+  "header": {
+    "selectLanguage": "انتخاب زبان",
+    "scroll": "اسکرول"
+  },
+  "template": {
+    "sample1": "درباره جایگزینی متن",
+    "sample2": "الگوی عادی",
+    "sample3": "الگوی فعال‌سازی تگ‌های HTML",
+    "sample4": "الگوی تغییر پویا",
+    "sample5": "ترجمه placeholder",
+    "desc": "فایل \"/locales/{language-code}/translation.json\" را از قبل آماده کنید.",
+    "desc1": "می‌توانید متن را با استفاده از متغیرها نیز جایگزین کنید.",
+    "content": "اگر به این شکل بنویسید، متن داخل تگ به صورت خودکار با template.content در translation.json جایگزین می‌شود.",
+    "content1": "نه تنها متن داخل تگ، بلکه placeholder نیز قابل ترجمه است.",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "نام"
+  },
+  "style": {
+    "header": "نمونه چیدمان سرصفحه",
+    "typography": "تایپوگرافی"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "لغو",
+    "back": "بازگشت"
+  }
+}

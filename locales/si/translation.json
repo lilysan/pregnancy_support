@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "ගර්භ පරීක්ෂාව",
+    "info": "තොරතුරු",
+    "check": "පරීක්ෂාව",
+    "other": "වෙනත්"
+  },
+  "subgroupTitle": {
+    "board": "සන්නිවේදන පුවරුව",
+    "mydata": "මගේ දත්ත",
+    "other": "වෙනත්"
+  },
+  "title": {
+    "template": "භාෂා මාරුව ගැන",
+    "style": "ශෛලී මාර්ගෝපදේශය",
+    "reception": "පිළිගැනීම",
+    "examination": "පරීක්ෂාව",
+    "guidance": "සෞඛ්‍ය මාර්ගෝපදේශය",
+    "mypage": "මගේ පිටුවේ සැකසුම්",
+    "vaccination": "එන්නත් කිරීම",
+    "birthplan": "ප්‍රසව සැලැස්ම",
+    "weight": "බර",
+    "bloodPressure": "රුධිර පීඩනය",
+    "bloodSugar": "රුධිර සීනි",
+    "memo": "සටහන",
+    "guidebook": "මාර්ගෝපදේශ පොත",
+    "faq": "නිතර අසන ප්‍රශ්න",
+    "usage": "භාවිතා කරන ආකාරය",
+    "laborCounter": "ප්‍රසව වේදනා ගණකය",
+    "movementCounter": "භ්‍රූණ චලන ගණකය",
+    "translation": "පරිවර්තන යෙදුම",
+    "data": "දත්ත ලබාගැනීම"
+  },
+  "header": {
+    "selectLanguage": "භාෂාව තෝරන්න",
+    "scroll": "ස්ක්‍රෝල්"
+  },
+  "template": {
+    "sample1": "පෙළ ප්‍රතිස්ථාපනය ගැන",
+    "sample2": "සාමාන්‍ය රටාව",
+    "sample3": "HTML ටැග් සක්‍රිය කරන රටාව",
+    "sample4": "ගතිකව වෙනස් කරන රටාව",
+    "sample5": "placeholder පරිවර්තනය",
+    "desc": "\"/locales/{language-code}/translation.json\" ගොනුව කලින් සූදානම් කර තබන්න.",
+    "desc1": "විචල්‍ය භාවිතයෙන් පෙළ ප්‍රතිස්ථාපනය කළ හැක.",
+    "content": "මේ ආකාරයෙන් ලිවූ විට, ටැග් ඇතුළත පෙළ translation.json හි template.content වෙත ස්වයංක්‍රීයව මාරුවේ.",
+    "content1": "ටැග් ඇතුළත පෙළ පමණක් නොව placeholder ද පරිවර්තනය කළ හැක.",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "නම"
+  },
+  "style": {
+    "header": "ශීර්ෂක සැලසුම් උදාහරණය",
+    "typography": "අකුරු සැලසුම"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "අවලංගු",
+    "back": "ආපසු"
+  }
+}

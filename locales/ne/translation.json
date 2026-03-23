@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "गर्भावस्था जाँच",
+    "info": "जानकारी",
+    "check": "जाँच",
+    "other": "अन्य"
+  },
+  "subgroupTitle": {
+    "board": "सञ्चार बोर्ड",
+    "mydata": "मेरो डाटा",
+    "other": "अन्य"
+  },
+  "title": {
+    "template": "भाषा परिवर्तनबारे",
+    "style": "शैली मार्गदर्शिका",
+    "reception": "रिसेप्सन",
+    "examination": "जाँच",
+    "guidance": "स्वास्थ्य मार्गदर्शन",
+    "mypage": "मेरो पृष्ठ सेटिङ",
+    "vaccination": "खोप",
+    "birthplan": "प्रसव योजना",
+    "weight": "तौल",
+    "bloodPressure": "रक्तचाप",
+    "bloodSugar": "रगतमा चिनी",
+    "memo": "मेमो",
+    "guidebook": "मार्गदर्शिका",
+    "faq": "बारम्बार सोधिने प्रश्न",
+    "usage": "प्रयोग विधि",
+    "laborCounter": "प्रसव पीडा काउन्टर",
+    "movementCounter": "भ्रूण चाल काउन्टर",
+    "translation": "अनुवाद एप",
+    "data": "डाटा प्राप्ति"
+  },
+  "header": {
+    "selectLanguage": "भाषा छान्नुहोस्",
+    "scroll": "स्क्रोल"
+  },
+  "template": {
+    "sample1": "पाठ प्रतिस्थापनबारे",
+    "sample2": "सामान्य ढाँचा",
+    "sample3": "HTML ट्याग सक्षम गर्ने ढाँचा",
+    "sample4": "गतिशील रूपमा परिवर्तन हुने ढाँचा",
+    "sample5": "placeholder को अनुवाद",
+    "desc": "पहिले नै \"/locales/{language-code}/translation.json\" फाइल तयार गर्नुहोस्।",
+    "desc1": "चर प्रयोग गरेर पाठ प्रतिस्थापन गर्न सकिन्छ।",
+    "content": "यसरी लेख्दा, ट्याग भित्रको पाठ स्वतः translation.json को template.content मा बदलिन्छ।",
+    "content1": "ट्याग भित्रको पाठ मात्र होइन, placeholder पनि अनुवाद गर्न सकिन्छ।",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "नाम"
+  },
+  "style": {
+    "header": "हेडर लेआउट नमूना",
+    "typography": "टाइपोग्राफी"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "रद्द गर्नुहोस्",
+    "back": "फिर्ता"
+  }
+}

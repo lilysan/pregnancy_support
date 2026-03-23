@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "Допологовий огляд",
+    "info": "Інформація",
+    "check": "Перевірка",
+    "other": "Інше"
+  },
+  "subgroupTitle": {
+    "board": "Дошка спілкування",
+    "mydata": "Мої дані",
+    "other": "Інше"
+  },
+  "title": {
+    "template": "Про зміну мови",
+    "style": "Посібник зі стилю",
+    "reception": "Реєстратура",
+    "examination": "Огляд",
+    "guidance": "Консультація щодо здоров'я",
+    "mypage": "Налаштування моєї сторінки",
+    "vaccination": "Вакцинація",
+    "birthplan": "План пологів",
+    "weight": "Вага",
+    "bloodPressure": "Артеріальний тиск",
+    "bloodSugar": "Рівень цукру в крові",
+    "memo": "Нотатка",
+    "guidebook": "Посібник",
+    "faq": "Поширені запитання",
+    "usage": "Як користуватися",
+    "laborCounter": "Лічильник перейм",
+    "movementCounter": "Лічильник рухів плода",
+    "translation": "Додаток-перекладач",
+    "data": "Отримання даних"
+  },
+  "header": {
+    "selectLanguage": "Виберіть мову",
+    "scroll": "Прокрутка"
+  },
+  "template": {
+    "sample1": "Про заміну тексту",
+    "sample2": "Звичайний шаблон",
+    "sample3": "Шаблон з увімкненими HTML-тегами",
+    "sample4": "Шаблон з динамічною зміною",
+    "sample5": "Переклад placeholder",
+    "desc": "Заздалегідь підготуйте файл \"/locales/{language-code}/translation.json\".",
+    "desc1": "Також можна замінювати текст за допомогою змінних.",
+    "content": "Якщо написати так, текст у тегі автоматично заміниться на template.content з translation.json.",
+    "content1": "Можна перекладати не лише текст у тегі, а й placeholder.",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "Ім'я"
+  },
+  "style": {
+    "header": "Приклад макета заголовка",
+    "typography": "Типографіка"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "Скасувати",
+    "back": "Назад"
+  }
+}

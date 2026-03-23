@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "Prenatal checkup",
+    "info": "Impormasyon",
+    "check": "Pagsusuri",
+    "other": "Iba pa"
+  },
+  "subgroupTitle": {
+    "board": "Communication board",
+    "mydata": "Aking data",
+    "other": "Iba pa"
+  },
+  "title": {
+    "template": "Tungkol sa pagpapalit ng wika",
+    "style": "Style guide",
+    "reception": "Resepsyon",
+    "examination": "Pagsusuri",
+    "guidance": "Patnubay sa kalusugan",
+    "mypage": "Mga setting ng aking pahina",
+    "vaccination": "Bakuna",
+    "birthplan": "Plano sa panganganak",
+    "weight": "Timbang",
+    "bloodPressure": "Presyon ng dugo",
+    "bloodSugar": "Asukal sa dugo",
+    "memo": "Memo",
+    "guidebook": "Gabay",
+    "faq": "FAQ",
+    "usage": "Paano gamitin",
+    "laborCounter": "Labor counter",
+    "movementCounter": "Kick counter",
+    "translation": "Translation app",
+    "data": "Pagkuha ng data"
+  },
+  "header": {
+    "selectLanguage": "Pumili ng wika",
+    "scroll": "I-scroll"
+  },
+  "template": {
+    "sample1": "Tungkol sa pagpapalit ng teksto",
+    "sample2": "Normal na pattern",
+    "sample3": "Pattern na pinapagana ang HTML tag",
+    "sample4": "Pattern na dynamic na nababago",
+    "sample5": "Pagsasalin ng placeholder",
+    "desc": "Ihanda muna ang file na \"/locales/{language-code}/translation.json\".",
+    "desc1": "Maaari ring palitan ang teksto gamit ang mga variable.",
+    "content": "Kapag ganito ang pagkakasulat, awtomatikong papalitan ang teksto sa loob ng tag ng template.content mula sa translation.json.",
+    "content1": "Hindi lang teksto sa loob ng tag, pati placeholder ay puwedeng isalin.",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "Pangalan"
+  },
+  "style": {
+    "header": "Halimbawa ng layout ng header",
+    "typography": "Typography"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "Kanselahin",
+    "back": "Bumalik"
+  }
+}

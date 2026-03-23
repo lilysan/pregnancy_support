@@ -144,7 +144,16 @@ body.no-scroll {
     display: none;
 }
 .dropdown.is-open { display: block; }
-.dropdown.language { right: 44px; min-width: 220px; }
+.dropdown.language {
+    right: 44px;
+    left: auto;
+    min-width: 220px;
+    max-width: min(92vw, 340px);
+}
+body[dir="rtl"] .dropdown.language {
+    left: 44px;
+    right: auto;
+}
 .menu-overlay {
     position: fixed;
     top: 0;

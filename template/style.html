@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Pregnancy Support UI Sample</title>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="../common/js/config.js"></script>
+    <link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+
+<div id="header-container" class="header-wrapper"></div>
+
+<main>
+    <div class="toast" id="toast">
+        <div class="toast-inner" id="toastInner">
+            <iconify-icon id="toastIcon" width="22" height="22"></iconify-icon>
+            <div>
+                <p id="toastTitle bold"></p>
+                <p class="caption-sample" id="toastMessage"></p>
+            </div>
+        </div>
+    </div>
+
+    <article class="main-container">
+        <h1 data-i18n="[html]title.style"></h1>
+        <p class="desc">ここにページの説明文を入れられます。（17px）</p>
+
+        <section>
+            <h2 data-i18n="[html]style.header">Header layout sample</h2>
+            <p class="desc">LIFF が外部ブラウザで開く前提で、ヘッダーにはサイトタイトル、LINE
+                チャットへ戻るボタン、言語切り替え、メニューを配置します。言語切替はLINEから入った場合、自動で切り替えを行います。ヘッダーの色はタブのカテゴリーによらず共通です。ページタイトルと説明文はヘッダー下の本文領域に左揃えで配置します。</p>
+        </section>
+
+        <section>
+            <h2 data-i18n="[html]style.typography">Typography</h2>
+            <p class="desc">実際に使用する HTML 要素と対応する文字サイズを示します。Heading1 は h1、本文は body
+                サイズとして表示しています。</p>
+            <div class="row-list">
+                <div class="token-row">
+                    <p class="caption">Heading1 / token: h1 / 25px</p>
+                    <h1 class="h1-sample">h1（ページタイトル）</h1>
+                </div>
+                <div class="token-row">
+                    <p class="caption">Heading2 / token: h2 / 22px</p>
+                    <h2 class="h2-sample">h2（セクションタイトル）</h2>
+                </div>
+                <div class="token-row">
+                    <p class="caption">Heading3 / token: h3 / 19px</p>
+                    <h3 class="h3-sample">h3（カード見出し）</h3>
+                </div>
+                <div class="token-row">
+                    <p class="caption">Body / token: body / 17px</p>
+                    <p class="body-sample">Body（本文、標準テキスト）</p>
+                </div>
+                <div class="token-row">
+                    <p class="caption">Small text / token: small / 15px</p>
+                    <p class="small-sample">Small text（補助説明など）</p>
+                </div>
+                <div class="token-row">
+                    <p class="caption">Caption / token: caption / 13px</p>
+                    <p class="caption-sample">Caption（注釈など）</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Font Colors</h2>
+            <p class="desc">
+                テキストカラーの使用例です。通常背景で使用する文字色と、濃色背景で使用する白文字の例を示しています。</p>
+            <div class="row-list">
+                <div class="card">
+                    <p>Text（通常の本文に使用）</p>
+                    <p class="sub-text">Sub text（補助説明・メタ情報）</p>
+                </div>
+                <div class="dark-card">
+                    <p>White (on dark bg)（濃色背景では白文字使用）</p>
+                </div>
+                <div class="grid-2">
+                    <div class="swatch-card">
+                        <div class="swatch" style="background:var(--text)"></div>
+                        <p class="caption-sample bold" style="margin-top:8px">Text</p>
+                        <p class="caption">#2C3E50</p>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch" style="background:var(--sub-text)"></div>
+                        <p class="caption-sample bold" style="margin-top:8px">Sub text</p>
+                        <p class="caption">#6B7C93</p>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch" style="background:var(--background);border:1px solid var(--border)"></div>
+                        <p class="caption-sample bold" style="margin-top:8px">White (on dark bg)</p>
+                        <p class="caption">#FFFFFF</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>All Colors</h2>
+            <p class="desc">
+                アプリ全体で使用するカラーの一覧です。デザイントークンとして定義されている色をまとめて確認できます。</p>
+            <div class="grid-2" id="allColorsGrid"></div>
+        </section>
+
+        <section>
+            <h2>Tab Colors &amp; Usage</h2>
+            <div class="row-list" id="tabUsageList"></div>
+        </section>
+
+        <section>
+            <h2>Icons</h2>
+            <p class="desc">アイコンは Material Symbols の rounded 系で統一します。一覧は Material Symbols
+                一覧を参照してください。</p>
+            <div class="icons-grid" id="iconsGrid"></div>
+        </section>
+
+        <section>
+            <h2>Divider</h2>
+            <div class="card divider-sample">
+                <p class="bold">Divider sample</p>
+                <p class="sub-text">実際の区切り線の色見本です。HEX: #E0E0E0</p>
+                <hr>
+                <div style="display:flex;flex-direction:column;">
+                    <div>
+                        <p class="h3-sample">診察情報</p>
+                        <p class="sub-text">○○産婦人科 / 10:30</p>
+                    </div>
+                    <hr>
+                    <div>
+                        <p class="h3-sample">共有メモ</p>
+                        <p class="sub-text">通訳が必要です</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>State Colors</h2>
+            <div class="states" id="stateColorsList"></div>
+        </section>
+
+        <section>
+            <h2>Buttons</h2>
+            <div class="buttons-stack">
+                <button class="btn primary" type="button">Primary Button</button>
+                <button class="btn secondary" type="button">Secondary Button</button>
+                <button class="btn tertiary" type="button">Tertiary Button (Borderless)</button>
+                <button class="btn disabled" type="button" disabled>Disabled Button</button>
+            </div>
+
+            <section class="btn-sizes">
+                <h3>Button sizes</h3>
+                <div class="size-row">
+                    <div>
+                        <p class="bold">Small</p>
+                        <p class="caption">height 40px / px 14px / text 15px</p>
+                    </div>
+                    <button class="btn primary btn-small">Small</button>
+                </div>
+                <div class="size-row">
+                    <div>
+                        <p class="bold">Medium</p>
+                        <p class="caption">height 48px / px 16px / text 17px</p>
+                    </div>
+                    <button class="btn primary btn-medium">Medium</button>
+                </div>
+                <div class="size-row">
+                    <div>
+                        <p class="bold">Large</p>
+                        <p class="caption">height 56px / px 20px / text 19px</p>
+                    </div>
+                    <button class="btn primary btn-large">Large</button>
+                </div>
+
+                <div class="btn-row" style="margin-top:16px">
+                    <button class="btn primary" type="button">保存</button>
+                    <button class="btn secondary" type="button">共有</button>
+                </div>
+
+                <div class="buttons-stack" style="margin-top:16px">
+                    <button class="btn primary" type="button">
+                        <iconify-icon icon="material-symbols:save-rounded" width="22" height="22"></iconify-icon>
+                        <span>保存する</span>
+                    </button>
+                    <button class="btn secondary" type="button">
+                        <iconify-icon icon="material-symbols:share-rounded" width="22" height="22"></iconify-icon>
+                        <span>共有する</span>
+                    </button>
+                </div>
+            </section>
+
+            <section>
+                <h3>Icon Buttons</h3>
+                <p class="sub-text">アイコンのみのボタン。丸型と四角型の2種類を用意します。</p>
+                <div class="icon-btn-row">
+                    <button class="icon-btn" type="button">
+                        <iconify-icon icon="material-symbols:notifications-rounded" width="22" height="22"></iconify-icon>
+                    </button>
+                    <button class="icon-btn square" type="button">
+                        <iconify-icon icon="material-symbols:save-rounded" width="22" height="22"></iconify-icon>
+                    </button>
+                </div>
+            </section>
+
+            <section>
+                <h3>Button states</h3>
+                <div class="buttons-stack" style="margin-top:12px">
+                    <button class="btn primary" id="primaryStateBtn" type="button">Primary: Press and hold</button>
+                    <button class="btn secondary" id="secondaryStateBtn" type="button">Secondary: Press and hold</button>
+                    <button class="btn disabled" type="button" disabled>Disabled</button>
+                </div>
+                <p class="sub-text" style="margin-top:12px">Primary と Secondary は、押している間だけ Pressed /
+                    Active の見た目になります。ほかの動作するボタンにも押下中の見た目変化を付けています。</p>
+            </section>
+        </section>
+
+        <section>
+            <h2>Badge</h2>
+            <div class="badge-row">
+                <span class="badge" style="background:var(--primary-dark);color:var(--background)">Primary</span>
+                <span class="badge" style="background:var(--primary-dark-a20);color:var(--background)">Primary</span>
+                <span class="badge" style="background:var(--checkup-dark);color:var(--background)">健診中</span>
+                <span class="badge" style="background:var(--checkup-dark-a20);color:var(--background)">健診中</span>
+                <span class="badge" style="background:var(--info-dark);color:var(--background)">案内</span>
+                <span class="badge" style="background:var(--info-dark-a20);color:var(--background)">案内</span>
+                <span class="badge" style="background:var(--labor-dark);color:var(--background)">注意</span>
+                <span class="badge" style="background:var(--labor-dark-a20);color:var(--background)">注意</span>
+                <span class="badge"
+                      style="background:var(--error);color:var(--background);padding:4px 10px;font-weight:700">3</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>Form Elements</h2>
+            <div class="form-stack">
+                <div>
+                    <label for="name">氏名</label>
+                    <input id="name" value="Maria Santos"/>
+                </div>
+                <div>
+                    <label for="memo">共有メモ</label>
+                    <textarea id="memo">通訳サポートを希望しています。</textarea>
+                </div>
+                <div>
+                    <label for="languageSelect">言語</label>
+                    <select id="languageSelect">
+                        <option>日本語</option>
+                        <option>English</option>
+                        <option>Português</option>
+                        <option>中文</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="visitDate">健診日</label>
+                    <div class="date-field-container" id="dateFieldContainer">
+                        <input id="visitDate" type="date"/>
+                    </div>
+                </div>
+                <div>
+                    <p class="field-label">受診種別</p>
+                    <div class="radio-row" id="visitTypeGroup">
+                        <button class="radio-chip active" data-value="initial" type="button">初診</button>
+                        <button class="radio-chip" data-value="followup" type="button">再診</button>
+                        <button class="radio-chip disabled" type="button" disabled>disabled</button>
+                    </div>
+                </div>
+                <button class="toggle-card" id="toggleCard" type="button">
+                    <div>
+                        <p class="field-label" style="margin:0">通知設定</p>
+                        <p class="sub-text" style="margin:2px 0 0">健診リマインド</p>
+                    </div>
+                    <span class="toggle-ui"></span>
+                </button>
+            </div>
+        </section>
+
+        <section>
+            <h2>Accordion</h2>
+            <div class="accordion-list">
+                <div class="accordion">
+                    <button class="accordion-trigger" type="button">
+                        <span class="h3-sample">必要書類について</span>
+                        <iconify-icon icon="material-symbols:expand-more-rounded" width="24" height="24"></iconify-icon>
+                    </button>
+                    <div class="accordion-body">母子手帳、保険証、紹介状など、受診時に必要な書類を確認できます。</div>
+                </div>
+                <div class="accordion">
+                    <button class="accordion-trigger" type="button">
+                        <span class="h3-sample">通訳サポートについて</span>
+                        <iconify-icon icon="material-symbols:expand-more-rounded" width="24" height="24"></iconify-icon>
+                    </button>
+                    <div class="accordion-body">対応言語や利用方法、予約の流れなどを確認できます。</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Modal</h2>
+            <button class="btn primary modal-demo-btn" id="openModalBtn" type="button">モーダルを開く</button>
+            <div class="card" style="margin-top:16px">
+                <p class="sub-text">確認や重要情報の提示に使うサンプルです。ボタンを押すとモーダルが開きます。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Toast</h2>
+            <p class="desc">State Colors
+                を使ったトースト表示のサンプルです。各ボタンで表示を切り替えられます。トーストは画面上部に出現し、数秒後に自動で閉じます。</p>
+            <div class="grid-2" style="margin-top:16px">
+                <button class="btn" style="background:var(--error);color:var(--background)" data-toast="error"
+                        type="button">Error
+                </button>
+                <button class="btn" style="background:var(--warning);color:var(--text)" data-toast="warning" type="button">
+                    Warning
+                </button>
+                <button class="btn" style="background:var(--success);color:var(--text)" data-toast="success" type="button">
+                    Success
+                </button>
+                <button class="btn" style="background:var(--info-state);color:var(--background)" data-toast="info"
+                        type="button">Info
+                </button>
+            </div>
+        </section>
+
+        <section>
+            <h2>Tabs</h2>
+            <p class="desc">スクロールではなく、グリッドで折り返して表示します。</p>
+            <div class="tabs-grid" id="tabsGrid"></div>
+            <div class="tab-panel" id="tabPanel"></div>
+        </section>
+
+        <section>
+            <h2>Cards</h2>
+            <div class="row-list">
+                <div class="shadow-card">
+                    <p class="h3-sample">Default Card</p>
+                    <p class="sub-text">標準情報カード。背景は white、枠線は border を使用。</p>
+                </div>
+                <div class="color-card" style="border:1px solid var(--checkup-dark);background:var(--checkup-light)">
+                    <p class="h3-sample">Color Card</p>
+                    <p class="sub-text">色付きカード。背景は各タブの light カラー、枠線は dark カラーを使用。</p>
+                </div>
+                <div class="color-card" style="border:1px solid var(--warning);background:var(--toast-bg-warning)">
+                    <p class="h3-sample">Alert Card</p>
+                    <p class="sub-text">状態表示や注意喚起。State color を背景の淡色と組み合わせて使用。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Radius &amp; Shadow</h2>
+            <p class="desc">基本コンポーネント（ボタン・カード・入力欄）のRadiusは、12pxを標準として使用します。</p>
+            <div class="shadow-card">
+                <p class="h3-sample">Card shadow</p>
+                <p class="sub-text">0 3px 8px rgba(44, 62, 80, 0.10)</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Spacing</h2>
+            <div class="spacing-list">
+                <div class="spacing-row"><p class="h3-sample">Page padding</p>
+                    <p class="sub-text">24px（p-6）</p></div>
+                <div class="spacing-row"><p class="h3-sample">Header padding</p>
+                    <p class="sub-text">左右 24px / 上下 28px（px-6 py-7）</p></div>
+                <div class="spacing-row"><p class="h3-sample">Section gap</p>
+                    <p class="sub-text">28px（space-y-7）</p></div>
+                <div class="spacing-row">
+                    <div class="spacing-demo">
+                        <div class="bold" style="width:40px">XS</div>
+                        <div class="sub-text">8px</div>
+                        <div class="spacing-bar" style="width:8px"></div>
+                    </div>
+                    <p style="margin-top:8px">アイコンとテキストの最小余白</p>
+                </div>
+                <div class="spacing-row">
+                    <div class="spacing-demo">
+                        <div class="bold" style="width:40px">S</div>
+                        <div class="sub-text">12px</div>
+                        <div class="spacing-bar" style="width:12px"></div>
+                    </div>
+                    <p style="margin-top:8px">小さな要素間の余白</p>
+                </div>
+                <div class="spacing-row">
+                    <div class="spacing-demo">
+                        <div class="bold" style="width:40px">M</div>
+                        <div class="sub-text">16px</div>
+                        <div class="spacing-bar" style="width:16px"></div>
+                    </div>
+                    <p style="margin-top:8px">フォーム要素やカード内の基本余白</p>
+                </div>
+                <div class="spacing-row">
+                    <div class="spacing-demo">
+                        <div class="bold" style="width:40px">L</div>
+                        <div class="sub-text">24px</div>
+                        <div class="spacing-bar" style="width:24px"></div>
+                    </div>
+                    <p style="margin-top:8px">コンテナーの基本余白</p>
+                </div>
+                <div class="spacing-row">
+                    <div class="spacing-demo">
+                        <div class="bold" style="width:40px">XL</div>
+                        <div class="sub-text">32px</div>
+                        <div class="spacing-bar" style="width:32px"></div>
+                    </div>
+                    <p style="margin-top:8px">大きなブロック間の余白</p>
+                </div>
+            </div>
+        </section>
+    </article>
+</main>
+
+<div class="overlay" id="modalOverlay">
+    <div class="modal">
+        <button class="modal-close" id="closeModalBtn" type="button" aria-label="閉じる">
+            <iconify-icon icon="material-symbols:close-rounded" width="22" height="22"></iconify-icon>
+        </button>
+        <p class="h3-sample">通訳手配を確認</p>
+        <p style="margin-top:8px">この内容で通訳サポートを依頼しますか？</p>
+        <div class="btn-row" style="margin-top:20px; float: right">
+            <button class="btn secondary" id="cancelModalBtn" type="button">キャンセル</button>
+            <button class="btn primary" id="confirmModalBtn" type="button">確認</button>
+        </div>
+    </div>
+</div>
+
+<div class="overlay is-open" id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
+
+<script>
+    /** @type {import('@line/liff').Liff} */
+    const liff = window.liff;
+    // const currentLanguageId = liff.getAppLanguage(); //言語を取る場合使用
+    const currentPage = "style"; //基本的にはページのパスをセット
+
+    $(function () {
+        // 開発環境（localhost または 127.0.0.1）かどうかを判定
+        const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+
+        // IDToken不要の場合は、liff.initせず、直接main()を実行。
+        liff.init({
+            liffId: LIFF_ID,
+            withLoginOnExternalBrowser: !isDev,
+        }).then(() => {
+            main(liff.getIDToken());
+            loadHeader();
+        }).catch((err) => {
+            alert("LIFF init failed.");
+        });
+
+        /**
+         * 各ページ特有の処理
+         * @param idToken
+         */
+        function main(idToken){
+            const COLOR_ITEMS = [
+                ["Primary", "#61A5A6"], ["Primary light", "#E4EFF1"], ["Primary dark", "#4F7C8A"],
+                ["Checkup", "#A4DEF9"], ["Checkup light", "#F1FAFF"], ["Checkup dark", "#7CC7ED"],
+                ["Info", "#F8C7CC"], ["Info light", "#FDF1F3"], ["Info dark", "#F4A6AE"],
+                ["Labor", "#F6E08D"], ["Labor light", "#FFF8DB"], ["Labor dark", "#F2CB40"],
+                ["Background", "#FFFFFF", "#D1D5DB"], ["Text", "#2C3E50"], ["Sub text", "#6B7C93"],
+                ["Surface", "#F3F8FA"], ["Border", "#D1D5DB"], ["Divider", "#E0E0E0", "#D1D5DB"]
+            ];
+            const TAB_USAGE_ITEMS = [
+                ["Checkup", "#A4DEF9", "#F1FAFF", "#7CC7ED", "医療者と一緒に使う健診ツール、記録、共有機能に使用。", "material-symbols:stethoscope-rounded"],
+                ["Info", "#F8C7CC", "#FDF1F3", "#F4A6AE", "使い方、関連情報、Q&A、赤ちゃんの状態などの情報提供に使用。", "material-symbols:menu-book-rounded"],
+                ["Labor", "#F6E08D", "#FFF8DB", "#F2CB40", "陣痛計測、緊急時連絡、注意喚起に使用。", "material-symbols:siren-rounded"],
+                ["その他", "#61A5A6", "#E4EFF1", "#4F7C8A", "3つのタブに含まれないその他のツールで使用。翻訳アプリなど。", "material-symbols:auto-awesome-motion"]
+            ];
+            const ICON_EXAMPLES = [
+                ["通知", "material-symbols:notifications-rounded"],
+                ["保存", "material-symbols:save-rounded"],
+                ["情報", "material-symbols:info-rounded"]
+            ];
+            const STATE_COLORS = [
+                ["Error", "var(--error)", "var(--toast-bg-error)", "material-symbols:error-rounded"],
+                ["Warning", "var(--warning)", "var(--toast-bg-warning)", "material-symbols:warning-rounded"],
+                ["Success", "var(--success)", "var(--toast-bg-success)", "material-symbols:check-circle-rounded"],
+                ["Info", "var(--info-state)", "var(--toast-bg-info)", "material-symbols:info-rounded"]
+            ];
+            const LANGUAGES = [
+                "日本語", "English", "Português", "中文", "한국어", "Español", "Français", "Deutsch", "Italiano", "Русский",
+                "Tiếng Việt", "Tagalog", "Bahasa Indonesia", "ภาษาไทย", "العربية", "हिन्दी", "Türkçe", "Nederlands", "Polski", "မြန်မာ"
+            ];
+            const MENU_ITEMS = ["メニューA", "メニューB", "メニューC"];
+            const TABS = [
+                ["reception", "受付", "material-symbols:stethoscope-rounded", "受付タブが選択されています", "受付情報、来院フロー、初診・再診の確認などを表示する想定です。"],
+                ["guide", "案内", "material-symbols:info-rounded", "案内タブが選択されています", "院内案内、必要書類、よくある質問などを表示する想定です。"],
+                ["payment", "会計", "material-symbols:payments-rounded", "会計タブが選択されています", "会計方法、支払い案内、領収書に関する情報などを表示する想定です。"],
+                ["record", "健診記録", "material-symbols:note-alt-rounded", "記録タブが選択されています", "健診記録の入力、履歴確認、メモの管理などを表示する想定です。"],
+                ["pharmacy", "薬局", "material-symbols:medication-rounded", "薬局タブが選択されています", "処方薬、服薬案内、薬局との連携情報などを表示する想定です。"],
+                ["settings", "設定", "material-symbols:settings-rounded", "設定タブが選択されています", "言語設定、通知設定、アカウント情報などを表示する想定です。"],
+                ["documents", "必要書類", "material-symbols:description-rounded", "書類タブが選択されています", "必要書類、同意書、配布資料などを表示する想定です。"],
+                ["contact", "問い合わせ窓口", "material-symbols:contact-support-rounded", "連絡タブが選択されています", "病院や支援先への連絡先、問い合わせ導線などを表示する想定です。"]
+            ];
+
+            const $allColorsGrid = $('#allColorsGrid');
+            $.each(COLOR_ITEMS, (index, [label, value, border]) => {
+                const card = $('<div>').addClass('swatch-card').html(`
+                <div class="swatch" style="background:${value};${border ? `border:1px solid ${border};` : ''}"></div>
+                <p class="caption-sample bold" style="margin-top:8px">${label}</p>
+                <p class="caption">${value}</p>
+            `);
+                $allColorsGrid.append(card);
+            });
+
+            const $tabUsageList = $('#tabUsageList');
+            $.each(TAB_USAGE_ITEMS, (index, [name, base, light, dark, text, icon]) => {
+                const item = $('<div>').addClass('tab-usage-item').html(`
+                <div class="tab-usage-head">
+                    <div class="icon-box" style="background:${light}">
+                        <iconify-icon icon="${icon}" width="26" height="26"></iconify-icon>
+                    </div>
+                    <div>
+                        <p class="h3-sample">${name}</p>
+                        <p class="sub-text">${text}</p>
+                    </div>
+                </div>
+                <div class="swatch-grid-3">
+                    <div class="mini-card"><div class="mini-swatch" style="background:${base}"></div><p class="caption-sample bold" style="margin-top:8px">base</p><p class="caption">${base}</p></div>
+                    <div class="mini-card"><div class="mini-swatch" style="background:${light}"></div><p class="caption-sample bold" style="margin-top:8px">light</p><p class="caption">${light}</p></div>
+                    <div class="mini-card"><div class="mini-swatch" style="background:${dark}"></div><p class="caption-sample bold" style="margin-top:8px">dark</p><p class="caption">${dark}</p></div>
+                </div>
+            `);
+                $tabUsageList.append(item);
+            });
+
+            const $iconsGrid = $('#iconsGrid');
+            $.each(ICON_EXAMPLES, (index, [label, icon]) => {
+                const item = $('<div>').addClass('icon-sample').html(`
+                <div class="icon-box" style="margin:0 auto;background:var(--primary-light)">
+                    <iconify-icon icon="${icon}" width="26" height="26" style="color:var(--primary-dark)"></iconify-icon>
+                </div>
+                <p class="bold" style="margin-top:12px">${label}</p>
+                <p class="caption">${icon}</p>
+            `);
+                $iconsGrid.append(item);
+            });
+
+            const $stateColorsList = $('#stateColorsList');
+            $.each(STATE_COLORS, (index, [label, color, soft, icon]) => {
+                const card = $('<div>').addClass('state-card').css({
+                    'border': `1px solid ${color}`,
+                    'background': soft
+                }).html(`
+                <div class="state-card-inner">
+                    <iconify-icon icon="${icon}" width="24" height="24" style="color:${color}"></iconify-icon>
+                    <div>
+                        <p class="bold">${label}</p>
+                        <p class="sub-text">${color}</p>
+                    </div>
+                </div>
+            `);
+                $stateColorsList.append(card);
+            });
+
+            let currentLanguage = '日本語';
+            const $currentLanguageEl = $('#currentLanguage');
+            const $languageList = $('#languageList');
+            const $languageDropdown = $('#languageDropdown');
+            const $menuDropdown = $('#menuDropdown');
+            const $langBtn = $('#langBtn');
+            const $menuBtn = $('#menuBtn');
+
+            function renderLanguages() {
+                $languageList.empty();
+                $.each(LANGUAGES, (index, language) => {
+                    const $btn = $('<button>').attr('type', 'button').addClass('lang-option').html(`
+                    <span>${language}</span>
+                    ${language === currentLanguage ? '<iconify-icon icon="material-symbols:check-rounded" width="20" height="20" style="color:var(--primary-dark)"></iconify-icon>' : ''}
+                `);
+                    if (language === currentLanguage) {
+                        $btn.addClass('is-active');
+                    }
+                    $btn.on('click', () => {
+                        currentLanguage = language;
+                        $currentLanguageEl.text(language);
+                        renderLanguages();
+                        closeMenus();
+                    });
+                    $languageList.append($btn);
+                });
+            }
+
+            renderLanguages();
+
+            $.each(MENU_ITEMS, (index, item) => {
+                const $btn = $('<button>').attr('type', 'button').addClass('menu-option').html(`
+                <span>${item}</span>
+                <iconify-icon icon="material-symbols:chevron-right-rounded" width="20" height="20" style="color:var(--sub-text)"></iconify-icon>
+            `);
+                $btn.on('click', closeMenus);
+                $menuDropdown.append($btn);
+            });
+
+            function closeMenus() {
+                $languageDropdown.removeClass('is-open');
+                $menuDropdown.removeClass('is-open');
+                $langBtn.attr('aria-expanded', 'false');
+                $menuBtn.attr('aria-expanded', 'false');
+            }
+
+            $langBtn.on('click', () => {
+                const willOpen = !$languageDropdown.hasClass('is-open');
+                closeMenus();
+                if (willOpen) {
+                    $languageDropdown.addClass('is-open');
+                    $langBtn.attr('aria-expanded', 'true');
+                }
+            });
+
+            $menuBtn.on('click', () => {
+                const willOpen = !$menuDropdown.hasClass('is-open');
+                closeMenus();
+                if (willOpen) {
+                    $menuDropdown.addClass('is-open');
+                    $menuBtn.attr('aria-expanded', 'true');
+                }
+            });
+
+            $(document).on('mousedown', (e) => {
+                if (!$(e.target).closest('#headerMenuGroup').length) {
+                    closeMenus();
+                }
+            });
+
+            let reminderEnabled = true;
+            $('#toggleCard').addClass('active').on('click', (e) => {
+                reminderEnabled = !reminderEnabled;
+                $(e.currentTarget).toggleClass('active', reminderEnabled);
+            });
+
+            $('#visitTypeGroup').on('click', '.radio-chip:not(.disabled)', (e) => {
+                $(e.currentTarget).addClass('active').siblings().removeClass('active');
+            });
+
+            $('.accordion-list').on('click', '.accordion-trigger', (e) => {
+                const $this = $(e.currentTarget);
+                const $accordion = $this.closest('.accordion');
+                const $body = $accordion.find('.accordion-body');
+                const isOpen = $accordion.hasClass('is-open');
+
+                $('.accordion.is-open').not($accordion).removeClass('is-open').find('.accordion-body').css('max-height', '');
+                $('.accordion-trigger.active').not($this).removeClass('active');
+
+                $accordion.toggleClass('is-open', !isOpen);
+                $this.toggleClass('active', !isOpen);
+                $body.css('max-height', isOpen ? '' : $body.prop('scrollHeight') + 32 + 'px');
+            });
+
+            const $modalOverlay = $('#modalOverlay');
+            $('#openModalBtn').on('click', () => $modalOverlay.addClass('is-open'));
+            $('#closeModalBtn, #cancelModalBtn, #confirmModalBtn').on('click', () => $modalOverlay.removeClass('is-open'));
+            $modalOverlay.on('click', function (e) {
+                if (e.target === this) {
+                    $(this).removeClass('is-open');
+                }
+            });
+
+            const toastMap = {
+                error: {
+                    title: 'Error',
+                    message: '通信エラーが発生しました。再度お試しください。',
+                    color: 'var(--error)',
+                    bg: 'var(--toast-bg-error)',
+                    icon: 'material-symbols:error-rounded'
+                },
+                warning: {
+                    title: 'Warning',
+                    message: '確認が必要な項目があります。',
+                    color: 'var(--warning)',
+                    bg: 'var(--toast-bg-warning)',
+                    icon: 'material-symbols:warning-rounded'
+                },
+                success: {
+                    title: 'Success',
+                    message: '保存が完了しました。',
+                    color: 'var(--success)',
+                    bg: 'var(--toast-bg-success)',
+                    icon: 'material-symbols:check-circle-rounded'
+                },
+                info: {
+                    title: 'Info',
+                    message: '新しいお知らせがあります。',
+                    color: 'var(--info-state)',
+                    bg: 'var(--toast-bg-info)',
+                    icon: 'material-symbols:info-rounded'
+                }
+            };
+            let toastTimer;
+
+            function showToast(type) {
+                const cfg = toastMap[type];
+                const $toast = $('#toast');
+                const $toastInner = $('#toastInner');
+                $toastInner.css({
+                    'border': `1px solid ${cfg.color}`,
+                    'background': cfg.bg
+                });
+                $('#toastTitle').text(cfg.title);
+                $('#toastMessage').text(cfg.message);
+                $('#toastIcon').attr('icon', cfg.icon).css('color', cfg.color);
+
+                $toast.addClass('is-open');
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => $toast.removeClass('is-open'), 5000);
+            }
+
+            $('[data-toast]').on('click', (e) => {
+                showToast($(e.currentTarget).data('toast'));
+            });
+
+            let activeTab = 'reception';
+            const $tabsGrid = $('#tabsGrid');
+            const $tabPanel = $('#tabPanel');
+
+            function renderTabs() {
+                if ($tabsGrid.children().length === 0) {
+                    $.each(TABS, (index, [key, label, icon]) => {
+                        const $btn = $('<button>').attr('type', 'button').addClass('tab').data('key', key).html(`
+                        <iconify-icon icon="${icon}" width="18" height="18"></iconify-icon>
+                        <span class="tab-label">${label}</span>
+                    `);
+                        $btn.on('click', () => {
+                            activeTab = key;
+                            updateTabStyles();
+                        });
+                        $tabsGrid.append($btn);
+                    });
+                }
+                updateTabStyles();
+            }
+
+            function updateTabStyles() {
+                const current = TABS.find(([key]) => key === activeTab) || TABS[0];
+                $tabsGrid.children().each((i, el) => {
+                    const $btn = $(el);
+                    const key = $btn.data('key');
+                    const isActive = key === activeTab;
+
+                    $btn.toggleClass('active', isActive);
+                });
+
+                $tabPanel.html(`
+                <p class="h3-sample">${current[3]}</p>
+                <p class="sub-text">${current[4]}</p>
+            `);
+            }
+
+            renderTabs();
+
+            $('#dateFieldContainer').on('click', () => {
+                const dateInput = $('#visitDate').get(0);
+                try {
+                    dateInput.showPicker();
+                } catch (error) {
+                    dateInput.focus();
+                }
+            });
+
+            /**
+             * 言語変更イベントのリスナー（header.jsでイベントを発火済み）
+             * Canvas内の文字の言語などを切り替える場合に使用
+             */
+            document.addEventListener('language-changed', function(e) {
+                const lang = e.detail.langId;//戻り値は"ja", "en"など
+
+                /**
+                 * Canvas内の文字の言語などをアップデート
+                 */
+            });
+        }
+
+        /**
+         * ヘッダーの読み込み
+         */
+        function loadHeader(){
+            $("#header-container").load("../common/_header.html", function() {
+                // header.js内の翻訳初期化完了イベントを待機
+                document.addEventListener('i18n-initialized', function() {
+                    $("#loadingOverlay").removeClass('is-open');
+                }, { once: true });
+
+                $.getScript("../common/js/header.js");
+            });
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "产检",
+    "info": "指南",
+    "check": "检查",
+    "other": "其他"
+  },
+  "subgroupTitle": {
+    "board": "沟通板",
+    "mydata": "我的数据",
+    "other": "其他"
+  },
+  "title": {
+    "template": "关于语言切换",
+    "style": "样式指南",
+    "reception": "接待",
+    "examination": "诊察",
+    "guidance": "保健指导",
+    "mypage": "我的页面设置",
+    "vaccination": "疫苗接种",
+    "birthplan": "分娩计划",
+    "weight": "体重",
+    "bloodPressure": "血压",
+    "bloodSugar": "血糖",
+    "memo": "备忘录",
+    "guidebook": "指南手册",
+    "faq": "常见问题",
+    "usage": "使用方法",
+    "laborCounter": "宫缩计数器",
+    "movementCounter": "胎动计数器",
+    "translation": "翻译应用",
+    "data": "数据获取"
+  },
+  "header": {
+    "selectLanguage": "选择语言",
+    "scroll": "滚动"
+  },
+  "template": {
+    "sample1": "关于文字替换",
+    "sample2": "普通模式",
+    "sample3": "启用 HTML 标签的模式",
+    "sample4": "动态修改模式",
+    "sample5": "placeholder 的翻译",
+    "desc": "请预先准备好“/locales/{language-code}/translation.json”文件。",
+    "desc1": "也可以使用变量进行文字替换。",
+    "content": "像这样书写后，标签内的文字会自动替换为 translation.json 中 template.content 的内容。",
+    "content1": "不仅标签内文本，placeholder 也可以翻译。",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "姓名"
+  },
+  "style": {
+    "header": "页眉布局示例",
+    "typography": "排版"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "取消",
+    "back": "返回"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "ການກວດຄັນ",
+    "info": "ຂໍ້ມູນ",
+    "check": "ກວດເຊັກ",
+    "other": "ອື່ນໆ"
+  },
+  "subgroupTitle": {
+    "board": "ກະດານສື່ສານ",
+    "mydata": "ຂໍ້ມູນຂອງຂ້ອຍ",
+    "other": "ອື່ນໆ"
+  },
+  "title": {
+    "template": "ກ່ຽວກັບການປ່ຽນພາສາ",
+    "style": "ຄູ່ມືຮູບແບບ",
+    "reception": "ຕ້ອນຮັບ",
+    "examination": "ກວດ",
+    "guidance": "ຄຳແນະນຳສຸຂະພາບ",
+    "mypage": "ຕັ້ງຄ່າໜ້າຂອງຂ້ອຍ",
+    "vaccination": "ການສັກວັກຊີນ",
+    "birthplan": "ແຜນການຄອດ",
+    "weight": "ນ້ຳໜັກ",
+    "bloodPressure": "ຄວາມດັນເລືອດ",
+    "bloodSugar": "ນ້ຳຕານໃນເລືອດ",
+    "memo": "ບັນທຶກ",
+    "guidebook": "ຄູ່ມື",
+    "faq": "ຄຳຖາມທີ່ພົບເລື້ອຍ",
+    "usage": "ວິທີໃຊ້",
+    "laborCounter": "ຕົວນັບການເຈັບທ້ອງຄອດ",
+    "movementCounter": "ຕົວນັບການເຄື່ອນໄຫວຂອງທາຣົກ",
+    "translation": "ແອັບແປພາສາ",
+    "data": "ດຶງຂໍ້ມູນ"
+  },
+  "header": {
+    "selectLanguage": "ເລືອກພາສາ",
+    "scroll": "ເລື່ອນ"
+  },
+  "template": {
+    "sample1": "ກ່ຽວກັບການແທນຂໍ້ຄວາມ",
+    "sample2": "ຮູບແບບປົກກະຕິ",
+    "sample3": "ຮູບແບບທີ່ເປີດໃຊ້ແທັກ HTML",
+    "sample4": "ຮູບແບບປ່ຽນແປງແບບໄດນາມິກ",
+    "sample5": "ການແປ placeholder",
+    "desc": "ກະລຸນາກຽມໄຟລ໌ \"/locales/{language-code}/translation.json\" ໄວ້ລ່ວງໜ້າ",
+    "desc1": "ທ່ານສາມາດແທນຂໍ້ຄວາມໂດຍໃຊ້ຕົວແປໄດ້",
+    "content": "ເມື່ອຂຽນແບບນີ້ ຂໍ້ຄວາມໃນແທັກຈະຖືກແທນເປັນ template.content ໃນ translation.json ໂດຍອັດຕະໂນມັດ",
+    "content1": "ບໍ່ໃຊ່ພຽງແຕ່ຂໍ້ຄວາມໃນແທັກ ແຕ່ placeholder ກໍແປໄດ້",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "ຊື່"
+  },
+  "style": {
+    "header": "ຕົວຢ່າງໂຄງຮ່າງຫົວຂໍ້",
+    "typography": "ຕົວອັກສອນ"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "ຍົກເລີກ",
+    "back": "ກັບຄືນ"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "Дородовые осмотры",
+    "info": "Информация",
+    "check": "Проверка",
+    "other": "Другое"
+  },
+  "subgroupTitle": {
+    "board": "Коммуникационная доска",
+    "mydata": "Мои данные",
+    "other": "Другое"
+  },
+  "title": {
+    "template": "О переключении языка",
+    "style": "Руководство по стилю",
+    "reception": "Регистратура",
+    "examination": "Осмотр",
+    "guidance": "Консультация по здоровью",
+    "mypage": "Настройки моей страницы",
+    "vaccination": "Вакцинация",
+    "birthplan": "План родов",
+    "weight": "Вес",
+    "bloodPressure": "Артериальное давление",
+    "bloodSugar": "Уровень сахара в крови",
+    "memo": "Заметка",
+    "guidebook": "Справочник",
+    "faq": "FAQ",
+    "usage": "Как пользоваться",
+    "laborCounter": "Счетчик схваток",
+    "movementCounter": "Счетчик шевелений плода",
+    "translation": "Приложение-переводчик",
+    "data": "Получение данных"
+  },
+  "header": {
+    "selectLanguage": "Выбрать язык",
+    "scroll": "Прокрутка"
+  },
+  "template": {
+    "sample1": "О замене текста",
+    "sample2": "Обычный шаблон",
+    "sample3": "Шаблон с включением HTML-тегов",
+    "sample4": "Шаблон с динамическим изменением",
+    "sample5": "Перевод placeholder",
+    "desc": "Заранее подготовьте файл \"/locales/{language-code}/translation.json\".",
+    "desc1": "Также можно заменять текст с помощью переменных.",
+    "content": "Если написать так, текст внутри тега автоматически заменится на template.content из translation.json.",
+    "content1": "Можно переводить не только текст внутри тега, но и placeholder.",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "Имя"
+  },
+  "style": {
+    "header": "Пример макета заголовка",
+    "typography": "Типографика"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "Отмена",
+    "back": "Назад"
+  }
+}

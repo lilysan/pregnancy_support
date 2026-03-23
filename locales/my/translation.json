@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "ကိုယ်ဝန်စစ်ဆေးမှု",
+    "info": "အချက်အလက်",
+    "check": "စစ်ဆေးမှု",
+    "other": "အခြား"
+  },
+  "subgroupTitle": {
+    "board": "ဆက်သွယ်ရေးဘုတ်",
+    "mydata": "ကျွန်ုပ်၏ဒေတာ",
+    "other": "အခြား"
+  },
+  "title": {
+    "template": "ဘာသာစကားပြောင်းလဲခြင်းအကြောင်း",
+    "style": "စတိုင်လမ်းညွှန်",
+    "reception": "လက်ခံရေး",
+    "examination": "စစ်ဆေးမှု",
+    "guidance": "ကျန်းမာရေးလမ်းညွှန်",
+    "mypage": "ကျွန်ုပ်၏စာမျက်နှာဆက်တင်",
+    "vaccination": "ကာကွယ်ဆေးထိုးခြင်း",
+    "birthplan": "မွေးဖွားရေးအစီအစဉ်",
+    "weight": "ကိုယ်အလေးချိန်",
+    "bloodPressure": "သွေးပေါင်ချိန်",
+    "bloodSugar": "သွေးချို",
+    "memo": "မှတ်စု",
+    "guidebook": "လမ်းညွှန်စာအုပ်",
+    "faq": "မေးလေ့ရှိသောမေးခွန်းများ",
+    "usage": "အသုံးပြုနည်း",
+    "laborCounter": "ဝမ်းဗိုက်နာရေတွက်ကိရိယာ",
+    "movementCounter": "ကလေးလှုပ်ရှားမှုရေတွက်ကိရိယာ",
+    "translation": "ဘာသာပြန်အက်ပ်",
+    "data": "ဒေတာရယူခြင်း"
+  },
+  "header": {
+    "selectLanguage": "ဘာသာစကားရွေးချယ်ပါ",
+    "scroll": "ရွှေ့ပါ"
+  },
+  "template": {
+    "sample1": "စာသားအစားထိုးခြင်းအကြောင်း",
+    "sample2": "ပုံမှန်ပုံစံ",
+    "sample3": "HTML tag ဖွင့်ထားသောပုံစံ",
+    "sample4": "Dynamic ပြောင်းလဲသောပုံစံ",
+    "sample5": "placeholder ဘာသာပြန်",
+    "desc": "\"/locales/{language-code}/translation.json\" ဖိုင်ကို ကြိုတင်ပြင်ဆင်ထားပါ။",
+    "desc1": "variable များကို သုံးပြီး စာသားအစားထိုးနိုင်သည်။",
+    "content": "ဤပုံစံအတိုင်းရေးပါက tag ထဲရှိစာသားကို translation.json ထဲက template.content သို့ အလိုအလျောက်ပြောင်းပေးသည်။",
+    "content1": "tag ထဲရှိစာသားသာမက placeholder ကိုလည်း ဘာသာပြန်နိုင်သည်။",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "အမည်"
+  },
+  "style": {
+    "header": "Header layout နမူနာ",
+    "typography": "Typography"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "မလုပ်တော့ပါ",
+    "back": "နောက်သို့"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "Vorsorgeuntersuchung",
+    "info": "Informationen",
+    "check": "Prüfen",
+    "other": "Sonstiges"
+  },
+  "subgroupTitle": {
+    "board": "Kommunikationsboard",
+    "mydata": "Meine Daten",
+    "other": "Sonstiges"
+  },
+  "title": {
+    "template": "Über den Sprachwechsel",
+    "style": "Styleguide",
+    "reception": "Empfang",
+    "examination": "Untersuchung",
+    "guidance": "Gesundheitsberatung",
+    "mypage": "Meine Seiteneinstellungen",
+    "vaccination": "Impfung",
+    "birthplan": "Geburtsplan",
+    "weight": "Gewicht",
+    "bloodPressure": "Blutdruck",
+    "bloodSugar": "Blutzucker",
+    "memo": "Notiz",
+    "guidebook": "Leitfaden",
+    "faq": "FAQ",
+    "usage": "Anleitung",
+    "laborCounter": "Wehenzähler",
+    "movementCounter": "Kicks-Zähler",
+    "translation": "Übersetzungs-App",
+    "data": "Datenabruf"
+  },
+  "header": {
+    "selectLanguage": "Sprache auswählen",
+    "scroll": "Scrollen"
+  },
+  "template": {
+    "sample1": "Über Textersetzung",
+    "sample2": "Normales Muster",
+    "sample3": "Muster mit aktivierten HTML-Tags",
+    "sample4": "Dynamisch geändertes Muster",
+    "sample5": "Placeholder-Übersetzung",
+    "desc": "Bereiten Sie die Datei \"/locales/{language-code}/translation.json\" im Voraus vor.",
+    "desc1": "Sie können Text auch mit Variablen ersetzen.",
+    "content": "Wenn Sie so schreiben, wird der Text im Tag automatisch durch template.content aus translation.json ersetzt.",
+    "content1": "Nicht nur Text im Tag, sondern auch Placeholder können übersetzt werden.",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "Name"
+  },
+  "style": {
+    "header": "Beispiel für Header-Layout",
+    "typography": "Typografie"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "Abbrechen",
+    "back": "Zurück"
+  }
+}

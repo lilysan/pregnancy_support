@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "Suivi prénatal",
+    "info": "Informations",
+    "check": "Vérification",
+    "other": "Autres"
+  },
+  "subgroupTitle": {
+    "board": "Tableau de communication",
+    "mydata": "Mes données",
+    "other": "Autres"
+  },
+  "title": {
+    "template": "À propos du changement de langue",
+    "style": "Guide de style",
+    "reception": "Accueil",
+    "examination": "Consultation",
+    "guidance": "Conseils de santé",
+    "mypage": "Paramètres de ma page",
+    "vaccination": "Vaccination",
+    "birthplan": "Projet de naissance",
+    "weight": "Poids",
+    "bloodPressure": "Pression artérielle",
+    "bloodSugar": "Glycémie",
+    "memo": "Mémo",
+    "guidebook": "Guide",
+    "faq": "FAQ",
+    "usage": "Mode d'emploi",
+    "laborCounter": "Compteur de contractions",
+    "movementCounter": "Compteur de mouvements fœtaux",
+    "translation": "Application de traduction",
+    "data": "Récupération des données"
+  },
+  "header": {
+    "selectLanguage": "Choisir la langue",
+    "scroll": "Défiler"
+  },
+  "template": {
+    "sample1": "À propos du remplacement de texte",
+    "sample2": "Motif normal",
+    "sample3": "Motif avec balises HTML activées",
+    "sample4": "Motif modifié dynamiquement",
+    "sample5": "Traduction du placeholder",
+    "desc": "Préparez à l'avance le fichier \"/locales/{language-code}/translation.json\".",
+    "desc1": "Vous pouvez aussi remplacer le texte en utilisant des variables.",
+    "content": "Si vous écrivez ainsi, le texte dans la balise est automatiquement remplacé par template.content de translation.json.",
+    "content1": "Non seulement le texte dans la balise, mais aussi le placeholder peut être traduit.",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "Nom"
+  },
+  "style": {
+    "header": "Exemple de mise en page d'en-tête",
+    "typography": "Typographie"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "Annuler",
+    "back": "Retour"
+  }
+}

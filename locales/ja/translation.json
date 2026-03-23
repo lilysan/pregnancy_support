@@ -1,7 +1,39 @@
 {
+  "groupTitle": {
+    "checkup": "妊婦健診",
+    "info": "案内",
+    "check": "チェック",
+    "other": "その他"
+  },
+  "subgroupTitle": {
+    "board": "コミュニケーションボード",
+    "mydata": "マイデータ",
+    "other": "その他"
+  },
   "title": {
     "template": "言語切替について",
-    "style": "スタイルガイド"
+    "style": "スタイルガイド",
+    "reception": "受付",
+    "examination": "診察",
+    "guidance": "保健指導",
+    "mypage": "マイページ設定",
+    "vaccination": "ワクチン接種",
+    "birthplan": "バースプラン",
+    "weight": "体重",
+    "bloodPressure": "血圧",
+    "bloodSugar": "血糖値",
+    "memo": "メモ",
+    "guidebook": "ガイドブック",
+    "faq": "よくある質問",
+    "usage": "使い方",
+    "laborCounter": "陣痛カウンター",
+    "movementCounter": "胎動カウンター",
+    "translation": "翻訳アプリ",
+    "data": "データ取得"
+  },
+  "header": {
+    "selectLanguage": "言語を選択",
+    "scroll": "スクロール"
   },
   "template": {
     "sample1": "置換文字について",
@@ -14,7 +46,7 @@
     "content": "このように書くと、タグ内が自動的にtranslation.json内のtemplate.contentの文字に置き換わります。",
     "content1": "タグ内だけでなくplaceholderも翻訳可能です。",
     "content-sample1": "",
-    "content-sample2": "{{name}}" ,
+    "content-sample2": "{{name}}",
     "content-sample3": "<b>{{name}}</b>",
     "placeholder": "名前"
   },

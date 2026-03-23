@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "Khám thai",
+    "info": "Hướng dẫn",
+    "check": "Kiểm tra",
+    "other": "Khác"
+  },
+  "subgroupTitle": {
+    "board": "Bảng giao tiếp",
+    "mydata": "Dữ liệu của tôi",
+    "other": "Khác"
+  },
+  "title": {
+    "template": "Về chuyển đổi ngôn ngữ",
+    "style": "Hướng dẫn kiểu dáng",
+    "reception": "Tiếp nhận",
+    "examination": "Khám",
+    "guidance": "Hướng dẫn sức khỏe",
+    "mypage": "Cài đặt trang cá nhân",
+    "vaccination": "Tiêm chủng",
+    "birthplan": "Kế hoạch sinh",
+    "weight": "Cân nặng",
+    "bloodPressure": "Huyết áp",
+    "bloodSugar": "Đường huyết",
+    "memo": "Ghi chú",
+    "guidebook": "Sổ tay hướng dẫn",
+    "faq": "Câu hỏi thường gặp",
+    "usage": "Cách sử dụng",
+    "laborCounter": "Bộ đếm cơn co",
+    "movementCounter": "Bộ đếm thai máy",
+    "translation": "Ứng dụng dịch",
+    "data": "Lấy dữ liệu"
+  },
+  "header": {
+    "selectLanguage": "Chọn ngôn ngữ",
+    "scroll": "Cuộn"
+  },
+  "template": {
+    "sample1": "Về thay thế văn bản",
+    "sample2": "Mẫu thông thường",
+    "sample3": "Mẫu bật thẻ HTML",
+    "sample4": "Mẫu thay đổi động",
+    "sample5": "Dịch placeholder",
+    "desc": "Hãy chuẩn bị trước tệp \"/locales/{language-code}/translation.json\".",
+    "desc1": "Bạn cũng có thể thay thế văn bản bằng biến.",
+    "content": "Nếu viết như thế này, văn bản trong thẻ sẽ tự động được thay bằng template.content trong translation.json.",
+    "content1": "Không chỉ văn bản trong thẻ mà cả placeholder cũng có thể dịch.",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "Tên"
+  },
+  "style": {
+    "header": "Mẫu bố cục header",
+    "typography": "Kiểu chữ"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "Hủy",
+    "back": "Quay lại"
+  }
+}

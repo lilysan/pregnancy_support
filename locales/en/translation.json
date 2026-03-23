@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "Prenatal Checkup",
+    "info": "Information",
+    "check": "Check",
+    "other": "Other"
+  },
+  "subgroupTitle": {
+    "board": "Communication Board",
+    "mydata": "My Data",
+    "other": "Other"
+  },
+  "title": {
+    "template": "About Language Switching",
+    "style": "Style Guide",
+    "reception": "Reception",
+    "examination": "Examination",
+    "guidance": "Health Guidance",
+    "mypage": "My Page Settings",
+    "vaccination": "Vaccination",
+    "birthplan": "Birth Plan",
+    "weight": "Weight",
+    "bloodPressure": "Blood Pressure",
+    "bloodSugar": "Blood Sugar",
+    "memo": "Memo",
+    "guidebook": "Guidebook",
+    "faq": "FAQ",
+    "usage": "How to Use",
+    "laborCounter": "Labor Counter",
+    "movementCounter": "Kick Counter",
+    "translation": "Translation Apps",
+    "data": "Data Retrieval"
+  },
+  "header": {
+    "selectLanguage": "Select Language",
+    "scroll": "Scroll"
+  },
+  "template": {
+    "sample1": "About Text Replacement",
+    "sample2": "Normal Pattern",
+    "sample3": "Pattern Enabling HTML Tags",
+    "sample4": "Pattern Changed Dynamically",
+    "sample5": "Placeholder Translation",
+    "desc": "Prepare the file \"/locales/{language-code}/translation.json\" in advance.",
+    "desc1": "You can also replace text by using variables.",
+    "content": "If you write like this, the text inside the tag is automatically replaced with template.content from translation.json.",
+    "content1": "Not only text nodes but also placeholders can be translated.",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "Name"
+  },
+  "style": {
+    "header": "Header Layout Sample",
+    "typography": "Typography"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "back": "Back"
+  }
+}

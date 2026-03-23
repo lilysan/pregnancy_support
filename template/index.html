@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Pregnancy Support UI Sample</title>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="../common/js/config.js"></script>
+    <link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+
+<div id="header-container" class="header-wrapper"></div>
+
+<!--メインコンテンツ-->
+<main>
+    <div class="toast" id="toast">
+        <div class="toast-inner" id="toastInner">
+            <iconify-icon id="toastIcon" width="22" height="22"></iconify-icon>
+            <div>
+                <p class="body-sample" id="toastTitle" style="font-weight:600;margin:0"></p>
+                <p class="caption-sample" id="toastMessage" style="margin:0"></p>
+            </div>
+        </div>
+    </div>
+
+    <article class="main-container">
+        <h1 data-i18n="[html]title.template"></h1>
+        <p class="desc" data-i18n="[html]template.desc"></p>
+        <p>ja/translation.json</p>
+        <pre>"template": {"content": "こんにちは　世界"}</pre>
+        <p>en/translation.json</p>
+        <pre>"template": {"content": "Hello World"}</pre>
+        <p>index.html</p>
+        <pre>&lt;div data-i18n="template.content"&gt;&lt;/div&gt;</pre>
+        <p data-i18n="[html]template.content"></p>
+        <p class="content"><a href="https://qiita.com/yun_bow/items/76a5339aebedd343834a">こちら</a>を参考</p>
+
+        <section>
+            <h2 data-i18n="[html]template.sample5"></h2>
+            <p class="desc" data-i18n="[html]template.content1"></p>
+            <p>ja/translation.json</p>
+            <pre>"template": {"placeholder": "名前"}</pre>
+            <p>index.html</p>
+            <pre>&lt;input data-i18n="[placeholder]template.placeholder"/&gt;</pre>
+            <div class="card">
+                <input data-i18n="[placeholder]template.placeholder"/>
+            </div>
+        </section>
+
+
+        <section>
+            <h2 data-i18n="[html]template.sample1"></h2>
+            <p class="desc" data-i18n="[html]template.desc1"></p>
+
+            <section>
+                <h3 data-i18n="[html]template.sample2"></h3>
+                <p>translation.json</p>
+                <pre>"template": {"content-sample2": "{{name}}"}</pre>
+                <p>index.html</p>
+                <pre>&lt;p data-i18n="template.content-sample2" data-i18n-options='{"name": "World"}'&gt;&lt;/p&gt;</pre>
+                <div class="card">
+                    <p data-i18n="template.content-sample2" data-i18n-options='{"name": "World"}'></p>
+                </div>
+            </section>
+            <section>
+                <h3 data-i18n="[html]template.sample3"></h3>
+                <p>translation.json</p>
+                <pre>"template": {"content-sample3": "&lt;b&gt;{{name}}&lt;/b&gt;"}</pre>
+                <p>index.html</p>
+                <pre>&lt;p data-i18n="[html]template.content-sample3" data-i18n-options='{"name": "World"}'&gt;&lt;/p&gt;</pre>
+                <div class="card">
+                    <p data-i18n="[html]template.content-sample3" data-i18n-options='{"name": "World"}'></p>
+                </div>
+            </section>
+            <section>
+                <h3 data-i18n="[html]template.sample4"></h3>
+                <p>translation.json</p>
+                <pre>"template": {"content-sample3": "&lt;b&gt;{{name}}&lt;/b&gt;"}</pre>
+                <p>index.html</p>
+                <pre>&lt;p id="test"&gt;&lt;/p&gt;</pre>
+                <p>index.js</p>
+                <pre>$('#test').html(i18next.t('template.content-sample3', { name: 'World' }));</pre>
+                <div class="card">
+                    <p id="test"></p>
+                </div>
+            </section>
+        </section>
+
+    </article>
+</main>
+
+<!--ローディング画面-->
+<div class="overlay is-open" id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
+
+<script>
+    /** @type {import('@line/liff').Liff} */
+    const liff = window.liff;
+    // const currentLanguageId = liff.getAppLanguage(); //言語を取る場合使用
+    const currentPage = "template"; //基本的にはページのパスをセット
+
+    $(function () {
+        // 開発環境（localhost または 127.0.0.1）かどうかを判定
+        const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+
+        // IDToken不要の場合は、liff.initせず、直接main()を実行。
+        liff.init({
+            liffId: LIFF_ID,
+            withLoginOnExternalBrowser: !isDev,
+        }).then(() => {
+            main(liff.getIDToken());
+            loadHeader();
+        }).catch((err) => {
+            alert("LIFF init failed.");
+        });
+
+        /**
+         * 各ページ特有の処理
+         * @param idToken
+         */
+        function main(idToken){
+            /**
+             * メインの処理を書く
+             */
+
+            /**
+             * 言語変更イベントのリスナー（header.jsでイベントを発火済み）
+             * Canvas内の文字の言語などを切り替える場合に使用
+             */
+            document.addEventListener('language-changed', function(e) {
+                const lang = e.detail.langId;//戻り値は"ja", "en"など
+
+                /**
+                 * Canvas内の文字の言語などをアップデート
+                 */
+            });
+        }
+
+        /**
+         * ヘッダーの読み込み
+         */
+        function loadHeader(){
+            $("#header-container").load("../common/_header.html", function() {
+                // header.js内の翻訳初期化完了イベントを待機
+                document.addEventListener('i18n-initialized', function() {
+                    $('#test').html(i18next.t('template.content-sample3', { name: 'World' })); //動的に文字を追加したい場合
+                    $("#loadingOverlay").removeClass('is-open');
+                }, { once: true });
+
+                $.getScript("../common/js/header.js");
+            });
+        }
+    });
+</script>
+</body>
+</html>

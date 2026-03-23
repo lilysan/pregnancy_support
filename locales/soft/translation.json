@@ -1,7 +1,39 @@
 {
+  "groupTitle": {
+    "checkup": "<ruby>妊婦健診<rt>にんぷけんしん</rt></ruby>",
+    "info": "<ruby>案内<rt>あんない</rt></ruby>",
+    "check": "チェック",
+    "other": "そのほか"
+  },
+  "subgroupTitle": {
+    "board": "コミュニケーションボード",
+    "mydata": "マイデータ",
+    "other": "そのほか"
+  },
   "title": {
     "template": "<ruby>言語切替<rt>げんごきりかえ</rt></ruby>について",
-    "style": "<ruby>見本<rt>みほん</rt></ruby>ページ"
+    "style": "<ruby>見本<rt>みほん</rt></ruby>ページ",
+    "reception": "<ruby>受付<rt>うけつけ</rt></ruby>",
+    "examination": "<ruby>診察<rt>しんさつ</rt></ruby>",
+    "guidance": "<ruby>保健指導<rt>ほけんしどう</rt></ruby>",
+    "mypage": "マイページ<ruby>設定<rt>せってい</rt></ruby>",
+    "vaccination": "ワクチン<ruby>接種<rt>せっしゅ</rt></ruby>",
+    "birthplan": "バースプラン",
+    "weight": "<ruby>体重<rt>たいじゅう</rt></ruby>",
+    "bloodPressure": "<ruby>血圧<rt>けつあつ</rt></ruby>",
+    "bloodSugar": "<ruby>血糖値<rt>けっとうち</rt></ruby>",
+    "memo": "メモ",
+    "guidebook": "ガイドブック",
+    "faq": "よくある<ruby>質問<rt>しつもん</rt></ruby>",
+    "usage": "<ruby>使<rt>つか</rt></ruby>い<ruby>方<rt>かた</rt></ruby>",
+    "laborCounter": "<ruby>陣痛<rt>じんつう</rt></ruby>カウンター",
+    "movementCounter": "<ruby>胎動<rt>たいどう</rt></ruby>カウンター",
+    "translation": "<ruby>翻訳<rt>ほんやく</rt></ruby>アプリ",
+    "data": "データ<ruby>取得<rt>しゅとく</rt></ruby>"
+  },
+  "header": {
+    "selectLanguage": "<ruby>言語<rt>げんご</rt></ruby>を <ruby>選択<rt>せんたく</rt></ruby>",
+    "scroll": "スクロール"
   },
   "template": {
     "sample1": "<ruby>文字<rt>もじ</rt></ruby>の <ruby>置換<rt>ちかん</rt></ruby>について",

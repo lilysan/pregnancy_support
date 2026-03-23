@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "ฝากครรภ์",
+    "info": "ข้อมูล",
+    "check": "ตรวจสอบ",
+    "other": "อื่นๆ"
+  },
+  "subgroupTitle": {
+    "board": "กระดานสื่อสาร",
+    "mydata": "ข้อมูลของฉัน",
+    "other": "อื่นๆ"
+  },
+  "title": {
+    "template": "เกี่ยวกับการเปลี่ยนภาษา",
+    "style": "คู่มือสไตล์",
+    "reception": "แผนกต้อนรับ",
+    "examination": "การตรวจ",
+    "guidance": "คำแนะนำด้านสุขภาพ",
+    "mypage": "การตั้งค่าหน้าของฉัน",
+    "vaccination": "การฉีดวัคซีน",
+    "birthplan": "แผนการคลอด",
+    "weight": "น้ำหนัก",
+    "bloodPressure": "ความดันโลหิต",
+    "bloodSugar": "น้ำตาลในเลือด",
+    "memo": "บันทึก",
+    "guidebook": "คู่มือ",
+    "faq": "คำถามที่พบบ่อย",
+    "usage": "วิธีใช้งาน",
+    "laborCounter": "ตัวนับการเจ็บครรภ์",
+    "movementCounter": "ตัวนับลูกดิ้น",
+    "translation": "แอปแปลภาษา",
+    "data": "ดึงข้อมูล"
+  },
+  "header": {
+    "selectLanguage": "เลือกภาษา",
+    "scroll": "เลื่อน"
+  },
+  "template": {
+    "sample1": "เกี่ยวกับการแทนที่ข้อความ",
+    "sample2": "รูปแบบปกติ",
+    "sample3": "รูปแบบที่เปิดใช้แท็ก HTML",
+    "sample4": "รูปแบบที่เปลี่ยนแบบไดนามิก",
+    "sample5": "การแปล placeholder",
+    "desc": "เตรียมไฟล์ \"/locales/{language-code}/translation.json\" ไว้ล่วงหน้า",
+    "desc1": "สามารถแทนที่ข้อความโดยใช้ตัวแปรได้",
+    "content": "เมื่อเขียนแบบนี้ ข้อความในแท็กจะถูกแทนที่ด้วย template.content ใน translation.json โดยอัตโนมัติ",
+    "content1": "ไม่ใช่แค่ข้อความในแท็ก แต่ placeholder ก็แปลได้",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "ชื่อ"
+  },
+  "style": {
+    "header": "ตัวอย่างเลย์เอาต์ส่วนหัว",
+    "typography": "ตัวอักษร"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "ยกเลิก",
+    "back": "ย้อนกลับ"
+  }
+}

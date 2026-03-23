@@ -9,7 +9,7 @@
     <div class="header-actions" id="headerMenuGroup">
         <button class="lang-btn" id="langBtn" type="button" aria-expanded="false">
             <iconify-icon icon="material-symbols:language" width="20" height="20"></iconify-icon>
-            <span class="lang-label" id="currentLanguage">日本語</span>
+            <span class="lang-label" id="currentLanguage">-</span>
             <iconify-icon icon="material-symbols:keyboard-arrow-down-rounded" width="20" height="20"></iconify-icon>
         </button>
         <div class="divider-v"></div>
@@ -19,10 +19,10 @@
 
         <div class="dropdown language" id="languageDropdown">
             <div class="dropdown-head">
-                <span>言語を選択</span>
+                <span data-i18n="[html]header.selectLanguage"></span>
                 <span class="dropdown-head-hint">
                   <iconify-icon icon="material-symbols:swap-vert-rounded" width="16" height="16"></iconify-icon>
-                  スクロール
+                  <span data-i18n="[html]header.scroll"></span>
                 </span>
             </div>
             <div class="dropdown-list-wrap">

@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "حمل کی جانچ",
+    "info": "رہنمائی",
+    "check": "چیک",
+    "other": "دیگر"
+  },
+  "subgroupTitle": {
+    "board": "رابطہ بورڈ",
+    "mydata": "میرا ڈیٹا",
+    "other": "دیگر"
+  },
+  "title": {
+    "template": "زبان کی تبدیلی کے بارے میں",
+    "style": "اسٹائل گائیڈ",
+    "reception": "استقبالیہ",
+    "examination": "معائنہ",
+    "guidance": "صحت رہنمائی",
+    "mypage": "میرے صفحے کی ترتیبات",
+    "vaccination": "ویکسینیشن",
+    "birthplan": "پیدائش کا منصوبہ",
+    "weight": "وزن",
+    "bloodPressure": "بلڈ پریشر",
+    "bloodSugar": "بلڈ شوگر",
+    "memo": "میمو",
+    "guidebook": "گائیڈ بک",
+    "faq": "اکثر پوچھے جانے والے سوالات",
+    "usage": "استعمال کا طریقہ",
+    "laborCounter": "زچگی درد کاؤنٹر",
+    "movementCounter": "بچے کی حرکت کا کاؤنٹر",
+    "translation": "ترجمہ ایپ",
+    "data": "ڈیٹا حاصل کریں"
+  },
+  "header": {
+    "selectLanguage": "زبان منتخب کریں",
+    "scroll": "اسکرول"
+  },
+  "template": {
+    "sample1": "متن کی تبدیلی کے بارے میں",
+    "sample2": "عام پیٹرن",
+    "sample3": "HTML ٹیگ فعال کرنے والا پیٹرن",
+    "sample4": "متحرک طور پر تبدیل ہونے والا پیٹرن",
+    "sample5": "placeholder کا ترجمہ",
+    "desc": "براہ کرم \"/locales/{language-code}/translation.json\" فائل پہلے سے تیار رکھیں۔",
+    "desc1": "آپ متغیرات استعمال کرکے متن تبدیل بھی کرسکتے ہیں۔",
+    "content": "اس طرح لکھنے سے ٹیگ کے اندر متن خودکار طور پر translation.json کے template.content میں بدل جاتا ہے۔",
+    "content1": "صرف ٹیگ کے اندر کا متن ہی نہیں بلکہ placeholder بھی ترجمہ ہوسکتا ہے۔",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "نام"
+  },
+  "style": {
+    "header": "ہیڈر لے آؤٹ نمونہ",
+    "typography": "ٹائپوگرافی"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "منسوخ",
+    "back": "واپس"
+  }
+}

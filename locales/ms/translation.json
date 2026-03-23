@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "Pemeriksaan pranatal",
+    "info": "Maklumat",
+    "check": "Semakan",
+    "other": "Lain-lain"
+  },
+  "subgroupTitle": {
+    "board": "Papan komunikasi",
+    "mydata": "Data saya",
+    "other": "Lain-lain"
+  },
+  "title": {
+    "template": "Tentang pertukaran bahasa",
+    "style": "Panduan gaya",
+    "reception": "Penerimaan",
+    "examination": "Pemeriksaan",
+    "guidance": "Panduan kesihatan",
+    "mypage": "Tetapan halaman saya",
+    "vaccination": "Vaksinasi",
+    "birthplan": "Pelan kelahiran",
+    "weight": "Berat",
+    "bloodPressure": "Tekanan darah",
+    "bloodSugar": "Gula darah",
+    "memo": "Memo",
+    "guidebook": "Buku panduan",
+    "faq": "Soalan lazim",
+    "usage": "Cara guna",
+    "laborCounter": "Kaunter kontraksi",
+    "movementCounter": "Kaunter pergerakan janin",
+    "translation": "Aplikasi terjemahan",
+    "data": "Pengambilan data"
+  },
+  "header": {
+    "selectLanguage": "Pilih bahasa",
+    "scroll": "Tatal"
+  },
+  "template": {
+    "sample1": "Tentang penggantian teks",
+    "sample2": "Corak biasa",
+    "sample3": "Corak yang mengaktifkan tag HTML",
+    "sample4": "Corak yang berubah secara dinamik",
+    "sample5": "Terjemahan placeholder",
+    "desc": "Sediakan fail \"/locales/{language-code}/translation.json\" terlebih dahulu.",
+    "desc1": "Anda juga boleh menggantikan teks dengan menggunakan pembolehubah.",
+    "content": "Jika ditulis begini, teks dalam tag akan digantikan secara automatik kepada template.content dalam translation.json.",
+    "content1": "Bukan sahaja teks dalam tag, placeholder juga boleh diterjemahkan.",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "Nama"
+  },
+  "style": {
+    "header": "Contoh susun atur pengepala",
+    "typography": "Tipografi"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "Batal",
+    "back": "Kembali"
+  }
+}

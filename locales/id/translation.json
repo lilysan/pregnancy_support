@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "Pemeriksaan kehamilan",
+    "info": "Informasi",
+    "check": "Pemeriksaan",
+    "other": "Lainnya"
+  },
+  "subgroupTitle": {
+    "board": "Papan komunikasi",
+    "mydata": "Data saya",
+    "other": "Lainnya"
+  },
+  "title": {
+    "template": "Tentang pergantian bahasa",
+    "style": "Panduan gaya",
+    "reception": "Penerimaan",
+    "examination": "Pemeriksaan",
+    "guidance": "Bimbingan kesehatan",
+    "mypage": "Pengaturan halaman saya",
+    "vaccination": "Vaksinasi",
+    "birthplan": "Rencana persalinan",
+    "weight": "Berat badan",
+    "bloodPressure": "Tekanan darah",
+    "bloodSugar": "Gula darah",
+    "memo": "Memo",
+    "guidebook": "Buku panduan",
+    "faq": "FAQ",
+    "usage": "Cara penggunaan",
+    "laborCounter": "Penghitung kontraksi",
+    "movementCounter": "Penghitung gerakan janin",
+    "translation": "Aplikasi terjemahan",
+    "data": "Pengambilan data"
+  },
+  "header": {
+    "selectLanguage": "Pilih bahasa",
+    "scroll": "Gulir"
+  },
+  "template": {
+    "sample1": "Tentang penggantian teks",
+    "sample2": "Pola normal",
+    "sample3": "Pola yang mengaktifkan tag HTML",
+    "sample4": "Pola yang diubah secara dinamis",
+    "sample5": "Terjemahan placeholder",
+    "desc": "Siapkan file \"/locales/{language-code}/translation.json\" terlebih dahulu.",
+    "desc1": "Anda juga dapat mengganti teks dengan menggunakan variabel.",
+    "content": "Jika ditulis seperti ini, teks di dalam tag akan otomatis diganti ke template.content dalam translation.json.",
+    "content1": "Bukan hanya teks di dalam tag, placeholder juga bisa diterjemahkan.",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "Nama"
+  },
+  "style": {
+    "header": "Contoh tata letak header",
+    "typography": "Tipografi"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "Batal",
+    "back": "Kembali"
+  }
+}

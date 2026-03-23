@@ -1,0 +1,62 @@
+{
+  "groupTitle": {
+    "checkup": "임산부 검진",
+    "info": "안내",
+    "check": "체크",
+    "other": "기타"
+  },
+  "subgroupTitle": {
+    "board": "의사소통 보드",
+    "mydata": "내 데이터",
+    "other": "기타"
+  },
+  "title": {
+    "template": "언어 전환에 대해",
+    "style": "스타일 가이드",
+    "reception": "접수",
+    "examination": "진찰",
+    "guidance": "보건 지도",
+    "mypage": "마이페이지 설정",
+    "vaccination": "예방접종",
+    "birthplan": "출산 계획",
+    "weight": "체중",
+    "bloodPressure": "혈압",
+    "bloodSugar": "혈당",
+    "memo": "메모",
+    "guidebook": "가이드북",
+    "faq": "자주 묻는 질문",
+    "usage": "사용 방법",
+    "laborCounter": "진통 카운터",
+    "movementCounter": "태동 카운터",
+    "translation": "번역 앱",
+    "data": "데이터 가져오기"
+  },
+  "header": {
+    "selectLanguage": "언어 선택",
+    "scroll": "스크롤"
+  },
+  "template": {
+    "sample1": "문자 치환에 대해",
+    "sample2": "일반 패턴",
+    "sample3": "HTML 태그를 활성화하는 패턴",
+    "sample4": "동적으로 변경하는 패턴",
+    "sample5": "placeholder 번역",
+    "desc": "미리 \"/locales/{language-code}/translation.json\" 파일을 준비해 둡니다.",
+    "desc1": "변수를 사용해 문자를 치환할 수도 있습니다.",
+    "content": "이렇게 작성하면 태그 안의 문자가 자동으로 translation.json의 template.content로 바뀝니다.",
+    "content1": "태그 내부뿐 아니라 placeholder도 번역할 수 있습니다.",
+    "content-sample1": "",
+    "content-sample2": "{{name}}",
+    "content-sample3": "<b>{{name}}</b>",
+    "placeholder": "이름"
+  },
+  "style": {
+    "header": "헤더 레이아웃 샘플",
+    "typography": "타이포그래피"
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "취소",
+    "back": "뒤로"
+  }
+}
