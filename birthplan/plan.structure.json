@@ -1,0 +1,1299 @@
+{
+  "formId": "birthPlan",
+  "ver": "1",
+  "i18n": "bp",
+  "categories": [
+    {
+      "id": "laborBirth",
+      "labelKey": "cat.laborBirth",
+      "sections": [
+        {
+          "id": "attendance",
+          "labelKey": "sec.laborBirth.attendance",
+          "questions": [
+            {
+              "id": "a001",
+              "labelKey": "q.a001",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a001.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a001.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a001.o3"
+                }
+              ],
+              "followUps": [
+                {
+                  "id": "a001a",
+                  "labelKey": "q.a001a",
+                  "inputType": "multiText",
+                  "showWhenParentIs": [
+                    "o1",
+                    "o2"
+                  ],
+                  "options": [
+                    {
+                      "id": "o1",
+                      "labelKey": "q.a001a.o1"
+                    },
+                    {
+                      "id": "o2",
+                      "labelKey": "q.a001a.o2"
+                    },
+                    {
+                      "id": "o3",
+                      "labelKey": "q.a001a.o3"
+                    },
+                    {
+                      "id": "o4",
+                      "labelKey": "q.a001a.o4"
+                    },
+                    {
+                      "id": "o5",
+                      "labelKey": "q.a001a.o5"
+                    }
+                  ]
+                },
+                {
+                  "id": "a001b",
+                  "labelKey": "q.a001b",
+                  "inputType": "single",
+                  "showWhenParentIs": [
+                    "o1",
+                    "o2"
+                  ],
+                  "options": [
+                    {
+                      "id": "o1",
+                      "labelKey": "q.a001b.o1"
+                    },
+                    {
+                      "id": "o2",
+                      "labelKey": "q.a001b.o2"
+                    },
+                    {
+                      "id": "o3",
+                      "labelKey": "q.a001b.o3"
+                    },
+                    {
+                      "id": "o4",
+                      "labelKey": "q.a001b.o4"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "a004",
+              "labelKey": "q.a004",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a004.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a004.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a004.o3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "environment",
+          "labelKey": "sec.laborBirth.environment",
+          "questions": [
+            {
+              "id": "a005",
+              "labelKey": "q.a005",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a005.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a005.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a005.o3"
+                }
+              ]
+            },
+            {
+              "id": "a006",
+              "labelKey": "q.a006",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a006.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a006.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a006.o3"
+                },
+                {
+                  "id": "o4",
+                  "labelKey": "q.a006.o4"
+                }
+              ]
+            },
+            {
+              "id": "a007",
+              "labelKey": "q.a007",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a007.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a007.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a007.o3"
+                }
+              ]
+            },
+            {
+              "id": "a007a",
+              "labelKey": "q.a007a",
+              "inputType": "singleText",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a007a.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a007a.o2"
+                }
+              ]
+            },
+            {
+              "id": "a008",
+              "labelKey": "q.a008",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a008.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a008.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a008.o3"
+                }
+              ]
+            },
+            {
+              "id": "a009",
+              "labelKey": "q.a009",
+              "inputType": "multiText",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a009.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a009.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a009.o3"
+                },
+                {
+                  "id": "o4",
+                  "labelKey": "q.a009.o4"
+                },
+                {
+                  "id": "o5",
+                  "labelKey": "q.a009.o5"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "records",
+          "labelKey": "sec.laborBirth.records",
+          "questions": [
+            {
+              "id": "a010",
+              "labelKey": "q.a010",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a010.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a010.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a010.o3"
+                }
+              ]
+            },
+            {
+              "id": "a011",
+              "labelKey": "q.a011",
+              "inputType": "multiText",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a011.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a011.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a011.o3"
+                },
+                {
+                  "id": "o4",
+                  "labelKey": "q.a011.o4"
+                },
+                {
+                  "id": "o5",
+                  "labelKey": "q.a011.o5"
+                },
+                {
+                  "id": "o6",
+                  "labelKey": "q.a011.o6"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "deliveryMethod",
+          "labelKey": "sec.laborBirth.deliveryMethod",
+          "questions": [
+            {
+              "id": "a012",
+              "labelKey": "q.a012",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a012.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a012.o2"
+                }
+              ],
+              "followUps": [
+                {
+                  "id": "a012a",
+                  "labelKey": "q.a012a",
+                  "helpKey": "q.a012a.h",
+                  "inputType": "single",
+                  "showWhenParentIs": [
+                    "o1"
+                  ],
+                  "options": [
+                    {
+                      "id": "o1",
+                      "labelKey": "q.a012a.o1"
+                    },
+                    {
+                      "id": "o2",
+                      "labelKey": "q.a012a.o2"
+                    },
+                    {
+                      "id": "o3",
+                      "labelKey": "q.a012a.o3"
+                    },
+                    {
+                      "id": "o4",
+                      "labelKey": "q.a012a.o4"
+                    }
+                  ],
+                  "noteKey": "q.a012a.n"
+                },
+                {
+                  "id": "a012b",
+                  "labelKey": "q.a012b",
+                  "inputType": "multi",
+                  "showWhenParentIs": [
+                    "o1"
+                  ],
+                  "options": [
+                    {
+                      "id": "o1",
+                      "labelKey": "q.a012b.o1"
+                    },
+                    {
+                      "id": "o2",
+                      "labelKey": "q.a012b.o2"
+                    },
+                    {
+                      "id": "o3",
+                      "labelKey": "q.a012b.o3"
+                    },
+                    {
+                      "id": "o4",
+                      "labelKey": "q.a012b.o4"
+                    }
+                  ],
+                  "noteKey": "q.a012b.n"
+                }
+              ]
+            },
+            {
+              "id": "a013",
+              "labelKey": "q.a013",
+              "helpKey": "q.a013.h",
+              "prefaceKey": "q.a013.p",
+              "showPrefaceWhen": {
+                "questionId": "a012",
+                "is": [
+                  "o2"
+                ]
+              },
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a013.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a013.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a013.o3"
+                },
+                {
+                  "id": "o4",
+                  "labelKey": "q.a013.o4"
+                }
+              ],
+              "followUps": [
+                {
+                  "id": "a013a",
+                  "labelKey": "q.a013a",
+                  "inputType": "single",
+                  "showWhenParentIs": [
+                    "o1",
+                    "o2",
+                    "o4"
+                  ],
+                  "options": [
+                    {
+                      "id": "o1",
+                      "labelKey": "q.a013a.o1"
+                    },
+                    {
+                      "id": "o2",
+                      "labelKey": "q.a013a.o2"
+                    },
+                    {
+                      "id": "o3",
+                      "labelKey": "q.a013a.o3"
+                    }
+                  ],
+                  "noteKey": "q.a013a.n"
+                }
+              ]
+            },
+            {
+              "id": "a014",
+              "labelKey": "q.a014",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a014.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a014.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a014.o3"
+                },
+                {
+                  "id": "o4",
+                  "labelKey": "q.a014.o4"
+                }
+              ]
+            },
+            {
+              "id": "a015",
+              "labelKey": "q.a015",
+              "helpKey": "q.a015.h",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a015.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a015.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a015.o3"
+                }
+              ]
+            },
+            {
+              "id": "a016",
+              "labelKey": "q.a016",
+              "helpKey": "q.a016.h",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a016.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a016.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a016.o3"
+                }
+              ]
+            },
+            {
+              "id": "a017",
+              "labelKey": "q.a017",
+              "helpKey": "q.a017.h",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a017.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a017.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a017.o3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "painCare",
+          "labelKey": "sec.laborBirth.painCare",
+          "questions": [
+            {
+              "id": "a018",
+              "labelKey": "q.a018",
+              "inputType": "multi",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a018.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a018.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a018.o3"
+                },
+                {
+                  "id": "o4",
+                  "labelKey": "q.a018.o4"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "medicalCareExplain",
+          "labelKey": "sec.laborBirth.medicalCareExplain",
+          "questions": [
+            {
+              "id": "a019",
+              "labelKey": "q.a019",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a019.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a019.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a019.o3"
+                },
+                {
+                  "id": "o4",
+                  "labelKey": "q.a019.o4"
+                }
+              ]
+            },
+            {
+              "id": "a020",
+              "labelKey": "q.a020",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a020.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a020.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a020.o3"
+                },
+                {
+                  "id": "o4",
+                  "labelKey": "q.a020.o4"
+                }
+              ]
+            },
+            {
+              "id": "a021",
+              "labelKey": "q.a021",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.a021.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.a021.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.a021.o3"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "postBirth",
+      "labelKey": "cat.postBirth",
+      "sections": [
+        {
+          "id": "newbornContact",
+          "labelKey": "sec.postBirth.newbornContact",
+          "questions": [
+            {
+              "id": "b001",
+              "labelKey": "q.b001",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.b001.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.b001.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.b001.o3"
+                }
+              ]
+            },
+            {
+              "id": "b002",
+              "labelKey": "q.b002",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.b002.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.b002.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.b002.o3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "proceduresTests",
+          "labelKey": "sec.postBirth.proceduresTests",
+          "questions": [
+            {
+              "id": "b003",
+              "labelKey": "q.b003",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.b003.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.b003.o2"
+                }
+              ]
+            },
+            {
+              "id": "b004",
+              "labelKey": "q.b004",
+              "helpKey": "q.b004.h",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.b004.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.b004.o2"
+                }
+              ]
+            },
+            {
+              "id": "b005",
+              "labelKey": "q.b005",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.b005.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.b005.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.b005.o3"
+                },
+                {
+                  "id": "o4",
+                  "labelKey": "q.b005.o4"
+                }
+              ]
+            },
+            {
+              "id": "b006",
+              "labelKey": "q.b006",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.b006.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.b006.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.b006.o3"
+                },
+                {
+                  "id": "o4",
+                  "labelKey": "q.b006.o4"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "environment",
+          "labelKey": "sec.postBirth.environment",
+          "questions": [
+            {
+              "id": "b007",
+              "labelKey": "q.b007",
+              "inputType": "multiText",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.b007.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.b007.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.b007.o3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "records",
+          "labelKey": "sec.postBirth.records",
+          "questions": [
+            {
+              "id": "b008",
+              "labelKey": "q.b008",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.b008.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.b008.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.b008.o3"
+                }
+              ]
+            },
+            {
+              "id": "b009",
+              "labelKey": "q.b009",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.b009.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.b009.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.b009.o3"
+                }
+              ]
+            },
+            {
+              "id": "b010",
+              "labelKey": "q.b010",
+              "inputType": "multiText",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.b010.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.b010.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.b010.o3"
+                },
+                {
+                  "id": "o4",
+                  "labelKey": "q.b010.o4"
+                },
+                {
+                  "id": "o5",
+                  "labelKey": "q.b010.o5"
+                },
+                {
+                  "id": "o6",
+                  "labelKey": "q.b010.o6"
+                }
+              ]
+            },
+            {
+              "id": "b011",
+              "labelKey": "q.b011",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.b011.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.b011.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.b011.o3"
+                }
+              ]
+            },
+            {
+              "id": "b012",
+              "labelKey": "q.b012",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.b012.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.b012.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.b012.o3"
+                }
+              ]
+            },
+            {
+              "id": "b013",
+              "labelKey": "q.b013",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.b013.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.b013.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.b013.o3"
+                }
+              ]
+            },
+            {
+              "id": "b014",
+              "labelKey": "q.b014",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.b014.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.b014.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.b014.o3"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hospitalStay",
+      "labelKey": "cat.hospitalStay",
+      "sections": [
+        {
+          "id": "roomingIn",
+          "labelKey": "sec.hospitalStay.roomingIn",
+          "questions": [
+            {
+              "id": "c001",
+              "labelKey": "q.c001",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.c001.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.c001.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.c001.o3"
+                }
+              ]
+            },
+            {
+              "id": "c002",
+              "labelKey": "q.c002",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.c002.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.c002.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.c002.o3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "feeding",
+          "labelKey": "sec.hospitalStay.feeding",
+          "questions": [
+            {
+              "id": "c003",
+              "labelKey": "q.c003",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.c003.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.c003.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.c003.o3"
+                },
+                {
+                  "id": "o4",
+                  "labelKey": "q.c003.o4"
+                }
+              ],
+              "followUps": [
+                {
+                  "id": "c003a",
+                  "labelKey": "q.c003a",
+                  "inputType": "single",
+                  "showWhenParentIs": [
+                    "o2",
+                    "o3",
+                    "o4"
+                  ],
+                  "options": [
+                    {
+                      "id": "o1",
+                      "labelKey": "q.c003a.o1"
+                    },
+                    {
+                      "id": "o2",
+                      "labelKey": "q.c003a.o2"
+                    }
+                  ],
+                  "noteKey": "q.c003a.n"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "environment",
+          "labelKey": "sec.hospitalStay.environment",
+          "questions": [
+            {
+              "id": "c004",
+              "labelKey": "q.c004",
+              "inputType": "multiText",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.c004.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.c004.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.c004.o3"
+                },
+                {
+                  "id": "o4",
+                  "labelKey": "q.c004.o4"
+                },
+                {
+                  "id": "o5",
+                  "labelKey": "q.c004.o5"
+                },
+                {
+                  "id": "o6",
+                  "labelKey": "q.c004.o6"
+                },
+                {
+                  "id": "o7",
+                  "labelKey": "q.c004.o7"
+                },
+                {
+                  "id": "o8",
+                  "labelKey": "q.c004.o8"
+                },
+                {
+                  "id": "o9",
+                  "labelKey": "q.c004.o9"
+                },
+                {
+                  "id": "o10",
+                  "labelKey": "q.c004.o10"
+                },
+                {
+                  "id": "o11",
+                  "labelKey": "q.c004.o11"
+                },
+                {
+                  "id": "o12",
+                  "labelKey": "q.c004.o12"
+                }
+              ]
+            },
+            {
+              "id": "c005",
+              "labelKey": "q.c005",
+              "inputType": "multiText",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.c005.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.c005.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.c005.o3"
+                },
+                {
+                  "id": "o4",
+                  "labelKey": "q.c005.o4"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "visitation",
+          "labelKey": "sec.hospitalStay.visitation",
+          "questions": [
+            {
+              "id": "c006",
+              "labelKey": "q.c006",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.c006.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.c006.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.c006.o3"
+                }
+              ],
+              "followUps": [
+                {
+                  "id": "c006a",
+                  "labelKey": "q.c006a",
+                  "inputType": "multiText",
+                  "showWhenParentIs": [
+                    "o1",
+                    "o2"
+                  ],
+                  "options": [
+                    {
+                      "id": "o1",
+                      "labelKey": "q.c006a.o1"
+                    },
+                    {
+                      "id": "o2",
+                      "labelKey": "q.c006a.o2"
+                    },
+                    {
+                      "id": "o3",
+                      "labelKey": "q.c006a.o3"
+                    },
+                    {
+                      "id": "o4",
+                      "labelKey": "q.c006a.o4"
+                    },
+                    {
+                      "id": "o5",
+                      "labelKey": "q.c006a.o5"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "maternalCare",
+          "labelKey": "sec.hospitalStay.maternalCare",
+          "questions": [
+            {
+              "id": "c008",
+              "labelKey": "q.c008",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.c008.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.c008.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.c008.o3"
+                }
+              ]
+            },
+            {
+              "id": "c009",
+              "labelKey": "q.c009",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.c009.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.c009.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.c009.o3"
+                }
+              ]
+            },
+            {
+              "id": "c010",
+              "labelKey": "q.c010",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.c010.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.c010.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.c010.o3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "education",
+          "labelKey": "sec.hospitalStay.education",
+          "questions": [
+            {
+              "id": "c011",
+              "labelKey": "q.c011",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.c011.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.c011.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.c011.o3"
+                }
+              ]
+            },
+            {
+              "id": "c012",
+              "labelKey": "q.c012",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.c012.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.c012.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.c012.o3"
+                }
+              ]
+            },
+            {
+              "id": "c013",
+              "labelKey": "q.c013",
+              "inputType": "single",
+              "options": [
+                {
+                  "id": "o1",
+                  "labelKey": "q.c013.o1"
+                },
+                {
+                  "id": "o2",
+                  "labelKey": "q.c013.o2"
+                },
+                {
+                  "id": "o3",
+                  "labelKey": "q.c013.o3"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
