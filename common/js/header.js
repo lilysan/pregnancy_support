@@ -245,7 +245,7 @@ $(function () {
         if (s.startsWith("bn")) return "bn";
         if (s.startsWith("ur")) return "ur";
         if (s.startsWith("tl") || s.startsWith("fil")) return "tl";
-        return "ja";
+        return "en";
     }
 
     function changeLanguage(lng){
