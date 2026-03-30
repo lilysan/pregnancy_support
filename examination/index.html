@@ -58,127 +58,127 @@
         const languageConfig = [{
                 code: "ja",
                 label: "やさしい日本語",
-                dataFile: "data/localData.json",
+                i18nFile: "i18n/ja.json",
                 speech: "ja-JP"
             },
             {
                 code: "en-US",
                 label: "英語編(English)",
-                dataFile: "data/enData.json",
+                i18nFile: "i18n/en-US.json",
                 speech: "en-US"
             },
             {
                 code: "zh",
                 label: "中国語編(中文版)",
-                dataFile: "data/zhData.json",
+                i18nFile: "i18n/zh.json",
                 speech: "zh-CN"
             },
             {
                 code: "fr",
                 label: "フランス語編(French)",
-                dataFile: "data/fr.json",
+                i18nFile: "i18n/fr.json",
                 speech: "fr-FR"
             },
             {
                 code: "ko",
                 label: "韓国語編(Korean)",
-                dataFile: "data/ko.json",
+                i18nFile: "i18n/ko.json",
                 speech: "ko-KR"
             },
             {
                 code: "pr",
                 label: "ポルトガル語編(Portugues)",
-                dataFile: "data/pr.json",
+                i18nFile: "i18n/pr.json",
                 speech: "pt-PT"
             },
             {
                 code: "tl",
                 label: "タガログ語編(TAGALOG)",
-                dataFile: "data/tg.json",
+                i18nFile: "i18n/tl.json",
                 speech: "tl-PH"
             },
             {
                 code: "ve",
                 label: "ベトナム語編(Vietnam)",
-                dataFile: "data/ve.json",
+                i18nFile: "i18n/ve.json",
                 speech: "vi-VN"
             },
             {
                 code: "th",
                 label: "タイ語編(Thai)",
-                dataFile: "data/th.json",
+                i18nFile: "i18n/th.json",
                 speech: "th-TH"
             },
             {
                 code: "de",
                 label: "ドイツ語編(German)",
-                dataFile: "data/deData.json",
+                i18nFile: "i18n/de.json",
                 speech: "de-DE"
             },
             {
                 code: "id",
                 label: "インドネシア語(Indonesia)",
-                dataFile: "data/id.json",
+                i18nFile: "i18n/id.json",
                 speech: "id-ID"
             },
             {
                 code: "ru",
                 label: "ロシア語(Russian)",
-                dataFile: "data/ru.json",
+                i18nFile: "i18n/ru.json",
                 speech: "ru-RU"
             },
             {
                 code: "ne",
                 label: "ネパール語(Nepali)",
-                dataFile: "data/ne.json",
+                i18nFile: "i18n/ne.json",
                 speech: "ne-NP"
             },
             {
                 code: "lo",
                 label: "ラオス語(Laotian)",
-                dataFile: "data/lo.json",
+                i18nFile: "i18n/lo.json",
                 speech: "lo-LA"
             },
             {
                 code: "uk",
                 label: "ウクライナ語(Ukrainian)",
-                dataFile: "data/uk.json",
+                i18nFile: "i18n/uk.json",
                 speech: "uk-UA"
             },
             {
                 code: "fa-AF",
                 label: "ダリ語(Dari)",
-                dataFile: "data/fa-AF.json",
+                i18nFile: "i18n/fa-AF.json",
                 speech: "fa-AF"
             },
             {
                 code: "si",
                 label: "シンハラ語(Sinhala)",
-                dataFile: "data/si.json",
+                i18nFile: "i18n/si.json",
                 speech: "si-LK"
             },
             {
                 code: "ms",
                 label: "マレー語(Malay)",
-                dataFile: "data/ms.json",
+                i18nFile: "i18n/ms.json",
                 speech: "ms-MY"
             },
             {
                 code: "my",
                 label: "ミャンマー語(Myanmar)",
-                dataFile: "data/my.json",
+                i18nFile: "i18n/my.json",
                 speech: "my-MM"
             },
             {
                 code: "bn",
                 label: "ベンガル語(Bengali)",
-                dataFile: "data/bn.json",
+                i18nFile: "i18n/bn.json",
                 speech: "bn-BD"
             },
             {
                 code: "ur",
                 label: "ウルドゥー語(Urdu)",
-                dataFile: "data/ur.json",
+                i18nFile: "i18n/ur.json",
                 speech: "ur-PK"
             }
         ];
@@ -635,7 +635,7 @@
         }
 
         async function fetchLocalData() {
-            const localRaw = await getDataFromJson("data/localData.json");
+            const localRaw = await getBoardData("ja");
             keepIndexes = [];
             localRaw.forEach((row, idx) => {
                 if (isPregnancyScope(row)) keepIndexes.push(idx);
@@ -648,7 +648,7 @@
             if (!forceReload && translatedByLanguage[langCode]) return;
             const lang = languageConfig.find(item => item.code === langCode) || languageConfig[0];
             setLoading(`${tr("loading_data", "データを読み込んでいます...")} (${lang.label})`);
-            const translatedRaw = await getDataFromJson(lang.dataFile);
+            const translatedRaw = await getBoardData(lang.code);
             translatedByLanguage[lang.code] = keepIndexes.map(idx => translatedRaw[idx] || emptyTranslatedRow());
         }
 
@@ -660,11 +660,13 @@
             };
         }
 
-        async function getDataFromJson(fileName) {
+        async function getBoardData(langCode) {
             try {
-                const response = await fetch(fileName);
-                if (!response.ok) throw new Error(`Failed to fetch ${fileName}`);
-                const rows = await response.json();
+                const lang = languageConfig.find(item => item.code === langCode) || languageConfig[0];
+                const response = await fetch(lang.i18nFile);
+                if (!response.ok) throw new Error(`Failed to fetch ${lang.i18nFile}`);
+                const bundle = await response.json();
+                const rows = Array.isArray(bundle && bundle.boardData) ? bundle.boardData : [];
                 if (!Array.isArray(rows)) return [];
                 return rows.map(normalizeDataRow).filter(row => row.category || row.data.some(v => v));
             } catch (error) {
