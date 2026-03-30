@@ -157,6 +157,11 @@
         return addData(data, "pressure");
     }
 
+    // 血糖登録
+    function setSugar(data) {
+        return addData(data, "sugar");
+    }
+
     function deleteData(_data,type) {
         $(".loader").show();
         return $.ajax(
