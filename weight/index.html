@@ -226,6 +226,10 @@
                 init: function () {
                     return Promise.resolve();
                 },
+                isLoggedIn: function () {
+                    return true;
+                },
+                login: function () {},
                 getIDToken: function () {
                     return "TEST_ID_TOKEN";
                 },
@@ -1006,7 +1010,14 @@
                 liffId: LIFF_ID,
                 withLoginOnExternalBrowser: true
             });
+            if (typeof liff.isLoggedIn === "function" && !liff.isLoggedIn()) {
+                liff.login();
+                return;
+            }
             token = liff.getIDToken();
+            if (!token) {
+                throw new Error("LIFF ID token was not returned.");
+            }
             await reloadWeightData();
         }
 
