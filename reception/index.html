@@ -5,369 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>受付コミュニケーションボード</title>
+    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
     <script src="language.js"></script>
-    <style>
-        :root {
-            --bg: #fffaf5;
-            --card: #ffffff;
-            --ink: #342e2b;
-            --sub: #6e6460;
-            --accent: #e46f47;
-            --accent-soft: #ffe5db;
-            --line: #eadccf;
-            --tab: #f4ece5;
-            --ok: #fff0b8;
-            --ok-line: #ecbf45;
-            --shadow: 0 8px 20px rgba(129, 84, 56, 0.14);
-        }
+    <link rel="stylesheet" href="../template/style.css">
+    <link rel="stylesheet" href="./style.css">
 
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            background:
-                radial-gradient(circle at 8% 8%, #fff0e9 0%, transparent 36%),
-                radial-gradient(circle at 92% 10%, #ffefe1 0%, transparent 34%),
-                var(--bg);
-            color: var(--ink);
-            font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
-        }
-
-        .app-header {
-            padding: 18px 14px 8px;
-        }
-
-        .app-header h1 {
-            margin: 0;
-            font-size: 1.3rem;
-            line-height: 1.35;
-        }
-
-        .app-header p {
-            margin: 6px 0 0;
-            font-size: 0.92rem;
-            color: var(--sub);
-        }
-
-        .language-picker {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 8px;
-            padding: 10px 12px;
-            background: linear-gradient(to bottom, rgba(255, 250, 245, 0.97), rgba(255, 250, 245, 0.9));
-        }
-
-        .language-btn {
-            border: 2px solid var(--line);
-            border-radius: 14px;
-            background: #fff;
-            color: var(--ink);
-            font-size: 0.88rem;
-            min-height: 54px;
-            padding: 8px;
-            text-align: left;
-            font-weight: 700;
-        }
-
-        .language-btn.active {
-            background: var(--accent-soft);
-            border-color: var(--accent);
-        }
-
-        .main {
-            padding: 0 12px 24px;
-            margin-bottom: 60px;
-        }
-
-        .category-tabs {
-            position: sticky;
-            top: 0;
-            z-index: 20;
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            background: rgba(255, 250, 245, 0.94);
-            padding: 10px 0;
-        }
-
-        .tab-btn {
-            flex: 0 0 auto;
-            border: none;
-            border-radius: 999px;
-            background: var(--tab);
-            color: var(--ink);
-            min-height: 46px;
-            padding: 10px 14px;
-            font-size: 0.94rem;
-            font-weight: 700;
-        }
-
-        .tab-btn.active {
-            background: var(--accent);
-            color: #fff;
-        }
-
-        .accordion-list {
-            display: grid;
-            gap: 12px;
-        }
-
-        .talk-card {
-            border: 1px solid var(--line);
-            border-radius: 16px;
-            background: var(--card);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .talk-summary {
-            list-style: none;
-            padding: 12px;
-            cursor: pointer;
-        }
-
-        .talk-summary::-webkit-details-marker {
-            display: none;
-        }
-
-        .talk-title {
-            margin: 0;
-            font-size: 0.88rem;
-            color: var(--sub);
-        }
-
-        .talk-ja {
-            margin: 4px 0 0;
-            font-size: 1.08rem;
-            line-height: 1.35;
-            font-weight: 700;
-        }
-
-        .talk-tr {
-            margin: 4px 0 0;
-            font-size: 0.96rem;
-            line-height: 1.35;
-            color: var(--sub);
-        }
-
-        .talk-panel {
-            border-top: 1px solid var(--line);
-            background: #fffdfb;
-            padding: 12px;
-        }
-
-        .option-grid {
-            display: grid;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .large-btn {
-            width: 100%;
-            min-height: 72px;
-            border: 2px solid var(--line);
-            border-radius: 14px;
-            background: #fff;
-            color: var(--ink);
-            padding: 10px;
-            text-align: left;
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .speak-btn {
-            text-align: center;
-            background: var(--accent-soft);
-            border-color: #ffc2ae;
-        }
-
-        .option-btn.selected {
-            background: var(--ok);
-            border-color: var(--ok-line);
-            box-shadow: inset 0 0 0 2px rgba(236, 191, 69, 0.22);
-        }
-
-        .option-ja {
-            display: block;
-            font-size: 1.03rem;
-            line-height: 1.35;
-        }
-
-        .option-tr {
-            display: block;
-            margin-top: 4px;
-            font-size: 0.92rem;
-            line-height: 1.3;
-            color: var(--sub);
-        }
-
-        .questionnaire-wrap {
-            margin-top: 10px;
-        }
-
-        .questionnaire-note {
-            margin: 0 0 8px;
-            color: var(--sub);
-            font-size: 0.9rem;
-        }
-
-        .free-translate-btn {
-            position: fixed;
-            left: 12px;
-            bottom: 18px;
-            z-index: 50;
-            min-height: 56px;
-            padding: 10px 14px;
-            border: none;
-            border-radius: 999px;
-            background: #3f7f6f;
-            color: #fff;
-            font-size: 0.95rem;
-            font-weight: 700;
-            box-shadow: 0 8px 18px rgba(30, 66, 57, 0.25);
-        }
-
-        .free-translate-panel {
-            position: fixed;
-            left: 12px;
-            right: 12px;
-            bottom: 84px;
-            z-index: 55;
-            display: none;
-            background: #fffdf9;
-            border: 1px solid var(--line);
-            border-radius: 14px;
-            box-shadow: var(--shadow);
-            padding: 12px;
-        }
-
-        .free-translate-panel.open {
-            display: block;
-        }
-
-        .free-translate-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-
-        .free-translate-title {
-            margin: 0;
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .free-translate-close {
-            border: 1px solid var(--line);
-            background: #fff;
-            color: var(--ink);
-            border-radius: 999px;
-            min-height: 36px;
-            padding: 0 12px;
-            font-size: 0.86rem;
-            font-weight: 700;
-        }
-
-        .free-translate-input {
-            width: 100%;
-            min-height: 96px;
-            border: 2px solid var(--line);
-            border-radius: 10px;
-            padding: 10px;
-            font-size: 1rem;
-            resize: vertical;
-        }
-
-        .free-translate-run {
-            margin-top: 10px;
-            width: 100%;
-            min-height: 52px;
-            border: none;
-            border-radius: 12px;
-            background: var(--accent);
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .free-translate-status {
-            margin: 8px 0 0;
-            color: var(--sub);
-            font-size: 0.9rem;
-        }
-
-        .free-translate-output {
-            margin-top: 8px;
-            border-radius: 10px;
-            background: #fff;
-            border: 1px solid var(--line);
-            padding: 10px;
-            min-height: 56px;
-            font-size: 1rem;
-            line-height: 1.4;
-            white-space: pre-wrap;
-        }
-
-        .scroll-top-btn {
-            position: fixed;
-            right: 12px;
-            bottom: 18px;
-            width: 56px;
-            height: 56px;
-            border: none;
-            border-radius: 999px;
-            background: var(--accent);
-            color: #fff;
-            font-size: 20px;
-            font-weight: 700;
-            box-shadow: 0 8px 18px rgba(82, 42, 20, 0.28);
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(10px);
-            transition: opacity 0.2s ease, transform 0.2s ease;
-            z-index: 50;
-        }
-
-        .scroll-top-btn.visible {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translateY(0);
-        }
-
-        @media (min-width: 760px) {
-            .main {
-                max-width: 760px;
-                margin: 0 auto;
-            }
-
-            .language-picker {
-                grid-template-columns: repeat(4, minmax(0, 1fr));
-            }
-
-            .free-translate-panel {
-                max-width: 760px;
-                margin: 0 auto;
-                left: 50%;
-                right: auto;
-                transform: translateX(-50%);
-                width: calc(100% - 24px);
-            }
-        }
-    </style>
 </head>
 
 <body>
     <header class="app-header">
-        <h1>受付コミュニケーションボード</h1>
-        <p>受付〜会計までの説明を、言語切替と音声で案内します。</p>
+        <h1 id="pageTitle" class="h3-sample">受付コミュニケーションボード</h1>
+        <p id="pageLead" class="small-sample">受付〜会計までの説明を、言語切替と音声で案内します。</p>
     </header>
-
-    <section id="languagePicker" class="language-picker" aria-label="言語選択"></section>
+    <nav class="app-switcher" aria-label="アプリ切替">
+        <a id="switchExamLabel" class="app-switch-link" href="../examination/index.html">診察ボードへ</a>
+        <a id="switchReceptionLabel" class="app-switch-link is-current" href="./index.html" aria-current="page">受付ボード</a>
+    </nav>
+    <button type="button" id="languageSettingBtn" class="language-setting-btn">設定</button>
+    <div id="languageDialog" style="display:none;">
+        <div id="languageDialogPanel">
+            <h2 id="languageDialogTitle" class="h4-sample">設定</h2>
+            <p id="languageSectionTitle" class="settings-label caption-sample">言語設定</p>
+            <div id="languageOptionList" class="language-option-list"></div>
+            <button type="button" id="closeLanguageBtn">閉じる</button>
+        </div>
+    </div>
 
     <main class="main">
         <nav id="categoryTabs" class="category-tabs" aria-label="カテゴリ"></nav>
@@ -377,10 +40,16 @@
     <button id="freeTranslateBtn" class="free-translate-btn" type="button" aria-label="自由入力翻訳">自由入力/翻訳</button>
     <section id="freeTranslatePanel" class="free-translate-panel" aria-label="自由入力翻訳パネル">
         <div class="free-translate-head">
-            <p class="free-translate-title">自由入力翻訳</p>
+            <p id="freeTranslateTitle" class="free-translate-title h4-sample">自由入力翻訳</p>
             <button id="freeTranslateCloseBtn" class="free-translate-close" type="button" aria-label="閉じる">閉じる</button>
         </div>
+        <div id="freeTranslateDirectionGroup" class="free-translate-direction" role="group" aria-label="翻訳方向">
+            <button id="freeTranslateJaToBtn" class="free-translate-direction-btn active" type="button">日本語 → 選択言語</button>
+            <button id="freeTranslateToJaBtn" class="free-translate-direction-btn" type="button">選択言語 → 日本語</button>
+        </div>
+        <p id="freeTranslateInputLabel" class="free-translate-label small-sample">入力: 日本語</p>
         <textarea id="freeTranslateInput" class="free-translate-input" placeholder="日本語を入力"></textarea>
+        <p id="freeTranslateOutputLabel" class="free-translate-label small-sample">結果: 選択言語</p>
         <button id="freeTranslateRunBtn" class="free-translate-run" type="button">翻訳する</button>
         <p id="freeTranslateStatus" class="free-translate-status"></p>
         <div id="freeTranslateOutput" class="free-translate-output"></div>
@@ -390,62 +59,177 @@
 
     <script>
         const languageOptions = [{
-                code: "english",
-                label: "英語 / English",
+                code: "ja",
+                label: "やさしい日本語",
+                speech: "ja-JP",
+                translateTarget: "ja",
+                questionnairePdf: null
+            },
+            {
+                code: "en-US",
+                label: "英語編(English)",
                 speech: "en-US",
                 translateTarget: "en",
                 questionnairePdf: "./questionnaire/english.pdf"
             },
             {
-                code: "chinese",
-                label: "中国語 / 中文",
+                code: "zh",
+                label: "中国語編(中文版)",
                 speech: "zh-CN",
                 translateTarget: "zh-CN",
                 questionnairePdf: "./questionnaire/chinese.pdf"
             },
             {
-                code: "korean",
-                label: "韓国語 / 한국어",
+                code: "fr",
+                label: "フランス語編(French)",
+                speech: "fr-FR",
+                translateTarget: "fr",
+                questionnairePdf: null
+            },
+            {
+                code: "ko",
+                label: "韓国語編(Korean)",
                 speech: "ko-KR",
                 translateTarget: "ko",
                 questionnairePdf: "./questionnaire/korean.pdf"
             },
             {
-                code: "russian",
-                label: "ロシア語 / Русский",
-                speech: "ru-RU",
-                translateTarget: "ru",
-                questionnairePdf: null
-            },
-            {
-                code: "portuguese",
-                label: "ポルトガル語 / Português",
+                code: "pr",
+                label: "ポルトガル語編(Portugues)",
                 speech: "pt-PT",
                 translateTarget: "pt",
                 questionnairePdf: "./questionnaire/portuguese.pdf"
             },
             {
-                code: "filipino",
-                label: "フィリピノ語 / Filipino",
+                code: "tl",
+                label: "タガログ語編(TAGALOG)",
                 speech: "tl-PH",
                 translateTarget: "tl",
                 questionnairePdf: "./questionnaire/filipino.pdf"
             },
             {
-                code: "indonesian",
-                label: "インドネシア語 / Indonesia",
+                code: "ve",
+                label: "ベトナム語編(Vietnam)",
+                speech: "vi-VN",
+                translateTarget: "vi",
+                questionnairePdf: null
+            },
+            {
+                code: "th",
+                label: "タイ語編(Thai)",
+                speech: "th-TH",
+                translateTarget: "th",
+                questionnairePdf: null
+            },
+            {
+                code: "de",
+                label: "ドイツ語編(German)",
+                speech: "de-DE",
+                translateTarget: "de",
+                questionnairePdf: null
+            },
+            {
+                code: "id",
+                label: "インドネシア語(Indonesia)",
                 speech: "id-ID",
                 translateTarget: "id",
                 questionnairePdf: "./questionnaire/indonesian.pdf"
             },
             {
-                code: "japanese",
-                label: "やさしい日本語",
-                speech: "ja-JP",
-                translateTarget: "ja",
+                code: "ru",
+                label: "ロシア語(Russian)",
+                speech: "ru-RU",
+                translateTarget: "ru",
+                questionnairePdf: null
+            },
+            {
+                code: "ne",
+                label: "ネパール語(Nepali)",
+                speech: "ne-NP",
+                translateTarget: "ne",
+                questionnairePdf: null
+            },
+            {
+                code: "lo",
+                label: "ラオス語(Laotian)",
+                speech: "lo-LA",
+                translateTarget: "lo",
+                questionnairePdf: null
+            },
+            {
+                code: "uk",
+                label: "ウクライナ語(Ukrainian)",
+                speech: "uk-UA",
+                translateTarget: "uk",
+                questionnairePdf: null
+            },
+            {
+                code: "fa-AF",
+                label: "ダリ語(Dari)",
+                speech: "fa-AF",
+                translateTarget: "fa",
+                questionnairePdf: null
+            },
+            {
+                code: "si",
+                label: "シンハラ語(Sinhala)",
+                speech: "si-LK",
+                translateTarget: "si",
+                questionnairePdf: null
+            },
+            {
+                code: "ms",
+                label: "マレー語(Malay)",
+                speech: "ms-MY",
+                translateTarget: "ms",
+                questionnairePdf: null
+            },
+            {
+                code: "my",
+                label: "ミャンマー語(Myanmar)",
+                speech: "my-MM",
+                translateTarget: "my",
+                questionnairePdf: null
+            },
+            {
+                code: "bn",
+                label: "ベンガル語(Bengali)",
+                speech: "bn-BD",
+                translateTarget: "bn",
+                questionnairePdf: null
+            },
+            {
+                code: "ur",
+                label: "ウルドゥー語(Urdu)",
+                speech: "ur-PK",
+                translateTarget: "ur",
                 questionnairePdf: null
             }
         ];
+
+        const DIALOG_TEXT = {
+            "en-US": { settings: "Settings", language: "Language", close: "Close" },
+            "zh": { settings: "设置", language: "语言", close: "关闭" },
+            "fr": { settings: "Parametres", language: "Langue", close: "Fermer" },
+            "ko": { settings: "설정", language: "언어", close: "닫기" },
+            "pr": { settings: "Configuracoes", language: "Idioma", close: "Fechar" },
+            "tl": { settings: "Mga Setting", language: "Wika", close: "Isara" },
+            "ve": { settings: "Cai dat", language: "Ngon ngu", close: "Dong" },
+            "th": { settings: "การตั้งค่า", language: "ภาษา", close: "ปิด" },
+            "de": { settings: "Einstellungen", language: "Sprache", close: "Schliessen" },
+            "id": { settings: "Pengaturan", language: "Bahasa", close: "Tutup" },
+            "ru": { settings: "Настройки", language: "Язык", close: "Закрыть" },
+            "ne": { settings: "सेटिङ", language: "भाषा", close: "बन्द" },
+            "lo": { settings: "ການຕັ້ງຄ່າ", language: "ພາສາ", close: "ປິດ" },
+            "uk": { settings: "Налаштування", language: "Мова", close: "Закрити" },
+            "fa-AF": { settings: "تنظیمات", language: "زبان", close: "بستن" },
+            "si": { settings: "සැකසුම්", language: "භාෂාව", close: "වසන්න" },
+            "ms": { settings: "Tetapan", language: "Bahasa", close: "Tutup" },
+            "my": { settings: "ဆက်တင်များ", language: "ဘာသာစကား", close: "ပိတ်ရန်" },
+            "bn": { settings: "সেটিংস", language: "ভাষা", close: "বন্ধ" },
+            "ur": { settings: "ترتیبات", language: "زبان", close: "بند کریں" },
+            "ja": { settings: "設定", language: "言語設定", close: "閉じる" }
+        };
 
         const sections = [{
                 id: "reception",
@@ -575,27 +359,201 @@
                         ja: "会計は会計窓口で行ってください。"
                     }
                 ]
+            },
+            {
+                id: "system",
+                titleJa: "制度・システム",
+                titleFallback: "Systems & Support",
+                cards: [{
+                        key: "notify_pregnancy_office",
+                        ja: "住んでいる自治体で妊娠の届出を確認してください。",
+                        titleFallback: "Please confirm pregnancy notification procedures at your local city office."
+                    },
+                    {
+                        key: "mother_child_handbook",
+                        ja: "母子健康手帳を受け取りましょう。",
+                        titleFallback: "Please receive your Maternal and Child Health Handbook."
+                    },
+                    {
+                        key: "checkup_tickets",
+                        ja: "妊婦健診の受診票・補助券の使い方を確認してください。",
+                        titleFallback: "Please confirm how to use your prenatal checkup tickets and subsidy coupons."
+                    },
+                    {
+                        key: "hospital_reservation",
+                        ja: "出産する病院やクリニックは早めに決めて予約してください。",
+                        titleFallback: "Please decide on your delivery hospital or clinic early and make a reservation."
+                    },
+                    {
+                        key: "insurance_payment",
+                        ja: "健康保険や出産費用の支払い方法を確認してください。",
+                        titleFallback: "Please confirm your health insurance and how delivery costs will be paid."
+                    },
+                    {
+                        key: "financial_support",
+                        ja: "出産育児一時金などの費用支援制度を確認してください。",
+                        titleFallback: "Please confirm financial support systems such as childbirth allowances."
+                    },
+                    {
+                        key: "municipal_support",
+                        ja: "自治体の相談窓口や支援制度を利用できます。",
+                        titleFallback: "You may be able to use municipal consultation services and support programs."
+                    },
+                    {
+                        key: "interpreter_support",
+                        ja: "通訳や多言語相談が必要なときは相談してください。",
+                        titleFallback: "Please ask if you need an interpreter or multilingual support."
+                    },
+                    {
+                        key: "emergency_contact_info",
+                        ja: "夜間・休日の連絡先を確認しておきましょう。",
+                        titleFallback: "Please make sure you know the contact number for nights and holidays."
+                    },
+                    {
+                        key: "bring_documents",
+                        ja: "受診時に必要な書類や持ち物を確認してください。",
+                        titleFallback: "Please confirm the documents and items you need to bring for visits."
+                    }
+                ]
             }
         ];
 
-        let selectedLanguage = "english";
+        const LANGUAGE_STORAGE_KEY = "receptionSelectedLanguage";
+        let selectedLanguage = "en-US";
         let selectedSection = sections[0].id;
+        let freeTranslateDirection = "ja-to-lang";
         const selectedOptions = new Set();
 
         window.addEventListener("load", init);
 
-        function init() {
+        async function init() {
             setupScrollTopButton();
             setupFreeTranslatePanel();
+            document.getElementById("languageSettingBtn").addEventListener("click", () => {
+                document.getElementById("languageDialog").style.display = "block";
+            });
+            document.getElementById("closeLanguageBtn").addEventListener("click", () => {
+                document.getElementById("languageDialog").style.display = "none";
+            });
+            selectedLanguage = loadInitialLanguage();
+            await initI18n(selectedLanguage);
+            applyStaticTranslations();
             renderLanguageButtons();
             renderSectionTabs();
             renderCards();
         }
 
+        function loadInitialLanguage() {
+            const saved = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+            if (saved && languageOptions.some(item => item.code === saved)) return saved;
+            const raw = String(navigator.language || "en-US").toLowerCase();
+            if (raw.startsWith("ja")) return "ja";
+            if (raw.startsWith("zh")) return "zh";
+            if (raw.startsWith("fr")) return "fr";
+            if (raw.startsWith("ko")) return "ko";
+            if (raw.startsWith("pt")) return "pr";
+            if (raw.startsWith("tl") || raw.startsWith("fil")) return "tl";
+            if (raw.startsWith("vi")) return "ve";
+            if (raw.startsWith("th")) return "th";
+            if (raw.startsWith("de")) return "de";
+            if (raw.startsWith("id")) return "id";
+            if (raw.startsWith("ru")) return "ru";
+            if (raw.startsWith("ne")) return "ne";
+            if (raw.startsWith("lo")) return "lo";
+            if (raw.startsWith("uk")) return "uk";
+            if (raw.startsWith("fa")) return "fa-AF";
+            if (raw.startsWith("si")) return "si";
+            if (raw.startsWith("ms")) return "ms";
+            if (raw.startsWith("my")) return "my";
+            if (raw.startsWith("bn")) return "bn";
+            if (raw.startsWith("ur")) return "ur";
+            return "en-US";
+        }
+
+        function getI18nLanguage(langCode) {
+            if (langCode === "zh") return "zh";
+            if (langCode === "ja" || langCode === "ja-JP") return "ja";
+            return "en-US";
+        }
+
+        async function initI18n(langCode) {
+            if (!window.i18next) return;
+            const target = getI18nLanguage(langCode);
+            if (!i18next.isInitialized) {
+                await i18next.use(i18nextHttpBackend).init({
+                    lng: target,
+                    fallbackLng: "en-US",
+                    backend: {
+                        loadPath: "./i18n/{{lng}}.json"
+                    }
+                });
+                return;
+            }
+            await i18next.changeLanguage(target);
+        }
+
+        function tr(key, fallback, options) {
+            if (!window.i18next || !i18next.isInitialized) return fallback || "";
+            const value = i18next.t(key, options || {});
+            return value === key ? (fallback || "") : value;
+        }
+
+        function applyStaticTranslations() {
+            document.getElementById("pageTitle").textContent = buildBilingualLabel("受付コミュニケーションボード", "page_title");
+            document.getElementById("pageLead").textContent = tr("page_lead", "受付〜会計までの説明を、言語切替と音声で案内します。");
+            document.getElementById("switchExamLabel").textContent = buildBilingualLabel("診察ボードへ", "switch_exam");
+            document.getElementById("switchReceptionLabel").textContent = buildBilingualLabel("受付ボード", "switch_reception");
+            document.getElementById("categoryTabs").setAttribute("aria-label", tr("category_aria", "カテゴリ"));
+            document.getElementById("freeTranslateBtn").textContent = tr("free_translate_btn", "自由入力/翻訳");
+            document.getElementById("freeTranslateBtn").setAttribute("aria-label", tr("free_translate_btn", "自由入力/翻訳"));
+            document.getElementById("freeTranslatePanel").setAttribute("aria-label", tr("free_translate_panel_aria", "自由入力翻訳パネル"));
+            document.getElementById("freeTranslateTitle").textContent = tr("free_translate_title", "自由入力翻訳");
+            document.getElementById("freeTranslateCloseBtn").textContent = tr("close", "閉じる");
+            document.getElementById("freeTranslateCloseBtn").setAttribute("aria-label", tr("free_translate_close_aria", "閉じる"));
+            document.getElementById("freeTranslateDirectionGroup").setAttribute("aria-label", tr("free_translate_direction_aria", "翻訳方向"));
+            document.getElementById("freeTranslateRunBtn").textContent = tr("free_translate_run", "翻訳する");
+            document.getElementById("scrollTopBtn").setAttribute("aria-label", tr("scroll_top_aria", "ページトップへ戻る"));
+            updateFreeTranslatePanelUI();
+        }
+
+        function buildBilingualLabel(jaText, key) {
+            const translated = tr(key, jaText);
+            if (getI18nLanguage(selectedLanguage) === "ja" || translated === jaText) return jaText;
+            return `${jaText} / ${translated}`;
+        }
+
         function t(key, fallback) {
-            const data = window.languagedata && window.languagedata[selectedLanguage];
+            const dataKey = getDataLangKey(selectedLanguage);
+            const data = window.languagedata && window.languagedata[dataKey];
             if (!data) return fallback || "";
             return data[key] || fallback || "";
+        }
+
+        function getDataLangKey(code) {
+            const map = {
+                "en-US": "english",
+                "zh": "chinese",
+                "fr": "french",
+                "ko": "korean",
+                "pr": "portuguese",
+                "tl": "filipino",
+                "ve": "vietnamese",
+                "th": "thai",
+                "de": "german",
+                "id": "indonesian",
+                "ru": "russian",
+                "ne": "nepali",
+                "lo": "laotian",
+                "uk": "ukrainian",
+                "fa-AF": "dari",
+                "si": "sinhala",
+                "ms": "malay",
+                "my": "myanmar",
+                "bn": "bengali",
+                "ur": "urdu",
+                "ja": "japanese"
+            };
+            return map[code] || "english";
         }
 
         function getSelectedLang() {
@@ -603,21 +561,34 @@
         }
 
         function renderLanguageButtons() {
-            const picker = document.getElementById("languagePicker");
+            const picker = document.getElementById("languageOptionList");
             picker.innerHTML = "";
             languageOptions.forEach(lang => {
                 const btn = document.createElement("button");
                 btn.type = "button";
-                btn.className = "language-btn" + (selectedLanguage === lang.code ? " active" : "");
+                btn.className = "language-option-btn" + (selectedLanguage === lang.code ? " active" : "");
                 btn.textContent = lang.label;
-                btn.addEventListener("click", () => {
+                btn.addEventListener("click", async () => {
                     selectedLanguage = lang.code;
+                    localStorage.setItem(LANGUAGE_STORAGE_KEY, selectedLanguage);
+                    document.getElementById("languageDialog").style.display = "none";
+                    await initI18n(selectedLanguage);
+                    applyStaticTranslations();
+                    updateFreeTranslatePanelUI();
                     renderLanguageButtons();
                     renderSectionTabs();
                     renderCards();
                 });
                 picker.appendChild(btn);
             });
+            renderLanguageDialogText();
+        }
+
+        function renderLanguageDialogText() {
+            document.getElementById("languageSettingBtn").textContent = tr("settings", "設定");
+            document.getElementById("languageDialogTitle").textContent = tr("settings", "設定");
+            document.getElementById("languageSectionTitle").textContent = tr("language", "言語設定");
+            document.getElementById("closeLanguageBtn").textContent = tr("close", "閉じる");
         }
 
         function renderSectionTabs() {
@@ -627,7 +598,11 @@
                 const btn = document.createElement("button");
                 btn.type = "button";
                 btn.className = "tab-btn" + (selectedSection === section.id ? " active" : "");
-                btn.textContent = section.titleJa;
+                const translatedTitle = getTranslatedSectionLabel(section);
+                btn.innerHTML = `
+                    <span class="tab-ja">${escapeHtml(section.titleJa)}</span>
+                    <span class="tab-tr">${escapeHtml(translatedTitle)}</span>
+                `;
                 btn.addEventListener("click", () => {
                     selectedSection = section.id;
                     renderSectionTabs();
@@ -635,6 +610,18 @@
                 });
                 tabs.appendChild(btn);
             });
+        }
+
+        function getTranslatedSectionLabel(section) {
+            const keyMap = {
+                reception: "tab_reception",
+                waiting: "tab_waiting",
+                medicine: "tab_medicine",
+                system: "tab_system"
+            };
+            const key = keyMap[section.id];
+            if (!key) return section.titleFallback || "";
+            return tr(key, section.titleFallback || "");
         }
 
         function renderCards() {
@@ -649,29 +636,36 @@
                 const summary = document.createElement("summary");
                 summary.className = "talk-summary";
                 summary.innerHTML = `
-                    <p class="talk-title">項目 ${index + 1}</p>
-                    <p class="talk-ja">${escapeHtml(card.ja)}</p>
-                    <p class="talk-tr">${escapeHtml(t(card.key, card.titleFallback || ""))}</p>
+                    <div class="summary-texts">
+                        <p class="talk-title">項目 ${index + 1}</p>
+                        <p class="talk-ja">${escapeHtml(card.ja)}</p>
+                        <p class="talk-tr">${escapeHtml(t(card.key, card.titleFallback || ""))}</p>
+                    </div>
+                    <button type="button" class="summary-play-btn" aria-label="項目を再生">▶</button>
                 `;
+                const summaryPlayBtn = summary.querySelector(".summary-play-btn");
+                const handleSummaryPlay = (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                };
+                summaryPlayBtn.addEventListener("pointerdown", handleSummaryPlay);
+                summaryPlayBtn.addEventListener("mousedown", handleSummaryPlay);
+                summaryPlayBtn.addEventListener("click", (event) => {
+                    handleSummaryPlay(event);
+                    speakPair(card.ja, t(card.key, ""));
+                });
 
                 const panel = document.createElement("div");
                 panel.className = "talk-panel";
-
-                const speakBtn = document.createElement("button");
-                speakBtn.type = "button";
-                speakBtn.className = "large-btn speak-btn";
-                speakBtn.textContent = "この項目を読み上げ";
-                speakBtn.addEventListener("click", () => {
-                    speakPair(card.ja, t(card.key, ""));
-                });
-                panel.appendChild(speakBtn);
 
                 if (card.questionnaire) {
                     const wrap = document.createElement("div");
                     wrap.className = "questionnaire-wrap";
                     const note = document.createElement("p");
                     note.className = "questionnaire-note";
-                    note.textContent = `${getSelectedLanguageNameForNote()}の問診票PDFを開く`;
+                    note.textContent = tr("questionnaire_pdf_open", "{{label}}の問診票PDFを開く", {
+                        label: getSelectedLanguageNameForNote()
+                    });
                     const qBtn = document.createElement("button");
                     qBtn.type = "button";
                     qBtn.className = "large-btn";
@@ -679,7 +673,7 @@
                     qBtn.addEventListener("click", () => {
                         const lang = getSelectedLang();
                         if (!lang.questionnairePdf) {
-                            alert("この言語の問診票PDFは未設定です。");
+                            alert(tr("questionnaire_not_ready", "この言語の問診票PDFは未設定です。"));
                             return;
                         }
                         window.open(lang.questionnairePdf, "_blank", "noopener,noreferrer");
@@ -762,51 +756,128 @@
             const panel = document.getElementById("freeTranslatePanel");
             const closeBtn = document.getElementById("freeTranslateCloseBtn");
             const runBtn = document.getElementById("freeTranslateRunBtn");
+            const jaToBtn = document.getElementById("freeTranslateJaToBtn");
+            const toJaBtn = document.getElementById("freeTranslateToJaBtn");
             const input = document.getElementById("freeTranslateInput");
             const status = document.getElementById("freeTranslateStatus");
             const output = document.getElementById("freeTranslateOutput");
-            if (!trigger || !panel || !closeBtn || !runBtn || !input || !status || !output) return;
+            if (!trigger || !panel || !closeBtn || !runBtn || !jaToBtn || !toJaBtn || !input || !status ||
+                !output) return;
 
             trigger.addEventListener("click", () => {
                 panel.classList.toggle("open");
+                updateFreeTranslatePanelUI();
                 if (panel.classList.contains("open")) input.focus();
             });
             closeBtn.addEventListener("click", () => {
                 panel.classList.remove("open");
             });
+            jaToBtn.addEventListener("click", () => {
+                freeTranslateDirection = "ja-to-lang";
+                updateFreeTranslatePanelUI();
+            });
+            toJaBtn.addEventListener("click", () => {
+                freeTranslateDirection = "lang-to-ja";
+                updateFreeTranslatePanelUI();
+            });
+            updateFreeTranslatePanelUI();
 
             runBtn.addEventListener("click", async () => {
                 const text = String(input.value || "").trim();
                 if (!text) {
-                    status.textContent = "日本語を入力してください。";
+                    status.textContent = freeTranslateDirection === "ja-to-lang" ?
+                        tr("enter_japanese", "日本語を入力してください。") :
+                        tr("enter_selected_language", "選択している言語で入力してください。");
                     output.textContent = "";
                     return;
                 }
-                status.textContent = "翻訳中...";
+                status.textContent = tr("translating", "翻訳中...");
                 output.textContent = "";
 
                 try {
-                    const target = getSelectedLang().translateTarget || "en";
-                    const translated = await translateFreeFromJapanese(text, target);
+                    const source = freeTranslateDirection === "ja-to-lang" ? "ja" : (getSelectedLang()
+                        .translateTarget || "en");
+                    const target = freeTranslateDirection === "ja-to-lang" ? (getSelectedLang()
+                        .translateTarget || "en") : "ja";
+                    const translated = await translateFreeText(text, source, target);
                     status.textContent = "";
-                    output.textContent = translated || "(翻訳結果なし)";
-                    if (translated) speakPair(text, translated);
+                    output.textContent = translated || tr("translate_empty", "(翻訳結果なし)");
+                    if (translated) {
+                        speakTextSequence(
+                            text,
+                            freeTranslateDirection === "ja-to-lang" ? "ja-JP" : getSelectedLang().speech,
+                            translated,
+                            freeTranslateDirection === "ja-to-lang" ? getSelectedLang().speech : "ja-JP"
+                        );
+                    }
                 } catch (err) {
-                    status.textContent = "翻訳に失敗しました。通信環境をご確認ください。";
+                    status.textContent = tr("translate_failed", "翻訳に失敗しました。通信環境をご確認ください。");
                     output.textContent = "";
                     console.error(err);
                 }
             });
         }
 
-        async function translateFreeFromJapanese(text, targetCode) {
+        function updateFreeTranslatePanelUI() {
+            const input = document.getElementById("freeTranslateInput");
+            const inputLabel = document.getElementById("freeTranslateInputLabel");
+            const outputLabel = document.getElementById("freeTranslateOutputLabel");
+            const jaToBtn = document.getElementById("freeTranslateJaToBtn");
+            const toJaBtn = document.getElementById("freeTranslateToJaBtn");
+            if (!input || !inputLabel || !outputLabel || !jaToBtn || !toJaBtn) return;
+            const selectedLabel = getSelectedLanguageDisplayName();
+            const isJaToLang = freeTranslateDirection === "ja-to-lang";
+            inputLabel.textContent = tr("input_label", "入力: {{label}}", {
+                label: isJaToLang ? "日本語" : selectedLabel
+            });
+            outputLabel.textContent = tr("output_label", "結果: {{label}}", {
+                label: isJaToLang ? selectedLabel : "日本語"
+            });
+            input.placeholder = tr("input_placeholder", "{{label}}を入力", {
+                label: isJaToLang ? "日本語" : selectedLabel
+            });
+            jaToBtn.textContent = tr("direction_ja_to", "日本語 → {{label}}", {
+                label: selectedLabel
+            });
+            toJaBtn.textContent = tr("direction_to_ja", "{{label}} → 日本語", {
+                label: selectedLabel
+            });
+            jaToBtn.classList.toggle("active", isJaToLang);
+            toJaBtn.classList.toggle("active", !isJaToLang);
+        }
+
+        function getSelectedLanguageDisplayName() {
+            const lang = getSelectedLang();
+            const label = String((lang && lang.label) || "").trim();
+            const match = label.match(/\(([^)]+)\)/);
+            if (match && match[1]) return match[1].trim();
+            return label || tr("selected_language", "選択言語");
+        }
+
+        async function translateFreeText(text, sourceCode, targetCode) {
             const url =
-                `https://translate.googleapis.com/translate_a/single?client=gtx&sl=ja&tl=${encodeURIComponent(targetCode)}&dt=t&q=${encodeURIComponent(text)}`;
+                `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${encodeURIComponent(sourceCode)}&tl=${encodeURIComponent(targetCode)}&dt=t&q=${encodeURIComponent(text)}`;
             const response = await fetch(url);
             if (!response.ok) throw new Error("Translate API failed");
             const data = await response.json();
             if (!Array.isArray(data) || !Array.isArray(data[0])) return "";
             return data[0].map(part => Array.isArray(part) ? (part[0] || "") : "").join("");
+        }
+
+        function speakTextSequence(sourceText, sourceLang, targetText, targetLang) {
+            if (!("speechSynthesis" in window)) {
+                alert(tr("speech_not_supported", "このブラウザは音声合成に対応していません。"));
+                return;
+            }
+            speechSynthesis.cancel();
+            const source = new SpeechSynthesisUtterance(String(sourceText || ""));
+            source.lang = sourceLang || "ja-JP";
+            speechSynthesis.speak(source);
+            if (targetText) {
+                const target = new SpeechSynthesisUtterance(String(targetText || ""));
+                target.lang = targetLang || "ja-JP";
+                speechSynthesis.speak(target);
+            }
         }
 
         function setupScrollTopButton() {
