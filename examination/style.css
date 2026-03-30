@@ -10,35 +10,128 @@
   --shadow: 0 8px 20px rgba(137, 94, 67, 0.12);
 }
 
-* {
-  box-sizing: border-box;
-}
-
 body {
-  margin: 0;
   min-height: 100vh;
-  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
-  color: var(--ink);
-  background:
-    radial-gradient(circle at 10% 10%, #fff0e7 0%, transparent 40%),
-    radial-gradient(circle at 90% 20%, #ffefe0 0%, transparent 36%),
-    var(--bg);
 }
 
 .app-header {
   padding: 20px 16px 10px;
+  padding-right: 120px;
 }
 
 .app-header h1 {
-  margin: 0;
-  font-size: 1.35rem;
-  line-height: 1.35;
 }
 
 .app-header p {
   margin: 6px 0 0;
   color: var(--sub);
-  font-size: 0.96rem;
+}
+
+.app-switcher {
+  margin: 4px 12px 10px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.app-switch-link {
+  min-height: 48px;
+  border-radius: 12px;
+  border: 2px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-decoration: none;
+  display: grid;
+  place-items: center;
+}
+
+.app-switch-link.is-current {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.language-setting-btn {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 60;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  background: #fff6ef;
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+#languageDialog {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.38);
+  z-index: 70;
+}
+
+#languageDialogPanel {
+  margin: 10vh auto 0;
+  width: calc(100% - 28px);
+  max-width: 560px;
+  max-height: 80%;
+  overflow-y: auto;
+  border-radius: 14px;
+  padding: 14px;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+#languageDialogTitle {
+}
+
+.settings-label {
+  margin: 10px 0 8px;
+  color: var(--ink);
+}
+
+.language-option-list {
+  display: grid;
+  gap: 8px;
+}
+
+.language-option-btn {
+  width: 100%;
+  min-height: 48px;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: left;
+  padding: 10px 12px;
+}
+
+.language-option-btn.active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+#closeLanguageBtn {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  background: #f2f2f2;
+  color: #333;
 }
 
 .language-picker {
@@ -134,6 +227,9 @@ body {
 
 .talk-summary {
   list-style: none;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
   align-items: center;
   padding: 12px;
   cursor: pointer;
@@ -172,6 +268,19 @@ body {
   font-size: 1rem;
   color: var(--sub);
   line-height: 1.35;
+}
+
+.summary-play-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 2px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
 }
 
 .talk-panel {
@@ -241,6 +350,153 @@ body {
 .answer-btn {
   display: grid;
   gap: 4px;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.answer-main {
+  display: grid;
+  gap: 4px;
+}
+
+.play-icon-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 2px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 800;
+  flex: 0 0 34px;
+}
+
+.answer-btn.is-selected {
+  background: #ffe6a8;
+  border-color: #f3b233;
+  box-shadow: inset 0 0 0 2px rgba(243, 178, 51, 0.25);
+}
+
+.counter-kara-option {
+  align-items: center;
+}
+
+.counter-kara-main {
+  gap: 6px;
+}
+
+.counter-kara-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.counter-kara-input {
+  width: 76px;
+  min-height: 34px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  padding: 4px 8px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.counter-kara-select {
+  min-height: 34px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  padding: 4px 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  background: #fff;
+  color: var(--ink);
+}
+
+.appointment-option {
+  align-items: stretch;
+}
+
+.appointment-line {
+  flex-wrap: wrap;
+}
+
+.appointment-checklist {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+}
+
+.appointment-check-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: start;
+  font-weight: 700;
+}
+
+.appointment-check-item small {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.82rem;
+  color: var(--sub);
+}
+
+.appointment-check-input {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+}
+
+.counter-kara-unit-tr {
+  font-size: 0.92rem;
+  color: var(--sub);
+}
+
+.speak-btn {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.btn-main-text {
+  text-align: center;
+}
+
+.drug-tree {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+  
+}
+
+.drug-group {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fffaf7;
+  overflow: hidden;
+}
+
+.drug-group-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 12px;
+  background: #fff3ec;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 2px;
+}
+
+.drug-group-summary::-webkit-details-marker {
+  display: none;
+}
+
+.drug-detail-grid {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  grid-template-columns: 1fr 1fr;
 }
 
 .answer-btn.selected-highlight {
@@ -302,8 +558,6 @@ body {
 
 .free-translate-title {
   margin: 0;
-  font-size: 1rem;
-  font-weight: 700;
 }
 
 .free-translate-head {
@@ -323,6 +577,33 @@ body {
   padding: 0 12px;
   font-size: 0.86rem;
   font-weight: 700;
+}
+
+.free-translate-direction {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.free-translate-direction-btn {
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.free-translate-direction-btn.active {
+  background: var(--accent-soft);
+  border-color: #ffc1ad;
+}
+
+.free-translate-label {
+  margin: 6px 0 6px;
+  color: var(--sub);
 }
 
 .free-translate-input {
