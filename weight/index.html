@@ -985,6 +985,7 @@
         function startWeightApp(idToken) {
             token = idToken;
             if (typeof changeLanguage === "function") {
+                console.log(startWeightApp)
                 changeLanguage("ja");
             }
             reloadWeightData().catch(function (error) {
@@ -995,6 +996,7 @@
         function bootWeightApp() {
             if (window.IS_TEST_MODE) {
                 startWeightApp("TEST_ID_TOKEN");
+                console.log("test")
                 return;
             }
 
@@ -1003,12 +1005,16 @@
                 withLoginOnExternalBrowser: true
             }).then(() => {
                 const idToken = liff.getIDToken();
+                console.log(idToken)
+
                 const lang = typeof liff.getAppLanguage === "function" ? liff.getAppLanguage() : "en";
                 if (!isSupportedLang(localStorage.getItem(LANG_STORAGE_KEY))) {
                     selectedUiLang = normalizeLangToUi(lang);
                     localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
                     renderLanguageOptions();
                     applyI18n();
+                    console.log("supportland")
+
                 }
                 startWeightApp(idToken);
             }).catch(() => {
@@ -1036,7 +1042,7 @@
 
         boot().catch(function (error) {
             console.error(error);
-            alert("初期化に失敗しました。");
+            alert("error");
         });
     </script>
 </body>
