@@ -9,7 +9,9 @@
     <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
     <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
     <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
+    <link rel="stylesheet" href="../template/style.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
     <link rel="stylesheet" href="./period.css">
 </head>
 
@@ -215,6 +217,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -254,6 +257,7 @@
             2: "昼",
             3: "晩"
         };
+
         const LANGUAGE_OPTIONS = [{
                 code: "en-US",
                 label: "英語編(English)"
@@ -985,7 +989,6 @@
         function startWeightApp(idToken) {
             token = idToken;
             if (typeof changeLanguage === "function") {
-                console.log(startWeightApp)
                 changeLanguage("ja");
             }
             reloadWeightData().catch(function (error) {
@@ -996,7 +999,6 @@
         function bootWeightApp() {
             if (window.IS_TEST_MODE) {
                 startWeightApp("TEST_ID_TOKEN");
-                console.log("test")
                 return;
             }
 
@@ -1005,22 +1007,15 @@
                 withLoginOnExternalBrowser: true
             }).then(() => {
                 const idToken = liff.getIDToken();
-                console.log(idToken)
-
                 const lang = typeof liff.getAppLanguage === "function" ? liff.getAppLanguage() : "en";
                 if (!isSupportedLang(localStorage.getItem(LANG_STORAGE_KEY))) {
                     selectedUiLang = normalizeLangToUi(lang);
                     localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
                     renderLanguageOptions();
                     applyI18n();
-                    console.log("supportland")
-
                 }
                 startWeightApp(idToken);
             }).catch(() => {
-                if (typeof liff.logout === "function") {
-                    liff.logout();
-                }
                 alert("LIFF init failed.");
             });
         }
