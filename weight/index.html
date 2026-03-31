@@ -9,7 +9,6 @@
     <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
     <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
     <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
-    <link rel="stylesheet" href="../template/style.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="./period.css">
 </head>
@@ -226,10 +225,6 @@
                 init: function () {
                     return Promise.resolve();
                 },
-                isLoggedIn: function () {
-                    return true;
-                },
-                login: function () {},
                 getIDToken: function () {
                     return "TEST_ID_TOKEN";
                 },
@@ -987,6 +982,43 @@
             });
         }
 
+        function startWeightApp(idToken) {
+            token = idToken;
+            if (typeof changeLanguage === "function") {
+                changeLanguage("ja");
+            }
+            reloadWeightData().catch(function (error) {
+                console.error("initial weight load error:", error);
+            });
+        }
+
+        function bootWeightApp() {
+            if (window.IS_TEST_MODE) {
+                startWeightApp("TEST_ID_TOKEN");
+                return;
+            }
+
+            liff.init({
+                liffId: LIFF_ID,
+                withLoginOnExternalBrowser: true
+            }).then(() => {
+                const idToken = liff.getIDToken();
+                const lang = typeof liff.getAppLanguage === "function" ? liff.getAppLanguage() : "en";
+                if (!isSupportedLang(localStorage.getItem(LANG_STORAGE_KEY))) {
+                    selectedUiLang = normalizeLangToUi(lang);
+                    localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
+                    renderLanguageOptions();
+                    applyI18n();
+                }
+                startWeightApp(idToken);
+            }).catch(() => {
+                if (typeof liff.logout === "function") {
+                    liff.logout();
+                }
+                alert("LIFF init failed.");
+            });
+        }
+
         async function boot() {
             const initialSavedLang = localStorage.getItem(LANG_STORAGE_KEY);
             selectedUiLang = isSupportedLang(initialSavedLang) ? initialSavedLang : normalizeLangToUi(navigator
@@ -999,26 +1031,7 @@
             initPickers();
             setTodayDefaults();
             bindEvents();
-
-            if (window.IS_TEST_MODE) {
-                token = "TEST_ID_TOKEN";
-                await reloadWeightData();
-                return;
-            }
-
-            await liff.init({
-                liffId: LIFF_ID,
-                withLoginOnExternalBrowser: true
-            });
-            if (typeof liff.isLoggedIn === "function" && !liff.isLoggedIn()) {
-                liff.login();
-                return;
-            }
-            token = liff.getIDToken();
-            if (!token) {
-                throw new Error("LIFF ID token was not returned.");
-            }
-            await reloadWeightData();
+            bootWeightApp();
         }
 
         boot().catch(function (error) {
