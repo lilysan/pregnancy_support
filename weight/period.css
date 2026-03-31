@@ -73,7 +73,15 @@ body {
   gap: 14px;
 }
 .layout { padding: 0 12px; }
-.tab-panel { display: none; }
+.layout,
+.tab-panel {
+  width: 100%;
+  min-width: 0;
+}
+.tab-panel {
+  display: none;
+  overflow-x: hidden;
+}
 .tab-panel.active { display: grid; }
 .field-grid { gap: 12px; }
 .btn-row,
@@ -229,6 +237,7 @@ body {
 .card {
   width: 100%;
   min-width: 0;
+  max-width: 100%;
   padding: 16px 14px;
   border: 1px solid var(--border);
   border-radius: 20px;
@@ -384,6 +393,7 @@ body {
 .chart-card canvas {
   display: block;
   width: 100% !important;
+  max-width: 100%;
   height: min(50vh, 340px) !important;
   max-height: 50vh;
 }
