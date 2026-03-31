@@ -11,7 +11,8 @@
     <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
     <link rel="stylesheet" href="../template/style.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
     <link rel="stylesheet" href="./period.css">
 </head>
 
@@ -686,8 +687,12 @@
             await reloadWeightData();
         }
 
-        function updateChart() {
-            const meta = getMeta();
+        function updateChart(data) {
+            var meta = data
+            if (window.IS_TEST_MODE) {
+                meta = getMeta();
+            }
+            console.log(meta)
             const records = getFilteredRecords();
             const goalPoints = [];
 
