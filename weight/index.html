@@ -832,7 +832,7 @@
         }
 
         async function reloadWeightData() {
-            await loadData(token, "weight");
+            await loadData(token, "weight", {});
             allData = sortWeightData(Array.isArray(allData) ? allData : []);
             renderTable();
             renderSummary();
@@ -888,10 +888,11 @@
                 return;
             }
 
-            await addData({
+            const saveWeight = (typeof setWeight === "function") ? setWeight : ((payload) => addData(payload, "weight"));
+            await saveWeight({
                 datetime: formatDateTime(date, period),
                 weight: Number(weight.toFixed(1))
-            }, "weight");
+            });
 
             document.getElementById("weightValue").value = "";
             await reloadWeightData();
@@ -919,8 +920,8 @@
             };
 
             if (olddata.datetime === newdata.datetime) {
-                await deleteData(olddata, "weight");
-                await addData(newdata, "weight");
+                const updateWeight = (typeof putData === "function") ? putData : ((payload, type) => addData(payload, type));
+                await updateWeight(newdata, "weight");
             } else {
                 await addData(newdata, "weight");
                 await deleteData(olddata, "weight");
