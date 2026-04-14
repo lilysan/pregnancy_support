@@ -975,7 +975,8 @@
 
         function readMedicineRadioValue(name) {
             const checked = document.querySelector(`input[name="${name}"]:checked`);
-            return checked ? String(checked.value || "").trim() : "なし";
+            const value = checked ? String(checked.value || "").trim() : "なし";
+            return value === "あり" ? 1 : 0;
         }
 
         function setMedicineRadioValue(name, value) {
@@ -986,7 +987,13 @@
 
         function hasMedicineFlag(value) {
             const normalized = String(value || "").trim();
-            return normalized !== "" && normalized !== "なし" && normalized !== "-";
+            return normalized !== "" &&
+                normalized !== "なし" &&
+                normalized !== "-" &&
+                normalized !== "0" &&
+                normalized !== "false" &&
+                normalized !== "null" &&
+                normalized !== "undefined";
         }
 
         function medicineMark(value) {
@@ -1693,7 +1700,7 @@
                     document.getElementById("date").value = "";
                     document.getElementById("higth").value = "";
                     document.getElementById("low").value = "";
-                    setMedicineRadioValue("medicineStatus", "なし");
+                    setMedicineRadioValue("medicineStatus", 0);
                     closeAddForm();
                 }).catch((e) => {
                     console.error("add/register error:", e);
@@ -1734,7 +1741,7 @@
                             <td class="low1 ${lowAlertClass}">${label.low}</td>
                             <td class="medicine1">${medicinePart}</td>
 
-                            <td><button class="edit-btn">${bt("edit")}</button></td>
+                            <td><button type="button" class="edit-btn">${bt("edit")}</button></td>
                         </tr>`;
 
 
@@ -1845,9 +1852,12 @@
                 const savePressure = (typeof setPressure === "function") ?
                     setPressure :
                     ((payload) => addData(payload, "pressure"));
+                const updatePressure = (typeof putData === "function") ?
+                    putData :
+                    ((payload) => addData(payload, "pressure"));
                 const request = sameKey ?
-                    Promise.resolve(savePressure(newdata)) :
-                    Promise.resolve(savePressure(newdata))
+                    Promise.resolve(updatePressure(newdata, "pressure")) :
+                    Promise.resolve(updatePressure(newdata, "pressure"))
                     .then(() => deleteData(olddata, "pressure"));
 
                 request.then(() => {
