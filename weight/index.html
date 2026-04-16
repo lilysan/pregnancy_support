@@ -888,7 +888,8 @@
                 return;
             }
 
-            const saveWeight = (typeof setWeight === "function") ? setWeight : ((payload) => addData(payload, "weight"));
+            const saveWeight = (typeof setWeight === "function") ? setWeight : ((payload) => addData(payload,
+                "weight"));
             await saveWeight({
                 datetime: formatDateTime(date, period),
                 weight: Number(weight.toFixed(1))
@@ -920,7 +921,8 @@
             };
 
             if (olddata.datetime === newdata.datetime) {
-                const updateWeight = (typeof putData === "function") ? putData : ((payload, type) => addData(payload, type));
+                const updateWeight = (typeof putData === "function") ? putData : ((payload, type) => addData(
+                    payload, type));
                 await updateWeight(newdata, "weight");
             } else {
                 await addData(newdata, "weight");
@@ -1009,7 +1011,8 @@
                     applyI18n();
                 }
                 startWeightApp(idToken);
-            }).catch(() => {
+            }).catch((err) => {
+                liff.logout();
                 alert("LIFF init failed.");
             });
         }
@@ -1021,11 +1024,16 @@
             localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
             await initI18n(selectedUiLang);
             renderLanguageOptions();
-            applyI18n();
+            console.log("a");
+            console.log("b");
             loadMetaToForm();
+            console.log("c");
             initPickers();
+            console.log("d");
             setTodayDefaults();
+            console.log("e");
             bindEvents();
+            console.log("f");
             bootWeightApp();
         }
 
