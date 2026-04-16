@@ -284,6 +284,8 @@
         };
 
         const LANGUAGE_STORAGE_KEY = "examinationSelectedLanguage";
+        const EPDS_API_URL =
+            "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
         let localData = [];
         let translatedByLanguage = {};
         let selectedLanguage = "en-US";
@@ -292,6 +294,8 @@
         let scrollTopBtn = null;
         const pharmacySelections = new Set();
         const answerSelections = new Set();
+        const epdsSelections = new Map();
+        const epdsSubmissionState = new Map();
 
         window.addEventListener("load", init);
 
@@ -701,6 +705,7 @@
                 const rowIndex = item.index;
                 const isPharmacyCategory = ((row.type || "").trim() === "薬局");
                 const isSupportSeriesCategory = ((row.type || "").trim() === "ママと赤ちゃんのサポートシリーズ");
+                const isEpdsCategory = ((row.type || "").trim() === "EPDS");
                 const tRow = translated[rowIndex] || {
                     category: "",
                     data: []
@@ -792,6 +797,14 @@
                         treeWrap.appendChild(groupDetails);
                     });
                     panel.appendChild(treeWrap);
+                    details.appendChild(summary);
+                    details.appendChild(panel);
+                    container.appendChild(details);
+                    return;
+                }
+
+                if (isEpdsCategory) {
+                    renderEpdsPanel(panel, rowIndex, row, tRow);
                     details.appendChild(summary);
                     details.appendChild(panel);
                     container.appendChild(details);
@@ -1543,6 +1556,431 @@
             });
 
             return out;
+        }
+
+        function renderEpdsPanel(panel, rowIndex, row, tRow) {
+            const definition = buildEpdsDefinition(selectedLanguage);
+            const state = getEpdsState(rowIndex);
+
+            const wrap = document.createElement("section");
+            wrap.className = "epds-card";
+
+            const lead = document.createElement("div");
+            lead.className = "epds-lead";
+            lead.innerHTML = `
+                <p class="epds-title">${escapeHtml(tr("epds_section_title", "EPDS チェック / Edinburgh Check"))}</p>
+                <p class="epds-copy">${escapeHtml(row.category || tr("epds_lead", "過去7日間の気分にもっとも近いものを選んでください。"))}</p>
+                <p class="epds-copy epds-copy-sub">${escapeHtml((tRow && tRow.category) || tr("epds_lead_en", "Please select the answer that best matches how you felt during the past 7 days."))}</p>
+            `;
+            wrap.appendChild(lead);
+
+            const list = document.createElement("div");
+            list.className = "epds-question-list";
+            definition.questions.forEach((question, questionIndex) => {
+                const block = document.createElement("section");
+                block.className = "epds-question";
+
+                const heading = document.createElement("div");
+                heading.className = "epds-question-head";
+                heading.innerHTML = `
+                    <p class="epds-question-number">${escapeHtml(tr("epds_question_prefix", "質問"))} ${questionIndex + 1}</p>
+                    <p class="epds-question-ja">${escapeHtml(question.ja)}</p>
+                    <p class="epds-question-tr">${escapeHtml(question.tr)}</p>
+                `;
+                block.appendChild(heading);
+
+                const optionGrid = document.createElement("div");
+                optionGrid.className = "epds-option-grid";
+
+                question.options.forEach((option, optionIndex) => {
+                    const btn = document.createElement("button");
+                    btn.type = "button";
+                    btn.className = "epds-option-btn";
+                    if (state.answers[questionIndex] === option.score) {
+                        btn.classList.add("is-selected");
+                    }
+                    btn.innerHTML = `
+                        <span class="epds-option-ja">${escapeHtml(option.ja)}</span>
+                        <span class="epds-option-tr">${escapeHtml(option.tr)}</span>
+                    `;
+                    btn.addEventListener("click", () => {
+                        state.answers[questionIndex] = option.score;
+                        epdsSubmissionState.delete(rowIndex);
+                        updateEpdsSelection(rowIndex, wrap);
+                    });
+                    optionGrid.appendChild(btn);
+                });
+
+                block.appendChild(optionGrid);
+                list.appendChild(block);
+            });
+            wrap.appendChild(list);
+
+            const footer = document.createElement("div");
+            footer.className = "epds-footer";
+            footer.innerHTML = `
+                <div class="epds-score-box">
+                    <p class="epds-score-label">${escapeHtml(tr("epds_score_label", "合計点"))}</p>
+                    <p class="epds-score-value"><span class="epds-score-current">0</span><span class="epds-score-total"> / 30</span></p>
+                    <p class="epds-score-note">${escapeHtml(tr("epds_result_note", "10項目すべて選ぶと送信できます。"))}</p>
+                </div>
+                <div class="epds-actions">
+                    <button type="button" class="epds-reset-btn">${escapeHtml(tr("epds_reset", "回答をリセット"))}</button>
+                    <button type="button" class="epds-submit-btn">${escapeHtml(tr("epds_submit", "結果を登録"))}</button>
+                </div>
+                <p class="epds-status" aria-live="polite"></p>
+            `;
+            wrap.appendChild(footer);
+
+            const resetBtn = footer.querySelector(".epds-reset-btn");
+            const submitBtn = footer.querySelector(".epds-submit-btn");
+            if (resetBtn) {
+                resetBtn.addEventListener("click", () => {
+                    epdsSelections.set(rowIndex, {
+                        answers: new Array(definition.questions.length).fill(null)
+                    });
+                    epdsSubmissionState.delete(rowIndex);
+                    updateEpdsSelection(rowIndex, wrap);
+                });
+            }
+            if (submitBtn) {
+                submitBtn.addEventListener("click", async () => {
+                    await submitEpds(rowIndex, wrap, definition);
+                });
+            }
+
+            panel.appendChild(wrap);
+            updateEpdsSelection(rowIndex, wrap);
+        }
+
+        function getEpdsState(rowIndex) {
+            if (!epdsSelections.has(rowIndex)) {
+                epdsSelections.set(rowIndex, {
+                    answers: new Array(10).fill(null)
+                });
+            }
+            return epdsSelections.get(rowIndex);
+        }
+
+        function updateEpdsSelection(rowIndex, wrap) {
+            const definition = buildEpdsDefinition(selectedLanguage);
+            const state = getEpdsState(rowIndex);
+            const questionNodes = wrap.querySelectorAll(".epds-question");
+            questionNodes.forEach((questionNode, questionIndex) => {
+                const optionNodes = questionNode.querySelectorAll(".epds-option-btn");
+                optionNodes.forEach((optionNode, optionIndex) => {
+                    const option = definition.questions[questionIndex].options[optionIndex];
+                    optionNode.classList.toggle("is-selected", state.answers[questionIndex] === option.score);
+                });
+            });
+
+            const current = state.answers.reduce((sum, value) => sum + (Number.isFinite(value) ? value : 0), 0);
+            const answered = state.answers.filter(value => Number.isFinite(value)).length;
+            const scoreCurrent = wrap.querySelector(".epds-score-current");
+            const scoreNote = wrap.querySelector(".epds-score-note");
+            const status = wrap.querySelector(".epds-status");
+            const submitBtn = wrap.querySelector(".epds-submit-btn");
+
+            if (scoreCurrent) scoreCurrent.textContent = String(current);
+            if (scoreNote) {
+                if (answered < definition.questions.length) {
+                    scoreNote.textContent = tr("epds_result_note", "10項目すべて選ぶと送信できます。");
+                } else if ((state.answers[9] || 0) > 0) {
+                    scoreNote.textContent = tr("epds_alert_q10", "最後の質問に該当がある場合は、医療者へ早めに共有してください。");
+                } else {
+                    scoreNote.textContent = tr("epds_ready_note", "回答を確認して登録できます。");
+                }
+            }
+
+            if (submitBtn) {
+                const isSubmitting = epdsSubmissionState.get(rowIndex) === "submitting";
+                submitBtn.disabled = answered < definition.questions.length || isSubmitting;
+                submitBtn.textContent = isSubmitting ? tr("epds_submitting", "登録中...") : tr("epds_submit", "結果を登録");
+            }
+            if (status && epdsSubmissionState.get(rowIndex) !== "saved") {
+                status.textContent = answered < definition.questions.length ? tr("epds_incomplete", "未回答の項目があります。") : "";
+            }
+            wrap.classList.toggle("epds-alert", answered === definition.questions.length && (state.answers[9] || 0) > 0);
+        }
+
+        async function submitEpds(rowIndex, wrap, definition) {
+            const state = getEpdsState(rowIndex);
+            const answered = state.answers.filter(value => Number.isFinite(value)).length;
+            const status = wrap.querySelector(".epds-status");
+            if (answered < definition.questions.length) {
+                if (status) status.textContent = tr("epds_incomplete", "未回答の項目があります。");
+                updateEpdsSelection(rowIndex, wrap);
+                return;
+            }
+
+            epdsSubmissionState.set(rowIndex, "submitting");
+            updateEpdsSelection(rowIndex, wrap);
+
+            const totalScore = state.answers.reduce((sum, value) => sum + (Number.isFinite(value) ? value : 0), 0);
+            const payload = {
+                type: "EPDS",
+                language: selectedLanguage,
+                submittedAt: formatEpdsTimestamp(new Date()),
+                score: totalScore,
+                q1: state.answers[0],
+                q2: state.answers[1],
+                q3: state.answers[2],
+                q4: state.answers[3],
+                q5: state.answers[4],
+                q6: state.answers[5],
+                q7: state.answers[6],
+                q8: state.answers[7],
+                q9: state.answers[8],
+                q10: state.answers[9]
+            };
+
+            try {
+                await postEpdsResult(payload);
+                epdsSubmissionState.set(rowIndex, "saved");
+                if (status) status.textContent = tr("epds_saved", "EPDS の結果を登録しました。");
+            } catch (error) {
+                console.error("EPDS save failed", error);
+                epdsSubmissionState.set(rowIndex, "error");
+                if (status) status.textContent = tr("epds_save_failed", "登録に失敗しました。通信状態を確認してください。");
+            }
+            updateEpdsSelection(rowIndex, wrap);
+        }
+
+        async function postEpdsResult(postData) {
+            const response = await fetch(EPDS_API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain;charset=UTF-8"
+                },
+                body: JSON.stringify({
+                    path: "epds",
+                    method: "post",
+                    idToken: "",
+                    postData
+                })
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            const result = await response.json();
+            if (!result || result.statusCode !== 200) {
+                throw new Error((result && result.message) || "EPDS API error");
+            }
+            return result;
+        }
+
+        function formatEpdsTimestamp(date) {
+            const pad = value => String(value).padStart(2, "0");
+            return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+        }
+
+        function buildEpdsDefinition(langCode) {
+            const localized = {
+                "ja": {
+                    questions: [{
+                        ja: "笑ったり、物事のおもしろさを感じたりできましたか",
+                        tr: "Have you been able to laugh and see the funny side of things?",
+                        options: [{
+                            ja: "いつもどおりできた",
+                            tr: "As much as I always could",
+                            score: 0
+                        }, {
+                            ja: "いつもより少しできなかった",
+                            tr: "Not quite so much now",
+                            score: 1
+                        }, {
+                            ja: "はっきり少なくなった",
+                            tr: "Definitely not so much now",
+                            score: 2
+                        }, {
+                            ja: "まったくできなかった",
+                            tr: "Not at all",
+                            score: 3
+                        }]
+                    }, {
+                        ja: "楽しみにして待つ気持ちがありましたか",
+                        tr: "Have you looked forward with enjoyment to things?",
+                        options: [{
+                            ja: "いつもどおりあった",
+                            tr: "As much as I ever did",
+                            score: 0
+                        }, {
+                            ja: "少し少なかった",
+                            tr: "Rather less than I used to",
+                            score: 1
+                        }, {
+                            ja: "かなり少なかった",
+                            tr: "Definitely less than I used to",
+                            score: 2
+                        }, {
+                            ja: "ほとんどなかった",
+                            tr: "Hardly at all",
+                            score: 3
+                        }]
+                    }, {
+                        ja: "うまくいかないときに、自分を必要以上に責めましたか",
+                        tr: "Have you blamed yourself unnecessarily when things went wrong?",
+                        options: [{
+                            ja: "はい、たいていそうだった",
+                            tr: "Yes, most of the time",
+                            score: 3
+                        }, {
+                            ja: "はい、ときどきそうだった",
+                            tr: "Yes, some of the time",
+                            score: 2
+                        }, {
+                            ja: "あまりそうではなかった",
+                            tr: "Not very often",
+                            score: 1
+                        }, {
+                            ja: "まったくそうではなかった",
+                            tr: "No, never",
+                            score: 0
+                        }]
+                    }, {
+                        ja: "理由がなくても不安になったり心配になったりしましたか",
+                        tr: "Have you been anxious or worried for no good reason?",
+                        options: [{
+                            ja: "いいえ、まったくなかった",
+                            tr: "No, not at all",
+                            score: 0
+                        }, {
+                            ja: "ほとんどなかった",
+                            tr: "Hardly ever",
+                            score: 1
+                        }, {
+                            ja: "ときどきあった",
+                            tr: "Yes, sometimes",
+                            score: 2
+                        }, {
+                            ja: "はい、よくあった",
+                            tr: "Yes, very often",
+                            score: 3
+                        }]
+                    }, {
+                        ja: "はっきりした理由がなくても、こわい気持ちになったり取り乱したりしましたか",
+                        tr: "Have you felt scared or panicky for no very good reason?",
+                        options: [{
+                            ja: "はい、かなりあった",
+                            tr: "Yes, quite a lot",
+                            score: 3
+                        }, {
+                            ja: "はい、ときどきあった",
+                            tr: "Yes, sometimes",
+                            score: 2
+                        }, {
+                            ja: "いいえ、あまりなかった",
+                            tr: "No, not much",
+                            score: 1
+                        }, {
+                            ja: "いいえ、まったくなかった",
+                            tr: "No, not at all",
+                            score: 0
+                        }]
+                    }, {
+                        ja: "することが多すぎて対処できないと感じましたか",
+                        tr: "Have things been getting on top of you?",
+                        options: [{
+                            ja: "はい、ほとんど対処できなかった",
+                            tr: "Yes, most of the time I have not been able to cope",
+                            score: 3
+                        }, {
+                            ja: "はい、ときどきいつもほど対処できなかった",
+                            tr: "Yes, sometimes I have not been coping as well as usual",
+                            score: 2
+                        }, {
+                            ja: "いいえ、たいていは対処できた",
+                            tr: "No, most of the time I have coped quite well",
+                            score: 1
+                        }, {
+                            ja: "いいえ、いつもどおり対処できた",
+                            tr: "No, I have been coping as well as ever",
+                            score: 0
+                        }]
+                    }, {
+                        ja: "不幸せで、眠りにくいことがありましたか",
+                        tr: "Have you been so unhappy that you have had difficulty sleeping?",
+                        options: [{
+                            ja: "はい、たいていあった",
+                            tr: "Yes, most of the time",
+                            score: 3
+                        }, {
+                            ja: "はい、ときどきあった",
+                            tr: "Yes, sometimes",
+                            score: 2
+                        }, {
+                            ja: "あまりなかった",
+                            tr: "Not very often",
+                            score: 1
+                        }, {
+                            ja: "まったくなかった",
+                            tr: "No, never",
+                            score: 0
+                        }]
+                    }, {
+                        ja: "悲しかったり、つらい気持ちになったりしましたか",
+                        tr: "Have you felt sad or miserable?",
+                        options: [{
+                            ja: "はい、たいていそうだった",
+                            tr: "Yes, most of the time",
+                            score: 3
+                        }, {
+                            ja: "はい、かなりよくあった",
+                            tr: "Yes, quite often",
+                            score: 2
+                        }, {
+                            ja: "あまりなかった",
+                            tr: "Not very often",
+                            score: 1
+                        }, {
+                            ja: "まったくなかった",
+                            tr: "No, not at all",
+                            score: 0
+                        }]
+                    }, {
+                        ja: "不幸せで泣いてしまうことがありましたか",
+                        tr: "Have you been so unhappy that you have been crying?",
+                        options: [{
+                            ja: "はい、たいていそうだった",
+                            tr: "Yes, most of the time",
+                            score: 3
+                        }, {
+                            ja: "はい、かなりよくあった",
+                            tr: "Yes, quite often",
+                            score: 2
+                        }, {
+                            ja: "ときどきあった",
+                            tr: "Only occasionally",
+                            score: 1
+                        }, {
+                            ja: "まったくなかった",
+                            tr: "No, never",
+                            score: 0
+                        }]
+                    }, {
+                        ja: "自分を傷つけてしまいたいと思うことがありましたか",
+                        tr: "Have you thought of harming yourself?",
+                        options: [{
+                            ja: "はい、かなりあった",
+                            tr: "Yes, quite often",
+                            score: 3
+                        }, {
+                            ja: "ときどきあった",
+                            tr: "Sometimes",
+                            score: 2
+                        }, {
+                            ja: "ほとんどなかった",
+                            tr: "Hardly ever",
+                            score: 1
+                        }, {
+                            ja: "まったくなかった",
+                            tr: "Never",
+                            score: 0
+                        }]
+                    }]
+                }
+            };
+            return localized[langCode] || localized.ja;
         }
 
         function composeCounterKaraText(template, value) {
