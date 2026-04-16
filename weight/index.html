@@ -14,6 +14,8 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
     <link rel="stylesheet" href="./period.css">
+    <script src="../commonkokima_weight.js"></script>
+
 </head>
 
 <body>
@@ -228,7 +230,6 @@
             };
         }
     </script>
-    <script src="../commonkokima_weight.js"></script>
     <script>
         const API_URL =
             "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
@@ -991,6 +992,8 @@
             });
         }
 
+        await initI18n(selectedUiLang);
+
         function bootWeightApp() {
             if (window.IS_TEST_MODE) {
                 startWeightApp("TEST_ID_TOKEN");
@@ -1001,44 +1004,35 @@
                 liffId: LIFF_ID,
                 withLoginOnExternalBrowser: true
             }).then(() => {
+                console.log("00")
                 const idToken = liff.getIDToken();
                 const lang = typeof liff.getAppLanguage === "function" ? liff.getAppLanguage() : "en";
                 if (!isSupportedLang(localStorage.getItem(LANG_STORAGE_KEY))) {
                     selectedUiLang = normalizeLangToUi(lang);
                     localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
-                    renderLanguageOptions();
-                    applyI18n();
                 }
+                loadMetaToForm();
+                initPickers();
+                setTodayDefaults();
+                bindEvents();
+
                 startWeightApp(idToken);
             }).catch((err) => {
                 liff.logout();
                 alert("LIFF init failed.");
             });
         }
-
-        async function boot() {
+    </script>
+    <script>
+        window.addEventListener("load", async function () {
             const initialSavedLang = localStorage.getItem(LANG_STORAGE_KEY);
-            selectedUiLang = isSupportedLang(initialSavedLang) ? initialSavedLang : normalizeLangToUi(navigator
-                .language);
+            const browserLang = normalizeLangToUi(navigator.language || "en-US");
+            selectedUiLang = isSupportedLang(initialSavedLang) ? initialSavedLang : browserLang;
             localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
             await initI18n(selectedUiLang);
             renderLanguageOptions();
-            console.log("a");
-            console.log("b");
-            loadMetaToForm();
-            console.log("c");
-            initPickers();
-            console.log("d");
-            setTodayDefaults();
-            console.log("e");
-            bindEvents();
-            console.log("f");
+            applyI18n();
             bootWeightApp();
-        }
-
-        boot().catch(function (error) {
-            console.error(error);
-            alert("error");
         });
     </script>
 </body>
