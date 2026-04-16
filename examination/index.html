@@ -35,23 +35,20 @@
         <nav id="categoryTabs" class="category-tabs" aria-label="カテゴリ"></nav>
         <section id="accordionList" class="accordion-list" aria-live="polite"></section>
     </main>
-    <button id="freeTranslateBtn" class="free-translate-btn" type="button" aria-label="自由入力翻訳">自由入力/翻訳</button>
-    <section id="freeTranslatePanel" class="free-translate-panel" aria-label="自由入力翻訳パネル">
-        <div class="free-translate-head">
-            <p id="freeTranslateTitle" class="free-translate-title h4-sample">自由入力翻訳</p>
-            <button id="freeTranslateCloseBtn" class="free-translate-close" type="button" aria-label="閉じる">閉じる</button>
+    <button id="freeTranslateBtn" class="free-translate-btn" type="button" aria-label="翻訳アプリ">翻訳アプリ</button>
+    <div id="translationAppDialog" class="translation-app-dialog" aria-hidden="true">
+        <div id="translationAppPanel" class="translation-app-panel">
+            <div class="translation-app-head">
+                <p id="translationAppTitle" class="translation-app-title h4-sample">翻訳アプリ</p>
+                <button id="translationAppCloseBtn" class="translation-app-close" type="button" aria-label="閉じる">閉じる</button>
+            </div>
+            <p id="translationAppLead" class="translation-app-lead small-sample">使うアプリを選んでください。</p>
+            <div class="translation-app-actions">
+                <button id="openGoogleTranslateBtn" class="translation-app-option" type="button">Google 翻訳</button>
+                <button id="openDeepLBtn" class="translation-app-option" type="button">DeepL</button>
+            </div>
         </div>
-        <div id="freeTranslateDirectionGroup" class="free-translate-direction" role="group" aria-label="翻訳方向">
-            <button id="freeTranslateJaToBtn" class="free-translate-direction-btn active" type="button">日本語 → 選択言語</button>
-            <button id="freeTranslateToJaBtn" class="free-translate-direction-btn" type="button">選択言語 → 日本語</button>
-        </div>
-        <p id="freeTranslateInputLabel" class="free-translate-label small-sample">入力: 日本語</p>
-        <textarea id="freeTranslateInput" class="free-translate-input" placeholder="日本語を入力"></textarea>
-        <p id="freeTranslateOutputLabel" class="free-translate-label small-sample">結果: 選択言語</p>
-        <button id="freeTranslateRunBtn" class="free-translate-run" type="button">翻訳する</button>
-        <p id="freeTranslateStatus" class="free-translate-status"></p>
-        <div id="freeTranslateOutput" class="free-translate-output"></div>
-    </section>
+    </div>
     <button id="scrollTopBtn" class="scroll-top-btn" type="button" aria-label="ページトップへ戻る">▲</button>
 
     <script>
@@ -293,10 +290,6 @@
         let keepIndexes = [];
         let selectedType = "";
         let scrollTopBtn = null;
-        let freeTranslatePanel = null;
-        let freeTranslateStatus = null;
-        let freeTranslateOutput = null;
-        let freeTranslateDirection = "ja-to-lang";
         const pharmacySelections = new Set();
         const answerSelections = new Set();
 
@@ -304,7 +297,7 @@
 
         async function init() {
             setupScrollTopButton();
-            setupFreeTranslatePanel();
+            setupTranslationAppDialog();
             document.getElementById("languageSettingBtn").addEventListener("click", () => {
                 document.getElementById("languageDialog").style.display = "block";
             });
@@ -365,18 +358,20 @@
             document.getElementById("pageTitle").textContent = buildBilingualLabel("しんさつコミュニケーションボード", "page_title");
             document.getElementById("pageLead").textContent = tr("page_lead", "カテゴリごとに、必要なやり取りだけテキストと音でお手伝いします。");
             document.getElementById("switchExamLabel").textContent = buildBilingualLabel("診察ボード", "switch_exam");
-            document.getElementById("switchReceptionLabel").textContent = buildBilingualLabel("受付ボードへ", "switch_reception");
+            document.getElementById("switchReceptionLabel").textContent = buildBilingualLabel("受付ボードへ",
+                "switch_reception");
             document.getElementById("categoryTabs").setAttribute("aria-label", tr("category_aria", "カテゴリ"));
-            document.getElementById("freeTranslateBtn").textContent = tr("free_translate_btn", "自由入力/翻訳");
-            document.getElementById("freeTranslateBtn").setAttribute("aria-label", tr("free_translate_btn", "自由入力/翻訳"));
-            document.getElementById("freeTranslatePanel").setAttribute("aria-label", tr("free_translate_panel_aria", "自由入力翻訳パネル"));
-            document.getElementById("freeTranslateTitle").textContent = tr("free_translate_title", "自由入力翻訳");
-            document.getElementById("freeTranslateCloseBtn").textContent = tr("close", "閉じる");
-            document.getElementById("freeTranslateCloseBtn").setAttribute("aria-label", tr("free_translate_close_aria", "閉じる"));
-            document.getElementById("freeTranslateDirectionGroup").setAttribute("aria-label", tr("free_translate_direction_aria", "翻訳方向"));
-            document.getElementById("freeTranslateRunBtn").textContent = tr("free_translate_run", "翻訳する");
+            document.getElementById("freeTranslateBtn").textContent = tr("translation_app_btn", "翻訳アプリ");
+            document.getElementById("freeTranslateBtn").setAttribute("aria-label", tr("translation_app_btn", "翻訳アプリ"));
+            document.getElementById("translationAppDialog").setAttribute("aria-label", tr("translation_app_dialog_aria",
+                "翻訳アプリ選択"));
+            document.getElementById("translationAppTitle").textContent = tr("translation_app_title", "翻訳アプリ");
+            document.getElementById("translationAppCloseBtn").textContent = tr("close", "閉じる");
+            document.getElementById("translationAppCloseBtn").setAttribute("aria-label", tr("close", "閉じる"));
+            document.getElementById("translationAppLead").textContent = tr("translation_app_lead", "使うアプリを選んでください。");
+            document.getElementById("openGoogleTranslateBtn").textContent = tr("translation_app_google", "Google 翻訳");
+            document.getElementById("openDeepLBtn").textContent = tr("translation_app_deepl", "DeepL");
             document.getElementById("scrollTopBtn").setAttribute("aria-label", tr("scroll_top_aria", "ページトップへ戻る"));
-            updateFreeTranslatePanelUI();
         }
 
         function buildBilingualLabel(jaText, key) {
@@ -409,75 +404,43 @@
             return "en-US";
         }
 
-        function setupFreeTranslatePanel() {
+        function setupTranslationAppDialog() {
             const trigger = document.getElementById("freeTranslateBtn");
-            freeTranslatePanel = document.getElementById("freeTranslatePanel");
-            const runBtn = document.getElementById("freeTranslateRunBtn");
-            const input = document.getElementById("freeTranslateInput");
-            const closeBtn = document.getElementById("freeTranslateCloseBtn");
-            const jaToBtn = document.getElementById("freeTranslateJaToBtn");
-            const toJaBtn = document.getElementById("freeTranslateToJaBtn");
-            freeTranslateStatus = document.getElementById("freeTranslateStatus");
-            freeTranslateOutput = document.getElementById("freeTranslateOutput");
-            if (!trigger || !freeTranslatePanel || !runBtn || !input || !closeBtn || !jaToBtn || !toJaBtn ||
-                !freeTranslateStatus || !freeTranslateOutput) return;
+            const dialog = document.getElementById("translationAppDialog");
+            const panel = document.getElementById("translationAppPanel");
+            const closeBtn = document.getElementById("translationAppCloseBtn");
+            const googleBtn = document.getElementById("openGoogleTranslateBtn");
+            const deeplBtn = document.getElementById("openDeepLBtn");
+            if (!trigger || !dialog || !panel || !closeBtn || !googleBtn || !deeplBtn) return;
 
             trigger.addEventListener("click", () => {
-                freeTranslatePanel.classList.toggle("open");
-                updateFreeTranslatePanelUI();
-                if (freeTranslatePanel.classList.contains("open")) input.focus();
+                dialog.classList.add("open");
+                dialog.setAttribute("aria-hidden", "false");
             });
             closeBtn.addEventListener("click", () => {
-                freeTranslatePanel.classList.remove("open");
+                dialog.classList.remove("open");
+                dialog.setAttribute("aria-hidden", "true");
             });
-            jaToBtn.addEventListener("click", () => {
-                freeTranslateDirection = "ja-to-lang";
-                updateFreeTranslatePanelUI();
-            });
-            toJaBtn.addEventListener("click", () => {
-                freeTranslateDirection = "lang-to-ja";
-                updateFreeTranslatePanelUI();
-            });
-            updateFreeTranslatePanelUI();
-
-            runBtn.addEventListener("click", async () => {
-                const text = String(input.value || "").trim();
-                if (!text) {
-                    freeTranslateStatus.textContent = freeTranslateDirection === "ja-to-lang" ?
-                        tr("enter_japanese", "日本語を入力してください。") :
-                        tr("enter_selected_language", "選択している言語で入力してください。");
-                    freeTranslateOutput.textContent = "";
-                    return;
-                }
-
-                freeTranslateStatus.textContent = tr("translating", "翻訳中...");
-                freeTranslateOutput.textContent = "";
-                const source = freeTranslateDirection === "ja-to-lang" ? "ja" :
-                    getFreeTranslateTargetCode(selectedLanguage);
-                const target = freeTranslateDirection === "ja-to-lang" ?
-                    getFreeTranslateTargetCode(selectedLanguage) : "ja";
-
-                try {
-                    const translated = await translateFreeText(text, source, target);
-                    freeTranslateStatus.textContent = "";
-                    freeTranslateOutput.textContent = translated || tr("translate_empty", "(翻訳結果なし)");
-                    if (translated) {
-                        speakTextSequence(
-                            text,
-                            freeTranslateDirection === "ja-to-lang" ? "ja-JP" : getSelectedSpeechCode(),
-                            translated,
-                            freeTranslateDirection === "ja-to-lang" ? getSelectedSpeechCode() : "ja-JP"
-                        );
-                    }
-                } catch (err) {
-                    freeTranslateStatus.textContent = tr("translate_failed", "翻訳に失敗しました。通信環境をご確認ください。");
-                    freeTranslateOutput.textContent = "";
-                    console.error(err);
+            dialog.addEventListener("click", (event) => {
+                if (event.target === dialog) {
+                    dialog.classList.remove("open");
+                    dialog.setAttribute("aria-hidden", "true");
                 }
             });
+            googleBtn.addEventListener("click", () => launchTranslationApp("google"));
+            deeplBtn.addEventListener("click", () => launchTranslationApp("deepl"));
         }
 
-        function getFreeTranslateTargetCode(langCode) {
+        function getSelectedLanguageDisplayName() {
+            const lang = languageConfig.find(item => item.code === selectedLanguage);
+            if (!lang) return "English";
+            const label = String(lang.label || "").trim();
+            const match = label.match(/\(([^)]+)\)/);
+            if (match && match[1]) return match[1].trim();
+            return label;
+        }
+
+        function getGoogleTranslateTargetCode(langCode) {
             const map = {
                 "en-US": "en",
                 "zh": "zh-CN",
@@ -503,72 +466,45 @@
             return map[langCode] || "en";
         }
 
-        function getSelectedSpeechCode() {
-            const lang = languageConfig.find(item => item.code === selectedLanguage);
-            return lang ? lang.speech : "en-US";
+        function getDeepLTargetCode(langCode) {
+            const map = {
+                "en-US": "en",
+                "zh": "zh",
+                "de": "de",
+                "fr": "fr",
+                "pr": "pt",
+                "ko": "ko",
+                "ve": "en",
+                "tl": "en",
+                "th": "en",
+                "id": "en",
+                "ru": "ru",
+                "ne": "en",
+                "lo": "en",
+                "uk": "uk",
+                "fa-AF": "en",
+                "si": "en",
+                "ms": "en",
+                "my": "en",
+                "bn": "en",
+                "ur": "en",
+                "ja": "en"
+            };
+            return map[langCode] || "en";
         }
 
-        function updateFreeTranslatePanelUI() {
-            const input = document.getElementById("freeTranslateInput");
-            const inputLabel = document.getElementById("freeTranslateInputLabel");
-            const outputLabel = document.getElementById("freeTranslateOutputLabel");
-            const jaToBtn = document.getElementById("freeTranslateJaToBtn");
-            const toJaBtn = document.getElementById("freeTranslateToJaBtn");
-            if (!input || !inputLabel || !outputLabel || !jaToBtn || !toJaBtn) return;
-            const selectedLabel = getSelectedLanguageDisplayName();
-            const isJaToLang = freeTranslateDirection === "ja-to-lang";
-            inputLabel.textContent = tr("input_label", "入力: {{label}}", {
-                label: isJaToLang ? "日本語" : selectedLabel
-            });
-            outputLabel.textContent = tr("output_label", "結果: {{label}}", {
-                label: isJaToLang ? selectedLabel : "日本語"
-            });
-            input.placeholder = tr("input_placeholder", "{{label}}を入力", {
-                label: isJaToLang ? "日本語" : selectedLabel
-            });
-            jaToBtn.textContent = tr("direction_ja_to", "日本語 → {{label}}", {
-                label: selectedLabel
-            });
-            toJaBtn.textContent = tr("direction_to_ja", "{{label}} → 日本語", {
-                label: selectedLabel
-            });
-            jaToBtn.classList.toggle("active", isJaToLang);
-            toJaBtn.classList.toggle("active", !isJaToLang);
-        }
-
-        function getSelectedLanguageDisplayName() {
-            const lang = languageConfig.find(item => item.code === selectedLanguage);
-            if (!lang) return tr("selected_language", "選択言語");
-            const label = String(lang.label || "").trim();
-            const match = label.match(/\(([^)]+)\)/);
-            if (match && match[1]) return match[1].trim();
-            return label;
-        }
-
-        async function translateFreeText(text, sourceCode, targetCode) {
-            const url =
-                `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${encodeURIComponent(sourceCode)}&tl=${encodeURIComponent(targetCode)}&dt=t&q=${encodeURIComponent(text)}`;
-            const response = await fetch(url);
-            if (!response.ok) throw new Error("Translate API failed");
-            const data = await response.json();
-            if (!Array.isArray(data) || !Array.isArray(data[0])) return "";
-            return data[0].map(part => Array.isArray(part) ? (part[0] || "") : "").join("");
-        }
-
-        function speakTextSequence(sourceText, sourceLang, targetText, targetLang) {
-            if (!("speechSynthesis" in window)) {
-                alert(tr("speech_not_supported", "このブラウザは音声合成に対応していません。"));
-                return;
+        function launchTranslationApp(appName) {
+            const dialog = document.getElementById("translationAppDialog");
+            if (dialog) {
+                dialog.classList.remove("open");
+                dialog.setAttribute("aria-hidden", "true");
             }
-            speechSynthesis.cancel();
-            const sourceUttr = new SpeechSynthesisUtterance(String(sourceText || ""));
-            sourceUttr.lang = sourceLang || "ja-JP";
-            speechSynthesis.speak(sourceUttr);
-            if (targetText) {
-                const targetUttr = new SpeechSynthesisUtterance(String(targetText || ""));
-                targetUttr.lang = targetLang || "ja-JP";
-                speechSynthesis.speak(targetUttr);
-            }
+            const googleTarget = getGoogleTranslateTargetCode(selectedLanguage);
+            const deeplTarget = getDeepLTargetCode(selectedLanguage);
+            const url = appName === "deepl" ?
+                `https://www.deepl.com/translator#ja/${encodeURIComponent(deeplTarget)}/` :
+                `https://translate.google.com/?sl=ja&tl=${encodeURIComponent(googleTarget)}&op=translate`;
+            window.location.href = url;
         }
 
         function setupScrollTopButton() {
@@ -690,7 +626,6 @@
                     document.getElementById("languageDialog").style.display = "none";
                     await initI18n(selectedLanguage);
                     applyStaticTranslations();
-                    updateFreeTranslatePanelUI();
                     await ensureLanguageLoaded(selectedLanguage, true);
                     renderAll();
                 });
@@ -892,7 +827,8 @@
                         tokenGrid.className = "token-grid";
 
                         specialItems.options.forEach(option => {
-                            const isQuantityUnitInput = option && option.mode === "quantity_unit";
+                            const isQuantityUnitInput = option && option.mode ===
+                                "quantity_unit";
                             const isAppointmentInput = option && option.mode && option.mode
                                 .startsWith("appointment_");
                             const isCounterInput = isQuantityUnitInput || isAppointmentInput ||
@@ -1027,29 +963,57 @@
                                     ev.preventDefault();
                                     if (isAppointmentInput) {
                                         if (option.mode === "appointment_after") {
-                                            const monthInput = optionBtn.querySelector(".appointment-month-input");
-                                            const weekInput = optionBtn.querySelector(".appointment-week-input");
+                                            const monthInput = optionBtn.querySelector(
+                                                ".appointment-month-input");
+                                            const weekInput = optionBtn.querySelector(
+                                                ".appointment-week-input");
                                             speakPair(
-                                                composeAppointmentAfterText(monthInput ? monthInput.value : "", weekInput ? weekInput.value : "", "ja"),
-                                                composeAppointmentAfterText(monthInput ? monthInput.value : "", weekInput ? weekInput.value : "", selectedLanguage)
+                                                composeAppointmentAfterText(
+                                                    monthInput ? monthInput.value :
+                                                    "", weekInput ? weekInput
+                                                    .value : "", "ja"),
+                                                composeAppointmentAfterText(
+                                                    monthInput ? monthInput.value :
+                                                    "", weekInput ? weekInput
+                                                    .value : "", selectedLanguage)
                                             );
                                         } else if (option.mode === "appointment_time") {
-                                            const hourInput = optionBtn.querySelector(".appointment-hour-input");
-                                            const minuteInput = optionBtn.querySelector(".appointment-minute-input");
+                                            const hourInput = optionBtn.querySelector(
+                                                ".appointment-hour-input");
+                                            const minuteInput = optionBtn.querySelector(
+                                                ".appointment-minute-input");
                                             speakPair(
-                                                composeAppointmentTimeText(hourInput ? hourInput.value : "", minuteInput ? minuteInput.value : "", "ja"),
-                                                composeAppointmentTimeText(hourInput ? hourInput.value : "", minuteInput ? minuteInput.value : "", selectedLanguage)
+                                                composeAppointmentTimeText(
+                                                    hourInput ? hourInput.value :
+                                                    "", minuteInput ? minuteInput
+                                                    .value : "", "ja"),
+                                                composeAppointmentTimeText(
+                                                    hourInput ? hourInput.value :
+                                                    "", minuteInput ? minuteInput
+                                                    .value : "", selectedLanguage)
                                             );
-                                        } else if (option.mode === "appointment_weekday") {
-                                            const select = optionBtn.querySelector(".appointment-weekday-select");
-                                            const selectedOption = select && select.options[select.selectedIndex];
-                                            const jaTxt = `${selectedOption ? selectedOption.value : ""}が良いです`;
-                                            const trTxt = `${selectedOption ? selectedOption.dataset.tr : ""} ${option.tr}`.trim();
+                                        } else if (option.mode ===
+                                            "appointment_weekday") {
+                                            const select = optionBtn.querySelector(
+                                                ".appointment-weekday-select");
+                                            const selectedOption = select && select
+                                                .options[select.selectedIndex];
+                                            const jaTxt =
+                                                `${selectedOption ? selectedOption.value : ""}が良いです`;
+                                            const trTxt =
+                                                `${selectedOption ? selectedOption.dataset.tr : ""} ${option.tr}`
+                                                .trim();
                                             speakPair(jaTxt, trTxt);
-                                        } else if (option.mode === "appointment_checklist") {
-                                            const checked = Array.from(optionBtn.querySelectorAll(".appointment-check-input:checked"));
-                                            const jaTxt = checked.map(item => item.dataset.ja).join("。");
-                                            const trTxt = checked.map(item => item.dataset.tr).join(". ");
+                                        } else if (option.mode ===
+                                            "appointment_checklist") {
+                                            const checked = Array.from(optionBtn
+                                                .querySelectorAll(
+                                                    ".appointment-check-input:checked"
+                                                    ));
+                                            const jaTxt = checked.map(item => item
+                                                .dataset.ja).join("。");
+                                            const trTxt = checked.map(item => item
+                                                .dataset.tr).join(". ");
                                             speakPair(jaTxt, trTxt);
                                         }
                                     } else if (isQuantityUnitInput) {
@@ -1057,14 +1021,18 @@
                                             ".counter-kara-input");
                                         const unitSelect = optionBtn.querySelector(
                                             ".counter-kara-select");
-                                        const selectedOption = unitSelect && unitSelect.options[
-                                            unitSelect.selectedIndex];
-                                        const jaUnit = selectedOption ? selectedOption.value : "";
+                                        const selectedOption = unitSelect && unitSelect
+                                            .options[
+                                                unitSelect.selectedIndex];
+                                        const jaUnit = selectedOption ? selectedOption
+                                            .value : "";
                                         const trUnit = selectedOption ? selectedOption
                                             .dataset.tr : "";
                                         const amount = jInput ? jInput.value : "";
-                                        const jaTxt = composeQuantityUnitText(amount, jaUnit);
-                                        const trTxt = composeQuantityUnitText(amount, trUnit);
+                                        const jaTxt = composeQuantityUnitText(amount,
+                                            jaUnit);
+                                        const trTxt = composeQuantityUnitText(amount,
+                                            trUnit);
                                         speakPair(jaTxt, trTxt);
                                     } else if (isCounterInput) {
                                         const jInput = optionBtn.querySelector(
@@ -1079,7 +1047,8 @@
                                     }
                                     return;
                                 }
-                                if (isCounterInput && ev.target.closest("input, select"))
+                                if (isCounterInput && ev.target.closest(
+                                    "input, select"))
                                     return;
                                 if (isPharmacyCategory) {
                                     togglePharmacySelection(optionBtn, pharmacyKey);
