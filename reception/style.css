@@ -351,25 +351,32 @@ body {
             box-shadow: 0 8px 18px rgba(30, 66, 57, 0.25);
         }
 
-        .free-translate-panel {
+        .translation-app-dialog {
             position: fixed;
-            left: 12px;
-            right: 12px;
-            bottom: 84px;
-            z-index: 55;
+            inset: 0;
+            z-index: 60;
             display: none;
-            background: #fffdf9;
-            border: 1px solid var(--line);
-            border-radius: 14px;
-            box-shadow: var(--shadow);
+            align-items: flex-end;
+            justify-content: center;
+            background: rgba(28, 38, 35, 0.32);
             padding: 12px;
         }
 
-        .free-translate-panel.open {
-            display: block;
+        .translation-app-dialog.open {
+            display: flex;
         }
 
-        .free-translate-head {
+        .translation-app-panel {
+            width: 100%;
+            max-width: 520px;
+            background: #fffdf9;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 14px;
+        }
+
+        .translation-app-head {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -377,11 +384,11 @@ body {
             margin-bottom: 8px;
         }
 
-        .free-translate-title {
+        .translation-app-title {
             margin: 0;
         }
 
-        .free-translate-close {
+        .translation-app-close {
             border: 1px solid var(--line);
             background: #fff;
             color: var(--ink);
@@ -392,71 +399,29 @@ body {
             font-weight: 700;
         }
 
-        .free-translate-direction {
+        .translation-app-lead {
+            margin: 6px 0 12px;
+            color: var(--sub);
+        }
+
+        .translation-app-actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 10px;
+            gap: 10px;
         }
 
-        .free-translate-direction-btn {
-            min-height: 42px;
+        .translation-app-option {
+            min-height: 56px;
             border: 1px solid var(--line);
-            border-radius: 12px;
+            border-radius: 14px;
             background: #fff;
             color: var(--ink);
-            font-size: 0.92rem;
+            font-size: 1rem;
             font-weight: 700;
         }
 
-        .free-translate-direction-btn.active {
+        .translation-app-option:hover {
             background: var(--accent-soft);
-            border-color: #ffc1ad;
-        }
-
-        .free-translate-label {
-            margin: 6px 0 6px;
-            color: var(--sub);
-        }
-
-        .free-translate-input {
-            width: 100%;
-            min-height: 96px;
-            border: 2px solid var(--line);
-            border-radius: 10px;
-            padding: 10px;
-            font-size: 1rem;
-            resize: vertical;
-        }
-
-        .free-translate-run {
-            margin-top: 10px;
-            width: 100%;
-            min-height: 52px;
-            border: none;
-            border-radius: 12px;
-            background: var(--accent);
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .free-translate-status {
-            margin: 8px 0 0;
-            color: var(--sub);
-            font-size: 0.9rem;
-        }
-
-        .free-translate-output {
-            margin-top: 8px;
-            border-radius: 10px;
-            background: #fff;
-            border: 1px solid var(--line);
-            padding: 10px;
-            min-height: 56px;
-            font-size: 1rem;
-            line-height: 1.4;
-            white-space: pre-wrap;
         }
 
         .scroll-top-btn {
@@ -495,13 +460,8 @@ body {
                 grid-template-columns: repeat(4, minmax(0, 1fr));
             }
 
-            .free-translate-panel {
-                max-width: 760px;
-                margin: 0 auto;
-                left: 50%;
-                right: auto;
-                transform: translateX(-50%);
-                width: calc(100% - 24px);
+            .translation-app-panel {
+                width: min(420px, calc(100vw - 24px));
             }
         }
     
