@@ -54,6 +54,25 @@
         scrollbar: true
     });
 
+    function showAppLoader() {
+        const loader = document.querySelector(".loader");
+        if (!loader) return;
+        loader.classList.remove("is-hidden");
+        loader.style.display = "grid";
+        loader.setAttribute("aria-hidden", "false");
+    }
+
+    function hideAppLoader() {
+        const loader = document.querySelector(".loader");
+        if (!loader) return;
+        loader.classList.add("is-hidden");
+        loader.style.display = "none";
+        loader.setAttribute("aria-hidden", "true");
+    }
+
+    window.showAppLoader = showAppLoader;
+    window.hideAppLoader = hideAppLoader;
+
     const getAccessObj = (data) => {
         return {
             url: API_URL,
@@ -65,7 +84,7 @@
     }
 
     function loadData(idToken,type,postData,mergeMode) {
-        $(".loader").show();
+        showAppLoader();
         const safePostData = postData || {};
         const safeMergeMode = mergeMode || "replace";
         return $.ajax(
@@ -98,7 +117,7 @@
             alert("Network error!loadData");
             return [];
         }).always(function () {
-            $(".loader").hide();
+            hideAppLoader();
         });
     }
 
@@ -124,7 +143,7 @@
 
     function addData(data,type) {
 //function setWeight(data) {
-    $(".loader").show();
+    showAppLoader();
     return $.ajax(
         getAccessObj({
             path: type,
@@ -148,7 +167,7 @@
     }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
         alert("Network error!addData");
     }).always(function () {
-        $(".loader").hide();
+        hideAppLoader();
     });
     }
 
@@ -157,13 +176,37 @@
         return addData(data, "pressure");
     }
 
+    function putData(data,type) {
+        showAppLoader();
+        return $.ajax(
+            getAccessObj({
+                path: type,
+                method: "put",
+                idToken: token,
+                postData: data
+            })
+        ).done(function (response) {
+            if (response.statusCode === 401) {
+                liff.logout();
+                window.location.reload();
+            } else if (response.statusCode !== 200) {
+                console.error(response.message);
+                alert(response.message);
+            }
+        }).fail(function () {
+            alert("Network error!putData");
+        }).always(function () {
+            hideAppLoader();
+        });
+    }
+
     // 血糖登録
     function setSugar(data) {
         return addData(data, "sugar");
     }
 
     function deleteData(_data,type) {
-        $(".loader").show();
+        showAppLoader();
         return $.ajax(
             getAccessObj({
                 path: type,
@@ -184,7 +227,7 @@
         }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
             alert("Network error!deleteData");
         }).always(function () {
-            $(".loader").hide();
+            hideAppLoader();
         });
     }
 
