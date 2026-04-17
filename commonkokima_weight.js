@@ -1,4 +1,20 @@
-      // タブ切り替えの処理
+    function showAppLoader() {
+        const loader = document.querySelector(".loader");
+        if (!loader) return;
+        loader.classList.remove("is-hidden");
+        loader.style.display = "grid";
+        loader.setAttribute("aria-hidden", "false");
+    }
+
+    function hideAppLoader() {
+        const loader = document.querySelector(".loader");
+        if (!loader) return;
+        loader.classList.add("is-hidden");
+        loader.style.display = "none";
+        loader.setAttribute("aria-hidden", "true");
+    }      
+
+// タブ切り替えの処理
       function switchTab(contentId, event) {
         // 先に表示切替を行い、後段処理でエラーが起きてもタブ表示は維持する
         document.querySelectorAll('.input-container, .chart-container, .table-container, .edit-container').forEach(content => {
