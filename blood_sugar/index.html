@@ -1042,6 +1042,9 @@
         }
 
         function bootSugarApp() {
+            if (typeof showAppLoader === "function") {
+                showAppLoader();
+            }
             if (window.IS_TEST_MODE) {
                 startSugarApp("TEST_ID_TOKEN");
                 return;
@@ -1058,6 +1061,9 @@
                 }
                 startSugarApp(idToken);
             }).catch(() => {
+                if (typeof hideAppLoader === "function") {
+                    hideAppLoader();
+                }
                 liff.logout();
                 alert("LIFF init failed.");
             });
@@ -1126,7 +1132,6 @@
         syncMedicationUnitVisibility();
     </script>
     <script src="../commonkokima.js"></script>
-    <script src="../commonkokima_test.js"></script>
     <script>
         window.addEventListener("load", async function () {
             const initialSavedLang = localStorage.getItem(LANG_STORAGE_KEY);
