@@ -1325,6 +1325,9 @@
         }
 
         function bootPressureApp() {
+            if (typeof showAppLoader === "function") {
+                showAppLoader();
+            }
             if (window.IS_TEST_MODE) {
                 // Skip LIFF auth in test mode so UI/data flow can be verified locally.
                 startPressureApp("TEST_ID_TOKEN");
@@ -1335,7 +1338,6 @@
                 withLoginOnExternalBrowser: true,
             }).then(() => {
                 const idToken = liff.getIDToken();
-                alert(idToken)
                 const lang = liff.getAppLanguage();
                 if (!isSupportedLang(initialSavedLang)) {
                     selectedUiLang = normalizeLangToUi(lang);
@@ -1345,6 +1347,9 @@
                 }
                 startPressureApp(idToken);
             }).catch(() => {
+                if (typeof hideAppLoader === "function") {
+                    hideAppLoader();
+                }
                 liff.logout();
                 alert("LIFF init failed.");
             });
