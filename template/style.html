@@ -13,6 +13,7 @@
     <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="../common/js/config.js"></script>
+    <script src="../common/js/toast.js"></script>
     <link rel="stylesheet" href="../style.css"/>
 </head>
 <body>
@@ -20,16 +21,6 @@
 <div id="header-container" class="header-wrapper"></div>
 
 <main>
-    <div class="toast" id="toast">
-        <div class="toast-inner" id="toastInner">
-            <iconify-icon id="toastIcon" width="22" height="22"></iconify-icon>
-            <div>
-                <p id="toastTitle bold"></p>
-                <p class="caption-sample" id="toastMessage"></p>
-            </div>
-        </div>
-    </div>
-
     <article class="main-container">
         <h1 data-i18n="[html]title.style"></h1>
         <p class="desc">ここにページの説明文を入れられます。（17px）</p>
@@ -275,9 +266,18 @@
                 </div>
                 <div>
                     <p class="field-label">受診種別</p>
-                    <div class="radio-row" id="visitTypeGroup">
+                    <div class="radio-row single-select" id="visitTypeGroup">
                         <button class="radio-chip active" data-value="initial" type="button">初診</button>
                         <button class="radio-chip" data-value="followup" type="button">再診</button>
+                        <button class="radio-chip disabled" type="button" disabled>disabled</button>
+                    </div>
+                </div>
+                <div>
+                    <p class="field-label">希望サポート（複数選択）</p>
+                    <div class="radio-row multi-select" id="supportTypeGroup">
+                        <button class="radio-chip active" data-value="interpreter" type="button">通訳サポート</button>
+                        <button class="radio-chip" data-value="wheelchair" type="button">車いすサポート</button>
+                        <button class="radio-chip" data-value="childcare" type="button">上の子の同伴サポート</button>
                         <button class="radio-chip disabled" type="button" disabled>disabled</button>
                     </div>
                 </div>
@@ -669,6 +669,10 @@
                 $(e.currentTarget).addClass('active').siblings().removeClass('active');
             });
 
+            $('#supportTypeGroup').on('click', '.radio-chip:not(.disabled)', (e) => {
+                $(e.currentTarget).toggleClass('active');
+            });
+
             $('.accordion-list').on('click', '.accordion-trigger', (e) => {
                 const $this = $(e.currentTarget);
                 const $accordion = $this.closest('.accordion');
@@ -722,28 +726,8 @@
                     icon: 'material-symbols:info-rounded'
                 }
             };
-            let toastTimer;
-
-            function showToast(type) {
-                const cfg = toastMap[type];
-                const $toast = $('#toast');
-                const $toastInner = $('#toastInner');
-                $toastInner.css({
-                    'border': `1px solid ${cfg.color}`,
-                    'background': cfg.bg
-                });
-                $('#toastTitle').text(cfg.title);
-                $('#toastMessage').text(cfg.message);
-                $('#toastIcon').attr('icon', cfg.icon).css('color', cfg.color);
-
-                $toast.addClass('is-open');
-                clearTimeout(toastTimer);
-                toastTimer = setTimeout(() => $toast.removeClass('is-open'), 5000);
-            }
-
-            $('[data-toast]').on('click', (e) => {
-                showToast($(e.currentTarget).data('toast'));
-            });
+            const toastManager = createToastManager();
+            toastManager.bindByDataAttr(toastMap, '[data-toast]');
 
             let activeTab = 'reception';
             const $tabsGrid = $('#tabsGrid');

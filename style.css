@@ -58,7 +58,7 @@ body.no-scroll {
 .header-wrapper {
     position: sticky;
     top: 0;
-    z-index: 20;
+    z-index: 40;
     background: var(--surface);
     border-bottom: 1px solid var(--divider);
 }
@@ -314,11 +314,15 @@ main {
     padding: 24px;
     margin: 0 auto;
 }
-.main-container > section {
-    padding-top: 40px;
+.main-container section {
+    margin-top: 40px;
 }
-.main-container > section section {
-    padding-top: 32px;
+.main-container section section {
+    margin-top: 32px;
+}
+.fixed-container {
+    max-width: 600px;
+    margin: 0 auto;
 }
 .content {
     padding-top: 8px;
@@ -392,6 +396,11 @@ hr {
     border-bottom: 1px solid var(--divider);
 }
 .token-row:last-child { border-bottom: none; padding-bottom: 0; }
+.small {
+    font-size: 15px;
+    line-height: 1.55;
+    margin: 0;
+}
 .caption {
     margin: 0 0 4px;
     font-size: 13px;
@@ -409,6 +418,10 @@ hr {
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 16px;
+}
+.card-info {
+    border: 1px solid var(--info-state);
+    background: var(--toast-bg-info);
 }
 .dark-card {
     border: 1px solid var(--primary-dark);
@@ -622,6 +635,7 @@ textarea { min-height: 96px; resize: vertical; }
     margin-top: 6px;
 }
 .radio-chip {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -633,10 +647,54 @@ textarea { min-height: 96px; resize: vertical; }
     box-shadow: var(--shadow);
     font-size: 17px;
     line-height: 1.6;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    text-align: center;
+    transition: background-color .2s ease, border-color .2s ease, color .2s ease;
 }
 .radio-chip.active { background: var(--primary-light); border-color: var(--primary); }
 .radio-chip.disabled { background: var(--surface); color: var(--sub-text); box-shadow: none; cursor: not-allowed; opacity: 0.7; }
+
+.radio-row.single-select .radio-chip {
+    border-radius: 999px;
+    min-width: 96px;
+    padding-inline: 18px;
+}
+
+.radio-row.multi-select .radio-chip {
+    justify-content: flex-start;
+    border-radius: 10px;
+    padding-left: 42px;
+}
+
+.radio-row.multi-select .radio-chip::before {
+    content: "";
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1.5px solid var(--sub-text);
+    transform: translateY(-50%);
+}
+
+.radio-row.multi-select .radio-chip.active {
+    background: var(--primary-light);
+}
+
+.radio-row.multi-select .radio-chip.active::before {
+    content: "✓";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--background);
+    font-size: 12px;
+    font-weight: 700;
+    border-color: var(--primary);
+    background: var(--primary);
+}
 .date-field-container {
     display: flex;
     justify-content: space-between;

@@ -13,7 +13,7 @@
           "questions": [
             {
               "id": "a001",
-              "labelKey": "q.a001",
+              "labelKey": "q.a001.label",
               "inputType": "single",
               "options": [
                 {
@@ -32,11 +32,11 @@
               "followUps": [
                 {
                   "id": "a001a",
-                  "labelKey": "q.a001a",
+                  "labelKey": "q.a001a.label",
                   "inputType": "multiText",
                   "showWhenParentIs": [
                     "o1",
-                    "o2"
+                    "o3"
                   ],
                   "options": [
                     {
@@ -57,17 +57,18 @@
                     },
                     {
                       "id": "o5",
-                      "labelKey": "q.a001a.o5"
+                      "labelKey": "q.a001a.o5",
+                      "activatesText": true
                     }
                   ]
                 },
                 {
                   "id": "a001b",
-                  "labelKey": "q.a001b",
+                  "labelKey": "q.a001b.label",
                   "inputType": "single",
                   "showWhenParentIs": [
                     "o1",
-                    "o2"
+                    "o3"
                   ],
                   "options": [
                     {
@@ -92,7 +93,7 @@
             },
             {
               "id": "a004",
-              "labelKey": "q.a004",
+              "labelKey": "q.a004.label",
               "inputType": "single",
               "options": [
                 {
@@ -117,7 +118,7 @@
           "questions": [
             {
               "id": "a005",
-              "labelKey": "q.a005",
+              "labelKey": "q.a005.label",
               "inputType": "single",
               "options": [
                 {
@@ -136,7 +137,7 @@
             },
             {
               "id": "a006",
-              "labelKey": "q.a006",
+              "labelKey": "q.a006.label",
               "inputType": "single",
               "options": [
                 {
@@ -159,7 +160,7 @@
             },
             {
               "id": "a007",
-              "labelKey": "q.a007",
+              "labelKey": "q.a007.label",
               "inputType": "single",
               "options": [
                 {
@@ -178,12 +179,13 @@
             },
             {
               "id": "a007a",
-              "labelKey": "q.a007a",
+              "labelKey": "q.a007a.label",
               "inputType": "singleText",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.a007a.o1"
+                  "labelKey": "q.a007a.o1",
+                  "activatesText": true
                 },
                 {
                   "id": "o2",
@@ -193,7 +195,7 @@
             },
             {
               "id": "a008",
-              "labelKey": "q.a008",
+              "labelKey": "q.a008.label",
               "inputType": "single",
               "options": [
                 {
@@ -212,7 +214,7 @@
             },
             {
               "id": "a009",
-              "labelKey": "q.a009",
+              "labelKey": "q.a009.label",
               "inputType": "multiText",
               "options": [
                 {
@@ -233,7 +235,8 @@
                 },
                 {
                   "id": "o5",
-                  "labelKey": "q.a009.o5"
+                  "labelKey": "q.a009.o5",
+                  "activatesText": true
                 }
               ]
             }
@@ -245,7 +248,7 @@
           "questions": [
             {
               "id": "a010",
-              "labelKey": "q.a010",
+              "labelKey": "q.a010.label",
               "inputType": "single",
               "options": [
                 {
@@ -264,7 +267,7 @@
             },
             {
               "id": "a011",
-              "labelKey": "q.a011",
+              "labelKey": "q.a011.label",
               "inputType": "multiText",
               "options": [
                 {
@@ -289,7 +292,8 @@
                 },
                 {
                   "id": "o6",
-                  "labelKey": "q.a011.o6"
+                  "labelKey": "q.a011.o6",
+                  "activatesText": true
                 }
               ]
             }
@@ -301,7 +305,7 @@
           "questions": [
             {
               "id": "a012",
-              "labelKey": "q.a012",
+              "labelKey": "q.a012.label",
               "inputType": "single",
               "options": [
                 {
@@ -316,7 +320,7 @@
               "followUps": [
                 {
                   "id": "a012a",
-                  "labelKey": "q.a012a",
+                  "labelKey": "q.a012a.label",
                   "helpKey": "q.a012a.h",
                   "inputType": "single",
                   "showWhenParentIs": [
@@ -339,8 +343,7 @@
                       "id": "o4",
                       "labelKey": "q.a012a.o4"
                     }
-                  ],
-                  "noteKey": "q.a012a.n"
+                  ]
                 },
                 {
                   "id": "a012b",
@@ -366,14 +369,13 @@
                       "id": "o4",
                       "labelKey": "q.a012b.o4"
                     }
-                  ],
-                  "noteKey": "q.a012b.n"
+                  ]
                 }
               ]
             },
             {
               "id": "a013",
-              "labelKey": "q.a013",
+              "labelKey": "q.a013.label",
               "helpKey": "q.a013.h",
               "prefaceKey": "q.a013.p",
               "showPrefaceWhen": {
@@ -404,7 +406,7 @@
               "followUps": [
                 {
                   "id": "a013a",
-                  "labelKey": "q.a013a",
+                  "labelKey": "q.a013a.label",
                   "inputType": "single",
                   "showWhenParentIs": [
                     "o1",
@@ -424,14 +426,13 @@
                       "id": "o3",
                       "labelKey": "q.a013a.o3"
                     }
-                  ],
-                  "noteKey": "q.a013a.n"
+                  ]
                 }
               ]
             },
             {
               "id": "a014",
-              "labelKey": "q.a014",
+              "labelKey": "q.a014.label",
               "inputType": "single",
               "options": [
                 {
@@ -454,7 +455,7 @@
             },
             {
               "id": "a015",
-              "labelKey": "q.a015",
+              "labelKey": "q.a015.label",
               "helpKey": "q.a015.h",
               "inputType": "single",
               "options": [
@@ -474,7 +475,7 @@
             },
             {
               "id": "a016",
-              "labelKey": "q.a016",
+              "labelKey": "q.a016.label",
               "helpKey": "q.a016.h",
               "inputType": "single",
               "options": [
@@ -494,7 +495,7 @@
             },
             {
               "id": "a017",
-              "labelKey": "q.a017",
+              "labelKey": "q.a017.label",
               "helpKey": "q.a017.h",
               "inputType": "single",
               "options": [
@@ -520,7 +521,7 @@
           "questions": [
             {
               "id": "a018",
-              "labelKey": "q.a018",
+              "labelKey": "q.a018.label",
               "inputType": "multi",
               "options": [
                 {
@@ -549,7 +550,7 @@
           "questions": [
             {
               "id": "a019",
-              "labelKey": "q.a019",
+              "labelKey": "q.a019.label",
               "inputType": "single",
               "options": [
                 {
@@ -572,7 +573,7 @@
             },
             {
               "id": "a020",
-              "labelKey": "q.a020",
+              "labelKey": "q.a020.label",
               "inputType": "single",
               "options": [
                 {
@@ -595,7 +596,7 @@
             },
             {
               "id": "a021",
-              "labelKey": "q.a021",
+              "labelKey": "q.a021.label",
               "inputType": "single",
               "options": [
                 {
@@ -626,7 +627,7 @@
           "questions": [
             {
               "id": "b001",
-              "labelKey": "q.b001",
+              "labelKey": "q.b001.label",
               "inputType": "single",
               "options": [
                 {
@@ -645,7 +646,7 @@
             },
             {
               "id": "b002",
-              "labelKey": "q.b002",
+              "labelKey": "q.b002.label",
               "inputType": "single",
               "options": [
                 {
@@ -670,7 +671,7 @@
           "questions": [
             {
               "id": "b003",
-              "labelKey": "q.b003",
+              "labelKey": "q.b003.label",
               "inputType": "single",
               "options": [
                 {
@@ -685,7 +686,7 @@
             },
             {
               "id": "b004",
-              "labelKey": "q.b004",
+              "labelKey": "q.b004.label",
               "helpKey": "q.b004.h",
               "inputType": "single",
               "options": [
@@ -701,7 +702,7 @@
             },
             {
               "id": "b005",
-              "labelKey": "q.b005",
+              "labelKey": "q.b005.label",
               "inputType": "single",
               "options": [
                 {
@@ -724,7 +725,7 @@
             },
             {
               "id": "b006",
-              "labelKey": "q.b006",
+              "labelKey": "q.b006.label",
               "inputType": "single",
               "options": [
                 {
@@ -753,7 +754,7 @@
           "questions": [
             {
               "id": "b007",
-              "labelKey": "q.b007",
+              "labelKey": "q.b007.label",
               "inputType": "multiText",
               "options": [
                 {
@@ -766,7 +767,8 @@
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.b007.o3"
+                  "labelKey": "q.b007.o3",
+                  "activatesText": true
                 }
               ]
             }
@@ -778,7 +780,7 @@
           "questions": [
             {
               "id": "b008",
-              "labelKey": "q.b008",
+              "labelKey": "q.b008.label",
               "inputType": "single",
               "options": [
                 {
@@ -797,7 +799,7 @@
             },
             {
               "id": "b009",
-              "labelKey": "q.b009",
+              "labelKey": "q.b009.label",
               "inputType": "single",
               "options": [
                 {
@@ -816,7 +818,7 @@
             },
             {
               "id": "b010",
-              "labelKey": "q.b010",
+              "labelKey": "q.b010.label",
               "inputType": "multiText",
               "options": [
                 {
@@ -841,13 +843,14 @@
                 },
                 {
                   "id": "o6",
-                  "labelKey": "q.b010.o6"
+                  "labelKey": "q.b010.o6",
+                  "activatesText": true
                 }
               ]
             },
             {
               "id": "b011",
-              "labelKey": "q.b011",
+              "labelKey": "q.b011.label",
               "inputType": "single",
               "options": [
                 {
@@ -866,7 +869,7 @@
             },
             {
               "id": "b012",
-              "labelKey": "q.b012",
+              "labelKey": "q.b012.label",
               "inputType": "single",
               "options": [
                 {
@@ -885,7 +888,7 @@
             },
             {
               "id": "b013",
-              "labelKey": "q.b013",
+              "labelKey": "q.b013.label",
               "inputType": "single",
               "options": [
                 {
@@ -904,7 +907,7 @@
             },
             {
               "id": "b014",
-              "labelKey": "q.b014",
+              "labelKey": "q.b014.label",
               "inputType": "single",
               "options": [
                 {
@@ -935,7 +938,7 @@
           "questions": [
             {
               "id": "c001",
-              "labelKey": "q.c001",
+              "labelKey": "q.c001.label",
               "inputType": "single",
               "options": [
                 {
@@ -954,7 +957,7 @@
             },
             {
               "id": "c002",
-              "labelKey": "q.c002",
+              "labelKey": "q.c002.label",
               "inputType": "single",
               "options": [
                 {
@@ -979,7 +982,7 @@
           "questions": [
             {
               "id": "c003",
-              "labelKey": "q.c003",
+              "labelKey": "q.c003.label",
               "inputType": "single",
               "options": [
                 {
@@ -1002,7 +1005,7 @@
               "followUps": [
                 {
                   "id": "c003a",
-                  "labelKey": "q.c003a",
+                  "labelKey": "q.c003a.label",
                   "inputType": "single",
                   "showWhenParentIs": [
                     "o2",
@@ -1018,8 +1021,7 @@
                       "id": "o2",
                       "labelKey": "q.c003a.o2"
                     }
-                  ],
-                  "noteKey": "q.c003a.n"
+                  ]
                 }
               ]
             }
@@ -1031,7 +1033,7 @@
           "questions": [
             {
               "id": "c004",
-              "labelKey": "q.c004",
+              "labelKey": "q.c004.label",
               "inputType": "multiText",
               "options": [
                 {
@@ -1076,7 +1078,8 @@
                 },
                 {
                   "id": "o11",
-                  "labelKey": "q.c004.o11"
+                  "labelKey": "q.c004.o11",
+                  "activatesText": true
                 },
                 {
                   "id": "o12",
@@ -1086,7 +1089,7 @@
             },
             {
               "id": "c005",
-              "labelKey": "q.c005",
+              "labelKey": "q.c005.label",
               "inputType": "multiText",
               "options": [
                 {
@@ -1103,7 +1106,8 @@
                 },
                 {
                   "id": "o4",
-                  "labelKey": "q.c005.o4"
+                  "labelKey": "q.c005.o4",
+                  "activatesText": true
                 }
               ]
             }
@@ -1115,7 +1119,7 @@
           "questions": [
             {
               "id": "c006",
-              "labelKey": "q.c006",
+              "labelKey": "q.c006.label",
               "inputType": "single",
               "options": [
                 {
@@ -1134,7 +1138,7 @@
               "followUps": [
                 {
                   "id": "c006a",
-                  "labelKey": "q.c006a",
+                  "labelKey": "q.c006a.label",
                   "inputType": "multiText",
                   "showWhenParentIs": [
                     "o1",
@@ -1157,10 +1161,11 @@
                       "id": "o4",
                       "labelKey": "q.c006a.o4"
                     },
-                    {
-                      "id": "o5",
-                      "labelKey": "q.c006a.o5"
-                    }
+                {
+                  "id": "o5",
+                  "labelKey": "q.c006a.o5",
+                  "activatesText": true
+                }
                   ]
                 }
               ]
@@ -1173,7 +1178,7 @@
           "questions": [
             {
               "id": "c008",
-              "labelKey": "q.c008",
+              "labelKey": "q.c008.label",
               "inputType": "single",
               "options": [
                 {
@@ -1192,7 +1197,7 @@
             },
             {
               "id": "c009",
-              "labelKey": "q.c009",
+              "labelKey": "q.c009.label",
               "inputType": "single",
               "options": [
                 {
@@ -1211,7 +1216,7 @@
             },
             {
               "id": "c010",
-              "labelKey": "q.c010",
+              "labelKey": "q.c010.label",
               "inputType": "single",
               "options": [
                 {
@@ -1236,7 +1241,7 @@
           "questions": [
             {
               "id": "c011",
-              "labelKey": "q.c011",
+              "labelKey": "q.c011.label",
               "inputType": "single",
               "options": [
                 {
@@ -1255,7 +1260,7 @@
             },
             {
               "id": "c012",
-              "labelKey": "q.c012",
+              "labelKey": "q.c012.label",
               "inputType": "single",
               "options": [
                 {
@@ -1274,7 +1279,7 @@
             },
             {
               "id": "c013",
-              "labelKey": "q.c013",
+              "labelKey": "q.c013.label",
               "inputType": "single",
               "options": [
                 {
