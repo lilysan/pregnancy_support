@@ -185,6 +185,18 @@ body {
   font-weight: 700;
 }
 
+.chip-ja,
+.chip-tr {
+  display: block;
+  line-height: 1.35;
+}
+
+.chip-tr {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--sub-text);
+}
+
 .tag-filter-btn.active {
   border-color: var(--primary-border);
   background: var(--primary-light);
