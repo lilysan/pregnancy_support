@@ -129,6 +129,23 @@
     ];
 
     const STORAGE_KEY = 'qandaSelectedLanguage';
+    const tagTranslations = {
+      '生活': 'Lifestyle',
+      '嗜好品': 'Smoking / Alcohol',
+      '移動': 'Travel',
+      '運動': 'Exercise',
+      '症状': 'Symptoms',
+      '食事': 'Diet',
+      '制度': 'Systems',
+      'サプリ': 'Supplements',
+      '出産': 'Childbirth',
+      '家族': 'Family',
+      '産後': 'Postpartum',
+      '体重': 'Weight',
+      '準備': 'Preparation',
+      '文化': 'Culture',
+      '薬': 'Medication'
+    };
     const DIALOG_TEXT = {
       ja: {
         settings: '言語設定',
@@ -404,11 +421,15 @@
     }
 
     function openLanguageDialog() {
-      document.getElementById('languageDialog').classList.remove('is-hidden');
+      const dialog = document.getElementById('languageDialog');
+      dialog.classList.remove('is-hidden');
+      dialog.style.display = 'block';
     }
 
     function closeLanguageDialog() {
-      document.getElementById('languageDialog').classList.add('is-hidden');
+      const dialog = document.getElementById('languageDialog');
+      dialog.classList.add('is-hidden');
+      dialog.style.display = 'none';
     }
 
     function loadInitialLanguage() {
@@ -491,7 +512,7 @@
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'tag-filter-btn' + (selectedTag === tag.id ? ' active' : '');
-        btn.textContent = tag.label;
+        btn.innerHTML = tag.id === 'all' ? escapeHtml(tag.label) : renderBilingualText(tag.label, translateTag(tag.label));
         btn.addEventListener('click', () => {
           selectedTag = tag.id;
           renderTagFilters();
@@ -502,7 +523,7 @@
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'tag-filter-btn' + (selectedTag === "system" ? ' active' : '');
-      btn.textContent = "妊娠期・分娩期・育児期の主要制度一覧";
+      btn.innerHTML = renderBilingualText("妊娠期・分娩期・育児期の主要制度一覧", "System Information");
       btn.addEventListener('click', () => {
         selectedTag = "system";
         window.open('../systeminformation', '_blank');
@@ -511,7 +532,7 @@
       const btn1 = document.createElement('button');
       btn1.type = 'button';
       btn1.className = 'tag-filter-btn' + (selectedTag === "sex" ? ' active' : '');
-      btn1.textContent = "性交渉について";
+      btn1.innerHTML = renderBilingualText("性交渉について", "Sex During Pregnancy");
       btn1.addEventListener('click', () => {
         selectedTag = "sex";
         window.open('../aboutsex', '_blank');
@@ -520,7 +541,7 @@
       const btn2 = document.createElement('button');
       btn2.type = 'button';
       btn2.className = 'tag-filter-btn' + (selectedTag === "aruaru" ? ' active' : '');
-      btn2.textContent = "日本のスタンダード";
+      btn2.innerHTML = renderBilingualText("日本のスタンダード", "Japanese Childbirth Standards");
       btn2.addEventListener('click', () => {
         selectedTag = "aruaru";
         window.open('../aruaru', '_blank');
@@ -541,12 +562,14 @@
         const details = document.createElement('details');
         details.className = 'qa-card';
         if (index === 0) details.open = true;
+        const translatedQuestion = getTranslatedQuestion(item);
+        const translatedAnswer = getTranslatedAnswer(item);
 
         const summary = document.createElement('summary');
         summary.className = 'qa-summary';
         summary.innerHTML = `
           <p class="qa-ja">${escapeHtml(item.jaQ)}</p>
-          <p class="qa-tr${selectedLanguage === 'ja' ? ' is-hidden' : ''}">${escapeHtml(getTranslatedQuestion(item))}</p>
+          <p class="qa-tr${selectedLanguage === 'ja' || !translatedQuestion ? ' is-hidden' : ''}">${escapeHtml(translatedQuestion)}</p>
         `;
 
         const panel = document.createElement('div');
@@ -555,7 +578,7 @@
           <div class="answer-block">
             <p class="answer-label">A</p>
             <p class="answer-ja${isPending(item.jaA) ? ' answer-pending' : ''}">${escapeHtml(item.jaA)}</p>
-            <p class="answer-tr${isPending(item.enA) ? ' answer-pending' : ''}${selectedLanguage === 'ja' ? ' is-hidden' : ''}">${escapeHtml(getTranslatedAnswer(item))}</p>
+            <p class="answer-tr${isPending(item.enA) ? ' answer-pending' : ''}${selectedLanguage === 'ja' || !translatedAnswer ? ' is-hidden' : ''}">${escapeHtml(translatedAnswer)}</p>
           </div>
         `;
 
@@ -587,6 +610,17 @@
     function getTranslatedAnswer(item) {
       if (selectedLanguage === 'ja') return '';
       return item.enA || '';
+    }
+
+    function translateTag(tag) {
+      return tagTranslations[tag] || tag;
+    }
+
+    function renderBilingualText(jaText, translatedText) {
+      if (selectedLanguage === 'ja' || !translatedText || translatedText === jaText) {
+        return escapeHtml(jaText);
+      }
+      return `<span class="chip-ja">${escapeHtml(jaText)}</span><span class="chip-tr">${escapeHtml(translatedText)}</span>`;
     }
 
     function isPending(text) {
