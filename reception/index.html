@@ -447,6 +447,14 @@
                 titleJa: "制度・システム",
                 titleFallback: "Systems & Support",
                 cards: [{
+                        key: "system_information_detail",
+                        ja: "制度情報の詳細",
+                        titleFallback: "Detailed system information",
+                        externalLink: "../systeminformation/index.html",
+                        externalLinkLabelJa: "制度情報の詳細を見る",
+                        externalLinkLabelFallback: "Open detailed system information"
+                    },
+                    {
                         key: "notify_pregnancy_office",
                         ja: "住んでいる自治体で妊娠の届出を確認してください。",
                         titleFallback: "Please confirm pregnancy notification procedures at your local city office."
@@ -715,13 +723,14 @@
             if (!section) return;
 
             section.cards.forEach((card, index) => {
+                const itemNumber = section.id === "system" ? index : index + 1;
                 const details = document.createElement("details");
                 details.className = "talk-card";
                 const summary = document.createElement("summary");
                 summary.className = "talk-summary";
                 summary.innerHTML = `
                     <div class="summary-texts">
-                        <p class="talk-title">項目 ${index + 1}</p>
+                        <p class="talk-title">項目 ${itemNumber}</p>
                         <p class="talk-ja">${escapeHtml(card.ja)}</p>
                         <p class="talk-tr">${escapeHtml(t(card.key, card.titleFallback || ""))}</p>
                     </div>
@@ -741,6 +750,23 @@
 
                 const panel = document.createElement("div");
                 panel.className = "talk-panel";
+
+                if (card.externalLink) {
+                    const wrap = document.createElement("div");
+                    wrap.className = "questionnaire-wrap";
+                    const btn = document.createElement("button");
+                    btn.type = "button";
+                    btn.className = "large-btn";
+                    btn.innerHTML = `
+                        <span class="option-ja">${escapeHtml(card.externalLinkLabelJa || card.ja)}</span>
+                        <span class="option-tr">${escapeHtml(t(card.key + "_link", card.externalLinkLabelFallback || ""))}</span>
+                    `;
+                    btn.addEventListener("click", () => {
+                        window.open(card.externalLink, "_blank", "noopener,noreferrer");
+                    });
+                    wrap.appendChild(btn);
+                    panel.appendChild(wrap);
+                }
 
                 if (card.questionnaire) {
                     const wrap = document.createElement("div");
