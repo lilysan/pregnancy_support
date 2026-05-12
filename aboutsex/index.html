@@ -110,6 +110,19 @@
     }];
 
     const STORAGE_KEY = 'aboutsexSelectedLanguage';
+    const tagTranslationKeys = {
+      '基本': 'theme_basic',
+      '控える': 'theme_avoid',
+      '体と心の変化': 'theme_changes',
+      '気をつけるポイント': 'theme_positions',
+      '時期ごとの注意': 'theme_by_phase',
+      '安全': 'theme_safety',
+      '大切なこと': 'theme_important',
+      '全期間': 'phase_all',
+      '妊娠初期': 'phase_early',
+      '妊娠中期': 'phase_middle',
+      '妊娠後期': 'phase_late'
+    };
     const DIALOG_TEXT = {
       ja: {
         settings: '言語設定',
@@ -477,7 +490,7 @@
 
     window.addEventListener('load', init);
 
-    function init() {
+    async function init() {
       document.getElementById('languageSettingBtn').addEventListener('click', openLanguageDialog);
       document.getElementById('closeLanguageBtn').addEventListener('click', closeLanguageDialog);
       document.getElementById('languageDialog').addEventListener('click', (event) => {
@@ -488,6 +501,7 @@
         renderQaList();
       });
       selectedLanguage = loadInitialLanguage();
+      await initI18n(selectedLanguage);
       renderLanguageButtons();
       renderDialogText();
       renderTagFilters();
@@ -495,11 +509,15 @@
     }
 
     function openLanguageDialog() {
-      document.getElementById('languageDialog').classList.remove('is-hidden');
+      const dialog = document.getElementById('languageDialog');
+      dialog.classList.remove('is-hidden');
+      dialog.style.display = 'block';
     }
 
     function closeLanguageDialog() {
-      document.getElementById('languageDialog').classList.add('is-hidden');
+      const dialog = document.getElementById('languageDialog');
+      dialog.classList.add('is-hidden');
+      dialog.style.display = 'none';
     }
 
     function loadInitialLanguage() {
@@ -533,6 +551,34 @@
       return 'en-US';
     }
 
+    function getI18nLanguage(langCode) {
+      if (langCode === 'zh') return 'zh';
+      if (langCode === 'ja') return 'ja';
+      return 'en-US';
+    }
+
+    async function initI18n(langCode) {
+      if (!window.i18next) return;
+      const target = getI18nLanguage(langCode);
+      if (!i18next.isInitialized) {
+        await i18next.use(i18nextHttpBackend).init({
+          lng: target,
+          fallbackLng: 'en-US',
+          backend: {
+            loadPath: './i18n/{{lng}}.json'
+          }
+        });
+        return;
+      }
+      await i18next.changeLanguage(target);
+    }
+
+    function tr(key, fallback, options) {
+      if (!window.i18next || !i18next.isInitialized) return fallback || '';
+      const value = i18next.t(key, options || {});
+      return value === key ? (fallback || '') : value;
+    }
+
     function renderLanguageButtons() {
       const list = document.getElementById('languageOptionList');
       list.innerHTML = '';
@@ -541,12 +587,14 @@
         btn.type = 'button';
         btn.className = 'language-option-btn' + (selectedLanguage === lang.code ? ' active' : '');
         btn.textContent = lang.label;
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
           selectedLanguage = lang.code;
           localStorage.setItem(STORAGE_KEY, selectedLanguage);
+          await initI18n(selectedLanguage);
           closeLanguageDialog();
           renderLanguageButtons();
           renderDialogText();
+          renderTagFilters();
           renderQaList();
         });
         list.appendChild(btn);
@@ -582,7 +630,7 @@
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'tag-filter-btn' + (selectedTag === tag.id ? ' active' : '');
-        btn.textContent = tag.label;
+        btn.innerHTML = tag.id === 'all' ? escapeHtml(tag.label) : renderBilingualText(tag.label, translateTag(tag.label));
         btn.addEventListener('click', () => {
           selectedTag = tag.id;
           renderTagFilters();
@@ -604,12 +652,13 @@
         const details = document.createElement('details');
         details.className = 'qa-card';
         if (index === 0) details.open = true;
+        const translatedQuestion = getTranslatedQuestion(item);
 
         const summary = document.createElement('summary');
         summary.className = 'qa-summary';
         summary.innerHTML = `
           <p class="qa-ja">${escapeHtml(item.jaQ)}</p>
-          <p class="qa-tr${selectedLanguage === 'ja' || !item.enQ ? ' is-hidden' : ''}">${escapeHtml(getTranslatedQuestion(item))}</p>
+          <p class="qa-tr${selectedLanguage === 'ja' || !translatedQuestion ? ' is-hidden' : ''}">${escapeHtml(translatedQuestion)}</p>
         `;
 
         const panel = document.createElement('div');
@@ -632,14 +681,26 @@
 
     function getTranslatedQuestion(item) {
       if (selectedLanguage === 'ja') return '';
-      if (selectedLanguage === 'zh') return item.zhQ || item.enQ || '';
-      return item.enQ || '';
+      const index = Number(String(item.jaQ || '').match(/^(\d+)/)?.[1] || 0);
+      return tr(`item_${index}_title`, item.enQ || '');
     }
 
     function getTranslatedAnswer(item) {
       if (selectedLanguage === 'ja') return '';
-      if (selectedLanguage === 'zh') return item.zhA || item.enA || '';
-      return item.enA || '';
+      const index = Number(String(item.jaQ || '').match(/^(\d+)/)?.[1] || 0);
+      return tr(`item_${index}_detail`, item.enA || '');
+    }
+
+    function translateTag(tag) {
+      const key = tagTranslationKeys[tag];
+      return key ? tr(key, tag) : tag;
+    }
+
+    function renderBilingualText(jaText, translatedText) {
+      if (selectedLanguage === 'ja' || !translatedText || translatedText === jaText) {
+        return escapeHtml(jaText);
+      }
+      return `<span class="chip-ja">${escapeHtml(jaText)}</span><span class="chip-tr">${escapeHtml(translatedText)}</span>`;
     }
 
     function buildAnswerBlock(item) {
