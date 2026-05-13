@@ -326,7 +326,7 @@
         try {
             state.idToken = idToken;
             const schemaResponse = await fetch(FORM_SCHEMA_URL, {cache: "no-cache"});
-            const [birthPlanSettings, birthPlanItems] = Promise.all([
+            const [birthPlanSettings, birthPlanItems] = await Promise.all([
                     fetchBirthPlanSettings(idToken),
                     fetchBirthPlanAnswers(idToken)
                 ]);
@@ -340,6 +340,7 @@
                 $("#birthPlanForm").localize();
             }
         } catch (error) {
+            console.error("main failed:", error);
             alert("Failed to load birth plan schema.");
         }
 
@@ -367,7 +368,6 @@
                 alert(response.message);
                 return {};
             }
-            console.log(normalizeBirthPlanSettings(response.data && response.data.items));
             return normalizeBirthPlanSettings(response.data && response.data.items);
         }, function () {
             alert("Network error!birthplanSettings");
@@ -397,7 +397,6 @@
                 alert(response.message);
                 return [];
             }
-            console.log(response);
             return response.data && Array.isArray(response.data.items) ? response.data.items : [];
         }, function () {
             alert("Network error!birthplan");
