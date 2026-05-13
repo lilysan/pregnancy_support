@@ -1062,12 +1062,14 @@
 
         const saveButton = $("#saveDraftBtn");
         saveButton.prop("disabled", true);
+        $("#loadingOverlay").addClass('is-open');
         try {
             const saved = await saveBirthPlanAnswers(state.idToken, buildBirthPlanPostItems(state.schema));
             if (!saved) {
                 return;
             }
         } finally {
+            $("#loadingOverlay").removeClass('is-open');
             saveButton.prop("disabled", false);
         }
 
@@ -1087,6 +1089,7 @@
     }
 
     function saveBirthPlanAnswers(idToken, items) {
+        console.log(items);
         return $.ajax({
             url: API_URL,
             type: "POST",
