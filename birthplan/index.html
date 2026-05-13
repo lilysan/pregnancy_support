@@ -330,6 +330,8 @@
                     fetchBirthPlanSettings(idToken),
                     fetchBirthPlanAnswers(idToken)
                 ]);
+            console.log(schemaResponse);
+            console.log(schemaResponse.json());
             state.schema = await schemaResponse.json();
             state.birthPlanSettings = birthPlanSettings;
             state.answers = buildAnswersFromBirthPlanItems(state.schema, birthPlanItems);
@@ -357,7 +359,6 @@
             }),
             timeout: 30000,
         }).then(function (response) {
-            console.log(response);
             if (response.statusCode === 401) {
                 liff.logout();
                 window.location.reload();
@@ -387,7 +388,6 @@
             }),
             timeout: 30000,
         }).then(function (response) {
-            console.log(response);
             if (response.statusCode === 401) {
                 liff.logout();
                 window.location.reload();
