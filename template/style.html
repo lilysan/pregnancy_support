@@ -164,7 +164,7 @@
                         <p class="caption">height 40px / px 14px / text 15px</p>
                     </div>
                     <button class="btn primary btn-small">Small</button>
-                </div
+                </div>
                 <div class="size-row">
                     <div>
                         <p class="bold">Medium</p>
@@ -794,7 +794,7 @@
          * ヘッダーの読み込み
          */
         function loadHeader(){
-            $("#header-container").load("../common/_header.html", function() {
+            $("#header-container").load("../common/header.html", function() {
                 // header.js内の翻訳初期化完了イベントを待機
                 document.addEventListener('i18n-initialized', function() {
                     $("#loadingOverlay").removeClass('is-open');

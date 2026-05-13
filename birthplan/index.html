@@ -407,7 +407,7 @@
      * ヘッダーの読み込み
      */
     function loadHeader(){
-        $("#header-container").load("../common/_header.html", function() {
+        $("#header-container").load("../common/header.html", function() {
             // header.js内の翻訳初期化完了イベントを待機
             document.addEventListener('i18n-initialized', function() {
                 $("#loadingOverlay").removeClass('is-open');

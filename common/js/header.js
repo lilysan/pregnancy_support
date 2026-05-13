@@ -104,6 +104,7 @@ $(function () {
     const $menuBtn = $('#menuBtn');
     const $menuCloseBtn = $('#menuCloseBtn');
     const $body = $('body');
+    const appRootUrl = getAppRootUrl();
 
     /** @type {import('@line/liff').Liff} */
     /** @type {import('i18next').i18n} */
@@ -115,6 +116,7 @@ $(function () {
     const currentPagePath = typeof currentPage !== 'undefined' ? currentPage : ''; // HTML側で定義された 'currentPage' 変数を取得
 
     $currentLanguageEl.text(currentLanguage.label);
+    $(".site-title-logo").attr("src", new URL("common/assets/logo.svg", appRootUrl).href);
     renderLanguages();
     renderMenu();
 
@@ -124,6 +126,9 @@ $(function () {
         .init({
             lng: normalizedLanguageCode,
             fallbackLng: "soft",
+            backend: {
+                loadPath: `${appRootUrl.href}locales/{{lng}}/{{ns}}.json`
+            },
             interpolation: {
                 escapeValue: false // エスケープを無効化
             }
@@ -213,6 +218,32 @@ $(function () {
     }
 
 
+
+    function getAppRootUrl() {
+        const scriptUrl = getCommonScriptUrl("config.js") || getCommonScriptUrl("header.js");
+        if (scriptUrl) {
+            return new URL("../../", scriptUrl);
+        }
+
+        if (window.location.hostname.endsWith(".github.io")) {
+            const repositoryName = window.location.pathname.split("/").filter(Boolean)[0];
+            if (repositoryName) {
+                return new URL(`/${repositoryName}/`, window.location.origin);
+            }
+        }
+
+        return new URL("/", window.location.origin);
+    }
+
+    function getCommonScriptUrl(fileName) {
+        if (document.currentScript && document.currentScript.src) {
+            return document.currentScript.src;
+        }
+
+        const scripts = Array.from(document.scripts);
+        const commonScript = scripts.find((script) => script.src.endsWith(`/common/js/${fileName}`));
+        return commonScript ? commonScript.src : "";
+    }
 
     function closeMenus() {
         $languageDropdown.removeClass('is-open');
