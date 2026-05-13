@@ -26,6 +26,17 @@
             margin-bottom: 0;
         }
 
+        .bp-question.is-disabled {
+            background: var(--surface);
+            color: var(--sub-text);
+            opacity: 0.7;
+        }
+
+        .bp-question.is-disabled::before,
+        .bp-question.is-disabled::after {
+            display: none;
+        }
+
         .bp-question.is-answered::after {
             content: "";
             position: absolute;
@@ -267,30 +278,32 @@
 </div>
 
 <script>
-    /** @type {import('@line/liff').Liff} */
-    const liff = window.liff;
     const currentPage = "birthplan";
     const FORM_SCHEMA_URL = "./plan.structure.json";
-    const STORAGE_KEY = "birthPlanDraftV1";
+
+    /** @type {import('@line/liff').Liff} */
+    const liff = window.liff;
 
     const state = {
         schema: null,
         answers: {},
         initialized: false,
         allQuestionIds: [],
-        totalQuestions: 0
+        totalQuestions: 0,
+        birthPlanSettings: {},
+        idToken: null
     };
 
     $(function () {
         const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
 
         liff.init({
-            liffId: LIFF_ID,
-            withLoginOnExternalBrowser: !isDev,
+            liffId: LIFF_ID, // Use own liffId
+            withLoginOnExternalBrowser: !isDev, // Enable automatic login process
         }).then(() => {
             main(liff.getIDToken());
             loadHeader();
-        }).catch((err) => {
+        // }).catch((err) => {
             alert("LIFF init failed.");
         });
 
@@ -311,15 +324,83 @@
 
     async function main(idToken) {
         try {
-            const response = await fetch(FORM_SCHEMA_URL, {cache: "no-cache"});
-            state.schema = await response.json();
-            state.answers = loadDraft();
+            state.idToken = idToken;
+            const schemaResponse = await fetch(FORM_SCHEMA_URL, {cache: "no-cache"});
+            const [birthPlanSettings, birthPlanItems] = Promise.all([
+                    fetchBirthPlanSettings(idToken),
+                    fetchBirthPlanAnswers(idToken)
+                ]);
+            state.schema = await schemaResponse.json();
+            state.birthPlanSettings = birthPlanSettings;
+            state.answers = buildAnswersFromBirthPlanItems(state.schema, birthPlanItems);
+            clearDisabledAnswersFromSchema(state.schema);
             state.initialized = true;
             renderForm();
+            if ($.fn.localize && window.i18next && i18next.isInitialized) {
+                $("#birthPlanForm").localize();
+            }
         } catch (error) {
             alert("Failed to load birth plan schema.");
         }
 
+    }
+
+    function fetchBirthPlanSettings(idToken) {
+        return $.ajax({
+            url: API_URL,
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify({
+                path: "birthplanSettings",
+                method: "get",
+                idToken: idToken
+            }),
+            timeout: 30000,
+        }).then(function (response) {
+            if (response.statusCode === 401) {
+                liff.logout();
+                window.location.reload();
+                return {};
+            }
+            if (response.statusCode !== 200) {
+                console.error(response.message);
+                alert(response.message);
+                return {};
+            }
+            return normalizeBirthPlanSettings(response.data && response.data.items);
+        }, function () {
+            alert("Network error!birthplanSettings");
+            return {};
+        });
+    }
+
+    function fetchBirthPlanAnswers(idToken) {
+        return $.ajax({
+            url: API_URL,
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify({
+                path: "birthplan",
+                method: "get",
+                idToken: idToken
+            }),
+            timeout: 30000,
+        }).then(function (response) {
+            if (response.statusCode === 401) {
+                liff.logout();
+                window.location.reload();
+                return [];
+            }
+            if (response.statusCode !== 200) {
+                console.error(response.message);
+                alert(response.message);
+                return [];
+            }
+            return response.data && Array.isArray(response.data.items) ? response.data.items : [];
+        }, function () {
+            alert("Network error!birthplan");
+            return [];
+        });
     }
 
     /**
@@ -389,7 +470,15 @@
     }
 
     function renderQuestion(question, questionNumber) {
-        const wrap = $("<article>").addClass("bp-question card");
+        const questionEnabled = isItemEnabled(question.labelKey);
+        if (!questionEnabled) {
+            clearQuestionAnswerDeep(question);
+        }
+
+        const wrap = $("<article>")
+            .addClass("bp-question card")
+            .toggleClass("is-disabled", !questionEnabled)
+            .attr("aria-disabled", String(!questionEnabled));
         const prefaceVisible = shouldShowPreface(question);
         if (question.prefaceKey && prefaceVisible) {
             wrap.append(
@@ -429,17 +518,24 @@
         const optionsEl = $("<div>").addClass(`radio-row bp-options ${isSingle?"single-select":"multi-select"}`);
 
         question.options.forEach((option) => {
+            const optionEnabled = questionEnabled && isItemEnabled(option.labelKey);
+            if (!optionEnabled) {
+                clearOptionAnswer(question, option.id);
+            }
             const isActive = isSingle
                 ? answer.selected === option.id
                 : Array.isArray(answer.selected) && answer.selected.includes(option.id);
             const chip = $("<button>")
                 .attr("type", "button")
                 .addClass("radio-chip")
-                .toggleClass("active", isActive)
+                .toggleClass("active", isActive && optionEnabled)
+                .toggleClass("disabled", !optionEnabled)
+                .prop("disabled", !optionEnabled)
+                .attr("aria-disabled", String(!optionEnabled))
                 .attr("data-value", option.id)
                 .attr("data-i18n", `[html]bp.${option.labelKey}`)
                 .on("click", function () {
-                    if ($(this).hasClass("disabled")) {
+                    if (!isItemEnabled(question.labelKey) || !isItemEnabled(option.labelKey)) {
                         return;
                     }
                     updateSelection(question, option.id);
@@ -458,6 +554,9 @@
                 .attr("data-i18n", "[placeholder]placeholder.free")
                 .val(answer.text || "")
                 .on("input", function () {
+                    if (!isItemEnabled(question.labelKey)) {
+                        return;
+                    }
                     updateFreeText(question.id, $(this).val());
                     syncAnsweredFlag(question, wrap);
                     updateProgressIndicators();
@@ -492,10 +591,19 @@
         const isSingle = question.inputType === "single" || question.inputType === "singleText";
         questionEl.children(".bp-options").find(".radio-chip").each(function () {
             const optionId = $(this).data("value");
+            const option = getQuestionOptionById(question, optionId);
+            const optionEnabled = isItemEnabled(question.labelKey) && (!option || isItemEnabled(option.labelKey));
+            if (!optionEnabled) {
+                clearOptionAnswer(question, optionId);
+            }
             const isActive = isSingle
                 ? answer.selected === optionId
                 : Array.isArray(answer.selected) && answer.selected.includes(optionId);
-            $(this).toggleClass("active", isActive);
+            $(this)
+                .toggleClass("active", isActive && optionEnabled)
+                .toggleClass("disabled", !optionEnabled)
+                .prop("disabled", !optionEnabled)
+                .attr("aria-disabled", String(!optionEnabled));
         });
 
         const textArea = questionEl.children("textarea.bp-free-text");
@@ -545,6 +653,18 @@
         }
     }
 
+    function clearOptionAnswer(question, optionId) {
+        const answer = getAnswer(question.id);
+        if (Array.isArray(answer.selected)) {
+            answer.selected = answer.selected.filter((selectedId) => selectedId !== optionId);
+        } else if (answer.selected === optionId) {
+            answer.selected = null;
+        }
+        if (!shouldEnableFreeText(question)) {
+            answer.text = "";
+        }
+    }
+
     function isTextInputQuestion(question) {
         return question.inputType === "singleText" || question.inputType === "multiText";
     }
@@ -570,7 +690,7 @@
         if (!textAreaEl || !textAreaEl.length || !isTextInputQuestion(question)) {
             return;
         }
-        textAreaEl.prop("disabled", !shouldEnableFreeText(question));
+        textAreaEl.prop("disabled", !isItemEnabled(question.labelKey) || !shouldEnableFreeText(question));
     }
 
     function shouldShowPreface(question) {
@@ -581,6 +701,9 @@
     }
 
     function shouldShowFollowUp(parentQuestion, followUpQuestion) {
+        if (!isItemEnabled(parentQuestion.labelKey) || !isItemEnabled(followUpQuestion.labelKey)) {
+            return false;
+        }
         if (!Array.isArray(followUpQuestion.showWhenParentIs) || followUpQuestion.showWhenParentIs.length === 0) {
             return true;
         }
@@ -606,7 +729,153 @@
         return state.answers[questionId];
     }
 
+    function normalizeBirthPlanSettings(items) {
+        const settings = {};
+        if (!Array.isArray(items)) {
+            return settings;
+        }
+        items.forEach((item) => {
+            if (!item || typeof item !== "object") {
+                return;
+            }
+            Object.keys(item).forEach((key) => {
+                settings[key] = Number(item[key]);
+            });
+        });
+        return settings;
+    }
+
+    function isItemEnabled(labelKey) {
+        if (!labelKey || !Object.prototype.hasOwnProperty.call(state.birthPlanSettings, labelKey)) {
+            return true;
+        }
+        return Number(state.birthPlanSettings[labelKey]) !== 0;
+    }
+
+    function getQuestionOptionById(question, optionId) {
+        if (!question || !Array.isArray(question.options)) {
+            return null;
+        }
+        return question.options.find((option) => option.id === optionId) || null;
+    }
+
+    function buildAnswersFromBirthPlanItems(schema, items) {
+        const responseMap = normalizeBirthPlanAnswers(items);
+        const answers = {};
+        if (!schema || !Array.isArray(schema.categories)) {
+            return answers;
+        }
+        schema.categories.forEach((category) => {
+            if (!Array.isArray(category.sections)) {
+                return;
+            }
+            category.sections.forEach((section) => {
+                if (Array.isArray(section.questions)) {
+                    mapBirthPlanItemsToAnswers(section.questions, responseMap, answers);
+                }
+            });
+        });
+        return answers;
+    }
+
+    function normalizeBirthPlanAnswers(items) {
+        const responseMap = {};
+        if (!Array.isArray(items)) {
+            return responseMap;
+        }
+        items.forEach((item) => {
+            if (!item || typeof item !== "object" || !item.responceKey) {
+                return;
+            }
+            responseMap[item.responceKey] = {
+                other: typeof item.other === "string" ? item.other : ""
+            };
+        });
+        return responseMap;
+    }
+
+    function mapBirthPlanItemsToAnswers(questions, responseMap, answers) {
+        if (!Array.isArray(questions)) {
+            return;
+        }
+        questions.forEach((question) => {
+            const isSingle = question.inputType === "single" || question.inputType === "singleText";
+            const answer = {selected: isSingle ? null : [], text: ""};
+
+            if (Array.isArray(question.options)) {
+                question.options.forEach((option) => {
+                    const item = responseMap[option.labelKey];
+                    if (!item) {
+                        return;
+                    }
+                    if (isSingle) {
+                        answer.selected = option.id;
+                    } else if (!answer.selected.includes(option.id)) {
+                        answer.selected.push(option.id);
+                    }
+                    if (item.other) {
+                        answer.text = item.other;
+                    }
+                });
+            }
+
+            if (responseMap[question.labelKey] && responseMap[question.labelKey].other) {
+                answer.text = responseMap[question.labelKey].other;
+            }
+
+            if ((Array.isArray(answer.selected) && answer.selected.length > 0) || answer.selected != null || answer.text) {
+                answers[question.id] = answer;
+            }
+
+            if (Array.isArray(question.followUps)) {
+                mapBirthPlanItemsToAnswers(question.followUps, responseMap, answers);
+            }
+        });
+    }
+
+    function clearDisabledAnswersFromSchema(schema) {
+        if (!schema || !Array.isArray(schema.categories)) {
+            return;
+        }
+        schema.categories.forEach((category) => {
+            if (!Array.isArray(category.sections)) {
+                return;
+            }
+            category.sections.forEach((section) => {
+                if (Array.isArray(section.questions)) {
+                    clearDisabledAnswers(section.questions);
+                }
+            });
+        });
+    }
+
+    function clearDisabledAnswers(questions) {
+        if (!Array.isArray(questions)) {
+            return;
+        }
+        questions.forEach((question) => {
+            if (!isItemEnabled(question.labelKey)) {
+                clearQuestionAnswerDeep(question);
+                return;
+            }
+            if (Array.isArray(question.options)) {
+                question.options.forEach((option) => {
+                    if (!isItemEnabled(option.labelKey)) {
+                        clearOptionAnswer(question, option.id);
+                    }
+                });
+            }
+            if (Array.isArray(question.followUps)) {
+                clearDisabledAnswers(question.followUps);
+            }
+        });
+    }
+
     function updateSelection(question, optionId) {
+        const option = getQuestionOptionById(question, optionId);
+        if (!isItemEnabled(question.labelKey) || (option && !isItemEnabled(option.labelKey))) {
+            return;
+        }
         const answer = getAnswer(question.id);
         const isSingle = question.inputType === "single" || question.inputType === "singleText";
         if (isSingle) {
@@ -632,9 +901,9 @@
         if (!questionEl || !questionEl.length) {
             return;
         }
-        const answered = isQuestionAnswered(question.id);
+        const answered = isItemEnabled(question.labelKey) && isQuestionAnswered(question.id);
         questionEl.toggleClass("is-answered", answered);
-        questionEl.toggleClass("is-unanswered", !answered);
+        questionEl.toggleClass("is-unanswered", isItemEnabled(question.labelKey) && !answered);
     }
 
     function collectQuestionIdsFromSchema(schema) {
@@ -661,6 +930,9 @@
             return;
         }
         questions.forEach((question) => {
+            if (!isItemEnabled(question.labelKey)) {
+                return;
+            }
             ids.push(question.id);
             if (Array.isArray(question.followUps)) {
                 collectQuestionIds(question.followUps, ids);
@@ -716,6 +988,9 @@
     }
 
     function countAnsweredForQuestion(question) {
+        if (!isItemEnabled(question.labelKey)) {
+            return 0;
+        }
         let answered = isQuestionAnswered(question.id) ? 1 : 0;
         if (!Array.isArray(question.followUps)) {
             return answered;
@@ -733,6 +1008,9 @@
     }
 
     function countQuestionTreeSize(question) {
+        if (!isItemEnabled(question.labelKey)) {
+            return 0;
+        }
         let size = 1;
         if (!Array.isArray(question.followUps)) {
             return size;
@@ -754,14 +1032,19 @@
         return answer.selected != null;
     }
 
-    function handleSaveDraft() {
-        const payload = {
-            formId: state.schema.formId,
-            ver: state.schema.ver,
-            savedAt: new Date().toISOString(),
-            answers: state.answers
-        };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    async function handleSaveDraft() {
+        clearDisabledAnswersFromSchema(state.schema);
+
+        const saveButton = $("#saveDraftBtn");
+        saveButton.prop("disabled", true);
+        try {
+            const saved = await saveBirthPlanAnswers(state.idToken, buildBirthPlanPostItems(state.schema));
+            if (!saved) {
+                return;
+            }
+        } finally {
+            saveButton.prop("disabled", false);
+        }
 
         const toastManager = createToastManager();
         toastManager.show({
@@ -774,22 +1057,86 @@
     }
 
     function handleClearDraft() {
-        localStorage.removeItem(STORAGE_KEY);
         state.answers = {};
         renderForm();
     }
 
-    function loadDraft() {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) {
-            return {};
+    function saveBirthPlanAnswers(idToken, items) {
+        return $.ajax({
+            url: API_URL,
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify({
+                path: "birthplan",
+                method: "post",
+                idToken: idToken,
+                postData: {
+                    items: items
+                }
+            }),
+            timeout: 30000,
+        }).then(function (response) {
+            if (response.statusCode === 401) {
+                liff.logout();
+                window.location.reload();
+                return false;
+            }
+            if (response.statusCode !== 200) {
+                console.error(response.message);
+                alert(response.message);
+                return false;
+            }
+            return true;
+        }, function () {
+            alert("Network error!saveBirthplan");
+            return false;
+        });
+    }
+
+    function buildBirthPlanPostItems(schema) {
+        const items = [];
+        if (!schema || !Array.isArray(schema.categories)) {
+            return items;
         }
-        try {
-            const parsed = JSON.parse(raw);
-            return parsed.answers || {};
-        } catch (_error) {
-            return {};
+        schema.categories.forEach((category) => {
+            if (!Array.isArray(category.sections)) {
+                return;
+            }
+            category.sections.forEach((section) => {
+                if (Array.isArray(section.questions)) {
+                    appendBirthPlanPostItems(section.questions, items);
+                }
+            });
+        });
+        return items;
+    }
+
+    function appendBirthPlanPostItems(questions, items) {
+        if (!Array.isArray(questions)) {
+            return;
         }
+        questions.forEach((question) => {
+            if (!isItemEnabled(question.labelKey)) {
+                return;
+            }
+            const answer = state.answers[question.id];
+            if (answer && Array.isArray(question.options)) {
+                const selectedIds = Array.isArray(answer.selected)
+                    ? answer.selected
+                    : (answer.selected != null ? [answer.selected] : []);
+                selectedIds.forEach((optionId) => {
+                    const option = getQuestionOptionById(question, optionId);
+                    if (!option || !isItemEnabled(option.labelKey)) {
+                        return;
+                    }
+                    const value = option.activatesText && answer.text ? answer.text : 1;
+                    items.push({[option.labelKey]: value});
+                });
+            }
+            if (Array.isArray(question.followUps)) {
+                appendBirthPlanPostItems(question.followUps, items);
+            }
+        });
     }
 </script>
 </body>
