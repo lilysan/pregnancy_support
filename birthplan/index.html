@@ -330,8 +330,6 @@
                     fetchBirthPlanSettings(idToken),
                     fetchBirthPlanAnswers(idToken)
                 ]);
-            console.log(schemaResponse);
-            console.log(schemaResponse.json());
             state.schema = await schemaResponse.json();
             state.birthPlanSettings = birthPlanSettings;
             state.answers = buildAnswersFromBirthPlanItems(state.schema, birthPlanItems);
@@ -369,6 +367,7 @@
                 alert(response.message);
                 return {};
             }
+            console.log(normalizeBirthPlanSettings(response.data && response.data.items));
             return normalizeBirthPlanSettings(response.data && response.data.items);
         }, function () {
             alert("Network error!birthplanSettings");
@@ -398,6 +397,7 @@
                 alert(response.message);
                 return [];
             }
+            console.log(response);
             return response.data && Array.isArray(response.data.items) ? response.data.items : [];
         }, function () {
             alert("Network error!birthplan");
