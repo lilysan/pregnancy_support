@@ -302,9 +302,15 @@
             liffId: LIFF_ID, // Use own liffId
             withLoginOnExternalBrowser: !isDev, // Enable automatic login process
         }).then(() => {
-            main(liff.getIDToken());
-            loadHeader();
-         }).catch((err) => {
+            return Promise.all([
+                main(liff.getIDToken()),
+                loadHeader()
+            ]);
+        }).then(() => {
+            localizeBirthPlanForm();
+            $("#loadingOverlay").removeClass('is-open');
+        }).catch((err) => {
+            console.error("LIFF init failed:", err);
             alert("LIFF init failed.");
         });
 
@@ -338,9 +344,6 @@
             clearDisabledAnswersFromSchema(state.schema);
             state.initialized = true;
             renderForm();
-            if ($.fn.localize && window.i18next && i18next.isInitialized) {
-                $("#birthPlanForm").localize();
-            }
         } catch (error) {
             console.error("main failed:", error);
             alert("Failed to load birth plan schema.");
@@ -410,15 +413,30 @@
      * ヘッダーの読み込み
      */
     function loadHeader(){
-        $("#header-container").load("../common/header.html", function() {
-            // header.js内の翻訳初期化完了イベントを待機
-            document.addEventListener('i18n-initialized', function() {
-                $("#loadingOverlay").removeClass('is-open');
-            }, { once: true });
+        return new Promise((resolve, reject) => {
+            $("#header-container").load("../common/header.html", function(responseText, status) {
+                if (status === "error") {
+                    reject(new Error("Failed to load header.html"));
+                    return;
+                }
 
-            $.getScript("../common/js/header.js");
+                // header.js内の翻訳初期化完了イベントを待機
+                document.addEventListener('i18n-initialized', function() {
+                    resolve();
+                }, { once: true });
+
+                $.getScript("../common/js/header.js")
+                    .fail(function() {
+                        reject(new Error("Failed to load header.js"));
+                    });
+            });
         });
+    }
 
+    function localizeBirthPlanForm() {
+        if ($.fn.localize && window.i18next && i18next.isInitialized) {
+            $("#birthPlanForm").localize();
+        }
     }
 
     function renderForm() {
