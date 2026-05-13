@@ -250,12 +250,13 @@
 <main>
     <article class="main-container">
         <h1 data-i18n="[html]title.birthplan"></h1>
-        <p class="desc">どんなお産がしたいか希望を入力しましょう。</p>
+        <p class="desc" data-i18n="[html]bp.desc"></p>
         <div class="card">
             <div class="state-card-inner">
                 <iconify-icon icon="material-symbols:info-rounded" width="24" height="24" style="color:var(--info-state)"></iconify-icon>
                 <div>
-                    <p class="small">グレーアウトしている項目は、分娩予定の病院でサポートしていません。</p>
+                    <p class="small" data-i18n="[html]bp.info1"></p>
+                    <p id="unsupportedNotice" class="small" data-i18n="[html]bp.info2" hidden></p>
                 </div>
             </div>
         </div>
@@ -332,6 +333,7 @@
                 ]);
             state.schema = await schemaResponse.json();
             state.birthPlanSettings = birthPlanSettings;
+            $("#unsupportedNotice").prop("hidden", !hasBirthPlanSettings(birthPlanSettings));
             state.answers = buildAnswersFromBirthPlanItems(state.schema, birthPlanItems);
             clearDisabledAnswersFromSchema(state.schema);
             state.initialized = true;
@@ -744,6 +746,10 @@
             });
         });
         return settings;
+    }
+
+    function hasBirthPlanSettings(settings) {
+        return settings && typeof settings === "object" && Object.keys(settings).length > 0;
     }
 
     function isItemEnabled(labelKey) {

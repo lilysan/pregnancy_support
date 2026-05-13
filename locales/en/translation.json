@@ -82,6 +82,9 @@
     "clear": "Do you really want to clear your input?"
   },
   "bp": {
+    "desc": "Enter your preferences for how you would like your childbirth experience to be.",
+    "info1": "You can also save your progress and continue later.",
+    "info2": "Grayed-out items are not supported at your planned delivery hospital.",
     "cat": {
       "laborBirth": "During labor and birth",
       "postBirth": "Right after birth",
