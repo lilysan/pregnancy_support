@@ -4,106 +4,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weight Tracker</title>
+    <title>Weight Gain Period Tracker</title>
+    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
+    <link rel="stylesheet" href="../template/style.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../kokimastyle.css">
+    <link rel="stylesheet" href="./period.css">
 
-    <style>
-
-    </style>
 </head>
 
 <body>
-    <div class="loader" style="display: none;">
-        <div class="text-center">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
+    <div class="loader"></div>
+    <button type="button" id="settingsBtn" class="settings-btn" onclick="openSettingsDialog()">設定</button>
+
+    <div id="settingsDialog">
+        <div id="settingsDialogPanel">
+            <div class="settings-header">
+                <h2 id="settingsDialogTitle">設定</h2>
+                <button type="button" id="closeSettingsBtnTop" class="settings-close-top-btn"
+                    onclick="closeSettingsDialog()">閉じる</button>
             </div>
+            <div class="settings-block">
+                <p id="languageSectionTitle" class="settings-label">言語設定</p>
+                <div id="languageOptionList" class="language-option-list"></div>
+            </div>
+            <button type="button" id="closeSettingsBtn" onclick="closeSettingsDialog()">閉じる</button>
         </div>
     </div>
 
-    <h1 class="title_weight">体重カウンター</h1>
+    <header class="page-header">
+        <h1 class="page-title" id="pageTitle">一定期間の増加体重管理</h1>
+        <p class="page-lead" id="pageLead">看護師さんが期間の目標を設定し、その期間の中で朝・昼・晩の体重を記録して、どのくらい増えているかを確認するための画面です。</p>
+    </header>
 
-    <form id="addDataForm">
-        <label for="date">日にち:</label>
-        <input type="text" id="weightdate" placeholder="日付を選択"><br>
-
-        <label for="edit-time" class="tr_time">　時間:</label>
-        <input type="text" name="edit-time" id="edit-time" value=""><br>
-
-        <label for="weight">　体重(kg):</label>
-        <input type="number" id="weight" placeholder="体重"><br>
-        <button type="button" id="adddata">データを追加</button>
-    </form>
-
-
-    <div id="chart-container" class="chart-container active-content">
-        <canvas id="weightChart"></canvas>
-    </div>
-
-    <div id="table-container" class="table-container content">
-        <table id="table">
-            <thead>
-                <tr>
-                    <th class="tr_date">日にち</th>
-                    <th class="tr_time">時間</th>
-                    <th class="tr_weight">体重(kg)</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
-
-    <div id="edit-container" class="edit-container content">
-        <div id="edit_table">
-            <div id="edit_table_container">
-                <!-- データ編集テーブル -->
-                <table id="editTable">
-                    <thead>
-                        <tr>
-                            <th>日にち</th>
-                            <th>時間</th>
-                            <th>体重(kg)</th>
-                            <th>edit</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- ダイアログ -->
-    <div id="editDialog" style="display:none;">
-        <form id="editForm">
-            <label for="editDate">日にち:</label>
-            <input type="text" id="modalInputDate" class="weightdate2"><br><br>
-
-            <label for="edit-time" class="tr_time2">時間</label>
-            <input type="text" name="editTime2" id="modalInputTime" value="">
-
-
-            <label for="modalData1">体重 (kg):</label>
-            <input type="number" id="modalData1" class="sugar2"><br><br>
-
-            <button type="button" id="saveButton">保存</button>
-            <button type="button" id="cancelButton">キャンセル</button>
-            <button type="button" id="deleteButton">削除</button>
-        </form>
-    </div>
-
-    <!-- 下部タブメニュー -->
     <div class="tab-bar">
-        <button class="tab-button active" onclick="switchTab('chart-container', event)">グラフ</button>
-        <button class="tab-button" onclick="switchTab('table-container', event)">テーブル</button>
-        <button class="tab-button" onclick="switchTab('edit-container', event)">編集</button>
+        <button type="button" class="tab-button active" id="tabInput" onclick="switchTab('inputTab', event)">入力</button>
+        <button type="button" class="tab-button" id="tabOverview" onclick="switchTab('overviewTab', event)">概要</button>
+        <button type="button" class="tab-button" id="tabList" onclick="switchTab('listTab', event)">一覧</button>
+    </div>
+
+    <main class="layout">
+        <section id="overviewTab" class="tab-panel">
+            <section class="card">
+                <h2 id="summaryTitle">期間サマリー</h2>
+                <div class="summary-grid">
+                    <div class="summary-box">
+                        <div class="summary-label" id="summaryLabelPeriod">対象期間</div>
+                        <div class="summary-value small" id="summaryPeriod">-</div>
+                    </div>
+                    <div class="summary-box">
+                        <div class="summary-label" id="summaryLabelStartWeight">開始時の体重</div>
+                        <div class="summary-value" id="summaryStartWeight">-</div>
+                    </div>
+                    <div class="summary-box">
+                        <div class="summary-label" id="summaryLabelLatestWeight">最新の体重</div>
+                        <div class="summary-value" id="summaryLatestWeight">-</div>
+                    </div>
+                    <div class="summary-box">
+                        <div class="summary-label" id="summaryLabelCurrentGain">現在の増加量</div>
+                        <div class="summary-value" id="summaryCurrentGain">-</div>
+                    </div>
+                    <div class="summary-box">
+                        <div class="summary-label" id="summaryLabelTargetWeight">目標体重</div>
+                        <div class="summary-value" id="summaryTargetWeight">-</div>
+                    </div>
+                    <div class="summary-box">
+                        <div class="summary-label" id="summaryLabelRemaining">目標まで残り</div>
+                        <div class="summary-value" id="summaryRemaining">-</div>
+                    </div>
+                </div>
+                <div class="progress-wrap">
+                    <div class="summary-label" id="progressLabel">目標増加体重に対する進み具合</div>
+                    <div class="progress-bar">
+                        <div id="gainProgressFill" class="progress-fill"></div>
+                    </div>
+                    <div class="summary-value small summary-value-with-gap" id="gainProgressText">-</div>
+                </div>
+                <div id="statusNote" class="status-note neutral">期間設定を入れると、期間中の増加量をここで確認できます。</div>
+            </section>
+
+            <section class="card chart-card">
+                <h2 id="chartTitle">期間中の推移</h2>
+                <canvas id="weightPeriodChart"></canvas>
+            </section>
+        </section>
+
+        <section id="inputTab" class="tab-panel active">
+            <details class="card accordion-card" id="planAccordion">
+                <summary>
+                    <div class="accordion-summary-row">
+                        <div class="accordion-title-wrap">
+                            <h2 id="planTitle">期間設定</h2>
+                        </div>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                </summary>
+                <div class="accordion-body">
+                    <div class="field-grid field-grid-spaced">
+                        <div class="field">
+                            <label for="periodStartDate" id="labelPeriodStartDate">期間開始日</label>
+                            <input type="text" id="periodStartDate" placeholder="yyyy-mm-dd">
+                        </div>
+                        <div class="field">
+                            <label for="startWeightKg" id="labelStartWeightKg">開始時の体重(kg)</label>
+                            <input type="number" id="startWeightKg" step="0.1" placeholder="例: 55.0">
+                        </div>
+                        <div class="field">
+                            <label for="targetEndDate" id="labelTargetEndDate">目標終了日</label>
+                            <input type="text" id="targetEndDate" placeholder="yyyy-mm-dd">
+                        </div>
+                        <div class="field">
+                            <label for="targetGainKg" id="labelTargetGainKg">目標増加体重(kg)</label>
+                            <input type="number" id="targetGainKg" step="0.1" placeholder="例: 1.5">
+                        </div>
+                    </div>
+                    <div class="btn-row">
+                        <button type="button" class="btn-primary" id="savePlanBtn">期間設定を保存</button>
+                    </div>
+                </div>
+            </details>
+
+            <section class="card">
+                <h2 id="recordTitle">体重を記録</h2>
+                <div class="field-grid field-grid-spaced">
+                    <div class="field">
+                        <label for="weightDate" id="labelWeightDate">日にち</label>
+                        <input type="text" id="weightDate" placeholder="yyyy-mm-dd">
+                    </div>
+                    <div class="field">
+                        <label for="weightPeriod" id="labelWeightPeriod">測定タイミング</label>
+                        <select id="weightPeriod">
+                            <option value="1" id="periodMorning">朝</option>
+                            <option value="2" id="periodNoon">昼</option>
+                            <option value="3" id="periodEvening">晩</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="weightValue" id="labelWeightValue">体重(kg)</label>
+                        <input type="number" id="weightValue" step="0.1" placeholder="例: 55.4">
+                    </div>
+                </div>
+                <div class="btn-row">
+                    <button type="button" class="btn-primary" id="addWeightBtn">体重を登録</button>
+                </div>
+            </section>
+        </section>
+
+        <section id="listTab" class="tab-panel">
+            <section class="card">
+                <h2 id="tableTitle">期間中の記録一覧</h2>
+                <div id="tableEmpty" class="empty-note">この期間の記録はまだありません。</div>
+                <div class="table-wrap">
+                    <table id="recordTable">
+                        <thead>
+                            <tr>
+                                <th id="thDate">日にち</th>
+                                <th id="thPeriod">時間帯</th>
+                                <th id="thWeight">体重(kg)</th>
+                                <th id="thGain">開始からの増加</th>
+                                <th id="thEdit">編集</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <div id="editDialog" class="dialog-backdrop">
+        <div class="dialog-panel">
+            <h2 id="editDialogTitle" class="dialog-title">記録を編集</h2>
+            <div class="field-grid">
+                <div class="field">
+                    <label for="editWeightDate" id="editLabelWeightDate">日にち</label>
+                    <input type="text" id="editWeightDate">
+                </div>
+                <div class="field">
+                    <label for="editWeightPeriod" id="editLabelWeightPeriod">測定タイミング</label>
+                    <select id="editWeightPeriod">
+                        <option value="1" id="editPeriodMorning">朝</option>
+                        <option value="2" id="editPeriodNoon">昼</option>
+                        <option value="3" id="editPeriodEvening">晩</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="editWeightValue" id="editLabelWeightValue">体重(kg)</label>
+                    <input type="number" id="editWeightValue" step="0.1">
+                </div>
+            </div>
+            <div class="dialog-actions">
+                <button type="button" class="dialog-btn save" id="saveEditBtn">保存</button>
+                <button type="button" class="dialog-btn cancel" id="cancelEditBtn">キャンセル</button>
+                <button type="button" class="dialog-btn delete" id="deleteEditBtn">削除</button>
+            </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -111,316 +210,832 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.21.1/dist/date-fns.min.js"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script>
+        window.IS_TEST_MODE = new URLSearchParams(window.location.search).get("test") === "1";
+        if (window.IS_TEST_MODE) {
+            window.liff = {
+                init: function () {
+                    return Promise.resolve();
+                },
+                getIDToken: function () {
+                    return "TEST_ID_TOKEN";
+                },
+                getAppLanguage: function () {
+                    return "ja";
+                },
+                logout: function () {},
+                closeWindow: function () {}
+            };
+        }
+    </script>
+    <script src="../commonkokima_weight.js"></script>
+
     <script>
         const API_URL =
             "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
         const LIFF_ID = "2005594923-wN8OjyGd";
-        var allData = [];
-        var token;
-        const ctx = document.getElementById('weightChart').getContext('2d');
-        weightChart = new Chart(ctx, {
-            type: 'line',
+        const PERIOD_META_KEY = "weight_period_gain_settings_v1";
+        const LANG_STORAGE_KEY = "weight2_ui_lang";
+        const PERIOD_TIME = {
+            1: "06:00",
+            2: "12:00",
+            3: "18:00"
+        };
+        const PERIOD_LABEL = {
+            1: "朝",
+            2: "昼",
+            3: "晩"
+        };
+
+        const LANGUAGE_OPTIONS = [{
+                code: "en-US",
+                label: "英語編(English)"
+            },
+            {
+                code: "zh",
+                label: "中国語編(中文版)"
+            },
+            {
+                code: "fr",
+                label: "フランス語編(French)"
+            },
+            {
+                code: "ko",
+                label: "韓国語編(Korean)"
+            },
+            {
+                code: "pr",
+                label: "ポルトガル語編(Portugues)"
+            },
+            {
+                code: "tl",
+                label: "タガログ語編(TAGALOG)"
+            },
+            {
+                code: "ve",
+                label: "ベトナム語編(Vietnam)"
+            },
+            {
+                code: "th",
+                label: "タイ語編(Thai)"
+            },
+            {
+                code: "de",
+                label: "ドイツ語編(German)"
+            },
+            {
+                code: "id",
+                label: "インドネシア語(Indonesia)"
+            },
+            {
+                code: "ru",
+                label: "ロシア語(Russian)"
+            },
+            {
+                code: "ne",
+                label: "ネパール語(Nepali)"
+            },
+            {
+                code: "lo",
+                label: "ラオス語(Laotian)"
+            },
+            {
+                code: "uk",
+                label: "ウクライナ語(Ukrainian)"
+            },
+            {
+                code: "fa-AF",
+                label: "ダリ語(Dari)"
+            },
+            {
+                code: "si",
+                label: "シンハラ語(Sinhala)"
+            },
+            {
+                code: "ms",
+                label: "マレー語(Malay)"
+            },
+            {
+                code: "my",
+                label: "ミャンマー語(Myanmar)"
+            },
+            {
+                code: "bn",
+                label: "ベンガル語(Bengali)"
+            },
+            {
+                code: "ur",
+                label: "ウルドゥー語(Urdu)"
+            }
+        ];
+
+        let token = "";
+        let allData = [];
+        let editingDatetime = "";
+        let selectedUiLang = "ja";
+
+        const chart = new Chart(document.getElementById("weightPeriodChart").getContext("2d"), {
+            type: "line",
             data: {
                 labels: [],
                 datasets: [{
-                    label: '体重/Weight',
-                    data: [],
-                    borderColor: 'blue',
-                    borderWidth: 1,
-                    fill: false
-                }]
+                        label: "体重(kg)",
+                        data: [],
+                        borderColor: "#2f6fce",
+                        backgroundColor: "rgba(47, 111, 206, 0.16)",
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        pointHoverRadius: 5,
+                        fill: false,
+                        tension: 0.22
+                    },
+                    {
+                        label: "目標ライン",
+                        data: [],
+                        borderColor: "#d67249",
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        borderDash: [6, 6],
+                        fill: false,
+                        tension: 0
+                    }
+                ]
             },
             options: {
-                responsive: true, // ここを追加
-                maintainAspectRatio: false, // ここを追加
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            boxWidth: 14,
+                            color: "#3a2f2f",
+                            font: {
+                                size: 12,
+                                weight: "700"
+                            }
+                        }
+                    }
+                },
                 scales: {
                     x: {
-                        type: 'time',
+                        type: "time",
                         time: {
-                            unit: 'day',
+                            unit: "day",
                             displayFormats: {
-                                day: 'yyyy-MM-dd'
+                                day: "M/d"
                             }
                         },
-                        title: {
-                            display: true,
-                            text: '日にち/Date'
+                        ticks: {
+                            color: "#665b58"
+                        },
+                        grid: {
+                            color: "rgba(120, 92, 75, 0.08)"
                         }
                     },
                     y: {
                         title: {
                             display: true,
-                            text: '体重/Weight'
+                            text: "体重(kg)"
+                        },
+                        ticks: {
+                            color: "#665b58"
+                        },
+                        grid: {
+                            color: "rgba(120, 92, 75, 0.08)"
                         }
                     }
                 }
             }
         });
 
-
-        liff.init({
-            liffId: LIFF_ID, // Use own liffId
-            withLoginOnExternalBrowser: true, // Enable automatic login process
-        }).then(() => {
-            // Start to use liff's api
-            const idToken = liff.getIDToken();
-            const lang = liff.getAppLanguage();
-
-            changeLanguage(lang);
-            token = idToken;
-            allData = loadData(idToken, "weight");
-
-
-        }).catch((err) => {
-            // Error happens during initialization
-            liff.logout();
-            alert("LIFF init failed.");
-        });
-
-
-        var weightChart;
-        var data;
-        let currentRow1; // 編集中の行を記憶
-        let before_dateValue
-        let before_timeValue
-        let before_weightValue
-
-
-        document.getElementById("adddata").onclick = function () {
-            const date = document.getElementById('weightdate').value;
-            const time = document.getElementById('edit-time').value;
-            const weight = parseInt(document.getElementById('weight').value);
-
-            if (date && weight && time) {
-                aa = String(date) + " " + String(time)
-                var list = {
-                    datetime: aa,
-                    weight: weight
-                }
-                addData(list, "weight")
-                // フォームのリセット
-                document.getElementById('weightdate').value = '';
-                document.getElementById('edit-time').value = '';
-                document.getElementById('weight').value = '';
-
-            } else {
-                alert('すべてのフィールドに値を入力してください。');
+        function getMeta() {
+            try {
+                const raw = localStorage.getItem(PERIOD_META_KEY);
+                return raw ? JSON.parse(raw) : {};
+            } catch (e) {
+                return {};
             }
-
         }
 
-
-        function populateTable(id) {
-            var tableBody;
-
-            tableBody = document.querySelector('#editTable tbody');
-            tableBody.innerHTML = ''; // テーブルをクリア
-
-            allData.forEach((label, index) => {
-                const datePart = String(label.datetime); // 日付部分
-
-                const row = `<tr>
-                            <!-- 日付部分: datepickerを使用 -->
-                            <td class="date-picker">${String(datePart).split(" ")[0]}</td>
-                            <td class="time-picker">${String(datePart).split(" ")[1]}</td>
-
-                            <!-- 体重部分: contenteditable -->
-                            <td class="weight1">${label.weight}</td>
-
-                            <td><button class="edit-btn">edit</button></td>
-                        </tr>`;
-
-
-                tableBody.insertAdjacentHTML('beforeend', row);
-                $(".date-picker").datepicker({
-                    dateFormat: 'yy-mm-dd HH:mm'
-                });
-            });
-
-
-
-            let editButtons = document.querySelectorAll(".edit-btn");
-            let dialog = document.getElementById("editDialog");
-
-
-
-            editButtons.forEach((button) => {
-                button.addEventListener("click", function () {
-                    currentRow1 = this.closest("tr");
-
-                    // 元の値を取得してダイアログに設定
-                    const dateValue = currentRow1.querySelector(".date-picker").innerText;
-                    const timeValue = currentRow1.querySelector(".time-picker").innerText;
-
-                    const weightValue = currentRow1.querySelector(".weight1").innerText;
-
-                    document.getElementById("modalInputDate").value = dateValue;
-                    document.getElementById("modalInputTime").value = timeValue;
-                    document.getElementById("modalData1").value = weightValue;
-
-                    before_dateValue = dateValue + " " + timeValue
-                    before_weightValue = weightValue
-                    // ダイアログを表示
-                    dialog.style.display = "block";
-
-                });
-            });
-
-
-            const saveButton = document.getElementById("saveButton");
-            saveButton.removeEventListener("click", savebutton); // 既存のリスナーを削除
-            saveButton.addEventListener("click", savebutton); // 新しいリスナーを登録
-
-            // キャンセルボタンの処理
-            document.getElementById("cancelButton").addEventListener("click", () => {
-                // ダイアログを閉じる
-                dialog.style.display = "none";
-            });
-
-            // 削除ボタンの処理
-            document.getElementById("deleteButton").addEventListener("click", () => {
-                list = {
-                    datetime: before_dateValue
-                }
-                deleteData(list, "weight")
-                // ダイアログを閉じる
-                dialog.style.display = "none";
-            });
-
+        function saveMeta(meta) {
+            localStorage.setItem(PERIOD_META_KEY, JSON.stringify(meta));
         }
 
-        function savebutton() {
-            console.log("save")
-
-            let dialog = document.getElementById("editDialog");
-
-            const newDate = document.getElementById("modalInputDate").value;
-            const newTime = document.getElementById("modalInputTime").value;
-            const newWeight = document.getElementById("modalData1").value;
-
-            // 値を更新
-            currentRow1.querySelector(".date-picker").innerText = newDate;
-            currentRow1.querySelector(".time-picker").innerText = newTime;
-            currentRow1.querySelector(".weight1").innerText = newWeight;
-
-            // ダイアログを閉じる
-            dialog.style.display = "none";
-
-            if (newDate && newWeight && newTime) {
-                var newdata = {
-                    datetime: newDate + " " + newTime,
-                    weight: parseInt(newWeight),
-                }
-                var olddata = {
-                    datetime: before_dateValue
-                }
-                // 呼び出し
-                $(".loader").show();
-
-                handleUpdate(olddata, newdata, "weight");
-
-
-            } else {
-                alert('すべてのフィールドに値を入力してください。');
+        function tx(key, langCode) {
+            const rawCode = langCode || selectedUiLang;
+            const code = rawCode === "ja" ? "ja" : resolveI18nLang(rawCode);
+            try {
+                return i18next.getFixedT(code, "translation")(key);
+            } catch (e) {
+                return key;
             }
+        }
+
+        function template(str, vars) {
+            return String(str).replace(/\{(\w+)\}/g, function (_, key) {
+                return vars && vars[key] != null ? String(vars[key]) : "";
+            });
+        }
+
+        function bt(key) {
+            const ja = tx(key, "ja");
+            if (selectedUiLang === "ja") return ja;
+            return ja + " / " + tx(key, selectedUiLang);
+        }
+
+        function btTemplate(key, vars) {
+            const ja = template(tx(key, "ja"), vars);
+            if (selectedUiLang === "ja") return ja;
+            return ja + " / " + template(tx(key, selectedUiLang), vars);
+        }
+
+        function resolveI18nLang(langCode) {
+            if (langCode === "ja") return "ja";
+            if (langCode === "zh") return "zh";
+            return "en-US";
+        }
+
+        async function initI18n(langCode) {
+            const resolved = resolveI18nLang(langCode);
+            await i18next
+                .use(i18nextHttpBackend)
+                .init({
+                    lng: resolved,
+                    fallbackLng: "ja",
+                    ns: ["translation"],
+                    defaultNS: "translation",
+                    load: "currentOnly",
+                    backend: {
+                        loadPath: "./i18n/{{lng}}.json"
+                    },
+                    interpolation: {
+                        escapeValue: false
+                    }
+                });
+        }
+
+        function isSupportedLang(code) {
+            return code === "ja" || LANGUAGE_OPTIONS.some(function (item) {
+                return item.code === code;
+            });
+        }
+
+        function normalizeLangToUi(lang) {
+            const l = String(lang || "ja").toLowerCase();
+            if (l.startsWith("zh")) return "zh";
+            if (l.startsWith("fr")) return "fr";
+            if (l.startsWith("ko")) return "ko";
+            if (l.startsWith("pt")) return "pr";
+            if (l.startsWith("tl")) return "tl";
+            if (l.startsWith("vi")) return "ve";
+            if (l.startsWith("th")) return "th";
+            if (l.startsWith("de")) return "de";
+            if (l.startsWith("id")) return "id";
+            if (l.startsWith("ru")) return "ru";
+            if (l.startsWith("ne")) return "ne";
+            if (l.startsWith("lo")) return "lo";
+            if (l.startsWith("uk")) return "uk";
+            if (l.startsWith("fa")) return "fa-AF";
+            if (l.startsWith("si")) return "si";
+            if (l.startsWith("ms")) return "ms";
+            if (l.startsWith("my")) return "my";
+            if (l.startsWith("bn")) return "bn";
+            if (l.startsWith("ur")) return "ur";
+            if (l.startsWith("en")) return "en-US";
+            return "ja";
+        }
+
+        function renderLanguageOptions() {
+            const list = document.getElementById("languageOptionList");
+            list.innerHTML = "";
+
+            const jaBtn = document.createElement("button");
+            jaBtn.type = "button";
+            jaBtn.className = "language-option-btn" + (selectedUiLang === "ja" ? " active" : "");
+            jaBtn.textContent = "やさしい日本語 / Japanese";
+            jaBtn.onclick = function () {
+                setLanguage("ja");
+            };
+            list.appendChild(jaBtn);
+
+            LANGUAGE_OPTIONS.forEach(function (lang) {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "language-option-btn" + (selectedUiLang === lang.code ? " active" : "");
+                btn.textContent = lang.label;
+                btn.onclick = function () {
+                    setLanguage(lang.code);
+                };
+                list.appendChild(btn);
+            });
+        }
+
+        async function setLanguage(langCode) {
+            selectedUiLang = isSupportedLang(langCode) ? langCode : "ja";
+            localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
+            await i18next.changeLanguage(resolveI18nLang(selectedUiLang));
+            applyI18n();
+            renderLanguageOptions();
+            closeSettingsDialog();
+        }
+
+        function applyI18n() {
+            document.getElementById("settingsBtn").textContent = bt("settings");
+            document.getElementById("settingsDialogTitle").textContent = bt("settingsTitle");
+            document.getElementById("closeSettingsBtnTop").textContent = bt("close");
+            document.getElementById("closeSettingsBtn").textContent = bt("close");
+            document.getElementById("languageSectionTitle").textContent = bt("langSetting");
+            document.getElementById("pageTitle").textContent = bt("pageTitle");
+            document.getElementById("pageLead").textContent = bt("pageLead");
+            document.getElementById("planTitle").textContent = bt("planTitle");
+            document.getElementById("planLeadSummary").textContent = bt("subtextOpen");
+            document.getElementById("planLead").textContent = bt("planLead");
+            document.getElementById("labelPeriodStartDate").textContent = bt("periodStartDate");
+            document.getElementById("labelStartWeightKg").textContent = bt("startWeightKg");
+            document.getElementById("labelTargetEndDate").textContent = bt("targetEndDate");
+            document.getElementById("labelTargetGainKg").textContent = bt("targetGainKg");
+            document.getElementById("savePlanBtn").textContent = bt("savePlan");
+            document.getElementById("summaryTitle").textContent = bt("summaryTitle");
+            document.getElementById("summaryLabelPeriod").textContent = bt("summaryPeriod");
+            document.getElementById("summaryLabelStartWeight").textContent = bt("summaryStartWeight");
+            document.getElementById("summaryLabelLatestWeight").textContent = bt("summaryLatestWeight");
+            document.getElementById("summaryLabelCurrentGain").textContent = bt("summaryCurrentGain");
+            document.getElementById("summaryLabelTargetWeight").textContent = bt("summaryTargetWeight");
+            document.getElementById("summaryLabelRemaining").textContent = bt("summaryRemaining");
+            document.getElementById("progressLabel").textContent = bt("progressLabel");
+            document.getElementById("recordTitle").textContent = bt("recordTitle");
+            document.getElementById("recordLeadSummary").textContent = bt("subtextOpen");
+            document.getElementById("recordLead").textContent = bt("recordLead");
+            document.getElementById("labelWeightDate").textContent = bt("date");
+            document.getElementById("labelWeightPeriod").textContent = bt("weightPeriod");
+            document.getElementById("labelWeightValue").textContent = bt("weightValue");
+            document.getElementById("addWeightBtn").textContent = bt("addWeight");
+            document.getElementById("periodMorning").textContent = bt("morning");
+            document.getElementById("periodNoon").textContent = bt("noon");
+            document.getElementById("periodEvening").textContent = bt("evening");
+            document.getElementById("chartTitle").textContent = bt("chartTitle");
+            document.getElementById("tabOverview").textContent = bt("tabOverview");
+            document.getElementById("tabInput").textContent = bt("tabInput");
+            document.getElementById("tabList").textContent = bt("tabList");
+            document.getElementById("tableTitle").textContent = bt("tableTitle");
+            document.getElementById("tableEmpty").textContent = bt("tableEmpty");
+            document.getElementById("thDate").textContent = bt("thDate");
+            document.getElementById("thPeriod").textContent = bt("thPeriod");
+            document.getElementById("thWeight").textContent = bt("thWeight");
+            document.getElementById("thGain").textContent = bt("thGain");
+            document.getElementById("thEdit").textContent = bt("thEdit");
+            document.getElementById("editDialogTitle").textContent = bt("editDialogTitle");
+            document.getElementById("editLabelWeightDate").textContent = bt("date");
+            document.getElementById("editLabelWeightPeriod").textContent = bt("weightPeriod");
+            document.getElementById("editLabelWeightValue").textContent = bt("weightValue");
+            document.getElementById("editPeriodMorning").textContent = bt("morning");
+            document.getElementById("editPeriodNoon").textContent = bt("noon");
+            document.getElementById("editPeriodEvening").textContent = bt("evening");
+            document.getElementById("saveEditBtn").textContent = bt("save");
+            document.getElementById("cancelEditBtn").textContent = bt("cancel");
+            document.getElementById("deleteEditBtn").textContent = bt("delete");
+            chart.data.datasets[0].label = bt("chartWeightLabel");
+            chart.data.datasets[1].label = bt("chartGoalLabel");
+            chart.options.scales.y.title.text = bt("chartWeightLabel");
+            chart.update();
+        }
+
+        function switchTab(tabId, event) {
+            document.querySelectorAll(".tab-panel").forEach(function (panel) {
+                panel.classList.remove("active");
+            });
+            document.querySelectorAll(".tab-button").forEach(function (button) {
+                button.classList.remove("active");
+            });
+            const nextPanel = document.getElementById(tabId);
+            if (nextPanel) nextPanel.classList.add("active");
+            if (event && event.currentTarget) event.currentTarget.classList.add("active");
+            if (tabId === "overviewTab") {
+                chart.resize();
+                chart.update();
+            }
+        }
+
+        function openSettingsDialog() {
+            document.getElementById("settingsDialog").style.display = "block";
+        }
+
+        function closeSettingsDialog() {
+            document.getElementById("settingsDialog").style.display = "none";
+        }
+
+        function formatDateTime(date, period) {
+            return date + " " + (PERIOD_TIME[String(period)] || "06:00");
+        }
+
+        function parseDateOnly(value) {
+            return new Date(String(value) + "T00:00:00");
+        }
+
+        function formatDateJP(value) {
+            if (!value) return "-";
+            const d = new Date(value);
+            if (Number.isNaN(d.getTime())) return String(value);
+            return (d.getMonth() + 1) + "/" + d.getDate();
+        }
+
+        function formatWeight(value) {
+            return Number.isFinite(value) ? value.toFixed(1) + " kg" : "-";
+        }
+
+        function sortWeightData(items) {
+            return (items || []).slice().sort(function (a, b) {
+                return new Date(String(a.datetime || "")).getTime() - new Date(String(b.datetime || ""))
+                    .getTime();
+            });
+        }
+
+        function getFilteredRecords() {
+            const meta = getMeta();
+            const start = meta.startDate ? parseDateOnly(meta.startDate).getTime() : null;
+            const end = meta.endDate ? parseDateOnly(meta.endDate).getTime() : null;
+
+            return sortWeightData(allData).filter(function (item) {
+                const datePart = String(item.datetime || "").split(" ")[0];
+                const time = parseDateOnly(datePart).getTime();
+                if (!Number.isFinite(start) || !Number.isFinite(end)) return false;
+                return start <= time && time <= end;
+            });
         }
 
         function createTablePage() {
+            renderTable();
+        }
 
-            tableBody = document.querySelector('#table tbody');
-            tableBody.innerHTML = ''; // テーブルをクリア
-            console.log("tt")
-            allData.forEach((label, index) => {
-                datetime = label.datetime
-                const row = `<tr>
-                    <!-- 日付部分: datepickerを使用 -->
-                    <td>${datetime.split(" ")[0]}</td>
-                    <td>${datetime.split(" ")[1]}</td>
-                    <!-- 最高血圧部分: contenteditable -->
-                    <td >${label.weight}</td>
+        function populateTable() {
+            renderTable();
+        }
 
-                </tr>`;
+        async function setallData() {
+            await reloadWeightData();
+        }
 
+        function updateChart(data) {
+            var meta = data
+            if (window.IS_TEST_MODE) {
+                meta = getMeta();
+            }
+            console.log(meta)
+            const records = getFilteredRecords();
+            const goalPoints = [];
 
-                tableBody.insertAdjacentHTML('beforeend', row);
-                $(".date-picker").datepicker({
-                    dateFormat: 'yy-mm-dd HH:mm'
+            if (meta.startDate && meta.endDate && Number.isFinite(meta.startWeightKg) && Number.isFinite(meta
+                    .targetGainKg)) {
+                goalPoints.push({
+                    x: new Date(meta.startDate + "T00:00:00"),
+                    y: meta.startWeightKg
+                });
+                goalPoints.push({
+                    x: new Date(meta.endDate + "T00:00:00"),
+                    y: meta.startWeightKg + meta.targetGainKg
+                });
+            }
+
+            chart.data.datasets[0].data = records.map(function (item) {
+                return {
+                    x: new Date(item.datetime),
+                    y: Number(item.weight)
+                };
+            });
+            chart.data.datasets[1].data = goalPoints;
+            chart.update();
+            renderSummary();
+        }
+
+        function renderSummary() {
+            const meta = getMeta();
+            const records = getFilteredRecords();
+            const latest = records.length ? records[records.length - 1] : null;
+            const startWeight = Number(meta.startWeightKg);
+            const targetGain = Number(meta.targetGainKg);
+            const targetWeight = Number.isFinite(startWeight) && Number.isFinite(targetGain) ? startWeight +
+                targetGain : null;
+            const currentWeight = latest ? Number(latest.weight) : null;
+            const currentGain = Number.isFinite(currentWeight) && Number.isFinite(startWeight) ? currentWeight -
+                startWeight : null;
+            const remaining = Number.isFinite(targetWeight) && Number.isFinite(currentWeight) ? targetWeight -
+                currentWeight : null;
+
+            document.getElementById("summaryPeriod").textContent = meta.startDate && meta.endDate ? meta.startDate +
+                " - " + meta.endDate : "-";
+            document.getElementById("summaryStartWeight").textContent = formatWeight(startWeight);
+            document.getElementById("summaryLatestWeight").textContent = formatWeight(currentWeight);
+            document.getElementById("summaryCurrentGain").textContent = Number.isFinite(currentGain) ? currentGain
+                .toFixed(1) + " kg" : "-";
+            document.getElementById("summaryTargetWeight").textContent = formatWeight(targetWeight);
+            document.getElementById("summaryRemaining").textContent = Number.isFinite(remaining) ? remaining.toFixed(
+                1) + " kg" : "-";
+
+            const progressFill = document.getElementById("gainProgressFill");
+            const progressText = document.getElementById("gainProgressText");
+            const statusNote = document.getElementById("statusNote");
+
+            if (!meta.startDate || !meta.endDate || !Number.isFinite(startWeight) || !Number.isFinite(targetGain)) {
+                progressFill.style.width = "0%";
+                progressText.textContent = bt("progressNoPlan");
+                statusNote.className = "status-note neutral";
+                statusNote.textContent = bt("statusNeedPlan");
+                return;
+            }
+
+            if (!records.length) {
+                progressFill.style.width = "0%";
+                progressText.textContent = bt("progressNoRecords");
+                statusNote.className = "status-note neutral";
+                statusNote.textContent = bt("statusNoRecords");
+                return;
+            }
+
+            const pct = targetGain <= 0 ? 0 : Math.max(0, Math.min(100, (currentGain / targetGain) * 100));
+            progressFill.style.width = pct + "%";
+            progressText.textContent = btTemplate("progressCurrentAndGoal", {
+                current: currentGain.toFixed(1),
+                target: targetGain.toFixed(1)
+            });
+
+            if (currentGain < 0) {
+                statusNote.className = "status-note warn";
+                statusNote.textContent = bt("statusLosing");
+            } else if (currentGain <= targetGain * 0.8) {
+                statusNote.className = "status-note ok";
+                statusNote.textContent = bt("statusOk");
+            } else if (currentGain <= targetGain) {
+                statusNote.className = "status-note warn";
+                statusNote.textContent = bt("statusNearGoal");
+            } else {
+                statusNote.className = "status-note alert";
+                statusNote.textContent = bt("statusOverGoal");
+            }
+        }
+
+        function renderTable() {
+            const meta = getMeta();
+            const startWeight = Number(meta.startWeightKg);
+            const records = getFilteredRecords();
+            const body = document.querySelector("#recordTable tbody");
+            const empty = document.getElementById("tableEmpty");
+            body.innerHTML = "";
+
+            if (!records.length) {
+                empty.style.display = "block";
+                return;
+            }
+
+            empty.style.display = "none";
+            records.forEach(function (item) {
+                const datePart = String(item.datetime).split(" ")[0];
+                const timePart = String(item.datetime).split(" ")[1] || "06:00";
+                const period = timePart === "12:00" ? "2" : (timePart === "18:00" ? "3" : "1");
+                const gain = Number.isFinite(startWeight) ? Number(item.weight) - startWeight : null;
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${datePart}</td>
+                    <td>${period === "1" ? bt("morning") : period === "2" ? bt("noon") : bt("evening")}</td>
+                    <td class="strong-num">${Number(item.weight).toFixed(1)}</td>
+                    <td class="strong-num">${Number.isFinite(gain) ? (gain >= 0 ? "+" : "") + gain.toFixed(1) + " kg" : "-"}</td>
+                    <td><button type="button" class="edit-btn" data-datetime="${item.datetime}">${bt("editBtn")}</button></td>
+                `;
+                body.appendChild(row);
+            });
+
+            body.querySelectorAll(".edit-btn").forEach(function (button) {
+                button.addEventListener("click", function () {
+                    openEditDialog(this.dataset.datetime);
                 });
             });
         }
 
-        function setallData() {
-            allData = allData.filter(item => !(item.datetime == String(before_dateValue)));
-            currentRow1.remove();
+        function openEditDialog(datetime) {
+            const item = allData.find(function (entry) {
+                return String(entry.datetime) === String(datetime);
+            });
+            if (!item) return;
+
+            editingDatetime = datetime;
+            const datePart = String(item.datetime).split(" ")[0];
+            const timePart = String(item.datetime).split(" ")[1] || "06:00";
+            const period = timePart === "12:00" ? "2" : (timePart === "18:00" ? "3" : "1");
+            document.getElementById("editWeightDate").value = datePart;
+            document.getElementById("editWeightPeriod").value = period;
+            document.getElementById("editWeightValue").value = Number(item.weight).toFixed(1);
+            document.getElementById("editDialog").style.display = "flex";
         }
 
-
-        function updateChart(data) {
-            const labels = [];
-            const weightData = [];
-            const tableBody = $('#weightTable tbody');
-            tableBody.empty(); // テーブルをクリア
-
-            // 日にち順にdataを並び替える
-            data.sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
-
-            data.forEach(item => {
-                const dateTime = new Date(item.datetime);
-                const weight = item.weight;
-                // グラフ用のデータに追加
-                labels.push(dateTime);
-                weightData.push(weight);
-            });
-
-            // labelsとweightDataを逆順にする
-            labels.reverse();
-            weightData.reverse();
-            // チャートのデータを更新
-            weightChart.data.labels = labels;
-            weightChart.data.datasets[0].data = weightData;
-            weightChart.update();
+        function closeEditDialog() {
+            document.getElementById("editDialog").style.display = "none";
+            editingDatetime = "";
         }
 
-        function sortTable() {
-            const rows = $('#weightTable tbody tr').get();
-            rows.sort(function (a, b) {
-                const keyA = new Date($(a).children('td').eq(0).text() + 'T' + $(a).children('td').eq(1)
-                    .text() + ':00');
-                const keyB = new Date($(b).children('td').eq(0).text() + 'T' + $(b).children('td').eq(1)
-                    .text() + ':00');
-                return keyA - keyB;
+        async function reloadWeightData() {
+            await loadData(token, "weight", {});
+            allData = sortWeightData(Array.isArray(allData) ? allData : []);
+            renderTable();
+            renderSummary();
+            updateChart();
+        }
+
+        function loadMetaToForm() {
+            const meta = getMeta();
+            document.getElementById("periodStartDate").value = meta.startDate || "";
+            document.getElementById("startWeightKg").value = Number.isFinite(meta.startWeightKg) ? meta.startWeightKg :
+                "";
+            document.getElementById("targetEndDate").value = meta.endDate || "";
+            document.getElementById("targetGainKg").value = Number.isFinite(meta.targetGainKg) ? meta.targetGainKg : "";
+        }
+
+        async function savePlan() {
+            const startDate = document.getElementById("periodStartDate").value;
+            const startWeightKg = parseFloat(document.getElementById("startWeightKg").value);
+            const endDate = document.getElementById("targetEndDate").value;
+            const targetGainKg = parseFloat(document.getElementById("targetGainKg").value);
+
+            if (!startDate || !endDate || !Number.isFinite(startWeightKg) || !Number.isFinite(targetGainKg)) {
+                alert(bt("promptFillPlan"));
+                return;
+            }
+            if (parseDateOnly(endDate).getTime() < parseDateOnly(startDate).getTime()) {
+                alert(bt("promptInvalidDate"));
+                return;
+            }
+
+            saveMeta({
+                startDate: startDate,
+                startWeightKg: Number(startWeightKg.toFixed(1)),
+                endDate: endDate,
+                targetGainKg: Number(targetGainKg.toFixed(1))
             });
-            $.each(rows, function (index, row) {
-                $('#weightTable tbody').append(row);
+            renderSummary();
+            renderTable();
+            updateChart();
+            alert(bt("promptPlanSaved"));
+            switchTab("overviewTab", {
+                currentTarget: document.getElementById("tabOverview")
             });
         }
 
-        $("#weightdate").datepicker({
-            dateFormat: "yy-mm-dd"
-        });
-        $("#modalInputDate").datepicker({
-            dateFormat: "yy-mm-dd"
-        });
+        async function addWeightRecord() {
+            const date = document.getElementById("weightDate").value;
+            const period = document.getElementById("weightPeriod").value;
+            const weight = parseFloat(document.getElementById("weightValue").value);
 
-        $("#edit-time").timepicker({
-            timeFormat: 'H:i',
-            interval: 30,
-            dynamic: false,
-            dropdown: true,
-            scrollbar: true
-        });
+            if (!date || !period || !Number.isFinite(weight)) {
+                alert(bt("promptFillWeight"));
+                return;
+            }
 
-        $("#modalInputTime").timepicker({
-            timeFormat: 'H:i',
-            interval: 30,
-            dynamic: false,
-            dropdown: true,
-            scrollbar: true
+            const saveWeight = (typeof setWeight === "function") ? setWeight : ((payload) => addData(payload,
+                "weight"));
+            await saveWeight({
+                datetime: formatDateTime(date, period),
+                weight: Number(weight.toFixed(1))
+            });
+
+            document.getElementById("weightValue").value = "";
+            await reloadWeightData();
+            switchTab("overviewTab", {
+                currentTarget: document.getElementById("tabOverview")
+            });
+        }
+
+        async function saveEditedRecord() {
+            const date = document.getElementById("editWeightDate").value;
+            const period = document.getElementById("editWeightPeriod").value;
+            const weight = parseFloat(document.getElementById("editWeightValue").value);
+
+            if (!editingDatetime || !date || !period || !Number.isFinite(weight)) {
+                alert(bt("promptFillEdit"));
+                return;
+            }
+
+            const olddata = {
+                datetime: editingDatetime
+            };
+            const newdata = {
+                datetime: formatDateTime(date, period),
+                weight: Number(weight.toFixed(1))
+            };
+
+            if (olddata.datetime === newdata.datetime) {
+                const updateWeight = (typeof putData === "function") ? putData : ((payload, type) => addData(
+                    payload, type));
+                await updateWeight(newdata, "weight");
+            } else {
+                await addData(newdata, "weight");
+                await deleteData(olddata, "weight");
+            }
+
+            closeEditDialog();
+            await reloadWeightData();
+        }
+
+        async function deleteEditedRecord() {
+            if (!editingDatetime) return;
+            await deleteData({
+                datetime: editingDatetime
+            }, "weight");
+            closeEditDialog();
+            await reloadWeightData();
+        }
+
+        function initPickers() {
+            $("#periodStartDate").datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+            $("#targetEndDate").datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+            $("#weightDate").datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+            $("#editWeightDate").datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+        }
+
+        function setTodayDefaults() {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, "0");
+            const dd = String(today.getDate()).padStart(2, "0");
+            const todayText = yyyy + "-" + mm + "-" + dd;
+            if (!document.getElementById("periodStartDate").value) document.getElementById("periodStartDate").value =
+                todayText;
+            if (!document.getElementById("weightDate").value) document.getElementById("weightDate").value = todayText;
+        }
+
+        function bindEvents() {
+            document.getElementById("savePlanBtn").addEventListener("click", savePlan);
+            document.getElementById("addWeightBtn").addEventListener("click", addWeightRecord);
+            document.getElementById("saveEditBtn").addEventListener("click", saveEditedRecord);
+            document.getElementById("cancelEditBtn").addEventListener("click", closeEditDialog);
+            document.getElementById("deleteEditBtn").addEventListener("click", deleteEditedRecord);
+            document.getElementById("editDialog").addEventListener("click", function (event) {
+                if (event.target.id === "editDialog") closeEditDialog();
+            });
+            document.getElementById("settingsDialog").addEventListener("click", function (event) {
+                if (event.target.id === "settingsDialog") closeSettingsDialog();
+            });
+        }
+
+        function startWeightApp(idToken) {
+            token = idToken;
+            if (typeof changeLanguage === "function") {
+                changeLanguage("ja");
+            }
+            reloadWeightData().catch(function (error) {
+                console.error("initial weight load error:", error);
+            });
+        }
+
+        await initI18n(selectedUiLang);
+
+        function bootWeightApp() {
+            if (window.IS_TEST_MODE) {
+                startWeightApp("TEST_ID_TOKEN");
+                return;
+            }
+
+            liff.init({
+                liffId: LIFF_ID,
+                withLoginOnExternalBrowser: true
+            }).then(() => {
+                console.log("00")
+                const idToken = liff.getIDToken();
+                const lang = typeof liff.getAppLanguage === "function" ? liff.getAppLanguage() : "en";
+                if (!isSupportedLang(localStorage.getItem(LANG_STORAGE_KEY))) {
+                    selectedUiLang = normalizeLangToUi(lang);
+                    localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
+                }
+                loadMetaToForm();
+                initPickers();
+                setTodayDefaults();
+                bindEvents();
+
+                startWeightApp(idToken);
+            }).catch((err) => {
+                liff.logout();
+                alert("LIFF init failed.");
+            });
+        }
+    </script>
+    <script>
+        window.addEventListener("load", async function () {
+            const initialSavedLang = localStorage.getItem(LANG_STORAGE_KEY);
+            const browserLang = normalizeLangToUi(navigator.language || "en-US");
+            selectedUiLang = isSupportedLang(initialSavedLang) ? initialSavedLang : browserLang;
+            localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
+            await initI18n(selectedUiLang);
+            renderLanguageOptions();
+            applyI18n();
+            bootWeightApp();
         });
     </script>
-    <script src="../commonkokima.js"></script>
 </body>
 
 </html>

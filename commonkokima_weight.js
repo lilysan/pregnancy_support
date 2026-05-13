@@ -1,4 +1,20 @@
-      // タブ切り替えの処理
+    function showAppLoader() {
+        const loader = document.querySelector(".loader");
+        if (!loader) return;
+        loader.classList.remove("is-hidden");
+        loader.style.display = "grid";
+        loader.setAttribute("aria-hidden", "false");
+    }
+
+    function hideAppLoader() {
+        const loader = document.querySelector(".loader");
+        if (!loader) return;
+        loader.classList.add("is-hidden");
+        loader.style.display = "none";
+        loader.setAttribute("aria-hidden", "true");
+    }      
+
+// タブ切り替えの処理
       function switchTab(contentId, event) {
         // 先に表示切替を行い、後段処理でエラーが起きてもタブ表示は維持する
         document.querySelectorAll('.input-container, .chart-container, .table-container, .edit-container').forEach(content => {
@@ -54,25 +70,6 @@
         scrollbar: true
     });
 
-    function showAppLoader() {
-        const loader = document.querySelector(".loader");
-        if (!loader) return;
-        loader.classList.remove("is-hidden");
-        loader.style.display = "grid";
-        loader.setAttribute("aria-hidden", "false");
-    }
-
-    function hideAppLoader() {
-        const loader = document.querySelector(".loader");
-        if (!loader) return;
-        loader.classList.add("is-hidden");
-        loader.style.display = "none";
-        loader.setAttribute("aria-hidden", "true");
-    }
-
-    window.showAppLoader = showAppLoader;
-    window.hideAppLoader = hideAppLoader;
-
     const getAccessObj = (data) => {
         return {
             url: API_URL,
@@ -84,7 +81,7 @@
     }
 
     function loadData(idToken,type,postData,mergeMode) {
-        showAppLoader();
+        $(".loader").show();
         const safePostData = postData || {};
         const safeMergeMode = mergeMode || "replace";
         return $.ajax(
@@ -117,7 +114,7 @@
             alert("Network error!loadData");
             return [];
         }).always(function () {
-            hideAppLoader();
+            $(".loader").hide();
         });
     }
 
@@ -143,7 +140,7 @@
 
     function addData(data,type) {
 //function setWeight(data) {
-    showAppLoader();
+    $(".loader").show();
     return $.ajax(
         getAccessObj({
             path: type,
@@ -167,17 +164,17 @@
     }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
         alert("Network error!addData");
     }).always(function () {
-        hideAppLoader();
+        $(".loader").hide();
     });
     }
 
-    // 血圧登録（GAS側 UserSheet.setPressure を利用）
-    function setPressure(data) {
-        return addData(data, "pressure");
+    // 血糖登録
+    function setWeight(data) {
+        return addData(data, "weight");
     }
 
     function putData(data,type) {
-        showAppLoader();
+        $(".loader").show();
         return $.ajax(
             getAccessObj({
                 path: type,
@@ -196,17 +193,12 @@
         }).fail(function () {
             alert("Network error!putData");
         }).always(function () {
-            hideAppLoader();
+            $(".loader").hide();
         });
     }
 
-    // 血糖登録
-    function setSugar(data) {
-        return addData(data, "sugar");
-    }
-
     function deleteData(_data,type) {
-        showAppLoader();
+        $(".loader").show();
         return $.ajax(
             getAccessObj({
                 path: type,
@@ -227,7 +219,7 @@
         }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
             alert("Network error!deleteData");
         }).always(function () {
-            hideAppLoader();
+            $(".loader").hide();
         });
     }
 

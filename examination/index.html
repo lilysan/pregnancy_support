@@ -5,163 +5,510 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../template/style.css" />
     <link rel="stylesheet" type="text/css" href="style.css" />
     <title>しんさつコミュニケーションボード</title>
 </head>
 
 <body>
     <header class="app-header">
-        <h1>しんさつコミュニケーションボード</h1>
-        <p>カテゴリごとに、必要なやり取りだけテキストと音でお手伝いします。</p>
+        <h1 id="pageTitle" class="h3-sample">しんさつコミュニケーションボード</h1>
+        <p id="pageLead" class="small-sample">カテゴリごとに、必要なやり取りだけテキストと音でお手伝いします。</p>
     </header>
-
-    <section id="languagePicker" class="language-picker" aria-label="言語選択"></section>
+    <nav class="app-switcher" aria-label="アプリ切替">
+        <a id="switchExamLabel" class="app-switch-link is-current" href="./index.html" aria-current="page">診察ボード</a>
+        <a id="switchReceptionLabel" class="app-switch-link" href="../reception/index.html">受付ボードへ</a>
+    </nav>
+    <button type="button" id="languageSettingBtn" class="language-setting-btn">設定</button>
+    <div id="languageDialog" style="display:none;">
+        <div id="languageDialogPanel">
+            <h2 id="languageDialogTitle" class="h4-sample">設定</h2>
+            <p id="languageSectionTitle" class="settings-label caption-sample">言語設定</p>
+            <div id="languageOptionList" class="language-option-list"></div>
+            <button type="button" id="closeLanguageBtn">閉じる</button>
+        </div>
+    </div>
 
     <main class="app-shell">
         <nav id="categoryTabs" class="category-tabs" aria-label="カテゴリ"></nav>
         <section id="accordionList" class="accordion-list" aria-live="polite"></section>
     </main>
-    <button id="freeTranslateBtn" class="free-translate-btn" type="button" aria-label="自由入力翻訳">自由入力/翻訳</button>
-    <section id="freeTranslatePanel" class="free-translate-panel" aria-label="自由入力翻訳パネル">
-        <div class="free-translate-head">
-            <p class="free-translate-title">自由入力翻訳</p>
-            <button id="freeTranslateCloseBtn" class="free-translate-close" type="button" aria-label="閉じる">閉じる</button>
+    <button id="freeTranslateBtn" class="free-translate-btn" type="button" aria-label="翻訳アプリ">翻訳アプリ</button>
+    <div id="translationAppDialog" class="translation-app-dialog" aria-hidden="true">
+        <div id="translationAppPanel" class="translation-app-panel">
+            <div class="translation-app-head">
+                <p id="translationAppTitle" class="translation-app-title h4-sample">翻訳アプリ</p>
+                <button id="translationAppCloseBtn" class="translation-app-close" type="button" aria-label="閉じる">閉じる</button>
+            </div>
+            <p id="translationAppLead" class="translation-app-lead small-sample">使うアプリを選んでください。</p>
+            <div class="translation-app-actions">
+                <button id="openGoogleTranslateBtn" class="translation-app-option" type="button">Google 翻訳</button>
+                <button id="openDeepLBtn" class="translation-app-option" type="button">DeepL</button>
+            </div>
         </div>
-        <textarea id="freeTranslateInput" class="free-translate-input" placeholder="日本語を入力"></textarea>
-        <button id="freeTranslateRunBtn" class="free-translate-run" type="button">翻訳する</button>
-        <p id="freeTranslateStatus" class="free-translate-status"></p>
-        <div id="freeTranslateOutput" class="free-translate-output"></div>
-    </section>
+    </div>
     <button id="scrollTopBtn" class="scroll-top-btn" type="button" aria-label="ページトップへ戻る">▲</button>
 
     <script>
         const languageConfig = [{
+                code: "ja",
+                label: "やさしい日本語",
+                i18nFile: "i18n/ja.json",
+                speech: "ja-JP"
+            },
+            {
                 code: "en-US",
-                label: "英語 / English",
-                csv: "enData.csv",
+                label: "英語編(English)",
+                i18nFile: "i18n/en-US.json",
                 speech: "en-US"
             },
             {
                 code: "zh",
-                label: "中国語 / 中文",
-                csv: "zhData.csv",
+                label: "中国語編(中文版)",
+                i18nFile: "i18n/zh.json",
                 speech: "zh-CN"
             },
             {
-                code: "de",
-                label: "ドイツ語 / Deutsch",
-                csv: "deData.csv",
-                speech: "de-DE"
-            },
-            {
-                code: "ve",
-                label: "ベトナム語 / Tiếng Việt",
-                csv: "ve.csv",
-                speech: "vi-VN"
-            },
-            {
-                code: "pr",
-                label: "ポルトガル語 / Português",
-                csv: "pr.csv",
-                speech: "pt-PT"
+                code: "fr",
+                label: "フランス語編(French)",
+                i18nFile: "i18n/fr.json",
+                speech: "fr-FR"
             },
             {
                 code: "ko",
-                label: "韓国語 / 한국어",
-                csv: "ko.csv",
+                label: "韓国語編(Korean)",
+                i18nFile: "i18n/ko.json",
                 speech: "ko-KR"
+            },
+            {
+                code: "pr",
+                label: "ポルトガル語編(Portugues)",
+                i18nFile: "i18n/pr.json",
+                speech: "pt-PT"
+            },
+            {
+                code: "tl",
+                label: "タガログ語編(TAGALOG)",
+                i18nFile: "i18n/tl.json",
+                speech: "tl-PH"
+            },
+            {
+                code: "ve",
+                label: "ベトナム語編(Vietnam)",
+                i18nFile: "i18n/ve.json",
+                speech: "vi-VN"
+            },
+            {
+                code: "th",
+                label: "タイ語編(Thai)",
+                i18nFile: "i18n/th.json",
+                speech: "th-TH"
+            },
+            {
+                code: "de",
+                label: "ドイツ語編(German)",
+                i18nFile: "i18n/de.json",
+                speech: "de-DE"
+            },
+            {
+                code: "id",
+                label: "インドネシア語(Indonesia)",
+                i18nFile: "i18n/id.json",
+                speech: "id-ID"
+            },
+            {
+                code: "ru",
+                label: "ロシア語(Russian)",
+                i18nFile: "i18n/ru.json",
+                speech: "ru-RU"
+            },
+            {
+                code: "ne",
+                label: "ネパール語(Nepali)",
+                i18nFile: "i18n/ne.json",
+                speech: "ne-NP"
+            },
+            {
+                code: "lo",
+                label: "ラオス語(Laotian)",
+                i18nFile: "i18n/lo.json",
+                speech: "lo-LA"
+            },
+            {
+                code: "uk",
+                label: "ウクライナ語(Ukrainian)",
+                i18nFile: "i18n/uk.json",
+                speech: "uk-UA"
+            },
+            {
+                code: "fa-AF",
+                label: "ダリ語(Dari)",
+                i18nFile: "i18n/fa-AF.json",
+                speech: "fa-AF"
+            },
+            {
+                code: "si",
+                label: "シンハラ語(Sinhala)",
+                i18nFile: "i18n/si.json",
+                speech: "si-LK"
+            },
+            {
+                code: "ms",
+                label: "マレー語(Malay)",
+                i18nFile: "i18n/ms.json",
+                speech: "ms-MY"
+            },
+            {
+                code: "my",
+                label: "ミャンマー語(Myanmar)",
+                i18nFile: "i18n/my.json",
+                speech: "my-MM"
+            },
+            {
+                code: "bn",
+                label: "ベンガル語(Bengali)",
+                i18nFile: "i18n/bn.json",
+                speech: "bn-BD"
+            },
+            {
+                code: "ur",
+                label: "ウルドゥー語(Urdu)",
+                i18nFile: "i18n/ur.json",
+                speech: "ur-PK"
             }
         ];
 
+        const DIALOG_TEXT = {
+            "en-US": {
+                settings: "Settings",
+                language: "Language",
+                close: "Close"
+            },
+            "zh": {
+                settings: "设置",
+                language: "语言",
+                close: "关闭"
+            },
+            "fr": {
+                settings: "Parametres",
+                language: "Langue",
+                close: "Fermer"
+            },
+            "ko": {
+                settings: "설정",
+                language: "언어",
+                close: "닫기"
+            },
+            "pr": {
+                settings: "Configuracoes",
+                language: "Idioma",
+                close: "Fechar"
+            },
+            "tl": {
+                settings: "Mga Setting",
+                language: "Wika",
+                close: "Isara"
+            },
+            "ve": {
+                settings: "Cai dat",
+                language: "Ngon ngu",
+                close: "Dong"
+            },
+            "th": {
+                settings: "การตั้งค่า",
+                language: "ภาษา",
+                close: "ปิด"
+            },
+            "de": {
+                settings: "Einstellungen",
+                language: "Sprache",
+                close: "Schliessen"
+            },
+            "id": {
+                settings: "Pengaturan",
+                language: "Bahasa",
+                close: "Tutup"
+            },
+            "ru": {
+                settings: "Настройки",
+                language: "Язык",
+                close: "Закрыть"
+            },
+            "ne": {
+                settings: "सेटिङ",
+                language: "भाषा",
+                close: "बन्द"
+            },
+            "lo": {
+                settings: "ການຕັ້ງຄ່າ",
+                language: "ພາສາ",
+                close: "ປິດ"
+            },
+            "uk": {
+                settings: "Налаштування",
+                language: "Мова",
+                close: "Закрити"
+            },
+            "fa-AF": {
+                settings: "تنظیمات",
+                language: "زبان",
+                close: "بستن"
+            },
+            "si": {
+                settings: "සැකසුම්",
+                language: "භාෂාව",
+                close: "වසන්න"
+            },
+            "ms": {
+                settings: "Tetapan",
+                language: "Bahasa",
+                close: "Tutup"
+            },
+            "my": {
+                settings: "ဆက်တင်များ",
+                language: "ဘာသာစကား",
+                close: "ပိတ်ရန်"
+            },
+            "bn": {
+                settings: "সেটিংস",
+                language: "ভাষা",
+                close: "বন্ধ"
+            },
+            "ur": {
+                settings: "ترتیبات",
+                language: "زبان",
+                close: "بند کریں"
+            }
+        };
+
+        const LANGUAGE_STORAGE_KEY = "examinationSelectedLanguage";
+        const EPDS_API_URL =
+            "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
         let localData = [];
         let translatedByLanguage = {};
         let selectedLanguage = "en-US";
+        let keepIndexes = [];
         let selectedType = "";
         let scrollTopBtn = null;
-        let freeTranslatePanel = null;
-        let freeTranslateStatus = null;
-        let freeTranslateOutput = null;
         const pharmacySelections = new Set();
+        const answerSelections = new Set();
+        const epdsSelections = new Map();
+        const epdsSubmissionState = new Map();
 
         window.addEventListener("load", init);
 
         async function init() {
             setupScrollTopButton();
-            setupFreeTranslatePanel();
+            setupTranslationAppDialog();
+            document.getElementById("languageSettingBtn").addEventListener("click", () => {
+                document.getElementById("languageDialog").style.display = "block";
+            });
+            document.getElementById("closeLanguageBtn").addEventListener("click", () => {
+                document.getElementById("languageDialog").style.display = "none";
+            });
+            selectedLanguage = loadInitialLanguage();
+            await initI18n(selectedLanguage);
+            applyStaticTranslations();
             renderLanguagePicker();
-            setLoading("データを読み込んでいます...");
+            setLoading(tr("loading_data", "データを読み込んでいます..."));
 
-            await fetchAllData();
+            await fetchLocalData();
+            await ensureLanguageLoaded(selectedLanguage, true);
 
             const types = [...new Set(localData.map(item => item.type || "その他"))];
             selectedType = types[0] || "";
             renderAll();
         }
 
-        function setupFreeTranslatePanel() {
-            const trigger = document.getElementById("freeTranslateBtn");
-            freeTranslatePanel = document.getElementById("freeTranslatePanel");
-            const runBtn = document.getElementById("freeTranslateRunBtn");
-            const input = document.getElementById("freeTranslateInput");
-            const closeBtn = document.getElementById("freeTranslateCloseBtn");
-            freeTranslateStatus = document.getElementById("freeTranslateStatus");
-            freeTranslateOutput = document.getElementById("freeTranslateOutput");
-            if (!trigger || !freeTranslatePanel || !runBtn || !input || !closeBtn || !freeTranslateStatus || !freeTranslateOutput) return;
-
-            trigger.addEventListener("click", () => {
-                freeTranslatePanel.classList.toggle("open");
-                if (freeTranslatePanel.classList.contains("open")) input.focus();
-            });
-            closeBtn.addEventListener("click", () => {
-                freeTranslatePanel.classList.remove("open");
-            });
-
-            runBtn.addEventListener("click", async () => {
-                const text = String(input.value || "").trim();
-                if (!text) {
-                    freeTranslateStatus.textContent = "日本語を入力してください。";
-                    freeTranslateOutput.textContent = "";
-                    return;
-                }
-
-                freeTranslateStatus.textContent = "翻訳中...";
-                freeTranslateOutput.textContent = "";
-                const target = getFreeTranslateTargetCode(selectedLanguage);
-
-                try {
-                    const translated = await translateFreeFromJapanese(text, target);
-                    freeTranslateStatus.textContent = "";
-                    freeTranslateOutput.textContent = translated || "(翻訳結果なし)";
-                    if (translated) {
-                        speakPair(text, translated);
-                    }
-                } catch (err) {
-                    freeTranslateStatus.textContent = "翻訳に失敗しました。通信環境をご確認ください。";
-                    freeTranslateOutput.textContent = "";
-                    console.error(err);
-                }
-            });
+        function loadInitialLanguage() {
+            const saved = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+            if (saved && languageConfig.some(item => item.code === saved)) return saved;
+            return detectInitialLanguage();
         }
 
-        function getFreeTranslateTargetCode(langCode) {
+        function getI18nLanguage(langCode) {
+            if (langCode === "zh") return "zh";
+            if (langCode === "ja" || langCode === "ja-JP") return "ja";
+            return "en-US";
+        }
+
+        async function initI18n(langCode) {
+            if (!window.i18next) return;
+            const target = getI18nLanguage(langCode);
+            if (!i18next.isInitialized) {
+                await i18next
+                    .use(i18nextHttpBackend)
+                    .init({
+                        lng: target,
+                        fallbackLng: "en-US",
+                        backend: {
+                            loadPath: "./i18n/{{lng}}.json"
+                        }
+                    });
+                return;
+            }
+            await i18next.changeLanguage(target);
+        }
+
+        function tr(key, fallback, options) {
+            if (!window.i18next || !i18next.isInitialized) return fallback || "";
+            const value = i18next.t(key, options || {});
+            return value === key ? (fallback || "") : value;
+        }
+
+        function applyStaticTranslations() {
+            document.getElementById("pageTitle").textContent = buildBilingualLabel("しんさつコミュニケーションボード", "page_title");
+            document.getElementById("pageLead").textContent = tr("page_lead", "カテゴリごとに、必要なやり取りだけテキストと音でお手伝いします。");
+            document.getElementById("switchExamLabel").textContent = buildBilingualLabel("診察ボード", "switch_exam");
+            document.getElementById("switchReceptionLabel").textContent = buildBilingualLabel("受付ボードへ",
+                "switch_reception");
+            document.getElementById("categoryTabs").setAttribute("aria-label", tr("category_aria", "カテゴリ"));
+            document.getElementById("freeTranslateBtn").textContent = tr("translation_app_btn", "翻訳アプリ");
+            document.getElementById("freeTranslateBtn").setAttribute("aria-label", tr("translation_app_btn", "翻訳アプリ"));
+            document.getElementById("translationAppDialog").setAttribute("aria-label", tr("translation_app_dialog_aria",
+                "翻訳アプリ選択"));
+            document.getElementById("translationAppTitle").textContent = tr("translation_app_title", "翻訳アプリ");
+            document.getElementById("translationAppCloseBtn").textContent = tr("close", "閉じる");
+            document.getElementById("translationAppCloseBtn").setAttribute("aria-label", tr("close", "閉じる"));
+            document.getElementById("translationAppLead").textContent = tr("translation_app_lead", "使うアプリを選んでください。");
+            document.getElementById("openGoogleTranslateBtn").textContent = tr("translation_app_google", "Google 翻訳");
+            document.getElementById("openDeepLBtn").textContent = tr("translation_app_deepl", "DeepL");
+            document.getElementById("scrollTopBtn").setAttribute("aria-label", tr("scroll_top_aria", "ページトップへ戻る"));
+        }
+
+        function buildBilingualLabel(jaText, key) {
+            const translated = tr(key, jaText);
+            if (getI18nLanguage(selectedLanguage) === "ja" || translated === jaText) return jaText;
+            return `${jaText} / ${translated}`;
+        }
+
+        function detectInitialLanguage() {
+            const raw = String((navigator.language || "en-US")).toLowerCase();
+            if (raw.startsWith("zh")) return "zh";
+            if (raw.startsWith("fr")) return "fr";
+            if (raw.startsWith("ko")) return "ko";
+            if (raw.startsWith("pt")) return "pr";
+            if (raw.startsWith("tl")) return "tl";
+            if (raw.startsWith("vi")) return "ve";
+            if (raw.startsWith("th")) return "th";
+            if (raw.startsWith("de")) return "de";
+            if (raw.startsWith("id")) return "id";
+            if (raw.startsWith("ru")) return "ru";
+            if (raw.startsWith("ne")) return "ne";
+            if (raw.startsWith("lo")) return "lo";
+            if (raw.startsWith("uk")) return "uk";
+            if (raw.startsWith("fa") || raw.startsWith("prs")) return "fa-AF";
+            if (raw.startsWith("si")) return "si";
+            if (raw.startsWith("ms")) return "ms";
+            if (raw.startsWith("my")) return "my";
+            if (raw.startsWith("bn")) return "bn";
+            if (raw.startsWith("ur")) return "ur";
+            return "en-US";
+        }
+
+        function setupTranslationAppDialog() {
+            const trigger = document.getElementById("freeTranslateBtn");
+            const dialog = document.getElementById("translationAppDialog");
+            const panel = document.getElementById("translationAppPanel");
+            const closeBtn = document.getElementById("translationAppCloseBtn");
+            const googleBtn = document.getElementById("openGoogleTranslateBtn");
+            const deeplBtn = document.getElementById("openDeepLBtn");
+            if (!trigger || !dialog || !panel || !closeBtn || !googleBtn || !deeplBtn) return;
+
+            trigger.addEventListener("click", () => {
+                dialog.classList.add("open");
+                dialog.setAttribute("aria-hidden", "false");
+            });
+            closeBtn.addEventListener("click", () => {
+                dialog.classList.remove("open");
+                dialog.setAttribute("aria-hidden", "true");
+            });
+            dialog.addEventListener("click", (event) => {
+                if (event.target === dialog) {
+                    dialog.classList.remove("open");
+                    dialog.setAttribute("aria-hidden", "true");
+                }
+            });
+            googleBtn.addEventListener("click", () => launchTranslationApp("google"));
+            deeplBtn.addEventListener("click", () => launchTranslationApp("deepl"));
+        }
+
+        function getSelectedLanguageDisplayName() {
+            const lang = languageConfig.find(item => item.code === selectedLanguage);
+            if (!lang) return "English";
+            const label = String(lang.label || "").trim();
+            const match = label.match(/\(([^)]+)\)/);
+            if (match && match[1]) return match[1].trim();
+            return label;
+        }
+
+        function getGoogleTranslateTargetCode(langCode) {
             const map = {
                 "en-US": "en",
                 "zh": "zh-CN",
                 "de": "de",
+                "fr": "fr",
                 "ve": "vi",
                 "pr": "pt",
-                "ko": "ko"
+                "ko": "ko",
+                "tl": "tl",
+                "th": "th",
+                "id": "id",
+                "ru": "ru",
+                "ne": "ne",
+                "lo": "lo",
+                "uk": "uk",
+                "fa-AF": "fa",
+                "si": "si",
+                "ms": "ms",
+                "my": "my",
+                "bn": "bn",
+                "ur": "ur"
             };
             return map[langCode] || "en";
         }
 
-        async function translateFreeFromJapanese(text, targetCode) {
-            const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=ja&tl=${encodeURIComponent(targetCode)}&dt=t&q=${encodeURIComponent(text)}`;
-            const response = await fetch(url);
-            if (!response.ok) throw new Error("Translate API failed");
-            const data = await response.json();
-            if (!Array.isArray(data) || !Array.isArray(data[0])) return "";
-            return data[0].map(part => Array.isArray(part) ? (part[0] || "") : "").join("");
+        function getDeepLTargetCode(langCode) {
+            const map = {
+                "en-US": "en",
+                "zh": "zh",
+                "de": "de",
+                "fr": "fr",
+                "pr": "pt",
+                "ko": "ko",
+                "ve": "en",
+                "tl": "en",
+                "th": "en",
+                "id": "en",
+                "ru": "ru",
+                "ne": "en",
+                "lo": "en",
+                "uk": "uk",
+                "fa-AF": "en",
+                "si": "en",
+                "ms": "en",
+                "my": "en",
+                "bn": "en",
+                "ur": "en",
+                "ja": "en"
+            };
+            return map[langCode] || "en";
+        }
+
+        function launchTranslationApp(appName) {
+            const dialog = document.getElementById("translationAppDialog");
+            if (dialog) {
+                dialog.classList.remove("open");
+                dialog.setAttribute("aria-hidden", "true");
+            }
+            const googleTarget = getGoogleTranslateTargetCode(selectedLanguage);
+            const deeplTarget = getDeepLTargetCode(selectedLanguage);
+            const url = appName === "deepl" ?
+                `https://www.deepl.com/translator#ja/${encodeURIComponent(deeplTarget)}/` :
+                `https://translate.google.com/?sl=ja&tl=${encodeURIComponent(googleTarget)}&op=translate`;
+            window.location.href = url;
         }
 
         function setupScrollTopButton() {
@@ -227,137 +574,75 @@
             return !/産後|postpartum|postnatal|puerper/i.test(text);
         }
 
-        async function fetchAllData() {
-            const localRaw = await getDataFromCSV("localData.csv");
-            const keepIndexes = [];
+        async function fetchLocalData() {
+            const localRaw = await getBoardData("ja");
+            keepIndexes = [];
             localRaw.forEach((row, idx) => {
                 if (isPregnancyScope(row)) keepIndexes.push(idx);
             });
 
             localData = keepIndexes.map(idx => localRaw[idx]);
-
-            for (const lang of languageConfig) {
-                const translatedRaw = await getDataFromCSV(lang.csv);
-                translatedByLanguage[lang.code] = keepIndexes.map(idx => translatedRaw[idx] || {
-                    type: "",
-                    category: "",
-                    data: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-                        ""
-                    ]
-                });
-            }
         }
 
-        async function getDataFromCSV(fileName) {
-            try {
-                const response = await fetch(fileName);
-                if (!response.ok) throw new Error(`Failed to fetch ${fileName}`);
-                const csvText = await response.text();
-                const rows = parseCSV(csvText).filter(row => row.some(v => String(v || "").trim() !== ""));
-                if (!rows.length) return [];
-                const header = rows[0].map(h => String(h || "").trim());
-                const hIndex = {};
-                header.forEach((h, i) => {
-                    hIndex[h] = i;
-                });
+        async function ensureLanguageLoaded(langCode, forceReload = false) {
+            if (!forceReload && translatedByLanguage[langCode]) return;
+            const lang = languageConfig.find(item => item.code === langCode) || languageConfig[0];
+            setLoading(`${tr("loading_data", "データを読み込んでいます...")} (${lang.label})`);
+            const translatedRaw = await getBoardData(lang.code);
+            translatedByLanguage[lang.code] = keepIndexes.map(idx => translatedRaw[idx] || emptyTranslatedRow());
+        }
 
-                const dataRows = rows.slice(1);
-                return dataRows.map(row => {
-                    const obj = {
-                        type: row[hIndex.type] || "",
-                        type2: row[hIndex.type2] || "",
-                        category: row[hIndex.category] || "",
-                        data1: row[hIndex.data1] || "",
-                        data2: row[hIndex.data2] || "",
-                        data3: row[hIndex.data3] || "",
-                        data4: row[hIndex.data4] || "",
-                        data5: row[hIndex.data5] || "",
-                        data6: row[hIndex.data6] || "",
-                        data7: row[hIndex.data7] || "",
-                        data8: row[hIndex.data8] || "",
-                        data9: row[hIndex.data9] || "",
-                        data10: row[hIndex.data10] || "",
-                        data11: row[hIndex.data11] || "",
-                        data12: row[hIndex.data12] || "",
-                        data13: row[hIndex.data13] || "",
-                        data14: row[hIndex.data14] || "",
-                        data15: row[hIndex.data15] || "",
-                        data16: row[hIndex.data16] || "",
-                        data17: row[hIndex.data17] || "",
-                        data18: row[hIndex.data18] || "",
-                        data19: row[hIndex.data19] || "",
-                        data20: row[hIndex.data20] || "",
-                        data21: row[hIndex.data21] || "",
-                    };
-                    return normalizeDataRow(obj);
-                }).filter(row => row.category || row.data.some(v => v));
+        function emptyTranslatedRow() {
+            return {
+                type: "",
+                category: "",
+                data: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+            };
+        }
+
+        async function getBoardData(langCode) {
+            try {
+                const lang = languageConfig.find(item => item.code === langCode) || languageConfig[0];
+                const response = await fetch(lang.i18nFile);
+                if (!response.ok) throw new Error(`Failed to fetch ${lang.i18nFile}`);
+                const bundle = await response.json();
+                const rows = Array.isArray(bundle && bundle.boardData) ? bundle.boardData : [];
+                if (!Array.isArray(rows)) return [];
+                return rows.map(normalizeDataRow).filter(row => row.category || row.data.some(v => v));
             } catch (error) {
                 console.error(error);
                 return [];
             }
         }
 
-        function parseCSV(text) {
-            const rows = [];
-            let row = [];
-            let field = "";
-            let inQuotes = false;
-
-            for (let i = 0; i < text.length; i++) {
-                const ch = text[i];
-                const next = text[i + 1];
-
-                if (ch === "\"") {
-                    if (inQuotes && next === "\"") {
-                        field += "\"";
-                        i++;
-                    } else {
-                        inQuotes = !inQuotes;
-                    }
-                    continue;
-                }
-
-                if (ch === "," && !inQuotes) {
-                    row.push(field);
-                    field = "";
-                    continue;
-                }
-
-                if ((ch === "\n" || ch === "\r") && !inQuotes) {
-                    if (ch === "\r" && next === "\n") i++;
-                    row.push(field);
-                    rows.push(row);
-                    row = [];
-                    field = "";
-                    continue;
-                }
-
-                field += ch;
-            }
-
-            if (field.length > 0 || row.length > 0) {
-                row.push(field);
-                rows.push(row);
-            }
-
-            return rows;
-        }
-
         function renderLanguagePicker() {
-            const picker = document.getElementById("languagePicker");
+            const picker = document.getElementById("languageOptionList");
             picker.innerHTML = "";
 
             languageConfig.forEach(lang => {
                 const btn = document.createElement("button");
-                btn.className = "language-btn" + (lang.code === selectedLanguage ? " active" : "");
+                btn.className = "language-option-btn" + (lang.code === selectedLanguage ? " active" : "");
                 btn.type = "button";
                 btn.textContent = lang.label;
-                btn.addEventListener("click", () => {
+                btn.addEventListener("click", async () => {
                     selectedLanguage = lang.code;
+                    localStorage.setItem(LANGUAGE_STORAGE_KEY, selectedLanguage);
+                    document.getElementById("languageDialog").style.display = "none";
+                    await initI18n(selectedLanguage);
+                    applyStaticTranslations();
+                    await ensureLanguageLoaded(selectedLanguage, true);
                     renderAll();
                 });
                 picker.appendChild(btn);
             });
+            renderLanguageDialogText();
+        }
+
+        function renderLanguageDialogText() {
+            document.getElementById("languageSettingBtn").textContent = tr("settings", "設定");
+            document.getElementById("languageDialogTitle").textContent = tr("settings", "設定");
+            document.getElementById("languageSectionTitle").textContent = tr("language", "言語設定");
+            document.getElementById("closeLanguageBtn").textContent = tr("close", "閉じる");
         }
 
         function renderCategoryTabs() {
@@ -411,7 +696,7 @@
             });
 
             if (!rows.length) {
-                setLoading("このカテゴリには表示できるやり取りがありません。");
+                setLoading(tr("loading_empty", "このカテゴリには表示できるやり取りがありません。"));
                 return;
             }
 
@@ -419,6 +704,8 @@
                 const row = item.row;
                 const rowIndex = item.index;
                 const isPharmacyCategory = ((row.type || "").trim() === "薬局");
+                const isSupportSeriesCategory = ((row.type || "").trim() === "ママと赤ちゃんのサポートシリーズ");
+                const isEpdsCategory = ((row.type || "").trim() === "EPDS");
                 const tRow = translated[rowIndex] || {
                     category: "",
                     data: []
@@ -426,7 +713,7 @@
 
                 const details = document.createElement("details");
                 details.className = "talk-card";
-                if ((row.type || "").trim() === "ママと赤ちゃんのサポートシリーズ") {
+                if (isSupportSeriesCategory) {
                     details.open = true;
                 }
 
@@ -438,21 +725,91 @@
                         <p class="ja-text">${escapeHtml(row.category)}</p>
                         <p class="translated-text">${escapeHtml(tRow.category || "")}</p>
                     </div>
+                    <button type="button" class="summary-play-btn" aria-label="質問を再生">▶</button>
                 `;
+                const summaryPlayBtn = summary.querySelector(".summary-play-btn");
+                if (summaryPlayBtn) {
+                    const handleSummaryPlay = (ev) => {
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                    };
+                    summaryPlayBtn.addEventListener("pointerdown", handleSummaryPlay);
+                    summaryPlayBtn.addEventListener("mousedown", handleSummaryPlay);
+                    summaryPlayBtn.addEventListener("click", (ev) => {
+                        handleSummaryPlay(ev);
+                        speakPair(row.category, tRow.category || "");
+                    });
+                }
 
                 const panel = document.createElement("div");
                 panel.className = "talk-panel";
 
-                const speakCategoryBtn = document.createElement("button");
-                speakCategoryBtn.type = "button";
-                speakCategoryBtn.className = "speak-btn large-btn";
-                speakCategoryBtn.textContent = "この質問を読み上げ";
-                speakCategoryBtn.addEventListener("click", () => {
-                    speakPair(row.category, tRow.category || "");
-                });
-
                 const answerGrid = document.createElement("div");
                 answerGrid.className = "answer-grid";
+
+                const isDrugTypeRow = ((row.type || "").trim() === "薬") && ((row.category || "").trim() ===
+                    "薬の種類");
+                if (isDrugTypeRow) {
+                    const drugTree = buildDrugTypeTree(selectedLanguage);
+                    const treeWrap = document.createElement("div");
+                    treeWrap.className = "drug-tree";
+                    drugTree.forEach((group, gIndex) => {
+                        const groupDetails = document.createElement("details");
+                        groupDetails.className = "drug-group";
+
+                        const groupSummary = document.createElement("summary");
+                        groupSummary.className = "drug-group-summary";
+                        groupSummary.innerHTML = `
+                            <span class="answer-ja">${escapeHtml(group.ja)}</span>
+                            <span class="answer-tr">${escapeHtml(group.tr)}</span>
+                        `;
+
+                        const subGrid = document.createElement("div");
+                        subGrid.className = "drug-detail-grid";
+                        group.items.forEach((item) => {
+                            const btn = document.createElement("button");
+                            btn.type = "button";
+                            btn.className = "answer-btn large-btn";
+                            const answerKey = `drug-${rowIndex}-${gIndex}-${item.ja}`;
+                            if (answerSelections.has(answerKey)) {
+                                btn.classList.add("is-selected");
+                            }
+                            btn.innerHTML = `
+                                <span class="answer-main">
+                                    <span class="answer-ja">${escapeHtml(item.ja)}</span>
+                                    <span class="answer-tr">${escapeHtml(item.tr)}</span>
+                                </span>
+                                <span class="play-icon-btn" role="button" aria-label="再生">▶</span>
+                            `;
+                            btn.addEventListener("click", (ev) => {
+                                if (ev.target.closest(".play-icon-btn")) {
+                                    ev.preventDefault();
+                                    speakPair(item.ja, item.tr);
+                                    return;
+                                }
+                                toggleAnswerSelection(btn, answerKey);
+                            });
+                            subGrid.appendChild(btn);
+                        });
+
+                        groupDetails.appendChild(groupSummary);
+                        groupDetails.appendChild(subGrid);
+                        treeWrap.appendChild(groupDetails);
+                    });
+                    panel.appendChild(treeWrap);
+                    details.appendChild(summary);
+                    details.appendChild(panel);
+                    container.appendChild(details);
+                    return;
+                }
+
+                if (isEpdsCategory) {
+                    renderEpdsPanel(panel, rowIndex, row, tRow);
+                    details.appendChild(summary);
+                    details.appendChild(panel);
+                    container.appendChild(details);
+                    return;
+                }
 
                 row.data.forEach((jaText, answerIndex) => {
                     if (!jaText) return;
@@ -466,40 +823,257 @@
                         const tokenWrap = document.createElement("div");
                         tokenWrap.className = "token-wrap";
 
-                        const tokenTitle = document.createElement("p");
-                        tokenTitle.className = "token-title";
-                        tokenTitle.textContent = specialItems.titleJa;
+                        const showTokenTitle = jaText !== "onakagaharukaisuu";
+                        let tokenTitle = null;
+                        let tokenHint = null;
+                        if (showTokenTitle) {
+                            tokenTitle = document.createElement("p");
+                            tokenTitle.className = "token-title";
+                            tokenTitle.textContent = specialItems.titleJa;
 
-                        const tokenHint = document.createElement("p");
-                        tokenHint.className = "token-hint";
-                        tokenHint.textContent = specialItems.titleTr;
+                            tokenHint = document.createElement("p");
+                            tokenHint.className = "token-hint";
+                            tokenHint.textContent = specialItems.titleTr;
+                        }
 
                         const tokenGrid = document.createElement("div");
                         tokenGrid.className = "token-grid";
 
                         specialItems.options.forEach(option => {
-                            const optionBtn = document.createElement("button");
-                            optionBtn.type = "button";
-                            optionBtn.className = "answer-btn large-btn token-btn";
-                            const pharmacyKey = `pharmacy-token-${rowIndex}-${answerIndex}-${option.ja}`;
+                            const isQuantityUnitInput = option && option.mode ===
+                                "quantity_unit";
+                            const isAppointmentInput = option && option.mode && option.mode
+                                .startsWith("appointment_");
+                            const isCounterInput = isQuantityUnitInput || isAppointmentInput ||
+                                String(option.ja || "").includes("__");
+                            const optionBtn = document.createElement(isCounterInput ? "div" :
+                                "button");
+                            if (!isCounterInput) optionBtn.type = "button";
+                            optionBtn.className = "answer-btn large-btn token-btn" + (
+                                isCounterInput ? " counter-kara-option" : "");
+                            const pharmacyKey =
+                                `pharmacy-token-${rowIndex}-${answerIndex}-${option.ja}`;
+                            const answerKey = `token-${rowIndex}-${answerIndex}-${option.ja}`;
                             if (isPharmacyCategory && pharmacySelections.has(pharmacyKey)) {
                                 optionBtn.classList.add("selected-highlight");
                             }
-                            optionBtn.innerHTML = `
-                                <span class="answer-ja">${escapeHtml(option.ja)}</span>
-                                <span class="answer-tr">${escapeHtml(option.tr)}</span>
-                            `;
-                            optionBtn.addEventListener("click", () => {
+                            if (!isPharmacyCategory && answerSelections.has(answerKey)) {
+                                optionBtn.classList.add("is-selected");
+                            }
+                            if (isAppointmentInput) {
+                                optionBtn.classList.add("appointment-option");
+                                if (option.mode === "appointment_after") {
+                                    optionBtn.innerHTML = `
+                                        <span class="answer-main counter-kara-main">
+                                            <label class="counter-kara-line appointment-line">
+                                                <span class="counter-kara-unit-ja">次は</span>
+                                                <input type="number" min="0" step="1" class="counter-kara-input appointment-month-input" inputmode="numeric" placeholder="0" />
+                                                <span class="counter-kara-unit-ja">ヶ月後</span>
+                                                <input type="number" min="0" step="1" class="counter-kara-input appointment-week-input" inputmode="numeric" placeholder="0" />
+                                                <span class="counter-kara-unit-ja">週間後です</span>
+                                            </label>
+                                            <span class="counter-kara-unit-tr">${escapeHtml(option.tr)}</span>
+                                        </span>
+                                        <button type="button" class="play-icon-btn" aria-label="再生">▶</button>
+                                    `;
+                                } else if (option.mode === "appointment_time") {
+                                    optionBtn.innerHTML = `
+                                        <span class="answer-main counter-kara-main">
+                                            <label class="counter-kara-line appointment-line">
+                                                <input type="number" min="0" max="23" step="1" class="counter-kara-input appointment-hour-input" inputmode="numeric" placeholder="0" />
+                                                <span class="counter-kara-unit-ja">時</span>
+                                                <input type="number" min="0" max="59" step="1" class="counter-kara-input appointment-minute-input" inputmode="numeric" placeholder="0" />
+                                                <span class="counter-kara-unit-ja">分はどうですか</span>
+                                            </label>
+                                            <span class="counter-kara-unit-tr">${escapeHtml(option.tr)}</span>
+                                        </span>
+                                        <button type="button" class="play-icon-btn" aria-label="再生">▶</button>
+                                    `;
+                                } else if (option.mode === "appointment_weekday") {
+                                    const weekdayOptions = (option.days || []).map(day => `
+                                        <option value="${escapeHtml(day.ja)}" data-tr="${escapeHtml(day.tr)}">
+                                            ${escapeHtml(day.ja)} / ${escapeHtml(day.tr)}
+                                        </option>
+                                    `).join("");
+                                    optionBtn.innerHTML = `
+                                        <span class="answer-main counter-kara-main">
+                                            <label class="counter-kara-line appointment-line">
+                                                <select class="counter-kara-select appointment-weekday-select" aria-label="曜日">
+                                                    ${weekdayOptions}
+                                                </select>
+                                                <span class="counter-kara-unit-ja">が良いです</span>
+                                            </label>
+                                            <span class="counter-kara-unit-tr">${escapeHtml(option.tr)}</span>
+                                        </span>
+                                        <button type="button" class="play-icon-btn" aria-label="再生">▶</button>
+                                    `;
+                                } else if (option.mode === "appointment_checklist") {
+                                    const checklist = (option.items || []).map(item => `
+                                        <label class="appointment-check-item">
+                                            <input type="checkbox" class="appointment-check-input" data-ja="${escapeHtml(item.ja)}" data-tr="${escapeHtml(item.tr)}" />
+                                            <span>${escapeHtml(item.ja)}<br><small>${escapeHtml(item.tr)}</small></span>
+                                        </label>
+                                    `).join("");
+                                    optionBtn.innerHTML = `
+                                        <span class="answer-main counter-kara-main">
+                                            <span class="counter-kara-line appointment-checklist">
+                                                ${checklist}
+                                            </span>
+                                            <span class="counter-kara-unit-tr">${escapeHtml(option.tr)}</span>
+                                        </span>
+                                        <button type="button" class="play-icon-btn" aria-label="再生">▶</button>
+                                    `;
+                                }
+                            } else if (isQuantityUnitInput) {
+                                const unitOptions = (option.units || []).map(unit => `
+                                    <option value="${escapeHtml(unit.ja)}" data-tr="${escapeHtml(unit.tr)}">
+                                        ${escapeHtml(unit.ja)} / ${escapeHtml(unit.tr)}
+                                    </option>
+                                `).join("");
+                                optionBtn.innerHTML = `
+                                    <span class="answer-main counter-kara-main">
+                                        <label class="counter-kara-line quantity-unit-line">
+                                            <span class="counter-kara-unit-ja">一回につき</span>
+                                            <input type="number" min="0" step="1" class="counter-kara-input" inputmode="numeric" placeholder="0" />
+                                            <select class="counter-kara-select" aria-label="単位">
+                                                ${unitOptions}
+                                            </select>
+                                        </label>
+                                        <span class="counter-kara-unit-tr">${escapeHtml(option.tr)}</span>
+                                    </span>
+                                    <button type="button" class="play-icon-btn" aria-label="再生">▶</button>
+                                `;
+                            } else if (isCounterInput) {
+                                optionBtn.innerHTML = `
+                                    <span class="answer-main counter-kara-main">
+                                        <label class="counter-kara-line">
+                                            <input type="number" min="0" step="1" class="counter-kara-input" inputmode="numeric" placeholder="0" />
+                                            <span class="counter-kara-unit-ja">${escapeHtml(String(option.ja).replace("__", ""))}</span>
+                                        </label>
+                                        <span class="counter-kara-unit-tr">${escapeHtml(String(option.tr).replace("__", ""))}</span>
+                                    </span>
+                                    <button type="button" class="play-icon-btn" aria-label="再生">▶</button>
+                                `;
+                            } else {
+                                optionBtn.innerHTML = `
+                                    <span class="answer-main">
+                                        <span class="answer-ja">${escapeHtml(option.ja)}</span>
+                                        <span class="answer-tr">${escapeHtml(option.tr)}</span>
+                                    </span>
+                                    ${isSupportSeriesCategory ? "" : '<span class="play-icon-btn" role="button" aria-label="再生">▶</span>'}
+                                `;
+                            }
+                            optionBtn.addEventListener("click", (ev) => {
+                                if (isSupportSeriesCategory) {
+                                    if (isPharmacyCategory) {
+                                        togglePharmacySelection(optionBtn, pharmacyKey);
+                                    } else {
+                                        toggleAnswerSelection(optionBtn, answerKey);
+                                    }
+                                    return;
+                                }
+                                if (ev.target.closest(".play-icon-btn")) {
+                                    ev.preventDefault();
+                                    if (isAppointmentInput) {
+                                        if (option.mode === "appointment_after") {
+                                            const monthInput = optionBtn.querySelector(
+                                                ".appointment-month-input");
+                                            const weekInput = optionBtn.querySelector(
+                                                ".appointment-week-input");
+                                            speakPair(
+                                                composeAppointmentAfterText(
+                                                    monthInput ? monthInput.value :
+                                                    "", weekInput ? weekInput
+                                                    .value : "", "ja"),
+                                                composeAppointmentAfterText(
+                                                    monthInput ? monthInput.value :
+                                                    "", weekInput ? weekInput
+                                                    .value : "", selectedLanguage)
+                                            );
+                                        } else if (option.mode === "appointment_time") {
+                                            const hourInput = optionBtn.querySelector(
+                                                ".appointment-hour-input");
+                                            const minuteInput = optionBtn.querySelector(
+                                                ".appointment-minute-input");
+                                            speakPair(
+                                                composeAppointmentTimeText(
+                                                    hourInput ? hourInput.value :
+                                                    "", minuteInput ? minuteInput
+                                                    .value : "", "ja"),
+                                                composeAppointmentTimeText(
+                                                    hourInput ? hourInput.value :
+                                                    "", minuteInput ? minuteInput
+                                                    .value : "", selectedLanguage)
+                                            );
+                                        } else if (option.mode ===
+                                            "appointment_weekday") {
+                                            const select = optionBtn.querySelector(
+                                                ".appointment-weekday-select");
+                                            const selectedOption = select && select
+                                                .options[select.selectedIndex];
+                                            const jaTxt =
+                                                `${selectedOption ? selectedOption.value : ""}が良いです`;
+                                            const trTxt =
+                                                `${selectedOption ? selectedOption.dataset.tr : ""} ${option.tr}`
+                                                .trim();
+                                            speakPair(jaTxt, trTxt);
+                                        } else if (option.mode ===
+                                            "appointment_checklist") {
+                                            const checked = Array.from(optionBtn
+                                                .querySelectorAll(
+                                                    ".appointment-check-input:checked"
+                                                    ));
+                                            const jaTxt = checked.map(item => item
+                                                .dataset.ja).join("。");
+                                            const trTxt = checked.map(item => item
+                                                .dataset.tr).join(". ");
+                                            speakPair(jaTxt, trTxt);
+                                        }
+                                    } else if (isQuantityUnitInput) {
+                                        const jInput = optionBtn.querySelector(
+                                            ".counter-kara-input");
+                                        const unitSelect = optionBtn.querySelector(
+                                            ".counter-kara-select");
+                                        const selectedOption = unitSelect && unitSelect
+                                            .options[
+                                                unitSelect.selectedIndex];
+                                        const jaUnit = selectedOption ? selectedOption
+                                            .value : "";
+                                        const trUnit = selectedOption ? selectedOption
+                                            .dataset.tr : "";
+                                        const amount = jInput ? jInput.value : "";
+                                        const jaTxt = composeQuantityUnitText(amount,
+                                            jaUnit);
+                                        const trTxt = composeQuantityUnitText(amount,
+                                            trUnit);
+                                        speakPair(jaTxt, trTxt);
+                                    } else if (isCounterInput) {
+                                        const jInput = optionBtn.querySelector(
+                                            ".counter-kara-input");
+                                        const jaTxt = composeCounterKaraText(option.ja,
+                                            jInput ? jInput.value : "");
+                                        const trTxt = composeCounterKaraText(option.tr,
+                                            jInput ? jInput.value : "");
+                                        speakPair(jaTxt, trTxt);
+                                    } else {
+                                        speakPair(option.ja, option.tr);
+                                    }
+                                    return;
+                                }
+                                if (isCounterInput && ev.target.closest(
+                                    "input, select"))
+                                    return;
                                 if (isPharmacyCategory) {
                                     togglePharmacySelection(optionBtn, pharmacyKey);
+                                } else {
+                                    toggleAnswerSelection(optionBtn, answerKey);
                                 }
-                                speakPair(option.ja, option.tr);
                             });
                             tokenGrid.appendChild(optionBtn);
                         });
 
-                        tokenWrap.appendChild(tokenTitle);
-                        tokenWrap.appendChild(tokenHint);
+                        if (tokenTitle) tokenWrap.appendChild(tokenTitle);
+                        if (tokenHint) tokenWrap.appendChild(tokenHint);
                         tokenWrap.appendChild(tokenGrid);
                         answerGrid.appendChild(tokenWrap);
                         return;
@@ -509,33 +1083,128 @@
                     answerBtn.type = "button";
                     answerBtn.className = "answer-btn large-btn";
                     const pharmacyKey = `pharmacy-${rowIndex}-${answerIndex}`;
+                    const answerKey = `answer-${rowIndex}-${answerIndex}`;
                     if (isPharmacyCategory && pharmacySelections.has(pharmacyKey)) {
                         answerBtn.classList.add("selected-highlight");
                     }
+                    if (!isPharmacyCategory && answerSelections.has(answerKey)) {
+                        answerBtn.classList.add("is-selected");
+                    }
                     answerBtn.innerHTML = `
-                        <span class="answer-ja">${escapeHtml(jaParsed.label)}</span>
-                        <span class="answer-tr">${escapeHtml(trParsed.label)}</span>
+                        <span class="answer-main">
+                            <span class="answer-ja">${escapeHtml(jaParsed.label)}</span>
+                            <span class="answer-tr">${escapeHtml(trParsed.label)}</span>
+                        </span>
+                        ${isSupportSeriesCategory ? "" : '<span class="play-icon-btn" role="button" aria-label="再生">▶</span>'}
                     `;
-                    answerBtn.addEventListener("click", () => {
+                    answerBtn.addEventListener("click", (ev) => {
+                        if (isSupportSeriesCategory) {
+                            const url = jaParsed.url || trParsed.url;
+                            if (url) {
+                                openLink(url);
+                                return;
+                            }
+                            if (isPharmacyCategory) {
+                                togglePharmacySelection(answerBtn, pharmacyKey);
+                            } else {
+                                toggleAnswerSelection(answerBtn, answerKey);
+                            }
+                            return;
+                        }
+                        if (ev.target.closest(".play-icon-btn")) {
+                            ev.preventDefault();
+                            speakPair(jaText, translatedText);
+                            return;
+                        }
                         if (isPharmacyCategory) {
                             togglePharmacySelection(answerBtn, pharmacyKey);
+                        } else {
+                            toggleAnswerSelection(answerBtn, answerKey);
                         }
                         const url = trParsed.url || jaParsed.url;
                         if (url) {
                             openLink(url);
-                            return;
                         }
-                        speakPair(jaText, translatedText);
                     });
                     answerGrid.appendChild(answerBtn);
                 });
 
-                panel.appendChild(speakCategoryBtn);
                 panel.appendChild(answerGrid);
                 details.appendChild(summary);
                 details.appendChild(panel);
                 container.appendChild(details);
             });
+        }
+
+        function buildDrugTypeTree(langCode) {
+            const jaTree = [{
+                    ja: "内服",
+                    items: ["錠剤", "カプセル剤", "散剤（粉薬）", "液剤", "ゼリー・ゲル", "トローチ", "舌下錠", "うがい薬"]
+                },
+                {
+                    ja: "外用剤",
+                    items: ["軟膏", "クリーム", "ローション", "ゲル", "液剤", "スプレー", "湿布", "消毒"]
+                },
+                {
+                    ja: "吸入剤",
+                    items: ["吸入液"]
+                },
+                {
+                    ja: "点鼻剤",
+                    items: ["点鼻液", "点鼻スプレー"]
+                },
+                {
+                    ja: "点眼",
+                    items: ["点眼液"]
+                },
+                {
+                    ja: "直腸・腟など",
+                    items: ["坐薬", "注腸剤", "腟錠", "腟用クリーム", "腟用ゲル"]
+                },
+                {
+                    ja: "口腔・咽頭",
+                    items: ["トローチ", "含嗽剤", "口腔内フィルム"]
+                },
+                {
+                    ja: "その他",
+                    items: ["その他"]
+                },
+                {
+                    ja: "薬の作用",
+                    items: ["解熱鎮痛薬", "抗炎症薬", "抗菌薬", "抗生剤", "抗ウイルス薬", "アレルギー薬（抗ヒスタミン薬など）", "ビタミン剤", "鉄剤",
+                        "子宮収縮抑制剤", "葉酸", "漢方薬", "制吐剤", "下剤・整腸剤", "降圧剤", "呼吸器薬（気管支拡張薬、吸入ステロイドなど）",
+                        "抗血栓薬（抗凝固薬、抗血小板薬など）",
+                        "インスリン注射薬", "ホルモン薬（甲状腺、性ホルモン、副腎皮質など）", "睡眠剤", "抗てんかん薬", "ステロイド", "抗リウマチ薬", "膠原病薬"
+                    ]
+                },
+                {
+                    ja: "その他",
+                    items: ["その他"]
+                }
+            ];
+
+            const trMap = {
+                "en-US": {
+                    "内服": "Oral medicines",
+                    "外用剤": "Topical medicines",
+                    "吸入剤": "Inhalants",
+                    "点鼻剤": "Nasal medicines",
+                    "点眼": "Eye drops",
+                    "直腸・腟など": "Rectal/Vaginal forms",
+                    "口腔・咽頭": "Oral/Throat",
+                    "その他": "Other",
+                    "薬の作用": "Pharmacological action"
+                }
+            };
+            const m = trMap[langCode] || {};
+            return jaTree.map((g) => ({
+                ja: g.ja,
+                tr: m[g.ja] || "",
+                items: g.items.map((i) => ({
+                    ja: i,
+                    tr: ""
+                }))
+            }));
         }
 
         function renderAll() {
@@ -585,8 +1254,10 @@
 
         function buildSpecialItems(token) {
             const localized = getTokenLocalizedOptions(selectedLanguage);
-            if (!localized[token]) return null;
-            return localized[token];
+            if (localized[token]) return localized[token];
+            if (token === "kusurinokaisuu" && localized.kusurikaisuu) return localized.kusurikaisuu;
+            if (token === "onakagaharukaisuu" && localized.kusurikaisuu) return localized.kusurikaisuu;
+            return null;
         }
 
         function parseLinkText(value) {
@@ -624,11 +1295,21 @@
             buttonEl.classList.add("selected-highlight");
         }
 
+        function toggleAnswerSelection(buttonEl, key) {
+            if (answerSelections.has(key)) {
+                answerSelections.delete(key);
+                buttonEl.classList.remove("is-selected");
+                return;
+            }
+            answerSelections.add(key);
+            buttonEl.classList.add("is-selected");
+        }
+
         function getTokenLocalizedOptions(langCode) {
             const base = {
                 counter_kara: {
                     titleJa: "いつからですか",
-                    optionsJa: ["今日から", "昨日から", "2〜3日前から", "1週間以上前から"]
+                    optionsJa: ["__時間前", "__日前", "__週間前"]
                 },
                 counter_kai: {
                     titleJa: "1日に何回張りますか",
@@ -636,15 +1317,85 @@
                 },
                 kusurikaisuu: {
                     titleJa: "1日の使用回数",
-                    optionsJa: ["1日1回", "1日2回", "1日3回", "必要時のみ"]
-                }
+                    optionsJa: ["1日につき__回", "__時間おき", {
+                        mode: "quantity_unit",
+                        tr: "Amount per dose",
+                        units: [{
+                                ja: "錠",
+                                tr: "tablet(s)"
+                            },
+                            {
+                                ja: "滴",
+                                tr: "drop(s)"
+                            },
+                            {
+                                ja: "パック",
+                                tr: "pack(s)"
+                            },
+                            {
+                                ja: "単位",
+                                tr: "unit(s)"
+                            }
+                        ]
+                    }]
+                },
+                next_kenshin: {
+                    titleJa: "次回の予約(検診)について",
+                    optionsJa: [{
+                        mode: "appointment_after",
+                        tr: "The next visit is after __ months and __ weeks"
+                    }, {
+                        mode: "appointment_time",
+                        tr: "How about __:__?"
+                    }, {
+                        mode: "appointment_weekday",
+                        tr: "is a good day",
+                        days: [{
+                            ja: "月曜日",
+                            tr: "Monday"
+                        }, {
+                            ja: "火曜日",
+                            tr: "Tuesday"
+                        }, {
+                            ja: "水曜日",
+                            tr: "Wednesday"
+                        }, {
+                            ja: "木曜日",
+                            tr: "Thursday"
+                        }, {
+                            ja: "金曜日",
+                            tr: "Friday"
+                        }, {
+                            ja: "土曜日",
+                            tr: "Saturday"
+                        }, {
+                            ja: "日曜日",
+                            tr: "Sunday"
+                        }]
+                    }, {
+                        mode: "appointment_checklist",
+                        tr: "Please check the items below",
+                        items: [{
+                            ja: "薬の処方箋を受け取ってください",
+                            tr: "Please receive your prescription"
+                        }, {
+                            ja: "朝ごはんを食べないできてください",
+                            tr: "Please come without eating breakfast"
+                        }, {
+                            ja: "クーポンを使うので持ってきてください",
+                            tr: "Please bring your coupon"
+                        }]
+                    }]
+                },
+
+
             };
 
             const trByLang = {
                 "en-US": {
                     counter_kara: {
                         titleTr: "Since when?",
-                        optionsTr: ["Since today", "Since yesterday", "Since 2-3 days ago", "For more than a week"]
+                        optionsTr: ["__ hours ago", "__ days ago", "__ weeks ago"]
                     },
                     counter_kai: {
                         titleTr: "How many times a day?",
@@ -652,13 +1403,22 @@
                     },
                     kusurikaisuu: {
                         titleTr: "How many times per day?",
-                        optionsTr: ["Once a day", "Twice a day", "Three times a day", "Only when needed"]
+                        optionsTr: ["__ times per day", "every __ hours", "Amount per dose"]
+                    },
+                    next_kenshin: {
+                        titleTr: "About the next appointment",
+                        optionsTr: [
+                            "The next visit is after __ months and __ weeks",
+                            "How about __:__?",
+                            "is a good day",
+                            "Please check the items below"
+                        ]
                     }
                 },
                 "zh": {
                     counter_kara: {
                         titleTr: "从什么时候开始？",
-                        optionsTr: ["从今天开始", "从昨天开始", "从2-3天前开始", "超过1周"]
+                        optionsTr: ["__小时前", "__天前", "__周前"]
                     },
                     counter_kai: {
                         titleTr: "一天几次？",
@@ -666,13 +1426,22 @@
                     },
                     kusurikaisuu: {
                         titleTr: "每天使用几次？",
-                        optionsTr: ["每天1次", "每天2次", "每天3次", "仅在需要时"]
+                        optionsTr: ["每天__次", "每__小时一次", "每次用量"]
+                    },
+                    next_kenshin: {
+                        titleTr: "关于下次预约",
+                        optionsTr: [
+                            "下次是在__个月后和__周后",
+                            "__点__分怎么样",
+                            "是合适的日子",
+                            "请勾选以下项目"
+                        ]
                     }
                 },
                 "de": {
                     counter_kara: {
                         titleTr: "Seit wann?",
-                        optionsTr: ["Seit heute", "Seit gestern", "Seit 2-3 Tagen", "Seit mehr als einer Woche"]
+                        optionsTr: ["vor __ Stunden", "vor __ Tagen", "vor __ Wochen"]
                     },
                     counter_kai: {
                         titleTr: "Wie oft pro Tag?",
@@ -680,13 +1449,22 @@
                     },
                     kusurikaisuu: {
                         titleTr: "Wie oft pro Tag anwenden?",
-                        optionsTr: ["1 Mal täglich", "2 Mal täglich", "3 Mal täglich", "Nur bei Bedarf"]
+                        optionsTr: ["__ Mal pro Tag", "alle __ Stunden", "Menge pro Einnahme"]
+                    },
+                    next_kenshin: {
+                        titleTr: "Zum naechsten Termin",
+                        optionsTr: [
+                            "Der naechste Termin ist in __ Monaten und __ Wochen",
+                            "Wie waere es um __ Uhr __?",
+                            "ist ein guter Tag",
+                            "Bitte kreuzen Sie die folgenden Punkte an"
+                        ]
                     }
                 },
                 "ve": {
                     counter_kara: {
                         titleTr: "Từ khi nào?",
-                        optionsTr: ["Từ hôm nay", "Từ hôm qua", "Từ 2-3 ngày trước", "Hơn 1 tuần rồi"]
+                        optionsTr: ["__ giờ trước", "__ ngày trước", "__ tuần trước"]
                     },
                     counter_kai: {
                         titleTr: "Mỗi ngày bao nhiêu lần?",
@@ -694,13 +1472,22 @@
                     },
                     kusurikaisuu: {
                         titleTr: "Số lần dùng trong ngày?",
-                        optionsTr: ["Ngày 1 lần", "Ngày 2 lần", "Ngày 3 lần", "Chỉ khi cần"]
+                        optionsTr: ["__ lần mỗi ngày", "mỗi __ giờ", "Lượng dùng mỗi lần"]
+                    },
+                    next_kenshin: {
+                        titleTr: "Ve lich hen tiep theo",
+                        optionsTr: [
+                            "Lan tiep theo la sau __ thang va __ tuan",
+                            "__ gio __ phut duoc khong",
+                            "la ngay phu hop",
+                            "Hay chon cac muc ben duoi"
+                        ]
                     }
                 },
                 "pr": {
                     counter_kara: {
                         titleTr: "Desde quando?",
-                        optionsTr: ["Desde hoje", "Desde ontem", "Desde 2-3 dias atrás", "Há mais de 1 semana"]
+                        optionsTr: ["há __ horas", "há __ dias", "há __ semanas"]
                     },
                     counter_kai: {
                         titleTr: "Quantas vezes por dia?",
@@ -708,13 +1495,22 @@
                     },
                     kusurikaisuu: {
                         titleTr: "Quantas vezes por dia usar?",
-                        optionsTr: ["1 vez ao dia", "2 vezes ao dia", "3 vezes ao dia", "Somente quando necessário"]
+                        optionsTr: ["__ vezes por dia", "a cada __ horas", "Quantidade por dose"]
+                    },
+                    next_kenshin: {
+                        titleTr: "Sobre a proxima consulta",
+                        optionsTr: [
+                            "A proxima consulta sera em __ meses e __ semanas",
+                            "Que tal __ horas e __ minutos?",
+                            "e um bom dia",
+                            "Marque os itens abaixo"
+                        ]
                     }
                 },
                 "ko": {
                     counter_kara: {
                         titleTr: "언제부터인가요?",
-                        optionsTr: ["오늘부터", "어제부터", "2-3일 전부터", "1주일 이상 전부터"]
+                        optionsTr: ["__시간 전", "__일 전", "__주 전"]
                     },
                     counter_kai: {
                         titleTr: "하루에 몇 번인가요?",
@@ -722,7 +1518,16 @@
                     },
                     kusurikaisuu: {
                         titleTr: "하루 사용 횟수는?",
-                        optionsTr: ["하루 1회", "하루 2회", "하루 3회", "필요할 때만"]
+                        optionsTr: ["하루 __회", "__시간마다", "1회 사용량"]
+                    },
+                    next_kenshin: {
+                        titleTr: "다음 진료 예약에 대해",
+                        optionsTr: [
+                            "다음은 __개월 후 __주 후입니다",
+                            "__시 __분은 어떠세요",
+                            "좋은 요일입니다",
+                            "아래 항목을 확인해 주세요"
+                        ]
                     }
                 }
             };
@@ -735,14 +1540,497 @@
                 out[key] = {
                     titleJa: base[key].titleJa,
                     titleTr: tr[key].titleTr,
-                    options: base[key].optionsJa.map((ja, idx) => ({
-                        ja,
-                        tr: tr[key].optionsTr[idx]
-                    }))
+                    options: base[key].optionsJa.map((ja, idx) => {
+                        if (ja && typeof ja === "object") {
+                            return {
+                                ...ja,
+                                tr: tr[key].optionsTr[idx] || ja.tr || ""
+                            };
+                        }
+                        return {
+                            ja,
+                            tr: tr[key].optionsTr[idx]
+                        };
+                    })
                 };
             });
 
             return out;
+        }
+
+        function renderEpdsPanel(panel, rowIndex, row, tRow) {
+            const definition = buildEpdsDefinition(selectedLanguage);
+            const state = getEpdsState(rowIndex);
+
+            const wrap = document.createElement("section");
+            wrap.className = "epds-card";
+
+            const lead = document.createElement("div");
+            lead.className = "epds-lead";
+            lead.innerHTML = `
+                <p class="epds-title">${escapeHtml(tr("epds_section_title", "EPDS チェック / Edinburgh Check"))}</p>
+                <p class="epds-copy">${escapeHtml(row.category || tr("epds_lead", "過去7日間の気分にもっとも近いものを選んでください。"))}</p>
+                <p class="epds-copy epds-copy-sub">${escapeHtml((tRow && tRow.category) || tr("epds_lead_en", "Please select the answer that best matches how you felt during the past 7 days."))}</p>
+            `;
+            wrap.appendChild(lead);
+
+            const list = document.createElement("div");
+            list.className = "epds-question-list";
+            definition.questions.forEach((question, questionIndex) => {
+                const block = document.createElement("section");
+                block.className = "epds-question";
+
+                const heading = document.createElement("div");
+                heading.className = "epds-question-head";
+                heading.innerHTML = `
+                    <p class="epds-question-number">${escapeHtml(tr("epds_question_prefix", "質問"))} ${questionIndex + 1}</p>
+                    <p class="epds-question-ja">${escapeHtml(question.ja)}</p>
+                    <p class="epds-question-tr">${escapeHtml(question.tr)}</p>
+                `;
+                block.appendChild(heading);
+
+                const optionGrid = document.createElement("div");
+                optionGrid.className = "epds-option-grid";
+
+                question.options.forEach((option, optionIndex) => {
+                    const btn = document.createElement("button");
+                    btn.type = "button";
+                    btn.className = "epds-option-btn";
+                    if (state.answers[questionIndex] === option.score) {
+                        btn.classList.add("is-selected");
+                    }
+                    btn.innerHTML = `
+                        <span class="epds-option-ja">${escapeHtml(option.ja)}</span>
+                        <span class="epds-option-tr">${escapeHtml(option.tr)}</span>
+                    `;
+                    btn.addEventListener("click", () => {
+                        state.answers[questionIndex] = option.score;
+                        epdsSubmissionState.delete(rowIndex);
+                        updateEpdsSelection(rowIndex, wrap);
+                    });
+                    optionGrid.appendChild(btn);
+                });
+
+                block.appendChild(optionGrid);
+                list.appendChild(block);
+            });
+            wrap.appendChild(list);
+
+            const footer = document.createElement("div");
+            footer.className = "epds-footer";
+            footer.innerHTML = `
+                <div class="epds-score-box">
+                    <p class="epds-score-label">${escapeHtml(tr("epds_score_label", "合計点"))}</p>
+                    <p class="epds-score-value"><span class="epds-score-current">0</span><span class="epds-score-total"> / 30</span></p>
+                    <p class="epds-score-note">${escapeHtml(tr("epds_result_note", "10項目すべて選ぶと送信できます。"))}</p>
+                </div>
+                <div class="epds-actions">
+                    <button type="button" class="epds-reset-btn">${escapeHtml(tr("epds_reset", "回答をリセット"))}</button>
+                    <button type="button" class="epds-submit-btn">${escapeHtml(tr("epds_submit", "結果を登録"))}</button>
+                </div>
+                <p class="epds-status" aria-live="polite"></p>
+            `;
+            wrap.appendChild(footer);
+
+            const resetBtn = footer.querySelector(".epds-reset-btn");
+            const submitBtn = footer.querySelector(".epds-submit-btn");
+            if (resetBtn) {
+                resetBtn.addEventListener("click", () => {
+                    epdsSelections.set(rowIndex, {
+                        answers: new Array(definition.questions.length).fill(null)
+                    });
+                    epdsSubmissionState.delete(rowIndex);
+                    updateEpdsSelection(rowIndex, wrap);
+                });
+            }
+            if (submitBtn) {
+                submitBtn.addEventListener("click", async () => {
+                    await submitEpds(rowIndex, wrap, definition);
+                });
+            }
+
+            panel.appendChild(wrap);
+            updateEpdsSelection(rowIndex, wrap);
+        }
+
+        function getEpdsState(rowIndex) {
+            if (!epdsSelections.has(rowIndex)) {
+                epdsSelections.set(rowIndex, {
+                    answers: new Array(10).fill(null)
+                });
+            }
+            return epdsSelections.get(rowIndex);
+        }
+
+        function updateEpdsSelection(rowIndex, wrap) {
+            const definition = buildEpdsDefinition(selectedLanguage);
+            const state = getEpdsState(rowIndex);
+            const questionNodes = wrap.querySelectorAll(".epds-question");
+            questionNodes.forEach((questionNode, questionIndex) => {
+                const optionNodes = questionNode.querySelectorAll(".epds-option-btn");
+                optionNodes.forEach((optionNode, optionIndex) => {
+                    const option = definition.questions[questionIndex].options[optionIndex];
+                    optionNode.classList.toggle("is-selected", state.answers[questionIndex] === option.score);
+                });
+            });
+
+            const current = state.answers.reduce((sum, value) => sum + (Number.isFinite(value) ? value : 0), 0);
+            const answered = state.answers.filter(value => Number.isFinite(value)).length;
+            const scoreCurrent = wrap.querySelector(".epds-score-current");
+            const scoreNote = wrap.querySelector(".epds-score-note");
+            const status = wrap.querySelector(".epds-status");
+            const submitBtn = wrap.querySelector(".epds-submit-btn");
+
+            if (scoreCurrent) scoreCurrent.textContent = String(current);
+            if (scoreNote) {
+                if (answered < definition.questions.length) {
+                    scoreNote.textContent = tr("epds_result_note", "10項目すべて選ぶと送信できます。");
+                } else if ((state.answers[9] || 0) > 0) {
+                    scoreNote.textContent = tr("epds_alert_q10", "最後の質問に該当がある場合は、医療者へ早めに共有してください。");
+                } else {
+                    scoreNote.textContent = tr("epds_ready_note", "回答を確認して登録できます。");
+                }
+            }
+
+            if (submitBtn) {
+                const isSubmitting = epdsSubmissionState.get(rowIndex) === "submitting";
+                submitBtn.disabled = answered < definition.questions.length || isSubmitting;
+                submitBtn.textContent = isSubmitting ? tr("epds_submitting", "登録中...") : tr("epds_submit", "結果を登録");
+            }
+            if (status && epdsSubmissionState.get(rowIndex) !== "saved") {
+                status.textContent = answered < definition.questions.length ? tr("epds_incomplete", "未回答の項目があります。") : "";
+            }
+            wrap.classList.toggle("epds-alert", answered === definition.questions.length && (state.answers[9] || 0) > 0);
+        }
+
+        async function submitEpds(rowIndex, wrap, definition) {
+            const state = getEpdsState(rowIndex);
+            const answered = state.answers.filter(value => Number.isFinite(value)).length;
+            const status = wrap.querySelector(".epds-status");
+            if (answered < definition.questions.length) {
+                if (status) status.textContent = tr("epds_incomplete", "未回答の項目があります。");
+                updateEpdsSelection(rowIndex, wrap);
+                return;
+            }
+
+            epdsSubmissionState.set(rowIndex, "submitting");
+            updateEpdsSelection(rowIndex, wrap);
+
+            const totalScore = state.answers.reduce((sum, value) => sum + (Number.isFinite(value) ? value : 0), 0);
+            const payload = {
+                type: "EPDS",
+                language: selectedLanguage,
+                submittedAt: formatEpdsTimestamp(new Date()),
+                score: totalScore,
+                q1: state.answers[0],
+                q2: state.answers[1],
+                q3: state.answers[2],
+                q4: state.answers[3],
+                q5: state.answers[4],
+                q6: state.answers[5],
+                q7: state.answers[6],
+                q8: state.answers[7],
+                q9: state.answers[8],
+                q10: state.answers[9]
+            };
+
+            try {
+                await postEpdsResult(payload);
+                epdsSubmissionState.set(rowIndex, "saved");
+                if (status) status.textContent = tr("epds_saved", "EPDS の結果を登録しました。");
+            } catch (error) {
+                console.error("EPDS save failed", error);
+                epdsSubmissionState.set(rowIndex, "error");
+                if (status) status.textContent = tr("epds_save_failed", "登録に失敗しました。通信状態を確認してください。");
+            }
+            updateEpdsSelection(rowIndex, wrap);
+        }
+
+        async function postEpdsResult(postData) {
+            const response = await fetch(EPDS_API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain;charset=UTF-8"
+                },
+                body: JSON.stringify({
+                    path: "epds",
+                    method: "post",
+                    idToken: "",
+                    postData
+                })
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            const result = await response.json();
+            if (!result || result.statusCode !== 200) {
+                throw new Error((result && result.message) || "EPDS API error");
+            }
+            return result;
+        }
+
+        function formatEpdsTimestamp(date) {
+            const pad = value => String(value).padStart(2, "0");
+            return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+        }
+
+        function buildEpdsDefinition(langCode) {
+            const localized = {
+                "ja": {
+                    questions: [{
+                        ja: "笑ったり、物事のおもしろさを感じたりできましたか",
+                        tr: "Have you been able to laugh and see the funny side of things?",
+                        options: [{
+                            ja: "いつもどおりできた",
+                            tr: "As much as I always could",
+                            score: 0
+                        }, {
+                            ja: "いつもより少しできなかった",
+                            tr: "Not quite so much now",
+                            score: 1
+                        }, {
+                            ja: "はっきり少なくなった",
+                            tr: "Definitely not so much now",
+                            score: 2
+                        }, {
+                            ja: "まったくできなかった",
+                            tr: "Not at all",
+                            score: 3
+                        }]
+                    }, {
+                        ja: "楽しみにして待つ気持ちがありましたか",
+                        tr: "Have you looked forward with enjoyment to things?",
+                        options: [{
+                            ja: "いつもどおりあった",
+                            tr: "As much as I ever did",
+                            score: 0
+                        }, {
+                            ja: "少し少なかった",
+                            tr: "Rather less than I used to",
+                            score: 1
+                        }, {
+                            ja: "かなり少なかった",
+                            tr: "Definitely less than I used to",
+                            score: 2
+                        }, {
+                            ja: "ほとんどなかった",
+                            tr: "Hardly at all",
+                            score: 3
+                        }]
+                    }, {
+                        ja: "うまくいかないときに、自分を必要以上に責めましたか",
+                        tr: "Have you blamed yourself unnecessarily when things went wrong?",
+                        options: [{
+                            ja: "はい、たいていそうだった",
+                            tr: "Yes, most of the time",
+                            score: 3
+                        }, {
+                            ja: "はい、ときどきそうだった",
+                            tr: "Yes, some of the time",
+                            score: 2
+                        }, {
+                            ja: "あまりそうではなかった",
+                            tr: "Not very often",
+                            score: 1
+                        }, {
+                            ja: "まったくそうではなかった",
+                            tr: "No, never",
+                            score: 0
+                        }]
+                    }, {
+                        ja: "理由がなくても不安になったり心配になったりしましたか",
+                        tr: "Have you been anxious or worried for no good reason?",
+                        options: [{
+                            ja: "いいえ、まったくなかった",
+                            tr: "No, not at all",
+                            score: 0
+                        }, {
+                            ja: "ほとんどなかった",
+                            tr: "Hardly ever",
+                            score: 1
+                        }, {
+                            ja: "ときどきあった",
+                            tr: "Yes, sometimes",
+                            score: 2
+                        }, {
+                            ja: "はい、よくあった",
+                            tr: "Yes, very often",
+                            score: 3
+                        }]
+                    }, {
+                        ja: "はっきりした理由がなくても、こわい気持ちになったり取り乱したりしましたか",
+                        tr: "Have you felt scared or panicky for no very good reason?",
+                        options: [{
+                            ja: "はい、かなりあった",
+                            tr: "Yes, quite a lot",
+                            score: 3
+                        }, {
+                            ja: "はい、ときどきあった",
+                            tr: "Yes, sometimes",
+                            score: 2
+                        }, {
+                            ja: "いいえ、あまりなかった",
+                            tr: "No, not much",
+                            score: 1
+                        }, {
+                            ja: "いいえ、まったくなかった",
+                            tr: "No, not at all",
+                            score: 0
+                        }]
+                    }, {
+                        ja: "することが多すぎて対処できないと感じましたか",
+                        tr: "Have things been getting on top of you?",
+                        options: [{
+                            ja: "はい、ほとんど対処できなかった",
+                            tr: "Yes, most of the time I have not been able to cope",
+                            score: 3
+                        }, {
+                            ja: "はい、ときどきいつもほど対処できなかった",
+                            tr: "Yes, sometimes I have not been coping as well as usual",
+                            score: 2
+                        }, {
+                            ja: "いいえ、たいていは対処できた",
+                            tr: "No, most of the time I have coped quite well",
+                            score: 1
+                        }, {
+                            ja: "いいえ、いつもどおり対処できた",
+                            tr: "No, I have been coping as well as ever",
+                            score: 0
+                        }]
+                    }, {
+                        ja: "不幸せで、眠りにくいことがありましたか",
+                        tr: "Have you been so unhappy that you have had difficulty sleeping?",
+                        options: [{
+                            ja: "はい、たいていあった",
+                            tr: "Yes, most of the time",
+                            score: 3
+                        }, {
+                            ja: "はい、ときどきあった",
+                            tr: "Yes, sometimes",
+                            score: 2
+                        }, {
+                            ja: "あまりなかった",
+                            tr: "Not very often",
+                            score: 1
+                        }, {
+                            ja: "まったくなかった",
+                            tr: "No, never",
+                            score: 0
+                        }]
+                    }, {
+                        ja: "悲しかったり、つらい気持ちになったりしましたか",
+                        tr: "Have you felt sad or miserable?",
+                        options: [{
+                            ja: "はい、たいていそうだった",
+                            tr: "Yes, most of the time",
+                            score: 3
+                        }, {
+                            ja: "はい、かなりよくあった",
+                            tr: "Yes, quite often",
+                            score: 2
+                        }, {
+                            ja: "あまりなかった",
+                            tr: "Not very often",
+                            score: 1
+                        }, {
+                            ja: "まったくなかった",
+                            tr: "No, not at all",
+                            score: 0
+                        }]
+                    }, {
+                        ja: "不幸せで泣いてしまうことがありましたか",
+                        tr: "Have you been so unhappy that you have been crying?",
+                        options: [{
+                            ja: "はい、たいていそうだった",
+                            tr: "Yes, most of the time",
+                            score: 3
+                        }, {
+                            ja: "はい、かなりよくあった",
+                            tr: "Yes, quite often",
+                            score: 2
+                        }, {
+                            ja: "ときどきあった",
+                            tr: "Only occasionally",
+                            score: 1
+                        }, {
+                            ja: "まったくなかった",
+                            tr: "No, never",
+                            score: 0
+                        }]
+                    }, {
+                        ja: "自分を傷つけてしまいたいと思うことがありましたか",
+                        tr: "Have you thought of harming yourself?",
+                        options: [{
+                            ja: "はい、かなりあった",
+                            tr: "Yes, quite often",
+                            score: 3
+                        }, {
+                            ja: "ときどきあった",
+                            tr: "Sometimes",
+                            score: 2
+                        }, {
+                            ja: "ほとんどなかった",
+                            tr: "Hardly ever",
+                            score: 1
+                        }, {
+                            ja: "まったくなかった",
+                            tr: "Never",
+                            score: 0
+                        }]
+                    }]
+                }
+            };
+            return localized[langCode] || localized.ja;
+        }
+
+        function composeCounterKaraText(template, value) {
+            const t = String(template || "");
+            const amount = String(value || "").trim();
+            const suffix = t.replace("__", "").trim();
+            if (!amount) return suffix;
+            if (/[\u3040-\u30ff\u4e00-\u9faf]/.test(t)) {
+                return `${amount}${suffix}`;
+            }
+            if (t.startsWith("vor __")) {
+                return `vor ${amount} ${suffix.replace(/^vor\\s+/, "")}`.trim();
+            }
+            if (t.startsWith("há __")) {
+                return `há ${amount} ${suffix.replace(/^há\\s+/, "")}`.trim();
+            }
+            return `${amount} ${suffix}`.trim();
+        }
+
+        function composeQuantityUnitText(value, unit) {
+            const amount = String(value || "").trim();
+            const unitText = String(unit || "").trim();
+            if (!amount && !unitText) return "";
+            if (!amount) return unitText;
+            if (!unitText) return amount;
+            return `${amount} ${unitText}`.trim();
+        }
+
+        function composeAppointmentAfterText(monthValue, weekValue, langCode) {
+            const month = String(monthValue || "").trim() || "0";
+            const week = String(weekValue || "").trim() || "0";
+            if (langCode === "ja") return `次は${month}ヶ月後 ${week}週間後です`;
+            if (langCode === "zh") return `下次是在${month}个月后 ${week}周后`;
+            if (langCode === "de") return `Der naechste Termin ist in ${month} Monaten und ${week} Wochen`;
+            if (langCode === "ve") return `Lan tiep theo la sau ${month} thang va ${week} tuan`;
+            if (langCode === "pr") return `A proxima consulta sera em ${month} meses e ${week} semanas`;
+            if (langCode === "ko") return `다음은 ${month}개월 후 ${week}주 후입니다`;
+            return `The next visit is after ${month} months and ${week} weeks`;
+        }
+
+        function composeAppointmentTimeText(hourValue, minuteValue, langCode) {
+            const hour = String(hourValue || "").trim() || "0";
+            const minute = String(minuteValue || "").trim() || "0";
+            if (langCode === "ja") return `${hour}時${minute}分はどうですか`;
+            if (langCode === "zh") return `${hour}点${minute}分怎么样`;
+            if (langCode === "de") return `Wie waere es um ${hour} Uhr ${minute}`;
+            if (langCode === "ve") return `${hour} gio ${minute} phut duoc khong`;
+            if (langCode === "pr") return `Que tal ${hour} horas e ${minute} minutos`;
+            if (langCode === "ko") return `${hour}시 ${minute}분은 어떠세요`;
+            return `How about ${hour}:${minute}?`;
         }
 
         function escapeHtml(str) {

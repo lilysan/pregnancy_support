@@ -50,7 +50,6 @@ h1.title_bp {
 }
 
 .settings-btn,
-.guide-toggle-btn,
 .open-add-form-btn,
 #addDataForm button#adddata,
 .load-older-btn,
@@ -73,7 +72,6 @@ button.edit-btn,
 #cancelButton,
 #deleteButton,
 button.edit-btn,
-.guide-toggle-btn,
 .language-option-btn,
 .medicine-radio-option {
   font: inherit;
@@ -134,14 +132,6 @@ button.edit-btn,
 #table-container th,
 #edit-container th {
   font-weight: 800;
-}
-
-.settings-block {
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--surface);
 }
 
 .settings-label,
@@ -261,7 +251,7 @@ button.edit-btn,
 }
 
 .add-form-panel.open {
-  max-height: 520px;
+  max-height: 560px;
   opacity: 1;
   transform: translateY(0);
 }
@@ -282,25 +272,24 @@ button.edit-btn,
 .active-content { display: block; }
 #chart-container { height: 400px; }
 .chart-range-title { margin: 0 0 8px; color: #2b4263; }
-#bloodPressureChart,
+#bloodSugarChart,
 .older-chart-card canvas {
   display: block;
   width: 100% !important;
   max-width: 100%;
 }
-#bloodPressureChart {
+#bloodSugarChart {
   min-height: 320px;
   max-height: 50vh !important;
 }
 #chart-container {
   overflow: hidden;
 }
-.older-charts-container { margin: 30px 12px; gap: 12px; }
 .older-chart-card {
-  padding: 10px;
-  height: 400px;
   overflow: hidden;
 }
+.older-charts-container { margin: 30px 12px; gap: 12px; }
+.older-chart-card { padding: 10px; height: 400px; }
 .older-chart-title { margin: 0 0 6px; color: #2e4567; }
 
 #table-container table,
@@ -327,10 +316,11 @@ button.edit-btn,
 #table-container th,
 #edit-container th { background: #f2f7ff; }
 
-.bp-alert-high {
+.bp-alert-high,
+.sugar-alert {
   color: var(--danger) !important;
   font-weight: 900;
-  background: rgba(210, 51, 82, 0.1);
+  background: rgba(210, 51, 82, 0.12);
 }
 
 .bp-alert-low {

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日本の出産スタンダード</title>
+  <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
+  <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <header class="app-header">
+    <h1 id="pageTitle">日本の出産スタンダード</h1>
+    <p id="pageLead">日本で出産するときによくある流れや、病院での一般的な考え方を、見出しと詳細でまとめています。</p>
+  </header>
+
+  <button type="button" id="languageSettingBtn" class="language-setting-btn">言語設定</button>
+  <div id="languageDialog" class="is-hidden">
+    <div id="languageDialogPanel">
+      <div class="settings-header">
+        <h2 id="languageDialogTitle">設定</h2>
+        <button type="button" id="closeLanguageBtn">閉じる</button>
+      </div>
+      <p id="languageSectionTitle" class="settings-label">言語設定</p>
+      <div id="languageOptionList" class="language-option-list"></div>
+    </div>
+  </div>
+
+  <main class="main">
+    <section class="search-panel" aria-label="検索">
+      <div class="search-field">
+        <label for="keywordSearch" id="keywordSearchLabel" class="search-label">フリーワード検索</label>
+        <input id="keywordSearch" class="search-input" type="search" placeholder="質問や答えを入力" autocomplete="off">
+      </div>
+      <div class="tag-search">
+        <p id="tagSearchLabel" class="search-label">タグ検索</p>
+        <div id="tagFilterList" class="tag-filter-list"></div>
+      </div>
+      <p id="searchResultMeta" class="search-result-meta"></p>
+    </section>
+    <section id="qaList" class="qa-list" aria-live="polite"></section>
+  </main>
+
+  <script>
+    const languageOptions = [{ code: 'ja', label: 'やさしい日本語' }, { code: 'en-US', label: '英語編(English)' }, { code: 'zh', label: '中国語編(中文版)' }, { code: 'fr', label: 'フランス語編(French)' }, { code: 'ko', label: '韓国語編(Korean)' }, { code: 'pr', label: 'ポルトガル語編(Portugues)' }, { code: 'tl', label: 'タガログ語編(TAGALOG)' }, { code: 've', label: 'ベトナム語編(Vietnam)' }, { code: 'th', label: 'タイ語編(Thai)' }, { code: 'de', label: 'ドイツ語編(German)' }, { code: 'id', label: 'インドネシア語(Indonesia)' }, { code: 'ru', label: 'ロシア語(Russian)' }, { code: 'ne', label: 'ネパール語(Nepali)' }, { code: 'lo', label: 'ラオス語(Laotian)' }, { code: 'uk', label: 'ウクライナ語(Ukrainian)' }, { code: 'fa-AF', label: 'ダリ語(Dari)' }, { code: 'si', label: 'シンハラ語(Sinhala)' }, { code: 'ms', label: 'マレー語(Malay)' }, { code: 'my', label: 'ミャンマー語(Myanmar)' }, { code: 'bn', label: 'ベンガル語(Bengali)' }, { code: 'ur', label: 'ウルドゥー語(Urdu)' }];
+
+    const STORAGE_KEY = 'aruaruSelectedLanguage';
+
+    const qaItems = [{
+        tags: ['出産方法'],
+        jaQ: '日本で一般的な分娩方法',
+        enQ: '',
+        jaA: '日本では、経腟分娩がもっとも一般的です。帝王切開や無痛分娩もありますが、病院によって対応のしかたが異なります。',
+        enA: ''
+      }, {
+        tags: ['出産方法', '予約'],
+        jaQ: '無痛分娩を希望するときの確認ポイント',
+        enQ: '',
+        jaA: '無痛分娩を扱っている病院は限られます。また、無痛分娩は事前予約が必要なことが一般的です。希望がある場合は、妊娠初期のうちから病院に確認しましょう。',
+        enA: ''
+      }, {
+        tags: ['健診', '助成'],
+        jaQ: '妊婦健診の回数の目安',
+        enQ: '',
+        jaA: '妊娠がわかったら、できるだけ早めに病院を受診するのが一般的です。妊婦健診は、標準的な受診間隔で考えると妊娠中におおよそ14回受けることが多いですが、妊娠経過や病院の方針によって増減します。',
+        enA: ''
+      }, {
+        tags: ['健診', '助成'],
+        jaQ: 'クーポンで受けられる助成',
+        enQ: '',
+        jaA: '多くの自治体では、妊婦健診の受診票やクーポンがあり、それを使うことで健診費用の一部助成を受けられます。使い方や助成内容は自治体によって異なります。',
+        enA: ''
+      }, {
+        tags: ['病院のルール', '家族'],
+        jaQ: '立ち会い出産の対象者と制限',
+        enQ: '',
+        jaA: '病院によって、立ち会いできる人に制限がかかることがあります。夫・パートナー・家族など、だれが入れるかは病院ごとに異なるため、事前に確認が必要です。',
+        enA: ''
+      }, {
+        tags: ['入院'],
+        jaQ: '入院日数の目安',
+        enQ: '',
+        jaA: '経腟分娩では、初産婦で5日前後、経産婦で3日から5日前後を案内する病院が多いです。ただし、体調や赤ちゃんの状態、病院の方針によって変わります。',
+        enA: ''
+      }, {
+        tags: ['入院', '指導'],
+        jaQ: '入院中に受けることが多い指導',
+        enQ: '',
+        jaA: '入院中には、授乳指導や沐浴指導が行われることが多いです。病院によって内容や回数は異なりますが、退院後の生活に向けた説明を受けるのが一般的です。',
+        enA: ''
+      }, {
+        tags: ['病院のルール'],
+        jaQ: '看護師の役割',
+        enQ: '',
+        jaA: '看護師は、医療や看護を行う専門職です。身の回りのことをすべて代わりにする人ではありません。困ったことは相談できますが、どこまで対応できるかは病院の体制によります。',
+        enA: ''
+      }, {
+        tags: ['病院のルール', '面会'],
+        jaQ: '面会時間と面会人数の制限',
+        enQ: '',
+        jaA: '病院によっては、面会時間や面会できる人数に制限があります。感染対策や病棟の運営方針によって変わるため、事前確認が大切です。',
+        enA: ''
+      }, {
+        tags: ['病院のルール', '写真'],
+        jaQ: '出産時の写真撮影について',
+        enQ: '',
+        jaA: '写真撮影は、看護師が善意で手伝うことはあっても、病院に専属カメラマンがいつもいるとは限りません。撮影の希望がある場合は、病院のルールや立ち会い条件を事前に確認しましょう。',
+        enA: ''
+      }, {
+        tags: ['文化'],
+        jaQ: '臍の緒を持ち帰る文化',
+        enQ: '',
+        jaA: '日本では、赤ちゃんの臍の緒を記念として持ち帰る文化があります。病院から小さな箱に入れて渡されることもありますが、対応は病院ごとに異なります。',
+        enA: ''
+      }, {
+        tags: ['宗教', '食事'],
+        jaQ: '宗教的配慮と食事対応',
+        enQ: '',
+        jaA: '宗教的な配慮や宗教に基づく食事対応は、病院によって対応が分かれます。アレルギー除去食がある病院は多い一方で、宗教上の食事制限まで対応できる病院は限られることがあります。希望がある場合は必ず事前に相談してください。',
+        enA: ''
+      }, {
+        tags: ['入院', '健診'],
+        jaQ: '出産後の入院中の診察と問診',
+        enQ: '',
+        jaA: '出産後は、入院中に毎日回診や診察があることが多いです。そのほか、医師や看護師が問診で体調を確認することがあります。',
+        enA: ''
+      }, {
+        tags: ['文化'],
+        jaQ: '戌の日の腹帯の習慣',
+        enQ: '',
+        jaA: '日本には、安産を願って妊娠5か月ごろの「戌の日」に腹帯を巻く習慣があります。必ずしなければならないものではありませんが、家族行事として大切にする人もいます。',
+        enA: ''
+      }, {
+        tags: ['手続き'],
+        jaQ: '出生届の提出先',
+        enQ: '',
+        jaA: '出生届は、赤ちゃんが生まれた日から14日以内に、市役所・区役所・町村役場へ提出します。病院の中に役所の出張所があるとは限らないため、別に役場へ行く準備をしておきましょう。',
+        enA: ''
+      }, {
+        tags: ['移動'],
+        jaQ: '陣痛時の病院への移動方法',
+        enQ: '',
+        jaA: '病院によっては、陣痛時に自家用車で来ることを勧めない場合があります。陣痛タクシーなどのサービスがある地域もあるため、事前に交通手段を調べておくと安心です。',
+        enA: ''
+      }, {
+        tags: ['入院', '手続き'],
+        jaQ: '入院時の印鑑の扱い',
+        enQ: '',
+        jaA: '入院手続きの際に、印鑑が必要になる病院があります。最近は不要な場合もありますが、持ち物案内を必ず確認しましょう。',
+        enA: ''
+      }, {
+        tags: ['文化'],
+        jaQ: 'お食い初めについて',
+        enQ: '',
+        jaA: 'お食い初めは、生後100日ごろに「一生食べることに困らないように」と願って行うお祝いです。病院で行うものではなく、家庭で行うことが多い行事です。',
+        enA: ''
+      }, {
+        tags: ['産後支援'],
+        jaQ: '新生児訪問',
+        enQ: '',
+        jaA: '新生児訪問とは、赤ちゃんが生まれたあとに、自治体の保健師などが自宅を訪問する仕組みです。赤ちゃんの様子や育児の相談ができます。',
+        enA: ''
+      }, {
+        tags: ['産後支援', '健診'],
+        jaQ: '産後健診と乳児健診',
+        enQ: '',
+        jaA: '産後には、母体の1か月健診のほか、自治体で乳児健診が案内されることがあります。たとえば3〜4か月児健診などが一般的ですが、時期や回数は自治体によって異なります。',
+        enA: ''
+      }, {
+        tags: ['車', '法律'],
+        jaQ: '赤ちゃんを車に乗せるときのルール',
+        enQ: '',
+        jaA: '赤ちゃんを車に乗せるときは、年齢や体格に合ったチャイルドシートを使う必要があります。日本では、6歳未満の子どもにチャイルドシートを使用させることが法律で義務づけられています。',
+        enA: ''
+      }];
+
+    qaItems.forEach((item, index) => {
+      item.translationIndex = index + 1;
+    });
+
+    const tagTranslationKeys = {
+      '出産方法': 'tag_delivery_method',
+      '予約': 'tag_reservation',
+      '健診': 'tag_checkup',
+      '助成': 'tag_subsidy',
+      '病院のルール': 'tag_hospital_rules',
+      '家族': 'tag_family',
+      '入院': 'tag_hospital_stay',
+      '指導': 'tag_guidance',
+      '面会': 'tag_visits',
+      '写真': 'tag_photos',
+      '文化': 'tag_culture',
+      '宗教': 'tag_religion',
+      '食事': 'tag_food',
+      '手続き': 'tag_procedures',
+      '移動': 'tag_transport',
+      '産後支援': 'tag_postpartum_support',
+      '車': 'tag_car',
+      '法律': 'tag_law'
+    };
+
+    let selectedLanguage = 'en-US';
+    let selectedTag = 'all';
+    let keyword = '';
+
+    window.addEventListener('load', init);
+
+    async function init() {
+      document.getElementById('languageSettingBtn').addEventListener('click', openLanguageDialog);
+      document.getElementById('closeLanguageBtn').addEventListener('click', closeLanguageDialog);
+      document.getElementById('languageDialog').addEventListener('click', (event) => {
+        if (event.target.id === 'languageDialog') closeLanguageDialog();
+      });
+      document.getElementById('keywordSearch').addEventListener('input', (event) => {
+        keyword = String(event.target.value || '').trim().toLowerCase();
+        renderQaList();
+      });
+      selectedLanguage = loadInitialLanguage();
+      await initI18n(selectedLanguage);
+      renderLanguageButtons();
+      applyI18n();
+      renderTagFilters();
+      renderQaList();
+    }
+
+    function openLanguageDialog() {
+      const dialog = document.getElementById('languageDialog');
+      dialog.classList.remove('is-hidden');
+      dialog.style.display = 'block';
+    }
+
+    function closeLanguageDialog() {
+      const dialog = document.getElementById('languageDialog');
+      dialog.classList.add('is-hidden');
+      dialog.style.display = 'none';
+    }
+
+    function loadInitialLanguage() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved && languageOptions.some((lang) => lang.code === saved)) return saved;
+      return detectInitialLanguage();
+    }
+
+    function detectInitialLanguage() {
+      const raw = String(navigator.language || 'en-US').toLowerCase();
+      if (raw.startsWith('ja')) return 'ja';
+      if (raw.startsWith('zh')) return 'zh';
+      if (raw.startsWith('fr')) return 'fr';
+      if (raw.startsWith('ko')) return 'ko';
+      if (raw.startsWith('pt')) return 'pr';
+      if (raw.startsWith('tl') || raw.startsWith('fil')) return 'tl';
+      if (raw.startsWith('vi')) return 've';
+      if (raw.startsWith('th')) return 'th';
+      if (raw.startsWith('de')) return 'de';
+      if (raw.startsWith('id')) return 'id';
+      if (raw.startsWith('ru')) return 'ru';
+      if (raw.startsWith('ne')) return 'ne';
+      if (raw.startsWith('lo')) return 'lo';
+      if (raw.startsWith('uk')) return 'uk';
+      if (raw.startsWith('fa')) return 'fa-AF';
+      if (raw.startsWith('si')) return 'si';
+      if (raw.startsWith('ms')) return 'ms';
+      if (raw.startsWith('my')) return 'my';
+      if (raw.startsWith('bn')) return 'bn';
+      if (raw.startsWith('ur')) return 'ur';
+      return 'en-US';
+    }
+
+    function getI18nLanguage(langCode) {
+      if (langCode === 'zh') return 'zh';
+      if (langCode === 'ja') return 'ja';
+      return 'en-US';
+    }
+
+    async function initI18n(langCode) {
+      if (!window.i18next) return;
+      const target = getI18nLanguage(langCode);
+      if (!i18next.isInitialized) {
+        await i18next.use(i18nextHttpBackend).init({
+          lng: target,
+          fallbackLng: 'en-US',
+          backend: {
+            loadPath: './i18n/{{lng}}.json'
+          }
+        });
+        return;
+      }
+      await i18next.changeLanguage(target);
+    }
+
+    function tr(key, fallback, options) {
+      if (!window.i18next || !i18next.isInitialized) return fallback || '';
+      const value = i18next.t(key, options || {});
+      return value === key ? (fallback || '') : value;
+    }
+
+    function renderLanguageButtons() {
+      const list = document.getElementById('languageOptionList');
+      list.innerHTML = '';
+      languageOptions.forEach((lang) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'language-option-btn' + (selectedLanguage === lang.code ? ' active' : '');
+        btn.textContent = lang.label;
+        btn.addEventListener('click', async () => {
+          selectedLanguage = lang.code;
+          localStorage.setItem(STORAGE_KEY, selectedLanguage);
+          await initI18n(selectedLanguage);
+          closeLanguageDialog();
+          renderLanguageButtons();
+          applyI18n();
+          renderTagFilters();
+          renderQaList();
+        });
+        list.appendChild(btn);
+      });
+    }
+
+    function applyI18n() {
+      document.getElementById('pageTitle').textContent = tr('page_title', '日本の出産スタンダード');
+      document.getElementById('pageLead').textContent = tr('page_lead', '日本で出産するときによくある流れや、病院での一般的な考え方を、見出しと詳細でまとめています。');
+      document.getElementById('languageSettingBtn').textContent = tr('settings', '言語設定');
+      document.getElementById('languageDialogTitle').textContent = tr('settings', '設定');
+      document.getElementById('languageSectionTitle').textContent = tr('language', '言語設定');
+      document.getElementById('closeLanguageBtn').textContent = tr('close', '閉じる');
+      document.getElementById('keywordSearchLabel').textContent = tr('keyword_search', 'フリーワード検索');
+      document.getElementById('keywordSearch').placeholder = tr('keyword_placeholder', '質問や答えを入力');
+      document.getElementById('tagSearchLabel').textContent = tr('tag_search', 'タグ検索');
+    }
+
+    function renderTagFilters() {
+      const container = document.getElementById('tagFilterList');
+      const tags = Array.from(new Set(qaItems.flatMap((item) => item.tags || [])));
+      const filters = [{ id: 'all', label: tr('all_tags', 'すべて') }, ...tags.map((tag) => ({ id: tag, label: tag }))];
+      container.innerHTML = '';
+      filters.forEach((tag) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'tag-filter-btn' + (selectedTag === tag.id ? ' active' : '');
+        btn.innerHTML = tag.id === 'all'
+          ? escapeHtml(tag.label)
+          : renderBilingualText(tag.label, translateTag(tag.label));
+        btn.addEventListener('click', () => {
+          selectedTag = tag.id;
+          renderTagFilters();
+          renderQaList();
+        });
+        container.appendChild(btn);
+      });
+    }
+
+    function renderQaList() {
+      const list = document.getElementById('qaList');
+      list.innerHTML = '';
+      const filteredItems = qaItems.filter(matchesFilter);
+      document.getElementById('searchResultMeta').textContent = filteredItems.length ? tr('result_count', `${filteredItems.length}件表示`, {
+        count: filteredItems.length
+      }) : tr('no_result', '該当する項目はありません。');
+
+      filteredItems.forEach((item, index) => {
+        const details = document.createElement('details');
+        details.className = 'qa-card';
+        if (index === 0) details.open = true;
+        const translatedQuestion = getTranslatedQuestion(item);
+        const translatedAnswer = getTranslatedAnswer(item);
+
+        const summary = document.createElement('summary');
+        summary.className = 'qa-summary';
+        summary.innerHTML = `
+          <p class="qa-ja">${escapeHtml(item.jaQ)}</p>
+          <p class="qa-tr${selectedLanguage === 'ja' || !translatedQuestion ? ' is-hidden' : ''}">${escapeHtml(translatedQuestion)}</p>
+        `;
+
+        const panel = document.createElement('div');
+        panel.className = 'qa-panel';
+        panel.innerHTML = `
+          <div class="answer-block">
+            <p class="answer-ja answer-preline">${escapeHtml(item.jaA)}</p>
+            <p class="answer-tr answer-preline${selectedLanguage === 'ja' || !translatedAnswer ? ' is-hidden' : ''}">${escapeHtml(translatedAnswer)}</p>
+          </div>
+        `;
+
+        details.appendChild(summary);
+        details.appendChild(panel);
+        list.appendChild(details);
+      });
+    }
+
+    function matchesFilter(item) {
+      const tagMatch = selectedTag === 'all' || (item.tags || []).includes(selectedTag);
+      if (!tagMatch) return false;
+      if (!keyword) return true;
+      const haystack = [item.jaQ, item.enQ, item.jaA, item.enA, ...(item.tags || [])].join(' ').toLowerCase();
+      return haystack.includes(keyword);
+    }
+
+    function getTranslatedQuestion(item) {
+      if (selectedLanguage === 'ja') return '';
+      return tr(`item_${item.translationIndex}_title`, item.enQ || '');
+    }
+
+    function getTranslatedAnswer(item) {
+      if (selectedLanguage === 'ja') return '';
+      return tr(`item_${item.translationIndex}_detail`, item.enA || '');
+    }
+
+    function translateTag(tag) {
+      const key = tagTranslationKeys[tag];
+      return key ? tr(key, tag) : tag;
+    }
+
+    function renderBilingualText(jaText, translatedText) {
+      if (selectedLanguage === 'ja' || !translatedText || translatedText === jaText) {
+        return escapeHtml(jaText);
+      }
+      return `<span class="chip-ja">${escapeHtml(jaText)}</span><span class="chip-tr">${escapeHtml(translatedText)}</span>`;
+    }
+
+    function escapeHtml(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+  </script>
+</body>
+
+</html>

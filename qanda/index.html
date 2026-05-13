@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q&A</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <header class="app-header">
+    <h1 id="pageTitle">Q&A</h1>
+    <p id="pageLead">妊娠中によくある質問を、日本語と選択した言語で確認できます。</p>
+  </header>
+
+  <button type="button" id="languageSettingBtn" class="language-setting-btn">言語設定</button>
+  <div id="languageDialog" class="is-hidden">
+    <div id="languageDialogPanel">
+      <div class="settings-header">
+        <h2 id="languageDialogTitle">設定</h2>
+        <button type="button" id="closeLanguageBtn">閉じる</button>
+      </div>
+      <p id="languageSectionTitle" class="settings-label">言語設定</p>
+      <div id="languageOptionList" class="language-option-list"></div>
+    </div>
+  </div>
+
+  <main class="main">
+    <section class="search-panel" aria-label="検索">
+      <div class="search-field">
+        <label for="keywordSearch" id="keywordSearchLabel" class="search-label">フリーワード検索</label>
+        <input id="keywordSearch" class="search-input" type="search" placeholder="質問や答えを入力" autocomplete="off">
+      </div>
+      <div class="tag-search">
+        <p id="tagSearchLabel" class="search-label">タグ検索</p>
+        <div id="tagFilterList" class="tag-filter-list"></div>
+      </div>
+      <p id="searchResultMeta" class="search-result-meta"></p>
+    </section>
+    <section id="qaList" class="qa-list" aria-live="polite"></section>
+  </main>
+
+  <script>
+    const languageOptions = [{
+        code: 'ja',
+        label: 'やさしい日本語'
+      },
+      {
+        code: 'en-US',
+        label: '英語編(English)'
+      },
+      {
+        code: 'zh',
+        label: '中国語編(中文版)'
+      },
+      {
+        code: 'fr',
+        label: 'フランス語編(French)'
+      },
+      {
+        code: 'ko',
+        label: '韓国語編(Korean)'
+      },
+      {
+        code: 'pr',
+        label: 'ポルトガル語編(Portugues)'
+      },
+      {
+        code: 'tl',
+        label: 'タガログ語編(TAGALOG)'
+      },
+      {
+        code: 've',
+        label: 'ベトナム語編(Vietnam)'
+      },
+      {
+        code: 'th',
+        label: 'タイ語編(Thai)'
+      },
+      {
+        code: 'de',
+        label: 'ドイツ語編(German)'
+      },
+      {
+        code: 'id',
+        label: 'インドネシア語(Indonesia)'
+      },
+      {
+        code: 'ru',
+        label: 'ロシア語(Russian)'
+      },
+      {
+        code: 'ne',
+        label: 'ネパール語(Nepali)'
+      },
+      {
+        code: 'lo',
+        label: 'ラオス語(Laotian)'
+      },
+      {
+        code: 'uk',
+        label: 'ウクライナ語(Ukrainian)'
+      },
+      {
+        code: 'fa-AF',
+        label: 'ダリ語(Dari)'
+      },
+      {
+        code: 'si',
+        label: 'シンハラ語(Sinhala)'
+      },
+      {
+        code: 'ms',
+        label: 'マレー語(Malay)'
+      },
+      {
+        code: 'my',
+        label: 'ミャンマー語(Myanmar)'
+      },
+      {
+        code: 'bn',
+        label: 'ベンガル語(Bengali)'
+      },
+      {
+        code: 'ur',
+        label: 'ウルドゥー語(Urdu)'
+      }
+    ];
+
+    const STORAGE_KEY = 'qandaSelectedLanguage';
+    const tagTranslations = {
+      '生活': 'Lifestyle',
+      '嗜好品': 'Smoking / Alcohol',
+      '移動': 'Travel',
+      '運動': 'Exercise',
+      '症状': 'Symptoms',
+      '食事': 'Diet',
+      '制度': 'Systems',
+      'サプリ': 'Supplements',
+      '出産': 'Childbirth',
+      '家族': 'Family',
+      '産後': 'Postpartum',
+      '体重': 'Weight',
+      '準備': 'Preparation',
+      '文化': 'Culture',
+      '薬': 'Medication'
+    };
+    const DIALOG_TEXT = {
+      ja: {
+        settings: '言語設定',
+        language: '言語設定',
+        close: '閉じる',
+        lead: '妊娠中によくある質問を、日本語と選択した言語で確認できます。',
+        keyword: 'フリーワード検索',
+        keywordPlaceholder: '質問や答えを入力',
+        tag: 'タグ検索',
+        allTags: 'すべて',
+        result: '件表示',
+        noResult: '該当するQ&Aはありません。'
+      },
+      'en-US': {
+        settings: 'Language',
+        language: 'Language',
+        close: 'Close',
+        lead: 'You can review common pregnancy questions in Japanese and the selected language.',
+        keyword: 'Keyword Search',
+        keywordPlaceholder: 'Search questions or answers',
+        tag: 'Tag Search',
+        allTags: 'All',
+        result: 'results',
+        noResult: 'No matching Q&A found.'
+      },
+      zh: {
+        settings: '语言设置',
+        language: '语言设置',
+        close: '关闭',
+        lead: '您可以用日语和所选语言查看怀孕期间常见问题。',
+        keyword: '关键词搜索',
+        keywordPlaceholder: '输入问题或回答',
+        tag: '标签搜索',
+        allTags: '全部',
+        result: '条显示',
+        noResult: '没有符合条件的Q&A。'
+      }
+    };
+
+    const qaItems = [{
+        tags: ['生活', '嗜好品'],
+        jaQ: 'タバコの影響は？',
+        enQ: 'What are the effects of smoking?',
+        jaA: '赤ちゃんに影響が出るので、やめてください。',
+        enA: 'Smoking affects your baby, so please quit.'
+      },
+      {
+        tags: ['生活', '嗜好品'],
+        jaQ: 'アルコールをどれくらい飲んでよいですか？',
+        enQ: 'How much alcohol is safe to drink?',
+        jaA: '赤ちゃんに影響が出ると言われているので、基本的にやめたほうがいいです。',
+        enA: 'It is generally advised to avoid alcohol as it is said to affect the baby.'
+      },
+      {
+        tags: ['生活', '嗜好品'],
+        jaQ: 'カフェインをどれくらい飲んでよいですか？',
+        enQ: 'How much caffeine can I consume?',
+        jaA: '飲む場合の目安は、コーヒーの場合、マグカップ2杯まで（1日カフェイン量200mg以下）です。',
+        enA: 'If you drink coffee, the guideline is up to two mugs a day (no more than 200 mg of caffeine per day).'
+      },
+      {
+        tags: ['生活', '移動'],
+        jaQ: '旅行はしてよいですか？',
+        enQ: 'Can I travel?',
+        jaA: '切迫流産・早産の兆候がなければ問題ないです。',
+        enA: 'As long as there are no signs of threatened miscarriage or preterm labor, traveling is not a problem.'
+      },
+      {
+        tags: ['生活', '運動'],
+        jaQ: '運動はしてもよいですか？',
+        enQ: 'Can I exercise?',
+        jaA: '切迫流産・早産兆候がなければ問題ないです。',
+        enA: 'If there are no signs of threatened miscarriage or preterm labor, exercise is fine.'
+      },
+      {
+        tags: ['生活'],
+        jaQ: '性生活はしてもよいですか？',
+        enQ: 'Is it okay to have sexual activity?',
+        jaA: '14週前と36週以降以外は体調に合わせておこなってください。',
+        enA: 'You can engage in sexual activity according to your condition, except before 14 weeks and after 36 weeks.'
+      },
+      {
+        tags: ['症状'],
+        jaQ: '足がつります',
+        enQ: 'My legs are cramping.',
+        jaA: 'つま先を足の甲に向かってそらせて、アキレス腱を伸ばしてください。',
+        enA: 'Point your toes toward your shin to stretch your Achilles tendon.'
+      },
+      {
+        tags: ['症状'],
+        jaQ: '動悸・息切れがします',
+        enQ: 'I experience palpitations or shortness of breath.',
+        jaA: '生理現象なので問題ありません。動悸や息切れを感じたら、座って休みましょう。',
+        enA: 'These are natural phenomena, so there’s no need to worry. If you feel them, sit down and rest.'
+      },
+      {
+        tags: ['症状', '食事'],
+        jaQ: '便秘です',
+        enQ: 'I’m constipated.',
+        jaA: '繊維質の多いもの（ごぼう・セロリ・キャベツなど）を食べましょう。',
+        enA: 'Eat fiber-rich foods such as burdock, celery, and cabbage.'
+      },
+      {
+        tags: ['症状', '食事'],
+        jaQ: '胸やけ・胃もたれがします',
+        enQ: 'I have heartburn or an upset stomach.',
+        jaA: '食事を3回と決めずに少量を分けて食べましょう。',
+        enA: 'Instead of having three large meals, try eating smaller portions more frequently.'
+      },
+      {
+        tags: ['症状'],
+        jaQ: '足がむくみます',
+        enQ: 'My legs are swollen.',
+        jaA: '飲水量を減らす必要はありません。必要とされる水分をとりましょう。休むときに足を高く上げてください。',
+        enA: 'There’s no need to reduce your water intake. Make sure to stay hydrated and elevate your legs when resting.'
+      },
+      {
+        tags: ['症状'],
+        jaQ: '腰が痛いです',
+        enQ: 'I have back pain.',
+        jaA: '筋肉の緊張を和らげるため、四つん這いの姿勢で腰を上下にゆっくり動かしてみましょう。動かすときは、無理をしないようにしましょう。',
+        enA: 'To relieve muscle tension, try gently moving your back up and down in a hands-and-knees position. Do this carefully without straining yourself.'
+      },
+      {
+        tags: ['制度'],
+        jaQ: '出生届はどこに出したらよいですか？',
+        enQ: 'Where should I submit the birth registration form?',
+        jaA: '冊子の13へ',
+        enA: 'Refer to page 13 of the booklet.'
+      },
+      {
+        tags: ['症状', '食事'],
+        jaQ: 'つわりで食事がとれません',
+        enQ: 'I can’t eat because of morning sickness.',
+        jaA: '食事と飲み物は分けてとるとよいです。',
+        enA: 'Try separating your food and drinks to make it easier to consume.'
+      },
+      {
+        tags: ['食事', '嗜好品'],
+        jaQ: '栄養ドリンクを飲んでもよいですか？',
+        enQ: 'Can I drink energy drinks?',
+        jaA: '糖分やカフェインが含まれているので、たくさん飲まないようにしましょう。',
+        enA: 'Energy drinks often contain sugar and caffeine, so avoid consuming large amounts.'
+      },
+      {
+        tags: ['食事', 'サプリ'],
+        jaQ: 'どんなサプリメントを飲めばよいですか？',
+        enQ: 'What supplements should I take?',
+        jaA: 'サプリメントは、あくまでも栄養補助食品であり、栄養素をとるのは、食事からが基本です。',
+        enA: 'Supplements are meant to be dietary aids, so focus on getting nutrients from your meals.'
+      },
+      {
+        tags: ['食事'],
+        jaQ: '生物を食べてもよいですか？',
+        enQ: 'Can I eat raw food?',
+        jaA: 'たとえば、生ハム、パテ、生レバーなどは、トキソプラズマ感染のリスクがあるため、加熱が不十分な肉類を食べるのは避けましょう。',
+        enA: 'Avoid undercooked or raw meat, such as raw ham, pâté, or liver, as they carry a risk of toxoplasmosis infection.'
+      },
+      {
+        tags: ['食事'],
+        jaQ: 'バランスが良いのはどんな食事ですか？',
+        enQ: 'What is a balanced diet?',
+        jaA: '妊産婦のための食事バランスガイドがあり、これに沿った主食、主菜、副菜を組み合わせた食事がバランスの良い食事と言えます。',
+        enA: 'There’s a food balance guide specifically for pregnant women. It’s best to have a combination of staples, main dishes, and side dishes based on this guide.'
+      },
+      {
+        tags: ['出産'],
+        jaQ: '無痛分娩について教えてください',
+        enQ: 'Tell me about painless delivery.',
+        jaA: '硬膜外麻酔を使用した分娩で、陣痛を感じにくくする方法です。',
+        enA: 'It involves epidural anesthesia, which minimizes the pain of labor.'
+      },
+      {
+        tags: ['出産', '家族'],
+        jaQ: '妊婦健診や出産のときにパートナーは部屋に入れるの？',
+        enQ: 'Can partners join prenatal checkups or be present during delivery?',
+        jaA: '妊婦健診ではパートナーが同席できることが多いです。出産の場合は、病院によってルールが異なります。両親学級などの参加が必要の場合がありますので、確認が必要です。',
+        enA: 'Partners are often allowed to attend prenatal checkups. For deliveries, hospital policies may vary, and some require participation in childbirth classes, so check in advance.'
+      },
+      {
+        tags: ['出産', '家族'],
+        jaQ: '両親学級は参加できますか？',
+        enQ: 'Can we attend childbirth preparation classes?',
+        jaA: '病院で行っているもののほかに、自治体で行っている場合もあります。言語の心配のある方は、民間団体で多言語で行っている場合もありますので、確認してみましょう。',
+        enA: 'In addition to those offered by hospitals, local governments or private organizations sometimes provide multilingual classes. Check for available options.'
+      },
+      {
+        tags: ['制度', '産後'],
+        jaQ: '新生児訪問ってなんですか？',
+        enQ: 'What is a newborn home visit?',
+        jaA: '冊子13へ',
+        enA: 'Refer to page 13 of the booklet.'
+      },
+      {
+        tags: ['体重'],
+        jaQ: '体重をどのくらい気にするべきですか？',
+        enQ: 'How much should I monitor my weight?',
+        jaA: '回答準備中です。医師や助産師と相談してください。',
+        enA: 'This answer is being prepared. Please consult your doctor or midwife.'
+      },
+      {
+        tags: ['運動'],
+        jaQ: 'マタニティスイミング',
+        enQ: 'Maternity swimming',
+        jaA: '回答準備中です。医師や助産師と相談してください。',
+        enA: 'This answer is being prepared. Please consult your doctor or midwife.'
+      },
+      {
+        tags: ['出産', '準備'],
+        jaQ: '新生児用品リスト',
+        enQ: 'Newborn supply checklist',
+        jaA: '回答準備中です。必要な持ち物は病院や自治体でも確認してください。',
+        enA: 'This answer is being prepared. Please also confirm necessary items with your hospital or local government.'
+      },
+      {
+        tags: ['出産', '準備'],
+        jaQ: '里帰り出産',
+        enQ: 'Returning to one’s family home for delivery',
+        jaA: '回答準備中です。早めに出産施設へ相談してください。',
+        enA: 'This answer is being prepared. Please consult your delivery facility early.'
+      },
+      {
+        tags: ['文化'],
+        jaQ: '文化的な話',
+        enQ: 'Cultural matters',
+        jaA: '冊子の__へ',
+        enA: 'Refer to page ___ of the booklet.'
+      },
+      {
+        tags: ['出産', '制度'],
+        jaQ: '分娩予約と前金',
+        enQ: 'Delivery reservation and advance payment',
+        jaA: '回答準備中です。予約方法や前金の有無は病院ごとに確認してください。',
+        enA: 'This answer is being prepared. Please confirm reservation procedures and advance payment requirements with your hospital.'
+      },
+      {
+        tags: ['生活'],
+        jaQ: 'マッサージはいいのか',
+        enQ: 'Is massage okay?',
+        jaA: '回答準備中です。体調により異なるため、医師や助産師に確認してください。',
+        enA: 'This answer is being prepared. Since it depends on your condition, please ask your doctor or midwife.'
+      },
+      {
+        tags: ['薬'],
+        jaQ: '薬を飲んでいいのか',
+        enQ: 'Can I take medication?',
+        jaA: '自己判断せず、病院か薬局で確認してください。',
+        enA: 'Do not take any medication without consulting a hospital or pharmacy.'
+      }
+    ];
+
+    let selectedLanguage = 'en-US';
+    let selectedTag = 'all';
+    let keyword = '';
+
+    window.addEventListener('load', init);
+
+    function init() {
+      document.getElementById('languageSettingBtn').addEventListener('click', openLanguageDialog);
+      document.getElementById('closeLanguageBtn').addEventListener('click', closeLanguageDialog);
+      document.getElementById('languageDialog').addEventListener('click', (event) => {
+        if (event.target.id === 'languageDialog') closeLanguageDialog();
+      });
+      document.getElementById('keywordSearch').addEventListener('input', (event) => {
+        keyword = String(event.target.value || '').trim().toLowerCase();
+        renderQaList();
+      });
+      selectedLanguage = loadInitialLanguage();
+      renderLanguageButtons();
+      renderDialogText();
+      renderTagFilters();
+      renderQaList();
+    }
+
+    function openLanguageDialog() {
+      const dialog = document.getElementById('languageDialog');
+      dialog.classList.remove('is-hidden');
+      dialog.style.display = 'block';
+    }
+
+    function closeLanguageDialog() {
+      const dialog = document.getElementById('languageDialog');
+      dialog.classList.add('is-hidden');
+      dialog.style.display = 'none';
+    }
+
+    function loadInitialLanguage() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved && languageOptions.some((lang) => lang.code === saved)) return saved;
+      return detectInitialLanguage();
+    }
+
+    function detectInitialLanguage() {
+      const raw = String(navigator.language || 'en-US').toLowerCase();
+      if (raw.startsWith('ja')) return 'ja';
+      if (raw.startsWith('zh')) return 'zh';
+      if (raw.startsWith('fr')) return 'fr';
+      if (raw.startsWith('ko')) return 'ko';
+      if (raw.startsWith('pt')) return 'pr';
+      if (raw.startsWith('tl') || raw.startsWith('fil')) return 'tl';
+      if (raw.startsWith('vi')) return 've';
+      if (raw.startsWith('th')) return 'th';
+      if (raw.startsWith('de')) return 'de';
+      if (raw.startsWith('id')) return 'id';
+      if (raw.startsWith('ru')) return 'ru';
+      if (raw.startsWith('ne')) return 'ne';
+      if (raw.startsWith('lo')) return 'lo';
+      if (raw.startsWith('uk')) return 'uk';
+      if (raw.startsWith('fa')) return 'fa-AF';
+      if (raw.startsWith('si')) return 'si';
+      if (raw.startsWith('ms')) return 'ms';
+      if (raw.startsWith('my')) return 'my';
+      if (raw.startsWith('bn')) return 'bn';
+      if (raw.startsWith('ur')) return 'ur';
+      return 'en-US';
+    }
+
+    function renderLanguageButtons() {
+      const list = document.getElementById('languageOptionList');
+      list.innerHTML = '';
+      languageOptions.forEach((lang) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'language-option-btn' + (selectedLanguage === lang.code ? ' active' : '');
+        btn.textContent = lang.label;
+        btn.addEventListener('click', () => {
+          selectedLanguage = lang.code;
+          localStorage.setItem(STORAGE_KEY, selectedLanguage);
+          closeLanguageDialog();
+          renderLanguageButtons();
+          renderDialogText();
+          renderQaList();
+        });
+        list.appendChild(btn);
+      });
+    }
+
+    function renderDialogText() {
+      const text = DIALOG_TEXT[selectedLanguage] || DIALOG_TEXT['en-US'];
+      document.getElementById('languageSettingBtn').textContent = text.settings;
+      document.getElementById('languageDialogTitle').textContent = text.settings;
+      document.getElementById('languageSectionTitle').textContent = text.language;
+      document.getElementById('closeLanguageBtn').textContent = text.close;
+      document.getElementById('pageLead').textContent = text.lead || DIALOG_TEXT['en-US'].lead;
+      document.getElementById('keywordSearchLabel').textContent = text.keyword;
+      document.getElementById('keywordSearch').placeholder = text.keywordPlaceholder;
+      document.getElementById('tagSearchLabel').textContent = text.tag;
+      renderTagFilters();
+    }
+
+    function renderTagFilters() {
+      const text = DIALOG_TEXT[selectedLanguage] || DIALOG_TEXT['en-US'];
+      const container = document.getElementById('tagFilterList');
+      const tags = Array.from(new Set(qaItems.flatMap((item) => item.tags || [])));
+      const filters = [{
+        id: 'all',
+        label: text.allTags
+      }, ...tags.map((tag) => ({
+        id: tag,
+        label: tag
+      }))];
+      container.innerHTML = '';
+      filters.forEach((tag) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'tag-filter-btn' + (selectedTag === tag.id ? ' active' : '');
+        btn.innerHTML = tag.id === 'all' ? escapeHtml(tag.label) : renderBilingualText(tag.label, translateTag(tag.label));
+        btn.addEventListener('click', () => {
+          selectedTag = tag.id;
+          renderTagFilters();
+          renderQaList();
+        });
+        container.appendChild(btn);
+      });
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'tag-filter-btn' + (selectedTag === "system" ? ' active' : '');
+      btn.innerHTML = renderBilingualText("妊娠期・分娩期・育児期の主要制度一覧", "System Information");
+      btn.addEventListener('click', () => {
+        selectedTag = "system";
+        window.open('../systeminformation', '_blank');
+      });
+      container.appendChild(btn);
+      const btn1 = document.createElement('button');
+      btn1.type = 'button';
+      btn1.className = 'tag-filter-btn' + (selectedTag === "sex" ? ' active' : '');
+      btn1.innerHTML = renderBilingualText("性交渉について", "Sex During Pregnancy");
+      btn1.addEventListener('click', () => {
+        selectedTag = "sex";
+        window.open('../aboutsex', '_blank');
+      });
+      container.appendChild(btn1);
+      const btn2 = document.createElement('button');
+      btn2.type = 'button';
+      btn2.className = 'tag-filter-btn' + (selectedTag === "aruaru" ? ' active' : '');
+      btn2.innerHTML = renderBilingualText("日本のスタンダード", "Japanese Childbirth Standards");
+      btn2.addEventListener('click', () => {
+        selectedTag = "aruaru";
+        window.open('../aruaru', '_blank');
+      });
+      container.appendChild(btn2);
+    }
+
+    function renderQaList() {
+      const list = document.getElementById('qaList');
+      list.innerHTML = '';
+      const text = DIALOG_TEXT[selectedLanguage] || DIALOG_TEXT['en-US'];
+      const filteredItems = qaItems.filter(matchesFilter);
+      document.getElementById('searchResultMeta').textContent = filteredItems.length ?
+        `${filteredItems.length}${selectedLanguage === 'zh' ? '' : ' '}${text.result}` :
+        text.noResult;
+
+      filteredItems.forEach((item, index) => {
+        const details = document.createElement('details');
+        details.className = 'qa-card';
+        if (index === 0) details.open = true;
+        const translatedQuestion = getTranslatedQuestion(item);
+        const translatedAnswer = getTranslatedAnswer(item);
+
+        const summary = document.createElement('summary');
+        summary.className = 'qa-summary';
+        summary.innerHTML = `
+          <p class="qa-ja">${escapeHtml(item.jaQ)}</p>
+          <p class="qa-tr${selectedLanguage === 'ja' || !translatedQuestion ? ' is-hidden' : ''}">${escapeHtml(translatedQuestion)}</p>
+        `;
+
+        const panel = document.createElement('div');
+        panel.className = 'qa-panel';
+        panel.innerHTML = `
+          <div class="answer-block">
+            <p class="answer-label">A</p>
+            <p class="answer-ja${isPending(item.jaA) ? ' answer-pending' : ''}">${escapeHtml(item.jaA)}</p>
+            <p class="answer-tr${isPending(item.enA) ? ' answer-pending' : ''}${selectedLanguage === 'ja' || !translatedAnswer ? ' is-hidden' : ''}">${escapeHtml(translatedAnswer)}</p>
+          </div>
+        `;
+
+        details.appendChild(summary);
+        details.appendChild(panel);
+        list.appendChild(details);
+      });
+    }
+
+    function matchesFilter(item) {
+      const tagMatch = selectedTag === 'all' || (item.tags || []).includes(selectedTag);
+      if (!tagMatch) return false;
+      if (!keyword) return true;
+      const haystack = [
+        item.jaQ,
+        item.enQ,
+        item.jaA,
+        item.enA,
+        ...(item.tags || [])
+      ].join(' ').toLowerCase();
+      return haystack.includes(keyword);
+    }
+
+    function getTranslatedQuestion(item) {
+      if (selectedLanguage === 'ja') return '';
+      return item.enQ || '';
+    }
+
+    function getTranslatedAnswer(item) {
+      if (selectedLanguage === 'ja') return '';
+      return item.enA || '';
+    }
+
+    function translateTag(tag) {
+      return tagTranslations[tag] || tag;
+    }
+
+    function renderBilingualText(jaText, translatedText) {
+      if (selectedLanguage === 'ja' || !translatedText || translatedText === jaText) {
+        return escapeHtml(jaText);
+      }
+      return `<span class="chip-ja">${escapeHtml(jaText)}</span><span class="chip-tr">${escapeHtml(translatedText)}</span>`;
+    }
+
+    function isPending(text) {
+      return /準備中|being prepared/i.test(String(text || ''));
+    }
+
+    function escapeHtml(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+  </script>
+</body>
+
+</html>
