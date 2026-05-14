@@ -317,10 +317,6 @@
             state.answers = buildAnswersFromVaccinationItems(state.schema, vaccinationItems, state.customQuestions);
             updateQuestionCollection();
             renderForm();
-
-            document.addEventListener("language-changed", function () {
-                localizeVaccinationForm();
-            });
         } catch (error) {
             console.error("main failed:", error);
             alert("Failed to load vaccination form.");
@@ -378,7 +374,7 @@
 
     function localizeVaccinationForm() {
         if ($.fn.localize && window.i18next && i18next.isInitialized) {
-            $("main").localize();
+            $("#vaccinationForm").localize();
         }
     }
 

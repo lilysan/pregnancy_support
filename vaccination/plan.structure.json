@@ -1,0 +1,168 @@
+{
+  "formId": "vaccination",
+  "ver": "1",
+  "i18n": "vac",
+  "questions": [
+    {
+      "id": "diphtheria",
+      "labelKey": "q.diphtheria.label",
+      "inputType": "single",
+      "options": [
+        {
+          "id": "yes",
+          "labelKey": "q.all.yes",
+          "activatesDate": true
+        },
+        {
+          "id": "no",
+          "labelKey": "q.all.no"
+        },
+        {
+          "id": "unknown",
+          "labelKey": "q.all.unknown"
+        }
+      ]
+    },
+    {
+      "id": "tetanus",
+      "labelKey": "q.tetanus.label",
+      "inputType": "single",
+      "options": [
+        {
+          "id": "yes",
+          "labelKey": "q.all.yes",
+          "activatesDate": true
+        },
+        {
+          "id": "no",
+          "labelKey": "q.all.no"
+        },
+        {
+          "id": "unknown",
+          "labelKey": "q.all.unknown"
+        }
+      ]
+    },
+    {
+      "id": "pertussis",
+      "labelKey": "q.pertussis.label",
+      "inputType": "single",
+      "options": [
+        {
+          "id": "yes",
+          "labelKey": "q.all.yes",
+          "activatesDate": true
+        },
+        {
+          "id": "no",
+          "labelKey": "q.all.no"
+        },
+        {
+          "id": "unknown",
+          "labelKey": "q.all.unknown"
+        }
+      ]
+    },
+    {
+      "id": "measles",
+      "labelKey": "q.measles.label",
+      "inputType": "single",
+      "options": [
+        {
+          "id": "yes",
+          "labelKey": "q.all.yes",
+          "activatesDate": true
+        },
+        {
+          "id": "no",
+          "labelKey": "q.all.no"
+        },
+        {
+          "id": "unknown",
+          "labelKey": "q.all.unknown"
+        }
+      ]
+    },
+    {
+      "id": "rubella",
+      "labelKey": "q.rubella.label",
+      "inputType": "single",
+      "options": [
+        {
+          "id": "yes",
+          "labelKey": "q.all.yes",
+          "activatesDate": true
+        },
+        {
+          "id": "no",
+          "labelKey": "q.all.no"
+        },
+        {
+          "id": "unknown",
+          "labelKey": "q.all.unknown"
+        }
+      ]
+    },
+    {
+      "id": "rsvirus",
+      "labelKey": "q.rsvirus.label",
+      "inputType": "single",
+      "options": [
+        {
+          "id": "yes",
+          "labelKey": "q.all.yes",
+          "activatesDate": true
+        },
+        {
+          "id": "no",
+          "labelKey": "q.all.no"
+        },
+        {
+          "id": "unknown",
+          "labelKey": "q.all.unknown"
+        }
+      ]
+    },
+    {
+      "id": "influenza",
+      "labelKey": "q.influenza.label",
+      "inputType": "single",
+      "options": [
+        {
+          "id": "yes",
+          "labelKey": "q.all.yes",
+          "activatesDate": true
+        },
+        {
+          "id": "no",
+          "labelKey": "q.all.no"
+        },
+        {
+          "id": "unknown",
+          "labelKey": "q.all.unknown"
+        }
+      ]
+    },
+    {
+      "id": "covid19",
+      "labelKey": "q.covid19.label",
+      "inputType": "single",
+      "options": [
+        {
+          "id": "yes",
+          "labelKey": "q.all.yes",
+          "activatesDate": true
+        },
+        {
+          "id": "no",
+          "labelKey": "q.all.no"
+        },
+        {
+          "id": "unknown",
+          "labelKey": "q.all.unknown"
+        }
+      ]
+    }
+  ]
+
+}
