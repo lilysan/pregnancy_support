@@ -489,7 +489,6 @@
     "q.date.label": "直近接種日",
     "q.custom.name.label": "ワクチン名",
     "q.custom.name.placeholder": "ワクチン名を入力",
-    "q.custom.status.label": "接種状況",
     "q.all.yes": "接種済み",
     "q.all.no": "未接種",
     "q.all.unknown": "不明",

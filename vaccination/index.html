@@ -69,6 +69,22 @@
             font-weight: 600;
         }
 
+        .vac-custom-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .badge-primary {
+            background:var(--primary-light);
+            color:var(--primary-dark);
+            padding:4px 10px;
+            font-weight:700;
+            margin-right: 8px;
+        }
+
         .vac-options {
             margin-top: 6px;
         }
@@ -92,11 +108,6 @@
 
         .vac-custom-name {
             margin-bottom: 12px;
-        }
-
-        .vac-custom-actions {
-            display: flex;
-            justify-content: flex-end;
         }
 
         .vac-delete-btn {
@@ -228,7 +239,14 @@
     <article class="main-container">
         <h1 data-i18n="[html]title.vaccination"></h1>
         <p class="desc" data-i18n="[html]vac.desc"></p>
-
+        <div class="card">
+            <div class="state-card-inner">
+                <iconify-icon icon="material-symbols:info-rounded" width="24" height="24" style="color:var(--info-state)"></iconify-icon>
+                <div>
+                    <p class="small" data-i18n="[html]bp.info1"></p>
+                </div>
+            </div>
+        </div>
         <form id="vaccinationForm"></form>
 
         <div class="vac-form-footer">
@@ -409,12 +427,18 @@
     function renderQuestion(question, questionNumber) {
         const wrap = $("<article>")
             .addClass("vac-question card")
+            .toggleClass("is-custom", Boolean(question.isCustom))
             .attr("data-question-id", question.id);
 
         if (question.isCustom) {
             wrap.append(
                 $("<div>")
-                    .addClass("vac-custom-actions")
+                    .addClass("vac-custom-header")
+                    .append(
+                        $("<span>")
+                            .addClass("badge badge-primary")
+                            .text(questionNumber)
+                    )
                     .append(
                         $("<button>")
                             .attr("type", "button")
@@ -455,19 +479,21 @@
             );
         }
 
-        wrap.append(
-            $("<p>")
-                .addClass("vac-question-label")
-                .append(
-                    $("<span>")
-                        .addClass("vac-question-number")
-                        .text(`${questionNumber}. `)
-                )
-                .append(
-                    $("<span>")
-                        .attr("data-i18n", question.isCustom ? "[html]vac.q.custom.status.label" : `[html]vac.${question.labelKey}`)
-                )
-        );
+        if (!question.isCustom) {
+            wrap.append(
+                $("<p>")
+                    .addClass("vac-question-label")
+                    .append(
+                        $("<span>")
+                            .addClass("badge badge-primary")
+                            .text(`${questionNumber}`)
+                    )
+                    .append(
+                        $("<span>")
+                            .attr("data-i18n", `[html]vac.${question.labelKey}`)
+                    )
+            );
+        }
 
         const optionsEl = $("<div>").addClass("radio-row vac-options single-select");
         const answer = getAnswer(question.id);

@@ -239,6 +239,14 @@
             box-shadow: 0 -22px 0 var(--background), 0 5px 5px 10px var(--background);
         }
 
+        .badge-primary {
+            background:var(--primary-light);
+            color:var(--primary-dark);
+            padding:4px 10px;
+            font-weight:700;
+            margin-right: 8px;
+        }
+
         main {
             padding-bottom: 120px;
         }
@@ -506,8 +514,8 @@
                 .addClass("bp-question-label")
                 .append(
                     $("<span>")
-                        .addClass("bp-question-number")
-                        .text(`${questionNumber}. `)
+                        .addClass("badge badge-primary")
+                        .text(`${questionNumber}`)
                 )
                 .append(
                     $("<span>")
