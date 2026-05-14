@@ -62,7 +62,8 @@
     "back": "Back",
     "save": "Save",
     "clear": "Clear input",
-    "reset": "Reset"
+    "reset": "Reset",
+    "delete": "Delete"
   },
   "placeholder": {
     "free": "Free text"
@@ -474,6 +475,26 @@
         "o3": "Depending on the situation"
       }
     }
+  },
+  "vac": {
+    "desc": "Enter your vaccination records.",
+    "q.diphtheria.label": "Diphtheria",
+    "q.tetanus.label": "Tetanus",
+    "q.pertussis.label": "Pertussis",
+    "q.measles.label": "Measles",
+    "q.rubella.label": "Rubella",
+    "q.rsvirus.label": "RS Virus",
+    "q.influenza.label": "Influenza",
+    "q.covid19.label": "COVID-19",
+    "q.date.label": "Most Recent Vaccination Date",
+    "q.custom.name.label": "Vaccine Name",
+    "q.custom.name.placeholder": "Enter vaccine name",
+    "q.custom.status.label": "Vaccination Status",
+    "q.all.yes": "Vaccinated",
+    "q.all.no": "Not Vaccinated",
+    "q.all.unknown": "Unknown",
+    "button.addCustom": "Add Vaccine",
+    "error.customNameRequired": "Please enter a vaccine name."
   },
   "today.baby.week.8.weightGuide": "Approx. 1–7g",
   "today.baby.week.8.weightImage": "1 small bean",
