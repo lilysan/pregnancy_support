@@ -13,6 +13,7 @@
     <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="../common/js/config.js"></script>
+    <script src="../common/js/toast.js"></script>
     <link rel="stylesheet" href="../style.css"/>
 </head>
 <body>
@@ -21,16 +22,6 @@
 
 <!--メインコンテンツ-->
 <main>
-    <div class="toast" id="toast">
-        <div class="toast-inner" id="toastInner">
-            <iconify-icon id="toastIcon" width="22" height="22"></iconify-icon>
-            <div>
-                <p class="body-sample" id="toastTitle" style="font-weight:600;margin:0"></p>
-                <p class="caption-sample" id="toastMessage" style="margin:0"></p>
-            </div>
-        </div>
-    </div>
-
     <article class="main-container">
         <h1 data-i18n="[html]title.template"></h1>
         <p class="desc" data-i18n="[html]template.desc"></p>
