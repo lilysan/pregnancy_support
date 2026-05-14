@@ -471,6 +471,27 @@
       }
     }
   },
+  "vac": {
+    "desc": "自身の予防接種記録を入力しておきましょう。",
+    "q.diphtheria.label": "ジフテリア",
+    "q.tetanus.label": "破傷風",
+    "q.pertussis.label": "百日咳",
+    "q.measles.label": "麻疹",
+    "q.rubella.label": "風疹",
+    "q.rsvirus.label": "RSウイルス",
+    "q.influenza.label": "インフルエンザ",
+    "q.covid19.label": "新型コロナ",
+    "q.date.label": "直近接種日",
+    "q.custom.name.label": "ワクチン名",
+    "q.custom.name.placeholder": "ワクチン名を入力",
+    "q.custom.status.label": "接種状況",
+    "q.all.yes": "接種済み",
+    "q.all.no": "未接種",
+    "q.all.unknown": "不明",
+    "button.addCustom": "ワクチンを追加",
+    "button.deleteCustom": "削除",
+    "error.customNameRequired": "ワクチン名を入力してください。"
+  },
   "today.baby.label.weight": "推定体重の目安",
   "today.baby.label.weightImage": "重さのイメージ",
   "today.baby.label.content": "成長の様子",

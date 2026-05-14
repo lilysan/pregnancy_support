@@ -1,159 +1,874 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Vaccination | Pregnancy Support</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="stylesheet" href="../reset.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../style.css">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="../common/js/config.js"></script>
+    <script src="../common/js/toast.js"></script>
+    <link rel="stylesheet" href="../style.css"/>
+    <style>
+        .vac-question {
+            margin-top: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vac-question.is-answered::after,
+        .vac-question.is-unanswered::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-left: 32px solid transparent;
+            pointer-events: none;
+        }
+
+        .vac-question.is-answered::after {
+            border-top: 32px solid var(--success);
+        }
+
+        .vac-question.is-unanswered::after {
+            border-top: 32px solid var(--border);
+        }
+
+        .vac-question.is-answered::before,
+        .vac-question.is-unanswered::before {
+            position: absolute;
+            top: 2px;
+            right: 5px;
+            color: var(--background);
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .vac-question.is-answered::before {
+            content: "✓";
+        }
+
+        .vac-question.is-unanswered::before {
+            content: "○";
+        }
+
+        .vac-question-label {
+            margin: 0 0 8px;
+            font-weight: 600;
+        }
+
+        .vac-options {
+            margin-top: 6px;
+        }
+
+        .vaccination-date {
+            margin-top: 10px;
+        }
+
+        .vaccination-date.is-hidden {
+            display: none;
+        }
+
+        .vaccination-date-label {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--sub-text);
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .vac-custom-name {
+            margin-bottom: 12px;
+        }
+
+        .vac-custom-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .vac-delete-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--error);
+        }
+
+        .vac-form-footer {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .vac-add-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vac-sticky-actions {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 20;
+            background: #fff;
+            padding: 0 24px calc(10px + env(safe-area-inset-bottom));
+            box-shadow: 0 -5px 5px 10px var(--background);
+        }
+
+        .vac-sticky-actions .btn-column {
+            margin-top: 0;
+        }
+
+        #vaccinationForm {
+            position: relative;
+        }
+
+        .vac-global-progress {
+            position: fixed;
+            right: 0;
+            left: 0;
+            bottom: calc(70px + env(safe-area-inset-bottom));
+            z-index: 21;
+            margin: 0;
+            padding: 0 24px;
+            pointer-events: auto;
+        }
+
+        .vac-progress-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .vac-progress {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+            padding: 16px 12px;
+            border: 1px solid var(--primary-light);
+            border-radius: 12px;
+            background: var(--background);
+            box-shadow: var(--shadow);
+        }
+
+        .vac-progress-text {
+            font-size: 13px;
+            line-height: 1.2;
+            color: var(--sub-text);
+            white-space: nowrap;
+            direction: ltr;
+            unicode-bidi: isolate;
+        }
+
+        .vac-progress-track {
+            position: relative;
+            width: 72px;
+            height: 6px;
+            background: var(--background);
+            border: 1px solid var(--primary-border);
+            border-radius: 999px;
+            overflow: visible;
+        }
+
+        .vac-progress-fill {
+            display: block;
+            height: 100%;
+            width: 0;
+            background: var(--primary);
+            border-radius: inherit;
+            transition: width 0.18s ease;
+        }
+
+        .vac-progress-end {
+            position: absolute;
+            top: 50%;
+            right: -8px;
+            width: 16px;
+            height: 16px;
+            transform: translateY(-50%);
+            border-radius: 999px;
+            color: transparent;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 1;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .vac-progress-track.is-complete .vac-progress-end {
+            background: var(--success);
+            color: var(--background);
+        }
+
+        main {
+            padding-bottom: 120px;
+        }
+    </style>
 </head>
 <body>
-<div class="container mb-5">
-    <div class="loader">
-        <div class="text-center">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
+<div id="header-container" class="header-wrapper"></div>
+
+<main>
+    <article class="main-container">
+        <h1 data-i18n="[html]title.vaccination"></h1>
+        <p class="desc" data-i18n="[html]vac.desc"></p>
+
+        <form id="vaccinationForm"></form>
+
+        <div class="vac-form-footer">
+            <button type="button" id="addCustomVaccinationBtn" class="btn tertiary btn-small vac-add-btn">
+                <iconify-icon icon="material-symbols:add-rounded" width="20" height="20" aria-hidden="true"></iconify-icon>
+                <span data-i18n="[html]vac.button.addCustom"></span>
+            </button>
+        </div>
+
+        <div class="vac-sticky-actions">
+            <div class="fixed-container">
+                <div class="btn-column">
+                    <button type="button" id="saveDraftBtn" class="btn btn-primary" data-i18n="[html]button.save"></button>
+                </div>
             </div>
         </div>
-    </div>
+    </article>
+</main>
 
-    <h1 class="title_vaccination mt-3"></h1>
-    <p class="lead">（自身の予防接種記録）</p>
-
-    <form>
-        <!-- インフルエンザ -->
-        <fieldset class="mb-4">
-            <legend><span class="title_flu"></span> （インフルエンザ）</legend>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="influenza" id="influenzaYes" value="yes">
-                <label for="influenzaYes"><span class="form-check-label yes"></span> （接種済み）</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="influenza" id="influenzaNo" value="no">
-                <label for="influenzaNo"><span class="form-check-labeln no"></span> （未接種）</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="influenza" id="influenzaUnknown" value="unknown">
-                <label for="influenzaUnknown"><span class="form-check-label unknown"></span> （不明）</label>
-            </div>
-        </fieldset>
-
-        <!-- ジフテリア -->
-        <fieldset class="mb-4">
-            <legend><span class="title_diphtheria"></span> （ジフテリア）</legend>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="diphtheria" id="diphtheriaYes" value="yes">
-                <label for="diphtheriaYes"><span class="form-check-label yes"></span> （接種済み）</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="diphtheria" id="diphtheriaNo" value="no">
-                <label for="diphtheriaNo"><span class="form-check-label no"></span> （未接種）</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="diphtheria" id="diphtheriaUnknown" value="unknown">
-                <label for="diphtheriaUnknown"><span class="form-check-label unknown"></span> （不明）</label>
-            </div>
-        </fieldset>
-
-        <!-- 破傷風 -->
-        <fieldset class="mb-4">
-            <legend><span class="title_tetanus"></span> （破傷風）</legend>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="tetanus" id="tetanusYes" value="yes">
-                <label for="tetanusYes"><span class="form-check-label yes"></span> （接種済み）</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="tetanus" id="tetanusNo" value="no">
-                <label for="tetanusNo"><span class="form-check-label no"></span> （未接種）</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="tetanus" id="tetanusUnknown" value="unknown">
-                <label for="tetanusUnknown"><span class="form-check-label unknown"></span> （不明）</label>
-            </div>
-        </fieldset>
-
-        <!-- 百日咳ワクチン -->
-        <fieldset class="mb-4">
-            <legend><span class="title_pertussis"></span> （百日咳）</legend>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="pertussis" id="pertussisYes" value="yes">
-                <label for="pertussisYes"><span class="form-check-label yes"></span> （接種済み）</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="pertussis" id="pertussisNo" value="no">
-                <label for="pertussisNo"><span class="form-check-label no"></span> （未接種）</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="pertussis" id="pertussisUnknown" value="unknown">
-                <label for="pertussisUnknown"><span class="form-check-label unknown"></span> （不明）</label>
-            </div>
-        </fieldset>
-
-        <!-- 保存ボタン -->
-        <button type="button" class="btn btn-primary btn_save">Save</button>
-        <p>* Data will not be saved as this is a sample. （サンプルのため、入力されたデータは保存されません。）</p>
-    </form>
+<div class="overlay is-open" id="loadingOverlay">
+    <div class="spinner"></div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
-    const LIFF_ID = "2005594923-wN8OjyGd";
+    const currentPage = "vaccination";
+    const FORM_SCHEMA_URL = "./plan.structure.json";
 
-    liff.init({
-        liffId: LIFF_ID, // Use own liffId
-        withLoginOnExternalBrowser: true, // Enable automatic login process
-    }).then(() => {
-        // Start to use liff's api
-        const idToken = liff.getIDToken();
-        const lang = liff.getAppLanguage();
+    /** @type {import('@line/liff').Liff} */
+    const liff = window.liff;
 
-        changeLanguage(lang);
-        getVaccination(idToken);
+    const state = {
+        schema: null,
+        answers: {},
+        customQuestions: [],
+        deletedCustomQuestions: [],
+        allQuestionIds: [],
+        totalQuestions: 0,
+        idToken: null,
+        nextCustomTempId: 1
+    };
 
-        $(".btn_save").on("click", function(e){
+    const VACCINATION_STATUS = {
+        yes: 1,
+        no: 0,
+        unknown: 2
+    };
 
+    const STATUS_BY_API_VALUE = {
+        1: "yes",
+        0: "no",
+        2: "unknown"
+    };
+
+    $(function () {
+        const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+
+        liff.init({
+            liffId: LIFF_ID,
+            withLoginOnExternalBrowser: !isDev,
+        }).then(() => {
+            return Promise.all([
+                main(liff.getIDToken()),
+                loadHeader()
+            ]);
+        }).then(() => {
+            localizeVaccinationForm();
+            $("#loadingOverlay").removeClass("is-open");
+        }).catch((err) => {
+            console.error("LIFF init failed:", err);
+            alert("LIFF init failed.");
         });
 
-    }).catch((err) => {
-        // Error happens during initialization
-        liff.logout();
-        alert("LIFF init failed.");
+        $("#saveDraftBtn").on("click", handleSaveDraft);
+        $("#addCustomVaccinationBtn").on("click", handleAddCustomVaccination);
     });
-    
-    const getAccessObj = (data) => {
-        return {
-            url: API_URL,
-            type: "POST",
-            dataType: "json",
-            data: JSON.stringify(data),
-            timeout: 30000,
+
+    async function main(idToken) {
+        try {
+            state.idToken = idToken;
+            const schemaResponse = await fetch(FORM_SCHEMA_URL, {cache: "no-cache"});
+            const vaccinationItemsPromise = fetchVaccinationAnswers(idToken);
+
+            state.schema = await schemaResponse.json();
+            const vaccinationItems = await vaccinationItemsPromise;
+            state.customQuestions = buildCustomQuestionsFromVaccinationItems(vaccinationItems);
+            state.answers = buildAnswersFromVaccinationItems(state.schema, vaccinationItems, state.customQuestions);
+            updateQuestionCollection();
+            renderForm();
+
+            document.addEventListener("language-changed", function () {
+                localizeVaccinationForm();
+            });
+        } catch (error) {
+            console.error("main failed:", error);
+            alert("Failed to load vaccination form.");
         }
     }
 
-    function getVaccination(idToken){
-        $(".loader").hide();
+    function fetchVaccinationAnswers(idToken) {
+        return $.ajax({
+            url: API_URL,
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify({
+                path: "myVaccination",
+                method: "get",
+                idToken: idToken
+            }),
+            timeout: 30000,
+        }).then(function (response) {
+            if (response.statusCode === 401) {
+                liff.logout();
+                window.location.reload();
+                return [];
+            }
+            if (response.statusCode !== 200) {
+                console.error(response.message);
+                alert(response.message);
+                return [];
+            }
+            return response.data && Array.isArray(response.data.items) ? response.data.items : [];
+        }, function () {
+            alert("Network error!myVaccination");
+            return [];
+        });
     }
 
-    function changeLanguage(lang){
-        const knownLang = ["en"];
-        lang = knownLang.includes(lang) ? lang : "en";
-
-        $.getJSON("lang.json", (data) => {
-            $.each(data, function (index, val) {
-                const elm = $("." + val.class);
-                if(elm.length) {
-                    if (val.type === "docs") {
-                        elm.html(val[lang]);
-                    } else if (val.type === "placeholder") {
-                        elm.attr("placeholder", val[lang]);
-                    }
+    function loadHeader() {
+        return new Promise((resolve, reject) => {
+            $("#header-container").load("../common/header.html", function (responseText, status) {
+                if (status === "error") {
+                    reject(new Error("Failed to load header.html"));
+                    return;
                 }
+
+                document.addEventListener("i18n-initialized", function () {
+                    resolve();
+                }, {once: true});
+
+                $.getScript("../common/js/header.js")
+                    .fail(function () {
+                        reject(new Error("Failed to load header.js"));
+                    });
             });
         });
+    }
+
+    function localizeVaccinationForm() {
+        if ($.fn.localize && window.i18next && i18next.isInitialized) {
+            $("main").localize();
+        }
+    }
+
+    function renderForm() {
+        const form = $("#vaccinationForm");
+        form.empty();
+        if (!state.schema || !Array.isArray(state.schema.questions)) {
+            return;
+        }
+
+        form.append(`
+            <div id="globalProgress" class="vac-global-progress" aria-live="polite">
+                <div class="fixed-container vac-progress-container">
+                    <span class="vac-progress">
+                        <span class="vac-progress-text">0 / 0</span>
+                        <span class="vac-progress-track">
+                            <span class="vac-progress-fill"></span>
+                            <span class="vac-progress-end" aria-hidden="true">✓</span>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        `);
+
+        getAllQuestions().forEach((question, index) => {
+            form.append(renderQuestion(question, String(index + 1)));
+        });
+
+        updateProgressIndicators();
+    }
+
+    function renderQuestion(question, questionNumber) {
+        const wrap = $("<article>")
+            .addClass("vac-question card")
+            .attr("data-question-id", question.id);
+
+        if (question.isCustom) {
+            wrap.append(
+                $("<div>")
+                    .addClass("vac-custom-actions")
+                    .append(
+                        $("<button>")
+                            .attr("type", "button")
+                            .addClass("btn tertiary btn-small vac-delete-btn")
+                            .append(
+                                $("<iconify-icon>")
+                                    .attr("icon", "material-symbols:delete-outline-rounded")
+                                    .attr("width", "18")
+                                    .attr("height", "18")
+                                    .attr("aria-hidden", "true")
+                            )
+                            .append(
+                                $("<span>")
+                                    .attr("data-i18n", "[html]vac.button.deleteCustom")
+                            )
+                            .on("click", function () {
+                                handleDeleteCustomVaccination(question.id);
+                            })
+                    )
+            );
+            wrap.append(
+                $("<label>")
+                    .addClass("vac-custom-name")
+                    .append(
+                        $("<span>")
+                            .addClass("field-label")
+                            .attr("data-i18n", "[html]vac.q.custom.name.label")
+                    )
+                    .append(
+                        $("<input>")
+                            .attr("type", "text")
+                            .attr("data-i18n", "[placeholder]vac.q.custom.name.placeholder")
+                            .val(question.vaccinationName || "")
+                            .on("input", function () {
+                                question.vaccinationName = $(this).val();
+                            })
+                    )
+            );
+        }
+
+        wrap.append(
+            $("<p>")
+                .addClass("vac-question-label")
+                .append(
+                    $("<span>")
+                        .addClass("vac-question-number")
+                        .text(`${questionNumber}. `)
+                )
+                .append(
+                    $("<span>")
+                        .attr("data-i18n", question.isCustom ? "[html]vac.q.custom.status.label" : `[html]vac.${question.labelKey}`)
+                )
+        );
+
+        const optionsEl = $("<div>").addClass("radio-row vac-options single-select");
+        const answer = getAnswer(question.id);
+
+        question.options.forEach((option) => {
+            const isActive = answer.selected === option.id;
+            const chip = $("<button>")
+                .attr("type", "button")
+                .addClass("radio-chip")
+                .toggleClass("active", isActive)
+                .attr("data-value", option.id)
+                .attr("data-i18n", `[html]vac.${option.labelKey}`)
+                .on("click", function () {
+                    updateSelection(question, option.id);
+                    syncQuestionUi(question, wrap);
+                    updateProgressIndicators();
+                });
+
+            optionsEl.append(chip);
+        });
+
+        wrap.append(optionsEl);
+
+        if (hasDateOption(question)) {
+            const dateField = $("<label>")
+                .addClass("vaccination-date")
+                .toggleClass("is-hidden", !shouldShowDate(question))
+                .append(
+                    $("<span>")
+                        .addClass("vaccination-date-label")
+                        .attr("data-i18n", "[html]vac.q.date.label")
+                )
+                .append(
+                    $("<input>")
+                        .attr("type", "date")
+                        .val(answer.date || "")
+                        .prop("disabled", !shouldShowDate(question))
+                        .on("input", function () {
+                            updateDate(question.id, $(this).val());
+                            syncAnsweredFlag(question, wrap);
+                        })
+                );
+            wrap.append(dateField);
+        }
+
+        syncAnsweredFlag(question, wrap);
+        return wrap;
+    }
+
+    function syncQuestionUi(question, questionEl) {
+        const answer = getAnswer(question.id);
+        questionEl.children(".vac-options").find(".radio-chip").each(function () {
+            $(this).toggleClass("active", answer.selected === $(this).data("value"));
+        });
+
+        const dateField = questionEl.children(".vaccination-date");
+        if (dateField.length) {
+            const visible = shouldShowDate(question);
+            dateField.toggleClass("is-hidden", !visible);
+            dateField.find("input")
+                .prop("disabled", !visible)
+                .val(visible ? (answer.date || "") : "");
+            if (!visible) {
+                answer.date = "";
+            }
+        }
+
+        syncAnsweredFlag(question, questionEl);
+    }
+
+    function updateSelection(question, optionId) {
+        const answer = getAnswer(question.id);
+        answer.selected = answer.selected === optionId ? null : optionId;
+        if (!shouldShowDate(question)) {
+            answer.date = "";
+        }
+    }
+
+    function updateDate(questionId, value) {
+        getAnswer(questionId).date = value;
+    }
+
+    function syncAnsweredFlag(question, questionEl) {
+        const answered = isQuestionAnswered(question.id);
+        questionEl.toggleClass("is-answered", answered);
+        questionEl.toggleClass("is-unanswered", !answered);
+    }
+
+    function hasDateOption(question) {
+        return Array.isArray(question.options) && question.options.some((option) => option.activatesDate);
+    }
+
+    function shouldShowDate(question) {
+        const answer = getAnswer(question.id);
+        const selectedOption = getQuestionOptionById(question, answer.selected);
+        return Boolean(selectedOption && selectedOption.activatesDate);
+    }
+
+    function getAnswer(questionId) {
+        if (!state.answers[questionId]) {
+            state.answers[questionId] = {selected: null, date: ""};
+        }
+        return state.answers[questionId];
+    }
+
+    function getQuestionOptionById(question, optionId) {
+        if (!question || !Array.isArray(question.options)) {
+            return null;
+        }
+        return question.options.find((option) => option.id === optionId) || null;
+    }
+
+    function buildAnswersFromVaccinationItems(schema, items, customQuestions) {
+        const answers = {};
+        const itemMap = {};
+        if (Array.isArray(items)) {
+            items.forEach((item) => {
+                if (item && item.vaccinationKey && item.vaccinationKey !== "customize") {
+                    itemMap[item.vaccinationKey] = item;
+                }
+            });
+        }
+
+        if (!schema || !Array.isArray(schema.questions)) {
+            return answers;
+        }
+
+        schema.questions.forEach((question) => {
+            const item = itemMap[question.id];
+            if (!item || !Object.prototype.hasOwnProperty.call(STATUS_BY_API_VALUE, item.isVaccinated)) {
+                return;
+            }
+            answers[question.id] = {
+                selected: STATUS_BY_API_VALUE[item.isVaccinated],
+                date: toDateInputValue(item.datetime)
+            };
+        });
+
+        if (Array.isArray(customQuestions)) {
+            customQuestions.forEach((question) => {
+                const item = question.sourceItem;
+                if (!item || !Object.prototype.hasOwnProperty.call(STATUS_BY_API_VALUE, item.isVaccinated)) {
+                    return;
+                }
+                answers[question.id] = {
+                    selected: STATUS_BY_API_VALUE[item.isVaccinated],
+                    date: toDateInputValue(item.datetime)
+                };
+            });
+        }
+        return answers;
+    }
+
+    function buildCustomQuestionsFromVaccinationItems(items) {
+        if (!Array.isArray(items)) {
+            return [];
+        }
+        return items
+            .filter((item) => item && item.vaccinationKey === "customize" && item.customizeId != null)
+            .map((item) => ({
+                id: `customize-${item.customizeId}`,
+                vaccinationKey: "customize",
+                customizeId: item.customizeId,
+                vaccinationName: item.vaccinationName || "",
+                originalVaccinationName: item.vaccinationName || "",
+                isCustom: true,
+                labelKey: null,
+                inputType: "single",
+                options: getVaccinationOptions(),
+                sourceItem: item
+            }));
+    }
+
+    function collectQuestionIdsFromSchema(schema) {
+        return getAllQuestions(schema).map((question) => question.id);
+    }
+
+    function getAllQuestions(schema = state.schema) {
+        const baseQuestions = schema && Array.isArray(schema.questions) ? schema.questions : [];
+        return baseQuestions.concat(state.customQuestions);
+    }
+
+    function updateQuestionCollection() {
+        state.allQuestionIds = collectQuestionIdsFromSchema(state.schema);
+        state.totalQuestions = state.allQuestionIds.length;
+    }
+
+    function isQuestionAnswered(questionId) {
+        return getAnswer(questionId).selected != null;
+    }
+
+    function updateProgressIndicators() {
+        const total = state.totalQuestions || 0;
+        const answered = state.allQuestionIds.filter((questionId) => isQuestionAnswered(questionId)).length;
+        const percent = total > 0 ? Math.round((answered / total) * 100) : 0;
+
+        $("#globalProgress .vac-progress-text").text(`${answered} / ${total}`);
+        $("#globalProgress .vac-progress-fill").css("width", `${percent}%`);
+        $("#globalProgress .vac-progress-track").toggleClass("is-complete", percent >= 100);
+    }
+
+    async function handleSaveDraft() {
+        const saveButton = $("#saveDraftBtn");
+        saveButton.prop("disabled", true);
+        $("#loadingOverlay").addClass("is-open");
+        try {
+            const items = buildVaccinationPostItems(state.schema);
+            if (!items) {
+                return;
+            }
+            const saved = await saveVaccinationAnswers(state.idToken, items);
+            if (!saved) {
+                return;
+            }
+            await reloadVaccinationForm();
+        } finally {
+            $("#loadingOverlay").removeClass("is-open");
+            saveButton.prop("disabled", false);
+        }
+
+        const toastManager = createToastManager();
+        toastManager.show({
+            title: i18next.t("toast.success", "せいこう"),
+            message: i18next.t("success.save", "ほぞんしました"),
+            color: "var(--success)",
+            bg: "var(--toast-bg-success)",
+            icon: "material-symbols:check-circle-rounded"
+        });
+    }
+
+    async function reloadVaccinationForm() {
+        const vaccinationItems = await fetchVaccinationAnswers(state.idToken);
+        state.customQuestions = buildCustomQuestionsFromVaccinationItems(vaccinationItems);
+        state.deletedCustomQuestions = [];
+        state.answers = buildAnswersFromVaccinationItems(state.schema, vaccinationItems, state.customQuestions);
+        updateQuestionCollection();
+        renderForm();
+        localizeVaccinationForm();
+    }
+
+    function saveVaccinationAnswers(idToken, items) {
+        return $.ajax({
+            url: API_URL,
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify({
+                path: "myVaccination",
+                method: "post",
+                idToken: idToken,
+                postData: {
+                    items: items
+                }
+            }),
+            timeout: 30000,
+        }).then(function (response) {
+            if (response.statusCode === 401) {
+                liff.logout();
+                window.location.reload();
+                return false;
+            }
+            if (response.statusCode !== 200) {
+                console.error(response.message);
+                alert(response.message);
+                return false;
+            }
+            return true;
+        }, function () {
+            alert("Network error!saveVaccination");
+            return false;
+        });
+    }
+
+    function buildVaccinationPostItems(schema) {
+        if (!schema || !Array.isArray(schema.questions)) {
+            return [];
+        }
+        const items = [];
+        const questions = getAllQuestions(schema);
+
+        for (let i = 0; i < questions.length; i += 1) {
+            const question = questions[i];
+            const answer = state.answers[question.id];
+            const hasSelectedStatus = answer && answer.selected != null;
+            const customName = question.isCustom ? (question.vaccinationName || "").trim() : "";
+            if (!hasSelectedStatus && !customName) {
+                if (question.isCustom) {
+                    continue;
+                }
+            }
+
+            const item = {
+                vaccinationKey: question.vaccinationKey || question.id
+            };
+
+            if (hasSelectedStatus) {
+                item.isVaccinated = VACCINATION_STATUS[answer.selected];
+            }
+
+            if (question.isCustom) {
+                if (!customName) {
+                    alert(i18next.t("vac.error.customNameRequired"));
+                    return null;
+                }
+                item.vaccinationName = customName;
+                if (question.customizeId != null) {
+                    item.customizeId = question.customizeId;
+                }
+            }
+
+            if (answer && answer.date) {
+                item.datetime = toApiDateValue(answer.date);
+            }
+            items.push(item);
+        }
+
+        state.deletedCustomQuestions.forEach((question) => {
+            if (question.customizeId == null) {
+                return;
+            }
+            items.push({
+                vaccinationKey: "customize",
+                customizeId: question.customizeId,
+                isDeleted: 1
+            });
+        });
+
+        return items;
+    }
+
+    function toDateInputValue(value) {
+        if (typeof value !== "string") {
+            return "";
+        }
+        const match = value.match(/^(\d{4})[/-](\d{1,2})[/-](\d{1,2})$/);
+        if (!match) {
+            return "";
+        }
+        return `${match[1]}-${match[2].padStart(2, "0")}-${match[3].padStart(2, "0")}`;
+    }
+
+    function toApiDateValue(value) {
+        return typeof value === "string" ? value.replace(/-/g, "/") : "";
+    }
+
+    function handleAddCustomVaccination() {
+        const question = {
+            id: `customize-new-${state.nextCustomTempId}`,
+            vaccinationKey: "customize",
+            customizeId: null,
+            vaccinationName: "",
+            originalVaccinationName: "",
+            isCustom: true,
+            labelKey: null,
+            inputType: "single",
+            options: getVaccinationOptions()
+        };
+        state.nextCustomTempId += 1;
+        state.customQuestions.push(question);
+        state.answers[question.id] = {selected: null, date: ""};
+        updateQuestionCollection();
+        renderForm();
+        localizeVaccinationForm();
+
+        const questionEl = $(`[data-question-id="${question.id}"]`);
+        questionEl.find("input[type='text']").trigger("focus");
+        if (questionEl.length) {
+            questionEl[0].scrollIntoView({behavior: "smooth", block: "center"});
+        }
+    }
+
+    function handleDeleteCustomVaccination(questionId) {
+        const index = state.customQuestions.findIndex((question) => question.id === questionId);
+        if (index === -1) {
+            return;
+        }
+        const question = state.customQuestions[index];
+        if (question.customizeId != null) {
+            state.deletedCustomQuestions.push({
+                customizeId: question.customizeId,
+                vaccinationName: question.vaccinationName || ""
+            });
+        }
+        state.customQuestions.splice(index, 1);
+        delete state.answers[questionId];
+        updateQuestionCollection();
+        renderForm();
+        localizeVaccinationForm();
+    }
+
+    function getVaccinationOptions() {
+        return state.schema && Array.isArray(state.schema.questions) && state.schema.questions[0]
+            ? state.schema.questions[0].options
+            : [
+                {id: "yes", labelKey: "q.all.yes", activatesDate: true},
+                {id: "no", labelKey: "q.all.no"},
+                {id: "unknown", labelKey: "q.all.unknown"}
+            ];
     }
 
 </script>
