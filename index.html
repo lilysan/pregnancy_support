@@ -83,7 +83,11 @@
                     $("#loadingOverlay").removeClass('is-open');
                 }, { once: true });
 
-                $.getScript("common/js/header.js");
+                $.getScript("common/js/header.js", function() {
+                    $("#menuOverlay").addClass("is-open");
+                    $("body").addClass("no-scroll");
+                    $("#menuBtn").attr("aria-expanded", "true");
+                });
             });
         }
     });
