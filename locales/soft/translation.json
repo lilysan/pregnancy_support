@@ -57,12 +57,37 @@
   "button": {
     "ok": "OK",
     "cancel": "キャンセル",
-    "back": "もどる"
+    "back": "もどる",
+    "clear": "<ruby>入力<rt>にゅうりょく</rt></ruby>したものを <ruby>消<rt>け</rt></ruby>す",
+    "delete": "<ruby>消<rt>け</rt></ruby>す",
+    "no": "いいえ",
+    "reset": "リセット",
+    "save": "<ruby>保存<rt>ほぞん</rt></ruby>",
+    "yes": "はい"
+  },
+  "confirm": {
+    "clear": "<ruby>入力<rt>にゅうりょく</rt></ruby>したものを <ruby>消<rt>け</rt></ruby>しますか？",
+    "delete": "<ruby>本当<rt>ほんとう</rt></ruby>に <ruby>消<rt>け</rt></ruby>しますか？"
+  },
+  "success": {
+    "delete": "<ruby>消<rt>け</rt></ruby>しました。",
+    "save": "<ruby>保存<rt>ほぞん</rt></ruby>しました。"
+  },
+  "toast": {
+    "alert": "<ruby>警告<rt>けいこく</rt></ruby>",
+    "confirm": "<ruby>確認<rt>かくにん</rt></ruby>",
+    "error": "エラー",
+    "success": "<ruby>成功<rt>せいこう</rt></ruby>"
   },
   "placeholder": {
     "free": "じゆうにかいてください"
   },
   "bp": {
+    "desc": "どんなお<ruby>産<rt>さん</rt></ruby>にしたいか、<ruby>希望<rt>きぼう</rt></ruby>を <ruby>書<rt>か</rt></ruby>きましょう。",
+    "info1": "<ruby>途中<rt>とちゅう</rt></ruby>で <ruby>保存<rt>ほぞん</rt></ruby>できます。<br>すべての <ruby>希望<rt>きぼう</rt></ruby>に <ruby>対応<rt>たいおう</rt></ruby>できるとは <ruby>限<rt>かぎ</rt></ruby>りません。",
+    "info2": "グレーになっている <ruby>項目<rt>こうもく</rt></ruby>は、<ruby>出産予定<rt>しゅっさんよてい</rt></ruby>の <ruby>病院<rt>びょういん</rt></ruby>では <ruby>対応<rt>たいおう</rt></ruby>していません。",
+    "standardTitle": "<ruby>日本<rt>にほん</rt></ruby>の <ruby>標準的<rt>ひょうじゅんてき</rt></ruby>な <ruby>出産<rt>しゅっさん</rt></ruby>スタイルは？",
+    "standardDesc": "まずは <ruby>日本<rt>にほん</rt></ruby>で <ruby>一般的<rt>いっぱんてき</rt></ruby>な <ruby>出産<rt>しゅっさん</rt></ruby>の <ruby>流<rt>なが</rt></ruby>れを <ruby>確認<rt>かくにん</rt></ruby>しましょう。",
     "cat": {
       "laborBirth": "<ruby>分娩中<rt>ぶんべんちゅう</rt></ruby>",
       "postBirth": "<ruby>出生直後<rt>しゅっしょうちょくご</rt></ruby>",
@@ -174,9 +199,10 @@
         "o6": "そのほか"
       },
       "a012": {
-        "label": "<ruby>現時点<rt>げんじてん</rt></ruby>で <ruby>予定<rt>よてい</rt></ruby>している <ruby>分娩方法<rt>ぶんべんほうほう</rt></ruby>はどちらですか？",
+        "label": "<ruby>現時点<rt>げんじてん</rt></ruby>で <ruby>決<rt>き</rt></ruby>まっている <ruby>分娩方法<rt>ぶんべんほうほう</rt></ruby>はどちらですか？",
         "o1": "<ruby>経腟分娩<rt>けいちつぶんべん</rt></ruby>",
-        "o2": "<ruby>帝王切開<rt>ていおうせっかい</rt></ruby>"
+        "o2": "<ruby>帝王切開<rt>ていおうせっかい</rt></ruby>",
+        "o3": "<ruby>分<rt>わ</rt></ruby>からない/<ruby>決<rt>き</rt></ruby>まってない"
       },
       "a012a": {
         "label": "<ruby>誘発<rt>ゆうはつ</rt></ruby>・<ruby>促進<rt>そくしん</rt></ruby>（<ruby>陣痛促進剤<rt>じんつうそくしんざい</rt></ruby>など）を <ruby>希望<rt>きぼう</rt></ruby>しますか？",
@@ -185,7 +211,7 @@
         "o2": "できれば <ruby>避<rt>さ</rt></ruby>けたい",
         "o3": "<ruby>必要<rt>ひつよう</rt></ruby>ならOK",
         "o4": "<ruby>状況次第<rt>じょうきょうしだい</rt></ruby>",
-        "n": "012で経腟分娩予定の場合"
+        "n": "012で<ruby>経腟分娩<rt>けいちつぶんべん</rt></ruby>/<ruby>不明<rt>ふめい</rt></ruby>の<ruby>場合<rt>ばあい</rt></ruby>"
       },
       "a012b": {
         "label": "<ruby>帝王切開<rt>ていおうせっかい</rt></ruby>になった <ruby>場合<rt>ばあい</rt></ruby>、どのような <ruby>対応<rt>たいおう</rt></ruby>を <ruby>希望<rt>きぼう</rt></ruby>しますか？",
@@ -193,7 +219,7 @@
         "o2": "<ruby>処置優先<rt>しょちゆうせん</rt></ruby>でよい",
         "o3": "<ruby>同席者<rt>どうせきしゃ</rt></ruby>に <ruby>説明<rt>せつめい</rt></ruby>してほしい",
         "o4": "<ruby>写真<rt>しゃしん</rt></ruby>は <ruby>可能<rt>かのう</rt></ruby>なら <ruby>撮<rt>と</rt></ruby>りたい",
-        "n": "012で経腟分娩予定の場合"
+        "n": "012で<ruby>経腟分娩<rt>けいちつぶんべん</rt></ruby>/<ruby>不明<rt>ふめい</rt></ruby>の<ruby>場合<rt>ばあい</rt></ruby>"
       },
       "a013": {
         "label": "<ruby>無痛分娩<rt>むつうぶんべん</rt></ruby>・<ruby>和痛分娩<rt>わつうぶんべん</rt></ruby>を <ruby>希望<rt>きぼう</rt></ruby>しますか？",
@@ -208,13 +234,12 @@
         "label": "<ruby>無痛分娩<rt>むつうぶんべん</rt></ruby>を <ruby>希望<rt>きぼう</rt></ruby>する <ruby>場合<rt>ばあい</rt></ruby>、<ruby>開始<rt>かいし</rt></ruby>タイミングは いつがよいですか？",
         "o1": "<ruby>痛<rt>いた</rt></ruby>みが <ruby>強<rt>つよ</rt></ruby>くなったら",
         "o2": "<ruby>早<rt>はや</rt></ruby>めに",
-        "o3": "<ruby>状況次第<rt>じょうきょうしだい</rt></ruby>",
-        "n": "013で希望しない以外の場合"
+        "o3": "<ruby>状況次第<rt>じょうきょうしだい</rt></ruby>"
       },
       "a014": {
         "label": "<ruby>分娩時<rt>ぶんべんじ</rt></ruby>の <ruby>体位<rt>たいい</rt></ruby>に <ruby>希望<rt>きぼう</rt></ruby>はありますか？",
         "o1": "<ruby>仰向<rt>あおむ</rt></ruby>け",
-        "o2": "フリースタイル <ruby>希望<rt>きぼう</rt></ruby>",
+        "o2": "フリースタイル",
         "o3": "<ruby>水中分娩<rt>すいちゅうぶんべん</rt></ruby>",
         "o4": "<ruby>状況次第<rt>じょうきょうしだい</rt></ruby>"
       },
@@ -279,15 +304,25 @@
         "o3": "<ruby>状況次第<rt>じょうきょうしだい</rt></ruby>"
       },
       "b003": {
-        "label": "へその <ruby>緒<rt>お</rt></ruby>を <ruby>切<rt>き</rt></ruby>ることを <ruby>希望<rt>きぼう</rt></ruby>しますか？",
+        "label": "だれかに へその <ruby>緒<rt>お</rt></ruby>を <ruby>切<rt>き</rt></ruby>ってもらうことを <ruby>希望<rt>きぼう</rt></ruby>しますか？",
         "o1": "<ruby>希望<rt>きぼう</rt></ruby>する",
-        "o2": "<ruby>希望<rt>きぼう</rt></ruby>しない"
+        "o2": "<ruby>希望<rt>きぼう</rt></ruby>しない",
+        "o3": "<ruby>状況次第<rt>じょうきょうしだい</rt></ruby>"
+      },
+      "b003a": {
+        "label": "だれに <ruby>切<rt>き</rt></ruby>ってもらいたいですか？",
+        "o1": "パートナー",
+        "o2": "<ruby>母<rt>はは</rt></ruby>",
+        "o3": "<ruby>子<rt>こ</rt></ruby>の <ruby>兄弟<rt>きょうだい</rt></ruby>",
+        "o4": "<ruby>友人<rt>ゆうじん</rt></ruby>",
+        "o5": "そのほか"
       },
       "b004": {
         "label": "<ruby>臍帯遅延<rt>さいたいちえん</rt></ruby>クランプを <ruby>希望<rt>きぼう</rt></ruby>しますか？",
         "h": "<ruby>臍帯遅延<rt>さいたいちえん</rt></ruby>クランプは、あかちゃんが <ruby>生<rt>う</rt></ruby>まれた <ruby>後<rt>あと</rt></ruby> すぐにへその <ruby>緒<rt>お</rt></ruby>を <ruby>切<rt>き</rt></ruby>らず、 <ruby>一定時間待<rt>いっていじかんま</rt></ruby>ってから <ruby>切<rt>き</rt></ruby>る <ruby>方法<rt>ほうほう</rt></ruby>です。",
         "o1": "<ruby>希望<rt>きぼう</rt></ruby>する",
-        "o2": "<ruby>希望<rt>きぼう</rt></ruby>しない"
+        "o2": "<ruby>希望<rt>きぼう</rt></ruby>しない",
+        "o3": "<ruby>状況次第<rt>じょうきょうしだい</rt></ruby>"
       },
       "b005": {
         "label": "<ruby>母体<rt>ぼたい</rt></ruby>への <ruby>医療処置<rt>いりょうしょち</rt></ruby>の <ruby>説明<rt>せつめい</rt></ruby>はどの <ruby>程度<rt>ていど</rt></ruby> <ruby>希望<rt>きぼう</rt></ruby>しますか？",
@@ -453,6 +488,28 @@
       }
     }
   },
+  "vac": {
+    "desc": "<ruby>自分<rt>じぶん</rt></ruby>の ワクチン<ruby>接種記録<rt>せっしゅきろく</rt></ruby>を <ruby>入力<rt>にゅうりょく</rt></ruby>しておきましょう。",
+    "q.diphtheria.label": "ジフテリア",
+    "q.pertussis.label": "<ruby>百日咳<rt>ひゃくにちぜき</rt></ruby>",
+    "q.tetanus.label": "<ruby>破傷風<rt>はしょうふう</rt></ruby>",
+    "q.influenza.label": "インフルエンザ",
+    "q.covid19.label": "<ruby>新型<rt>しんがた</rt></ruby>コロナ",
+    "q.measles.label": "<ruby>麻疹<rt>ましん</rt></ruby>",
+    "q.rubella.label": "<ruby>風疹<rt>ふうしん</rt></ruby>",
+    "q.rsvirus.label": "RSウイルス",
+    "q.date.label": "<ruby>最近<rt>さいきん</rt></ruby>の <ruby>接種日<rt>せっしゅび</rt></ruby>",
+    "q.custom.name.label": "ワクチン<ruby>名<rt>めい</rt></ruby>",
+    "q.custom.name.placeholder": "ワクチン<ruby>名<rt>めい</rt></ruby>を <ruby>入力<rt>にゅうりょく</rt></ruby>",
+    "q.all.yes": "<ruby>接種済<rt>せっしゅず</rt></ruby>み",
+    "q.all.no": "<ruby>未接種<rt>みせっしゅ</rt></ruby>",
+    "q.all.unknown": "<ruby>不明<rt>ふめい</rt></ruby>",
+    "button.addCustom": "ワクチンを <ruby>追加<rt>ついか</rt></ruby>",
+    "error.customNameRequired": "ワクチン<ruby>名<rt>めい</rt></ruby>を <ruby>入力<rt>にゅうりょく</rt></ruby>してください。"
+  },
+  "today.baby.label.weight": "あかちゃんの <ruby>体重<rt>たいじゅう</rt></ruby>の <ruby>目安<rt>めやす</rt></ruby>",
+  "today.baby.label.weightImage": "<ruby>重<rt>おも</rt></ruby>さの イメージ",
+  "today.baby.label.content": "<ruby>成長<rt>せいちょう</rt></ruby>の ようす",
   "today.baby.week.8.weightGuide": "やく1～7g",
   "today.baby.week.8.weightImage": "ちいさな<ruby>豆<rt>まめ</rt></ruby>1つ",
   "today.baby.week.8.development": "<ruby>心臓<rt>しんぞう</rt></ruby>が<ruby>動<rt>うご</rt></ruby>きはじめ、<ruby>手足<rt>てあし</rt></ruby>のもとができます",
