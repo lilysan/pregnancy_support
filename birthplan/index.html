@@ -17,12 +17,16 @@
     <script src="../common/js/toast.js"></script>
     <link rel="stylesheet" href="../style.css"/>
     <style>
-        .bp-question {
+        .bp-question-block {
             margin-top: 16px;
+        }
+
+        .bp-question {
             position: relative;
             overflow: hidden;
         }
-        .bp-question:last-child {
+
+        .bp-question-block:last-child {
             margin-bottom: 0;
         }
 
@@ -100,8 +104,13 @@
         }
 
         .bp-question-preface {
-            color: #3f5973;
+            color: var(--primary);
             font-weight: 600;
+        }
+
+        .bp-question-preface::before {
+            content: "※";
+            margin-right: 2px;
         }
 
         .bp-options {
@@ -247,6 +256,41 @@
             margin-right: 8px;
         }
 
+        .standard-btn{
+            justify-content: flex-start;
+            gap: 14px;
+            width: 100%;
+            padding: 16px 18px;
+            background: var(--info-dark);
+            color: var(--background);
+            line-height: 1.35;
+            text-align: left;
+        }
+
+        .standard-btn-icon {
+            width: 56px;
+            height: 56px;
+            flex: 0 0 auto;
+        }
+
+        .standard-btn-text {
+            display: flex;
+            min-width: 0;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .standard-btn-title {
+            font-size: 1rem;
+            line-height: 1.35;
+        }
+
+        .standard-btn-subtitle {
+            font-size: 0.82rem;
+            line-height: 1.45;
+            font-weight: 600;
+        }
+
         main {
             padding-bottom: 120px;
         }
@@ -259,12 +303,21 @@
     <article class="main-container">
         <h1 data-i18n="[html]title.birthplan"></h1>
         <p class="desc" data-i18n="[html]bp.desc"></p>
-        <div class="card">
-            <div class="state-card-inner">
-                <iconify-icon icon="material-symbols:info-rounded" width="24" height="24" style="color:var(--info-state)"></iconify-icon>
-                <div>
-                    <p class="small" data-i18n="[html]bp.info1"></p>
-                    <p id="unsupportedNotice" class="small" data-i18n="[html]bp.info2" hidden></p>
+        <div class="row-list">
+            <button type="button" class="btn standard-btn">
+                <img class="standard-btn-icon" src="images/standard-birth-style.png" alt="" aria-hidden="true">
+                <span class="standard-btn-text">
+                    <span class="standard-btn-title" data-i18n="[html]bp.standardTitle"></span>
+                    <span class="standard-btn-subtitle" data-i18n="[html]bp.standardDesc"></span>
+                </span>
+            </button>
+            <div class="card">
+                <div class="state-card-inner">
+                    <iconify-icon icon="material-symbols:info-rounded" width="24" height="24" style="color:var(--info-state)"></iconify-icon>
+                    <div>
+                        <p class="small" data-i18n="[html]bp.info1"></p>
+                        <p id="unsupportedNotice" class="small" data-i18n="[html]bp.info2" hidden></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -327,6 +380,9 @@
             handleClearDraft();
             localizeBirthPlanForm();
         });
+        $(".standard-btn").on("click", function(){
+            window.location.href = `https://liff.line.me/${LIFF_ID}/aruaru/`;
+        })
     });
 
     async function main(idToken) {
@@ -496,18 +552,23 @@
             clearQuestionAnswerDeep(question);
         }
 
+        const block = $("<div>")
+            .addClass("bp-question-block")
+            .attr("data-question-id", question.id);
+
+        if (question.prefaceKey) {
+            block.append(
+                $("<p>")
+                    .addClass("bp-question-preface")
+                    .attr("data-i18n", `[html]bp.${question.prefaceKey}`)
+                    .toggle(shouldShowPreface(question))
+            );
+        }
+
         const wrap = $("<article>")
             .addClass("bp-question card")
             .toggleClass("is-disabled", !questionEnabled)
             .attr("aria-disabled", String(!questionEnabled));
-        const prefaceVisible = shouldShowPreface(question);
-        if (question.prefaceKey && prefaceVisible) {
-            wrap.append(
-                $("<p>")
-                    .addClass("bp-question-preface")
-                    .attr("data-i18n", `[html]bp.${question.prefaceKey}`)
-            );
-        }
 
         wrap.append(
             $("<p>")
@@ -561,6 +622,7 @@
                     }
                     updateSelection(question, option.id);
                     syncQuestionUi(question, wrap, true);
+                    syncAllQuestionPrefaces(true);
                     updateProgressIndicators();
                 });
 
@@ -601,16 +663,19 @@
         }
         syncAnsweredFlag(question, wrap);
 
-        return wrap;
+        block.append(wrap);
+        return block;
     }
 
     function syncQuestionUi(question, questionEl, animate = false) {
         if (!questionEl || !questionEl.length) {
             return;
         }
+        const cardEl = getQuestionCardEl(questionEl);
         const answer = getAnswer(question.id);
         const isSingle = question.inputType === "single" || question.inputType === "singleText";
-        questionEl.children(".bp-options").find(".radio-chip").each(function () {
+        syncQuestionPreface(question, questionEl, animate);
+        cardEl.children(".bp-options").find(".radio-chip").each(function () {
             const optionId = $(this).data("value");
             const option = getQuestionOptionById(question, optionId);
             const optionEnabled = isItemEnabled(question.labelKey) && (!option || isItemEnabled(option.labelKey));
@@ -627,17 +692,73 @@
                 .attr("aria-disabled", String(!optionEnabled));
         });
 
-        const textArea = questionEl.children("textarea.bp-free-text");
+        const textArea = cardEl.children("textarea.bp-free-text");
         if (textArea.length) {
             textArea.val(answer.text || "");
             toggleFreeTextAvailability(question, textArea);
         }
 
-        const followUpsContainer = questionEl.children(".followups");
+        const followUpsContainer = cardEl.children(".followups");
         if (followUpsContainer.length) {
             toggleFollowUpsVisibility(question, followUpsContainer, animate);
         }
-        syncAnsweredFlag(question, questionEl);
+        syncAnsweredFlag(question, cardEl);
+    }
+
+    function getQuestionCardEl(questionEl) {
+        return questionEl.hasClass("bp-question")
+            ? questionEl
+            : questionEl.children(".bp-question").first();
+    }
+
+    function syncQuestionPreface(question, questionEl, animate = false) {
+        if (!question.prefaceKey) {
+            return;
+        }
+        const prefaceEl = questionEl.children(".bp-question-preface").first();
+        if (!prefaceEl.length) {
+            return;
+        }
+        const shouldShow = shouldShowPreface(question);
+        if (animate) {
+            prefaceEl.stop(true, true);
+            if (shouldShow) {
+                prefaceEl.slideDown(180);
+            } else {
+                prefaceEl.slideUp(160);
+            }
+        } else {
+            prefaceEl.toggle(shouldShow);
+        }
+    }
+
+    function syncAllQuestionPrefaces(animate = false) {
+        if (!state.schema || !Array.isArray(state.schema.categories)) {
+            return;
+        }
+        state.schema.categories.forEach((category) => {
+            if (!Array.isArray(category.sections)) {
+                return;
+            }
+            category.sections.forEach((section) => {
+                if (Array.isArray(section.questions)) {
+                    syncQuestionPrefaces(section.questions, animate);
+                }
+            });
+        });
+    }
+
+    function syncQuestionPrefaces(questions, animate = false) {
+        if (!Array.isArray(questions)) {
+            return;
+        }
+        questions.forEach((question) => {
+            const questionEl = $(`[data-question-id="${question.id}"]`).first();
+            syncQuestionPreface(question, questionEl, animate);
+            if (Array.isArray(question.followUps)) {
+                syncQuestionPrefaces(question.followUps, animate);
+            }
+        });
     }
 
     function toggleFollowUpsVisibility(parentQuestion, followUpsContainer, animate = false) {

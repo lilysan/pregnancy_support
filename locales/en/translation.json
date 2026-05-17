@@ -84,8 +84,10 @@
   },
   "bp": {
     "desc": "Enter your preferences for how you would like your childbirth experience to be.",
-    "info1": "You can also save your progress and continue later.",
+    "info1": "You can also save your progress and continue later.<br>Please note that not all preferences can always be accommodated.",
     "info2": "Grayed-out items are not supported at your planned delivery hospital.",
+    "standardTitle": "What is the standard childbirth style in Japan?",
+    "standardDesc": "First, let’s take a look at the standard childbirth practices in Japan.",
     "cat": {
       "laborBirth": "During labor and birth",
       "postBirth": "Right after birth",
@@ -199,7 +201,8 @@
       "a012": {
         "label": "Which delivery method is currently planned?",
         "o1": "Vaginal delivery",
-        "o2": "Cesarean delivery"
+        "o2": "Cesarean delivery",
+        "o3": "Unknown / Not decided yet"
       },
       "a012a": {
         "label": "Would you like induction or augmentation of labor (e.g., labor medications)?",
@@ -231,8 +234,7 @@
         "label": "If yes, when would you like pain relief to start?",
         "o1": "When pain becomes strong",
         "o2": "Early",
-        "o3": "Depending on the situation",
-        "n": "Shown when the answer to question 013 is anything except \"Do not want\"."
+        "o3": "Depending on the situation"
       },
       "a014": {
         "label": "Do you have a preferred birthing position?",
@@ -304,13 +306,23 @@
       "b003": {
         "label": "Would you like your support person to cut the umbilical cord?",
         "o1": "Yes",
-        "o2": "No"
+        "o2": "No",
+        "o3": "Depending on the situation"
+      },
+      "b003a": {
+        "label": "Who would you like to cut the umbilical cord?",
+        "o1": "Partner",
+        "o2": "Mother",
+        "o3": "Older child(ren)",
+        "o4": "Friend",
+        "o5": "Other"
       },
       "b004": {
         "label": "Would you like delayed cord clamping?",
         "h": "Delayed cord clamping means waiting for a short time before clamping/cutting the umbilical cord.",
         "o1": "Yes",
-        "o2": "No"
+        "o2": "No",
+        "o3": "Depending on the situation"
       },
       "b005": {
         "label": "How much explanation would you like about procedures for your body after birth?",
@@ -489,13 +501,15 @@
     "q.date.label": "Most Recent Vaccination Date",
     "q.custom.name.label": "Vaccine Name",
     "q.custom.name.placeholder": "Enter vaccine name",
-    "q.custom.status.label": "Vaccination Status",
     "q.all.yes": "Vaccinated",
     "q.all.no": "Not Vaccinated",
     "q.all.unknown": "Unknown",
     "button.addCustom": "Add Vaccine",
     "error.customNameRequired": "Please enter a vaccine name."
   },
+  "today.baby.label.weight": "Baby’s Estimated Weight",
+  "today.baby.label.weightImage": "About the Size of",
+  "today.baby.label.content": "How Your Baby Is Growing",
   "today.baby.week.8.weightGuide": "Approx. 1–7g",
   "today.baby.week.8.weightImage": "1 small bean",
   "today.baby.week.8.development": "The heart starts beating, and the buds of the limbs are formed.",
