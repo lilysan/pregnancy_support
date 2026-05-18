@@ -428,45 +428,45 @@
 
     async function main(idToken) {
         try {
-            $.ajax(
+            const response = await $.ajax(
                 getAccessObj({
                     path: "hospital",
                     method : "get",
                     idToken: idToken
                 })
-            ).done(function(response) {
-                if(response.statusCode === 401){
-                    liff.logout();
-                    window.location.reload();
-                }
-                else if(response.statusCode !== 200){
-                    console.error(response.message);
-                    alert(response.message);
-                }
-                else {
-                    const data = response.data || {};
-                    $(".hospital_name_placeholder").val(data.hospitalName || "");
-                    $(".hospital_name_en_placeholder").val(data.hospitalNameEn || "");
-                    $(".hospital_name_furigana_placeholder").val(data.hospitalNameFurigana || "");
-                    $(".hospital_postalcode_placeholder").val(data.hospitalPostalcode || "");
-                    $(".hospital_address1_placeholder").val(data.hospitalAddress1 || "");
-                    $(".hospital_address2_placeholder").val(data.hospitalAddress2 || "");
-                    $(".hospital_address3_placeholder").val(data.hospitalAddress3 || "");
-                    $(".hospital_address4_placeholder").val(data.hospitalAddress4 || "");
-                    $(".phone_number1_placeholder").val(data.phoneNumber1 || "");
-                    $(".phone_number2_placeholder").val(data.phoneNumber2 || "");
-                    $(".phone_number3_placeholder").val(data.phoneNumber3 || "");
-                    setQrCodeData(data);
-                    refreshHalfwidthNumberWarnings();
+            );
 
-                    setHospitalMode(Boolean(data.hospitalName));
-                }
-            }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-                alert("Network error!");
-            });
+            if(response.statusCode === 401){
+                liff.logout();
+                window.location.reload();
+                return;
+            }
+            else if(response.statusCode !== 200){
+                console.error(response.message);
+                alert(response.message);
+                return;
+            }
+            else {
+                const data = response.data || {};
+                $(".hospital_name_placeholder").val(data.hospitalName || "");
+                $(".hospital_name_en_placeholder").val(data.hospitalNameEn || "");
+                $(".hospital_name_furigana_placeholder").val(data.hospitalNameFurigana || "");
+                $(".hospital_postalcode_placeholder").val(data.hospitalPostalcode || "");
+                $(".hospital_address1_placeholder").val(data.hospitalAddress1 || "");
+                $(".hospital_address2_placeholder").val(data.hospitalAddress2 || "");
+                $(".hospital_address3_placeholder").val(data.hospitalAddress3 || "");
+                $(".hospital_address4_placeholder").val(data.hospitalAddress4 || "");
+                $(".phone_number1_placeholder").val(data.phoneNumber1 || "");
+                $(".phone_number2_placeholder").val(data.phoneNumber2 || "");
+                $(".phone_number3_placeholder").val(data.phoneNumber3 || "");
+                setQrCodeData(data);
+                refreshHalfwidthNumberWarnings();
+
+                setHospitalMode(Boolean(data.hospitalName));
+            }
         } catch (error) {
             console.error("main failed:", error);
-            alert("Failed to load hospital data.");
+            alert("Network error!");
         }
     }
 
