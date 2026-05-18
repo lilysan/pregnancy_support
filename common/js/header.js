@@ -90,7 +90,7 @@ $(function () {
             type: "group",
             children: [
                 { label: "翻訳アプリ", path: "translation", i18n: "title.translation" },
-                { label: "データ取得", path: "data", i18n: "title.data" }
+                { label: "スタッフ専用", path: "data", i18n: "title.data" }
             ]
         }
     ];
