@@ -190,6 +190,12 @@
             transition: min-height 0.2s ease, padding 0.2s ease, gap 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
         }
 
+        .hospital-tab:disabled {
+            cursor: not-allowed;
+            opacity: 0.45;
+            box-shadow: none;
+        }
+
         .hospital-tab-step {
             display: block;
             color: var(--primary-dark);
@@ -1060,8 +1066,10 @@
         $(".hospital-delete-card").addClass("is-hidden");
         $(".btn_edit").toggle(hasHospital);
         $(".btn_register").toggle(!hasHospital);
-        $("#hospitalQrCodeTab").toggle(hasHospital);
-        if (!hasHospital && !$("#hospitalQrCodePanel").prop("hidden")) {
+        $("#birthplanSettingsTab, #hospitalQrCodeTab")
+            .prop("disabled", !hasHospital)
+            .attr("aria-disabled", String(!hasHospital));
+        if (!hasHospital && (!$("#birthplanSettingsPanel").prop("hidden") || !$("#hospitalQrCodePanel").prop("hidden"))) {
             switchHospitalTab("hospitalDataPanel");
         }
         $(".btn_download").toggle(hasHospital);
