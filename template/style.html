@@ -13,6 +13,7 @@
     <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="../common/js/config.js"></script>
+    <script src="../common/js/modal.js"></script>
     <script src="../common/js/toast.js"></script>
     <link rel="stylesheet" href="../style.css"/>
 </head>
@@ -313,7 +314,10 @@
 
         <section>
             <h2>Modal</h2>
-            <button class="btn primary" id="openModalBtn" type="button">モーダルを開く</button>
+            <div class="btn-row">
+                <button class="btn primary" id="openModalBtn" type="button">確認モーダルを開く</button>
+                <button class="btn secondary" id="openNoticeModalBtn" type="button">通知モーダルを開く</button>
+            </div>
             <div class="card" style="margin-top:16px">
                 <p class="sub-text">確認や重要情報の提示に使うサンプルです。ボタンを押すとモーダルが開きます。</p>
             </div>
@@ -443,20 +447,6 @@
         </section>
     </article>
 </main>
-
-<div class="overlay" id="modalOverlay">
-    <div class="modal">
-        <button class="modal-close" id="closeModalBtn" type="button" aria-label="閉じる">
-            <iconify-icon icon="material-symbols:close-rounded" width="22" height="22"></iconify-icon>
-        </button>
-        <p class="h3-sample">通訳手配を確認</p>
-        <p style="margin-top:8px">この内容で通訳サポートを依頼しますか？</p>
-        <div class="btn-row" style="float: right">
-            <button class="btn secondary" id="cancelModalBtn" type="button">キャンセル</button>
-            <button class="btn primary" id="confirmModalBtn" type="button">確認</button>
-        </div>
-    </div>
-</div>
 
 <div class="overlay is-open" id="loadingOverlay">
     <div class="spinner"></div>
@@ -687,13 +677,23 @@
                 $body.css('max-height', isOpen ? '' : $body.prop('scrollHeight') + 32 + 'px');
             });
 
-            const $modalOverlay = $('#modalOverlay');
-            $('#openModalBtn').on('click', () => $modalOverlay.addClass('is-open'));
-            $('#closeModalBtn, #cancelModalBtn, #confirmModalBtn').on('click', () => $modalOverlay.removeClass('is-open'));
-            $modalOverlay.on('click', function (e) {
-                if (e.target === this) {
-                    $(this).removeClass('is-open');
-                }
+            const modalManager = createModalManager();
+            $('#openModalBtn').on('click', async () => {
+                const action = await modalManager.show({
+                    title: '通訳手配を確認',
+                    message: 'この内容で通訳サポートを依頼しますか？',
+                    negativeText: 'キャンセル',
+                    positiveText: '確認'
+                });
+                console.log('modal action:', action);
+            });
+            $('#openNoticeModalBtn').on('click', async () => {
+                const action = await modalManager.show({
+                    title: '保存しました',
+                    message: '入力内容の保存が完了しました。',
+                    positiveText: 'OK'
+                });
+                console.log('modal action:', action);
             });
 
             const toastMap = {
