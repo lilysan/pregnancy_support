@@ -89,7 +89,7 @@
 
         .hospital-secondary-actions {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: 1fr;
             gap: 12px;
         }
 
@@ -97,6 +97,14 @@
             background: var(--background);
             border: 2px solid var(--error);
             color: var(--error);
+        }
+
+        .hospital-delete-card {
+            margin-top: 24px;
+        }
+
+        .hospital-delete-card.is-hidden {
+            display: none;
         }
 
         .hospital-qrcode {
@@ -602,15 +610,27 @@
                                 <iconify-icon icon="material-symbols:edit" width="22" height="22" aria-hidden="true"></iconify-icon>
                                 <span>編集</span>
                             </button>
-                            <button type="button" class="btn hospital-danger-btn btn_delete">
-                                <iconify-icon icon="material-symbols:delete-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
-                                <span>削除</span>
-                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
+
+            <div class="card hospital-delete-card is-hidden">
+                <div class="state-card-inner">
+                    <iconify-icon icon="material-symbols:warning-rounded" width="24" height="24" style="color:var(--error)" aria-hidden="true"></iconify-icon>
+                    <div>
+                        <p class="small bold">基本情報を削除</p>
+                        <p class="small sub-text">病院データと発行済みQRコード情報を削除します。</p>
+                    </div>
+                </div>
+                <div class="btn-column">
+                    <button type="button" class="btn hospital-danger-btn btn_delete">
+                        <iconify-icon icon="material-symbols:delete-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                        <span>削除する</span>
+                    </button>
+                </div>
+            </div>
 
         </section>
 
@@ -717,8 +737,11 @@
         $(".btn_edit").on("click", function(e){
             editHospital(liff.getIDToken());
         });
-        $(".btn_delete").on("click", function(e){
-            deleteHospital(liff.getIDToken());
+        $(".btn_delete").on("click", async function(e){
+            const action = await showHospitalDeleteConfirmModal();
+            if (action === "positive") {
+                deleteHospital(liff.getIDToken());
+            }
         });
         $(".btn_download").on("click", function(e){
             e.preventDefault();
@@ -967,6 +990,15 @@
         });
     }
 
+    function showHospitalDeleteConfirmModal() {
+        return hospitalIntroModalManager.show({
+            title: "基本情報を削除しますか？",
+            message: "削除すると、登録済みの病院データとQRコード情報が削除されます。この操作は取り消せません。",
+            negativeText: "キャンセル",
+            positiveText: "削除する"
+        });
+    }
+
     const hospitalFieldSelectors = [
         ".hospital_name_placeholder",
         ".hospital_name_en_placeholder",
@@ -1025,6 +1057,7 @@
 
     function setHospitalMode(hasHospital) {
         $(".btn_delete").toggle(hasHospital);
+        $(".hospital-delete-card").addClass("is-hidden");
         $(".btn_edit").toggle(hasHospital);
         $(".btn_register").toggle(!hasHospital);
         $("#hospitalQrCodeTab").toggle(hasHospital);
@@ -1445,7 +1478,8 @@
     }
 
     function editHospital(){
-        $(".btn_delete").hide();
+        $(".btn_delete").show();
+        $(".hospital-delete-card").removeClass("is-hidden");
         $(".btn_edit").hide();
         $(".btn_register").show();
         setHospitalFormReadonly(false);
