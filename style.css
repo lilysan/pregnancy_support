@@ -816,6 +816,9 @@ textarea { min-height: 96px; resize: vertical; }
     background: var(--background);
     box-shadow: var(--shadow);
 }
+.modal:focus {
+    outline: none;
+}
 .modal-title {
     padding-right: 36px;
 }
