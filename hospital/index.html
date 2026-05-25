@@ -898,9 +898,6 @@
         }).then(() => {
             setupHospitalStickyTabs();
             $("#loadingOverlay").removeClass('is-open');
-            //TODO
-            setHospitalMode(true);
-            $(".hospital-start-options").hide();
         }).catch((err) => {
             console.error("LIFF init failed:", err);
             alert("LIFF init failed.");
