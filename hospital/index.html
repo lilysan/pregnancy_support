@@ -20,12 +20,20 @@
     <script src="../common/js/toast.js"></script>
     <link rel="stylesheet" href="../style.css"/>
     <style>
-        .hospital-form {
-            margin-top: 20px;
+        main {
+            padding-bottom: 170px;
         }
 
-        .main-container .hospital-section {
-            margin-top: 20px;
+        .hospital-workflow.is-hidden {
+            display: none;
+        }
+
+        .hospital-tab-panel {
+            min-height: 65vh;
+        }
+
+        .hospital-tab-panel[hidden] {
+            display: none;
         }
 
         .hospital-section-title {
@@ -33,12 +41,35 @@
             align-items: center;
             gap: 8px;
             margin: 0 0 14px;
+            padding-left: 0;
+            border-left: none;
             color: var(--primary-dark);
             font-size: 20px;
             font-weight: 700;
             line-height: 1.35;
-            border-left: none;
-            padding-left: 0;
+        }
+
+        .hospital-start-options {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .hospital-start-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 16px;
+            margin-top: 0;
+        }
+
+        .hospital-start-card .hospital-section-title {
+            margin-bottom: 4px;
+        }
+
+        .hospital-form {
+            margin-top: 20px;
         }
 
         .hospital-field-grid {
@@ -73,155 +104,6 @@
             color: var(--sub-text);
         }
 
-        .hospital-actions {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 20;
-            background: #fff;
-            padding: 0 24px calc(10px + env(safe-area-inset-bottom));
-            box-shadow: 0 -5px 5px 10px var(--background);
-        }
-
-        .hospital-actions .btn-column {
-            margin-top: 0;
-        }
-
-        .hospital-danger-btn {
-            background: var(--background);
-            border: 2px solid var(--error);
-            color: var(--error);
-        }
-
-        .hospital-qrcode {
-            width: 220px;
-            max-width: 100%;
-            height: auto;
-            padding: 12px;
-            background: var(--background);
-            margin: 0 auto;
-        }
-
-        .hospital-download-actions {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .hospital-download-actions .btn {
-            min-height: 56px;
-            line-height: 1.35;
-            text-align: center;
-        }
-
-        .btn_birthplan_settings_save {
-            display: none;
-        }
-
-        .btn_hospital_cancel,
-        .btn_birthplan_settings_cancel {
-            display: none;
-        }
-
-        .hospital-edit-actions {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 12px;
-        }
-
-        .hospital-start-options {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 16px;
-            margin-top: 20px;
-        }
-
-        .hospital-start-card {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            gap: 16px;
-            margin-top: 0;
-        }
-
-        .hospital-start-card .hospital-section-title {
-            margin-bottom: 4px;
-        }
-
-        .hospital-start-card-heading {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
-            color: var(--primary-dark);
-        }
-
-        .hospital-start-card-heading .hospital-section-title {
-            margin-bottom: 0;
-        }
-
-        .hospital-account-users {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        .hospital-account-user {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 12px;
-            align-items: center;
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--background);
-        }
-
-        .hospital-account-user-id {
-            margin: 0;
-            font-weight: 700;
-            line-height: 1.45;
-            overflow-wrap: anywhere;
-        }
-
-        .hospital-account-user-meta {
-            margin: 2px 0 0;
-            color: var(--sub-text);
-            font-size: 13px;
-            line-height: 1.45;
-        }
-
-        .hospital-account-user-delete {
-            min-width: 88px;
-            min-height: 42px;
-            padding: 8px 12px;
-            border: 2px solid var(--error);
-            background: var(--background);
-            color: var(--error);
-        }
-
-        .hospital-invite-code-modal {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            align-items: center;
-            margin-top: 12px;
-        }
-
-        .hospital-invite-code-countdown {
-            width: 100%;
-            border-radius: 8px;
-            padding: 10px 12px;
-            background: var(--surface);
-            color: var(--primary-dark);
-            font-weight: 700;
-            line-height: 1.45;
-            text-align: center;
-        }
-
         .hospital-form input:read-only {
             background: var(--surface);
             color: var(--sub-text);
@@ -238,16 +120,6 @@
             background: var(--toast-bg-error);
         }
 
-        .hospital-actions .btn:disabled,
-        .birthplan-settings .btn:disabled {
-            background: var(--border);
-            border-color: var(--border);
-            color: var(--sub-text);
-            box-shadow: none;
-            cursor: not-allowed;
-            opacity: 0.8;
-        }
-
         .hospital-field-warning {
             display: none;
             margin: 6px 0 0;
@@ -261,11 +133,52 @@
             display: block;
         }
 
-        .hospital-tabs {
+        .hospital-actions {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 20;
+            padding: 0 24px calc(10px + env(safe-area-inset-bottom));
+            background: #fff;
+            box-shadow: 0 -5px 5px 10px var(--background);
+        }
+
+        .hospital-actions .btn-column {
+            margin-top: 0;
+        }
+
+        .hospital-actions .btn:disabled,
+        .birthplan-settings .btn:disabled {
+            background: var(--border);
+            border-color: var(--border);
+            color: var(--sub-text);
+            box-shadow: none;
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        .btn_birthplan_settings_save,
+        .btn_hospital_cancel,
+        .btn_birthplan_settings_cancel {
+            display: none;
+        }
+
+        .hospital-edit-actions {
+            display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .hospital-edit-actions.is-single-action {
+            grid-template-columns: 1fr;
+        }
+
+        .hospital-tabs {
             position: sticky;
             top: var(--hospital-tabs-sticky-top, 0px);
             z-index: 15;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             padding: 8px 0;
             background: var(--background);
             overflow-anchor: none;
@@ -321,11 +234,11 @@
 
         .hospital-tab-step {
             display: block;
+            max-height: 20px;
             color: var(--primary-dark);
             font-size: 13px;
             font-weight: 700;
             line-height: 1.2;
-            max-height: 20px;
             opacity: 1;
             overflow: hidden;
             transform: translateY(0);
@@ -355,28 +268,9 @@
             transition: max-width 0.22s ease, opacity 0.16s ease, transform 0.2s ease;
         }
 
-
         .hospital-tab.active .hospital-tab-step {
             color: var(--primary-dark);
         }
-
-        .hospital-tab-panel {
-            min-height: 65vh;
-        }
-
-        .hospital-workflow.is-hidden {
-            display: none;
-        }
-
-        /*.hospital-workflow-back {*/
-        /*    display: flex;*/
-        /*    justify-content: flex-start;*/
-        /*    margin: 16px 0 0;*/
-        /*}*/
-
-        /*.hospital-workflow-back.is-hidden {*/
-        /*    display: none;*/
-        /*}*/
 
         .hospital-form-modal-close {
             display: none;
@@ -390,20 +284,16 @@
             bottom: 0;
             z-index: 60;
             display: block;
-            min-height: calc(100vh - var(--hospital-form-modal-top, 0px));
-            overflow-y: auto;
-            background: var(--background);
-            max-width: 600px;
             flex-direction: column;
             gap: 28px;
-            padding: 24px;
-            padding-bottom: 120px;
+            max-width: 600px;
+            min-height: calc(100vh - var(--hospital-form-modal-top, 0px));
             margin: 0 auto;
             margin-top: 0;
-        }
-
-        #hospitalDataPanel.is-form-modal .hospital-section:first-child {
-            margin-top: 0;
+            padding: 24px;
+            padding-bottom: 120px;
+            overflow-y: auto;
+            background: var(--background);
         }
 
         #hospitalDataPanel.is-form-modal .hospital-actions {
@@ -468,8 +358,64 @@
             line-height: 1.55;
         }
 
-        .hospital-tab-panel[hidden] {
-            display: none;
+        .hospital-qrcode {
+            width: 220px;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;
+            padding: 12px;
+            background: var(--background);
+        }
+
+        .hospital-account-users {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .hospital-account-user {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--background);
+        }
+
+        .hospital-account-user-id {
+            margin: 0;
+            font-weight: 700;
+            line-height: 1.45;
+            overflow-wrap: anywhere;
+        }
+
+        .hospital-account-user-meta {
+            margin: 2px 0 0;
+            color: var(--sub-text);
+            font-size: 13px;
+            line-height: 1.45;
+        }
+
+        .hospital-invite-code-modal {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+            margin-top: 12px;
+        }
+
+        .hospital-invite-code-countdown {
+            width: 100%;
+            border-radius: 8px;
+            padding: 10px 12px;
+            background: var(--surface);
+            color: var(--primary-dark);
+            font-weight: 700;
+            line-height: 1.45;
+            text-align: center;
         }
 
         .birthplan-settings {
@@ -500,11 +446,11 @@
         }
 
         .bp-settings-toggle {
-            width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 12px;
+            width: 100%;
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 12px;
@@ -534,9 +480,9 @@
 
         .bp-settings-switch {
             position: relative;
+            flex: 0 0 48px;
             width: 48px;
             height: 28px;
-            flex: 0 0 48px;
             border-radius: 999px;
             background: var(--border);
         }
@@ -567,10 +513,6 @@
             gap: 8px;
             padding-left: 14px;
             border-left: 3px solid var(--primary-light);
-        }
-
-        main {
-            padding-bottom: 170px;
         }
 
         @media (max-width: 400px) {
@@ -628,13 +570,6 @@
                 </div>
             </div>
         </div>
-
-<!--        <div class="hospital-workflow-back is-hidden">-->
-<!--            <button type="button" class="btn tertiary btn_hospital_start_back">-->
-<!--                <iconify-icon icon="material-symbols:arrow-back-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>-->
-<!--                <span>選択画面に戻る</span>-->
-<!--            </button>-->
-<!--        </div>-->
 
         <div id="hospitalTabsSentinel" class="hospital-workflow hospital-step-tabs is-hidden" aria-hidden="true"></div>
         <div class="tabs-grid hospital-tabs hospital-workflow hospital-step-tabs is-hidden" role="tablist" aria-label="病院設定">
@@ -706,8 +641,8 @@
                 <div class="hospital-field-grid">
                     <label>
                         郵便番号<span class="hospital-badge hospital-badge-required">必須</span>
-                        <input type="text" class="hospital_postalcode_placeholder p-postal-code js-halfwidth-number-field" maxlength="16" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]+" title="半角数字のみ入力できます" required>
-                        <span class="hospital-field-warning">半角数字のみ入力できます。</span>
+                        <input type="text" class="hospital_postalcode_placeholder p-postal-code js-halfwidth-number-field" maxlength="16" inputmode="numeric" autocomplete="postal-code" pattern="[0-9-]+" title="半角数字とハイフンのみ入力できます" required>
+                        <span class="hospital-field-warning">半角数字とハイフンのみ入力できます。</span>
                     </label>
                     <label>
                         都道府県<span class="hospital-badge hospital-badge-required">必須</span>
@@ -785,18 +720,18 @@
                 <div class="hospital-field-grid">
                     <label class="hospital-field-full">
                         代表電話番号<span class="hospital-badge hospital-badge-required">必須</span>
-                        <input class="phone_number1_placeholder js-halfwidth-number-field" type="tel" inputmode="numeric" autocomplete="tel" pattern="[0-9]+" title="半角数字のみ入力できます" required>
-                        <span class="hospital-field-warning">半角数字のみ入力できます。</span>
+                        <input class="phone_number1_placeholder js-halfwidth-number-field" type="tel" inputmode="numeric" autocomplete="tel" pattern="[0-9-]+" title="半角数字とハイフンのみ入力できます" required>
+                        <span class="hospital-field-warning">半角数字とハイフンのみ入力できます。</span>
                     </label>
                     <label>
                         産科外来電話番号<span class="hospital-badge hospital-badge-optional">任意</span>
-                        <input class="phone_number2_placeholder js-halfwidth-number-field" type="tel" inputmode="numeric" autocomplete="tel" pattern="[0-9]*" title="半角数字のみ入力できます">
-                        <span class="hospital-field-warning">半角数字のみ入力できます。</span>
+                        <input class="phone_number2_placeholder js-halfwidth-number-field" type="tel" inputmode="numeric" autocomplete="tel" pattern="[0-9-]*" title="半角数字とハイフンのみ入力できます">
+                        <span class="hospital-field-warning">半角数字とハイフンのみ入力できます。</span>
                     </label>
                     <label>
                         夜間（診察時間外）電話番号<span class="hospital-badge hospital-badge-optional">任意</span>
-                        <input class="phone_number3_placeholder js-halfwidth-number-field" type="tel" inputmode="numeric" autocomplete="tel" pattern="[0-9]*" title="半角数字のみ入力できます">
-                        <span class="hospital-field-warning">半角数字のみ入力できます。</span>
+                        <input class="phone_number3_placeholder js-halfwidth-number-field" type="tel" inputmode="numeric" autocomplete="tel" pattern="[0-9-]*" title="半角数字とハイフンのみ入力できます">
+                        <span class="hospital-field-warning">半角数字とハイフンのみ入力できます。</span>
                     </label>
                 </div>
             </section>
@@ -963,6 +898,9 @@
         }).then(() => {
             setupHospitalStickyTabs();
             $("#loadingOverlay").removeClass('is-open');
+            //TODO
+            setHospitalMode(true);
+            $(".hospital-start-options").hide();
         }).catch((err) => {
             console.error("LIFF init failed:", err);
             alert("LIFF init failed.");
@@ -1520,7 +1458,7 @@
                 userEl.append(
                     $("<button>")
                         .attr("type", "button")
-                        .addClass("btn hospital-account-user-delete")
+                        .addClass("btn danger hospital-account-user-delete")
                         .data("user-id", user.userId)
                         .text("解除")
                 );
@@ -1625,9 +1563,9 @@
     function showHospitalAccountUserDeleteConfirmModal(userId) {
         return hospitalIntroModalManager.show({
             title: "スタッフ端末を解除しますか？",
-            message: `スタッフ端末（${userId}）の利用を解除しますか？ほかに利用中のスタッフ端末がない場合、この病院情報の管理や患者情報の取得ができなくなります。必要に応じて、先に別のスタッフ端末を招待してください。`,
+            messageHtml: `スタッフ端末（${userId}）の利用を解除しますか？<br><strong>ほかに利用中のスタッフ端末がない場合、この病院情報の管理や患者情報の取得ができなくなります。</strong>必要に応じて、先に別のスタッフ端末を招待してください。`,
             negativeText: "キャンセル",
-            positiveText: "解除する"
+            deleteText: "解除する"
         });
     }
 
@@ -1646,7 +1584,7 @@
     ];
 
     function toggleHalfwidthNumberWarning(field) {
-        const hasInvalidValue = /[^0-9]/.test(field.value);
+        const hasInvalidValue = /[^0-9-]/.test(field.value);
         $(field).toggleClass("is-invalid-field", hasInvalidValue);
         $(field).siblings(".hospital-field-warning").toggleClass("is-visible", hasInvalidValue);
     }
@@ -1661,7 +1599,7 @@
     function hasInvalidHalfwidthNumberField() {
         return $(".js-halfwidth-number-field")
             .toArray()
-            .some((field) => /[^0-9]/.test(field.value));
+            .some((field) => /[^0-9-]/.test(field.value));
     }
 
     function updateRegisterButtonState() {
@@ -1988,13 +1926,16 @@
         setButtonVisible($(".btn_birthplan_settings_edit"), !birthPlanSettingsState.isEditMode);
         setButtonVisible($(".btn_birthplan_settings_save"), birthPlanSettingsState.isEditMode);
         setButtonVisible($(".btn_birthplan_settings_cancel"), birthPlanSettingsState.isEditMode);
+        $(".btn_birthplan_settings_save").prop("disabled", !birthPlanSettingsState.isEditMode);
     }
 
     function setButtonVisible($button, isVisible) {
         $button.css("display", isVisible ? "inline-flex" : "none");
         $button.closest(".hospital-edit-actions").each(function () {
-            const hasVisibleButton = $(this).children(".btn").toArray().some((button) => $(button).css("display") !== "none");
-            $(this).css("display", hasVisibleButton ? "grid" : "none");
+            const visibleButtons = $(this).children(".btn").toArray().filter((button) => $(button).css("display") !== "none");
+            $(this)
+                .css("display", visibleButtons.length > 0 ? "grid" : "none")
+                .toggleClass("is-single-action", visibleButtons.length === 1);
         });
     }
 

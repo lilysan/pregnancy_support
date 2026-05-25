@@ -540,6 +540,7 @@ hr {
 .btn.primary { background: var(--primary); color: var(--background); }
 .btn.secondary { background: var(--background); color: var(--primary-dark); border: 1px solid var(--border); }
 .btn.tertiary { background: transparent; color: var(--primary-dark); box-shadow: none; }
+.btn.danger { background: var(--background); color: var(--error); border: 2px solid var(--error); }
 .btn.disabled { background: var(--border); color: var(--sub-text); box-shadow: none; cursor: not-allowed; }
 .btn-row {
     display: flex;

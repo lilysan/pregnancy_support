@@ -41,6 +41,7 @@
                 title: '',
                 message: '',
                 positiveText: 'OK',
+                deleteText: null,
                 negativeText: null,
                 closeLabel: '閉じる'
             }, config || {});
@@ -55,10 +56,14 @@
                 $negative.hide();
             }
 
-            if (currentConfig.positiveText) {
-                $positive.text(currentConfig.positiveText).show();
+            const actionText = currentConfig.deleteText || currentConfig.positiveText;
+            if (actionText) {
+                $positive
+                    .text(actionText)
+                    .toggleClass('danger', Boolean(currentConfig.deleteText))
+                    .show();
             } else {
-                $positive.hide();
+                $positive.removeClass('danger').hide();
             }
 
             $root.addClass('is-open');
