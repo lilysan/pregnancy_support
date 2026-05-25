@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>患者データ | Pregnancy Support</title>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="../common/js/config.js"></script>
+    <script src="../common/js/modal.js"></script>
+    <script src="../common/js/toast.js"></script>
+    <link rel="stylesheet" href="../style.css"/>
+    <style>
+        main {
+            padding-bottom: 40px;
+        }
+
+        .data-section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 14px;
+            padding-left: 0;
+            border-left: none;
+            color: var(--primary-dark);
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.35;
+        }
+
+        .data-search-card {
+            margin-top: 20px;
+        }
+
+        .data-search-actions {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: end;
+        }
+
+        .data-search-actions .btn {
+            min-width: 112px;
+            min-height: 52px;
+        }
+
+        .data-status-card {
+            display: none;
+        }
+
+        .data-status-card.is-visible {
+            display: block;
+        }
+
+        .data-status-inner,
+        .data-account-inner {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .data-account-main {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .data-account-name {
+            margin: 0;
+            font-weight: 700;
+            line-height: 1.45;
+            overflow-wrap: anywhere;
+        }
+
+        .data-account-link {
+            width: 44px;
+            height: 44px;
+            min-height: 44px;
+            flex: 0 0 44px;
+            padding: 0;
+        }
+
+        .data-account-meta {
+            margin: 2px 0 0;
+            color: var(--sub-text);
+            font-size: 13px;
+            line-height: 1.45;
+        }
+
+        .data-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .data-info-item {
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--background);
+        }
+
+        .data-info-label {
+            margin: 0 0 4px;
+            color: var(--sub-text);
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .data-info-value {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 1.45;
+            overflow-wrap: anywhere;
+        }
+
+        .data-tabs {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            margin-top: 16px;
+        }
+
+        .data-tab {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .data-tab-main {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .data-panel {
+            margin-top: 16px;
+        }
+
+        .data-record-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .data-record {
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--background);
+        }
+
+        .data-record-title {
+            margin: 0 0 8px;
+            color: var(--primary-dark);
+            font-weight: 700;
+            line-height: 1.45;
+        }
+
+        .data-record-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .data-record-field {
+            margin: 0;
+            color: var(--sub-text);
+            font-size: 13px;
+            line-height: 1.45;
+            overflow-wrap: anywhere;
+        }
+
+        .data-record-field strong {
+            display: block;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .data-panel[hidden],
+        .data-result-section[hidden] {
+            display: none;
+        }
+
+        @media (max-width: 520px) {
+            .data-search-actions,
+            .data-info-grid,
+            .data-record-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="header-container" class="header-wrapper"></div>
+
+<main>
+    <article class="main-container">
+        <h1>患者データ</h1>
+        <p class="desc">診察券番号を入力すると、自院に共有されている妊婦さんの情報を確認できます。</p>
+
+        <section class="card data-account-card">
+            <div class="data-account-inner">
+                <div class="data-account-main">
+                    <p class="data-account-name" id="hospitalAccountName">病院情報を確認中</p>
+                    <button class="icon-btn square data-account-link" type="button" id="hospitalAccountLinkBtn" aria-label="病院情報を開く" disabled>
+                        <iconify-icon icon="material-symbols:settings-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="card data-search-card">
+            <h2 class="data-section-title">
+                <iconify-icon icon="material-symbols:badge-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
+                <span>診察券番号</span>
+            </h2>
+            <div class="data-search-actions">
+                <label for="cardNo">
+                    診察券番号
+                    <input type="text" id="cardNo" autocomplete="off" required>
+                </label>
+                <button class="btn primary" type="button" id="getDataBtn">
+                    <iconify-icon icon="material-symbols:search-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                    <span>取得</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="card card-info data-status-card" id="dataStatusCard">
+            <div class="data-status-inner">
+                <iconify-icon icon="material-symbols:info-rounded" width="24" height="24" style="color:var(--info-state)" aria-hidden="true"></iconify-icon>
+                <p class="small" id="dataStatusText"></p>
+            </div>
+        </section>
+
+        <section class="data-result-section" id="patientInfoSection" hidden>
+            <h2>基本情報</h2>
+            <div class="data-info-grid" id="patientInfoGrid"></div>
+        </section>
+
+        <section class="data-result-section" id="sharedDataSection" hidden>
+            <h2>共有データ</h2>
+            <div class="tabs-grid data-tabs" id="dataTabs" role="tablist" aria-label="患者共有データ"></div>
+            <div class="data-panel card" id="dataPanel" role="tabpanel"></div>
+        </section>
+    </article>
+</main>
+
+<div class="overlay is-open" id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
+
+<script>
+    const currentPage = "data";
+
+    /** @type {import('@line/liff').Liff} */
+    const liff = window.liff;
+
+    const DATA_TABS = [
+        {key: "labor", label: "陣痛診断", icon: "material-symbols:siren-rounded", path: "labor"},
+        {key: "birthplan", label: "バースプラン", icon: "material-symbols:edit-note-rounded", path: "birthplan"},
+        {key: "vaccination", label: "予防接種", icon: "material-symbols:vaccines-rounded", path: "vaccination"},
+        {key: "weight", label: "体重", icon: "material-symbols:monitor-weight-rounded", path: "weight"},
+        {key: "pressure", label: "血圧", icon: "material-symbols:favorite-rounded", path: "pressure"},
+        {key: "sugar", label: "血糖値", icon: "material-symbols:water-drop-rounded", path: "sugar"},
+        {key: "epds", label: "EPDS", icon: "material-symbols:psychology-rounded", path: "epds"}
+    ];
+
+    const dataState = {
+        hospitalAccount: null,
+        patient: null,
+        activeTabKey: DATA_TABS[0].key,
+        recordsByTab: {},
+        currentCardNo: ""
+    };
+
+    $(function () {
+        const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+
+        liff.init({
+            liffId: LIFF_ID,
+            withLoginOnExternalBrowser: !isDev
+        }).then(async () => {
+            const idToken = liff.getIDToken();
+            await Promise.all([
+                main(idToken),
+                loadHeader()
+            ]);
+        }).then(() => {
+            $("#loadingOverlay").removeClass("is-open");
+        }).catch((err) => {
+            console.error("LIFF init failed:", err);
+            alert("LIFF init failed.");
+            $("#loadingOverlay").removeClass("is-open");
+        });
+
+        $("#getDataBtn").on("click", function () {
+            searchPatientData(liff.getIDToken());
+        });
+        $("#cardNo").on("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                searchPatientData(liff.getIDToken());
+            }
+        });
+        $("#dataTabs").on("click", ".data-tab", function () {
+            switchDataTab($(this).data("tab-key"), true);
+        });
+        $("#hospitalAccountLinkBtn").on("click", function () {
+            redirectToHospitalPage();
+        });
+    });
+
+    async function main(idToken) {
+        const hospitalAccountResponse = await requestApi({
+            path: "hospitalAccount",
+            method: "get",
+            idToken: idToken
+        });
+        if (!handleAuthResponse(hospitalAccountResponse)) {
+            return;
+        }
+
+        const hospitalAccount = hospitalAccountResponse.data || {};
+        if (!hospitalAccount.hospitalId) {
+            redirectToHospitalPage();
+            return;
+        }
+
+        dataState.hospitalAccount = hospitalAccount;
+        const hospitalResponse = await requestApi({
+            path: "hospital",
+            method: "get",
+            idToken: idToken
+        });
+        if (!handleAuthResponse(hospitalResponse)) {
+            return;
+        }
+        renderHospitalAccount(Object.assign({}, hospitalAccount, hospitalResponse.statusCode === 200 ? hospitalResponse.data : {}));
+        renderDataTabs();
+    }
+
+    async function searchPatientData(idToken) {
+        const cardNo = String($("#cardNo").val() || "").trim();
+        if (!cardNo) {
+            showStatus("診察券番号を入力してください。");
+            return;
+        }
+
+        $("#loadingOverlay").addClass("is-open");
+        hideStatus();
+        try {
+            const response = await requestApi({
+                path: "patient",
+                method: "get",
+                idToken: idToken,
+                postData: {cardNo: cardNo}
+            });
+            if (!handleAuthResponse(response)) {
+                return;
+            }
+            if (response.statusCode !== 200) {
+                console.error(response.message);
+                showStatus(response.message || "患者情報を取得できませんでした。");
+                return;
+            }
+
+            dataState.patient = response.data || {};
+            dataState.currentCardNo = cardNo;
+            dataState.recordsByTab = {};
+            renderPatientInfo(dataState.patient);
+            $("#patientInfoSection, #sharedDataSection").prop("hidden", false);
+            renderDataTabs();
+            await switchDataTab(dataState.activeTabKey, false);
+        } catch (error) {
+            console.error("searchPatientData failed:", error);
+            showStatus("通信エラーが発生しました。時間をおいて再度お試しください。");
+        } finally {
+            $("#loadingOverlay").removeClass("is-open");
+        }
+    }
+
+    async function switchDataTab(tabKey, shouldFetch) {
+        dataState.activeTabKey = tabKey;
+        updateDataTabActiveState();
+
+        if (!dataState.currentCardNo) {
+            renderDataPanelMessage("診察券番号を入力して患者情報を取得してください。");
+            return;
+        }
+
+        if (shouldFetch || !dataState.recordsByTab[tabKey]) {
+            $("#loadingOverlay").addClass("is-open");
+            try {
+                const tab = DATA_TABS.find((item) => item.key === tabKey);
+                const response = await requestApi({
+                    path: tab.path,
+                    method: "get",
+                    idToken: liff.getIDToken(),
+                    postData: {
+                        cardNo: dataState.currentCardNo,
+                        unit: "month",
+                        limit: 1,
+                        page: 1
+                    }
+                });
+                if (!handleAuthResponse(response)) {
+                    return;
+                }
+                dataState.recordsByTab[tabKey] = response;
+            } catch (error) {
+                console.error("fetch data tab failed:", error);
+                dataState.recordsByTab[tabKey] = {
+                    statusCode: 0,
+                    message: "通信エラーが発生しました。"
+                };
+            } finally {
+                $("#loadingOverlay").removeClass("is-open");
+            }
+        }
+
+        renderDataPanel(tabKey);
+    }
+
+    function renderHospitalAccount(account) {
+        const hospitalName = account.hospitalName || account.hospitalNameEn || "登録済みの病院情報";
+        $("#hospitalAccountName").text(hospitalName);
+        $("#hospitalAccountLinkBtn").prop("disabled", false);
+    }
+
+    function renderPatientInfo(patient) {
+        const items = [
+            ["診察券番号", patient.cardNo || dataState.currentCardNo],
+            ["名前", patient.name],
+            ["年齢", patient.age ? `${patient.age}歳` : ""],
+            ["国籍", patient.nationality],
+            ["母語", patient.native || patient.lang],
+            ["出産予定日", patient.dueDate],
+            ["病院までの所要時間", formatTravelTime(patient.travelTime)],
+            ["分娩予定", formatBooleanLabel(patient.isLaborPatient)]
+        ];
+
+        const grid = $("#patientInfoGrid");
+        grid.empty();
+        items.forEach(([label, value]) => {
+            grid.append(
+                $("<div>").addClass("data-info-item")
+                    .append($("<p>").addClass("data-info-label").text(label))
+                    .append($("<p>").addClass("data-info-value").text(formatValue(value)))
+            );
+        });
+    }
+
+    function renderDataTabs() {
+        const tabs = $("#dataTabs");
+        if (!tabs.children().length) {
+            DATA_TABS.forEach((tab) => {
+                tabs.append(
+                    $("<button>")
+                        .attr({
+                            type: "button",
+                            role: "tab",
+                            "aria-selected": "false"
+                        })
+                        .addClass("tab data-tab")
+                        .data("tab-key", tab.key)
+                        .append(
+                            $("<span>").addClass("data-tab-main")
+                                .append($("<iconify-icon>").attr({icon: tab.icon, width: 20, height: 20, "aria-hidden": "true"}))
+                                .append($("<span>").addClass("tab-label").text(tab.label))
+                        )
+                );
+            });
+        }
+        updateDataTabActiveState();
+    }
+
+    function updateDataTabActiveState() {
+        $("#dataTabs .data-tab").each(function () {
+            const isActive = $(this).data("tab-key") === dataState.activeTabKey;
+            $(this)
+                .toggleClass("active", isActive)
+                .attr("aria-selected", String(isActive));
+        });
+    }
+
+    function renderDataPanel(tabKey) {
+        const tab = DATA_TABS.find((item) => item.key === tabKey) || DATA_TABS[0];
+        const response = dataState.recordsByTab[tabKey];
+        if (!response) {
+            renderDataPanelMessage("データを取得してください。");
+            return;
+        }
+        if (response.statusCode !== 200) {
+            renderDataPanelMessage(response.message || `${tab.label}を取得できませんでした。`);
+            return;
+        }
+
+        const data = response.data || {};
+        const items = Array.isArray(data.items) ? data.items : [];
+        if (!items.length) {
+            renderDataPanelMessage(`${tab.label}の共有データはありません。`);
+            return;
+        }
+
+        const panel = $("#dataPanel");
+        panel.empty().append($("<div>").addClass("data-record-list"));
+        const list = panel.find(".data-record-list");
+        items.forEach((item, index) => {
+            list.append(renderRecord(tab, item, index));
+        });
+    }
+
+    function renderRecord(tab, item, index) {
+        const record = $("<div>").addClass("data-record");
+        record.append($("<p>").addClass("data-record-title").text(`${tab.label} ${index + 1}`));
+
+        const entries = Object.entries(item || {});
+        if (!entries.length) {
+            record.append($("<p>").addClass("small").text("表示できる項目がありません。"));
+            return record;
+        }
+
+        const grid = $("<div>").addClass("data-record-grid");
+        entries.forEach(([key, value]) => {
+            grid.append(
+                $("<p>").addClass("data-record-field")
+                    .append($("<strong>").text(formatFieldLabel(key)))
+                    .append(document.createTextNode(formatRecordValue(value)))
+            );
+        });
+        record.append(grid);
+        return record;
+    }
+
+    function renderDataPanelMessage(message) {
+        $("#dataPanel")
+            .empty()
+            .append($("<p>").addClass("small").text(message));
+    }
+
+    function showStatus(message) {
+        $("#dataStatusText").text(message);
+        $("#dataStatusCard").addClass("is-visible");
+    }
+
+    function hideStatus() {
+        $("#dataStatusText").text("");
+        $("#dataStatusCard").removeClass("is-visible");
+    }
+
+    function requestApi(data) {
+        return $.ajax(getAccessObj(data));
+    }
+
+    function getAccessObj(data) {
+        return {
+            url: API_URL,
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(data),
+            timeout: 30000
+        };
+    }
+
+    function handleAuthResponse(response) {
+        if (response && response.statusCode === 401) {
+            liff.logout();
+            window.location.reload();
+            return false;
+        }
+        return true;
+    }
+
+    function redirectToHospitalPage() {
+        window.location.href = new URL("../hospital/index.html", window.location.href).href;
+    }
+
+    function loadHeader() {
+        return new Promise((resolve, reject) => {
+            $("#header-container").load("../common/header.html", function (responseText, status) {
+                if (status === "error") {
+                    reject(new Error("Failed to load header.html"));
+                    return;
+                }
+
+                $.getScript("../common/js/header2.js")
+                    .done(function () {
+                        resolve();
+                    })
+                    .fail(function () {
+                        reject(new Error("Failed to load header2.js"));
+                    });
+            });
+        });
+    }
+
+    function formatTravelTime(value) {
+        if (value === null || value === undefined || value === "") {
+            return "";
+        }
+        return `${value}分`;
+    }
+
+    function formatBooleanLabel(value) {
+        if (Number(value) === 1) {
+            return "あり";
+        }
+        if (Number(value) === 0) {
+            return "なし";
+        }
+        return "";
+    }
+
+    function formatValue(value) {
+        if (value === null || value === undefined || value === "") {
+            return "-";
+        }
+        return String(value);
+    }
+
+    function formatRecordValue(value) {
+        if (value === null || value === undefined || value === "") {
+            return "-";
+        }
+        if (Array.isArray(value) || typeof value === "object") {
+            return JSON.stringify(value, null, 2);
+        }
+        return String(value);
+    }
+
+    function formatFieldLabel(key) {
+        const labels = {
+            itemId: "ID",
+            datetime: "日時",
+            date: "日付",
+            period: "時間帯",
+            weight: "体重",
+            high: "最高血圧",
+            low: "最低血圧",
+            medicine: "薬・インスリン",
+            sugar: "血糖値",
+            vaccinationName: "ワクチン名",
+            vaccinationKey: "ワクチンキー",
+            customizeId: "カスタムID",
+            isVaccinated: "接種状況",
+            answers: "回答",
+            score: "スコア",
+            responceKey: "回答キー",
+            other: "その他"
+        };
+        return labels[key] || key;
+    }
+</script>
+</body>
+</html>

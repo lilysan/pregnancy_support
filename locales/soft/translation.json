@@ -29,7 +29,8 @@
     "laborCounter": "<ruby>陣痛<rt>じんつう</rt></ruby>カウンター",
     "movementCounter": "<ruby>胎動<rt>たいどう</rt></ruby>カウンター",
     "translation": "<ruby>翻訳<rt>ほんやく</rt></ruby>アプリ",
-    "data": "データ<ruby>取得<rt>しゅとく</rt></ruby>"
+    "hospital": "病院情報＜スタッフ専用＞",
+    "data": "患者データ＜スタッフ専用＞"
   },
   "header": {
     "selectLanguage": "<ruby>言語<rt>げんご</rt></ruby>を <ruby>選択<rt>せんたく</rt></ruby>",
@@ -65,6 +66,15 @@
     "save": "<ruby>保存<rt>ほぞん</rt></ruby>",
     "yes": "はい"
   },
+  "placeholder": {
+    "free": "じゆうにかいてください"
+  },
+  "toast": {
+    "alert": "<ruby>警告<rt>けいこく</rt></ruby>",
+    "confirm": "<ruby>確認<rt>かくにん</rt></ruby>",
+    "error": "エラー",
+    "success": "<ruby>成功<rt>せいこう</rt></ruby>"
+  },
   "confirm": {
     "clear": "<ruby>入力<rt>にゅうりょく</rt></ruby>したものを <ruby>消<rt>け</rt></ruby>しますか？",
     "delete": "<ruby>本当<rt>ほんとう</rt></ruby>に <ruby>消<rt>け</rt></ruby>しますか？"
@@ -73,14 +83,83 @@
     "delete": "<ruby>消<rt>け</rt></ruby>しました。",
     "save": "<ruby>保存<rt>ほぞん</rt></ruby>しました。"
   },
-  "toast": {
-    "alert": "<ruby>警告<rt>けいこく</rt></ruby>",
-    "confirm": "<ruby>確認<rt>かくにん</rt></ruby>",
-    "error": "エラー",
-    "success": "<ruby>成功<rt>せいこう</rt></ruby>"
-  },
-  "placeholder": {
-    "free": "じゆうにかいてください"
+  "link": {
+    "desc": "あなたの<ruby>基本情報<rt>きほんじょうほう</rt></ruby>、<ruby>病院<rt>びょういん</rt></ruby>、<ruby>必要<rt>ひつよう</rt></ruby>な<ruby>連絡先<rt>れんらくさき</rt></ruby>を<ruby>登録<rt>とうろく</rt></ruby>できます。",
+    "info": "<ruby>病院<rt>びょういん</rt></ruby>で<ruby>見<rt>み</rt></ruby>せられた<ruby>病院<rt>びょういん</rt></ruby>QRコードを<ruby>読<rt>よ</rt></ruby>み<ruby>取<rt>と</rt></ruby>ると、<ruby>病院情報<rt>びょういんじょうほう</rt></ruby>が<ruby>追加<rt>ついか</rt></ruby>されます。バースプランやワクチン<ruby>接種記録<rt>せっしゅきろく</rt></ruby>など、あなたが<ruby>登録<rt>とうろく</rt></ruby>したデータが<ruby>病院<rt>びょういん</rt></ruby>に<ruby>共有<rt>きょうゆう</rt></ruby>されるようになります。",
+    "userDesc": "あなたの<ruby>基本情報<rt>きほんじょうほう</rt></ruby>を<ruby>登録<rt>とうろく</rt></ruby>できます。",
+    "contactDesc": "<ruby>陣痛<rt>じんつう</rt></ruby>タクシーや<ruby>家族<rt>かぞく</rt></ruby>など、<ruby>必要<rt>ひつよう</rt></ruby>な<ruby>連絡先<rt>れんらくさき</rt></ruby>を<ruby>登録<rt>とうろく</rt></ruby>できます。",
+    "empty": "<ruby>登録<rt>とうろく</rt></ruby>している<ruby>病院<rt>びょういん</rt></ruby>はありません。",
+    "emptyContacts": "<ruby>登録<rt>とうろく</rt></ruby>している<ruby>連絡先<rt>れんらくさき</rt></ruby>はありません。",
+    "section": {
+      "user": "あなたの<ruby>情報<rt>じょうほう</rt></ruby>",
+      "hospitals": "<ruby>登録<rt>とうろく</rt></ruby>している<ruby>病院<rt>びょういん</rt></ruby>",
+      "contacts": "<ruby>連絡先情報<rt>れんらくさきじょうほう</rt></ruby>"
+    },
+    "button": {
+      "scan": "<ruby>病院<rt>びょういん</rt></ruby>QRコードを<ruby>読<rt>よ</rt></ruby>み<ruby>取<rt>と</rt></ruby>る",
+      "unlink": "<ruby>登録<rt>とうろく</rt></ruby>を<ruby>消<rt>け</rt></ruby>す",
+      "addContact": "<ruby>連絡先<rt>れんらくさき</rt></ruby>を<ruby>追加<rt>ついか</rt></ruby>",
+      "registerHospital": "<ruby>登録<rt>とうろく</rt></ruby>"
+    },
+    "badge": {
+      "required": "<ruby>必須<rt>ひっす</rt></ruby>",
+      "optional": "<ruby>任意<rt>にんい</rt></ruby>"
+    },
+    "label": {
+      "address": "<ruby>住所<rt>じゅうしょ</rt></ruby>",
+      "phone1": "<ruby>代表電話番号<rt>だいひょうでんわばんごう</rt></ruby>",
+      "phone2": "<ruby>産科外来電話番号<rt>さんかがいらいでんわばんごう</rt></ruby>",
+      "phone3": "<ruby>夜間電話番号<rt>やかんでんわばんごう</rt></ruby>",
+      "cardNo": "<ruby>診察券番号<rt>しんさつけんばんごう</rt></ruby>",
+      "travelTime": "<ruby>病院<rt>びょういん</rt></ruby>までの<ruby>時間<rt>じかん</rt></ruby>（<ruby>分<rt>ふん</rt></ruby>）",
+      "isLaborPatient": "この<ruby>病院<rt>びょういん</rt></ruby>で<ruby>出産<rt>しゅっさん</rt></ruby>する<ruby>予定<rt>よてい</rt></ruby>ですか？",
+      "contactName": "<ruby>連絡先名<rt>れんらくさきめい</rt></ruby>",
+      "phoneNumber": "<ruby>電話番号<rt>でんわばんごう</rt></ruby>",
+      "lang": "<ruby>表示言語<rt>ひょうじげんご</rt></ruby>",
+      "name": "<ruby>名前<rt>なまえ</rt></ruby>",
+      "nameFurigana": "なまえ（よみかた）",
+      "age": "<ruby>年齢<rt>ねんれい</rt></ruby>",
+      "nationality": "<ruby>国籍<rt>こくせき</rt></ruby>",
+      "native": "<ruby>母語<rt>ぼご</rt></ruby>",
+      "dueDate": "<ruby>出産予定日<rt>しゅっさんよていび</rt></ruby>",
+      "level": "<ruby>日本語<rt>にほんご</rt></ruby>レベル",
+      "levelSpeaking": "<ruby>話<rt>はな</rt></ruby>す",
+      "levelListening": "<ruby>聞<rt>き</rt></ruby>く",
+      "levelWriting": "<ruby>書<rt>か</rt></ruby>く",
+      "levelReading": "<ruby>読<rt>よ</rt></ruby>む"
+    },
+    "placeholder": {
+      "cardNo": "例：1234567",
+      "travelTime": "分",
+      "contactName": "例：陣痛タクシー",
+      "phoneNumber": "例：0312345678",
+      "name": "例：Maria Santos",
+      "nameFurigana": "例：まりあ さんとす",
+      "age": "例：30",
+      "nationality": "例：フィリピン",
+      "native": "例：フィリピノ語"
+    },
+    "option": {
+      "notSet": "<ruby>未設定<rt>みせってい</rt></ruby>",
+      "yes": "はい",
+      "no": "いいえ"
+    },
+    "confirm": {
+      "unlink": "この<ruby>病院<rt>びょういん</rt></ruby>の<ruby>登録<rt>とうろく</rt></ruby>を<ruby>消<rt>け</rt></ruby>しますか？",
+      "resetExtra": "この<ruby>病院<rt>びょういん</rt></ruby>の<ruby>追加情報<rt>ついかじょうほう</rt></ruby>をリセットしますか？",
+      "deleteContact": "この<ruby>連絡先<rt>れんらくさき</rt></ruby>を<ruby>消<rt>け</rt></ruby>しますか？"
+    },
+    "modal": {
+      "registerHospital": {
+        "title": "<ruby>病院<rt>びょういん</rt></ruby>を<ruby>登録<rt>とうろく</rt></ruby>",
+        "desc": "<ruby>診察券番号<rt>しんさつけんばんごう</rt></ruby>などを<ruby>入力<rt>にゅうりょく</rt></ruby>して、<ruby>病院<rt>びょういん</rt></ruby>を<ruby>登録<rt>とうろく</rt></ruby>してください。"
+      }
+    },
+    "error": {
+      "scanUnavailable": "QRコードを<ruby>読<rt>よ</rt></ruby>み<ruby>取<rt>と</rt></ruby>れません。",
+      "invalidQr": "QRコードが<ruby>正<rt>ただ</rt></ruby>しくありません。",
+      "scanFailed": "QRコードの<ruby>読<rt>よ</rt></ruby>み<ruby>取<rt>と</rt></ruby>りに<ruby>失敗<rt>しっぱい</rt></ruby>しました。"
+    }
   },
   "bp": {
     "desc": "どんなお<ruby>産<rt>さん</rt></ruby>にしたいか、<ruby>希望<rt>きぼう</rt></ruby>を <ruby>書<rt>か</rt></ruby>きましょう。",

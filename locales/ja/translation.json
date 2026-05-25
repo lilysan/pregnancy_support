@@ -29,7 +29,8 @@
     "laborCounter": "陣痛カウンター",
     "movementCounter": "胎動カウンター",
     "translation": "翻訳アプリ",
-    "data": "データ取得"
+    "hospital": "病院情報＜スタッフ専用＞",
+    "data": "患者データ＜スタッフ専用＞"
   },
   "header": {
     "selectLanguage": "言語を選択",
@@ -74,13 +75,91 @@
     "alert": "警告",
     "confirm": "確認"
   },
+  "confirm": {
+    "delete": "本当に削除しますか？",
+    "clear": "入力内容をクリアしますか？"
+  },
   "success": {
     "save": "保存しました。",
     "delete": "削除しました。"
   },
-  "confirm": {
-    "delete": "本当に削除しますか？",
-    "clear": "入力内容をクリアしますか？"
+  "link": {
+    "desc": "あなたの基本情報、通院中または分娩予定の病院、必要な連絡先を登録できます。",
+    "info": "病院で提示された病院QRコードを読み取ると、病院情報が追加されます。バースプランや予防接種記録など、あなたが登録したデータが病院に共有されるようになります。",
+    "userDesc": "あなた自身の基本情報を登録できます。",
+    "contactDesc": "陣痛タクシーや家族など、必要な連絡先を登録できます。",
+    "empty": "登録済みの病院はありません。",
+    "emptyContacts": "登録済みの連絡先はありません。",
+    "section": {
+      "user": "あなたの情報",
+      "hospitals": "登録済みの病院",
+      "contacts": "連絡先情報"
+    },
+    "button": {
+      "scan": "病院QRコードを読み取る",
+      "unlink": "登録を削除",
+      "addContact": "連絡先を追加",
+      "registerHospital": "登録"
+    },
+    "badge": {
+      "required": "必須",
+      "optional": "任意"
+    },
+    "label": {
+      "address": "住所",
+      "phone1": "代表電話番号",
+      "phone2": "産科外来電話番号",
+      "phone3": "夜間電話番号",
+      "cardNo": "診察券番号",
+      "travelTime": "病院までの所要時間（分）",
+      "isLaborPatient": "この病院で分娩予定ですか？",
+      "contactName": "連絡先名",
+      "phoneNumber": "電話番号",
+      "lang": "表示言語",
+      "name": "名前",
+      "nameFurigana": "なまえ（よみかた）",
+      "age": "年齢",
+      "nationality": "国籍",
+      "native": "母語",
+      "dueDate": "出産予定日",
+      "level": "日本語レベル",
+      "levelSpeaking": "話す",
+      "levelListening": "聞く",
+      "levelWriting": "書く",
+      "levelReading": "読む"
+    },
+    "placeholder": {
+      "cardNo": "診察券番号",
+      "travelTime": "分",
+      "contactName": "例：陣痛タクシー",
+      "phoneNumber": "例：0312345678",
+      "name": "例：Maria Santos",
+      "nameFurigana": "例：まりあ さんとす",
+      "age": "例：30",
+      "nationality": "例：Philippines",
+      "native": "例：フィリピノ語"
+    },
+    "option": {
+      "notSet": "未設定",
+      "yes": "はい",
+      "no": "いいえ"
+    },
+    "confirm": {
+      "unlink": "この病院の登録を削除しますか？",
+      "resetExtra": "この病院の追加情報をリセットしますか？",
+      "deleteContact": "この連絡先を削除しますか？"
+    },
+    "modal": {
+      "registerHospital": {
+        "title": "病院を登録",
+        "desc": "診察券番号などを入力して、病院を登録してください。"
+      }
+    },
+    "error": {
+      "scanUnavailable": "QRコードを読み取れません。",
+      "invalidQr": "QRコードが正しくありません。",
+      "scanFailed": "QRコードの読み取りに失敗しました。"
+    }
   },
   "bp": {
     "desc": "どんなお産がしたいか希望を入力しましょう。",
