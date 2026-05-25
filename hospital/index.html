@@ -12,6 +12,7 @@
     <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
     <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
     <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="../common/js/config.js"></script>
@@ -87,24 +88,10 @@
             margin-top: 0;
         }
 
-        .hospital-secondary-actions {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
-
         .hospital-danger-btn {
             background: var(--background);
             border: 2px solid var(--error);
             color: var(--error);
-        }
-
-        .hospital-delete-card {
-            margin-top: 24px;
-        }
-
-        .hospital-delete-card.is-hidden {
-            display: none;
         }
 
         .hospital-qrcode {
@@ -126,6 +113,112 @@
         .hospital-download-actions .btn {
             min-height: 56px;
             line-height: 1.35;
+            text-align: center;
+        }
+
+        .btn_birthplan_settings_save {
+            display: none;
+        }
+
+        .btn_hospital_cancel,
+        .btn_birthplan_settings_cancel {
+            display: none;
+        }
+
+        .hospital-edit-actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .hospital-start-options {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .hospital-start-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 16px;
+            margin-top: 0;
+        }
+
+        .hospital-start-card .hospital-section-title {
+            margin-bottom: 4px;
+        }
+
+        .hospital-start-card-heading {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            color: var(--primary-dark);
+        }
+
+        .hospital-start-card-heading .hospital-section-title {
+            margin-bottom: 0;
+        }
+
+        .hospital-account-users {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .hospital-account-user {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--background);
+        }
+
+        .hospital-account-user-id {
+            margin: 0;
+            font-weight: 700;
+            line-height: 1.45;
+            overflow-wrap: anywhere;
+        }
+
+        .hospital-account-user-meta {
+            margin: 2px 0 0;
+            color: var(--sub-text);
+            font-size: 13px;
+            line-height: 1.45;
+        }
+
+        .hospital-account-user-delete {
+            min-width: 88px;
+            min-height: 42px;
+            padding: 8px 12px;
+            border: 2px solid var(--error);
+            background: var(--background);
+            color: var(--error);
+        }
+
+        .hospital-invite-code-modal {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+            margin-top: 12px;
+        }
+
+        .hospital-invite-code-countdown {
+            width: 100%;
+            border-radius: 8px;
+            padding: 10px 12px;
+            background: var(--surface);
+            color: var(--primary-dark);
+            font-weight: 700;
+            line-height: 1.45;
             text-align: center;
         }
 
@@ -169,10 +262,10 @@
         }
 
         .hospital-tabs {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             position: sticky;
             top: var(--hospital-tabs-sticky-top, 0px);
-            z-index: 25;
+            z-index: 15;
             padding: 8px 0;
             background: var(--background);
             overflow-anchor: none;
@@ -180,7 +273,37 @@
         }
 
         .hospital-tabs.is-stuck {
-            box-shadow: 0 8px 10px -10px var(--text-a32);
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            border: 1px solid var(--background);
+        }
+
+        .hospital-tabs.is-stuck .hospital-tab {
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 8px;
+            gap: 0;
+        }
+
+        .hospital-tabs.is-stuck .hospital-tab-step {
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-4px);
+        }
+
+        .hospital-tabs.is-stuck .tab-label {
+            max-width: 0;
+            opacity: 0;
+            transform: translateX(-4px);
+        }
+
+        .hospital-tabs.is-stuck .hospital-tab-main {
+            justify-content: center;
+            gap: 0;
+        }
+
+        .hospital-tabs.is-stuck .hospital-tab-icon {
+            transform: scale(1.05);
         }
 
         .hospital-tab {
@@ -241,6 +364,69 @@
             min-height: 65vh;
         }
 
+        .hospital-workflow.is-hidden {
+            display: none;
+        }
+
+        /*.hospital-workflow-back {*/
+        /*    display: flex;*/
+        /*    justify-content: flex-start;*/
+        /*    margin: 16px 0 0;*/
+        /*}*/
+
+        /*.hospital-workflow-back.is-hidden {*/
+        /*    display: none;*/
+        /*}*/
+
+        .hospital-form-modal-close {
+            display: none;
+        }
+
+        #hospitalDataPanel.is-form-modal {
+            position: fixed;
+            top: var(--hospital-form-modal-top, 0px);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 60;
+            display: block;
+            min-height: calc(100vh - var(--hospital-form-modal-top, 0px));
+            overflow-y: auto;
+            background: var(--background);
+            max-width: 600px;
+            flex-direction: column;
+            gap: 28px;
+            padding: 24px;
+            padding-bottom: 120px;
+            margin: 0 auto;
+            margin-top: 0;
+        }
+
+        #hospitalDataPanel.is-form-modal .hospital-section:first-child {
+            margin-top: 0;
+        }
+
+        #hospitalDataPanel.is-form-modal .hospital-actions {
+            position: sticky;
+            bottom: 0;
+            margin: 24px -24px -110px;
+            padding: 12px 0;
+            background: var(--background);
+            box-shadow: 0 -5px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        #hospitalDataPanel.is-form-modal .hospital-actions .fixed-container {
+            max-width: none;
+            padding: 0;
+        }
+
+        #hospitalDataPanel.is-form-modal .hospital-form-modal-close {
+            position: fixed;
+            top: calc(var(--hospital-form-modal-top, 0px) + 16px);
+            right: max(24px, calc((100vw - 600px) / 2 + 24px));
+            display: inline-flex;
+        }
+
         .hospital-intro-steps {
             display: flex;
             flex-direction: column;
@@ -288,13 +474,6 @@
 
         .birthplan-settings {
             margin-top: 40px;
-        }
-
-        .birthplan-settings-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-top: 16px;
         }
 
         .bp-settings-category {
@@ -394,46 +573,16 @@
             padding-bottom: 170px;
         }
 
-        @media (max-width: 520px) {
+        @media (max-width: 400px) {
             .hospital-tabs {
                 grid-template-columns: 1fr;
             }
+        }
 
-            .hospital-tabs.is-stuck {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
-
-            .hospital-tabs.is-stuck .hospital-tab {
-                align-items: center;
-                justify-content: center;
-                min-height: 48px;
-                padding: 8px;
-                gap: 0;
-            }
-
-            .hospital-tabs.is-stuck .hospital-tab-step {
-                max-height: 0;
-                opacity: 0;
-                transform: translateY(-4px);
-            }
-
-            .hospital-tabs.is-stuck .tab-label {
-                max-width: 0;
-                opacity: 0;
-                transform: translateX(-4px);
-            }
-
-            .hospital-tabs.is-stuck .hospital-tab-main {
-                justify-content: center;
-                gap: 0;
-            }
-
-            .hospital-tabs.is-stuck .hospital-tab-icon {
-                transform: scale(1.05);
-            }
-
+        @media (max-width: 520px) {
+            .hospital-start-options,
             .hospital-field-grid,
-            .hospital-secondary-actions {
+            .hospital-account-user {
                 grid-template-columns: 1fr;
             }
         }
@@ -445,12 +594,50 @@
 
 <main>
     <article class="main-container">
-        <h1>病院データ登録/編集</h1>
+        <h1>病院情報</h1>
         <p class="desc">
-            基本情報の登録とバースプラン設定を行い、発行されたQRコードを妊婦さんに提示してご利用ください。
+            病院情報を登録・編集し、バースプラン設定や妊婦さんに案内するQRコード、スタッフ端末を管理できます。
         </p>
-        <div id="hospitalTabsSentinel" aria-hidden="true"></div>
-        <div class="tabs-grid hospital-tabs" role="tablist" aria-label="病院設定">
+
+        <div class="hospital-start-options">
+            <div class="card hospital-start-card hospital-account-join-card">
+                <h2 class="hospital-section-title">
+                    <iconify-icon icon="material-symbols:qr-code-scanner-rounded" style="color: var(--primary-dark)" width="24" height="24" aria-hidden="true"></iconify-icon>
+                    <span>登録済みの病院情報を利用する</span>
+                </h2>
+                <p class="small">登録済みの端末から発行したスタッフ招待コードを読み取ると、この端末でも同じ病院情報を管理できます。</p>
+                <div class="btn-column">
+                    <button type="button" class="btn btn_hospital_account_scan">
+                        <iconify-icon icon="material-symbols:qr-code-scanner-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                        <span>スタッフ招待コードを読み取る</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="card hospital-start-card hospital-new-registration-card">
+                <h2 class="hospital-section-title">
+                    <iconify-icon icon="material-symbols:add-business-rounded" style="color: var(--primary-dark)" width="24" height="24" aria-hidden="true"></iconify-icon>
+                    <span>新しい病院情報を登録する</span>
+                </h2>
+                <p class="small">病院名・住所・電話番号を登録し、通院する妊婦さんに案内するQRコードを発行します。</p>
+                <div class="btn-column">
+                    <button type="button" class="btn btn_hospital_new_registration">
+                        <iconify-icon icon="material-symbols:edit-document-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                        <span>基本情報を入力する</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+<!--        <div class="hospital-workflow-back is-hidden">-->
+<!--            <button type="button" class="btn tertiary btn_hospital_start_back">-->
+<!--                <iconify-icon icon="material-symbols:arrow-back-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>-->
+<!--                <span>選択画面に戻る</span>-->
+<!--            </button>-->
+<!--        </div>-->
+
+        <div id="hospitalTabsSentinel" class="hospital-workflow hospital-step-tabs is-hidden" aria-hidden="true"></div>
+        <div class="tabs-grid hospital-tabs hospital-workflow hospital-step-tabs is-hidden" role="tablist" aria-label="病院設定">
             <button type="button" class="tab hospital-tab active" id="hospitalDataTab" role="tab" aria-selected="true" aria-controls="hospitalDataPanel" data-tab-target="hospitalDataPanel">
                 <span class="hospital-tab-step">Step 1</span>
                 <span class="hospital-tab-main">
@@ -472,14 +659,24 @@
                     <span class="tab-label">病院QRコード</span>
                 </span>
             </button>
+            <button type="button" class="tab hospital-tab" id="hospitalAccountManagementTab" role="tab" aria-selected="false" aria-controls="hospitalAccountManagementPanel" data-tab-target="hospitalAccountManagementPanel">
+                <span class="hospital-tab-step">Step 4</span>
+                <span class="hospital-tab-main">
+                    <iconify-icon class="hospital-tab-icon" icon="material-symbols:admin-panel-settings-rounded" width="20" height="20" aria-hidden="true"></iconify-icon>
+                    <span class="tab-label">スタッフ管理</span>
+                </span>
+            </button>
         </div>
 
-        <section id="hospitalDataPanel" class="hospital-tab-panel" role="tabpanel" aria-labelledby="hospitalDataTab">
+        <section id="hospitalDataPanel" class="hospital-tab-panel hospital-workflow is-hidden" role="tabpanel" aria-labelledby="hospitalDataTab">
+            <button type="button" class="modal-close hospital-form-modal-close btn_hospital_form_modal_close" aria-label="閉じる">
+                <iconify-icon icon="material-symbols:close-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+            </button>
             <h2>基本情報</h2>
             <p class="desc">病院名、住所、電話番号を入力してください。</p>
 
             <form name="form_hospital" class="h-adr hospital-form">
-            <section class="card hospital-section">
+            <section class="card">
                 <h2 class="hospital-section-title">
                     <iconify-icon icon="material-symbols:local-hospital-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
                     <span>病院名</span>
@@ -500,7 +697,7 @@
                 </div>
             </section>
 
-            <section class="card hospital-section">
+            <section class="card">
                 <h2 class="hospital-section-title">
                     <iconify-icon icon="material-symbols:location-on-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
                     <span>住所</span>
@@ -580,7 +777,7 @@
                 </div>
             </section>
 
-            <section class="card hospital-section">
+            <section class="card">
                 <h2 class="hospital-section-title">
                     <iconify-icon icon="material-symbols:phone-in-talk-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
                     <span>電話番号</span>
@@ -603,70 +800,66 @@
                     </label>
                 </div>
             </section>
-
-            <div class="hospital-actions">
+            <div class="sticky-actions">
                 <div class="fixed-container">
                     <div class="btn-column">
-                        <button type="button" class="btn btn_register">
-                            <iconify-icon icon="material-symbols:save-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
-                            <span>登録</span>
-                        </button>
-                        <div class="hospital-secondary-actions">
-                            <button type="button" class="btn hospital-edit-btn btn_edit">
-                                <iconify-icon icon="material-symbols:edit" width="22" height="22" aria-hidden="true"></iconify-icon>
-                                <span>編集</span>
+                        <div class="hospital-edit-actions">
+                            <button type="button" class="btn secondary btn_hospital_cancel">
+                                <iconify-icon icon="material-symbols:close-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                                <span>キャンセル</span>
+                            </button>
+                            <button type="button" class="btn btn_register">
+                                <iconify-icon icon="material-symbols:save-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                                <span>登録</span>
                             </button>
                         </div>
+                        <button type="button" class="btn hospital-edit-btn btn_edit">
+                            <iconify-icon icon="material-symbols:edit" width="22" height="22" aria-hidden="true"></iconify-icon>
+                            <span>編集</span>
+                        </button>
                     </div>
                 </div>
             </div>
         </form>
-
-            <div class="card hospital-delete-card is-hidden">
-                <div class="state-card-inner">
-                    <iconify-icon icon="material-symbols:warning-rounded" width="24" height="24" style="color:var(--error)" aria-hidden="true"></iconify-icon>
-                    <div>
-                        <p class="small bold">基本情報を削除</p>
-                        <p class="small sub-text">病院データと発行済みQRコード情報を削除します。</p>
-                    </div>
-                </div>
-                <div class="btn-column">
-                    <button type="button" class="btn hospital-danger-btn btn_delete">
-                        <iconify-icon icon="material-symbols:delete-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
-                        <span>削除する</span>
-                    </button>
-                </div>
-            </div>
-
         </section>
 
-        <section id="birthplanSettingsPanel" class="birthplan-settings hospital-tab-panel" role="tabpanel" aria-labelledby="birthplanSettingsTab" hidden>
+        <section id="birthplanSettingsPanel" class="birthplan-settings hospital-tab-panel hospital-workflow is-hidden" role="tabpanel" aria-labelledby="birthplanSettingsTab" hidden>
             <h2>バースプラン設定</h2>
             <p class="desc">妊婦さんに表示するバースプランの質問と選択肢を設定します。オフにした項目は妊婦さんの入力画面で選べなくなります。</p>
-            <div class="card">
+            <div class="card card-info">
                 <div class="state-card-inner">
                     <iconify-icon icon="material-symbols:tune-rounded" width="24" height="24" style="color:var(--info-state)" aria-hidden="true"></iconify-icon>
                     <p class="small">質問をオフにすると、その質問全体が非対応として扱われます。</p>
                 </div>
             </div>
-            <div id="birthplanSettingsForm" class="birthplan-settings-list accordion-list"></div>
+            <div id="birthplanSettingsForm" class="accordion-list"></div>
             <div class="hospital-actions">
                 <div class="fixed-container">
                     <div class="btn-column">
-                        <button type="button" class="btn btn_birthplan_settings_save">
-                            <iconify-icon icon="material-symbols:save-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
-                            <span>バースプラン設定を保存</span>
+                        <button type="button" class="btn btn_birthplan_settings_edit">
+                            <iconify-icon icon="material-symbols:edit-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                            <span>編集</span>
                         </button>
+                        <div class="hospital-edit-actions">
+                            <button type="button" class="btn secondary btn_birthplan_settings_cancel">
+                                <iconify-icon icon="material-symbols:close-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                                <span>キャンセル</span>
+                            </button>
+                            <button type="button" class="btn btn_birthplan_settings_save">
+                                <iconify-icon icon="material-symbols:save-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                                <span>保存</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="hospitalQrCodePanel" class="hospital-qrcode-card hospital-tab-panel" role="tabpanel" aria-labelledby="hospitalQrCodeTab" hidden>
+        <section id="hospitalQrCodePanel" class="hospital-qrcode-card hospital-tab-panel hospital-workflow is-hidden" role="tabpanel" aria-labelledby="hospitalQrCodeTab" hidden>
             <h2>病院QRコード</h2>
-            <p class="desc">以下のQRコードを妊婦さんに提示してください。</p>
+            <p class="desc">以下のQRコードを通院する妊婦さんに提示してください。</p>
             <div class="row-list">
-                <div class="card">
+                <div class="card card-info">
                     <div class="state-card-inner">
                         <iconify-icon icon="material-symbols:info-rounded" width="24" height="24" style="color:var(--info-state)"></iconify-icon>
                         <div>
@@ -688,6 +881,37 @@
             </div>
         </section>
 
+        <section id="hospitalAccountManagementPanel" class="hospital-tab-panel hospital-workflow is-hidden" role="tabpanel" aria-labelledby="hospitalAccountManagementTab" hidden>
+            <h2>スタッフ管理</h2>
+            <p class="desc">他の端末からスタッフ招待コードを読み取ると、同じ病院情報の管理に加えて、妊婦さんから共有されたデータを確認できます。必要なスタッフにのみ共有してください。</p>
+            <div class="card card-info">
+                <div class="state-card-inner">
+                    <iconify-icon icon="material-symbols:info-rounded" width="24" height="24" style="color:var(--info-state)"></iconify-icon>
+                    <div>
+                        <p class="small">この端末が故障した場合や、LINEアカウントが消えてしまった場合などのバックアップ対策にもなります。</p>
+                    </div>
+                </div>
+            </div>
+            <section>
+                    <h3>
+                        <span>スタッフ招待コード</span>
+                    </h3>
+                    <p class="small">招待コードは短時間だけ有効です。追加するスタッフ端末で読み取る直前に発行してください。</p>
+                    <div class="btn-column">
+                        <button type="button" class="btn btn_hospital_invite_code_create">
+                            <iconify-icon icon="material-symbols:qr-code-2-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                            <span>スタッフ招待コードを発行</span>
+                        </button>
+                    </div>
+            </section>
+            <section>
+                    <h3>
+                        <span>連携中のスタッフ端末</span>
+                    </h3>
+                    <div class="hospital-account-users"></div>
+            </section>
+        </section>
+
     </article>
 </main>
 
@@ -707,12 +931,21 @@
         schema: null,
         translations: {},
         settings: {},
-        keys: []
+        keys: [],
+        isEditMode: false
     };
     const hospitalState = {
-        hospitalId: ""
+        hospitalId: "",
+        data: {}
+    };
+    const hospitalAccountState = {
+        users: []
+    };
+    const hospitalViewState = {
+        isNewRegistrationStarted: false
     };
     const hospitalIntroModalManager = createModalManager();
+    let hospitalInviteCodeTimer = null;
 
     $(function () {
         const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
@@ -720,14 +953,19 @@
         liff.init({
             liffId: LIFF_ID, // Use own liffId
             withLoginOnExternalBrowser: !isDev, // Enable automatic login process
-        }).then(() => {
+        }).then(async () => {
+            const idToken = liff.getIDToken();
+            await handleHospitalAccountInvite(idToken);
             return Promise.all([
-                main(liff.getIDToken()),
+                main(idToken),
                 loadHeader()
             ]);
         }).then(() => {
             setupHospitalStickyTabs();
             $("#loadingOverlay").removeClass('is-open');
+            //TODO:
+            setHospitalMode(true);
+            $(".hospital-start-options").hide();
         }).catch((err) => {
             console.error("LIFF init failed:", err);
             alert("LIFF init failed.");
@@ -743,11 +981,8 @@
         $(".btn_edit").on("click", function(e){
             editHospital(liff.getIDToken());
         });
-        $(".btn_delete").on("click", async function(e){
-            const action = await showHospitalDeleteConfirmModal();
-            if (action === "positive") {
-                deleteHospital(liff.getIDToken());
-            }
+        $(".btn_hospital_cancel").on("click", function(){
+            cancelHospitalEdit();
         });
         $(".btn_download").on("click", function(e){
             e.preventDefault();
@@ -764,8 +999,37 @@
         $(".btn_birthplan_settings_save").on("click", function(){
             saveBirthPlanSettings(liff.getIDToken());
         });
+        $(".btn_birthplan_settings_edit").on("click", function(){
+            setBirthPlanSettingsEditMode(true);
+        });
+        $(".btn_birthplan_settings_cancel").on("click", function(){
+            cancelBirthPlanSettingsEdit();
+        });
+        $(".btn_hospital_account_scan").on("click", function(){
+            scanHospitalAccountCode(liff.getIDToken());
+        });
+        $(".btn_hospital_invite_code_create").on("click", function(){
+            showHospitalInviteCodeModal(liff.getIDToken());
+        });
+        $(".btn_hospital_new_registration").on("click", function(){
+            hospitalViewState.isNewRegistrationStarted = true;
+            setHospitalWorkflowVisible(true, false);
+            $(".hospital-start-options").hide();
+            openHospitalFormModal();
+            switchHospitalTab("hospitalDataPanel");
+        });
+        $(".btn_hospital_form_modal_close, .btn_hospital_start_back").on("click", function(){
+            closeHospitalFormModal();
+        });
+        $(".hospital-account-users").on("click", ".hospital-account-user-delete", async function(){
+            const userId = $(this).data("user-id");
+            const action = await showHospitalAccountUserDeleteConfirmModal(userId);
+            if (action === "positive") {
+                deleteHospitalAccountUser(liff.getIDToken(), userId);
+            }
+        });
         $(".hospital-tab").on("click", function(){
-            switchHospitalTab($(this).data("tab-target"));
+            switchHospitalTab($(this).data("tab-target"), true);
         });
         $("#birthplanSettingsForm").on("click", ".accordion-trigger", function () {
             const $this = $(this);
@@ -778,6 +1042,9 @@
             $body.css("max-height", isOpen ? "" : $body.prop("scrollHeight") + 32 + "px");
         });
         $("#birthplanSettingsForm").on("click", ".bp-settings-toggle", function () {
+            if (!birthPlanSettingsState.isEditMode) {
+                return;
+            }
             const key = $(this).data("key");
             if (!key) {
                 return;
@@ -796,19 +1063,24 @@
 
     async function main(idToken) {
         try {
-            const [hospitalResponse, schemaResponse, translationResponse, birthPlanSettings] = await Promise.all([
+            const [hospitalResponse, schemaResponse, translationResponse, birthPlanSettings, hospitalAccountResponse] = await Promise.all([
                 fetchHospital(idToken),
                 fetchJson(BIRTHPLAN_SCHEMA_URL),
                 fetchJson(BIRTHPLAN_TRANSLATION_URL),
-                fetchBirthPlanSettings(idToken)
+                fetchBirthPlanSettings(idToken),
+                fetchHospitalAccount(idToken)
             ]);
 
             handleHospitalResponse(hospitalResponse);
+            handleHospitalAccountResponse(hospitalAccountResponse);
             birthPlanSettingsState.schema = schemaResponse;
             birthPlanSettingsState.translations = translationResponse;
             birthPlanSettingsState.settings = birthPlanSettings;
+            birthPlanSettingsState.savedSettings = Object.assign({}, birthPlanSettings);
             birthPlanSettingsState.keys = collectBirthPlanSettingKeys(birthPlanSettingsState.schema);
+            birthPlanSettingsState.isEditMode = false;
             renderBirthPlanSettings();
+            updateBirthPlanSettingsActionState();
         } catch (error) {
             console.error("main failed:", error);
             alert("Network error!");
@@ -844,7 +1116,7 @@
         }
     }
 
-    function switchHospitalTab(targetPanelId) {
+    function switchHospitalTab(targetPanelId, shouldScroll = false) {
         $(".hospital-tab").each(function () {
             const isActive = $(this).data("tab-target") === targetPanelId;
             $(this)
@@ -853,6 +1125,26 @@
         });
         $(".hospital-tab-panel").each(function () {
             $(this).prop("hidden", this.id !== targetPanelId);
+        });
+        if (shouldScroll) {
+            requestAnimationFrame(() => scrollToHospitalTabPanelTop(targetPanelId));
+        }
+    }
+
+    function scrollToHospitalTabPanelTop(targetPanelId) {
+        const panel = document.getElementById(targetPanelId);
+        const header = document.getElementById("header-container");
+        const tabs = document.querySelector(".hospital-tabs");
+        if (!panel || panel.classList.contains("is-hidden")) {
+            return;
+        }
+
+        const headerHeight = header ? header.offsetHeight : 0;
+        const tabsHeight = tabs && !tabs.classList.contains("is-hidden") ? tabs.offsetHeight : 0;
+        const top = window.scrollY + panel.getBoundingClientRect().top - headerHeight - tabsHeight - 12;
+        window.scrollTo({
+            top: Math.max(0, top),
+            behavior: "smooth"
         });
     }
 
@@ -863,6 +1155,11 @@
         if (!tabs || !sentinel) {
             return;
         }
+        if (tabs.dataset.stickyInitialized === "1") {
+            window.dispatchEvent(new Event("resize"));
+            return;
+        }
+        tabs.dataset.stickyInitialized = "1";
 
         let isStuck = false;
         let stickyStartY = 0;
@@ -886,6 +1183,7 @@
         window.addEventListener("resize", () => {
             recalculateStickyStart();
             updateStickyTabs();
+            setHospitalFormModalTop();
         });
     }
 
@@ -897,6 +1195,154 @@
                 idToken: idToken
             })
         );
+    }
+
+    function fetchHospitalAccount(idToken) {
+        return $.ajax(
+            getAccessObj({
+                path: "hospitalAccount",
+                method: "get",
+                idToken: idToken
+            })
+        ).then(null, function () {
+            return {
+                statusCode: 0,
+                data: {
+                    hospitalId: "",
+                    users: []
+                }
+            };
+        });
+    }
+
+    function fetchHospitalAccountInvite(idToken) {
+        return $.ajax(
+            getAccessObj({
+                path: "hospitalAccountInvite",
+                method: "post",
+                idToken: idToken
+            })
+        );
+    }
+
+    function registerHospitalAccount(idToken, inviteToken) {
+        return $.ajax(
+            getAccessObj({
+                path: "hospitalAccount",
+                method: "post",
+                idToken: idToken,
+                postData: {
+                    inviteToken: inviteToken
+                }
+            })
+        );
+    }
+
+    function deleteHospitalAccountUserRequest(idToken, userId) {
+        return $.ajax(
+            getAccessObj({
+                path: "hospitalAccount",
+                method: "delete",
+                idToken: idToken,
+                postData: {
+                    userId: userId
+                }
+            })
+        );
+    }
+
+    async function handleHospitalAccountInvite(idToken) {
+        const inviteToken = getHospitalInviteToken();
+        if (!inviteToken) {
+            return;
+        }
+
+        const linked = await linkHospitalAccount(idToken, inviteToken);
+        if (linked) {
+            clearHospitalInviteToken();
+            showHospitalAccountLinkedModal();
+        }
+    }
+
+    async function linkHospitalAccount(idToken, inviteToken) {
+        let response;
+        try {
+            response = await registerHospitalAccount(idToken, inviteToken);
+        } catch (error) {
+            console.error("hospitalAccount invite failed:", error);
+            alert("Network error!");
+            return false;
+        }
+        if (response.statusCode === 401) {
+            liff.logout();
+            window.location.reload();
+            return false;
+        }
+        if (response.statusCode !== 200) {
+            console.error(response.message);
+            showHospitalInviteCodeInvalidModal();
+            return false;
+        }
+
+        return true;
+    }
+
+    function getHospitalInviteToken() {
+        return new URLSearchParams(window.location.search).get("hospitalInviteToken") || "";
+    }
+
+    function clearHospitalInviteToken() {
+        const url = new URL(window.location.href);
+        url.searchParams.delete("hospitalInviteToken");
+        window.history.replaceState({}, document.title, url.toString());
+    }
+
+    async function scanHospitalAccountCode(idToken) {
+        if (typeof liff.scanCodeV2 !== "function") {
+            showHospitalAccountScanUnavailableModal();
+            return;
+        }
+
+        let result;
+        try {
+            result = await liff.scanCodeV2();
+        } catch (error) {
+            console.error("scanCodeV2 failed:", error);
+            showHospitalAccountScanUnavailableModal();
+            return;
+        }
+
+        if (!result || result.value === null) {
+            return;
+        }
+
+        const inviteToken = extractHospitalInviteTokenFromScanValue(result.value);
+        if (!inviteToken) {
+            alert("スタッフ招待コードを読み取ってください。");
+            return;
+        }
+
+        $("#loadingOverlay").addClass('is-open');
+        const linked = await linkHospitalAccount(idToken, inviteToken);
+        if (linked) {
+            await main(idToken);
+            showHospitalAccountLinkedModal();
+        }
+        $("#loadingOverlay").removeClass('is-open');
+    }
+
+    function extractHospitalInviteTokenFromScanValue(value) {
+        const scannedValue = String(value || "").trim();
+        if (!scannedValue) {
+            return "";
+        }
+
+        try {
+            const url = new URL(scannedValue);
+            return url.searchParams.get("hospitalInviteToken") || "";
+        } catch (error) {
+            return scannedValue;
+        }
     }
 
     async function fetchJson(url) {
@@ -920,7 +1366,19 @@
         }
 
         const data = response.data || {};
+        hospitalState.data = Object.assign({}, data);
         hospitalState.hospitalId = data.hospitalId || "";
+        applyHospitalData(data);
+        setQrCodeData(data);
+        refreshHalfwidthNumberWarnings();
+
+        setHospitalMode(Boolean(data.hospitalId));
+        if (!data.hospitalId) {
+            showHospitalIntroModal();
+        }
+    }
+
+    function applyHospitalData(data) {
         $(".hospital_name_placeholder").val(data.hospitalName || "");
         $(".hospital_name_en_placeholder").val(data.hospitalNameEn || "");
         $(".hospital_name_furigana_placeholder").val(data.hospitalNameFurigana || "");
@@ -932,13 +1390,146 @@
         $(".phone_number1_placeholder").val(data.phoneNumber1 || "");
         $(".phone_number2_placeholder").val(data.phoneNumber2 || "");
         $(".phone_number3_placeholder").val(data.phoneNumber3 || "");
-        setQrCodeData(data);
-        refreshHalfwidthNumberWarnings();
+    }
 
-        setHospitalMode(Boolean(data.hospitalName));
-        if (!data.hospitalId) {
-            showHospitalIntroModal();
+    function handleHospitalAccountResponse(response) {
+        if (!response || response.statusCode === 0) {
+            hospitalAccountState.users = [];
+            renderHospitalAccountUsers();
+            return;
         }
+        if(response.statusCode === 401){
+            liff.logout();
+            window.location.reload();
+            return;
+        }
+        if(response.statusCode !== 200){
+            hospitalAccountState.users = [];
+            renderHospitalAccountUsers();
+            return;
+        }
+
+        const data = response.data || {};
+        if (!hospitalState.hospitalId && data.hospitalId) {
+            hospitalState.hospitalId = data.hospitalId;
+        }
+        hospitalAccountState.users = Array.isArray(data.users) ? data.users : [];
+        renderHospitalAccountUsers();
+    }
+
+    async function showHospitalInviteCodeModal(idToken) {
+        $("#loadingOverlay").addClass('is-open');
+        let response;
+        try {
+            response = await fetchHospitalAccountInvite(idToken);
+        } catch (error) {
+            console.error("hospitalAccountInvite failed:", error);
+            $("#loadingOverlay").removeClass('is-open');
+            alert("Network error!");
+            return;
+        }
+        $("#loadingOverlay").removeClass('is-open');
+
+        if (response.statusCode === 401) {
+            liff.logout();
+            window.location.reload();
+            return;
+        }
+        if (response.statusCode !== 200) {
+            console.error(response.message);
+            alert(response.message);
+            return;
+        }
+
+        const data = response.data || {};
+        const inviteToken = data.inviteToken || "";
+        const expiresIn = Number(data.expiresIn) || 0;
+        if (!inviteToken || expiresIn <= 0) {
+            alert("スタッフ招待コードを発行できませんでした。");
+            return;
+        }
+
+        startHospitalInviteCodeModal(inviteToken, expiresIn);
+    }
+
+    function startHospitalInviteCodeModal(inviteToken, expiresIn) {
+        clearHospitalInviteCodeTimer();
+        hospitalIntroModalManager.show({
+            title: "スタッフ招待コード",
+            messageHtml: `
+                <div class="hospital-invite-code-modal">
+                    <p class="small">追加するスタッフ端末でこの招待コードを読み取ってください。</p>
+                    <div id="hospitalInviteCodeQr" class="hospital-qrcode" role="img" aria-label="スタッフ招待コード"></div>
+                    <p class="hospital-invite-code-countdown">残り <span id="hospitalInviteCodeSeconds">${expiresIn}</span> 秒</p>
+                </div>`,
+            positiveText: "閉じる",
+            onClose: clearHospitalInviteCodeTimer
+        });
+        renderHospitalInviteQrCode(inviteToken);
+
+        let remainingSeconds = expiresIn;
+        hospitalInviteCodeTimer = window.setInterval(() => {
+            remainingSeconds -= 1;
+            $("#hospitalInviteCodeSeconds").text(Math.max(0, remainingSeconds));
+            if (remainingSeconds <= 0) {
+                clearHospitalInviteCodeTimer();
+                hospitalIntroModalManager.hide("expired");
+            }
+        }, 1000);
+    }
+
+    function clearHospitalInviteCodeTimer() {
+        if (hospitalInviteCodeTimer) {
+            window.clearInterval(hospitalInviteCodeTimer);
+            hospitalInviteCodeTimer = null;
+        }
+    }
+
+    function renderHospitalInviteQrCode(inviteToken) {
+        const qrEl = document.getElementById("hospitalInviteCodeQr");
+        if (!qrEl || typeof QRCode !== "function") {
+            return;
+        }
+        qrEl.innerHTML = "";
+        new QRCode(qrEl, {
+            text: inviteToken,
+            width: 220,
+            height: 220,
+            correctLevel: QRCode.CorrectLevel.M
+        });
+    }
+
+    function renderHospitalAccountUsers() {
+        const usersEl = $(".hospital-account-users");
+        usersEl.empty();
+        if (!hospitalState.hospitalId) {
+            usersEl.append($("<p>").addClass("small").text("病院データ登録後に連携中の端末を確認できます。"));
+            return;
+        }
+        if (hospitalAccountState.users.length === 0) {
+            usersEl.append($("<p>").addClass("small").text("連携中のスタッフ端末を取得できませんでした。"));
+            return;
+        }
+
+        hospitalAccountState.users.forEach((user) => {
+            const isCurrentUser = Number(user.isCurrentUser) === 1;
+            const userEl = $("<div>").addClass("hospital-account-user");
+            const bodyEl = $("<div>");
+            bodyEl
+                .append($("<p>").addClass("hospital-account-user-id").text(user.userId || "ユーザーID未取得"))
+                .append($("<p>").addClass("hospital-account-user-meta").text(isCurrentUser ? "この端末" : "連携済み端末"));
+            userEl.append(bodyEl);
+            if (user.userId) {
+                userEl.append(
+                    $("<button>")
+                        .attr("type", "button")
+                        .addClass("btn hospital-account-user-delete")
+                        .data("user-id", user.userId)
+                        .text("解除")
+                );
+            }
+            usersEl.append(userEl);
+        });
     }
 
     function showHospitalIntroModal() {
@@ -964,7 +1555,14 @@
                         <span class="hospital-intro-step-number">Step 3</span>
                         <div>
                             <p class="hospital-intro-step-title">病院QRコードを提示</p>
-                            <p class="hospital-intro-step-text">発行されたQRコードを妊婦さんへご提示ください。</p>
+                            <p class="hospital-intro-step-text">発行された病院QRコードを通院する妊婦さんへ提示してください。</p>
+                        </div>
+                    </div>
+                    <div class="hospital-intro-step">
+                        <span class="hospital-intro-step-number">Step 4</span>
+                        <div>
+                            <p class="hospital-intro-step-title">スタッフ用の端末管理</p>
+                            <p class="hospital-intro-step-text">スタッフ招待コードから、他の端末でも同じ病院情報を管理できるようになります。</p>
                         </div>
                     </div>
                 </div>`,
@@ -988,7 +1586,14 @@
                         <span class="hospital-intro-step-number">Step 3</span>
                         <div>
                             <p class="hospital-intro-step-title">病院QRコードを提示</p>
-                            <p class="hospital-intro-step-text">病院QRコードが発行されました。QRコードを保存し、妊婦さんへの案内にご利用ください。</p>
+                            <p class="hospital-intro-step-text">病院QRコードが発行されました。QRコードを保存し、通院する妊婦さんへ提示してください。</p>
+                        </div>
+                    </div>
+                    <div class="hospital-intro-step">
+                        <span class="hospital-intro-step-number">Step 4</span>
+                        <div>
+                            <p class="hospital-intro-step-title">スタッフ用の端末管理</p>
+                            <p class="hospital-intro-step-text">スタッフ招待コードから、他の端末でも同じ病院情報を管理できるようになります。</p>
                         </div>
                     </div>
                 </div>`,
@@ -996,12 +1601,36 @@
         });
     }
 
-    function showHospitalDeleteConfirmModal() {
+    function showHospitalAccountLinkedModal() {
         return hospitalIntroModalManager.show({
-            title: "基本情報を削除しますか？",
-            message: "削除すると、登録済みの病院データとQRコード情報が削除されます。この操作は取り消せません。",
+            title: "スタッフ追加されました",
+            message: "この端末でも同じ病院の基本情報、バースプラン設定、QRコードを管理できます。",
+            positiveText: "OK"
+        });
+    }
+
+    function showHospitalAccountScanUnavailableModal() {
+        return hospitalIntroModalManager.show({
+            title: "QRコードを読み取れません",
+            message: "LINE公式アカウントからこの画面を開いて、スタッフ招待コードを読み取ってください。",
+            positiveText: "OK"
+        });
+    }
+
+    function showHospitalInviteCodeInvalidModal() {
+        return hospitalIntroModalManager.show({
+            title: "スタッフ招待コードを利用できません",
+            message: "有効期限が切れているか、既に使用済みです。再度招待コードを発行してください。",
+            positiveText: "OK"
+        });
+    }
+
+    function showHospitalAccountUserDeleteConfirmModal(userId) {
+        return hospitalIntroModalManager.show({
+            title: "スタッフ端末を解除しますか？",
+            message: `スタッフ端末（${userId}）の利用を解除しますか？ほかに利用中のスタッフ端末がない場合、この病院情報の管理や患者情報の取得ができなくなります。必要に応じて、先に別のスタッフ端末を招待してください。`,
             negativeText: "キャンセル",
-            positiveText: "削除する"
+            positiveText: "解除する"
         });
     }
 
@@ -1062,20 +1691,61 @@
     }
 
     function setHospitalMode(hasHospital) {
-        $(".btn_delete").toggle(hasHospital);
-        $(".hospital-delete-card").addClass("is-hidden");
-        $(".btn_edit").toggle(hasHospital);
-        $(".btn_register").toggle(!hasHospital);
-        $("#birthplanSettingsTab, #hospitalQrCodeTab")
+        $(".hospital-start-options").toggle(!hasHospital && !hospitalViewState.isNewRegistrationStarted);
+        // $(".hospital-workflow-back").toggleClass("is-hidden", hasHospital || !hospitalViewState.isNewRegistrationStarted);
+        setHospitalWorkflowVisible(hasHospital || hospitalViewState.isNewRegistrationStarted, hasHospital);
+        if (hasHospital) {
+            $("#hospitalDataPanel").removeClass("is-form-modal");
+            $("body").removeClass("no-scroll");
+        }
+        setButtonVisible($(".btn_edit"), hasHospital);
+        setButtonVisible($(".btn_register"), !hasHospital);
+        setButtonVisible($(".btn_hospital_cancel"), false);
+        $("#birthplanSettingsTab, #hospitalQrCodeTab, #hospitalAccountManagementTab")
             .prop("disabled", !hasHospital)
             .attr("aria-disabled", String(!hasHospital));
-        if (!hasHospital && (!$("#birthplanSettingsPanel").prop("hidden") || !$("#hospitalQrCodePanel").prop("hidden"))) {
+        if (!hasHospital && (!$("#birthplanSettingsPanel").prop("hidden") || !$("#hospitalQrCodePanel").prop("hidden") || !$("#hospitalAccountManagementPanel").prop("hidden"))) {
             switchHospitalTab("hospitalDataPanel");
         }
         $(".btn_download").toggle(hasHospital);
         $(".btn_sheet").toggle(hasHospital);
         setHospitalFormReadonly(hasHospital);
         updateRegisterButtonState();
+    }
+
+    function setHospitalWorkflowVisible(isVisible, showStepTabs = isVisible) {
+        $(".hospital-workflow").toggleClass("is-hidden", !isVisible);
+        $(".hospital-step-tabs").toggleClass("is-hidden", !showStepTabs);
+        if (showStepTabs) {
+            setupHospitalStickyTabs();
+        }
+    }
+
+    function openHospitalFormModal() {
+        setHospitalFormModalTop();
+        $("#hospitalDataPanel")
+            .removeClass("is-hidden")
+            .addClass("is-form-modal");
+        $("body").addClass("no-scroll");
+    }
+
+    function closeHospitalFormModal() {
+        if (hospitalState.hospitalId) {
+            $("#hospitalDataPanel").removeClass("is-form-modal");
+            $("body").removeClass("no-scroll");
+            return;
+        }
+        hospitalViewState.isNewRegistrationStarted = false;
+        $("#hospitalDataPanel").removeClass("is-form-modal");
+        $("body").removeClass("no-scroll");
+        setHospitalMode(false);
+        switchHospitalTab("hospitalDataPanel");
+    }
+
+    function setHospitalFormModalTop() {
+        const header = document.getElementById("header-container");
+        const headerHeight = header ? header.offsetHeight : 0;
+        document.documentElement.style.setProperty("--hospital-form-modal-top", `${headerHeight}px`);
     }
 
     function setQrCodeData(data) {
@@ -1242,6 +1912,7 @@
             form.append(categoryEl);
         });
         restoreBirthPlanAccordionState(openSectionIds);
+        updateBirthPlanSettingsActionState();
     }
 
     function getOpenBirthPlanAccordionIds() {
@@ -1301,11 +1972,40 @@
             .addClass("bp-settings-toggle")
             .toggleClass("is-active", isActive)
             .toggleClass("bp-settings-option-toggle", isOption)
-            .prop("disabled", isDisabled)
+            .prop("disabled", isDisabled || !birthPlanSettingsState.isEditMode)
             .attr("aria-pressed", String(isActive))
             .attr("data-key", key)
             .append($("<span>").addClass("bp-settings-toggle-text").text(label))
             .append($("<span>").addClass("bp-settings-switch").attr("aria-hidden", "true"));
+    }
+
+    function setBirthPlanSettingsEditMode(isEditMode) {
+        birthPlanSettingsState.isEditMode = isEditMode;
+        updateBirthPlanSettingsActionState();
+        $("#birthplanSettingsForm .bp-settings-question").each(function () {
+            updateBirthPlanQuestionDisabledState($(this));
+        });
+    }
+
+    function updateBirthPlanSettingsActionState() {
+        setButtonVisible($(".btn_birthplan_settings_edit"), !birthPlanSettingsState.isEditMode);
+        setButtonVisible($(".btn_birthplan_settings_save"), birthPlanSettingsState.isEditMode);
+        setButtonVisible($(".btn_birthplan_settings_cancel"), birthPlanSettingsState.isEditMode);
+    }
+
+    function setButtonVisible($button, isVisible) {
+        $button.css("display", isVisible ? "inline-flex" : "none");
+        $button.closest(".hospital-edit-actions").each(function () {
+            const hasVisibleButton = $(this).children(".btn").toArray().some((button) => $(button).css("display") !== "none");
+            $(this).css("display", hasVisibleButton ? "grid" : "none");
+        });
+    }
+
+    function cancelBirthPlanSettingsEdit() {
+        birthPlanSettingsState.settings = Object.assign({}, birthPlanSettingsState.savedSettings || {});
+        birthPlanSettingsState.isEditMode = false;
+        renderBirthPlanSettings();
+        updateBirthPlanSettingsActionState();
     }
 
     function updateBirthPlanSettingToggleState($toggle) {
@@ -1336,11 +2036,12 @@
         $question.toggleClass("is-disabled", !questionEnabled || parentDisabled);
 
         $question.children(".bp-settings-options").each(function () {
-            $(this).children(".bp-settings-toggle").prop("disabled", parentDisabled || !questionEnabled);
+            $(this).children(".bp-settings-toggle").prop("disabled", parentDisabled || !questionEnabled || !birthPlanSettingsState.isEditMode);
             $(this).children(".bp-settings-question").each(function () {
                 updateBirthPlanQuestionDisabledState($(this));
             });
         });
+        $questionToggle.prop("disabled", parentDisabled || !birthPlanSettingsState.isEditMode);
     }
 
     function isParentBirthPlanQuestionDisabled($question) {
@@ -1381,6 +2082,8 @@
                 alert(response.message);
             }
             else {
+                birthPlanSettingsState.savedSettings = Object.assign({}, birthPlanSettingsState.settings);
+                setBirthPlanSettingsEditMode(false);
                 const toastManager = createToastManager();
                 toastManager.show({
                     title: "成功",
@@ -1391,12 +2094,48 @@
                 });
             }
             $("#loadingOverlay").removeClass('is-open');
-            saveButton.prop("disabled", false);
+            saveButton.prop("disabled", !birthPlanSettingsState.isEditMode);
         }).fail(function() {
             $("#loadingOverlay").removeClass('is-open');
             saveButton.prop("disabled", false);
             alert("Network error!birthplanSettings");
         });
+    }
+
+    async function refreshHospitalAccountUsers(idToken) {
+        const response = await fetchHospitalAccount(idToken);
+        handleHospitalAccountResponse(response);
+    }
+
+    function deleteHospitalAccountUser(idToken, userId) {
+        $("#loadingOverlay").addClass('is-open');
+        deleteHospitalAccountUserRequest(idToken, userId)
+            .done(async function(response) {
+                if(response.statusCode === 401){
+                    liff.logout();
+                    window.location.reload();
+                }
+                else if(response.statusCode !== 200){
+                    console.error(response.message);
+                    alert(response.message);
+                }
+                else {
+                    await refreshHospitalAccountUsers(idToken);
+                    const toastManager = createToastManager();
+                    toastManager.show({
+                        title: "成功",
+                        message: "スタッフ端末の連携を解除しました",
+                        color: 'var(--success)',
+                        bg: 'var(--toast-bg-success)',
+                        icon: 'material-symbols:check-circle-rounded'
+                    });
+                }
+                $("#loadingOverlay").removeClass('is-open');
+            })
+            .fail(function() {
+                $("#loadingOverlay").removeClass('is-open');
+                alert("Network error!");
+            });
     }
 
     function setHospital(idToken){
@@ -1409,7 +2148,7 @@
                 idToken: idToken,
                 postData: getHospitalPostData()
             })
-        ).done(function(response) {
+        ).done(async function(response) {
             if(response.statusCode === 401){
                 liff.logout();
                 window.location.reload();
@@ -1421,9 +2160,12 @@
             else {
                 const data = response.data || {};
                 hospitalState.hospitalId = data.hospitalId || hospitalState.hospitalId;
+                hospitalState.data = Object.assign({}, hospitalState.data, getHospitalPostData(), data);
+                hospitalViewState.isNewRegistrationStarted = false;
                 setQrCodeData(data);
 
                 setHospitalMode(true);
+                await refreshHospitalAccountUsers(idToken);
 
                 const toastManager = createToastManager();
                 toastManager.show({
@@ -1433,52 +2175,11 @@
                     bg: 'var(--toast-bg-success)',
                     icon: 'material-symbols:check-circle-rounded'
                 });
-                if (isNewRegistration) {
-                    showHospitalRegisteredModal();
-                }
             }
             $("#loadingOverlay").removeClass('is-open');
-        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            $("#loadingOverlay").removeClass('is-open');
-            alert("Network error!");
-        });
-    }
-
-    function deleteHospital(idToken){
-        $("#loadingOverlay").addClass('is-open');
-        $.ajax(
-            getAccessObj({
-                path: "hospital",
-                method : "delete",
-                idToken: idToken
-            })
-        ).done(function(response) {
-            if(response.statusCode === 401){
-                liff.logout();
-                window.location.reload();
+            if (response.statusCode === 200 && isNewRegistration) {
+                showHospitalRegisteredModal();
             }
-            else if(response.statusCode !== 200){
-                console.error(response.message);
-                alert(response.message);
-            }
-            else {
-                hospitalState.hospitalId = "";
-                setQrCodeData({});
-
-                hospitalFieldSelectors.forEach((selector) => $(selector).val(""));
-                refreshHalfwidthNumberWarnings();
-                setHospitalMode(false);
-
-                const toastManager = createToastManager();
-                toastManager.show({
-                    title: "成功",
-                    message: "削除しました",
-                    color: 'var(--success)',
-                    bg: 'var(--toast-bg-success)',
-                    icon: 'material-symbols:check-circle-rounded'
-                });
-            }
-            $("#loadingOverlay").removeClass('is-open');
         }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
             $("#loadingOverlay").removeClass('is-open');
             alert("Network error!");
@@ -1486,12 +2187,20 @@
     }
 
     function editHospital(){
-        $(".btn_delete").show();
-        $(".hospital-delete-card").removeClass("is-hidden");
-        $(".btn_edit").hide();
-        $(".btn_register").show();
+        setButtonVisible($(".btn_edit"), false);
+        setButtonVisible($(".btn_register"), true);
+        setButtonVisible($(".btn_hospital_cancel"), Boolean(hospitalState.hospitalId));
         setHospitalFormReadonly(false);
         updateRegisterButtonState();
+    }
+
+    function cancelHospitalEdit() {
+        applyHospitalData(hospitalState.data || {});
+        refreshHalfwidthNumberWarnings();
+        setHospitalFormReadonly(true);
+        setButtonVisible($(".btn_edit"), true);
+        setButtonVisible($(".btn_register"), false);
+        setButtonVisible($(".btn_hospital_cancel"), false);
     }
 
     function downloadSheet(idToken){

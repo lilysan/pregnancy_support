@@ -60,7 +60,6 @@ body.no-scroll {
     top: 0;
     z-index: 40;
     background: var(--surface);
-    border-bottom: 1px solid var(--divider);
 }
 .header {
     max-width: 600px;
@@ -179,7 +178,6 @@ body[dir="rtl"] .dropdown.language {
     align-items: center; /* Vertically align items */
     padding: 16px;
     margin: 0 auto;
-    border-bottom: 1px solid var(--divider);
     background: var(--surface); /* Match header background */
 }
 .menu-branding {
@@ -373,7 +371,6 @@ hr {
     margin: 0 0 16px 0;
     font-size: 17px;
     line-height: 1.6;
-    color: var(--sub-text);
 }
 .sub-text {
     color: var(--sub-text);
@@ -422,6 +419,18 @@ hr {
 .card-info {
     border: 1px solid var(--info-state);
     background: var(--toast-bg-info);
+}
+.card-warning {
+    border: 1px solid var(--warning);
+    background: var(--toast-bg-warning);
+}
+.card-error {
+    border: 1px solid var(--error);
+    background: var(--toast-bg-error);
+}
+.card-success {
+    border: 1px solid var(--success);
+    background: var(--toast-bg-success);
 }
 .dark-card {
     border: 1px solid var(--primary-dark);
@@ -529,7 +538,7 @@ hr {
 }
 .btn,
 .btn.primary { background: var(--primary); color: var(--background); }
-.btn.secondary { background: var(--background); color: var(--primary-dark); border: 2px solid var(--primary-border); }
+.btn.secondary { background: var(--background); color: var(--primary-dark); border: 1px solid var(--border); }
 .btn.tertiary { background: transparent; color: var(--primary-dark); box-shadow: none; }
 .btn.disabled { background: var(--border); color: var(--sub-text); box-shadow: none; cursor: not-allowed; }
 .btn-row {
@@ -760,7 +769,6 @@ textarea { min-height: 96px; resize: vertical; }
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-top: 16px;
 }
 .accordion {
     border: 1px solid var(--border);
@@ -868,11 +876,15 @@ textarea { min-height: 96px; resize: vertical; }
     min-height: 44px;
     padding: 8px 12px;
     border-radius: 12px;
-    background: var(--surface);
+    background: var(--background);
     box-shadow: var(--shadow);
+    border: 1px solid var(--border);
     text-align: left;
 }
-.tab.active { border: 2px solid var(--primary); background: var(--primary-light); }
+.tab.active {
+    border: 2px solid var(--primary);
+    background: var(--primary-light);
+    box-shadow: none; }
 .tab-label {
     font-size: 15px;
     font-weight: 600;
@@ -915,6 +927,20 @@ textarea { min-height: 96px; resize: vertical; }
     height: 12px;
     background: #999;
     border-radius: 6px;
+}
+.sticky-actions {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    background: #fff;
+    padding: 0 24px calc(10px + env(safe-area-inset-bottom));
+    box-shadow: 0 -5px 5px 10px var(--background);
+}
+
+.sticky-actions .btn-column {
+    margin-top: 0;
 }
 pre {
     background: var(--text);
