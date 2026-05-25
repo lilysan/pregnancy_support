@@ -1560,7 +1560,7 @@
     function showHospitalAccountUserDeleteConfirmModal(userId) {
         return hospitalIntroModalManager.show({
             title: "スタッフ端末を解除しますか？",
-            messageHtml: `スタッフ端末（${userId}）の利用を解除しますか？<br><strong>ほかに利用中のスタッフ端末がない場合、この病院情報の管理や患者情報の取得ができなくなります。</strong>必要に応じて、先に別のスタッフ端末を招待してください。`,
+            messageHtml: `スタッフ端末（${userId}）の利用を解除しますか？<br><strong>ほかに利用中のスタッフ端末がない場合、この病院情報の管理や患者情報の取得ができなくなります。</strong><br>必要に応じて、先に別のスタッフ端末を招待してください。`,
             negativeText: "キャンセル",
             deleteText: "解除する"
         });
