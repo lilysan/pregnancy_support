@@ -955,9 +955,10 @@
         });
         $(".hospital-account-users").on("click", ".hospital-account-user-delete", async function(){
             const userId = $(this).data("user-id");
+            const isCurrentUser = Boolean($(this).data("is-current-user"));
             const action = await showHospitalAccountUserDeleteConfirmModal(userId);
             if (action === "positive") {
-                deleteHospitalAccountUser(liff.getIDToken(), userId);
+                deleteHospitalAccountUser(liff.getIDToken(), userId, isCurrentUser);
             }
         });
         $(".hospital-tab").on("click", function(){
@@ -1457,6 +1458,7 @@
                         .attr("type", "button")
                         .addClass("btn danger hospital-account-user-delete")
                         .data("user-id", user.userId)
+                        .data("is-current-user", isCurrentUser)
                         .text("解除")
                 );
             }
@@ -1678,6 +1680,22 @@
         const header = document.getElementById("header-container");
         const headerHeight = header ? header.offsetHeight : 0;
         document.documentElement.style.setProperty("--hospital-form-modal-top", `${headerHeight}px`);
+    }
+
+    function resetHospitalToInitialScreen() {
+        hospitalState.hospitalId = "";
+        hospitalState.data = {};
+        hospitalAccountState.users = [];
+        hospitalViewState.isNewRegistrationStarted = false;
+        applyHospitalData({});
+        setQrCodeData({});
+        refreshHalfwidthNumberWarnings();
+        setBirthPlanSettingsEditMode(false);
+        renderHospitalAccountUsers();
+        $("#hospitalDataPanel").removeClass("is-form-modal");
+        $("body").removeClass("no-scroll");
+        setHospitalMode(false);
+        switchHospitalTab("hospitalDataPanel");
     }
 
     function setQrCodeData(data) {
@@ -2042,7 +2060,7 @@
         handleHospitalAccountResponse(response);
     }
 
-    function deleteHospitalAccountUser(idToken, userId) {
+    function deleteHospitalAccountUser(idToken, userId, isCurrentUser = false) {
         $("#loadingOverlay").addClass('is-open');
         deleteHospitalAccountUserRequest(idToken, userId)
             .done(async function(response) {
@@ -2055,7 +2073,11 @@
                     alert(response.message);
                 }
                 else {
-                    await refreshHospitalAccountUsers(idToken);
+                    if (isCurrentUser) {
+                        resetHospitalToInitialScreen();
+                    } else {
+                        await refreshHospitalAccountUsers(idToken);
+                    }
                     const toastManager = createToastManager();
                     toastManager.show({
                         title: "成功",
