@@ -162,66 +162,6 @@
                   "labelKey": "q.a014.o4"
                 }
               ]
-            },
-            {
-              "id": "a015",
-              "labelKey": "q.a015.label",
-              "helpKey": "q.a015.h",
-              "inputType": "single",
-              "options": [
-                {
-                  "id": "o1",
-                  "labelKey": "q.a015.o1"
-                },
-                {
-                  "id": "o2",
-                  "labelKey": "q.a015.o2"
-                },
-                {
-                  "id": "o3",
-                  "labelKey": "q.a015.o3"
-                }
-              ]
-            },
-            {
-              "id": "a016",
-              "labelKey": "q.a016.label",
-              "helpKey": "q.a016.h",
-              "inputType": "single",
-              "options": [
-                {
-                  "id": "o1",
-                  "labelKey": "q.a016.o1"
-                },
-                {
-                  "id": "o2",
-                  "labelKey": "q.a016.o2"
-                },
-                {
-                  "id": "o3",
-                  "labelKey": "q.a016.o3"
-                }
-              ]
-            },
-            {
-              "id": "a017",
-              "labelKey": "q.a017.label",
-              "helpKey": "q.a017.h",
-              "inputType": "single",
-              "options": [
-                {
-                  "id": "o1",
-                  "labelKey": "q.a017.o1"
-                },
-                {
-                  "id": "o2",
-                  "labelKey": "q.a017.o2"
-                },
-                {
-                  "id": "o3",
-                  "labelKey": "q.a017.o3"
-                }
-              ]
             }
           ]
         },

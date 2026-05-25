@@ -243,27 +243,6 @@
         "o3": "Water birth",
         "o4": "Depending on the situation"
       },
-      "a015": {
-        "label": "Do you have preferences regarding artificial rupture of membranes?",
-        "h": "Artificial rupture of membranes means intentionally breaking the amniotic sac to help labor progress.",
-        "o1": "Prefer to avoid if possible",
-        "o2": "Okay if medically necessary",
-        "o3": "Depending on the situation"
-      },
-      "a016": {
-        "label": "Do you have preferences regarding episiotomy?",
-        "h": "Episiotomy is a small surgical cut to widen the vaginal opening for delivery.",
-        "o1": "Prefer to avoid if possible",
-        "o2": "Okay if medically necessary",
-        "o3": "Depending on the situation"
-      },
-      "a017": {
-        "label": "Do you have preferences regarding assisted vaginal delivery (vacuum/forceps)?",
-        "h": "Assisted vaginal delivery uses tools such as a vacuum cup or forceps to help the baby be born.",
-        "o1": "Okay if medically necessary",
-        "o2": "Prefer to avoid if possible",
-        "o3": "Depending on the situation"
-      },
       "a018": {
         "label": "Do you have preferences for pain relief methods?",
         "o1": "Warm compress",

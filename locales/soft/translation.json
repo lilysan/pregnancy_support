@@ -243,27 +243,6 @@
         "o3": "<ruby>水中分娩<rt>すいちゅうぶんべん</rt></ruby>",
         "o4": "<ruby>状況次第<rt>じょうきょうしだい</rt></ruby>"
       },
-      "a015": {
-        "label": "<ruby>人工破膜<rt>じんこうはまく</rt></ruby>について <ruby>希望<rt>きぼう</rt></ruby>はありますか？",
-        "h": "<ruby>人工破膜<rt>じんこうはまく</rt></ruby>は、<ruby>医療者<rt>いりょうしゃ</rt></ruby>が <ruby>処置<rt>しょち</rt></ruby>で <ruby>卵膜<rt>らんまく</rt></ruby>を <ruby>破<rt>やぶ</rt></ruby>り、<ruby>分娩<rt>ぶんべん</rt></ruby>の <ruby>進行<rt>しんこう</rt></ruby>を <ruby>促<rt>うなが</rt></ruby>す <ruby>方法<rt>ほうほう</rt></ruby>です。",
-        "o1": "できれば <ruby>避<rt>さ</rt></ruby>けたい",
-        "o2": "<ruby>必要<rt>ひつよう</rt></ruby>ならOK",
-        "o3": "<ruby>状況次第<rt>じょうきょうしだい</rt></ruby>"
-      },
-      "a016": {
-        "label": "<ruby>会陰切開<rt>えいんせっかい</rt></ruby>について <ruby>希望<rt>きぼう</rt></ruby>はありますか？",
-        "h": "<ruby>会陰切開<rt>えいんせっかい</rt></ruby>は、あかちゃんが <ruby>出<rt>で</rt></ruby>やすいように <ruby>会陰部<rt>えいんぶ</rt></ruby>を <ruby>小<rt>ちい</rt></ruby>さく <ruby>切開<rt>せっかい</rt></ruby>する <ruby>処置<rt>しょち</rt></ruby>です。",
-        "o1": "できれば <ruby>避<rt>さ</rt></ruby>けたい",
-        "o2": "<ruby>必要<rt>ひつよう</rt></ruby>ならOK",
-        "o3": "<ruby>状況次第<rt>じょうきょうしだい</rt></ruby>"
-      },
-      "a017": {
-        "label": "<ruby>器械分娩<rt>きかいぶんべん</rt></ruby>（<ruby>吸引<rt>きゅういん</rt></ruby>・<ruby>鉗子<rt>かんし</rt></ruby>）について <ruby>希望<rt>きぼう</rt></ruby>はありますか？",
-        "h": "<ruby>器械分娩<rt>きかいぶんべん</rt></ruby>は、<ruby>吸引<rt>きゅういん</rt></ruby>カップや <ruby>鉗子<rt>かんし</rt></ruby>を <ruby>使<rt>つか</rt></ruby>ってあかちゃんの <ruby>娩出<rt>べんしゅつ</rt></ruby>を <ruby>補助<rt>ほじょ</rt></ruby>する <ruby>方法<rt>ほうほう</rt></ruby>です。",
-        "o1": "<ruby>必要<rt>ひつよう</rt></ruby>ならOK",
-        "o2": "できれば <ruby>避<rt>さ</rt></ruby>けたい",
-        "o3": "<ruby>状況次第<rt>じょうきょうしだい</rt></ruby>"
-      },
       "a018": {
         "label": "<ruby>痛<rt>いた</rt></ruby>みのケア <ruby>方法<rt>ほうほう</rt></ruby>に <ruby>希望<rt>きぼう</rt></ruby>はありますか？",
         "o1": "<ruby>温罨法<rt>おんあんぽう</rt></ruby>",
