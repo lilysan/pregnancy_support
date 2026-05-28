@@ -44,7 +44,7 @@
                 <form id="addDataForm">
                     <label for="date" id="labelDate">日付</label>
                     <input type="text" id="date" placeholder="日付を選択"><br>
-                    <label for="date" id="labelPeriod">時間</label>
+                    <label for="periodSelect" id="labelPeriod">時間</label>
                     <section class="dropdown">
                         <select id="periodSelect">
                             <option value="1" id="periodMorning">朝</option>
@@ -56,8 +56,9 @@
                     <input type="number" id="higth" class="high" placeholder="最高血圧"><br>
                     <label for="low" id="labelLow">最低血圧</label>
                     <input type="number" id="low" class="low" placeholder="最低血圧"><br>
-                    <label for="medicine" id="labelMedicine">内服</label>
-                    <div id="medicine" class="medicine medicine-radio-group">
+                    <label id="labelMedicine">内服</label>
+                    <div id="medicine" class="medicine medicine-radio-group" role="radiogroup"
+                        aria-labelledby="labelMedicine">
                         <label class="medicine-radio-option">
                             <input type="radio" name="medicineStatus" value="なし" checked>
                             <span id="medicineNoneLabel">なし</span>
@@ -140,8 +141,9 @@
                     <input type="number" id="editHigh" class="high2"><br><br>
                     <label for="editLow" id="editLowLabel">最低血圧</label>
                     <input type="number" id="editLow" class="low2"><br><br>
-                    <label for="editMedicine" id="editMedicineLabel">内服</label>
-                    <div id="editMedicine" class="medicine2 medicine-radio-group">
+                    <label id="editMedicineLabel">内服</label>
+                    <div id="editMedicine" class="medicine2 medicine-radio-group" role="radiogroup"
+                        aria-labelledby="editMedicineLabel">
                         <label class="medicine-radio-option">
                             <input type="radio" name="editMedicineStatus" value="なし" checked>
                             <span id="editMedicineNoneLabel">なし</span>
