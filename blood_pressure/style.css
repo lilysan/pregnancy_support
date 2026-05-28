@@ -137,9 +137,15 @@ button.edit-btn,
 
 .settings-label,
 #addDataForm label,
+.form-group-label,
 #editForm label {
   color: var(--text);
   font-weight: 700;
+}
+
+.form-group-label {
+  display: inline-block;
+  margin-bottom: 4px;
 }
 
 .language-option-list,
