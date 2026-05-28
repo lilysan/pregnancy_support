@@ -1433,7 +1433,7 @@
             loadingOlderPressure = true;
             syncOlderButtons();
             const startPage = loadedWeekPages + 1;
-            const maxSearchPages = 120;
+            const maxSearchPages = startPage + 11;
             const walk = (page) => {
                 if (page > maxSearchPages) {
                     hasOlderPressure = false;
@@ -1556,29 +1556,9 @@
                     updateChart(allData);
                     return;
                 }
-                // If there is no record in the latest week, auto-load older weeks
-                // so the screen is not empty at startup.
-                const maxAutoPages = 120;
-                const walk = (page) => {
-                    if (page > maxAutoPages) {
-                        syncOlderButtons();
-                        allData = [];
-                        updateChart(allData);
-                        return;
-                    }
-                    return fetchPressurePage(page, "append").then((more) => {
-                        if (more.length > 0) {
-                            loadedWeekPages = page;
-                            pressurePage = page;
-                            allData = dedupePressureItems(allData);
-                            updateChart(allData);
-                            syncOlderButtons();
-                            return;
-                        }
-                        return walk(page + 1);
-                    });
-                };
-                return walk(2);
+                allData = [];
+                updateChart(allData);
+                syncOlderButtons();
             });
         }
 
@@ -1654,9 +1634,10 @@
                     loadHeader(),
                     startPressureApp(idToken)
                 ]);
+            }).finally(() => {
+                hideAppLoader();
             }).catch((error) => {
                 console.error("LIFF init failed:", error);
-                hideAppLoader();
                 liff.logout();
                 alert("LIFF init failed.");
             });
