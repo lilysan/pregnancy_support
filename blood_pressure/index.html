@@ -59,12 +59,12 @@
                     <span id="labelMedicine" class="form-group-label">内服</span>
                     <div id="medicine" class="medicine medicine-radio-group" role="radiogroup"
                         aria-labelledby="labelMedicine">
-                        <label class="medicine-radio-option">
-                            <input type="radio" name="medicineStatus" value="なし" checked>
+                        <label class="medicine-radio-option" for="medicineNone">
+                            <input type="radio" id="medicineNone" name="medicineStatus" value="なし" checked>
                             <span id="medicineNoneLabel">なし</span>
                         </label>
-                        <label class="medicine-radio-option">
-                            <input type="radio" name="medicineStatus" value="あり">
+                        <label class="medicine-radio-option" for="medicineYes">
+                            <input type="radio" id="medicineYes" name="medicineStatus" value="あり">
                             <span id="medicineYesLabel">あり</span>
                         </label>
                     </div>
@@ -144,12 +144,12 @@
                     <span id="editMedicineLabel" class="form-group-label">内服</span>
                     <div id="editMedicine" class="medicine2 medicine-radio-group" role="radiogroup"
                         aria-labelledby="editMedicineLabel">
-                        <label class="medicine-radio-option">
-                            <input type="radio" name="editMedicineStatus" value="なし" checked>
+                        <label class="medicine-radio-option" for="editMedicineNone">
+                            <input type="radio" id="editMedicineNone" name="editMedicineStatus" value="なし" checked>
                             <span id="editMedicineNoneLabel">なし</span>
                         </label>
-                        <label class="medicine-radio-option">
-                            <input type="radio" name="editMedicineStatus" value="あり">
+                        <label class="medicine-radio-option" for="editMedicineYes">
+                            <input type="radio" id="editMedicineYes" name="editMedicineStatus" value="あり">
                             <span id="editMedicineYesLabel">あり</span>
                         </label>
                     </div><br><br>
@@ -1595,18 +1595,33 @@
 
         function loadHeader() {
             return new Promise((resolve, reject) => {
+                let settled = false;
+                const finish = () => {
+                    if (settled) return;
+                    settled = true;
+                    resolve();
+                };
+                const fail = (error) => {
+                    if (settled) return;
+                    settled = true;
+                    reject(error);
+                };
+                const timer = setTimeout(finish, 3000);
                 $("#header-container").load("../common/header.html", function (_responseText, status) {
                     if (status === "error") {
-                        reject(new Error("Failed to load header.html"));
+                        clearTimeout(timer);
+                        fail(new Error("Failed to load header.html"));
                         return;
                     }
                     document.addEventListener("i18n-initialized", function () {
-                        resolve();
+                        clearTimeout(timer);
+                        finish();
                     }, {
                         once: true
                     });
                     $.getScript("../common/js/header.js").fail(function () {
-                        reject(new Error("Failed to load header.js"));
+                        clearTimeout(timer);
+                        fail(new Error("Failed to load header.js"));
                     });
                 });
             });
@@ -1616,9 +1631,10 @@
             showAppLoader();
             if (window.IS_TEST_MODE) {
                 // Skip LIFF auth in test mode so UI/data flow can be verified locally.
-                Promise.all([loadHeader(), startPressureApp("TEST_ID_TOKEN")]).catch((e) => {
-                    console.error("test boot failed:", e);
-                });
+                loadHeader().catch((e) => console.warn("header load skipped in test mode:", e));
+                startPressureApp("TEST_ID_TOKEN")
+                    .catch((e) => console.error("test boot failed:", e))
+                    .finally(hideAppLoader);
                 return;
             }
             const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
@@ -1638,7 +1654,8 @@
                     loadHeader(),
                     startPressureApp(idToken)
                 ]);
-            }).catch(() => {
+            }).catch((error) => {
+                console.error("LIFF init failed:", error);
                 hideAppLoader();
                 liff.logout();
                 alert("LIFF init failed.");

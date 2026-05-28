@@ -196,6 +196,7 @@ button.edit-btn,
   box-shadow: none;
   overflow: visible;
   background: transparent;
+  margin-top: 0;
 }
 
 .medicine-radio-group {
