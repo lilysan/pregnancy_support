@@ -1,25 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ja" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blood Pressure Tracker</title>
-    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
-    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
-    <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
-    <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
-    <link rel="stylesheet" href="../template/style.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="./style.css">
+    <title>Hospital for Staff | Pregnancy Support</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div class="loader is-hidden">
+<div class="container">
+    <div class="loader">
         <div class="text-center">
             <div class="spinner-border" role="status">
                 <span class="visually-hidden">Loading...</span>
@@ -27,2091 +17,236 @@
         </div>
     </div>
 
-    <h1 class="title_bp" id="titleBp">血圧記録</h1>
-    <button type="button" id="settingsBtn" class="settings-btn" onclick="openSettingsDialog()">設定</button>
-
-    <div id="settingsDialog" class="is-hidden">
-        <div id="settingsDialogPanel">
-            <div class="settings-header">
-                <h2 id="settingsDialogTitle">設定</h2>
-                <button type="button" id="closeSettingsBtnTop" class="settings-close-top-btn"
-                    onclick="closeSettingsDialog()">閉じる</button>
-            </div>
-            <div class="settings-block">
-                <p id="guideToggleLabel" class="settings-label">ガイド表示</p>
-                <button type="button" id="guideToggleBtn" class="guide-toggle-btn">表示中</button>
-            </div>
-            <p id="languageSectionTitle" class="settings-label">言語設定</p>
-            <div id="languageOptionList" class="language-option-list"></div>
-            <button type="button" id="closeSettingsBtn" onclick="closeSettingsDialog()">閉じる</button>
+    <h1 class="mt-3">
+        産院データの登録
+        <small class="text-body-secondary">STAFF ONLY</small>
+    </h1>
+    <div class="alert alert-info" role="alert">
+        以下の産院データを登録すると、QRコードが発行されます。<br>
+        発行されたQRコードを患者さまにご提示し、産院設定の画面からQRコードを読み取るようご依頼ください。<br>
+        患者さまからの緊急メッセージが、このLINEアカウント宛てに届くようになります。
+    </div>
+    <form name="form_hospital">
+        <div>
+            <p>
+                <label>産院名（日本語）</label>
+                <input class="hospital_name_placeholder form-control" type="text" value="" required>
+            </p>
+            <p>
+                <label>産院名（英語）</label>
+                <input class="hospital_name_en_placeholder form-control" type="text" value="" required>
+            </p>
+            <p>
+                <label>陣痛時の電話番号</label>
+                <input class="phone_number_placeholder form-control" type="tel" value="" required>
+            </p>
         </div>
-    </div>
-    <button type="button" id="openAddFormBtn" class="open-add-form-btn" onclick="openAddForm()">データを追加</button>
-    <!-- データ追加フォーム -->
-    <div id="addFormPanel" class="add-form-panel" aria-hidden="true">
-        <form id="addDataForm">
-            <label for="date" id="labelDate">日付</label>
-            <input type="text" id="date" placeholder="日付を選択"><br>
-            <label for="date" id="labelPeriod">時間</label>
-            <section class="dropdown">
-                <select id="periodSelect">
-                    <option value="1" id="periodMorning">朝</option>
-                    <option value="2" id="periodNoon">昼</option>
-                    <option value="3" id="periodNight">夜</option>
-                </select>
-            </section><br>
-            <label for="higth" id="labelHigh">最高血圧</label>
-            <input type="number" id="higth" class="high" placeholder="最高血圧"><br>
-            <label for="low" id="labelLow">最低血圧</label>
-            <input type="number" id="low" class="low" placeholder="最低血圧"><br>
-            <label for="medicine" id="labelMedicine">内服</label>
-            <div id="medicine" class="medicine medicine-radio-group">
-                <label class="medicine-radio-option">
-                    <input type="radio" name="medicineStatus" value="なし" checked>
-                    <span id="medicineNoneLabel">なし</span>
-                </label>
-                <label class="medicine-radio-option">
-                    <input type="radio" name="medicineStatus" value="あり">
-                    <span id="medicineYesLabel">あり</span>
-                </label>
-            </div>
-            <button type="button" id="adddata">登録</button>
-            <button type="button" id="closeAddFormBtn" onclick="closeAddForm()">閉じる</button>
-        </form>
-    </div>
-    <div id="chart-container-all">
-        <div id="chart-container" class="chart-container active-content">
-            <h2 id="chartRangeTitle" class="chart-range-title"></h2>
-            <canvas id="bloodPressureChart"></canvas>
+        <div>
+            <button type="button" class="btn btn-danger btn_delete">削除</button>
+            <button type="button" class="btn btn-outline-warning btn_edit">変更</button>
+            <button type="button" class="btn btn-primary btn_register">登録</button>
         </div>
-
-        <div id="olderChartsContainer" class="older-charts-container"></div>
-        <button type="button" id="loadOlderChartBtn" class="load-older-btn">以前の情報をみる</button>
-
+    </form>
+    <div class="mt-3 mb-3 text-center">
+        <img src="" class="qrcode d-block mx-auto mt-3 mb-3" width="250px">
+        <a href="" type="button" class="btn btn-primary btn_download">QRコードをダウンロード</a>
     </div>
-    <div id="table-container" class="table-container content">
-        <!-- データ編集テーブル -->
-
-        <table id="table">
-            <thead>
-                <tr>
-                    <th>日付</th>
-                    <th id="thPeriod">時間帯</th>
-                    <th id="thHigh">最高血圧</th>
-                    <th id="thLow">最低血圧</th>
-                    <th id="thMedicine">内服</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-        <button type="button" id="loadOlderTableBtn" class="load-older-btn">以前の情報をみる</button>
-
-    </div>
-
-    <div id="edit-container" class="edit-container content">
-        <div id="edit_table">
-            <div id="edit_table_container">
-                <!-- データ編集テーブル -->
-                <table id="editTable">
-                    <thead>
-                        <tr>
-                            <th>日付</th>
-                            <th id="ethPeriod">時間帯</th>
-                            <th id="ethHigh">最高血圧</th>
-                            <th id="ethLow">最低血圧</th>
-                            <th id="ethMedicine">内服</th>
-                            <th id="ethEdit">編集</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- ダイアログ -->
-    <div id="editDialog" class="is-hidden">
-        <form id="editForm">
-            <label for="editDate" id="editDateLabel">日付</label>
-            <input type="text" id="editDate" class="datepicker2"><br><br>
-
-            <label for="editPeriod" id="editPeriodLabel">時間</label>
-            <select id="editPeriod" class="periodpicker2">
-                <option value="1" id="editPeriodMorning">朝</option>
-                <option value="2" id="editPeriodNoon">昼</option>
-                <option value="3" id="editPeriodNight">夜</option>
-            </select><br><br>
-
-            <label for="editHigh" id="editHighLabel">最高血圧</label>
-            <input type="number" id="editHigh" class="high2"><br><br>
-            <label for="editLow" id="editLowLabel">最低血圧</label>
-            <input type="number" id="editLow" class="low2"><br><br>
-            <label for="editMedicine" id="editMedicineLabel">内服</label>
-            <div id="editMedicine" class="medicine2 medicine-radio-group">
-                <label class="medicine-radio-option">
-                    <input type="radio" name="editMedicineStatus" value="なし" checked>
-                    <span id="editMedicineNoneLabel">なし</span>
-                </label>
-                <label class="medicine-radio-option">
-                    <input type="radio" name="editMedicineStatus" value="あり">
-                    <span id="editMedicineYesLabel">あり</span>
-                </label>
-            </div><br><br>
-
-
-            <button type="button" id="saveButton">保存</button>
-            <button type="button" id="cancelButton">キャンセル</button>
-            <button type="button" id="deleteButton">削除</button>
-        </form>
-    </div>
-
-    <!-- 下部タブメニュー -->
-    <div class="tab-bar">
-        <button id="tabChart" class="tab-button active" onclick="switchTab('chart-container', event)">グラフ</button>
-        <button id="tabTable" class="tab-button" onclick="switchTab('table-container', event)">テーブル</button>
-        <button id="tabEdit" class="tab-button" onclick="switchTab('edit-container', event)">編集</button>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.21.1/dist/date-fns.min.js"></script>
-    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <script>
-        window.IS_TEST_MODE = new URLSearchParams(window.location.search).get("test") === "1";
-        if (window.IS_TEST_MODE) {
-            window.liff = {
-                init: function () {
-                    return new Promise(function (resolve) {
-                        setTimeout(resolve, 0);
-                    });
-                },
-                getIDToken: function () {
-                    return "TEST_ID_TOKEN";
-                },
-                getAppLanguage: function () {
-                    const lang = (navigator.language || "en").toLowerCase();
-                    if (lang.startsWith("ja")) return "ja";
-                    return "en";
-                },
-                logout: function () {},
-                closeWindow: function () {}
-            };
-        }
-    </script>
-
-    <script>
-        const API_URL =
-            "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
-        const LIFF_ID = "2005594923-wN8OjyGd";
-        const LANG_STORAGE_KEY = "pressure_ui_lang";
-        const GUIDE_VISIBLE_KEY = "pressure_guide_visible";
-        const LANGUAGE_OPTIONS = [{
-                code: "en-US",
-                label: "英語編(English)"
-            },
-            {
-                code: "zh",
-                label: "中国語編(中文版)"
-            },
-            {
-                code: "fr",
-                label: "フランス語編(French)"
-            },
-            {
-                code: "ko",
-                label: "韓国語編(Korean)"
-            },
-            {
-                code: "pr",
-                label: "ポルトガル語編(Portugues)"
-            },
-            {
-                code: "tl",
-                label: "タガログ語編(TAGALOG)"
-            },
-            {
-                code: "ve",
-                label: "ベトナム語編(Vietnam)"
-            },
-            {
-                code: "th",
-                label: "タイ語編(Thai)"
-            },
-            {
-                code: "de",
-                label: "ドイツ語編(German)"
-            },
-            {
-                code: "id",
-                label: "インドネシア語(Indonesia)"
-            },
-            {
-                code: "ru",
-                label: "ロシア語(Russian)"
-            },
-            {
-                code: "ne",
-                label: "ネパール語(Nepali)"
-            },
-            {
-                code: "lo",
-                label: "ラオス語(Laotian)"
-            },
-            {
-                code: "uk",
-                label: "ウクライナ語(Ukrainian)"
-            },
-            {
-                code: "fa-AF",
-                label: "ダリ語(Dari)"
-            },
-            {
-                code: "si",
-                label: "シンハラ語(Sinhala)"
-            },
-            {
-                code: "ms",
-                label: "マレー語(Malay)"
-            },
-            {
-                code: "my",
-                label: "ミャンマー語(Myanmar)"
-            },
-            {
-                code: "bn",
-                label: "ベンガル語(Bengali)"
-            },
-            {
-                code: "ur",
-                label: "ウルドゥー語(Urdu)"
-            }
-        ];
-        const UI_TEXT = {
-            ja: {
-                title: "血圧記録",
-                settings: "設定",
-                settingsTitle: "設定",
-                language: "言語設定",
-                guide: "ガイド表示",
-                on: "表示中",
-                off: "非表示",
-                date: "日付",
-                period: "時間",
-                periodCol: "時間帯",
-                morning: "朝",
-                noon: "昼",
-                night: "夜",
-                high: "最高血圧",
-                low: "最低血圧",
-                medicine: "内服",
-                medicineNone: "なし",
-                medicineYes: "あり",
-                add: "データを追加",
-                older: "以前の情報をみる",
-                noMore: "これ以上ありません",
-                loading: "読み込み中...",
-                register: "登録",
-                chart: "グラフ",
-                table: "テーブル",
-                edit: "編集",
-                save: "保存",
-                cancel: "キャンセル",
-                del: "削除",
-                fillAll: "すべてのフィールドに値を入力してください。",
-                systolic: "最高血圧 (mmHg)",
-                diastolic: "最低血圧 (mmHg)",
-                yAxis: "血圧 (mmHg)",
-                xAxis: "日付と時間帯"
-            },
-            "en-US": {
-                title: "Blood Pressure Tracker",
-                settings: "Settings",
-                settingsTitle: "Settings",
-                language: "Language",
-                guide: "Guide Overlay",
-                on: "On",
-                off: "Off",
-                date: "Date",
-                period: "Time",
-                periodCol: "Timing",
-                morning: "Morning",
-                noon: "Noon",
-                night: "Night",
-                high: "Systolic",
-                low: "Diastolic",
-                medicine: "Medication",
-                medicineNone: "None",
-                medicineYes: "Yes",
-                add: "Add Data",
-                older: "Show Older Data",
-                noMore: "No More Data",
-                loading: "Loading...",
-                register: "Register",
-                chart: "Chart",
-                table: "Table",
-                edit: "Edit",
-                save: "Save",
-                cancel: "Cancel",
-                del: "Delete",
-                fillAll: "Please fill all fields.",
-                systolic: "Systolic (mmHg)",
-                diastolic: "Diastolic (mmHg)",
-                yAxis: "Blood Pressure (mmHg)",
-                xAxis: "Date / Timing"
-            },
-            zh: {
-                title: "血压记录",
-                settings: "设置",
-                settingsTitle: "设置",
-                language: "语言设置",
-                guide: "显示指南",
-                on: "显示",
-                off: "隐藏",
-                date: "日期",
-                period: "时间",
-                periodCol: "时段",
-                morning: "早上",
-                noon: "中午",
-                night: "晚上",
-                high: "收缩压",
-                low: "舒张压",
-                add: "添加数据",
-                chart: "图表",
-                table: "表格",
-                edit: "编辑",
-                save: "保存",
-                cancel: "取消",
-                del: "删除",
-                fillAll: "请填写所有项目。",
-                systolic: "收缩压 (mmHg)",
-                diastolic: "舒张压 (mmHg)",
-                yAxis: "血压 (mmHg)",
-                xAxis: "日期 / 时段"
-            },
-            de: {
-                title: "Blutdruckprotokoll",
-                settings: "Einstellungen",
-                settingsTitle: "Einstellungen",
-                language: "Sprache",
-                guide: "Leitflaeche",
-                on: "An",
-                off: "Aus",
-                date: "Datum",
-                period: "Zeit",
-                periodCol: "Zeitfenster",
-                morning: "Morgen",
-                noon: "Mittag",
-                night: "Abend",
-                high: "Systolisch",
-                low: "Diastolisch",
-                add: "Daten hinzufuegen",
-                chart: "Diagramm",
-                table: "Tabelle",
-                edit: "Bearbeiten",
-                save: "Speichern",
-                cancel: "Abbrechen",
-                del: "Loeschen",
-                fillAll: "Bitte alle Felder ausfuellen.",
-                systolic: "Systolisch (mmHg)",
-                diastolic: "Diastolisch (mmHg)",
-                yAxis: "Blutdruck (mmHg)",
-                xAxis: "Datum / Zeit"
-            },
-            ve: {
-                title: "Theo doi huyet ap",
-                settings: "Cai dat",
-                settingsTitle: "Cai dat",
-                language: "Ngon ngu",
-                guide: "Hien thi huong dan",
-                on: "Bat",
-                off: "Tat",
-                date: "Ngay",
-                period: "Thoi gian",
-                periodCol: "Khung gio",
-                morning: "Sang",
-                noon: "Trua",
-                night: "Toi",
-                high: "Huyet ap toi da",
-                low: "Huyet ap toi thieu",
-                add: "Them du lieu",
-                chart: "Bieu do",
-                table: "Bang",
-                edit: "Chinh sua",
-                save: "Luu",
-                cancel: "Huy",
-                del: "Xoa",
-                fillAll: "Vui long nhap day du.",
-                systolic: "Huyet ap toi da (mmHg)",
-                diastolic: "Huyet ap toi thieu (mmHg)",
-                yAxis: "Huyet ap (mmHg)",
-                xAxis: "Ngay / Thoi gian"
-            },
-            pr: {
-                title: "Registro de pressao",
-                settings: "Configuracoes",
-                settingsTitle: "Configuracoes",
-                language: "Idioma",
-                guide: "Mostrar guia",
-                on: "Ligado",
-                off: "Desligado",
-                date: "Data",
-                period: "Horario",
-                periodCol: "Turno",
-                morning: "Manha",
-                noon: "Meio-dia",
-                night: "Noite",
-                high: "Sistolica",
-                low: "Diastolica",
-                add: "Adicionar dados",
-                chart: "Grafico",
-                table: "Tabela",
-                edit: "Editar",
-                save: "Salvar",
-                cancel: "Cancelar",
-                del: "Excluir",
-                fillAll: "Preencha todos os campos.",
-                systolic: "Sistolica (mmHg)",
-                diastolic: "Diastolica (mmHg)",
-                yAxis: "Pressao arterial (mmHg)",
-                xAxis: "Data / Horario"
-            },
-            ko: {
-                title: "혈압 기록",
-                settings: "설정",
-                settingsTitle: "설정",
-                language: "언어 설정",
-                guide: "가이드 표시",
-                on: "표시",
-                off: "숨김",
-                date: "날짜",
-                period: "시간",
-                periodCol: "시간대",
-                morning: "아침",
-                noon: "점심",
-                night: "저녁",
-                high: "최고 혈압",
-                low: "최저 혈압",
-                add: "데이터 추가",
-                chart: "그래프",
-                table: "테이블",
-                edit: "편집",
-                save: "저장",
-                cancel: "취소",
-                del: "삭제",
-                fillAll: "모든 항목을 입력하세요.",
-                systolic: "최고 혈압 (mmHg)",
-                diastolic: "최저 혈압 (mmHg)",
-                yAxis: "혈압 (mmHg)",
-                xAxis: "날짜 / 시간대"
-            },
-            fr: {
-                title: "Suivi de la tension",
-                settings: "Parametres",
-                settingsTitle: "Parametres",
-                language: "Langue",
-                guide: "Affichage du guide",
-                on: "Actif",
-                off: "Inactif",
-                date: "Date",
-                period: "Heure",
-                periodCol: "Creneau",
-                morning: "Matin",
-                noon: "Midi",
-                night: "Soir",
-                high: "Systolique",
-                low: "Diastolique",
-                add: "Ajouter",
-                chart: "Graphique",
-                table: "Tableau",
-                edit: "Modifier",
-                save: "Enregistrer",
-                cancel: "Annuler",
-                del: "Supprimer",
-                fillAll: "Veuillez remplir tous les champs.",
-                systolic: "Systolique (mmHg)",
-                diastolic: "Diastolique (mmHg)",
-                yAxis: "Tension arterielle (mmHg)",
-                xAxis: "Date / Creneau"
-            },
-            tl: {
-                title: "Talaan ng presyon ng dugo",
-                settings: "Mga setting",
-                settingsTitle: "Mga setting",
-                language: "Wika",
-                guide: "Ipakita ang gabay",
-                on: "Naka-on",
-                off: "Naka-off",
-                date: "Petsa",
-                period: "Oras",
-                periodCol: "Panahon",
-                morning: "Umaga",
-                noon: "Tanghali",
-                night: "Gabi",
-                high: "Systolic",
-                low: "Diastolic",
-                add: "Magdagdag ng datos",
-                chart: "Grap",
-                table: "Talahanayan",
-                edit: "I-edit",
-                save: "I-save",
-                cancel: "Kanselahin",
-                del: "Burahin",
-                fillAll: "Pakilagyan ang lahat ng field.",
-                systolic: "Systolic (mmHg)",
-                diastolic: "Diastolic (mmHg)",
-                yAxis: "Presyon ng dugo (mmHg)",
-                xAxis: "Petsa / Panahon"
-            },
-            th: {
-                title: "บันทึกความดันโลหิต",
-                settings: "การตั้งค่า",
-                settingsTitle: "การตั้งค่า",
-                language: "ภาษา",
-                guide: "แสดงไกด์",
-                on: "เปิด",
-                off: "ปิด",
-                date: "วันที่",
-                period: "เวลา",
-                periodCol: "ช่วงเวลา",
-                morning: "เช้า",
-                noon: "เที่ยง",
-                night: "เย็น",
-                high: "ความดันตัวบน",
-                low: "ความดันตัวล่าง",
-                add: "เพิ่มข้อมูล",
-                chart: "กราฟ",
-                table: "ตาราง",
-                edit: "แก้ไข",
-                save: "บันทึก",
-                cancel: "ยกเลิก",
-                del: "ลบ",
-                fillAll: "กรุณากรอกข้อมูลให้ครบ",
-                systolic: "ความดันตัวบน (mmHg)",
-                diastolic: "ความดันตัวล่าง (mmHg)",
-                yAxis: "ความดันโลหิต (mmHg)",
-                xAxis: "วันที่ / ช่วงเวลา"
-            },
-            id: {
-                title: "Catatan tekanan darah",
-                settings: "Pengaturan",
-                settingsTitle: "Pengaturan",
-                language: "Bahasa",
-                guide: "Tampilkan panduan",
-                on: "Aktif",
-                off: "Nonaktif",
-                date: "Tanggal",
-                period: "Waktu",
-                periodCol: "Periode",
-                morning: "Pagi",
-                noon: "Siang",
-                night: "Malam",
-                high: "Sistolik",
-                low: "Diastolik",
-                add: "Tambah data",
-                chart: "Grafik",
-                table: "Tabel",
-                edit: "Edit",
-                save: "Simpan",
-                cancel: "Batal",
-                del: "Hapus",
-                fillAll: "Silakan isi semua kolom.",
-                systolic: "Sistolik (mmHg)",
-                diastolic: "Diastolik (mmHg)",
-                yAxis: "Tekanan darah (mmHg)",
-                xAxis: "Tanggal / Periode"
-            },
-            ru: {
-                title: "Дневник давления",
-                settings: "Настройки",
-                settingsTitle: "Настройки",
-                language: "Язык",
-                guide: "Показывать подсказку",
-                on: "Вкл",
-                off: "Выкл",
-                date: "Дата",
-                period: "Время",
-                periodCol: "Период",
-                morning: "Утро",
-                noon: "День",
-                night: "Вечер",
-                high: "Систолическое",
-                low: "Диастолическое",
-                add: "Добавить данные",
-                chart: "График",
-                table: "Таблица",
-                edit: "Редактировать",
-                save: "Сохранить",
-                cancel: "Отмена",
-                del: "Удалить",
-                fillAll: "Пожалуйста, заполните все поля.",
-                systolic: "Систолическое (mmHg)",
-                diastolic: "Диастолическое (mmHg)",
-                yAxis: "Давление (mmHg)",
-                xAxis: "Дата / Период"
-            },
-            ne: {
-                title: "रक्तचाप रेकर्ड",
-                settings: "सेटिङ",
-                settingsTitle: "सेटिङ",
-                language: "भाषा",
-                guide: "मार्गदर्शन देखाउने",
-                on: "खुला",
-                off: "बन्द",
-                date: "मिति",
-                period: "समय",
-                periodCol: "समय भाग",
-                morning: "बिहान",
-                noon: "दिउँसो",
-                night: "साँझ",
-                high: "सिस्टोलिक",
-                low: "डायस्टोलिक",
-                add: "डाटा थप्नुहोस्",
-                chart: "ग्राफ",
-                table: "तालिका",
-                edit: "सम्पादन",
-                save: "सेभ",
-                cancel: "रद्द",
-                del: "मेटाउनुहोस्",
-                fillAll: "कृपया सबै फिल्ड भर्नुहोस्।",
-                systolic: "सिस्टोलिक (mmHg)",
-                diastolic: "डायस्टोलिक (mmHg)",
-                yAxis: "रक्तचाप (mmHg)",
-                xAxis: "मिति / समय"
-            },
-            lo: {
-                title: "ບັນທຶກຄວາມດັນເລືອດ",
-                settings: "ຕັ້ງຄ່າ",
-                settingsTitle: "ຕັ້ງຄ່າ",
-                language: "ພາສາ",
-                guide: "ສະແດງແນະນຳ",
-                on: "ເປີດ",
-                off: "ປິດ",
-                date: "ວັນທີ",
-                period: "ເວລາ",
-                periodCol: "ຊ່ວງເວລາ",
-                morning: "ເຊົ້າ",
-                noon: "ຕອນທ່ຽງ",
-                night: "ແລງ",
-                high: "ຄວາມດັນເທິງ",
-                low: "ຄວາມດັນລຸ່ມ",
-                add: "ເພີ່ມຂໍ້ມູນ",
-                chart: "ກຣາບ",
-                table: "ຕາຕະລາງ",
-                edit: "ແກ້ໄຂ",
-                save: "ບັນທຶກ",
-                cancel: "ຍົກເລີກ",
-                del: "ລົບ",
-                fillAll: "ກະລຸນາປ້ອນຂໍ້ມູນໃຫ້ຄົບ.",
-                systolic: "ຄວາມດັນເທິງ (mmHg)",
-                diastolic: "ຄວາມດັນລຸ່ມ (mmHg)",
-                yAxis: "ຄວາມດັນເລືອດ (mmHg)",
-                xAxis: "ວັນທີ / ຊ່ວງເວລາ"
-            },
-            uk: {
-                title: "Запис артеріального тиску",
-                settings: "Налаштування",
-                settingsTitle: "Налаштування",
-                language: "Мова",
-                guide: "Показувати підказку",
-                on: "Увімкнено",
-                off: "Вимкнено",
-                date: "Дата",
-                period: "Час",
-                periodCol: "Період",
-                morning: "Ранок",
-                noon: "День",
-                night: "Вечір",
-                high: "Систолічний",
-                low: "Діастолічний",
-                add: "Додати дані",
-                chart: "Графік",
-                table: "Таблиця",
-                edit: "Редагувати",
-                save: "Зберегти",
-                cancel: "Скасувати",
-                del: "Видалити",
-                fillAll: "Будь ласка, заповніть усі поля.",
-                systolic: "Систолічний (mmHg)",
-                diastolic: "Діастолічний (mmHg)",
-                yAxis: "Тиск (mmHg)",
-                xAxis: "Дата / Період"
-            },
-            "fa-AF": {
-                title: "ثبت فشار خون",
-                settings: "تنظیمات",
-                settingsTitle: "تنظیمات",
-                language: "زبان",
-                guide: "نمایش راهنما",
-                on: "روشن",
-                off: "خاموش",
-                date: "تاریخ",
-                period: "زمان",
-                periodCol: "بازه",
-                morning: "صبح",
-                noon: "چاشت",
-                night: "شب",
-                high: "فشار سیستولیک",
-                low: "فشار دیاستولیک",
-                add: "افزودن داده",
-                chart: "نمودار",
-                table: "جدول",
-                edit: "ویرایش",
-                save: "ذخیره",
-                cancel: "لغو",
-                del: "حذف",
-                fillAll: "لطفاً همه بخش‌ها را پر کنید.",
-                systolic: "فشار سیستولیک (mmHg)",
-                diastolic: "فشار دیاستولیک (mmHg)",
-                yAxis: "فشار خون (mmHg)",
-                xAxis: "تاریخ / بازه"
-            },
-            si: {
-                title: "රුධිර පීඩන සටහන",
-                settings: "සැකසුම්",
-                settingsTitle: "සැකසුම්",
-                language: "භාෂාව",
-                guide: "මාර්ගදර්ශකය පෙන්වන්න",
-                on: "සක්‍රිය",
-                off: "අක්‍රිය",
-                date: "දිනය",
-                period: "වේලාව",
-                periodCol: "කාල පරාසය",
-                morning: "උදේ",
-                noon: "දහවල්",
-                night: "සවස",
-                high: "උපරිම පීඩනය",
-                low: "අවම පීඩනය",
-                add: "දත්ත එක් කරන්න",
-                chart: "ප්‍රස්තාරය",
-                table: "වගුව",
-                edit: "සංස්කරණය",
-                save: "සුරකින්න",
-                cancel: "අවලංගු",
-                del: "මකන්න",
-                fillAll: "කරුණාකර සියලු ක්ෂේත්‍ර පුරවන්න.",
-                systolic: "උපරිම පීඩනය (mmHg)",
-                diastolic: "අවම පීඩනය (mmHg)",
-                yAxis: "රුධිර පීඩනය (mmHg)",
-                xAxis: "දිනය / කාල පරාසය"
-            },
-            ms: {
-                title: "Rekod tekanan darah",
-                settings: "Tetapan",
-                settingsTitle: "Tetapan",
-                language: "Bahasa",
-                guide: "Paparan panduan",
-                on: "Aktif",
-                off: "Nyahaktif",
-                date: "Tarikh",
-                period: "Masa",
-                periodCol: "Tempoh",
-                morning: "Pagi",
-                noon: "Tengah hari",
-                night: "Malam",
-                high: "Sistolik",
-                low: "Diastolik",
-                add: "Tambah data",
-                chart: "Graf",
-                table: "Jadual",
-                edit: "Sunting",
-                save: "Simpan",
-                cancel: "Batal",
-                del: "Padam",
-                fillAll: "Sila isi semua medan.",
-                systolic: "Sistolik (mmHg)",
-                diastolic: "Diastolik (mmHg)",
-                yAxis: "Tekanan darah (mmHg)",
-                xAxis: "Tarikh / Tempoh"
-            },
-            my: {
-                title: "သွေးပေါင်ချိန် မှတ်တမ်း",
-                settings: "ဆက်တင်",
-                settingsTitle: "ဆက်တင်",
-                language: "ဘာသာစကား",
-                guide: "လမ်းညွှန် ပြရန်",
-                on: "ဖွင့်",
-                off: "ပိတ်",
-                date: "ရက်စွဲ",
-                period: "အချိန်",
-                periodCol: "အချိန်ပိုင်း",
-                morning: "မနက်",
-                noon: "နေ့လယ်",
-                night: "ည",
-                high: "အပေါ်သွေးပေါင်",
-                low: "အောက်သွေးပေါင်",
-                add: "ဒေတာထည့်ရန်",
-                chart: "ဂရပ်",
-                table: "ဇယား",
-                edit: "ပြင်ဆင်ရန်",
-                save: "သိမ်းရန်",
-                cancel: "ပယ်ဖျက်",
-                del: "ဖျက်ရန်",
-                fillAll: "ကျေးဇူးပြု၍ အကွက်အားလုံးဖြည့်ပါ။",
-                systolic: "အပေါ်သွေးပေါင် (mmHg)",
-                diastolic: "အောက်သွေးပေါင် (mmHg)",
-                yAxis: "သွေးပေါင်ချိန် (mmHg)",
-                xAxis: "ရက်စွဲ / အချိန်ပိုင်း"
-            },
-            bn: {
-                title: "রক্তচাপ রেকর্ড",
-                settings: "সেটিংস",
-                settingsTitle: "সেটিংস",
-                language: "ভাষা",
-                guide: "গাইড দেখান",
-                on: "চালু",
-                off: "বন্ধ",
-                date: "তারিখ",
-                period: "সময়",
-                periodCol: "সময়কাল",
-                morning: "সকাল",
-                noon: "দুপুর",
-                night: "রাত",
-                high: "সিস্টোলিক",
-                low: "ডায়াস্টোলিক",
-                add: "ডাটা যোগ করুন",
-                chart: "গ্রাফ",
-                table: "টেবিল",
-                edit: "সম্পাদনা",
-                save: "সংরক্ষণ",
-                cancel: "বাতিল",
-                del: "মুছুন",
-                fillAll: "সব ঘর পূরণ করুন।",
-                systolic: "সিস্টোলিক (mmHg)",
-                diastolic: "ডায়াস্টোলিক (mmHg)",
-                yAxis: "রক্তচাপ (mmHg)",
-                xAxis: "তারিখ / সময়কাল"
-            },
-            ur: {
-                title: "بلڈ پریشر ریکارڈ",
-                settings: "ترتیبات",
-                settingsTitle: "ترتیبات",
-                language: "زبان",
-                guide: "رہنمائی دکھائیں",
-                on: "آن",
-                off: "آف",
-                date: "تاریخ",
-                period: "وقت",
-                periodCol: "دورانیہ",
-                morning: "صبح",
-                noon: "دوپہر",
-                night: "رات",
-                high: "سسٹولک",
-                low: "ڈایاسٹولک",
-                add: "ڈیٹا شامل کریں",
-                chart: "گراف",
-                table: "ٹیبل",
-                edit: "ترمیم",
-                save: "محفوظ کریں",
-                cancel: "منسوخ",
-                del: "حذف",
-                fillAll: "براہ کرم تمام خانے پُر کریں۔",
-                systolic: "سسٹولک (mmHg)",
-                diastolic: "ڈایاسٹولک (mmHg)",
-                yAxis: "بلڈ پریشر (mmHg)",
-                xAxis: "تاریخ / دورانیہ"
-            }
-        };
-        var allData = [];
-        var token;
-        var dataArray = ["", "朝", "昼", "夜"]
-        var dataArray2 = ["", " 6:00", "18:00"]
-        let labels = ['12/1 朝', '12/1 夜', '12/2 朝', '12/2 夜', '12/3 朝', '12/3 夜'];
-        let highData = [140, 130, 145, 135, 138, 128]; // 最高血圧データ
-        let lowData = [90, 85, 88, 83, 85, 80]; // 最低血圧データ
-
-        let selectedUiLang = "ja";
-        let showGuideOverlay = true;
-        let pressurePage = 1;
-        let hasOlderPressure = true;
-        let loadingOlderPressure = false;
-        let loadedWeekPages = 1;
-        let chartInstances = [];
-        var id;
-
-        function showAppLoader() {
-            const loader = document.querySelector(".loader");
-            if (!loader) return;
-            loader.classList.remove("is-hidden");
-            loader.style.display = "grid";
-            loader.setAttribute("aria-hidden", "false");
-        }
-
-        function hideAppLoader() {
-            const loader = document.querySelector(".loader");
-            if (!loader) return;
-            loader.classList.add("is-hidden");
-            loader.style.display = "none";
-            loader.setAttribute("aria-hidden", "true");
-        }
-
-        function switchTab(contentId, event) {
-            document.querySelectorAll('.chart-container, .table-container, .edit-container').forEach(content => {
-                content.classList.remove('active-content');
-            });
-            const chartContainerAll = document.getElementById('chart-container-all');
-            if (chartContainerAll) {
-                chartContainerAll.style.display = contentId === "chart-container" ? "block" : "none";
-            }
-            const nextContent = document.getElementById(contentId);
-            if (nextContent) {
-                nextContent.classList.add('active-content');
-            }
-
-            const buttons = document.querySelectorAll('.tab-bar button');
-            buttons.forEach(button => {
-                button.classList.remove('active');
-            });
-            if (event && event.currentTarget) {
-                event.currentTarget.classList.add('active');
-            }
-
-            try {
-                if (contentId === "table-container" && typeof createTablePage === "function") {
-                    createTablePage();
-                } else if (contentId === "edit-container" && typeof populateTable === "function") {
-                    populateTable(contentId);
-                } else if (typeof updateChart === "function") {
-                    updateChart(allData);
-                }
-            } catch (e) {
-                console.error("switchTab rendering error:", e);
-            }
-            if (typeof updateGraphUnitButtonVisibility === "function") {
-                updateGraphUnitButtonVisibility();
-            }
-        }
-
-        const getAccessObj = (data) => {
-            return {
-                url: API_URL,
-                type: "POST",
-                dataType: "json",
-                data: JSON.stringify(data),
-                timeout: 30000,
-            };
-        };
-
-        function loadData(idToken, type, postData, mergeMode) {
-            showAppLoader();
-            const safePostData = postData || {};
-            const safeMergeMode = mergeMode || "replace";
-            return $.ajax(
-                getAccessObj({
-                    path: type,
-                    method: "get",
-                    idToken: idToken,
-                    postData: safePostData
-                })
-            ).then(function (response) {
-                if (response.statusCode === 401) {
-                    liff.logout();
-                    window.location.reload();
-                    return [];
-                } else if (response.statusCode !== 200) {
-                    console.error(response.message);
-                    alert(response.message);
-                    return [];
-                } else {
-                    const items = (response.data && Array.isArray(response.data.items)) ? response.data.items : [];
-                    if (safeMergeMode === "append") {
-                        allData = (Array.isArray(allData) ? allData : []).concat(items);
-                    } else {
-                        allData = items;
-                    }
-                    updateChart(allData);
-                    return items;
-                }
-            }, function () {
-                alert("Network error!");
-                return [];
-            }).always(function () {
-                hideAppLoader();
-            });
-        }
-
-        function addData(data, type) {
-            showAppLoader();
-            return $.ajax(
-                getAccessObj({
-                    path: type,
-                    method: "post",
-                    idToken: token,
-                    postData: data
-                })
-            ).done(function (response) {
-                if (response.statusCode === 401) {
-                    liff.logout();
-                    window.location.reload();
-                } else if (response.statusCode !== 200) {
-                    console.error(response.message);
-                    alert(response.message);
-                }
-            }).fail(function () {
-                alert("Network error!");
-            }).always(function () {
-                hideAppLoader();
-            });
-        }
-
-        function setPressure(data) {
-            return addData(data, "pressure");
-        }
-
-        function putData(data, type) {
-            showAppLoader();
-            return $.ajax(
-                getAccessObj({
-                    path: type,
-                    method: "put",
-                    idToken: token,
-                    postData: data
-                })
-            ).done(function (response) {
-                if (response.statusCode === 401) {
-                    liff.logout();
-                    window.location.reload();
-                } else if (response.statusCode !== 200) {
-                    console.error(response.message);
-                    alert(response.message);
-                }
-            }).fail(function () {
-                alert("Network error!");
-            }).always(function () {
-                hideAppLoader();
-            });
-        }
-
-        function deleteData(data, type) {
-            showAppLoader();
-            return $.ajax(
-                getAccessObj({
-                    path: type,
-                    method: "delete",
-                    idToken: token,
-                    postData: data
-                })
-            ).done(function (response) {
-                if (response.statusCode === 401) {
-                    liff.logout();
-                    window.location.reload();
-                } else if (response.statusCode !== 200) {
-                    console.error(response.message);
-                    alert(response.message);
-                } else {
-                    setallData();
-                }
-            }).fail(function () {
-                alert("Network error!");
-            }).always(function () {
-                hideAppLoader();
-            });
-        }
-
-        function resolveI18nLang(langCode) {
-            if (langCode === "ja") return "ja";
-            if (langCode === "zh") return "zh";
-            return "en-US";
-        }
-
-        async function initI18n(langCode) {
-            await i18next
-                .use(i18nextHttpBackend)
-                .init({
-                    lng: resolveI18nLang(langCode),
-                    fallbackLng: "ja",
-                    ns: ["translation"],
-                    defaultNS: "translation",
-                    load: "currentOnly",
-                    backend: {
-                        loadPath: "./i18n/{{lng}}.json"
-                    },
-                    interpolation: {
-                        escapeValue: false
-                    }
-                });
-        }
-
-        function tx(key, langCode = selectedUiLang) {
-            const code = langCode === "ja" ? "ja" : resolveI18nLang(langCode);
-            try {
-                return i18next.getFixedT(code, "translation")(key);
-            } catch (e) {
-                return key;
-            }
-        }
-
-        function bt(key) {
-            const ja = tx(key, "ja");
-            if (selectedUiLang === "ja") return ja;
-            return `${ja} / ${tx(key, selectedUiLang)}`;
-        }
-
-        function readMedicineRadioValue(name) {
-            const checked = document.querySelector(`input[name="${name}"]:checked`);
-            const value = checked ? String(checked.value || "").trim() : "なし";
-            return value === "あり" ? 1 : 0;
-        }
-
-        function setMedicineRadioValue(name, value) {
-            const targetValue = hasMedicineFlag(value) ? "あり" : "なし";
-            const target = document.querySelector(`input[name="${name}"][value="${targetValue}"]`);
-            if (target) target.checked = true;
-        }
-
-        function hasMedicineFlag(value) {
-            const normalized = String(value || "").trim();
-            return normalized !== "" &&
-                normalized !== "なし" &&
-                normalized !== "-" &&
-                normalized !== "0" &&
-                normalized !== "false" &&
-                normalized !== "null" &&
-                normalized !== "undefined";
-        }
-
-        function medicineMark(value) {
-            return hasMedicineFlag(value) ? "○" : "-";
-        }
-
-        function periodLabel(periodValue) {
-            if (Number(periodValue) === 1) return bt("morning");
-            if (Number(periodValue) === 2) return bt("noon");
-            return bt("night");
-        }
-
-        function chartPeriodLabelLines(periodValue) {
-            let key = "night";
-            if (Number(periodValue) === 1) key = "morning";
-            if (Number(periodValue) === 2) key = "noon";
-            const ja = tx(key, "ja");
-            if (selectedUiLang === "ja") return [ja];
-            return [ja, tx(key, selectedUiLang)];
-        }
-
-        function formatChartDateShort(dateStr) {
-            const d = new Date(dateStr);
-            if (isNaN(d.getTime())) return String(dateStr || "");
-            return `${d.getMonth() + 1}/${d.getDate()}`;
-        }
-
-        function parsePressureDateValue(value) {
-            if (value instanceof Date && !isNaN(value.getTime())) return value;
-            const raw = String(value || "").trim();
-            if (!raw) return null;
-            const normalized = raw.replace(/\./g, "/").replace(/-/g, "/");
-            const d = new Date(normalized);
-            if (isNaN(d.getTime())) return null;
-            return d;
-        }
-
-        function formatDisplayDate(value) {
-            const d = parsePressureDateValue(value);
-            if (!d) return String(value || "");
-            const y = d.getFullYear();
-            const m = String(d.getMonth() + 1).padStart(2, "0");
-            const day = String(d.getDate()).padStart(2, "0");
-            return `${y}-${m}-${day}`;
-        }
-
-        function getSortedPressureData() {
-            const items = Array.isArray(allData) ? allData.slice() : [];
-            return items.sort((a, b) => {
-                const da = parsePressureDateValue(a && a.date);
-                const db = parsePressureDateValue(b && b.date);
-                const ta = da ? da.getTime() : 0;
-                const tb = db ? db.getTime() : 0;
-                if (ta !== tb) return ta - tb;
-                return Number((a && a.period) || 0) - Number((b && b.period) || 0);
-            });
-        }
-
-        function formatYmd(dateObj) {
-            const m = dateObj.getMonth() + 1;
-            const d = dateObj.getDate();
-            return `${m}/${d}`;
-        }
-
-        function updateChartRangeTitle() {
-            const titleEl = document.getElementById("chartRangeTitle");
-            if (!titleEl) return;
-            const today = new Date();
-            const weekAgo = new Date(today);
-            weekAgo.setDate(today.getDate() - 7);
-            titleEl.textContent = `${formatYmd(weekAgo)}　ー　${formatYmd(today)}`;
-        }
-
-        function isSupportedLang(code) {
-            return code === "ja" || LANGUAGE_OPTIONS.some(item => item.code === code);
-        }
-
-        function normalizeLangToUi(lang) {
-            const l = String(lang || "ja").toLowerCase();
-            if (l.startsWith("zh")) return "zh";
-            if (l.startsWith("fr")) return "fr";
-            if (l.startsWith("de")) return "de";
-            if (l.startsWith("vi")) return "ve";
-            if (l.startsWith("pt")) return "pr";
-            if (l.startsWith("ko")) return "ko";
-            if (l.startsWith("tl")) return "tl";
-            if (l.startsWith("th")) return "th";
-            if (l.startsWith("id")) return "id";
-            if (l.startsWith("ru")) return "ru";
-            if (l.startsWith("ne")) return "ne";
-            if (l.startsWith("lo")) return "lo";
-            if (l.startsWith("uk")) return "uk";
-            if (l.startsWith("fa") || l.startsWith("prs")) return "fa-AF";
-            if (l.startsWith("si")) return "si";
-            if (l.startsWith("ms")) return "ms";
-            if (l.startsWith("my")) return "my";
-            if (l.startsWith("bn")) return "bn";
-            if (l.startsWith("ur")) return "ur";
-            if (l.startsWith("en")) return "en-US";
-            return "ja";
-        }
-
-        function renderLanguageOptions() {
-            const list = document.getElementById("languageOptionList");
-            list.innerHTML = "";
-            const jaBtn = document.createElement("button");
-            jaBtn.type = "button";
-            jaBtn.className = "language-option-btn" + (selectedUiLang === "ja" ? " active" : "");
-            jaBtn.textContent = "やさしい日本語 / Japanese";
-            jaBtn.onclick = () => setLanguage("ja");
-            list.appendChild(jaBtn);
-            LANGUAGE_OPTIONS.forEach((lang) => {
-                const btn = document.createElement("button");
-                btn.type = "button";
-                btn.className = "language-option-btn" + (selectedUiLang === lang.code ? " active" : "");
-                btn.textContent = lang.label;
-                btn.onclick = () => setLanguage(lang.code);
-                list.appendChild(btn);
-            });
-        }
-
-        function applySettingsUi() {
-            const toggleBtn = document.getElementById("guideToggleBtn");
-            toggleBtn.textContent = showGuideOverlay ? bt("on") : bt("off");
-            toggleBtn.classList.toggle("off", !showGuideOverlay);
-        }
-
-        function syncOlderButtons() {
-            const chartBtn = document.getElementById("loadOlderChartBtn");
-            const tableBtn = document.getElementById("loadOlderTableBtn");
-            const label = loadingOlderPressure ? bt("loading") : (hasOlderPressure ? bt("older") : bt("noMore"));
-            [chartBtn, tableBtn].forEach((btn) => {
-                if (!btn) return;
-                btn.textContent = label;
-                btn.disabled = loadingOlderPressure || !hasOlderPressure;
-            });
-        }
-
-        function dedupePressureItems(items) {
-            const map = new Map();
-            (items || []).forEach((item) => {
-                if (!item) return;
-                const key = `${String(item.date || "")}|${Number(item.period || 0)}`;
-                map.set(key, item);
-            });
-            return Array.from(map.values());
-        }
-
-        function fetchPressurePage(page, mergeMode) {
-            const query = {
-                unit: "date",
-                limit: 7,
-                page: page
-            };
-            const req = loadData(token, "pressure", query, mergeMode || "replace");
-            return Promise.resolve(req).then((items) => Array.isArray(items) ? items : []);
-        }
-
-        function loadOlderPressureData() {
-            if (loadingOlderPressure || !hasOlderPressure) return;
-            loadingOlderPressure = true;
-            syncOlderButtons();
-            const startPage = loadedWeekPages + 1;
-            const maxSearchPages = 120;
-            const walk = (page) => {
-                if (page > maxSearchPages) {
-                    hasOlderPressure = false;
-                    return Promise.resolve(false);
-                }
-                return fetchPressurePage(page, "append").then((items) => {
-                    if (!items.length) {
-                        return walk(page + 1);
-                    }
-                    pressurePage = page;
-                    loadedWeekPages = page;
-                    allData = dedupePressureItems(allData);
-                    updateChart(allData);
-                    createTablePage();
-                    populateTable();
-                    return true;
-                });
-            };
-            walk(startPage).then((found) => {
-                if (!found) {
-                    hasOlderPressure = false;
-                }
-            }).catch((e) => {
-                console.error("load older error:", e);
-            }).finally(() => {
-                loadingOlderPressure = false;
-                syncOlderButtons();
-            });
-        }
-
-        function applyI18n() {
-            document.getElementById("titleBp").textContent = bt("title");
-            document.getElementById("settingsBtn").textContent = bt("settings");
-            document.getElementById("openAddFormBtn").textContent = bt("add");
-            document.getElementById("settingsDialogTitle").textContent = bt("settingsTitle");
-            document.getElementById("guideToggleLabel").textContent = bt("guide");
-            document.getElementById("languageSectionTitle").textContent = bt("language");
-            document.getElementById("closeSettingsBtnTop").textContent = bt("close");
-            document.getElementById("closeSettingsBtn").textContent = bt("close");
-            document.getElementById("labelDate").textContent = bt("date");
-            document.getElementById("labelPeriod").textContent = bt("period");
-            document.getElementById("labelHigh").textContent = bt("high");
-            document.getElementById("labelLow").textContent = bt("low");
-            document.getElementById("labelMedicine").textContent = bt("medicine");
-            document.getElementById("medicineNoneLabel").textContent = bt("medicineNone");
-            document.getElementById("medicineYesLabel").textContent = bt("medicineYes");
-            document.getElementById("adddata").textContent = bt("register");
-            document.getElementById("closeAddFormBtn").textContent = bt("cancel");
-            document.getElementById("thPeriod").textContent = bt("periodCol");
-            document.getElementById("thHigh").textContent = bt("high");
-            document.getElementById("thLow").textContent = bt("low");
-            document.getElementById("thMedicine").textContent = bt("medicine");
-            document.getElementById("ethPeriod").textContent = bt("periodCol");
-            document.getElementById("ethHigh").textContent = bt("high");
-            document.getElementById("ethLow").textContent = bt("low");
-            document.getElementById("ethMedicine").textContent = bt("medicine");
-            document.getElementById("ethEdit").textContent = bt("edit");
-            document.getElementById("editDateLabel").textContent = bt("date");
-            document.getElementById("editPeriodLabel").textContent = bt("period");
-            document.getElementById("editHighLabel").textContent = bt("high");
-            document.getElementById("editLowLabel").textContent = bt("low");
-            document.getElementById("editMedicineLabel").textContent = bt("medicine");
-            document.getElementById("editMedicineNoneLabel").textContent = bt("medicineNone");
-            document.getElementById("editMedicineYesLabel").textContent = bt("medicineYes");
-            document.getElementById("saveButton").textContent = bt("save");
-            document.getElementById("cancelButton").textContent = bt("cancel");
-            document.getElementById("deleteButton").textContent = bt("del");
-            document.getElementById("tabChart").textContent = bt("chart");
-            document.getElementById("tabTable").textContent = bt("table");
-            document.getElementById("tabEdit").textContent = bt("edit");
-            document.getElementById("periodMorning").textContent = bt("morning");
-            document.getElementById("periodNoon").textContent = bt("noon");
-            document.getElementById("periodNight").textContent = bt("night");
-            document.getElementById("editPeriodMorning").textContent = bt("morning");
-            document.getElementById("editPeriodNoon").textContent = bt("noon");
-            document.getElementById("editPeriodNight").textContent = bt("night");
-            dataArray = ["", periodLabel(1), periodLabel(2), periodLabel(3)];
-            bloodPressureChart.data.datasets[0].label = bt("systolic");
-            bloodPressureChart.data.datasets[1].label = bt("diastolic");
-            bloodPressureChart.options.scales.y.title.text = bt("yAxis");
-            bloodPressureChart.options.scales.x.title.text = bt("xAxis");
-            applySettingsUi();
-            syncOlderButtons();
-            updateChartRangeTitle();
-        }
-
-        async function setLanguage(langCode) {
-            selectedUiLang = isSupportedLang(langCode) ? langCode : "ja";
-            localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
-            await i18next.changeLanguage(resolveI18nLang(selectedUiLang));
-            renderLanguageOptions();
-            applyI18n();
-            updateChart(allData);
-            createTablePage();
-            populateTable();
-            document.getElementById("settingsDialog").style.display = "none";
-        }
-
-        const initialSavedLang = localStorage.getItem(LANG_STORAGE_KEY);
-        selectedUiLang = isSupportedLang(initialSavedLang) ? initialSavedLang : "ja";
-        localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
-        showGuideOverlay = localStorage.getItem(GUIDE_VISIBLE_KEY) !== "0";
-        renderLanguageOptions();
-
-        function startPressureApp(idToken) {
-            token = idToken;
-            if (typeof changeLanguage === "function") {
-                changeLanguage("ja");
-            }
-            pressurePage = 1;
-            loadedWeekPages = 1;
-            hasOlderPressure = true;
-            loadingOlderPressure = false;
-            syncOlderButtons();
-            loadInitialPressureWindow().then(() => {
-                createTablePage();
-                populateTable();
-            }).catch((e) => {
-                console.error("initial load error:", e);
-            });
-        }
-
-        function loadInitialPressureWindow() {
-            return fetchPressurePage(1, "replace").then((items) => {
-                if (items.length > 0) {
-                    allData = dedupePressureItems(items);
-                    updateChart(allData);
-                    return;
-                }
-                // If there is no record in the latest week, auto-load older weeks
-                // so the screen is not empty at startup.
-                const maxAutoPages = 120;
-                const walk = (page) => {
-                    if (page > maxAutoPages) {
-                        syncOlderButtons();
-                        allData = [];
-                        updateChart(allData);
-                        return;
-                    }
-                    return fetchPressurePage(page, "append").then((more) => {
-                        if (more.length > 0) {
-                            loadedWeekPages = page;
-                            pressurePage = page;
-                            allData = dedupePressureItems(allData);
-                            updateChart(allData);
-                            syncOlderButtons();
-                            return;
-                        }
-                        return walk(page + 1);
-                    });
-                };
-                return walk(2);
-            });
-        }
-
-        function reloadPressureDataAndRender() {
-            pressurePage = 1;
-            loadedWeekPages = 1;
-            hasOlderPressure = true;
-            loadingOlderPressure = false;
-            return loadInitialPressureWindow().then(() => {
-                createTablePage();
-                populateTable();
-            });
-        }
-
-        function bootPressureApp() {
-            showAppLoader();
-            if (window.IS_TEST_MODE) {
-                // Skip LIFF auth in test mode so UI/data flow can be verified locally.
-                startPressureApp("TEST_ID_TOKEN");
-                return;
-            }
-            liff.init({
-                liffId: LIFF_ID,
-                withLoginOnExternalBrowser: true,
-            }).then(() => {
-                const idToken = liff.getIDToken();
-                const lang = liff.getAppLanguage();
-                if (!isSupportedLang(initialSavedLang)) {
-                    selectedUiLang = normalizeLangToUi(lang);
-                    localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
-                    renderLanguageOptions();
-                    applyI18n();
-                }
-                startPressureApp(idToken);
-            }).catch(() => {
-                hideAppLoader();
-                liff.logout();
-                alert("LIFF init failed.");
-            });
-        }
-
-        function updateChart(data) {
-            const sorted = (Array.isArray(data) ? data.slice() : []).sort((a, b) => {
-                const dateA = new Date(a.date);
-                const dateB = new Date(b.date);
-                if (dateA - dateB !== 0) {
-                    return dateA - dateB;
-                }
-                return Number(a.period || 0) - Number(b.period || 0);
-            });
-            allData = sorted;
-            renderWeeklyCharts(sorted);
-        }
-
-        const ctx = document.getElementById('bloodPressureChart').getContext('2d');
-        //ctx.height = 350;
-        const isHighAlertValue = (v) => Number(v) >= 140;
-        const isLowAlertValue = (v) => Number(v) <= 70;
-        const chartY = (ctx) => {
-            if (!ctx || !ctx.parsed) return NaN;
-            return Number(ctx.parsed.y);
-        };
-
-        // カスタムプラグインを定義（特定のy座標範囲の背景色を塗る）
-        const rangeBackgroundPlugin = {
-            id: 'rangeBackground',
-            beforeDraw: function (chart) {
-                if (!showGuideOverlay) return;
-                const ctx = chart.ctx;
-                const chartArea = chart.chartArea;
-                const yAxis = chart.scales.y;
-
-                ctx.save();
-
-                // 140以上の背景を赤色に塗る
-                const topY = yAxis.getPixelForValue(140); // Y=140のピクセル位置を取得
-                ctx.fillStyle = 'rgba(255, 99, 132, 0.10)'; // 赤色
-                ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, topY - chartArea
-                    .top);
-
-                // 70未満の背景を青色に塗る
-                const bottomY = yAxis.getPixelForValue(70); // Y=70のピクセル位置を取得
-                ctx.fillStyle = 'rgba(54, 162, 235, 0.10)'; // 青色
-                ctx.fillRect(chartArea.left, bottomY, chartArea.right - chartArea.left, chartArea.bottom -
-                    bottomY);
-
-                ctx.restore();
-            }
-        };
-
-        function buildPressureChartConfig() {
-            return {
-                type: 'line',
-                data: {
-                    labels: [],
-                    datasets: [{
-                            label: bt("systolic"),
-                            data: [],
-                            borderColor: '#e5546f',
-                            backgroundColor: 'rgba(229, 84, 111, 0.20)',
-                            fill: true,
-                            tension: 0.28,
-                            pointRadius: (ctx) => isHighAlertValue(chartY(ctx)) ? 6 : 3.5,
-                            pointHoverRadius: (ctx) => isHighAlertValue(chartY(ctx)) ? 8 : 6,
-                            pointBackgroundColor: (ctx) => isHighAlertValue(chartY(ctx)) ? '#ff2d55' : '#ffffff',
-                            pointBorderColor: (ctx) => isHighAlertValue(chartY(ctx)) ? '#ff2d55' : '#e5546f',
-                            pointBorderWidth: 2
-                        },
-                        {
-                            label: bt("diastolic"),
-                            data: [],
-                            borderColor: '#3f8ee8',
-                            backgroundColor: 'rgba(63, 142, 232, 0.20)',
-                            fill: true,
-                            tension: 0.28,
-                            pointRadius: (ctx) => isLowAlertValue(chartY(ctx)) ? 6 : 3.5,
-                            pointHoverRadius: (ctx) => isLowAlertValue(chartY(ctx)) ? 8 : 6,
-                            pointBackgroundColor: (ctx) => isLowAlertValue(chartY(ctx)) ? '#2f80ff' : '#ffffff',
-                            pointBorderColor: (ctx) => isLowAlertValue(chartY(ctx)) ? '#2f80ff' : '#3f8ee8',
-                            pointBorderWidth: 2
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: {
-                        mode: "index",
-                        intersect: false
-                    },
-                    // --- ここから追加 ---
-                    layout: {
-                        padding: {
-                            bottom: 20 // 下側に20pxの余白を強制的に作る
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            position: "top",
-                            labels: {
-                                usePointStyle: true,
-                                pointStyle: "circle",
-                                boxWidth: 10,
-                                color: "#22324a",
-                                font: {
-                                    size: 12,
-                                    weight: "700"
-                                },
-                                generateLabels: function (chart) {
-                                    const originalLabels = Chart.defaults.plugins.legend.labels.generateLabels(
-                                        chart);
-                                    originalLabels.forEach(label => {
-                                        // 中の色（fillStyle）を「白」に固定
-                                        label.fillStyle = '#ffffff';
-                                        // 枠線の色（strokeStyle）を各データセットの色（赤/青）に合わせる
-                                        const dataset = chart.data.datasets[label.datasetIndex];
-                                        label.strokeStyle = dataset.borderColor;
-                                        // 枠線の太さを少し出すと見やすいです
-                                        label.lineWidth = 2;
-                                    });
-                                    return originalLabels;
-                                }
-                            }
-                        },
-                        tooltip: {
-                            backgroundColor: "rgba(28, 43, 66, 0.92)",
-                            titleColor: "#fff",
-                            bodyColor: "#fff",
-                            padding: 10,
-                            displayColors: true
-                        }
-                    },
-                    scales: {
-                        y: {
-                            title: {
-                                display: true,
-                                text: bt("yAxis")
-                            },
-                            min: 50,
-                            max: 200,
-                            grid: {
-                                color: "rgba(132, 161, 204, 0.20)"
-                            },
-                            ticks: {
-                                color: "#405370",
-                                stepSize: 10
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: bt("xAxis")
-                            },
-                            grid: {
-                                display: false
-                            },
-                            ticks: {
-                                color: "#405370",
-                                maxRotation: 20,
-                                minRotation: 0,
-                                autoSkip: true,
-                                maxTicksLimit: 8
-                            }
-                        }
-                    }
-                },
-                plugins: [rangeBackgroundPlugin]
-            };
-        }
-
-        function getWeekWindow(page) {
-            const to = new Date();
-            to.setHours(23, 59, 59, 999);
-            to.setDate(to.getDate() - 7 * (page - 1));
-            const from = new Date(to);
-            from.setDate(from.getDate() - 7);
-            from.setHours(0, 0, 0, 0);
-            return {
-                from,
-                to
-            };
-        }
-
-        function getItemsForWeekPage(items, page) {
-            const win = getWeekWindow(page);
-            return (items || []).filter((item) => {
-                const d = new Date(item.date);
-                return !isNaN(d.getTime()) && win.from.getTime() < d.getTime() && d.getTime() <= win.to
-                    .getTime();
-            }).sort((a, b) => {
-                const dateA = new Date(a.date);
-                const dateB = new Date(b.date);
-                if (dateA - dateB !== 0) return dateA - dateB;
-                return Number(a.period || 0) - Number(b.period || 0);
-            });
-        }
-
-        function setChartData(chart, items) {
-            const labelsLocal = [];
-            const highLocal = [];
-            const lowLocal = [];
-            (items || []).forEach((item) => {
-                const lines = [formatChartDateShort(item.date), ...chartPeriodLabelLines(item.period)];
-                if (hasMedicineFlag(item.medicine)) {
-                    lines.push("💊");
-                }
-                labelsLocal.push(lines);
-                highLocal.push(Number(item.high));
-                lowLocal.push(Number(item.low));
-            });
-            chart.data.labels = labelsLocal;
-            chart.data.datasets[0].label = bt("systolic");
-            chart.data.datasets[1].label = bt("diastolic");
-            chart.data.datasets[0].data = highLocal;
-            chart.data.datasets[1].data = lowLocal;
-            chart.options.scales.y.title.text = bt("yAxis");
-            chart.options.scales.x.title.text = bt("xAxis");
-            chart.update();
-        }
-
-        function renderWeeklyCharts(items) {
-            const page1 = getItemsForWeekPage(items, 1);
-            setChartData(bloodPressureChart, page1);
-
-            chartInstances.forEach((c) => c.destroy());
-            chartInstances = [];
-
-            const container = document.getElementById("olderChartsContainer");
-            if (!container) return;
-            container.innerHTML = "";
-
-            for (let p = 2; p <= loadedWeekPages; p++) {
-                const weekItems = getItemsForWeekPage(items, p);
-                if (!weekItems.length) continue;
-                const card = document.createElement("section");
-                card.className = "older-chart-card";
-                const title = document.createElement("h3");
-                title.className = "older-chart-title";
-                const win = getWeekWindow(p);
-                const start = new Date(win.from);
-                start.setDate(start.getDate() + 1);
-                title.textContent =
-                    `${p - 1}週間前 (${formatChartDateShort(start)}-${formatChartDateShort(win.to)})`;
-                const canvas = document.createElement("canvas");
-                //canvas.height = 350;
-                card.appendChild(title);
-                card.appendChild(canvas);
-                container.appendChild(card);
-
-                const c = new Chart(canvas.getContext('2d'), buildPressureChartConfig());
-                setChartData(c, weekItems);
-                chartInstances.push(c);
-            }
-        }
-
-        // Chart.jsの設定
-        let bloodPressureChart = new Chart(ctx, buildPressureChartConfig());
-
-        // jQuery UIのdatepickerの初期化
-        $(function () {
-            $("#date").datepicker({
-                dateFormat: 'yy/mm/dd'
-            });
-        });
-
-        function openAddForm() {
-            const panel = document.getElementById("addFormPanel");
-            const openBtn = document.getElementById("openAddFormBtn");
-            if (!panel) return;
-            panel.classList.add("open");
-            panel.style.maxHeight = "520px";
-            panel.style.opacity = "1";
-            panel.style.transform = "translateY(0)";
-            panel.setAttribute("aria-hidden", "false");
-            if (openBtn) openBtn.style.display = "none";
-        }
-
-        function closeAddForm() {
-            const panel = document.getElementById("addFormPanel");
-            const openBtn = document.getElementById("openAddFormBtn");
-            if (!panel) return;
-            panel.classList.remove("open");
-            panel.style.maxHeight = "0";
-            panel.style.opacity = "0";
-            panel.style.transform = "translateY(-8px)";
-            panel.setAttribute("aria-hidden", "true");
-            if (openBtn) openBtn.style.display = "";
-        }
-
-        function openSettingsDialog() {
-            const dlg = document.getElementById("settingsDialog");
-            if (!dlg) return;
-            dlg.classList.remove("is-hidden");
-        }
-
-        function closeSettingsDialog() {
-            const dlg = document.getElementById("settingsDialog");
-            if (!dlg) return;
-            dlg.classList.add("is-hidden");
-        }
-
-        document.getElementById("settingsBtn").addEventListener("click", openSettingsDialog);
-        document.getElementById("closeSettingsBtn").addEventListener("click", closeSettingsDialog);
-        document.getElementById("guideToggleBtn").addEventListener("click", () => {
-            showGuideOverlay = !showGuideOverlay;
-            localStorage.setItem(GUIDE_VISIBLE_KEY, showGuideOverlay ? "1" : "0");
-            applySettingsUi();
-            updateChart(allData);
-        });
-        document.getElementById("openAddFormBtn").addEventListener("click", openAddForm);
-        document.getElementById("closeAddFormBtn").addEventListener("click", closeAddForm);
-        document.getElementById("loadOlderChartBtn").addEventListener("click", loadOlderPressureData);
-        document.getElementById("loadOlderTableBtn").addEventListener("click", loadOlderPressureData);
-
-        document.getElementById("adddata").onclick = function () {
-            try {
-                const date = document.getElementById("date").value.trim();
-                const time = Number(document.getElementById("periodSelect").value);
-                const high = Number(document.getElementById("higth").value);
-                const low = Number(document.getElementById("low").value);
-                const medicine = readMedicineRadioValue("medicineStatus");
-
-                if (!date || !Number.isFinite(time) || !Number.isFinite(high) || !Number.isFinite(low)) {
-                    alert(bt("fillAll"));
-                    return;
-                }
-
-                const list = {
-                    date: String(date),
-                    period: time,
-                    high: Math.round(high),
-                    low: Math.round(low),
-                    medicine: medicine
-                };
-
-                if (typeof addData !== "function") {
-                    alert("登録処理の読み込みに失敗しました。ページを再読み込みしてください。");
-                    return;
-                }
-                const savePressure = (typeof setPressure === "function") ?
-                    setPressure :
-                    ((payload) => addData(payload, "pressure"));
-                Promise.resolve(savePressure(list)).then(() => {
-                    return reloadPressureDataAndRender();
-                }).then(() => {
-                    switchTab("chart-container", {
-                        currentTarget: document.getElementById("tabChart")
-                    });
-                    document.getElementById("date").value = "";
-                    document.getElementById("higth").value = "";
-                    document.getElementById("low").value = "";
-                    setMedicineRadioValue("medicineStatus", 0);
-                    closeAddForm();
-                }).catch((e) => {
-                    console.error("add/register error:", e);
-                    alert("登録処理でエラーが発生しました。");
-                });
-            } catch (e) {
-                console.error("adddata error:", e);
-                alert("登録処理でエラーが発生しました。");
-            }
-
-        }
-
-        let before_dateValue
-        let before_periodValue
-        let before_itemId
-
-        function populateTable(id) {
-            var tableBody;
-
-            tableBody = document.querySelector('#editTable tbody');
-            tableBody.innerHTML = ''; // テーブルをクリア
-
-            const sortedData = getSortedPressureData();
-            sortedData.forEach((label, index) => {
-                const rawDate = String(label.date || "");
-                const datePart = formatDisplayDate(rawDate); // 日付部分
-                const periodPart = label.period; // 朝/夜部分
-                const medicinePart = medicineMark(label.medicine);
-                const highAlertClass = Number(label.high) >= 140 ? "bp-alert-high" : "";
-                const lowAlertClass = Number(label.low) <= 70 ? "bp-alert-low" : "";
-
-                const row = `<tr data-item-id="${label.itemId || ""}">
-                            <!-- 日付部分: datepickerを使用 -->
-                            <td class="date-picker" data-raw-date="${rawDate}">${String(datePart)}</td>
-                            <td class="time-picker">${dataArray[periodPart]}</td>
-
-                            <!-- 体重部分: contenteditable -->
-                            <td class="high1 ${highAlertClass}">${label.high}</td>
-                            <td class="low1 ${lowAlertClass}">${label.low}</td>
-                            <td class="medicine1">${medicinePart}</td>
-
-                            <td><button type="button" class="edit-btn">${bt("edit")}</button></td>
-                        </tr>`;
-
-
-                tableBody.insertAdjacentHTML('beforeend', row);
-                $(".date-picker").datepicker({
-                    dateFormat: 'yy-mm-dd'
-                });
-            });
-
-
-
-            const editButtons = document.querySelectorAll(".edit-btn");
-            const dialog = document.getElementById("editDialog");
-
-
-
-
-            editButtons.forEach((button) => {
-                button.addEventListener("click", function () {
-                    currentRow1 = this.closest("tr");
-
-                    // 元の値を取得してダイアログに設定
-                    const dateCell = currentRow1.querySelector(".date-picker");
-                    const dateValue = dateCell.getAttribute("data-raw-date") || dateCell.innerText;
-                    const timeValue = currentRow1.querySelector(".time-picker").innerText;
-                    const highValue = currentRow1.querySelector(".high1").innerText;
-                    const lowValue = currentRow1.querySelector(".low1").innerText;
-                    const medicineValue = currentRow1.querySelector(".medicine1").innerText;
-
-                    document.getElementById("editDate").value = formatDisplayDate(dateValue);
-                    document.getElementById("editPeriod").value = dataArray.indexOf(timeValue);
-                    document.getElementById("editHigh").value = highValue;
-                    document.getElementById("editLow").value = lowValue;
-                    setMedicineRadioValue("editMedicineStatus", medicineValue);
-
-                    before_dateValue = dateValue
-                    before_periodValue = dataArray.indexOf(timeValue)
-                    before_itemId = currentRow1.getAttribute("data-item-id") || ""
-                    // ダイアログを表示
-                    dialog.classList.remove("is-hidden");
-
-                });
-            });
-
-            const saveButton = document.getElementById("saveButton");
-            saveButton.removeEventListener("click", savebutton); // 既存のリスナーを削除
-            saveButton.addEventListener("click", savebutton); // 新しいリスナーを登録
-
-
-
-
-            // キャンセルボタンの処理
-            document.getElementById("cancelButton").onclick = () => {
-                // ダイアログを閉じる
-                dialog.classList.add("is-hidden");
-            };
-
-            // 削除ボタンの処理
-            document.getElementById("deleteButton").onclick = () => {
-                list = {
-                    date: before_dateValue,
-                    period: before_periodValue
-                }
-
-                Promise.resolve(deleteData(list, "pressure"))
-                    .then(() => reloadPressureDataAndRender())
-                    .then(() => {
-                        dialog.classList.add("is-hidden");
-                    })
-                    .catch((error) => {
-                        console.error("delete error:", error);
-                        alert("削除処理でエラーが発生しました。");
-                    });
-            };
-
-
-        }
-
-
-        function savebutton() {
-
-            let dialog = document.getElementById("editDialog");
-
-            // 保存ボタンの処理
-            const newDate = document.getElementById("editDate").value;
-            const newTime = document.getElementById("editPeriod").value;
-            const newHigh = document.getElementById("editHigh").value;
-            const newLow = document.getElementById("editLow").value;
-            const newMedicine = readMedicineRadioValue("editMedicineStatus");
-
-            if (newDate && newHigh && newTime && newLow) {
-                var olddata = {
-                    date: before_dateValue,
-                    period: before_periodValue
-                }
-
-                var newdata = {
-                    itemId: before_itemId,
-                    date: String(newDate),
-                    period: parseInt(newTime),
-                    high: parseInt(newHigh),
-                    low: parseInt(newLow),
-                    medicine: newMedicine
-
-                }
-                const sameKey =
-                    String(olddata.date) === String(newdata.date) &&
-                    Number(olddata.period) === Number(newdata.period);
-
-                const savePressure = (typeof setPressure === "function") ?
-                    setPressure :
-                    ((payload) => addData(payload, "pressure"));
-                const updatePressure = (typeof putData === "function") ?
-                    putData :
-                    ((payload) => addData(payload, "pressure"));
-                const request = sameKey ?
-                    Promise.resolve(updatePressure(newdata, "pressure")) :
-                    Promise.resolve(updatePressure(newdata, "pressure"))
-                    .then(() => deleteData(olddata, "pressure"));
-
-                request.then(() => {
-                    // 保存後は再取得して表示を揃える
-                    return reloadPressureDataAndRender();
-                }).then(() => {
-                    dialog.classList.add("is-hidden");
-                }).catch((error) => {
-                    console.error("save/update error:", error);
-                    alert("保存処理でエラーが発生しました。");
-                });
-
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<script>
+    // GASで作成しているAPIのエンドポイント
+    const API_URL =
+    "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
+const LIFF_ID = "2005594923-wN8OjyGd";
+
+    liff.init({
+        liffId: LIFF_ID, // Use own liffId
+        withLoginOnExternalBrowser: true, // Enable automatic login process
+    }).then(() => {
+        // Start to use liff's api
+        const idToken = liff.getIDToken();
+        getHospital(idToken);
+
+        $(".btn_register").on("click", function(e){
+            if (!$('form[name="form_hospital"]')[0].reportValidity()) {
+                return false;
             } else {
-                alert(bt("fillAll"));
+                setHospital(idToken);
             }
-            //                allData = allData.filter(item => !(item.date == before_dateValue && item.period ==
-            //                    before_periodValue));
-
-
-            //               allData.push({
-            //                   date: newDate,
-            //                   period: newTime,
-            //                   high: newHigh,
-            //                   low: newLow
-            //               })
-
-
-        }
-
-        function createTablePage() {
-            tableBody = document.querySelector('#table tbody');
-            tableBody.innerHTML = ''; // テーブルをクリア
-
-            const sortedData = getSortedPressureData();
-            sortedData.forEach((label, index) => {
-                datetime = formatDisplayDate(label.date)
-                const medicinePart = medicineMark(label.medicine);
-                const highAlertClass = Number(label.high) >= 140 ? "bp-alert-high" : "";
-                const lowAlertClass = Number(label.low) <= 70 ? "bp-alert-low" : "";
-                const row = `<tr>
-                    <!-- 日付部分: datepickerを使用 -->
-                    <td>${datetime}</td>
-                    <td>${dataArray[label.period]}</td>
-                    <!-- 最高血圧部分: contenteditable -->
-                    <td class="${highAlertClass}">${label.high}</td>
-                    <td class="${lowAlertClass}">${label.low}</td>
-                    <td>${medicinePart}</td>
-
-                </tr>`;
-
-                tableBody.insertAdjacentHTML('beforeend', row);
-                $(".date-picker").datepicker({
-                    dateFormat: 'yy-mm-dd HH:mm'
-                });
-            });
-        }
-
-        function setallData() {
-            allData = allData.filter(item => !(item.date == before_dateValue && item.period == before_periodValue));
-            currentRow1.remove();
-        }
-        initI18n(selectedUiLang).then(() => {
-            applyI18n();
-            window.addEventListener("load", bootPressureApp);
-        }).catch((error) => {
-            console.error("i18n init failed:", error);
-            applyI18n();
-            window.addEventListener("load", bootPressureApp);
         });
-    </script>
+        $(".btn_edit").on("click", function(e){
+            editHospital(idToken);
+        });
+        $(".btn_delete").on("click", function(e){
+            deleteHospital(idToken);
+        });
+        $(".btn_download").on("click", function(e){
+            e.preventDefault();
+            const url = $(".btn_download").attr("href");
+            liff.openWindow({
+                url: url,
+                external: true,
+            });
+        });
+    }).catch((err) => {
+        // Error happens during initialization
+        liff.logout();
+        alert("LIFF init failed.");
+    });
 
+    const getAccessObj = (data) => {
+        return {
+            url: API_URL,
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(data),
+            timeout: 30000,
+        }
+    }
+
+    function getHospital(idToken){
+        $.ajax(
+            getAccessObj({
+                path: "hospital",
+                method : "get",
+                idToken: idToken
+            })
+        ).done(function(response) {
+            if(response.statusCode === 401){
+                liff.logout();
+                window.location.reload();
+            }
+            else if(response.statusCode !== 200){
+                console.error(response.message);
+                alert(response.message)
+            }
+            else {
+                $(".hospital_name_placeholder").val(response.data.hospitalName);
+                $(".hospital_name_en_placeholder").val(response.data.hospitalNameEn);
+                $(".phone_number_placeholder").val(response.data.phoneNumber);
+                $(".qrcode").attr("src", response.data.qrcodeImageUrl);
+                $(".btn_download").attr("href", response.data.qrcodeDownloadUrl);
+
+                if(response.data.hospitalName === ""){
+                    $(".btn_delete").hide();
+                    $(".btn_edit").hide();
+                    $(".btn_register").show();
+                    $(".btn_download").hide();
+                }
+                else{
+                    $(".btn_delete").show();
+                    $(".btn_edit").show();
+                    $(".btn_register").hide();
+                    $(".btn_download").show();
+
+                    $(".hospital_name_placeholder").prop("readOnly", true);
+                    $(".hospital_name_en_placeholder").prop("readOnly", true);
+                    $(".phone_number_placeholder").prop("readOnly", true);
+                }
+            }
+            $(".loader").hide();
+        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("Network error!");
+            $(".loader").hide();
+        });
+    }
+
+    function setHospital(idToken){
+        $(".loader").show();
+        $.ajax(
+            getAccessObj({
+                path: "hospital",
+                method : "post",
+                idToken: idToken,
+                postData: {
+                    hospitalName: $(".hospital_name_placeholder").val(),
+                    hospitalNameEn: $(".hospital_name_en_placeholder").val(),
+                    phoneNumber: $(".phone_number_placeholder").val()
+                }
+            })
+        ).done(function(response) {
+            if(response.statusCode === 401){
+                liff.logout();
+                window.location.reload();
+            }
+            else if(response.statusCode !== 200){
+                console.error(response.message);
+                alert(response.message)
+            }
+            else {
+                $(".qrcode").attr("src", response.data.qrcodeImageUrl);
+                $(".btn_download").attr("href", response.data.qrcodeDownloadUrl);
+
+                $(".btn_delete").show();
+                $(".btn_edit").show();
+                $(".btn_register").hide();
+                $(".btn_download").show();
+
+                $(".hospital_name_placeholder").prop("readOnly", true);
+                $(".hospital_name_en_placeholder").prop("readOnly", true);
+                $(".phone_number_placeholder").prop("readOnly", true);
+
+                alert("Success");
+            }
+            $(".loader").hide();
+        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+            $(".loader").hide();
+            alert("Network error!");
+        });
+    }
+
+    function deleteHospital(idToken){
+        $(".loader").show();
+        $.ajax(
+            getAccessObj({
+                path: "hospital",
+                method : "delete",
+                idToken: idToken
+            })
+        ).done(function(response) {
+            if(response.statusCode === 401){
+                liff.logout();
+                window.location.reload();
+            }
+            else if(response.statusCode !== 200){
+                console.error(response.message);
+                alert(response.message)
+            }
+            else {
+                $(".qrcode").attr("src", "");
+                $(".btn_download").attr("href", "");
+
+                $(".btn_delete").hide();
+                $(".btn_edit").hide();
+                $(".btn_register").show();
+                $(".btn_download").hide();
+
+                $(".hospital_name_placeholder").prop("readOnly", false);
+                $(".hospital_name_en_placeholder").prop("readOnly", false);
+                $(".phone_number_placeholder").prop("readOnly", false);
+
+                alert("Success");
+            }
+            $(".loader").hide();
+        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+            $(".loader").hide();
+            alert("Network error!");
+        });
+    }
+
+    function editHospital(){
+        $(".btn_delete").hide();
+        $(".btn_edit").hide();
+        $(".btn_register").show();
+
+        $(".hospital_name_placeholder").prop("readOnly", false);
+        $(".hospital_name_en_placeholder").prop("readOnly", false);
+        $(".phone_number_placeholder").prop("readOnly", false);
+    }
+
+</script>
 </body>
-
 </html>
