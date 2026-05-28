@@ -1720,6 +1720,7 @@
 
         let before_dateValue
         let before_periodValue
+        let before_itemId
 
         function populateTable(id) {
             var tableBody;
@@ -1736,7 +1737,7 @@
                 const highAlertClass = Number(label.high) >= 140 ? "bp-alert-high" : "";
                 const lowAlertClass = Number(label.low) <= 70 ? "bp-alert-low" : "";
 
-                const row = `<tr>
+                const row = `<tr data-item-id="${label.itemId || ""}">
                             <!-- 日付部分: datepickerを使用 -->
                             <td class="date-picker" data-raw-date="${rawDate}">${String(datePart)}</td>
                             <td class="time-picker">${dataArray[periodPart]}</td>
@@ -1784,6 +1785,7 @@
 
                     before_dateValue = dateValue
                     before_periodValue = dataArray.indexOf(timeValue)
+                    before_itemId = currentRow1.getAttribute("data-item-id") || ""
                     // ダイアログを表示
                     dialog.classList.remove("is-hidden");
 
@@ -1843,6 +1845,7 @@
                 }
 
                 var newdata = {
+                    itemId: before_itemId,
                     date: String(newDate),
                     period: parseInt(newTime),
                     high: parseInt(newHigh),
