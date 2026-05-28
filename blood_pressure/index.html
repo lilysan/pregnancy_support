@@ -934,6 +934,185 @@
         let chartInstances = [];
         var id;
 
+        function showAppLoader() {
+            const loader = document.querySelector(".loader");
+            if (!loader) return;
+            loader.classList.remove("is-hidden");
+            loader.style.display = "grid";
+            loader.setAttribute("aria-hidden", "false");
+        }
+
+        function hideAppLoader() {
+            const loader = document.querySelector(".loader");
+            if (!loader) return;
+            loader.classList.add("is-hidden");
+            loader.style.display = "none";
+            loader.setAttribute("aria-hidden", "true");
+        }
+
+        function switchTab(contentId, event) {
+            document.querySelectorAll('.chart-container, .table-container, .edit-container').forEach(content => {
+                content.classList.remove('active-content');
+            });
+            const chartContainerAll = document.getElementById('chart-container-all');
+            if (chartContainerAll) {
+                chartContainerAll.style.display = contentId === "chart-container" ? "block" : "none";
+            }
+            const nextContent = document.getElementById(contentId);
+            if (nextContent) {
+                nextContent.classList.add('active-content');
+            }
+
+            const buttons = document.querySelectorAll('.tab-bar button');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+
+            try {
+                if (contentId === "table-container" && typeof createTablePage === "function") {
+                    createTablePage();
+                } else if (contentId === "edit-container" && typeof populateTable === "function") {
+                    populateTable(contentId);
+                } else if (typeof updateChart === "function") {
+                    updateChart(allData);
+                }
+            } catch (e) {
+                console.error("switchTab rendering error:", e);
+            }
+            if (typeof updateGraphUnitButtonVisibility === "function") {
+                updateGraphUnitButtonVisibility();
+            }
+        }
+
+        const getAccessObj = (data) => {
+            return {
+                url: API_URL,
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify(data),
+                timeout: 30000,
+            };
+        };
+
+        function loadData(idToken, type, postData, mergeMode) {
+            showAppLoader();
+            const safePostData = postData || {};
+            const safeMergeMode = mergeMode || "replace";
+            return $.ajax(
+                getAccessObj({
+                    path: type,
+                    method: "get",
+                    idToken: idToken,
+                    postData: safePostData
+                })
+            ).then(function (response) {
+                if (response.statusCode === 401) {
+                    liff.logout();
+                    window.location.reload();
+                    return [];
+                } else if (response.statusCode !== 200) {
+                    console.error(response.message);
+                    alert(response.message);
+                    return [];
+                } else {
+                    const items = (response.data && Array.isArray(response.data.items)) ? response.data.items : [];
+                    if (safeMergeMode === "append") {
+                        allData = (Array.isArray(allData) ? allData : []).concat(items);
+                    } else {
+                        allData = items;
+                    }
+                    updateChart(allData);
+                    return items;
+                }
+            }, function () {
+                alert("Network error!");
+                return [];
+            }).always(function () {
+                hideAppLoader();
+            });
+        }
+
+        function addData(data, type) {
+            showAppLoader();
+            return $.ajax(
+                getAccessObj({
+                    path: type,
+                    method: "post",
+                    idToken: token,
+                    postData: data
+                })
+            ).done(function (response) {
+                if (response.statusCode === 401) {
+                    liff.logout();
+                    window.location.reload();
+                } else if (response.statusCode !== 200) {
+                    console.error(response.message);
+                    alert(response.message);
+                }
+            }).fail(function () {
+                alert("Network error!");
+            }).always(function () {
+                hideAppLoader();
+            });
+        }
+
+        function setPressure(data) {
+            return addData(data, "pressure");
+        }
+
+        function putData(data, type) {
+            showAppLoader();
+            return $.ajax(
+                getAccessObj({
+                    path: type,
+                    method: "put",
+                    idToken: token,
+                    postData: data
+                })
+            ).done(function (response) {
+                if (response.statusCode === 401) {
+                    liff.logout();
+                    window.location.reload();
+                } else if (response.statusCode !== 200) {
+                    console.error(response.message);
+                    alert(response.message);
+                }
+            }).fail(function () {
+                alert("Network error!");
+            }).always(function () {
+                hideAppLoader();
+            });
+        }
+
+        function deleteData(data, type) {
+            showAppLoader();
+            return $.ajax(
+                getAccessObj({
+                    path: type,
+                    method: "delete",
+                    idToken: token,
+                    postData: data
+                })
+            ).done(function (response) {
+                if (response.statusCode === 401) {
+                    liff.logout();
+                    window.location.reload();
+                } else if (response.statusCode !== 200) {
+                    console.error(response.message);
+                    alert(response.message);
+                } else {
+                    setallData();
+                }
+            }).fail(function () {
+                alert("Network error!");
+            }).always(function () {
+                hideAppLoader();
+            });
+        }
+
         function resolveI18nLang(langCode) {
             if (langCode === "ja") return "ja";
             if (langCode === "zh") return "zh";
@@ -1325,9 +1504,7 @@
         }
 
         function bootPressureApp() {
-            if (typeof showAppLoader === "function") {
-                showAppLoader();
-            }
+            showAppLoader();
             if (window.IS_TEST_MODE) {
                 // Skip LIFF auth in test mode so UI/data flow can be verified locally.
                 startPressureApp("TEST_ID_TOKEN");
@@ -1347,9 +1524,7 @@
                 }
                 startPressureApp(idToken);
             }).catch(() => {
-                if (typeof hideAppLoader === "function") {
-                    hideAppLoader();
-                }
+                hideAppLoader();
                 liff.logout();
                 alert("LIFF init failed.");
             });
@@ -1936,7 +2111,6 @@
             window.addEventListener("load", bootPressureApp);
         });
     </script>
-    <script src="../commonkokima_pressure.js"></script>
 
 </body>
 
