@@ -178,6 +178,8 @@
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script>
         const currentPage = "blood_sugar";
+        /** @type {import('@line/liff').Liff} */
+        const liff = window.liff;
     </script>
 
     <script>
@@ -256,6 +258,7 @@
         let before_dateValue = "";
         let before_periodValue = 0;
         let bloodSugarChart = null;
+        let sugarI18nReady = Promise.resolve();
 
         function resolveI18nLang(langCode) {
             if (langCode === "ja") return "ja";
@@ -992,7 +995,7 @@
             hasOlderSugar = true;
             loadingOlderSugar = false;
             syncOlderButtons();
-            loadInitialSugarWindow().then(() => {
+            return loadInitialSugarWindow().then(() => {
                 createTablePage();
                 populateTable();
             }).catch((e) => {
@@ -1009,21 +1012,21 @@
                 showAppLoader();
             }
             const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
-            const initPromise = liff.init({
+            liff.init({
                 liffId: LIFF_ID,
-                withLoginOnExternalBrowser: !isDev
-            });
-
-            initPromise.then(() => {
+                withLoginOnExternalBrowser: !isDev,
+            }).then(() => {
                 const idToken = liff.getIDToken();
                 const lang = liff.getAppLanguage();
                 if (!isSupportedLang(localStorage.getItem(LANG_STORAGE_KEY))) {
                     selectedUiLang = normalizeLangToUi(lang);
                     localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
                 }
-                return setLanguage(selectedUiLang)
-                    .then(() => loadHeader())
-                    .then(() => startSugarApp(idToken));
+                return Promise.all([
+                    sugarI18nReady.then(() => setLanguage(selectedUiLang)),
+                    loadHeader(),
+                    startSugarApp(idToken)
+                ]);
             }).catch((error) => {
                 console.error("LIFF init failed:", error);
                 if (typeof hideAppLoader === "function") {
@@ -1105,17 +1108,20 @@
             return baseSwitchTab(contentId, event);
         };
 
-        window.addEventListener("load", async function () {
+        $(function () {
             const initialSavedLang = localStorage.getItem(LANG_STORAGE_KEY);
             const browserLang = normalizeLangToUi(navigator.language || "en-US");
             selectedUiLang = isSupportedLang(initialSavedLang) ? initialSavedLang : browserLang;
             localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
-            await initI18n(selectedUiLang);
-            applyI18n();
+            sugarI18nReady = initI18n(selectedUiLang).then(() => {
+                applyI18n();
+            }).catch((error) => {
+                console.error("blood sugar i18n init failed:", error);
+            });
+            bootSugarApp();
             document.addEventListener("language-changed", function (event) {
                 setLanguage(normalizeLangToUi(event.detail && event.detail.langId));
             });
-            bootSugarApp();
         });
     </script>
 </body>
