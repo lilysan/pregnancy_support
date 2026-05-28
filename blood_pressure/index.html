@@ -1609,14 +1609,6 @@
 
         function bootPressureApp() {
             showAppLoader();
-            if (window.IS_TEST_MODE) {
-                // Skip LIFF auth in test mode so UI/data flow can be verified locally.
-                loadHeader().catch((e) => console.warn("header load skipped in test mode:", e));
-                startPressureApp("TEST_ID_TOKEN")
-                    .catch((e) => console.error("test boot failed:", e))
-                    .finally(hideAppLoader);
-                return;
-            }
             const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
             liff.init({
                 liffId: LIFF_ID,
@@ -1631,14 +1623,14 @@
                     applyI18n();
                 }
                 return Promise.all([
-                    loadHeader(),
-                    startPressureApp(idToken)
+                    startPressureApp(idToken),
+                    loadHeader()
                 ]);
-            }).finally(() => {
+            }).then(() => {
                 hideAppLoader();
             }).catch((error) => {
                 console.error("LIFF init failed:", error);
-                liff.logout();
+                hideAppLoader();
                 alert("LIFF init failed.");
             });
         }
@@ -2221,8 +2213,10 @@
         document.addEventListener("language-changed", function (event) {
             setLanguage(normalizeLangToUi(event.detail && event.detail.langId));
         });
-        applyI18n();
-        window.addEventListener("load", bootPressureApp);
+        $(function () {
+            applyI18n();
+            bootPressureApp();
+        });
     </script>
 
 </body>
