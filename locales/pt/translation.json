@@ -574,5 +574,37 @@
   "sos.q.06.o2": "Há 1~24 horas",
   "sos.q.06.o3": "Há mais de 24 horas",
   "sos.result.callNow": "As perguntas terminaram.\nEntre em contato com o hospital.",
-  "sos.result.watchAndWait": "As perguntas terminaram.\nVamos aguardar um pouco mais e observar."
+  "sos.result.watchAndWait": "As perguntas terminaram.\nVamos aguardar um pouco mais e observar.",
+  "link": {
+    "levelTable": {
+      "caption": "Escolha o nível que se aplica a cada habilidade.",
+      "level": "Nível",
+      "rows": {
+        "1": {
+          "s": "Não consegue falar nada",
+          "l": "Não consegue entender nada",
+          "w": "Não consegue escrever nada",
+          "r": "Não consegue ler nada"
+        },
+        "2": {
+          "s": "Consegue cumprimentar",
+          "l": "Consegue entender cumprimentos",
+          "w": "Consegue escrever um pouco de hiragana",
+          "r": "Consegue ler um pouco de hiragana"
+        },
+        "3": {
+          "s": "Consegue ter conversas simples",
+          "l": "Consegue entender conversas simples",
+          "w": "Consegue escrever hiragana",
+          "r": "Consegue ler hiragana"
+        },
+        "4": {
+          "s": "Consegue ter conversas do dia a dia",
+          "l": "Consegue entender conversas do dia a dia",
+          "w": "Consegue escrever kanji também",
+          "r": "Consegue entender kanji também"
+        }
+      }
+    }
+  }
 }

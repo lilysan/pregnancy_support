@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>My Page Settings | Pregnancy Support</title>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="../common/js/config.js"></script>
+    <script src="../common/js/toast.js"></script>
+    <link rel="stylesheet" href="../style.css"/>
+    <style>
+        .link-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .link-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .link-card {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .link-card-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .link-hospital-title {
+            margin: 0;
+        }
+
+        .link-hospital-subtitle {
+            margin: 2px 0 0;
+            color: var(--sub-text);
+            font-size: 15px;
+            line-height: 1.45;
+        }
+
+        .link-detail-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .link-detail {
+            display: grid;
+            gap: 2px;
+        }
+
+        .link-detail-label {
+            color: var(--sub-text);
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.45;
+        }
+
+        .link-detail-value {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.45;
+            overflow-wrap: anywhere;
+        }
+
+        .link-extra-form {
+            display: grid;
+            gap: 14px;
+            padding-top: 16px;
+            border-top: 1px solid var(--divider);
+        }
+
+        .link-extra-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .link-labor-toggle {
+            display: grid;
+            gap: 6px;
+        }
+
+        .link-empty {
+            display: none;
+        }
+
+        .link-empty.is-visible {
+            display: block;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 14px;
+        }
+
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .contact-card {
+            display: grid;
+            gap: 14px;
+            position: relative;
+        }
+
+        .contact-draft-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            min-width: 34px;
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            border-radius: 999px;
+        }
+
+        .contact-draft-close + label {
+            padding-right: 42px;
+        }
+
+        .contact-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .contact-card .contact-actions,
+        .user-form .contact-actions {
+            justify-content: flex-start;
+        }
+
+        .form-save-btn {
+            width: 100%;
+            justify-content: center;
+            flex-basis: 100%;
+        }
+
+        .contact-add-actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .contact-add-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user-form {
+            display: grid;
+            gap: 14px;
+        }
+
+        .user-level-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .hospital-badge {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 6px;
+            border-radius: 999px;
+            padding: 2px 8px;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.45;
+            vertical-align: middle;
+        }
+
+        .hospital-badge-required {
+            background: var(--toast-bg-error);
+            color: var(--error);
+        }
+
+        .hospital-badge-optional {
+            background: var(--surface);
+            color: var(--sub-text);
+        }
+
+        .user-level-label {
+            display: inline-flex;
+            align-items: center;
+        }
+
+    </style>
+</head>
+<body>
+<div id="header-container" class="header-wrapper"></div>
+
+<main>
+    <article class="main-container">
+        <h1 data-i18n="[html]title.mypage"></h1>
+        <p class="desc" data-i18n="[html]link.desc"></p>
+
+        <section>
+            <h2 data-i18n="[html]link.section.user"></h2>
+            <p class="desc" data-i18n="[html]link.userDesc"></p>
+
+            <form id="userForm" class="card user-form">
+                <label>
+                    <span data-i18n="[html]link.label.name"></span>
+                    <span class="hospital-badge hospital-badge-required" data-i18n="[html]link.badge.required"></span>
+                    <input id="userNameInput" type="text" autocomplete="name" required data-i18n="[placeholder]link.placeholder.name">
+                </label>
+                <label>
+                    <span data-i18n="[html]link.label.nameFurigana"></span>
+                    <span class="hospital-badge hospital-badge-optional" data-i18n="[html]link.badge.optional"></span>
+                    <input id="userNameFuriganaInput" type="text" data-i18n="[placeholder]link.placeholder.nameFurigana">
+                </label>
+                <label>
+                    <span data-i18n="[html]link.label.age"></span>
+                    <span class="hospital-badge hospital-badge-required" data-i18n="[html]link.badge.required"></span>
+                    <input id="userAgeInput" type="number" inputmode="numeric" min="0" step="1" required data-i18n="[placeholder]link.placeholder.age">
+                </label>
+                <label>
+                    <span data-i18n="[html]link.label.nationality"></span>
+                    <span class="hospital-badge hospital-badge-required" data-i18n="[html]link.badge.required"></span>
+                    <input id="userNationalityInput" type="text" autocomplete="country-name" required data-i18n="[placeholder]link.placeholder.nationality">
+                </label>
+                <label>
+                    <span data-i18n="[html]link.label.native"></span>
+                    <span class="hospital-badge hospital-badge-required" data-i18n="[html]link.badge.required"></span>
+                    <input id="userNativeInput" type="text" required data-i18n="[placeholder]link.placeholder.native">
+                </label>
+                <label>
+                    <span data-i18n="[html]link.label.dueDate"></span>
+                    <span class="hospital-badge hospital-badge-optional" data-i18n="[html]link.badge.optional"></span>
+                    <input id="userDueDateInput" type="date">
+                </label>
+                <div>
+                    <span class="field-label user-level-label" data-i18n="[html]link.label.level"></span>
+                    <span class="hospital-badge hospital-badge-optional" data-i18n="[html]link.badge.optional"></span>
+                    <div class="user-level-grid">
+                        <label>
+                            <span data-i18n="[html]link.label.levelSpeaking"></span>
+                            <select id="userLevelSInput" class="user-level-input"></select>
+                        </label>
+                        <label>
+                            <span data-i18n="[html]link.label.levelListening"></span>
+                            <select id="userLevelLInput" class="user-level-input"></select>
+                        </label>
+                        <label>
+                            <span data-i18n="[html]link.label.levelWriting"></span>
+                            <select id="userLevelWInput" class="user-level-input"></select>
+                        </label>
+                        <label>
+                            <span data-i18n="[html]link.label.levelReading"></span>
+                            <select id="userLevelRInput" class="user-level-input"></select>
+                        </label>
+                    </div>
+                </div>
+                <div class="contact-actions">
+                    <button type="button" id="saveUserBtn" class="btn primary btn-small form-save-btn">
+                        <iconify-icon icon="material-symbols:save-rounded" width="18" height="18" aria-hidden="true"></iconify-icon>
+                        <span data-i18n="[html]button.save"></span>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <section>
+            <h2 data-i18n="[html]link.section.hospitals"></h2>
+            <div class="card card-info">
+                <div class="state-card-inner">
+                    <iconify-icon icon="material-symbols:info-rounded" width="24" height="24" style="color:var(--info-state)"></iconify-icon>
+                    <div>
+                        <p class="small" data-i18n="[html]link.info"></p>
+                    </div>
+                </div>
+            </div>
+            <div id="emptyState" class="card link-empty">
+                <div class="state-card-inner">
+                    <iconify-icon icon="material-symbols:link-off-rounded" width="24" height="24" style="color:var(--sub-text)"></iconify-icon>
+                    <p class="small" data-i18n="[html]link.empty"></p>
+                </div>
+            </div>
+            <div id="hospitalList" class="link-list"></div>
+            <div class="link-actions">
+                <button type="button" id="scanHospitalBtn" class="btn primary">
+                    <iconify-icon icon="material-symbols:qr-code-scanner-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                    <span data-i18n="[html]link.button.scan"></span>
+                </button>
+            </div>
+        </section>
+
+        <section>
+            <h2 data-i18n="[html]link.section.contacts"></h2>
+            <p class="desc" data-i18n="[html]link.contactDesc"></p>
+
+            <div id="emptyContactsState" class="card link-empty contact-list">
+                <div class="state-card-inner">
+                    <iconify-icon icon="material-symbols:phone-disabled-rounded" width="24" height="24" style="color:var(--sub-text)"></iconify-icon>
+                    <p class="small" data-i18n="[html]link.emptyContacts"></p>
+                </div>
+            </div>
+            <div id="contactList" class="contact-list"></div>
+            <div class="contact-add-actions">
+                <button type="button" id="addContactFormBtn" class="btn tertiary btn-small contact-add-btn">
+                    <iconify-icon icon="material-symbols:add-rounded" width="20" height="20" aria-hidden="true"></iconify-icon>
+                    <span data-i18n="[html]link.button.addContact"></span>
+                </button>
+            </div>
+        </section>
+    </article>
+</main>
+
+<div class="overlay is-open" id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
+
+<div class="overlay" id="hospitalRegistrationOverlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="hospitalRegistrationTitle">
+        <button type="button" class="modal-close" id="closeHospitalRegistrationBtn" aria-label="close">
+            <iconify-icon icon="material-symbols:close-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+        </button>
+        <h2 id="hospitalRegistrationTitle" class="modal-title" data-i18n="[html]link.modal.registerHospital.title"></h2>
+        <p class="modal-message small" data-i18n="[html]link.modal.registerHospital.desc"></p>
+        <form id="hospitalRegistrationForm" class="link-extra-form">
+            <label>
+                <span data-i18n="[html]link.label.cardNo"></span>
+                <span class="hospital-badge hospital-badge-required" data-i18n="[html]link.badge.required"></span>
+                <input id="hospitalRegistrationCardNoInput" type="text" inputmode="text" autocomplete="off" required data-i18n="[placeholder]link.placeholder.cardNo">
+            </label>
+            <label>
+                <span data-i18n="[html]link.label.travelTime"></span>
+                <span class="hospital-badge hospital-badge-optional" data-i18n="[html]link.badge.optional"></span>
+                <input id="hospitalRegistrationTravelTimeInput" type="number" inputmode="numeric" min="0" step="1" data-i18n="[placeholder]link.placeholder.travelTime">
+            </label>
+            <div class="link-labor-toggle">
+                <span class="field-label">
+                    <span data-i18n="[html]link.label.isLaborPatient"></span>
+                    <span class="hospital-badge hospital-badge-optional" data-i18n="[html]link.badge.optional"></span>
+                </span>
+                <div id="hospitalRegistrationLaborButtons" class="radio-row single-select">
+                    <button type="button" class="radio-chip" data-value="1" data-i18n="[html]link.option.yes"></button>
+                    <button type="button" class="radio-chip" data-value="0" data-i18n="[html]link.option.no"></button>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" id="cancelHospitalRegistrationBtn" class="btn tertiary btn-small" data-i18n="[html]button.cancel"></button>
+                <button type="button" id="submitHospitalRegistrationBtn" class="btn primary btn-small" data-i18n="[html]link.button.registerHospital"></button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const currentPage = "mypage";
+
+    /** @type {import('@line/liff').Liff} */
+    const liff = window.liff;
+
+    const state = {
+        idToken: null,
+        pendingQrToken: "",
+        user: {},
+        hospitals: [],
+        contacts: []
+    };
+    let contactDraftId = 0;
+    let levelLanguageListenerBound = false;
+
+    $(function () {
+        const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+
+        liff.init({
+            liffId: LIFF_ID,
+            withLoginOnExternalBrowser: !isDev,
+        }).then(() => {
+            return Promise.all([
+                main(liff.getIDToken()),
+                loadHeader()
+            ]);
+        }).then(() => {
+            localizeLinkPage();
+            $("#loadingOverlay").removeClass("is-open");
+        }).catch((err) => {
+            console.error("LIFF init failed:", err);
+            alert("LIFF init failed.");
+        });
+
+        $("#scanHospitalBtn").on("click", handleScanHospital);
+        $("#addContactFormBtn").on("click", addContactDraftForm);
+        $("#saveUserBtn").on("click", handleSaveUser);
+        $("#submitHospitalRegistrationBtn").on("click", handleSubmitHospitalRegistration);
+        $("#closeHospitalRegistrationBtn, #cancelHospitalRegistrationBtn").on("click", closeHospitalRegistrationModal);
+        $("#hospitalRegistrationLaborButtons .radio-chip").on("click", function () {
+            const wasActive = $(this).hasClass("active");
+            $("#hospitalRegistrationLaborButtons .radio-chip").removeClass("active");
+            if (!wasActive) {
+                $(this).addClass("active");
+            }
+        });
+        renderLevelOptions();
+    });
+
+    async function main(idToken) {
+        state.idToken = idToken;
+        const results = await Promise.allSettled([
+            reloadUser(),
+            reloadHospitals(),
+            reloadContacts()
+        ]);
+        results.forEach((result) => {
+            if (result.status === "rejected") {
+                console.error("initial data load failed:", result.reason);
+            }
+        });
+    }
+
+    function loadHeader() {
+        return new Promise((resolve, reject) => {
+            $("#header-container").load("../common/header.html", function (responseText, status) {
+                if (status === "error") {
+                    reject(new Error("Failed to load header.html"));
+                    return;
+                }
+
+                document.addEventListener("i18n-initialized", function () {
+                    resolve();
+                }, {once: true});
+
+                $.getScript("../common/js/header.js")
+                    .fail(function () {
+                        reject(new Error("Failed to load header.js"));
+                    });
+            });
+        });
+    }
+
+    function localizeLinkPage() {
+        if ($.fn.localize && window.i18next && i18next.isInitialized) {
+            bindLevelLanguageListener();
+            renderLevelOptions();
+            $("main, #hospitalRegistrationOverlay").localize();
+        }
+    }
+
+    function bindLevelLanguageListener() {
+        if (levelLanguageListenerBound || !window.i18next) {
+            return;
+        }
+        i18next.on("languageChanged", renderLevelOptions);
+        levelLanguageListenerBound = true;
+    }
+
+    async function reloadUser() {
+        const response = await apiRequest({
+            path: "user",
+            method: "get",
+            idToken: state.idToken
+        }, "user");
+
+        state.user = response && response.data ? response.data : {};
+        renderUserForm();
+    }
+
+    async function reloadHospitals() {
+        const response = await apiRequest({
+            path: "link",
+            method: "get",
+            idToken: state.idToken
+        }, "link");
+
+        state.hospitals = response && response.data && Array.isArray(response.data.hospitals)
+            ? response.data.hospitals
+            : [];
+        renderHospitals();
+    }
+
+    async function reloadContacts() {
+        const response = await apiRequest({
+            path: "contact",
+            method: "get",
+            idToken: state.idToken
+        }, "contact");
+
+        state.contacts = response && response.data && Array.isArray(response.data.contacts)
+            ? response.data.contacts
+            : [];
+        renderContacts();
+    }
+
+    function renderHospitals() {
+        const list = $("#hospitalList");
+        list.empty();
+
+        $("#emptyState").toggleClass("is-visible", state.hospitals.length === 0);
+
+        state.hospitals.forEach((hospital) => {
+            list.append(renderHospitalCard(hospital));
+        });
+
+        localizeLinkPage();
+    }
+
+    function renderUserForm() {
+        const user = state.user || {};
+        $("#userLangInput").val(user.lang || normalizeLangCode(liff.getAppLanguage()) || "");
+        $("#userNameInput").val(user.name || "");
+        $("#userNameFuriganaInput").val(user.nameFurigana || "");
+        $("#userAgeInput").val(user.age != null ? user.age : "");
+        $("#userNationalityInput").val(user.nationality || "");
+        $("#userNativeInput").val(user.native || "");
+        $("#userDueDateInput").val(toDateInputValue(user.dueDate));
+
+        const level = user.level || {};
+        $("#userLevelSInput").val(level.s != null ? String(level.s) : "");
+        $("#userLevelLInput").val(level.l != null ? String(level.l) : "");
+        $("#userLevelWInput").val(level.w != null ? String(level.w) : "");
+        $("#userLevelRInput").val(level.r != null ? String(level.r) : "");
+
+        localizeLinkPage();
+    }
+
+    function renderContacts() {
+        const list = $("#contactList");
+        list.empty();
+
+        state.contacts.forEach((contact) => {
+            list.append(renderContactCard(contact));
+        });
+
+        updateContactsEmptyState();
+        localizeLinkPage();
+    }
+
+    function addContactDraftForm() {
+        const form = renderContactDraftForm();
+        $("#contactList").append(form);
+        updateContactsEmptyState();
+        localizeLinkPage();
+        form.find(".contact-name-input").trigger("focus");
+    }
+
+    function updateContactsEmptyState() {
+        const hasSavedContacts = state.contacts.length > 0;
+        const hasDraftContacts = $("#contactList").find("[data-contact-draft-id]").length > 0;
+        $("#emptyContactsState").toggleClass("is-visible", !hasSavedContacts && !hasDraftContacts);
+    }
+
+    function renderHospitalCard(hospital) {
+        const card = $("<article>")
+            .addClass("card link-card")
+            .attr("data-hospital-id", hospital.hospitalId || "");
+
+        card.append(
+            $("<div>")
+                .addClass("link-card-head")
+                .append(
+                    $("<div>")
+                        .append($("<h3>").addClass("link-hospital-title").text(hospital.hospitalName || "-"))
+                        .append($("<p>").addClass("link-hospital-subtitle").text(hospital.hospitalNameEn || ""))
+                )
+                .append(
+                    $("<button>")
+                        .attr("type", "button")
+                        .addClass("btn danger btn-small")
+                        .append($("<iconify-icon>").attr("icon", "material-symbols:link-off-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                        .append($("<span>").attr("data-i18n", "[html]link.button.unlink"))
+                        .on("click", function () {
+                            handleUnlinkHospital(hospital);
+                        })
+                )
+        );
+
+        card.append(
+            $("<div>")
+                .addClass("link-detail-list")
+                .append(renderDetail("link.label.address", formatAddress(hospital)))
+                .append(renderDetail("link.label.phone1", hospital.phoneNumber1))
+                .append(renderDetail("link.label.phone2", hospital.phoneNumber2))
+                .append(renderDetail("link.label.phone3", hospital.phoneNumber3))
+        );
+
+        card.append(renderExtraInfoForm(hospital));
+        return card;
+    }
+
+    function renderDetail(labelKey, value) {
+        if (!value) {
+            return $();
+        }
+
+        return $("<div>")
+            .addClass("link-detail")
+            .append($("<span>").addClass("link-detail-label").attr("data-i18n", `[html]${labelKey}`))
+            .append($("<p>").addClass("link-detail-value").text(value));
+    }
+
+    function renderExtraInfoForm(hospital) {
+        const form = $("<form>")
+            .addClass("link-extra-form")
+            .attr("novalidate", true);
+
+        const cardNoInput = $("<input>")
+            .attr("type", "text")
+            .attr("inputmode", "text")
+            .attr("autocomplete", "off")
+            .attr("data-i18n", "[placeholder]link.placeholder.cardNo")
+            .val(hospital.cardNo || "");
+
+        const travelTimeInput = $("<input>")
+            .attr("type", "number")
+            .attr("inputmode", "numeric")
+            .attr("min", "0")
+            .attr("step", "1")
+            .attr("data-i18n", "[placeholder]link.placeholder.travelTime")
+            .val(hospital.travelTime != null ? hospital.travelTime : "");
+
+        const laborPatientValue = normalizeLaborPatientValue(hospital.isLaborPatient);
+        const laborButtons = $("<div>").addClass("radio-row single-select");
+        [
+            {value: "1", key: "link.option.yes"},
+            {value: "0", key: "link.option.no"}
+        ].forEach((option) => {
+            laborButtons.append(
+                $("<button>")
+                    .attr("type", "button")
+                    .addClass("radio-chip")
+                    .toggleClass("active", laborPatientValue === option.value)
+                    .attr("data-value", option.value)
+                    .attr("data-i18n", `[html]${option.key}`)
+                    .on("click", function () {
+                        const wasActive = $(this).hasClass("active");
+                        laborButtons.find(".radio-chip").removeClass("active");
+                        if (!wasActive) {
+                            $(this).addClass("active");
+                        }
+                    })
+            );
+        });
+
+        form.append(
+            $("<label>")
+                .append($("<span>").attr("data-i18n", "[html]link.label.cardNo"))
+                .append(cardNoInput)
+        );
+        form.append(
+            $("<label>")
+                .append($("<span>").attr("data-i18n", "[html]link.label.travelTime"))
+                .append(travelTimeInput)
+        );
+        form.append(
+            $("<div>")
+                .addClass("link-labor-toggle")
+                .append($("<span>").addClass("field-label").attr("data-i18n", "[html]link.label.isLaborPatient"))
+                .append(laborButtons)
+        );
+        form.append(
+            $("<div>")
+                .addClass("link-extra-actions")
+                .append(
+                    $("<button>")
+                        .attr("type", "button")
+                        .addClass("btn primary btn-small")
+                        .append($("<iconify-icon>").attr("icon", "material-symbols:save-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                        .append($("<span>").attr("data-i18n", "[html]button.save"))
+                        .on("click", function () {
+                            handleSaveExtraInfo(hospital, form);
+                        })
+                )
+                .append(
+                    $("<button>")
+                        .attr("type", "button")
+                        .addClass("btn tertiary btn-small")
+                        .append($("<iconify-icon>").attr("icon", "material-symbols:restart-alt-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                        .append($("<span>").attr("data-i18n", "[html]button.reset"))
+                        .on("click", function () {
+                            handleResetExtraInfo(hospital);
+                        })
+                )
+        );
+
+        return form;
+    }
+
+    function renderContactCard(contact) {
+        const form = $("<form>")
+            .addClass("card contact-card")
+            .attr("novalidate", true)
+            .attr("data-contact-id", contact.contactId);
+
+        appendContactFields(form, contact);
+        form.append(
+            $("<div>")
+                .addClass("contact-actions")
+                .append(
+                    $("<button>")
+                        .attr("type", "button")
+                        .addClass("btn primary btn-small form-save-btn")
+                        .append($("<iconify-icon>").attr("icon", "material-symbols:save-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                        .append($("<span>").attr("data-i18n", "[html]button.save"))
+                        .on("click", function () {
+                            handleSaveContact(contact, form);
+                        })
+                )
+                .append(
+                    $("<button>")
+                        .attr("type", "button")
+                        .addClass("btn danger btn-small")
+                        .append($("<iconify-icon>").attr("icon", "material-symbols:delete-outline-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                        .append($("<span>").attr("data-i18n", "[html]button.delete"))
+                        .on("click", function () {
+                            handleDeleteContact(contact);
+                        })
+                )
+        );
+
+        return form;
+    }
+
+    function renderContactDraftForm() {
+        const draftId = ++contactDraftId;
+        const form = $("<form>")
+            .addClass("card contact-card")
+            .attr("novalidate", true)
+            .attr("data-contact-draft-id", String(draftId));
+
+        form.append(
+            $("<button>")
+                .attr("type", "button")
+                .addClass("btn tertiary btn-small contact-draft-close")
+                .attr("aria-label", tText("button.cancel", "キャンセル"))
+                .append($("<iconify-icon>").attr("icon", "material-symbols:close-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                .on("click", function () {
+                    form.remove();
+                    updateContactsEmptyState();
+                })
+        );
+        appendContactFields(form, {});
+        form.append(
+            $("<div>")
+                .addClass("contact-actions")
+                .append(
+                    $("<button>")
+                        .attr("type", "button")
+                        .addClass("btn primary btn-small form-save-btn")
+                        .append($("<iconify-icon>").attr("icon", "material-symbols:save-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                        .append($("<span>").attr("data-i18n", "[html]button.save"))
+                        .on("click", function () {
+                            handleAddContact(form);
+                        })
+                )
+        );
+
+        return form;
+    }
+
+    function appendContactFields(form, contact) {
+        form.append(
+            $("<label>")
+                .append($("<span>").attr("data-i18n", "[html]link.label.contactName"))
+                .append(renderRequiredBadge())
+                .append(
+                    $("<input>")
+                        .addClass("contact-name-input")
+                        .attr("type", "text")
+                        .attr("autocomplete", "off")
+                        .attr("required", true)
+                        .attr("data-i18n", "[placeholder]link.placeholder.contactName")
+                        .val(contact.contactName || "")
+                )
+        );
+        form.append(
+            $("<label>")
+                .append($("<span>").attr("data-i18n", "[html]link.label.phoneNumber"))
+                .append(renderRequiredBadge())
+                .append(
+                    $("<input>")
+                        .addClass("contact-phone-input")
+                        .attr("type", "tel")
+                        .attr("inputmode", "tel")
+                        .attr("autocomplete", "tel")
+                        .attr("required", true)
+                        .attr("data-i18n", "[placeholder]link.placeholder.phoneNumber")
+                        .val(contact.phoneNumber || "")
+                )
+        );
+    }
+
+    function renderRequiredBadge() {
+        return $("<span>")
+            .addClass("hospital-badge hospital-badge-required")
+            .attr("data-i18n", "[html]link.badge.required");
+    }
+
+    async function handleScanHospital() {
+        if (!liff.scanCodeV2) {
+            alert(tText("link.error.scanUnavailable", "QR code scanning is not available."));
+            return;
+        }
+
+        try {
+            const result = await liff.scanCodeV2();
+            if (!result || !result.value) {
+                return;
+            }
+
+            const qrToken = extractQrToken(result.value);
+            if (!qrToken) {
+                alert(tText("link.error.invalidQr", "Invalid QR code."));
+                return;
+            }
+
+            openHospitalRegistrationModal(qrToken);
+        } catch (error) {
+            console.error("scan failed:", error);
+            if (!error || !error.isApiError) {
+                alert(tText("link.error.scanFailed", "ScanCode failed."));
+            }
+        }
+    }
+
+    async function handleSubmitHospitalRegistration() {
+        const form = $("#hospitalRegistrationForm");
+        if (!state.pendingQrToken || !form[0].reportValidity()) {
+            return;
+        }
+
+        $("#loadingOverlay").addClass("is-open");
+        try {
+            await apiRequest({
+                path: "link",
+                method: "post",
+                idToken: state.idToken,
+                postData: getHospitalRegistrationFormData()
+            }, "linkPost");
+            closeHospitalRegistrationModal();
+            await reloadHospitals();
+            showSuccessToast("success.save");
+        } catch (error) {
+            console.error("register hospital failed:", error);
+        } finally {
+            $("#loadingOverlay").removeClass("is-open");
+        }
+    }
+
+    async function handleUnlinkHospital(hospital) {
+        if (!hospital || !hospital.hospitalId) {
+            return;
+        }
+        if (!confirm(tText("link.confirm.unlink", "Do you want to delete this hospital registration?"))) {
+            return;
+        }
+
+        $("#loadingOverlay").addClass("is-open");
+        try {
+            await apiRequest({
+                path: "link",
+                method: "delete",
+                idToken: state.idToken,
+                postData: {
+                    hospitalId: hospital.hospitalId
+                }
+            }, "linkDelete");
+            await reloadHospitals();
+            showSuccessToast("success.delete");
+        } catch (error) {
+            console.error("unlink failed:", error);
+        } finally {
+            $("#loadingOverlay").removeClass("is-open");
+        }
+    }
+
+    async function handleSaveExtraInfo(hospital, form) {
+        if (!hospital || !hospital.hospitalId) {
+            return;
+        }
+
+        const travelTime = form.find('input[type="number"]').val();
+        const selectedLaborPatient = form.find(".radio-chip.active").data("value");
+        const postData = {
+            hospitalId: hospital.hospitalId,
+            cardNo: String(form.find('input[type="text"]').val() || "").trim()
+        };
+        if (travelTime !== "") {
+            postData.travelTime = Number(travelTime);
+        }
+        if (selectedLaborPatient != null) {
+            postData.isLaborPatient = Number(selectedLaborPatient);
+        }
+
+        $("#loadingOverlay").addClass("is-open");
+        try {
+            await apiRequest({
+                path: "extraLinkInfo",
+                method: "post",
+                idToken: state.idToken,
+                postData: postData
+            }, "extraLinkInfoPost");
+            await reloadHospitals();
+            showSuccessToast("success.save");
+        } catch (error) {
+            console.error("save extra link info failed:", error);
+        } finally {
+            $("#loadingOverlay").removeClass("is-open");
+        }
+    }
+
+    async function handleResetExtraInfo(hospital) {
+        if (!hospital || !hospital.hospitalId) {
+            return;
+        }
+        if (!confirm(tText("link.confirm.resetExtra", "Do you want to reset this information?"))) {
+            return;
+        }
+
+        $("#loadingOverlay").addClass("is-open");
+        try {
+            await apiRequest({
+                path: "extraLinkInfo",
+                method: "delete",
+                idToken: state.idToken,
+                postData: {
+                    hospitalId: hospital.hospitalId
+                }
+            }, "extraLinkInfoDelete");
+            await reloadHospitals();
+            showSuccessToast("success.delete");
+        } catch (error) {
+            console.error("reset extra link info failed:", error);
+        } finally {
+            $("#loadingOverlay").removeClass("is-open");
+        }
+    }
+
+    async function handleAddContact(form) {
+        if (!form[0].reportValidity()) {
+            return;
+        }
+
+        $("#loadingOverlay").addClass("is-open");
+        try {
+            await apiRequest({
+                path: "contact",
+                method: "post",
+                idToken: state.idToken,
+                postData: getContactFormData(form)
+            }, "contactPost");
+            await reloadContacts();
+            showSuccessToast("success.save");
+        } catch (error) {
+            console.error("add contact failed:", error);
+        } finally {
+            $("#loadingOverlay").removeClass("is-open");
+        }
+    }
+
+    async function handleSaveUser() {
+        const form = $("#userForm");
+        if (!form[0].reportValidity()) {
+            return;
+        }
+
+        $("#loadingOverlay").addClass("is-open");
+        try {
+            await apiRequest({
+                path: "user",
+                method: "post",
+                idToken: state.idToken,
+                postData: getUserFormData()
+            }, "userPost");
+            await reloadUser();
+            showSuccessToast("success.save");
+        } catch (error) {
+            console.error("save user failed:", error);
+        } finally {
+            $("#loadingOverlay").removeClass("is-open");
+        }
+    }
+
+    async function handleSaveContact(contact, form) {
+        if (!contact || contact.contactId == null) {
+            return;
+        }
+        if (!form[0].reportValidity()) {
+            return;
+        }
+
+        const postData = getContactFormData(form);
+        postData.contactId = Number(contact.contactId);
+
+        $("#loadingOverlay").addClass("is-open");
+        try {
+            await apiRequest({
+                path: "contact",
+                method: "post",
+                idToken: state.idToken,
+                postData: postData
+            }, "contactPut");
+            await reloadContacts();
+            showSuccessToast("success.save");
+        } catch (error) {
+            console.error("save contact failed:", error);
+        } finally {
+            $("#loadingOverlay").removeClass("is-open");
+        }
+    }
+
+    async function handleDeleteContact(contact) {
+        if (!contact || contact.contactId == null) {
+            return;
+        }
+        if (!confirm(tText("link.confirm.deleteContact", "Do you want to delete this contact?"))) {
+            return;
+        }
+
+        $("#loadingOverlay").addClass("is-open");
+        try {
+            await apiRequest({
+                path: "contact",
+                method: "delete",
+                idToken: state.idToken,
+                postData: {
+                    contactId: Number(contact.contactId)
+                }
+            }, "contactDelete");
+            await reloadContacts();
+            showSuccessToast("success.delete");
+        } catch (error) {
+            console.error("delete contact failed:", error);
+        } finally {
+            $("#loadingOverlay").removeClass("is-open");
+        }
+    }
+
+    function apiRequest(payload, label) {
+        return $.ajax({
+            url: API_URL,
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(payload),
+            timeout: 30000,
+        }).then(function (response) {
+            if (response.statusCode === 401) {
+                liff.logout();
+                window.location.reload();
+                return null;
+            }
+            if (response.statusCode !== 200) {
+                console.error(response.message);
+                alert(response.message);
+                const error = new Error(response.message || `${label} failed`);
+                error.isApiError = true;
+                throw error;
+            }
+            return response;
+        }, function () {
+            alert(`Network error!${label}`);
+            const error = new Error(`Network error: ${label}`);
+            error.isApiError = true;
+            throw error;
+        });
+    }
+
+    function extractQrToken(value) {
+        const rawValue = String(value || "").trim();
+        try {
+            const url = new URL(rawValue);
+            return url.searchParams.get("qrToken") || url.searchParams.get("token") || rawValue;
+        } catch (error) {
+            return rawValue;
+        }
+    }
+
+    function formatAddress(hospital) {
+        return [
+            hospital.hospitalPostalcode ? `〒${hospital.hospitalPostalcode}` : "",
+            hospital.hospitalAddress1,
+            hospital.hospitalAddress2,
+            hospital.hospitalAddress3,
+            hospital.hospitalAddress4
+        ].filter(Boolean).join(" ");
+    }
+
+    function normalizeLaborPatientValue(value) {
+        if (value === 1 || value === "1") {
+            return "1";
+        }
+        if (value === 0 || value === "0") {
+            return "0";
+        }
+        return "";
+    }
+
+    function getContactFormData(form) {
+        return {
+            contactName: String(form.find(".contact-name-input").val() || "").trim(),
+            phoneNumber: String(form.find(".contact-phone-input").val() || "").trim()
+        };
+    }
+
+    function openHospitalRegistrationModal(qrToken) {
+        state.pendingQrToken = qrToken;
+        $("#hospitalRegistrationForm")[0].reset();
+        $("#hospitalRegistrationLaborButtons .radio-chip").removeClass("active");
+        $("#hospitalRegistrationOverlay").addClass("is-open");
+        $("#hospitalRegistrationCardNoInput").trigger("focus");
+        localizeLinkPage();
+    }
+
+    function closeHospitalRegistrationModal() {
+        state.pendingQrToken = "";
+        $("#hospitalRegistrationOverlay").removeClass("is-open");
+        $("#hospitalRegistrationForm")[0].reset();
+        $("#hospitalRegistrationLaborButtons .radio-chip").removeClass("active");
+    }
+
+    function getHospitalRegistrationFormData() {
+        const travelTime = $("#hospitalRegistrationTravelTimeInput").val();
+        const selectedLaborPatient = $("#hospitalRegistrationLaborButtons .radio-chip.active").data("value");
+        const postData = {
+            qrToken: state.pendingQrToken,
+            cardNo: String($("#hospitalRegistrationCardNoInput").val() || "").trim()
+        };
+        if (travelTime !== "") {
+            postData.travelTime = Number(travelTime);
+        }
+        if (selectedLaborPatient != null) {
+            postData.isLaborPatient = Number(selectedLaborPatient);
+        }
+        return postData;
+    }
+
+    function getUserFormData() {
+        const lang = $("#userLangInput").val();
+        const name = String($("#userNameInput").val() || "").trim();
+        const nameFurigana = String($("#userNameFuriganaInput").val() || "").trim();
+        const age = $("#userAgeInput").val();
+        const nationality = String($("#userNationalityInput").val() || "").trim();
+        const nativeLanguage = String($("#userNativeInput").val() || "").trim();
+        const dueDate = $("#userDueDateInput").val();
+
+        return {
+            lang: lang || "",
+            name: name,
+            nameFurigana: nameFurigana,
+            age: age === "" ? "" : Number(age),
+            nationality: nationality,
+            native: nativeLanguage,
+            dueDate: dueDate ? toApiDateValue(dueDate) : "",
+            level: {
+                s: toOptionalIntOrBlank($("#userLevelSInput").val()),
+                l: toOptionalIntOrBlank($("#userLevelLInput").val()),
+                w: toOptionalIntOrBlank($("#userLevelWInput").val()),
+                r: toOptionalIntOrBlank($("#userLevelRInput").val())
+            }
+        };
+    }
+
+    function renderLevelOptions() {
+        const levelKeysByInputId = {
+            userLevelSInput: "s",
+            userLevelLInput: "l",
+            userLevelWInput: "w",
+            userLevelRInput: "r"
+        };
+
+        $(".user-level-input").each(function () {
+            const select = $(this);
+            const currentValue = select.val();
+            const levelKey = levelKeysByInputId[this.id];
+            select.empty();
+            select.append($("<option>").attr("value", "").text(tText("link.option.notSet", "未設定")));
+            [1, 2, 3, 4].forEach((level) => {
+                const label = tText(`link.levelTable.rows.${level}.${levelKey}`, `Lv.${level}`);
+                select.append(
+                    $("<option>")
+                        .attr("value", String(level))
+                        .text(`${level}：${label}`)
+                );
+            });
+            select.val(currentValue || "");
+        });
+    }
+
+    function normalizeLangCode(value) {
+        const lang = String(value || "").replace(/-.+$/g, "");
+        return lang || "";
+    }
+
+    function toOptionalIntOrBlank(value) {
+        if (value === "" || value == null) {
+            return "";
+        }
+        return Number(value);
+    }
+
+    function toDateInputValue(value) {
+        if (!value) {
+            return "";
+        }
+        const normalized = String(value).trim().replace(/\//g, "-");
+        return /^\d{4}-\d{2}-\d{2}$/.test(normalized) ? normalized : "";
+    }
+
+    function toApiDateValue(value) {
+        return String(value || "").replace(/-/g, "/");
+    }
+
+    function tText(key, fallback) {
+        if (!window.i18next || !i18next.isInitialized) {
+            return fallback;
+        }
+        return $("<span>").html(i18next.t(key, fallback)).text();
+    }
+
+    function showSuccessToast(messageKey) {
+        const toastManager = createToastManager();
+        toastManager.show({
+            title: i18next.t("toast.success", "成功"),
+            message: i18next.t(messageKey, "保存しました。"),
+            color: "var(--success)",
+            bg: "var(--toast-bg-success)",
+            icon: "material-symbols:check-circle-rounded"
+        });
+    }
+</script>
+</body>
+</html>

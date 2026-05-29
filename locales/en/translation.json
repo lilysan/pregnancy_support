@@ -155,6 +155,36 @@
         "desc": "Enter your patient ID card number and other information to register this hospital."
       }
     },
+    "levelTable": {
+      "caption": "Please choose the level that applies to each skill.",
+      "level": "Level",
+      "rows": {
+        "1": {
+          "s": "Not able to speak at all",
+          "l": "Not able to understand at all",
+          "w": "Not able to write at all",
+          "r": "Not able to read at all"
+        },
+        "2": {
+          "s": "Able to greet",
+          "l": "Able to understand greetings",
+          "w": "Able to write some Hiragana",
+          "r": "Able to read some Hiragana"
+        },
+        "3": {
+          "s": "Able to have simple conversations",
+          "l": "Able to understand simple conversations",
+          "w": "Able to write all Hiragana",
+          "r": "Able to read all Hiragana"
+        },
+        "4": {
+          "s": "Able to have daily conversations",
+          "l": "Able to understand daily conversations",
+          "w": "Able to write Kanji too",
+          "r": "Able to understand Kanji too"
+        }
+      }
+    },
     "error": {
       "scanUnavailable": "QR code scanning is not available.",
       "invalidQr": "Invalid QR code.",

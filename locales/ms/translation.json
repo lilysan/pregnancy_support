@@ -574,5 +574,37 @@
   "sos.q.06.o2": "1~24 jam yang lalu",
   "sos.q.06.o3": "Lebih 24 jam yang lalu",
   "sos.result.callNow": "Soalan berakhir di sini.\nSila hubungi hospital.",
-  "sos.result.watchAndWait": "Soalan berakhir di sini.\nMari pantau keadaan buat seketika."
+  "sos.result.watchAndWait": "Soalan berakhir di sini.\nMari pantau keadaan buat seketika.",
+  "link": {
+    "levelTable": {
+      "caption": "Pilih tahap yang sesuai untuk setiap kemahiran.",
+      "level": "Tahap",
+      "rows": {
+        "1": {
+          "s": "Tidak boleh bercakap langsung",
+          "l": "Tidak faham langsung",
+          "w": "Tidak boleh menulis langsung",
+          "r": "Tidak boleh membaca langsung"
+        },
+        "2": {
+          "s": "Boleh memberi salam",
+          "l": "Boleh memahami salam",
+          "w": "Boleh menulis sedikit hiragana",
+          "r": "Boleh membaca sedikit hiragana"
+        },
+        "3": {
+          "s": "Boleh berbual secara ringkas",
+          "l": "Boleh memahami perbualan ringkas",
+          "w": "Boleh menulis hiragana",
+          "r": "Boleh membaca hiragana"
+        },
+        "4": {
+          "s": "Boleh berbual harian",
+          "l": "Boleh memahami perbualan harian",
+          "w": "Boleh menulis kanji juga",
+          "r": "Boleh memahami kanji juga"
+        }
+      }
+    }
+  }
 }

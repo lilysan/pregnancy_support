@@ -574,5 +574,37 @@
   "sos.q.06.o2": "1~24 oras ang nakalipas",
   "sos.q.06.o3": "Higit sa 24 oras ang nakalipas",
   "sos.result.callNow": "Tapos na ang mga tanong.\nMangyaring makipag-ugnayan sa ospital.",
-  "sos.result.watchAndWait": "Tapos na ang mga tanong.\nMaghintay at tingnan muna ang lagay nang ilang sandali."
+  "sos.result.watchAndWait": "Tapos na ang mga tanong.\nMaghintay at tingnan muna ang lagay nang ilang sandali.",
+  "link": {
+    "levelTable": {
+      "caption": "Piliin ang antas na angkop sa bawat kasanayan.",
+      "level": "Antas",
+      "rows": {
+        "1": {
+          "s": "Hindi talaga makapagsalita",
+          "l": "Hindi talaga nakakaintindi",
+          "w": "Hindi talaga makapagsulat",
+          "r": "Hindi talaga makabasa"
+        },
+        "2": {
+          "s": "Kayang bumati",
+          "l": "Naiintindihan ang mga pagbati",
+          "w": "Kayang sumulat ng kaunting hiragana",
+          "r": "Kayang bumasa ng kaunting hiragana"
+        },
+        "3": {
+          "s": "Kayang makipag-usap nang simple",
+          "l": "Naiintindihan ang simpleng usapan",
+          "w": "Kayang sumulat ng hiragana",
+          "r": "Kayang bumasa ng hiragana"
+        },
+        "4": {
+          "s": "Kayang makipag-usap sa pang-araw-araw",
+          "l": "Naiintindihan ang pang-araw-araw na usapan",
+          "w": "Kayang sumulat pati kanji",
+          "r": "Naiintindihan pati kanji"
+        }
+      }
+    }
+  }
 }

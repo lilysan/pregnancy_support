@@ -574,5 +574,37 @@
   "sos.q.06.o2": "1~24 jam yang lalu",
   "sos.q.06.o3": "Lebih dari 24 jam yang lalu",
   "sos.result.callNow": "Pertanyaan selesai.\nSilakan hubungi rumah sakit.",
-  "sos.result.watchAndWait": "Pertanyaan selesai.\nMari pantau keadaannya sebentar lagi."
+  "sos.result.watchAndWait": "Pertanyaan selesai.\nMari pantau keadaannya sebentar lagi.",
+  "link": {
+    "levelTable": {
+      "caption": "Pilih tingkat yang sesuai untuk setiap kemampuan.",
+      "level": "Level",
+      "rows": {
+        "1": {
+          "s": "Tidak bisa berbicara sama sekali",
+          "l": "Tidak mengerti sama sekali",
+          "w": "Tidak bisa menulis sama sekali",
+          "r": "Tidak bisa membaca sama sekali"
+        },
+        "2": {
+          "s": "Bisa memberi salam",
+          "l": "Bisa mengerti salam",
+          "w": "Bisa menulis sedikit hiragana",
+          "r": "Bisa membaca sedikit hiragana"
+        },
+        "3": {
+          "s": "Bisa melakukan percakapan sederhana",
+          "l": "Bisa mengerti percakapan sederhana",
+          "w": "Bisa menulis hiragana",
+          "r": "Bisa membaca hiragana"
+        },
+        "4": {
+          "s": "Bisa melakukan percakapan sehari-hari",
+          "l": "Bisa mengerti percakapan sehari-hari",
+          "w": "Bisa menulis kanji juga",
+          "r": "Bisa mengerti kanji juga"
+        }
+      }
+    }
+  }
 }

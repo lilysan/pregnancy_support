@@ -574,5 +574,37 @@
   "sos.q.06.o2": "Il y a 1~24 heures",
   "sos.q.06.o3": "Il y a plus de 24 heures",
   "sos.result.callNow": "C'est fini pour les questions.\nVeuillez contacter l'hôpital.",
-  "sos.result.watchAndWait": "C'est fini pour les questions.\nAttendons encore un peu."
+  "sos.result.watchAndWait": "C'est fini pour les questions.\nAttendons encore un peu.",
+  "link": {
+    "levelTable": {
+      "caption": "Veuillez choisir le niveau correspondant pour chaque compétence.",
+      "level": "Niveau",
+      "rows": {
+        "1": {
+          "s": "Ne peut pas parler du tout",
+          "l": "Ne comprend pas du tout",
+          "w": "Ne peut pas écrire du tout",
+          "r": "Ne peut pas lire du tout"
+        },
+        "2": {
+          "s": "Peut saluer",
+          "l": "Comprend les salutations",
+          "w": "Peut écrire un peu de hiragana",
+          "r": "Peut lire un peu de hiragana"
+        },
+        "3": {
+          "s": "Peut tenir des conversations simples",
+          "l": "Comprend des conversations simples",
+          "w": "Peut écrire les hiragana",
+          "r": "Peut lire les hiragana"
+        },
+        "4": {
+          "s": "Peut tenir des conversations quotidiennes",
+          "l": "Comprend des conversations quotidiennes",
+          "w": "Peut aussi écrire des kanji",
+          "r": "Comprend aussi les kanji"
+        }
+      }
+    }
+  }
 }

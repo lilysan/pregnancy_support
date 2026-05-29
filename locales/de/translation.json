@@ -574,5 +574,37 @@
   "sos.q.06.o2": "Vor 1~24 Stunden",
   "sos.q.06.o3": "Vor mehr als 24 Stunden",
   "sos.result.callNow": "Die Fragen sind beendet.\nBitte kontaktieren Sie das Krankenhaus.",
-  "sos.result.watchAndWait": "Die Fragen sind beendet.\nBeobachten wir es noch eine Weile."
+  "sos.result.watchAndWait": "Die Fragen sind beendet.\nBeobachten wir es noch eine Weile.",
+  "link": {
+    "levelTable": {
+      "caption": "Bitte wählen Sie die passende Stufe für jede Fähigkeit.",
+      "level": "Stufe",
+      "rows": {
+        "1": {
+          "s": "Kann überhaupt nicht sprechen",
+          "l": "Kann überhaupt nichts verstehen",
+          "w": "Kann überhaupt nicht schreiben",
+          "r": "Kann überhaupt nicht lesen"
+        },
+        "2": {
+          "s": "Kann grüßen",
+          "l": "Kann Begrüßungen verstehen",
+          "w": "Kann etwas Hiragana schreiben",
+          "r": "Kann etwas Hiragana lesen"
+        },
+        "3": {
+          "s": "Kann einfache Gespräche führen",
+          "l": "Kann einfache Gespräche verstehen",
+          "w": "Kann Hiragana schreiben",
+          "r": "Kann Hiragana lesen"
+        },
+        "4": {
+          "s": "Kann Alltagsgespräche führen",
+          "l": "Kann Alltagsgespräche verstehen",
+          "w": "Kann auch Kanji schreiben",
+          "r": "Kann auch Kanji verstehen"
+        }
+      }
+    }
+  }
 }

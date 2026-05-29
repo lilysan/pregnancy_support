@@ -574,5 +574,37 @@
   "sos.q.06.o2": "1–24 giờ trước",
   "sos.q.06.o3": "Hơn 24 giờ trước",
   "sos.result.callNow": "Câu hỏi kết thúc.\nHãy liên hệ với bệnh viện.",
-  "sos.result.watchAndWait": "Câu hỏi kết thúc.\nHãy theo dõi thêm một chút."
+  "sos.result.watchAndWait": "Câu hỏi kết thúc.\nHãy theo dõi thêm một chút.",
+  "link": {
+    "levelTable": {
+      "caption": "Hãy chọn mức phù hợp với từng kỹ năng.",
+      "level": "Mức",
+      "rows": {
+        "1": {
+          "s": "Hoàn toàn không nói được",
+          "l": "Hoàn toàn không hiểu",
+          "w": "Hoàn toàn không viết được",
+          "r": "Hoàn toàn không đọc được"
+        },
+        "2": {
+          "s": "Có thể chào hỏi",
+          "l": "Hiểu được lời chào hỏi",
+          "w": "Viết được một ít hiragana",
+          "r": "Đọc được một ít hiragana"
+        },
+        "3": {
+          "s": "Có thể hội thoại đơn giản",
+          "l": "Hiểu được hội thoại đơn giản",
+          "w": "Viết được hiragana",
+          "r": "Đọc được hiragana"
+        },
+        "4": {
+          "s": "Có thể hội thoại hằng ngày",
+          "l": "Hiểu được hội thoại hằng ngày",
+          "w": "Cũng viết được kanji",
+          "r": "Cũng hiểu được kanji"
+        }
+      }
+    }
+  }
 }
