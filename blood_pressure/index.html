@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blood Pressure Tracker</title>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
     <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
     <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
     <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
-    <link rel="stylesheet" href="../template/style.css">
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="../common/js/config.js"></script>
+    <script src="../common/js/toast.js"></script>
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
@@ -19,6 +25,8 @@
 </head>
 
 <body>
+    <div id="header-container" class="header-wrapper"></div>
+
     <div class="loader is-hidden">
         <div class="text-center">
             <div class="spinner-border" role="status">
@@ -27,163 +35,152 @@
         </div>
     </div>
 
-    <h1 class="title_bp" id="titleBp">血圧記録</h1>
-    <button type="button" id="settingsBtn" class="settings-btn" onclick="openSettingsDialog()">設定</button>
-
-    <div id="settingsDialog" class="is-hidden">
-        <div id="settingsDialogPanel">
-            <div class="settings-header">
-                <h2 id="settingsDialogTitle">設定</h2>
-                <button type="button" id="closeSettingsBtnTop" class="settings-close-top-btn"
-                    onclick="closeSettingsDialog()">閉じる</button>
+    <main>
+        <article class="main-container blood-pressure-main">
+            <h1 class="title_bp" id="titleBp">血圧記録</h1>
+            <button type="button" id="openAddFormBtn" class="open-add-form-btn" onclick="openAddForm()">データを追加</button>
+            <!-- データ追加フォーム -->
+            <div id="addFormPanel" class="add-form-panel" aria-hidden="true">
+                <form id="addDataForm">
+                    <label for="date" id="labelDate">日付</label>
+                    <input type="text" id="date" placeholder="日付を選択"><br>
+                    <label for="periodSelect" id="labelPeriod">時間</label>
+                    <section class="dropdown">
+                        <select id="periodSelect">
+                            <option value="1" id="periodMorning">朝</option>
+                            <option value="2" id="periodNoon">昼</option>
+                            <option value="3" id="periodNight">夜</option>
+                        </select>
+                    </section><br>
+                    <label for="higth" id="labelHigh">最高血圧</label>
+                    <input type="number" id="higth" class="high" placeholder="最高血圧"><br>
+                    <label for="low" id="labelLow">最低血圧</label>
+                    <input type="number" id="low" class="low" placeholder="最低血圧"><br>
+                    <span id="labelMedicine" class="form-group-label">内服</span>
+                    <div id="medicine" class="medicine medicine-radio-group" role="radiogroup"
+                        aria-labelledby="labelMedicine">
+                        <label class="medicine-radio-option" for="medicineNone">
+                            <input type="radio" id="medicineNone" name="medicineStatus" value="なし" checked>
+                            <span id="medicineNoneLabel">なし</span>
+                        </label>
+                        <label class="medicine-radio-option" for="medicineYes">
+                            <input type="radio" id="medicineYes" name="medicineStatus" value="あり">
+                            <span id="medicineYesLabel">あり</span>
+                        </label>
+                    </div>
+                    <button type="button" id="adddata">登録</button>
+                    <button type="button" id="closeAddFormBtn" onclick="closeAddForm()">閉じる</button>
+                </form>
             </div>
-            <div class="settings-block">
-                <p id="guideToggleLabel" class="settings-label">ガイド表示</p>
-                <button type="button" id="guideToggleBtn" class="guide-toggle-btn">表示中</button>
+            <div id="chart-container-all">
+                <div id="chart-container" class="chart-container active-content">
+                    <h2 id="chartRangeTitle" class="chart-range-title"></h2>
+                    <canvas id="bloodPressureChart"></canvas>
+                </div>
+
+                <div id="olderChartsContainer" class="older-charts-container"></div>
+                <button type="button" id="loadOlderChartBtn" class="load-older-btn">以前の情報をみる</button>
+
             </div>
-            <p id="languageSectionTitle" class="settings-label">言語設定</p>
-            <div id="languageOptionList" class="language-option-list"></div>
-            <button type="button" id="closeSettingsBtn" onclick="closeSettingsDialog()">閉じる</button>
-        </div>
-    </div>
-    <button type="button" id="openAddFormBtn" class="open-add-form-btn" onclick="openAddForm()">データを追加</button>
-    <!-- データ追加フォーム -->
-    <div id="addFormPanel" class="add-form-panel" aria-hidden="true">
-        <form id="addDataForm">
-            <label for="date" id="labelDate">日付</label>
-            <input type="text" id="date" placeholder="日付を選択"><br>
-            <label for="date" id="labelPeriod">時間</label>
-            <section class="dropdown">
-                <select id="periodSelect">
-                    <option value="1" id="periodMorning">朝</option>
-                    <option value="2" id="periodNoon">昼</option>
-                    <option value="3" id="periodNight">夜</option>
-                </select>
-            </section><br>
-            <label for="higth" id="labelHigh">最高血圧</label>
-            <input type="number" id="higth" class="high" placeholder="最高血圧"><br>
-            <label for="low" id="labelLow">最低血圧</label>
-            <input type="number" id="low" class="low" placeholder="最低血圧"><br>
-            <label for="medicine" id="labelMedicine">内服</label>
-            <div id="medicine" class="medicine medicine-radio-group">
-                <label class="medicine-radio-option">
-                    <input type="radio" name="medicineStatus" value="なし" checked>
-                    <span id="medicineNoneLabel">なし</span>
-                </label>
-                <label class="medicine-radio-option">
-                    <input type="radio" name="medicineStatus" value="あり">
-                    <span id="medicineYesLabel">あり</span>
-                </label>
-            </div>
-            <button type="button" id="adddata">登録</button>
-            <button type="button" id="closeAddFormBtn" onclick="closeAddForm()">閉じる</button>
-        </form>
-    </div>
-    <div id="chart-container-all">
-        <div id="chart-container" class="chart-container active-content">
-            <h2 id="chartRangeTitle" class="chart-range-title"></h2>
-            <canvas id="bloodPressureChart"></canvas>
-        </div>
-
-        <div id="olderChartsContainer" class="older-charts-container"></div>
-        <button type="button" id="loadOlderChartBtn" class="load-older-btn">以前の情報をみる</button>
-
-    </div>
-    <div id="table-container" class="table-container content">
-        <!-- データ編集テーブル -->
-
-        <table id="table">
-            <thead>
-                <tr>
-                    <th>日付</th>
-                    <th id="thPeriod">時間帯</th>
-                    <th id="thHigh">最高血圧</th>
-                    <th id="thLow">最低血圧</th>
-                    <th id="thMedicine">内服</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-        <button type="button" id="loadOlderTableBtn" class="load-older-btn">以前の情報をみる</button>
-
-    </div>
-
-    <div id="edit-container" class="edit-container content">
-        <div id="edit_table">
-            <div id="edit_table_container">
+            <div id="table-container" class="table-container content">
                 <!-- データ編集テーブル -->
-                <table id="editTable">
+
+                <table id="table">
                     <thead>
                         <tr>
                             <th>日付</th>
-                            <th id="ethPeriod">時間帯</th>
-                            <th id="ethHigh">最高血圧</th>
-                            <th id="ethLow">最低血圧</th>
-                            <th id="ethMedicine">内服</th>
-                            <th id="ethEdit">編集</th>
+                            <th id="thPeriod">時間帯</th>
+                            <th id="thHigh">最高血圧</th>
+                            <th id="thLow">最低血圧</th>
+                            <th id="thMedicine">内服</th>
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
                 </table>
+                <button type="button" id="loadOlderTableBtn" class="load-older-btn">以前の情報をみる</button>
+
             </div>
-        </div>
-    </div>
 
-    <!-- ダイアログ -->
-    <div id="editDialog" class="is-hidden">
-        <form id="editForm">
-            <label for="editDate" id="editDateLabel">日付</label>
-            <input type="text" id="editDate" class="datepicker2"><br><br>
+            <div id="edit-container" class="edit-container content">
+                <div id="edit_table">
+                    <div id="edit_table_container">
+                        <!-- データ編集テーブル -->
+                        <table id="editTable">
+                            <thead>
+                                <tr>
+                                    <th>日付</th>
+                                    <th id="ethPeriod">時間帯</th>
+                                    <th id="ethHigh">最高血圧</th>
+                                    <th id="ethLow">最低血圧</th>
+                                    <th id="ethMedicine">内服</th>
+                                    <th id="ethEdit">編集</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-            <label for="editPeriod" id="editPeriodLabel">時間</label>
-            <select id="editPeriod" class="periodpicker2">
-                <option value="1" id="editPeriodMorning">朝</option>
-                <option value="2" id="editPeriodNoon">昼</option>
-                <option value="3" id="editPeriodNight">夜</option>
-            </select><br><br>
+            <!-- ダイアログ -->
+            <div id="editDialog" class="is-hidden">
+                <form id="editForm">
+                    <label for="editDate" id="editDateLabel">日付</label>
+                    <input type="text" id="editDate" class="datepicker2"><br><br>
 
-            <label for="editHigh" id="editHighLabel">最高血圧</label>
-            <input type="number" id="editHigh" class="high2"><br><br>
-            <label for="editLow" id="editLowLabel">最低血圧</label>
-            <input type="number" id="editLow" class="low2"><br><br>
-            <label for="editMedicine" id="editMedicineLabel">内服</label>
-            <div id="editMedicine" class="medicine2 medicine-radio-group">
-                <label class="medicine-radio-option">
-                    <input type="radio" name="editMedicineStatus" value="なし" checked>
-                    <span id="editMedicineNoneLabel">なし</span>
-                </label>
-                <label class="medicine-radio-option">
-                    <input type="radio" name="editMedicineStatus" value="あり">
-                    <span id="editMedicineYesLabel">あり</span>
-                </label>
-            </div><br><br>
+                    <label for="editPeriod" id="editPeriodLabel">時間</label>
+                    <select id="editPeriod" class="periodpicker2">
+                        <option value="1" id="editPeriodMorning">朝</option>
+                        <option value="2" id="editPeriodNoon">昼</option>
+                        <option value="3" id="editPeriodNight">夜</option>
+                    </select><br><br>
+
+                    <label for="editHigh" id="editHighLabel">最高血圧</label>
+                    <input type="number" id="editHigh" class="high2"><br><br>
+                    <label for="editLow" id="editLowLabel">最低血圧</label>
+                    <input type="number" id="editLow" class="low2"><br><br>
+                    <span id="editMedicineLabel" class="form-group-label">内服</span>
+                    <div id="editMedicine" class="medicine2 medicine-radio-group" role="radiogroup"
+                        aria-labelledby="editMedicineLabel">
+                        <label class="medicine-radio-option" for="editMedicineNone">
+                            <input type="radio" id="editMedicineNone" name="editMedicineStatus" value="なし" checked>
+                            <span id="editMedicineNoneLabel">なし</span>
+                        </label>
+                        <label class="medicine-radio-option" for="editMedicineYes">
+                            <input type="radio" id="editMedicineYes" name="editMedicineStatus" value="あり">
+                            <span id="editMedicineYesLabel">あり</span>
+                        </label>
+                    </div><br><br>
 
 
-            <button type="button" id="saveButton">保存</button>
-            <button type="button" id="cancelButton">キャンセル</button>
-            <button type="button" id="deleteButton">削除</button>
-        </form>
-    </div>
+                    <button type="button" id="saveButton">保存</button>
+                    <button type="button" id="cancelButton">キャンセル</button>
+                    <button type="button" id="deleteButton">削除</button>
+                </form>
+            </div>
 
-    <!-- 下部タブメニュー -->
-    <div class="tab-bar">
-        <button id="tabChart" class="tab-button active" onclick="switchTab('chart-container', event)">グラフ</button>
-        <button id="tabTable" class="tab-button" onclick="switchTab('table-container', event)">テーブル</button>
-        <button id="tabEdit" class="tab-button" onclick="switchTab('edit-container', event)">編集</button>
-    </div>
+            <!-- 下部タブメニュー -->
+            <div class="tab-bar">
+                <button id="tabChart" class="tab-button active"
+                    onclick="switchTab('chart-container', event)">グラフ</button>
+                <button id="tabTable" class="tab-button" onclick="switchTab('table-container', event)">テーブル</button>
+                <button id="tabEdit" class="tab-button" onclick="switchTab('edit-container', event)">編集</button>
+            </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.21.1/dist/date-fns.min.js"></script>
-    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js">
+            </script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
+            <script src="https://cdn.jsdelivr.net/npm/date-fns@2.21.1/dist/date-fns.min.js"></script>
+        </article>
+    </main>
     <script>
-        window.IS_TEST_MODE = new URLSearchParams(window.location.search).get("test") === "1";
+        window.IS_TEST_MODE = new URLSearchParams(window.location.search).get("test") === "1" ||
+            location.hostname === "localhost" ||
+            location.hostname === "127.0.0.1";
         if (window.IS_TEST_MODE) {
             window.liff = {
                 init: function () {
@@ -206,11 +203,9 @@
     </script>
 
     <script>
-        const API_URL =
-            "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
-        const LIFF_ID = "2005594923-wN8OjyGd";
         const LANG_STORAGE_KEY = "pressure_ui_lang";
         const GUIDE_VISIBLE_KEY = "pressure_guide_visible";
+        const currentPage = "blood_pressure";
         const LANGUAGE_OPTIONS = [{
                 code: "en-US",
                 label: "英語編(English)"
@@ -933,6 +928,311 @@
         let loadedWeekPages = 1;
         let chartInstances = [];
         var id;
+        const mockToday = new Date();
+        const MOCK_PRESSURE_ITEMS = Array.from({
+            length: 10
+        }, function (_, index) {
+            const d = new Date(mockToday);
+            d.setDate(mockToday.getDate() - index);
+            const date = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+            return {
+                itemId: `mock-${index + 1}`,
+                date: date,
+                period: (index % 3) + 1,
+                high: 118 + (index % 5) * 6,
+                low: 68 + (index % 4) * 5,
+                medicine: index % 4 === 0 ? 1 : 0
+            };
+        });
+
+        function showAppLoader() {
+            const loader = document.querySelector(".loader");
+            if (!loader) return;
+            loader.classList.remove("is-hidden");
+            loader.style.display = "grid";
+            loader.setAttribute("aria-hidden", "false");
+        }
+
+        function hideAppLoader() {
+            const loader = document.querySelector(".loader");
+            if (!loader) return;
+            loader.classList.add("is-hidden");
+            loader.style.display = "none";
+            loader.setAttribute("aria-hidden", "true");
+        }
+
+        function switchTab(contentId, event) {
+            document.querySelectorAll('.chart-container, .table-container, .edit-container').forEach(content => {
+                content.classList.remove('active-content');
+            });
+            const chartContainerAll = document.getElementById('chart-container-all');
+            if (chartContainerAll) {
+                chartContainerAll.style.display = contentId === "chart-container" ? "block" : "none";
+            }
+            const nextContent = document.getElementById(contentId);
+            if (nextContent) {
+                nextContent.classList.add('active-content');
+            }
+
+            const buttons = document.querySelectorAll('.tab-bar button');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+
+            try {
+                if (contentId === "table-container" && typeof createTablePage === "function") {
+                    createTablePage();
+                } else if (contentId === "edit-container" && typeof populateTable === "function") {
+                    populateTable(contentId);
+                } else if (typeof updateChart === "function") {
+                    updateChart(allData);
+                }
+            } catch (e) {
+                console.error("switchTab rendering error:", e);
+            }
+            if (typeof updateGraphUnitButtonVisibility === "function") {
+                updateGraphUnitButtonVisibility();
+            }
+        }
+
+        const getAccessObj = (data) => {
+            return {
+                url: API_URL,
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify(data),
+                timeout: 30000,
+            };
+        };
+
+        function toPressureApiPostData(method, data) {
+            const value = data || {};
+            if (method === "get") {
+                return {
+                    unit: value.unit || "date",
+                    limit: Number(value.limit || 1),
+                    page: Number(value.page || 1)
+                };
+            }
+            if (method === "delete") {
+                return {
+                    date: value.date || "",
+                    period: Number(value.period || 0)
+                };
+            }
+            const mapped = {
+                date: value.date || "",
+                period: Number(value.period || 0),
+                high: Number(value.high || 0),
+                low: Number(value.low || 0),
+                medicine: hasMedicineFlag(value.medicine) ? 1 : 0
+            };
+            if (method === "put") {
+                mapped.itemId = value.itemId || "";
+            }
+            return mapped;
+        }
+
+        function pressurePayload(method, data) {
+            return toPressureApiPostData(method, data);
+        }
+
+        function normalizePressureItem(item) {
+            if (!item) return null;
+            return {
+                itemId: item.itemId || item.id || "",
+                date: item.date || "",
+                period: Number(item.period || 0),
+                high: Number(item.high || 0),
+                low: Number(item.low || 0),
+                medicine: item.medicine || 0
+            };
+        }
+
+        function extractPressureItems(response) {
+            const data = response && response.data ? response.data : {};
+            const rawItems = data.items || [];
+            return Array.isArray(rawItems) ? rawItems.map(normalizePressureItem).filter(Boolean) : [];
+        }
+
+        function loadData(idToken, type, postData, mergeMode) {
+            showAppLoader();
+            const method = "get";
+            const safePostData = type === "pressure" ? pressurePayload(method, postData) : (postData || {});
+            const safeMergeMode = mergeMode || "replace";
+            if (window.IS_TEST_MODE && type === "pressure") {
+                const page = Number(safePostData.page || 1);
+                const limit = Math.max(1, Number(safePostData.limit || 7));
+                const start = (page - 1) * limit;
+                const items = MOCK_PRESSURE_ITEMS.slice(start, start + limit);
+                if (safeMergeMode === "append") {
+                    allData = (Array.isArray(allData) ? allData : []).concat(items);
+                } else {
+                    allData = items;
+                }
+                updateChart(allData);
+                hideAppLoader();
+                return Promise.resolve(items);
+            }
+            return $.ajax(
+                getAccessObj({
+                    path: type,
+                    method: method,
+                    idToken: idToken,
+                    postData: safePostData
+                })
+            ).then(function (response) {
+                if (response.statusCode === 401) {
+                    liff.logout();
+                    window.location.reload();
+                    return [];
+                } else if (response.statusCode !== 200) {
+                    console.error(response.message);
+                    alert(response.message);
+                    return [];
+                } else {
+                    const items = type === "pressure" ? extractPressureItems(response) :
+                        ((response.data && Array.isArray(response.data.items)) ? response.data.items : []);
+                    if (safeMergeMode === "append") {
+                        allData = (Array.isArray(allData) ? allData : []).concat(items);
+                    } else {
+                        allData = items;
+                    }
+                    updateChart(allData);
+                    return items;
+                }
+            }, function () {
+                alert("Network error!");
+                return [];
+            }).always(function () {
+                hideAppLoader();
+            });
+        }
+
+        function addData(data, type) {
+            showAppLoader();
+            const method = "post";
+            if (window.IS_TEST_MODE && type === "pressure") {
+                MOCK_PRESSURE_ITEMS.unshift(Object.assign({
+                    itemId: `mock-${Date.now()}`
+                }, normalizePressureItem(data)));
+                hideAppLoader();
+                return Promise.resolve({
+                    statusCode: 200,
+                    data: {
+                        itemId: MOCK_PRESSURE_ITEMS[0].itemId
+                    }
+                });
+            }
+            return $.ajax(
+                getAccessObj({
+                    path: type,
+                    method: method,
+                    idToken: token,
+                    postData: type === "pressure" ? pressurePayload(method, data) : data
+                })
+            ).done(function (response) {
+                if (response.statusCode === 401) {
+                    liff.logout();
+                    window.location.reload();
+                } else if (response.statusCode !== 200) {
+                    console.error(response.message);
+                    alert(response.message);
+                }
+            }).fail(function () {
+                alert("Network error!");
+            }).always(function () {
+                hideAppLoader();
+            });
+        }
+
+        function setPressure(data) {
+            return addData(data, "pressure");
+        }
+
+        function putData(data, type) {
+            showAppLoader();
+            const method = "put";
+            if (window.IS_TEST_MODE && type === "pressure") {
+                const normalized = normalizePressureItem(data);
+                const idx = MOCK_PRESSURE_ITEMS.findIndex((item) =>
+                    (normalized.itemId && item.itemId === normalized.itemId) ||
+                    (item.date === normalized.date && Number(item.period) === Number(normalized.period))
+                );
+                if (idx >= 0) {
+                    MOCK_PRESSURE_ITEMS[idx] = Object.assign({}, MOCK_PRESSURE_ITEMS[idx], normalized);
+                }
+                hideAppLoader();
+                return Promise.resolve({
+                    statusCode: 200,
+                    data: 0
+                });
+            }
+            return $.ajax(
+                getAccessObj({
+                    path: type,
+                    method: method,
+                    idToken: token,
+                    postData: type === "pressure" ? pressurePayload(method, data) : data
+                })
+            ).done(function (response) {
+                if (response.statusCode === 401) {
+                    liff.logout();
+                    window.location.reload();
+                } else if (response.statusCode !== 200) {
+                    console.error(response.message);
+                    alert(response.message);
+                }
+            }).fail(function () {
+                alert("Network error!");
+            }).always(function () {
+                hideAppLoader();
+            });
+        }
+
+        function deleteData(data, type) {
+            showAppLoader();
+            const method = "delete";
+            if (window.IS_TEST_MODE && type === "pressure") {
+                const payload = pressurePayload(method, data);
+                const idx = MOCK_PRESSURE_ITEMS.findIndex((item) =>
+                    item.date === payload.date && Number(item.period) === Number(payload.period)
+                );
+                if (idx >= 0) {
+                    MOCK_PRESSURE_ITEMS.splice(idx, 1);
+                }
+                hideAppLoader();
+                return Promise.resolve({
+                    statusCode: 200,
+                    data: 0
+                });
+            }
+            return $.ajax(
+                getAccessObj({
+                    path: type,
+                    method: method,
+                    idToken: token,
+                    postData: type === "pressure" ? pressurePayload(method, data) : data
+                })
+            ).done(function (response) {
+                if (response.statusCode === 401) {
+                    liff.logout();
+                    window.location.reload();
+                } else if (response.statusCode !== 200) {
+                    console.error(response.message);
+                    alert(response.message);
+                } else {
+                    setallData();
+                }
+            }).fail(function () {
+                alert("Network error!");
+            }).always(function () {
+                hideAppLoader();
+            });
+        }
 
         function resolveI18nLang(langCode) {
             if (langCode === "ja") return "ja";
@@ -940,37 +1240,13 @@
             return "en-US";
         }
 
-        async function initI18n(langCode) {
-            await i18next
-                .use(i18nextHttpBackend)
-                .init({
-                    lng: resolveI18nLang(langCode),
-                    fallbackLng: "ja",
-                    ns: ["translation"],
-                    defaultNS: "translation",
-                    load: "currentOnly",
-                    backend: {
-                        loadPath: "./i18n/{{lng}}.json"
-                    },
-                    interpolation: {
-                        escapeValue: false
-                    }
-                });
-        }
-
         function tx(key, langCode = selectedUiLang) {
-            const code = langCode === "ja" ? "ja" : resolveI18nLang(langCode);
-            try {
-                return i18next.getFixedT(code, "translation")(key);
-            } catch (e) {
-                return key;
-            }
+            const table = UI_TEXT[langCode] || UI_TEXT[resolveI18nLang(langCode)] || UI_TEXT.ja;
+            return (table && table[key]) || (UI_TEXT.ja && UI_TEXT.ja[key]) || key;
         }
 
         function bt(key) {
-            const ja = tx(key, "ja");
-            if (selectedUiLang === "ja") return ja;
-            return `${ja} / ${tx(key, selectedUiLang)}`;
+            return tx(key, selectedUiLang);
         }
 
         function readMedicineRadioValue(name) {
@@ -1010,9 +1286,7 @@
             let key = "night";
             if (Number(periodValue) === 1) key = "morning";
             if (Number(periodValue) === 2) key = "noon";
-            const ja = tx(key, "ja");
-            if (selectedUiLang === "ja") return [ja];
-            return [ja, tx(key, selectedUiLang)];
+            return [tx(key, selectedUiLang)];
         }
 
         function formatChartDateShort(dateStr) {
@@ -1098,6 +1372,7 @@
 
         function renderLanguageOptions() {
             const list = document.getElementById("languageOptionList");
+            if (!list) return;
             list.innerHTML = "";
             const jaBtn = document.createElement("button");
             jaBtn.type = "button";
@@ -1117,6 +1392,7 @@
 
         function applySettingsUi() {
             const toggleBtn = document.getElementById("guideToggleBtn");
+            if (!toggleBtn) return;
             toggleBtn.textContent = showGuideOverlay ? bt("on") : bt("off");
             toggleBtn.classList.toggle("off", !showGuideOverlay);
         }
@@ -1157,7 +1433,7 @@
             loadingOlderPressure = true;
             syncOlderButtons();
             const startPage = loadedWeekPages + 1;
-            const maxSearchPages = 120;
+            const maxSearchPages = startPage + 11;
             const walk = (page) => {
                 if (page > maxSearchPages) {
                     hasOlderPressure = false;
@@ -1189,51 +1465,49 @@
         }
 
         function applyI18n() {
-            document.getElementById("titleBp").textContent = bt("title");
-            document.getElementById("settingsBtn").textContent = bt("settings");
-            document.getElementById("openAddFormBtn").textContent = bt("add");
-            document.getElementById("settingsDialogTitle").textContent = bt("settingsTitle");
-            document.getElementById("guideToggleLabel").textContent = bt("guide");
-            document.getElementById("languageSectionTitle").textContent = bt("language");
-            document.getElementById("closeSettingsBtnTop").textContent = bt("close");
-            document.getElementById("closeSettingsBtn").textContent = bt("close");
-            document.getElementById("labelDate").textContent = bt("date");
-            document.getElementById("labelPeriod").textContent = bt("period");
-            document.getElementById("labelHigh").textContent = bt("high");
-            document.getElementById("labelLow").textContent = bt("low");
-            document.getElementById("labelMedicine").textContent = bt("medicine");
-            document.getElementById("medicineNoneLabel").textContent = bt("medicineNone");
-            document.getElementById("medicineYesLabel").textContent = bt("medicineYes");
-            document.getElementById("adddata").textContent = bt("register");
-            document.getElementById("closeAddFormBtn").textContent = bt("cancel");
-            document.getElementById("thPeriod").textContent = bt("periodCol");
-            document.getElementById("thHigh").textContent = bt("high");
-            document.getElementById("thLow").textContent = bt("low");
-            document.getElementById("thMedicine").textContent = bt("medicine");
-            document.getElementById("ethPeriod").textContent = bt("periodCol");
-            document.getElementById("ethHigh").textContent = bt("high");
-            document.getElementById("ethLow").textContent = bt("low");
-            document.getElementById("ethMedicine").textContent = bt("medicine");
-            document.getElementById("ethEdit").textContent = bt("edit");
-            document.getElementById("editDateLabel").textContent = bt("date");
-            document.getElementById("editPeriodLabel").textContent = bt("period");
-            document.getElementById("editHighLabel").textContent = bt("high");
-            document.getElementById("editLowLabel").textContent = bt("low");
-            document.getElementById("editMedicineLabel").textContent = bt("medicine");
-            document.getElementById("editMedicineNoneLabel").textContent = bt("medicineNone");
-            document.getElementById("editMedicineYesLabel").textContent = bt("medicineYes");
-            document.getElementById("saveButton").textContent = bt("save");
-            document.getElementById("cancelButton").textContent = bt("cancel");
-            document.getElementById("deleteButton").textContent = bt("del");
-            document.getElementById("tabChart").textContent = bt("chart");
-            document.getElementById("tabTable").textContent = bt("table");
-            document.getElementById("tabEdit").textContent = bt("edit");
-            document.getElementById("periodMorning").textContent = bt("morning");
-            document.getElementById("periodNoon").textContent = bt("noon");
-            document.getElementById("periodNight").textContent = bt("night");
-            document.getElementById("editPeriodMorning").textContent = bt("morning");
-            document.getElementById("editPeriodNoon").textContent = bt("noon");
-            document.getElementById("editPeriodNight").textContent = bt("night");
+            const setText = (id, key) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = bt(key);
+            };
+            setText("titleBp", "title");
+            setText("openAddFormBtn", "add");
+            setText("labelDate", "date");
+            setText("labelPeriod", "period");
+            setText("labelHigh", "high");
+            setText("labelLow", "low");
+            setText("labelMedicine", "medicine");
+            setText("medicineNoneLabel", "medicineNone");
+            setText("medicineYesLabel", "medicineYes");
+            setText("adddata", "register");
+            setText("closeAddFormBtn", "cancel");
+            setText("thPeriod", "periodCol");
+            setText("thHigh", "high");
+            setText("thLow", "low");
+            setText("thMedicine", "medicine");
+            setText("ethPeriod", "periodCol");
+            setText("ethHigh", "high");
+            setText("ethLow", "low");
+            setText("ethMedicine", "medicine");
+            setText("ethEdit", "edit");
+            setText("editDateLabel", "date");
+            setText("editPeriodLabel", "period");
+            setText("editHighLabel", "high");
+            setText("editLowLabel", "low");
+            setText("editMedicineLabel", "medicine");
+            setText("editMedicineNoneLabel", "medicineNone");
+            setText("editMedicineYesLabel", "medicineYes");
+            setText("saveButton", "save");
+            setText("cancelButton", "cancel");
+            setText("deleteButton", "del");
+            setText("tabChart", "chart");
+            setText("tabTable", "table");
+            setText("tabEdit", "edit");
+            setText("periodMorning", "morning");
+            setText("periodNoon", "noon");
+            setText("periodNight", "night");
+            setText("editPeriodMorning", "morning");
+            setText("editPeriodNoon", "noon");
+            setText("editPeriodNight", "night");
             dataArray = ["", periodLabel(1), periodLabel(2), periodLabel(3)];
             bloodPressureChart.data.datasets[0].label = bt("systolic");
             bloodPressureChart.data.datasets[1].label = bt("diastolic");
@@ -1247,13 +1521,11 @@
         async function setLanguage(langCode) {
             selectedUiLang = isSupportedLang(langCode) ? langCode : "ja";
             localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
-            await i18next.changeLanguage(resolveI18nLang(selectedUiLang));
             renderLanguageOptions();
             applyI18n();
             updateChart(allData);
             createTablePage();
             populateTable();
-            document.getElementById("settingsDialog").style.display = "none";
         }
 
         const initialSavedLang = localStorage.getItem(LANG_STORAGE_KEY);
@@ -1264,15 +1536,12 @@
 
         function startPressureApp(idToken) {
             token = idToken;
-            if (typeof changeLanguage === "function") {
-                changeLanguage("ja");
-            }
             pressurePage = 1;
             loadedWeekPages = 1;
             hasOlderPressure = true;
             loadingOlderPressure = false;
             syncOlderButtons();
-            loadInitialPressureWindow().then(() => {
+            return loadInitialPressureWindow().then(() => {
                 createTablePage();
                 populateTable();
             }).catch((e) => {
@@ -1287,29 +1556,9 @@
                     updateChart(allData);
                     return;
                 }
-                // If there is no record in the latest week, auto-load older weeks
-                // so the screen is not empty at startup.
-                const maxAutoPages = 120;
-                const walk = (page) => {
-                    if (page > maxAutoPages) {
-                        syncOlderButtons();
-                        allData = [];
-                        updateChart(allData);
-                        return;
-                    }
-                    return fetchPressurePage(page, "append").then((more) => {
-                        if (more.length > 0) {
-                            loadedWeekPages = page;
-                            pressurePage = page;
-                            allData = dedupePressureItems(allData);
-                            updateChart(allData);
-                            syncOlderButtons();
-                            return;
-                        }
-                        return walk(page + 1);
-                    });
-                };
-                return walk(2);
+                allData = [];
+                updateChart(allData);
+                syncOlderButtons();
             });
         }
 
@@ -1324,18 +1573,46 @@
             });
         }
 
+        function loadHeader() {
+            return new Promise((resolve, reject) => {
+                let settled = false;
+                const finish = () => {
+                    if (settled) return;
+                    settled = true;
+                    resolve();
+                };
+                const fail = (error) => {
+                    if (settled) return;
+                    settled = true;
+                    reject(error);
+                };
+                const timer = setTimeout(finish, 3000);
+                $("#header-container").load("../common/header.html", function (_responseText, status) {
+                    if (status === "error") {
+                        clearTimeout(timer);
+                        fail(new Error("Failed to load header.html"));
+                        return;
+                    }
+                    document.addEventListener("i18n-initialized", function () {
+                        clearTimeout(timer);
+                        finish();
+                    }, {
+                        once: true
+                    });
+                    $.getScript("../common/js/header.js").fail(function () {
+                        clearTimeout(timer);
+                        fail(new Error("Failed to load header.js"));
+                    });
+                });
+            });
+        }
+
         function bootPressureApp() {
-            if (typeof showAppLoader === "function") {
-                showAppLoader();
-            }
-            if (window.IS_TEST_MODE) {
-                // Skip LIFF auth in test mode so UI/data flow can be verified locally.
-                startPressureApp("TEST_ID_TOKEN");
-                return;
-            }
+            showAppLoader();
+            const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
             liff.init({
                 liffId: LIFF_ID,
-                withLoginOnExternalBrowser: true,
+                withLoginOnExternalBrowser: !isDev,
             }).then(() => {
                 const idToken = liff.getIDToken();
                 const lang = liff.getAppLanguage();
@@ -1345,12 +1622,15 @@
                     renderLanguageOptions();
                     applyI18n();
                 }
-                startPressureApp(idToken);
-            }).catch(() => {
-                if (typeof hideAppLoader === "function") {
-                    hideAppLoader();
-                }
-                liff.logout();
+                return Promise.all([
+                    startPressureApp(idToken),
+                    loadHeader()
+                ]);
+            }).then(() => {
+                hideAppLoader();
+            }).catch((error) => {
+                console.error("LIFF init failed:", error);
+                hideAppLoader();
                 alert("LIFF init failed.");
             });
         }
@@ -1655,18 +1935,21 @@
             dlg.classList.add("is-hidden");
         }
 
-        document.getElementById("settingsBtn").addEventListener("click", openSettingsDialog);
-        document.getElementById("closeSettingsBtn").addEventListener("click", closeSettingsDialog);
-        document.getElementById("guideToggleBtn").addEventListener("click", () => {
+        function addClick(id, handler) {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener("click", handler);
+        }
+
+        addClick("guideToggleBtn", () => {
             showGuideOverlay = !showGuideOverlay;
             localStorage.setItem(GUIDE_VISIBLE_KEY, showGuideOverlay ? "1" : "0");
             applySettingsUi();
             updateChart(allData);
         });
-        document.getElementById("openAddFormBtn").addEventListener("click", openAddForm);
-        document.getElementById("closeAddFormBtn").addEventListener("click", closeAddForm);
-        document.getElementById("loadOlderChartBtn").addEventListener("click", loadOlderPressureData);
-        document.getElementById("loadOlderTableBtn").addEventListener("click", loadOlderPressureData);
+        addClick("openAddFormBtn", openAddForm);
+        addClick("closeAddFormBtn", closeAddForm);
+        addClick("loadOlderChartBtn", loadOlderPressureData);
+        addClick("loadOlderTableBtn", loadOlderPressureData);
 
         document.getElementById("adddata").onclick = function () {
             try {
@@ -1720,6 +2003,7 @@
 
         let before_dateValue
         let before_periodValue
+        let before_itemId
 
         function populateTable(id) {
             var tableBody;
@@ -1736,7 +2020,7 @@
                 const highAlertClass = Number(label.high) >= 140 ? "bp-alert-high" : "";
                 const lowAlertClass = Number(label.low) <= 70 ? "bp-alert-low" : "";
 
-                const row = `<tr>
+                const row = `<tr data-item-id="${label.itemId || ""}">
                             <!-- 日付部分: datepickerを使用 -->
                             <td class="date-picker" data-raw-date="${rawDate}">${String(datePart)}</td>
                             <td class="time-picker">${dataArray[periodPart]}</td>
@@ -1784,6 +2068,7 @@
 
                     before_dateValue = dateValue
                     before_periodValue = dataArray.indexOf(timeValue)
+                    before_itemId = currentRow1.getAttribute("data-item-id") || ""
                     // ダイアログを表示
                     dialog.classList.remove("is-hidden");
 
@@ -1843,6 +2128,7 @@
                 }
 
                 var newdata = {
+                    itemId: before_itemId,
                     date: String(newDate),
                     period: parseInt(newTime),
                     high: parseInt(newHigh),
@@ -1924,16 +2210,14 @@
             allData = allData.filter(item => !(item.date == before_dateValue && item.period == before_periodValue));
             currentRow1.remove();
         }
-        initI18n(selectedUiLang).then(() => {
+        document.addEventListener("language-changed", function (event) {
+            setLanguage(normalizeLangToUi(event.detail && event.detail.langId));
+        });
+        $(function () {
             applyI18n();
-            window.addEventListener("load", bootPressureApp);
-        }).catch((error) => {
-            console.error("i18n init failed:", error);
-            applyI18n();
-            window.addEventListener("load", bootPressureApp);
+            bootPressureApp();
         });
     </script>
-    <script src="../commonkokima.js"></script>
 
 </body>
 

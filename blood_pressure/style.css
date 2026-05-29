@@ -1,22 +1,14 @@
-:root {
-  --primary: #2f6fce;
-  --primary-light: #e5efff;
-  --primary-dark: #234c89;
-  --primary-border: #c8dcf8;
-  --surface: #f8fbff;
-  --background: #ffffff;
-  --text: #243247;
-  --sub-text: #5b6d84;
-  --border: #d9e6f7;
-  --divider: #d9e6f7;
-  --shadow: 0 8px 20px rgba(50, 88, 140, 0.14);
-  --danger: #d23352;
-  --info-state: #2367d1;
+.blood-pressure-main {
+  --danger: var(--error);
 }
 
 body {
   min-height: 100vh;
   padding: 0 0 92px;
+}
+
+.blood-pressure-main {
+  padding-bottom: 120px;
 }
 
 .loader,
@@ -39,11 +31,10 @@ body {
 }
 
 #settingsDialog { z-index: 70; }
-#editDialog { display: none; z-index: 50; }
+#editDialog { z-index: 50; }
 
 h1.title_bp {
-  margin: 14px 12px 8px;
-  padding-right: 120px;
+  margin: 0 0 12px;
   font-size: 1.35rem;
   font-weight: 800;
   color: var(--text);
@@ -146,9 +137,15 @@ button.edit-btn,
 
 .settings-label,
 #addDataForm label,
+.form-group-label,
 #editForm label {
   color: var(--text);
   font-weight: 700;
+}
+
+.form-group-label {
+  display: inline-block;
+  margin-bottom: 4px;
 }
 
 .language-option-list,
@@ -191,6 +188,17 @@ button.edit-btn,
   color: var(--text);
 }
 
+#addDataForm .dropdown {
+  position: static;
+  display: block;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  background: transparent;
+  margin-top: 0;
+}
+
 .medicine-radio-group {
   display: flex;
   flex-wrap: wrap;
@@ -223,7 +231,7 @@ button.edit-btn,
 }
 
 .open-add-form-btn,
-.load-older-btn { width: calc(100% - 24px); margin-inline: 12px; }
+.load-older-btn { width: 100%; margin-inline: 0; }
 .open-add-form-btn { margin-block: 8px 10px; }
 .load-older-btn { min-height: 46px; margin-block: 10px 100px; font-size: 0.92rem; }
 .load-older-btn:disabled { opacity: 0.55; cursor: default; }
@@ -250,7 +258,7 @@ button.edit-btn,
 }
 
 .add-form-panel {
-  margin: 0 12px 10px;
+  margin: 0 0 10px;
   position: relative;
   z-index: 5;
   max-height: 0;
@@ -269,7 +277,7 @@ button.edit-btn,
 #chart-container,
 #table-container,
 #edit-container {
-  margin: 0 12px 16px;
+  margin: 0 0 16px;
   padding: 12px;
 }
 
@@ -295,7 +303,7 @@ button.edit-btn,
 #chart-container {
   overflow: hidden;
 }
-.older-charts-container { margin: 30px 12px; gap: 12px; }
+.older-charts-container { margin: 30px 0; gap: 12px; }
 .older-chart-card {
   padding: 10px;
   height: 400px;
