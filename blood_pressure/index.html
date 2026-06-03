@@ -1432,30 +1432,18 @@
             if (loadingOlderPressure || !hasOlderPressure) return;
             loadingOlderPressure = true;
             syncOlderButtons();
-            const startPage = loadedWeekPages + 1;
-            const maxSearchPages = startPage + 11;
-            const walk = (page) => {
-                if (page > maxSearchPages) {
-                    hasOlderPressure = false;
-                    return Promise.resolve(false);
-                }
-                return fetchPressurePage(page, "append").then((items) => {
-                    if (!items.length) {
-                        return walk(page + 1);
-                    }
-                    pressurePage = page;
-                    loadedWeekPages = page;
+            const nextPage = loadedWeekPages + 1;
+            fetchPressurePage(nextPage, "append").then((items) => {
+                if (items.length > 0) {
+                    pressurePage = nextPage;
+                    loadedWeekPages = nextPage;
                     allData = dedupePressureItems(allData);
                     updateChart(allData);
                     createTablePage();
                     populateTable();
-                    return true;
-                });
-            };
-            walk(startPage).then((found) => {
-                if (!found) {
-                    hasOlderPressure = false;
+                    return;
                 }
+                hasOlderPressure = false;
             }).catch((e) => {
                 console.error("load older error:", e);
             }).finally(() => {
