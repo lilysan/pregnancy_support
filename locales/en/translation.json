@@ -81,7 +81,8 @@
 },
   "success": {
     "save": "Saved successfully.",
-    "delete": "Deleted successfully."
+    "delete": "Deleted successfully.",
+    "register": "Registered successfully."
   },
   "link": {
     "desc": "Register your basic information, hospitals you visit or plan to deliver at, and important contacts.",
@@ -142,7 +143,8 @@
     "option": {
       "notSet": "Not set",
       "yes": "Yes",
-      "no": "No"
+      "no": "No",
+      "undecided": "Undecided"
     },
     "confirm": {
       "unlink": "Do you want to delete this hospital registration?",
@@ -150,6 +152,13 @@
       "deleteContact": "Do you want to delete this contact?"
     },
     "modal": {
+      "confirmDelete": {
+        "title": "Delete this item?"
+      },
+      "resetUser": {
+        "title": "Reset your information?",
+        "message": "Do you want to reset your information?"
+      },
       "registerHospital": {
         "title": "Register Hospital",
         "desc": "Enter your patient ID card number and other information to register this hospital."
@@ -188,7 +197,8 @@
     "error": {
       "scanUnavailable": "QR code scanning is not available.",
       "invalidQr": "Invalid QR code.",
-      "scanFailed": "Failed to scan the QR code."
+      "scanFailed": "Failed to scan the QR code.",
+      "isLaborPatientRequired": "Please select whether this is your delivery hospital."
     }
   },
   "bp": {

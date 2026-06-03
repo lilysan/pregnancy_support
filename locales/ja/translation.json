@@ -81,7 +81,8 @@
   },
   "success": {
     "save": "保存しました。",
-    "delete": "削除しました。"
+    "delete": "削除しました。",
+    "register": "登録しました。"
   },
   "link": {
     "desc": "あなたの基本情報、通院中または分娩予定の病院、必要な連絡先を登録できます。",
@@ -142,7 +143,8 @@
     "option": {
       "notSet": "未設定",
       "yes": "はい",
-      "no": "いいえ"
+      "no": "いいえ",
+      "undecided": "未定"
     },
     "confirm": {
       "unlink": "この病院の登録を削除しますか？",
@@ -150,6 +152,13 @@
       "deleteContact": "この連絡先を削除しますか？"
     },
     "modal": {
+      "confirmDelete": {
+        "title": "削除しますか？"
+      },
+      "resetUser": {
+        "title": "リセットしますか？",
+        "message": "あなたの情報をリセットしますか？"
+      },
       "registerHospital": {
         "title": "病院を登録",
         "desc": "診察券番号などを入力して、病院を登録してください。"
@@ -188,7 +197,8 @@
     "error": {
       "scanUnavailable": "QRコードを読み取れません。",
       "invalidQr": "QRコードが正しくありません。",
-      "scanFailed": "QRコードの読み取りに失敗しました。"
+      "scanFailed": "QRコードの読み取りに失敗しました。",
+      "isLaborPatientRequired": "この病院で分娩予定かどうかを選択してください。"
     }
   },
   "bp": {

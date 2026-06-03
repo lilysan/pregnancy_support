@@ -81,7 +81,8 @@
   },
   "success": {
     "delete": "<ruby>消<rt>け</rt></ruby>しました。",
-    "save": "<ruby>保存<rt>ほぞん</rt></ruby>しました。"
+    "save": "<ruby>保存<rt>ほぞん</rt></ruby>しました。",
+    "register": "<ruby>登録<rt>とうろく</rt></ruby>しました。"
   },
   "link": {
     "desc": "あなたの<ruby>基本情報<rt>きほんじょうほう</rt></ruby>、<ruby>病院<rt>びょういん</rt></ruby>、<ruby>必要<rt>ひつよう</rt></ruby>な<ruby>連絡先<rt>れんらくさき</rt></ruby>を<ruby>登録<rt>とうろく</rt></ruby>できます。",
@@ -142,7 +143,8 @@
     "option": {
       "notSet": "えらんでください",
       "yes": "はい",
-      "no": "いいえ"
+      "no": "いいえ",
+      "undecided": "<ruby>未定<rt>みてい</rt></ruby>"
     },
     "confirm": {
       "unlink": "この<ruby>病院<rt>びょういん</rt></ruby>の<ruby>登録<rt>とうろく</rt></ruby>を<ruby>消<rt>け</rt></ruby>しますか？",
@@ -150,6 +152,13 @@
       "deleteContact": "この<ruby>連絡先<rt>れんらくさき</rt></ruby>を<ruby>消<rt>け</rt></ruby>しますか？"
     },
     "modal": {
+      "confirmDelete": {
+        "title": "<ruby>消<rt>け</rt></ruby>しますか？"
+      },
+      "resetUser": {
+        "title": "リセットしますか？",
+        "message": "あなたの<ruby>情報<rt>じょうほう</rt></ruby>をリセットしますか？"
+      },
       "registerHospital": {
         "title": "<ruby>病院<rt>びょういん</rt></ruby>を<ruby>登録<rt>とうろく</rt></ruby>",
         "desc": "<ruby>診察券番号<rt>しんさつけんばんごう</rt></ruby>などを<ruby>入力<rt>にゅうりょく</rt></ruby>して、<ruby>病院<rt>びょういん</rt></ruby>を<ruby>登録<rt>とうろく</rt></ruby>してください。"
@@ -188,7 +197,8 @@
     "error": {
       "scanUnavailable": "QRコードを<ruby>読<rt>よ</rt></ruby>み<ruby>取<rt>と</rt></ruby>れません。",
       "invalidQr": "QRコードが<ruby>正<rt>ただ</rt></ruby>しくありません。",
-      "scanFailed": "QRコードの<ruby>読<rt>よ</rt></ruby>み<ruby>取<rt>と</rt></ruby>りに<ruby>失敗<rt>しっぱい</rt></ruby>しました。"
+      "scanFailed": "QRコードの<ruby>読<rt>よ</rt></ruby>み<ruby>取<rt>と</rt></ruby>りに<ruby>失敗<rt>しっぱい</rt></ruby>しました。",
+      "isLaborPatientRequired": "この<ruby>病院<rt>びょういん</rt></ruby>で<ruby>出産<rt>しゅっさん</rt></ruby>する<ruby>予定<rt>よてい</rt></ruby>かどうかを<ruby>選<rt>えら</rt></ruby>んでください。"
     }
   },
   "bp": {
