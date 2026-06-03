@@ -548,6 +548,8 @@
         $("#userNationalityInput").val(user.nationality || "");
         $("#userNativeInput").val(user.native || "");
         $("#userDueDateInput").val(toDateInputValue(user.dueDate));
+        //TODO DELETE
+        console.log(user.dueDate);
 
         const level = user.level || {};
         $("#userLevelSInput").val(level.s != null ? String(level.s) : "");
