@@ -123,6 +123,7 @@
                         </table>
                     </div>
                 </div>
+                <button type="button" id="loadOlderEditBtn" class="load-older-btn">以前の情報をみる</button>
             </div>
         </article>
     </main>
@@ -257,6 +258,7 @@
         let loadingOlderSugar = false;
         let chartInstances = [];
         let currentRow1 = null;
+        let currentItemId = "";
         let before_dateValue = "";
         let before_periodValue = 0;
         let bloodSugarChart = null;
@@ -432,6 +434,11 @@
             return 1;
         }
 
+        function resolveItemId(item) {
+            if (!item) return "";
+            return item.itemId || item.LitemId || item.Litemid || item.litemId || item.id || "";
+        }
+
         function medicationDisplayText(item) {
             const medicine = resolveMedicineValue(item);
             if (!(medicine > 0)) return "-";
@@ -445,7 +452,7 @@
                 if (safeCount <= 5) return "●".repeat(safeCount);
                 return `●×${safeCount}`;
             }
-            return "●";
+            return "";
         }
 
         function syncMedicationUnitVisibility() {
@@ -483,7 +490,7 @@
 
         function syncOlderButtons() {
             const text = hasOlderSugar ? bt("older") : bt("noMore");
-            ["loadOlderChartBtn", "loadOlderTableBtn"].forEach((id) => {
+            ["loadOlderChartBtn", "loadOlderTableBtn", "loadOlderEditBtn"].forEach((id) => {
                 const btn = document.getElementById(id);
                 if (!btn) return;
                 btn.textContent = loadingOlderSugar ? bt("loading") : text;
@@ -538,9 +545,24 @@
                 limit: 7,
                 page: page
             };
-            return loadData(token, "sugar", query, mergeMode || "replace").then((items) => {
+            return Promise.resolve(loadData(token, "sugar", query, mergeMode || "replace")).then((items) => {
                 allData = dedupeSugarItems(allData);
                 return items || [];
+            });
+        }
+
+        function withTimeout(promise, ms) {
+            return new Promise((resolve, reject) => {
+                const timer = setTimeout(() => {
+                    reject(new Error("Request timed out"));
+                }, ms);
+                Promise.resolve(promise).then((value) => {
+                    clearTimeout(timer);
+                    resolve(value);
+                }, (error) => {
+                    clearTimeout(timer);
+                    reject(error);
+                });
             });
         }
 
@@ -569,7 +591,11 @@
             loadingOlderSugar = true;
             syncOlderButtons();
             const nextPage = loadedWeekPages + 1;
-            fetchSugarPage(nextPage, "append").then((items) => {
+            const finishLoading = () => {
+                loadingOlderSugar = false;
+                syncOlderButtons();
+            };
+            withTimeout(fetchSugarPage(nextPage, "append"), 20000).then((items) => {
                 if (items.length > 0) {
                     loadedWeekPages = nextPage;
                     sugarPage = nextPage;
@@ -582,10 +608,8 @@
                 hasOlderSugar = false;
             }).catch((e) => {
                 console.error("load older sugar error:", e);
-            }).finally(() => {
-                loadingOlderSugar = false;
-                syncOlderButtons();
-            });
+                alert(bt("loading") + "に失敗しました。もう一度お試しください。");
+            }).then(finishLoading, finishLoading);
         }
 
         function getSortedSugarData() {
@@ -789,9 +813,10 @@
             tableBody.innerHTML = "";
             getSortedSugarData().forEach((label) => {
                 const rawDate = String(label.date || "");
+                const itemId = resolveItemId(label);
                 const alertClass = isSugarAlert(label) ? "sugar-alert" : "";
                 const row = `<tr>
-                    <td class="date-picker" data-raw-date="${rawDate}">${formatDisplayDate(rawDate)}</td>
+                    <td class="date-picker" data-raw-date="${rawDate}" data-item-id="${itemId}">${formatDisplayDate(rawDate)}</td>
                     <td class="time-picker">${periodLabel(label.period)}</td>
                     <td class="sugar1 ${alertClass}">${label.sugar}</td>
                     <td class="medication1">${medicationDisplayText(label)}</td>
@@ -804,6 +829,7 @@
                     currentRow1 = this.closest("tr");
                     const dateCell = currentRow1.querySelector(".date-picker");
                     const dateValue = dateCell.getAttribute("data-raw-date") || dateCell.innerText;
+                    const itemId = dateCell.getAttribute("data-item-id") || "";
                     const timeValue = currentRow1.querySelector(".time-picker").innerText;
                     const sugarValue = currentRow1.querySelector(".sugar1").innerText;
                     const medicationValue = currentRow1.querySelector(".medication1").innerText;
@@ -815,6 +841,7 @@
                     document.getElementById("editMedicationUnit").value = medicationValue.startsWith(
                         "○") ? medicationValue.replace(/^○\s*/, "") : "";
                     syncMedicationUnitVisibility();
+                    currentItemId = itemId;
                     before_dateValue = dateValue;
                     before_periodValue = findPeriodValueFromLabel(timeValue);
                     document.getElementById("editDialog").classList.remove("is-hidden");
@@ -822,6 +849,7 @@
             });
             document.getElementById("saveButton").onclick = savebutton;
             document.getElementById("cancelButton").onclick = function () {
+                currentItemId = "";
                 document.getElementById("editDialog").classList.add("is-hidden");
             };
             document.getElementById("deleteButton").onclick = function () {
@@ -832,6 +860,7 @@
                 Promise.resolve(deleteData(list, "sugar"))
                     .then(() => reloadSugarDataAndRender())
                     .then(() => {
+                        currentItemId = "";
                         document.getElementById("editDialog").classList.add("is-hidden");
                     })
                     .catch((error) => {
@@ -858,23 +887,23 @@
                 alert(bt("fillAll"));
                 return;
             }
-            const olddata = {
-                date: before_dateValue,
-                period: before_periodValue
-            };
+            const numericItemId = Number(currentItemId);
+            if (!Number.isFinite(numericItemId)) {
+                alert("識別IDが取得できません。画面を再読み込みしてからもう一度お試しください。");
+                return;
+            }
             const newdata = {
+                itemId: numericItemId,
                 date: String(newDate),
                 period: newPeriod,
                 sugar: Math.round(newSugar),
                 medicine: medicationStatus === "yes" ? (Number.parseFloat(medicationUnit) || 0) : 0
             };
-            const sameKey = String(olddata.date) === String(newdata.date) && Number(olddata.period) === Number(newdata
-                .period);
             const updateSugar = (typeof putData === "function") ? putData : ((payload, type) => addData(payload, type));
-            const request = sameKey ? Promise.resolve(updateSugar(newdata, "sugar")) : Promise.resolve(updateSugar(
-                newdata, "sugar")).then(() => deleteData(olddata, "sugar"));
+            const request = Promise.resolve(updateSugar(newdata, "sugar"));
             request.then(() => reloadSugarDataAndRender())
                 .then(() => {
+                    currentItemId = "";
                     document.getElementById("editDialog").classList.add("is-hidden");
                 })
                 .catch((error) => {
@@ -1083,6 +1112,7 @@
         document.getElementById("closeAddFormBtn").addEventListener("click", closeAddForm);
         document.getElementById("loadOlderChartBtn").addEventListener("click", loadOlderSugarData);
         document.getElementById("loadOlderTableBtn").addEventListener("click", loadOlderSugarData);
+        document.getElementById("loadOlderEditBtn").addEventListener("click", loadOlderSugarData);
         document.querySelectorAll('input[name="medicationStatus"], input[name="editMedicationStatus"]').forEach((
             el) => {
             el.addEventListener("change", syncMedicationUnitVisibility);

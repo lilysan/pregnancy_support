@@ -49,6 +49,11 @@ body {
 
 #settingsDialog { z-index: 70; }
 #editDialog { display: none; z-index: 50; }
+#editDialog:not(.is-hidden) {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
 
 h1.title_bp {
   margin: 16px 0 10px;
