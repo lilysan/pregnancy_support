@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陣痛カウンター</title>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="../common/js/config.js"></script>
+    <script src="../common/js/toast.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div id="header-container" class="header-wrapper"></div>
+    <div class="loader is-hidden" id="loadingOverlay" aria-hidden="true">
+        <div class="spinner"></div>
+    </div>
+
+    <main>
+        <article class="main-container labor-counter-app">
+            <h1 class="page-title">陣痛カウンター</h1>
+            <p class="page-lead">痛みが始まったら「開始」、おさまったら「終了」を押してください。</p>
+
+            <section class="timer-panel" aria-live="polite">
+                <div class="timer-label" id="timerStateLabel">待機中</div>
+                <div class="timer-value" id="activeTimer">00:00</div>
+                <div class="timer-sub" id="lastIntervalText">前回からの間隔: -</div>
+                <button type="button" id="toggleTimerBtn" class="main-action start">開始</button>
+            </section>
+
+            <section class="summary-grid">
+                <div class="summary-box">
+                    <span>回数</span>
+                    <strong id="countText">0回</strong>
+                </div>
+                <div class="summary-box">
+                    <span>平均間隔</span>
+                    <strong id="averageIntervalText">-</strong>
+                </div>
+                <div class="summary-box">
+                    <span>平均持続</span>
+                    <strong id="averageDurationText">-</strong>
+                </div>
+            </section>
+
+            <section class="action-row">
+                <button type="button" id="saveSessionBtn" class="sub-action primary">まとめて登録</button>
+                <button type="button" id="clearRecordsBtn" class="sub-action danger">リセット</button>
+            </section>
+
+            <section class="records-section">
+                <h2>記録</h2>
+                <p id="emptyText" class="empty-text">まだ記録はありません。</p>
+                <div class="records-table-wrap">
+                    <table id="recordsTable">
+                        <thead>
+                            <tr>
+                                <th>開始</th>
+                                <th>持続</th>
+                                <th>間隔</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <script>
+        const currentPage = "labor_counter";
+        const liff = window.liff;
+        const STORAGE_KEY = "labor_counter_records_v1";
+
+        const state = {
+            idToken: "",
+            activeStart: null,
+            timerId: null,
+            records: []
+        };
+
+        function showAppBusy() {
+            const loader = document.getElementById("loadingOverlay");
+            loader.classList.remove("is-hidden");
+            loader.style.display = "grid";
+            loader.setAttribute("aria-hidden", "false");
+        }
+
+        function hideAppBusy() {
+            const loader = document.getElementById("loadingOverlay");
+            loader.classList.add("is-hidden");
+            loader.style.display = "none";
+            loader.setAttribute("aria-hidden", "true");
+        }
+
+        function loadHeader() {
+            return new Promise((resolve, reject) => {
+                let settled = false;
+                const finish = () => {
+                    if (settled) return;
+                    settled = true;
+                    resolve();
+                };
+                const fail = (error) => {
+                    if (settled) return;
+                    settled = true;
+                    reject(error);
+                };
+                const timer = setTimeout(finish, 3000);
+                $("#header-container").load("../common/header.html", function (_responseText, status) {
+                    if (status === "error") {
+                        clearTimeout(timer);
+                        fail(new Error("Failed to load header.html"));
+                        return;
+                    }
+                    document.addEventListener("i18n-initialized", function () {
+                        clearTimeout(timer);
+                        finish();
+                    }, {
+                        once: true
+                    });
+                    $.getScript("../common/js/header.js").fail(function () {
+                        clearTimeout(timer);
+                        fail(new Error("Failed to load header.js"));
+                    });
+                });
+            });
+        }
+
+        function loadLocalRecords() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                state.records = raw ? JSON.parse(raw) : [];
+            } catch (error) {
+                state.records = [];
+            }
+        }
+
+        function saveLocalRecords() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state.records));
+        }
+
+        function pad(value) {
+            return String(value).padStart(2, "0");
+        }
+
+        function formatClock(dateString) {
+            const date = new Date(dateString);
+            if (Number.isNaN(date.getTime())) return "-";
+            return `${pad(date.getHours())}:${pad(date.getMinutes())}`;
+        }
+
+        function formatSeconds(seconds) {
+            if (!Number.isFinite(seconds) || seconds < 0) return "-";
+            const min = Math.floor(seconds / 60);
+            const sec = Math.floor(seconds % 60);
+            return `${pad(min)}:${pad(sec)}`;
+        }
+
+        function buildRecord(start, end) {
+            const previous = state.records[state.records.length - 1];
+            const durationSeconds = Math.max(0, Math.round((end.getTime() - start.getTime()) / 1000));
+            const intervalSeconds = previous ? Math.max(0, Math.round((start.getTime() - new Date(previous.startedAt).getTime()) / 1000)) : null;
+            return {
+                localId: `${start.getTime()}-${Math.random().toString(16).slice(2)}`,
+                startedAt: start.toISOString(),
+                endedAt: end.toISOString(),
+                durationSeconds: durationSeconds,
+                intervalSeconds: intervalSeconds,
+                saved: false
+            };
+        }
+
+        function average(values) {
+            const filtered = values.filter((value) => Number.isFinite(value));
+            if (!filtered.length) return null;
+            return filtered.reduce((sum, value) => sum + value, 0) / filtered.length;
+        }
+
+        function render() {
+            const tbody = document.querySelector("#recordsTable tbody");
+            const empty = document.getElementById("emptyText");
+            tbody.innerHTML = "";
+
+            state.records.slice().reverse().forEach((record) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${formatClock(record.startedAt)}</td>
+                    <td>${formatSeconds(record.durationSeconds)}</td>
+                    <td>${formatSeconds(record.intervalSeconds)}</td>
+                    <td><button type="button" class="delete-row-btn" data-local-id="${record.localId}">削除</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            empty.style.display = state.records.length ? "none" : "block";
+            document.getElementById("countText").textContent = `${state.records.length}回`;
+            document.getElementById("averageIntervalText").textContent = formatSeconds(average(state.records.map((record) => record.intervalSeconds)));
+            document.getElementById("averageDurationText").textContent = formatSeconds(average(state.records.map((record) => record.durationSeconds)));
+            const last = state.records[state.records.length - 1];
+            document.getElementById("lastIntervalText").textContent = `前回からの間隔: ${last ? formatSeconds(last.intervalSeconds) : "-"}`;
+
+            document.querySelectorAll(".delete-row-btn").forEach((button) => {
+                button.addEventListener("click", function () {
+                    state.records = state.records.filter((record) => record.localId !== this.dataset.localId);
+                    saveLocalRecords();
+                    render();
+                });
+            });
+        }
+
+        function updateActiveTimer() {
+            if (!state.activeStart) {
+                document.getElementById("activeTimer").textContent = "00:00";
+                return;
+            }
+            const elapsed = Math.max(0, Math.round((Date.now() - state.activeStart.getTime()) / 1000));
+            document.getElementById("activeTimer").textContent = formatSeconds(elapsed);
+        }
+
+        function setActiveUi(active) {
+            const button = document.getElementById("toggleTimerBtn");
+            document.getElementById("timerStateLabel").textContent = active ? "計測中" : "待機中";
+            button.textContent = active ? "終了" : "開始";
+            button.classList.toggle("start", !active);
+            button.classList.toggle("stop", active);
+        }
+
+        function startContraction() {
+            state.activeStart = new Date();
+            setActiveUi(true);
+            updateActiveTimer();
+            state.timerId = setInterval(updateActiveTimer, 1000);
+        }
+
+        function stopContraction() {
+            if (!state.activeStart) return;
+            const record = buildRecord(state.activeStart, new Date());
+            clearInterval(state.timerId);
+            state.timerId = null;
+            state.activeStart = null;
+            state.records.push(record);
+            saveLocalRecords();
+            setActiveUi(false);
+            updateActiveTimer();
+            render();
+            registerRecord(record);
+        }
+
+        function requestLaborApi(method, postData, options) {
+            const silent = options && options.silent;
+            if (!silent) showAppBusy();
+            return $.ajax({
+                url: API_URL,
+                type: "POST",
+                dataType: "json",
+                timeout: silent ? 5000 : 12000,
+                data: JSON.stringify({
+                    path: "labor_counter",
+                    method: method,
+                    idToken: state.idToken,
+                    postData: postData
+                })
+            }).then(function (response) {
+                if (response.statusCode === 401) {
+                    liff.logout();
+                    window.location.reload();
+                    return null;
+                }
+                if (response.statusCode !== 200) {
+                    alert(response.message || "保存に失敗しました。");
+                    return null;
+                }
+                return response.data || {};
+            }, function () {
+                console.warn("labor_counter API is not ready or network failed.");
+                return null;
+            }).always(function () {
+                if (!silent) hideAppBusy();
+            });
+        }
+
+        function registerRecord(record) {
+            return requestLaborApi("post", {
+                type: "contraction",
+                startedAt: record.startedAt,
+                endedAt: record.endedAt,
+                durationSeconds: record.durationSeconds,
+                intervalSeconds: record.intervalSeconds
+            }, {
+                silent: true
+            }).then(function (data) {
+                if (!data) return;
+                record.saved = true;
+                if (data.itemId) record.itemId = data.itemId;
+                saveLocalRecords();
+                render();
+            });
+        }
+
+        function registerSession() {
+            if (!state.records.length) {
+                alert("登録する記録がありません。");
+                return;
+            }
+            requestLaborApi("post", {
+                type: "session",
+                items: state.records.map((record) => ({
+                    itemId: record.itemId || "",
+                    startedAt: record.startedAt,
+                    endedAt: record.endedAt,
+                    durationSeconds: record.durationSeconds,
+                    intervalSeconds: record.intervalSeconds
+                }))
+            }).then(function (data) {
+                if (!data) return;
+                state.records = state.records.map((record) => Object.assign({}, record, {
+                    saved: true
+                }));
+                saveLocalRecords();
+                render();
+                alert("登録しました。");
+            });
+        }
+
+        function clearRecords() {
+            if (state.activeStart) {
+                alert("計測中はリセットできません。");
+                return;
+            }
+            if (!state.records.length) return;
+            if (!confirm("記録をリセットしますか？")) return;
+            state.records = [];
+            saveLocalRecords();
+            render();
+        }
+
+        function bindEvents() {
+            document.getElementById("toggleTimerBtn").addEventListener("click", function () {
+                if (state.activeStart) {
+                    stopContraction();
+                } else {
+                    startContraction();
+                }
+            });
+            document.getElementById("saveSessionBtn").addEventListener("click", registerSession);
+            document.getElementById("clearRecordsBtn").addEventListener("click", clearRecords);
+        }
+
+        function bootLaborCounter() {
+            showAppBusy();
+            const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+            liff.init({
+                liffId: LIFF_ID,
+                withLoginOnExternalBrowser: !isDev
+            }).then(() => {
+                state.idToken = liff.getIDToken();
+                loadLocalRecords();
+                bindEvents();
+                render();
+                return loadHeader();
+            }).then(() => {
+                hideAppBusy();
+            }).catch((error) => {
+                console.error("LIFF init failed:", error);
+                hideAppBusy();
+                alert("LIFF init failed.");
+            });
+        }
+
+        window.addEventListener("load", bootLaborCounter);
+    </script>
+</body>
+
+</html>
