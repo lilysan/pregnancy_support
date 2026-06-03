@@ -417,8 +417,6 @@
         }).then(() => {
             localizeLinkPage();
             $("#loadingOverlay").removeClass("is-open");
-            //TODO DELTE
-            $("#userDueDateInput").val(toDateInputValue("2026/06/23"));
         }).catch((err) => {
             console.error("LIFF init failed:", err);
             alert("LIFF init failed.");
