@@ -122,6 +122,7 @@
                         </table>
                     </div>
                 </div>
+                <button type="button" id="loadOlderEditBtn" class="load-older-btn">以前の情報をみる</button>
             </div>
 
             <!-- ダイアログ -->
@@ -1398,10 +1399,9 @@
         }
 
         function syncOlderButtons() {
-            const chartBtn = document.getElementById("loadOlderChartBtn");
-            const tableBtn = document.getElementById("loadOlderTableBtn");
             const label = loadingOlderPressure ? bt("loading") : (hasOlderPressure ? bt("older") : bt("noMore"));
-            [chartBtn, tableBtn].forEach((btn) => {
+            ["loadOlderChartBtn", "loadOlderTableBtn", "loadOlderEditBtn"].forEach((id) => {
+                const btn = document.getElementById(id);
                 if (!btn) return;
                 btn.textContent = label;
                 btn.disabled = loadingOlderPressure || !hasOlderPressure;
@@ -1428,12 +1428,31 @@
             return Promise.resolve(req).then((items) => Array.isArray(items) ? items : []);
         }
 
+        function withTimeout(promise, ms) {
+            return new Promise((resolve, reject) => {
+                const timer = setTimeout(() => {
+                    reject(new Error("Request timed out"));
+                }, ms);
+                Promise.resolve(promise).then((value) => {
+                    clearTimeout(timer);
+                    resolve(value);
+                }, (error) => {
+                    clearTimeout(timer);
+                    reject(error);
+                });
+            });
+        }
+
         function loadOlderPressureData() {
             if (loadingOlderPressure || !hasOlderPressure) return;
             loadingOlderPressure = true;
             syncOlderButtons();
             const nextPage = loadedWeekPages + 1;
-            fetchPressurePage(nextPage, "append").then((items) => {
+            const finishLoading = () => {
+                loadingOlderPressure = false;
+                syncOlderButtons();
+            };
+            withTimeout(fetchPressurePage(nextPage, "append"), 20000).then((items) => {
                 if (items.length > 0) {
                     pressurePage = nextPage;
                     loadedWeekPages = nextPage;
@@ -1446,10 +1465,8 @@
                 hasOlderPressure = false;
             }).catch((e) => {
                 console.error("load older error:", e);
-            }).finally(() => {
-                loadingOlderPressure = false;
-                syncOlderButtons();
-            });
+                alert(bt("loading") + "に失敗しました。もう一度お試しください。");
+            }).then(finishLoading, finishLoading);
         }
 
         function applyI18n() {
@@ -1938,6 +1955,7 @@
         addClick("closeAddFormBtn", closeAddForm);
         addClick("loadOlderChartBtn", loadOlderPressureData);
         addClick("loadOlderTableBtn", loadOlderPressureData);
+        addClick("loadOlderEditBtn", loadOlderPressureData);
 
         document.getElementById("adddata").onclick = function () {
             try {
