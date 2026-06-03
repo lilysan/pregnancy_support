@@ -5,93 +5,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weight Gain Period Tracker</title>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
     <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
     <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
     <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
-    <link rel="stylesheet" href="../template/style.css">
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="../common/js/config.js"></script>
+    <script src="../common/js/toast.js"></script>
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="./period.css">
 
 </head>
 
 <body>
-    <div class="loader"></div>
-    <button type="button" id="settingsBtn" class="settings-btn" onclick="openSettingsDialog()">設定</button>
-
-    <div id="settingsDialog">
-        <div id="settingsDialogPanel">
-            <div class="settings-header">
-                <h2 id="settingsDialogTitle">設定</h2>
-                <button type="button" id="closeSettingsBtnTop" class="settings-close-top-btn"
-                    onclick="closeSettingsDialog()">閉じる</button>
+    <div id="header-container" class="header-wrapper"></div>
+    <div class="loader is-hidden">
+        <div class="text-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
             </div>
-            <div class="settings-block">
-                <p id="languageSectionTitle" class="settings-label">言語設定</p>
-                <div id="languageOptionList" class="language-option-list"></div>
-            </div>
-            <button type="button" id="closeSettingsBtn" onclick="closeSettingsDialog()">閉じる</button>
         </div>
     </div>
 
-    <header class="page-header">
-        <h1 class="page-title" id="pageTitle">一定期間の増加体重管理</h1>
-        <p class="page-lead" id="pageLead">看護師さんが期間の目標を設定し、その期間の中で朝・昼・晩の体重を記録して、どのくらい増えているかを確認するための画面です。</p>
-    </header>
+    <main>
+        <article class="main-container weight-app">
+            <h1 class="page-title" id="pageTitle">一定期間の増加体重管理</h1>
+            <p class="page-lead" id="pageLead">期間の目標を設定し、体重の増え方を確認できます。</p>
+            <div class="period-nav">
+                <button type="button" id="loadNewerPeriodBtn" class="period-nav-btn">新しい期間へ</button>
+                <div id="currentPeriodLabel" class="period-nav-label">最新の設定期間</div>
+                <button type="button" id="loadOlderPeriodBtn" class="period-nav-btn">1つ前の期間を見る</button>
+            </div>
 
-    <div class="tab-bar">
-        <button type="button" class="tab-button active" id="tabInput" onclick="switchTab('inputTab', event)">入力</button>
-        <button type="button" class="tab-button" id="tabOverview" onclick="switchTab('overviewTab', event)">概要</button>
-        <button type="button" class="tab-button" id="tabList" onclick="switchTab('listTab', event)">一覧</button>
-    </div>
+            <section id="overviewTab" class="tab-panel">
+                <section class="card">
+                    <h2 id="summaryTitle">期間サマリー</h2>
+                    <div class="summary-grid">
+                        <div class="summary-box">
+                            <div class="summary-label" id="summaryLabelPeriod">対象期間</div>
+                            <div class="summary-value small" id="summaryPeriod">-</div>
+                        </div>
+                        <div class="summary-box">
+                            <div class="summary-label" id="summaryLabelStartWeight">開始時の体重</div>
+                            <div class="summary-value" id="summaryStartWeight">-</div>
+                        </div>
+                        <div class="summary-box">
+                            <div class="summary-label" id="summaryLabelLatestWeight">最新の体重</div>
+                            <div class="summary-value" id="summaryLatestWeight">-</div>
+                        </div>
+                        <div class="summary-box">
+                            <div class="summary-label" id="summaryLabelCurrentGain">現在の増加量</div>
+                            <div class="summary-value" id="summaryCurrentGain">-</div>
+                        </div>
+                        <div class="summary-box">
+                            <div class="summary-label" id="summaryLabelTargetWeight">目標体重</div>
+                            <div class="summary-value" id="summaryTargetWeight">-</div>
+                        </div>
+                        <div class="summary-box">
+                            <div class="summary-label" id="summaryLabelRemaining">目標まで残り</div>
+                            <div class="summary-value" id="summaryRemaining">-</div>
+                        </div>
+                    </div>
+                    <div class="progress-wrap">
+                        <div class="summary-label" id="progressLabel">目標増加体重に対する進み具合</div>
+                        <div class="progress-bar">
+                            <div id="gainProgressFill" class="progress-fill"></div>
+                        </div>
+                        <div class="summary-value small summary-value-with-gap" id="gainProgressText">-</div>
+                    </div>
+                    <div id="statusNote" class="status-note neutral">期間設定を入れると、期間中の増加量をここで確認できます。</div>
+                </section>
 
-    <main class="layout">
-        <section id="overviewTab" class="tab-panel">
-            <section class="card">
-                <h2 id="summaryTitle">期間サマリー</h2>
-                <div class="summary-grid">
-                    <div class="summary-box">
-                        <div class="summary-label" id="summaryLabelPeriod">対象期間</div>
-                        <div class="summary-value small" id="summaryPeriod">-</div>
-                    </div>
-                    <div class="summary-box">
-                        <div class="summary-label" id="summaryLabelStartWeight">開始時の体重</div>
-                        <div class="summary-value" id="summaryStartWeight">-</div>
-                    </div>
-                    <div class="summary-box">
-                        <div class="summary-label" id="summaryLabelLatestWeight">最新の体重</div>
-                        <div class="summary-value" id="summaryLatestWeight">-</div>
-                    </div>
-                    <div class="summary-box">
-                        <div class="summary-label" id="summaryLabelCurrentGain">現在の増加量</div>
-                        <div class="summary-value" id="summaryCurrentGain">-</div>
-                    </div>
-                    <div class="summary-box">
-                        <div class="summary-label" id="summaryLabelTargetWeight">目標体重</div>
-                        <div class="summary-value" id="summaryTargetWeight">-</div>
-                    </div>
-                    <div class="summary-box">
-                        <div class="summary-label" id="summaryLabelRemaining">目標まで残り</div>
-                        <div class="summary-value" id="summaryRemaining">-</div>
-                    </div>
-                </div>
-                <div class="progress-wrap">
-                    <div class="summary-label" id="progressLabel">目標増加体重に対する進み具合</div>
-                    <div class="progress-bar">
-                        <div id="gainProgressFill" class="progress-fill"></div>
-                    </div>
-                    <div class="summary-value small summary-value-with-gap" id="gainProgressText">-</div>
-                </div>
-                <div id="statusNote" class="status-note neutral">期間設定を入れると、期間中の増加量をここで確認できます。</div>
+                <section class="card chart-card">
+                    <h2 id="chartTitle">期間中の推移</h2>
+                    <canvas id="weightPeriodChart"></canvas>
+                </section>
             </section>
-
-            <section class="card chart-card">
-                <h2 id="chartTitle">期間中の推移</h2>
-                <canvas id="weightPeriodChart"></canvas>
-            </section>
-        </section>
 
         <section id="inputTab" class="tab-panel active">
             <details class="card accordion-card" id="planAccordion">
@@ -174,7 +171,14 @@
                 </div>
             </section>
         </section>
+        </article>
     </main>
+
+    <div class="tab-bar">
+        <button type="button" class="tab-button active" id="tabInput" onclick="switchTab('inputTab', event)">入力</button>
+        <button type="button" class="tab-button" id="tabOverview" onclick="switchTab('overviewTab', event)">概要</button>
+        <button type="button" class="tab-button" id="tabList" onclick="switchTab('listTab', event)">一覧</button>
+    </div>
 
     <div id="editDialog" class="dialog-backdrop">
         <div class="dialog-panel">
@@ -205,37 +209,17 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
-    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script>
-        window.IS_TEST_MODE = new URLSearchParams(window.location.search).get("test") === "1";
-        if (window.IS_TEST_MODE) {
-            window.liff = {
-                init: function () {
-                    return Promise.resolve();
-                },
-                getIDToken: function () {
-                    return "TEST_ID_TOKEN";
-                },
-                getAppLanguage: function () {
-                    return "ja";
-                },
-                logout: function () {},
-                closeWindow: function () {}
-            };
-        }
+        const currentPage = "weight";
     </script>
     <script src="../commonkokima_weight.js"></script>
 
     <script>
-        const API_URL =
-            "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
-        const LIFF_ID = "2005594923-wN8OjyGd";
-        const PERIOD_META_KEY = "weight_period_gain_settings_v1";
+        const weightI18n = i18next.createInstance();
         const LANG_STORAGE_KEY = "weight2_ui_lang";
         const PERIOD_TIME = {
             1: "06:00",
@@ -332,6 +316,11 @@
 
         let token = "";
         let allData = [];
+        let currentPeriod = null;
+        let weightPeriodPage = 1;
+        let hasOlderWeightPeriod = true;
+        let loadingWeightPeriod = false;
+        let editingItemId = "";
         let editingDatetime = "";
         let selectedUiLang = "ja";
 
@@ -342,8 +331,8 @@
                 datasets: [{
                         label: "体重(kg)",
                         data: [],
-                        borderColor: "#2f6fce",
-                        backgroundColor: "rgba(47, 111, 206, 0.16)",
+                        borderColor: "#4f8f96",
+                        backgroundColor: "rgba(79, 143, 150, 0.16)",
                         borderWidth: 3,
                         pointRadius: 4,
                         pointHoverRadius: 5,
@@ -353,7 +342,7 @@
                     {
                         label: "目標ライン",
                         data: [],
-                        borderColor: "#d67249",
+                        borderColor: "#e9778d",
                         borderWidth: 2,
                         pointRadius: 0,
                         borderDash: [6, 6],
@@ -369,7 +358,7 @@
                     legend: {
                         labels: {
                             boxWidth: 14,
-                            color: "#3a2f2f",
+                            color: "#2c3e50",
                             font: {
                                 size: 12,
                                 weight: "700"
@@ -387,10 +376,10 @@
                             }
                         },
                         ticks: {
-                            color: "#665b58"
+                            color: "#647381"
                         },
                         grid: {
-                            color: "rgba(120, 92, 75, 0.08)"
+                            color: "rgba(79, 143, 150, 0.10)"
                         }
                     },
                     y: {
@@ -399,10 +388,10 @@
                             text: "体重(kg)"
                         },
                         ticks: {
-                            color: "#665b58"
+                            color: "#647381"
                         },
                         grid: {
-                            color: "rgba(120, 92, 75, 0.08)"
+                            color: "rgba(79, 143, 150, 0.10)"
                         }
                     }
                 }
@@ -410,23 +399,18 @@
         });
 
         function getMeta() {
-            try {
-                const raw = localStorage.getItem(PERIOD_META_KEY);
-                return raw ? JSON.parse(raw) : {};
-            } catch (e) {
-                return {};
-            }
+            return currentPeriod || {};
         }
 
         function saveMeta(meta) {
-            localStorage.setItem(PERIOD_META_KEY, JSON.stringify(meta));
+            currentPeriod = meta || null;
         }
 
         function tx(key, langCode) {
             const rawCode = langCode || selectedUiLang;
             const code = rawCode === "ja" ? "ja" : resolveI18nLang(rawCode);
             try {
-                return i18next.getFixedT(code, "translation")(key);
+                return weightI18n.getFixedT(code, "translation")(key);
             } catch (e) {
                 return key;
             }
@@ -458,7 +442,7 @@
 
         async function initI18n(langCode) {
             const resolved = resolveI18nLang(langCode);
-            await i18next
+            await weightI18n
                 .use(i18nextHttpBackend)
                 .init({
                     lng: resolved,
@@ -508,6 +492,7 @@
 
         function renderLanguageOptions() {
             const list = document.getElementById("languageOptionList");
+            if (!list) return;
             list.innerHTML = "";
 
             const jaBtn = document.createElement("button");
@@ -534,67 +519,61 @@
         async function setLanguage(langCode) {
             selectedUiLang = isSupportedLang(langCode) ? langCode : "ja";
             localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
-            await i18next.changeLanguage(resolveI18nLang(selectedUiLang));
+            await weightI18n.changeLanguage(resolveI18nLang(selectedUiLang));
             applyI18n();
             renderLanguageOptions();
-            closeSettingsDialog();
         }
 
         function applyI18n() {
-            document.getElementById("settingsBtn").textContent = bt("settings");
-            document.getElementById("settingsDialogTitle").textContent = bt("settingsTitle");
-            document.getElementById("closeSettingsBtnTop").textContent = bt("close");
-            document.getElementById("closeSettingsBtn").textContent = bt("close");
-            document.getElementById("languageSectionTitle").textContent = bt("langSetting");
-            document.getElementById("pageTitle").textContent = bt("pageTitle");
-            document.getElementById("pageLead").textContent = bt("pageLead");
-            document.getElementById("planTitle").textContent = bt("planTitle");
-            document.getElementById("planLeadSummary").textContent = bt("subtextOpen");
-            document.getElementById("planLead").textContent = bt("planLead");
-            document.getElementById("labelPeriodStartDate").textContent = bt("periodStartDate");
-            document.getElementById("labelStartWeightKg").textContent = bt("startWeightKg");
-            document.getElementById("labelTargetEndDate").textContent = bt("targetEndDate");
-            document.getElementById("labelTargetGainKg").textContent = bt("targetGainKg");
-            document.getElementById("savePlanBtn").textContent = bt("savePlan");
-            document.getElementById("summaryTitle").textContent = bt("summaryTitle");
-            document.getElementById("summaryLabelPeriod").textContent = bt("summaryPeriod");
-            document.getElementById("summaryLabelStartWeight").textContent = bt("summaryStartWeight");
-            document.getElementById("summaryLabelLatestWeight").textContent = bt("summaryLatestWeight");
-            document.getElementById("summaryLabelCurrentGain").textContent = bt("summaryCurrentGain");
-            document.getElementById("summaryLabelTargetWeight").textContent = bt("summaryTargetWeight");
-            document.getElementById("summaryLabelRemaining").textContent = bt("summaryRemaining");
-            document.getElementById("progressLabel").textContent = bt("progressLabel");
-            document.getElementById("recordTitle").textContent = bt("recordTitle");
-            document.getElementById("recordLeadSummary").textContent = bt("subtextOpen");
-            document.getElementById("recordLead").textContent = bt("recordLead");
-            document.getElementById("labelWeightDate").textContent = bt("date");
-            document.getElementById("labelWeightPeriod").textContent = bt("weightPeriod");
-            document.getElementById("labelWeightValue").textContent = bt("weightValue");
-            document.getElementById("addWeightBtn").textContent = bt("addWeight");
-            document.getElementById("periodMorning").textContent = bt("morning");
-            document.getElementById("periodNoon").textContent = bt("noon");
-            document.getElementById("periodEvening").textContent = bt("evening");
-            document.getElementById("chartTitle").textContent = bt("chartTitle");
-            document.getElementById("tabOverview").textContent = bt("tabOverview");
-            document.getElementById("tabInput").textContent = bt("tabInput");
-            document.getElementById("tabList").textContent = bt("tabList");
-            document.getElementById("tableTitle").textContent = bt("tableTitle");
-            document.getElementById("tableEmpty").textContent = bt("tableEmpty");
-            document.getElementById("thDate").textContent = bt("thDate");
-            document.getElementById("thPeriod").textContent = bt("thPeriod");
-            document.getElementById("thWeight").textContent = bt("thWeight");
-            document.getElementById("thGain").textContent = bt("thGain");
-            document.getElementById("thEdit").textContent = bt("thEdit");
-            document.getElementById("editDialogTitle").textContent = bt("editDialogTitle");
-            document.getElementById("editLabelWeightDate").textContent = bt("date");
-            document.getElementById("editLabelWeightPeriod").textContent = bt("weightPeriod");
-            document.getElementById("editLabelWeightValue").textContent = bt("weightValue");
-            document.getElementById("editPeriodMorning").textContent = bt("morning");
-            document.getElementById("editPeriodNoon").textContent = bt("noon");
-            document.getElementById("editPeriodEvening").textContent = bt("evening");
-            document.getElementById("saveEditBtn").textContent = bt("save");
-            document.getElementById("cancelEditBtn").textContent = bt("cancel");
-            document.getElementById("deleteEditBtn").textContent = bt("delete");
+            const setText = (id, value) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = value;
+            };
+            setText("pageTitle", bt("pageTitle"));
+            setText("pageLead", bt("pageLead"));
+            setText("planTitle", bt("planTitle"));
+            setText("labelPeriodStartDate", bt("periodStartDate"));
+            setText("labelStartWeightKg", bt("startWeightKg"));
+            setText("labelTargetEndDate", bt("targetEndDate"));
+            setText("labelTargetGainKg", bt("targetGainKg"));
+            setText("savePlanBtn", bt("savePlan"));
+            setText("summaryTitle", bt("summaryTitle"));
+            setText("summaryLabelPeriod", bt("summaryPeriod"));
+            setText("summaryLabelStartWeight", bt("summaryStartWeight"));
+            setText("summaryLabelLatestWeight", bt("summaryLatestWeight"));
+            setText("summaryLabelCurrentGain", bt("summaryCurrentGain"));
+            setText("summaryLabelTargetWeight", bt("summaryTargetWeight"));
+            setText("summaryLabelRemaining", bt("summaryRemaining"));
+            setText("progressLabel", bt("progressLabel"));
+            setText("recordTitle", bt("recordTitle"));
+            setText("labelWeightDate", bt("date"));
+            setText("labelWeightPeriod", bt("weightPeriod"));
+            setText("labelWeightValue", bt("weightValue"));
+            setText("addWeightBtn", bt("addWeight"));
+            setText("periodMorning", bt("morning"));
+            setText("periodNoon", bt("noon"));
+            setText("periodEvening", bt("evening"));
+            setText("chartTitle", bt("chartTitle"));
+            setText("tabOverview", bt("tabOverview"));
+            setText("tabInput", bt("tabInput"));
+            setText("tabList", bt("tabList"));
+            setText("tableTitle", bt("tableTitle"));
+            setText("tableEmpty", bt("tableEmpty"));
+            setText("thDate", bt("thDate"));
+            setText("thPeriod", bt("thPeriod"));
+            setText("thWeight", bt("thWeight"));
+            setText("thGain", bt("thGain"));
+            setText("thEdit", bt("thEdit"));
+            setText("editDialogTitle", bt("editDialogTitle"));
+            setText("editLabelWeightDate", bt("date"));
+            setText("editLabelWeightPeriod", bt("weightPeriod"));
+            setText("editLabelWeightValue", bt("weightValue"));
+            setText("editPeriodMorning", bt("morning"));
+            setText("editPeriodNoon", bt("noon"));
+            setText("editPeriodEvening", bt("evening"));
+            setText("saveEditBtn", bt("save"));
+            setText("cancelEditBtn", bt("cancel"));
+            setText("deleteEditBtn", bt("delete"));
             chart.data.datasets[0].label = bt("chartWeightLabel");
             chart.data.datasets[1].label = bt("chartGoalLabel");
             chart.options.scales.y.title.text = bt("chartWeightLabel");
@@ -615,14 +594,6 @@
                 chart.resize();
                 chart.update();
             }
-        }
-
-        function openSettingsDialog() {
-            document.getElementById("settingsDialog").style.display = "block";
-        }
-
-        function closeSettingsDialog() {
-            document.getElementById("settingsDialog").style.display = "none";
         }
 
         function formatDateTime(date, period) {
@@ -651,15 +622,158 @@
             });
         }
 
+        function showLoader() {
+            if (typeof showAppLoader === "function") {
+                showAppLoader();
+                return;
+            }
+            $(".loader").show();
+        }
+
+        function hideLoader() {
+            if (typeof hideAppLoader === "function") {
+                hideAppLoader();
+                return;
+            }
+            $(".loader").hide();
+        }
+
+        function requestWeightApi(method, postData) {
+            showLoader();
+            const access = getAccessObj({
+                path: "weight",
+                method: method,
+                idToken: token,
+                postData: postData || {}
+            });
+            access.timeout = 12000;
+            return $.ajax(access).then(function (response) {
+                if (response.statusCode === 401) {
+                    liff.logout();
+                    window.location.reload();
+                    return null;
+                }
+                if (response.statusCode !== 200) {
+                    console.error(response.message);
+                    alert(response.message || "API error");
+                    return null;
+                }
+                return response.data || {};
+            }, function () {
+                alert("Network error!weight");
+                return null;
+            }).always(function () {
+                hideLoader();
+            });
+        }
+
+        function resolveItemId(item) {
+            if (!item) return "";
+            return item.itemId || item.LitemId || item.Litemid || item.litemId || item.id || "";
+        }
+
+        function normalizePeriod(period) {
+            if (!period) return null;
+            return {
+                periodId: period.periodId || period.LperiodId || period.id || "",
+                startDate: period.startDate || period.LstartDate || "",
+                startWeightKg: Number(period.startWeightKg != null ? period.startWeightKg : period.LstartWeightKg),
+                endDate: period.endDate || period.targetEndDate || period.LendDate || "",
+                targetGainKg: Number(period.targetGainKg != null ? period.targetGainKg : period.LtargetGainKg)
+            };
+        }
+
+        function normalizeWeightItem(item) {
+            return {
+                itemId: resolveItemId(item),
+                periodId: item.periodId || item.LperiodId || "",
+                datetime: item.datetime || item.Ldatetime || "",
+                weight: Number(item.weight != null ? item.weight : item.Lweight)
+            };
+        }
+
+        function syncPeriodNav() {
+            const olderBtn = document.getElementById("loadOlderPeriodBtn");
+            const newerBtn = document.getElementById("loadNewerPeriodBtn");
+            const label = document.getElementById("currentPeriodLabel");
+            if (olderBtn) {
+                olderBtn.textContent = loadingWeightPeriod ? "読み込み中" : (hasOlderWeightPeriod ? "1つ前の期間を見る" : "これ以上ありません");
+                olderBtn.disabled = loadingWeightPeriod || !hasOlderWeightPeriod;
+            }
+            if (newerBtn) {
+                newerBtn.disabled = loadingWeightPeriod || weightPeriodPage <= 1;
+            }
+            if (label) {
+                if (!currentPeriod) {
+                    label.textContent = "設定期間がありません";
+                } else if (weightPeriodPage === 1) {
+                    label.textContent = "最新の設定期間";
+                } else {
+                    label.textContent = `${weightPeriodPage - 1}つ前の設定期間`;
+                }
+            }
+        }
+
+        function applyWeightPeriodPayload(payload, page) {
+            const data = payload || {};
+            currentPeriod = normalizePeriod(data.period);
+            allData = sortWeightData(Array.isArray(data.items) ? data.items.map(normalizeWeightItem).filter(function (item) {
+                return item.datetime && Number.isFinite(item.weight);
+            }) : []);
+            weightPeriodPage = page;
+            hasOlderWeightPeriod = currentPeriod ? data.hasOlder !== false : false;
+            loadMetaToForm();
+            renderTable();
+            renderSummary();
+            updateChart();
+            syncPeriodNav();
+        }
+
+        function fetchWeightPeriodPage(page) {
+            loadingWeightPeriod = true;
+            syncPeriodNav();
+            return requestWeightApi("get", {
+                unit: "period",
+                limit: 1,
+                page: page
+            }).then(function (payload) {
+                if (!payload) {
+                    if (!currentPeriod) hasOlderWeightPeriod = false;
+                    return;
+                }
+                applyWeightPeriodPayload(payload, page);
+            }).catch(function (error) {
+                console.error("weight period load error:", error);
+                if (!currentPeriod) hasOlderWeightPeriod = false;
+                alert("読み込みに失敗しました。もう一度お試しください。");
+            }).then(function () {
+                loadingWeightPeriod = false;
+                syncPeriodNav();
+            }, function () {
+                loadingWeightPeriod = false;
+                syncPeriodNav();
+            });
+        }
+
+        function loadOlderWeightPeriod() {
+            if (loadingWeightPeriod || !hasOlderWeightPeriod) return;
+            fetchWeightPeriodPage(weightPeriodPage + 1);
+        }
+
+        function loadNewerWeightPeriod() {
+            if (loadingWeightPeriod || weightPeriodPage <= 1) return;
+            fetchWeightPeriodPage(weightPeriodPage - 1);
+        }
+
         function getFilteredRecords() {
             const meta = getMeta();
             const start = meta.startDate ? parseDateOnly(meta.startDate).getTime() : null;
             const end = meta.endDate ? parseDateOnly(meta.endDate).getTime() : null;
 
             return sortWeightData(allData).filter(function (item) {
+                if (!Number.isFinite(start) || !Number.isFinite(end)) return true;
                 const datePart = String(item.datetime || "").split(" ")[0];
                 const time = parseDateOnly(datePart).getTime();
-                if (!Number.isFinite(start) || !Number.isFinite(end)) return false;
                 return start <= time && time <= end;
             });
         }
@@ -676,12 +790,8 @@
             await reloadWeightData();
         }
 
-        function updateChart(data) {
-            var meta = data
-            if (window.IS_TEST_MODE) {
-                meta = getMeta();
-            }
-            console.log(meta)
+        function updateChart() {
+            const meta = getMeta();
             const records = getFilteredRecords();
             const goalPoints = [];
 
@@ -794,29 +904,32 @@
                 const period = timePart === "12:00" ? "2" : (timePart === "18:00" ? "3" : "1");
                 const gain = Number.isFinite(startWeight) ? Number(item.weight) - startWeight : null;
                 const row = document.createElement("tr");
+                const itemId = resolveItemId(item);
                 row.innerHTML = `
                     <td>${datePart}</td>
                     <td>${period === "1" ? bt("morning") : period === "2" ? bt("noon") : bt("evening")}</td>
                     <td class="strong-num">${Number(item.weight).toFixed(1)}</td>
                     <td class="strong-num">${Number.isFinite(gain) ? (gain >= 0 ? "+" : "") + gain.toFixed(1) + " kg" : "-"}</td>
-                    <td><button type="button" class="edit-btn" data-datetime="${item.datetime}">${bt("editBtn")}</button></td>
+                    <td><button type="button" class="edit-btn" data-item-id="${itemId}" data-datetime="${item.datetime}">${bt("editBtn")}</button></td>
                 `;
                 body.appendChild(row);
             });
 
             body.querySelectorAll(".edit-btn").forEach(function (button) {
                 button.addEventListener("click", function () {
-                    openEditDialog(this.dataset.datetime);
+                    openEditDialog(this.dataset.itemId, this.dataset.datetime);
                 });
             });
         }
 
-        function openEditDialog(datetime) {
+        function openEditDialog(itemId, datetime) {
             const item = allData.find(function (entry) {
-                return String(entry.datetime) === String(datetime);
+                const entryItemId = resolveItemId(entry);
+                return (itemId && String(entryItemId) === String(itemId)) || String(entry.datetime) === String(datetime);
             });
             if (!item) return;
 
+            editingItemId = resolveItemId(item);
             editingDatetime = datetime;
             const datePart = String(item.datetime).split(" ")[0];
             const timePart = String(item.datetime).split(" ")[1] || "06:00";
@@ -829,15 +942,12 @@
 
         function closeEditDialog() {
             document.getElementById("editDialog").style.display = "none";
+            editingItemId = "";
             editingDatetime = "";
         }
 
         async function reloadWeightData() {
-            await loadData(token, "weight", {});
-            allData = sortWeightData(Array.isArray(allData) ? allData : []);
-            renderTable();
-            renderSummary();
-            updateChart();
+            await fetchWeightPeriodPage(weightPeriodPage || 1);
         }
 
         function loadMetaToForm() {
@@ -864,15 +974,21 @@
                 return;
             }
 
-            saveMeta({
+            const isExistingPeriod = currentPeriod && currentPeriod.periodId !== "";
+            const nextPage = isExistingPeriod ? weightPeriodPage : 1;
+            const payload = {
+                type: "period",
                 startDate: startDate,
                 startWeightKg: Number(startWeightKg.toFixed(1)),
                 endDate: endDate,
                 targetGainKg: Number(targetGainKg.toFixed(1))
-            });
-            renderSummary();
-            renderTable();
-            updateChart();
+            };
+            if (isExistingPeriod) {
+                payload.periodId = currentPeriod.periodId;
+            }
+            const result = await requestWeightApi("put", payload);
+            if (!result) return;
+            await fetchWeightPeriodPage(nextPage);
             alert(bt("promptPlanSaved"));
             switchTab("overviewTab", {
                 currentTarget: document.getElementById("tabOverview")
@@ -888,13 +1004,18 @@
                 alert(bt("promptFillWeight"));
                 return;
             }
+            if (!currentPeriod || currentPeriod.periodId === "") {
+                alert("先に期間設定を保存してください。");
+                return;
+            }
 
-            const saveWeight = (typeof setWeight === "function") ? setWeight : ((payload) => addData(payload,
-                "weight"));
-            await saveWeight({
+            const result = await requestWeightApi("post", {
+                type: "record",
+                periodId: currentPeriod.periodId,
                 datetime: formatDateTime(date, period),
                 weight: Number(weight.toFixed(1))
             });
+            if (!result) return;
 
             document.getElementById("weightValue").value = "";
             await reloadWeightData();
@@ -908,37 +1029,31 @@
             const period = document.getElementById("editWeightPeriod").value;
             const weight = parseFloat(document.getElementById("editWeightValue").value);
 
-            if (!editingDatetime || !date || !period || !Number.isFinite(weight)) {
+            if (!editingItemId || !date || !period || !Number.isFinite(weight)) {
                 alert(bt("promptFillEdit"));
                 return;
             }
 
-            const olddata = {
-                datetime: editingDatetime
-            };
-            const newdata = {
+            const result = await requestWeightApi("put", {
+                type: "record",
+                itemId: editingItemId,
+                periodId: currentPeriod ? currentPeriod.periodId : "",
                 datetime: formatDateTime(date, period),
                 weight: Number(weight.toFixed(1))
-            };
-
-            if (olddata.datetime === newdata.datetime) {
-                const updateWeight = (typeof putData === "function") ? putData : ((payload, type) => addData(
-                    payload, type));
-                await updateWeight(newdata, "weight");
-            } else {
-                await addData(newdata, "weight");
-                await deleteData(olddata, "weight");
-            }
+            });
+            if (!result) return;
 
             closeEditDialog();
             await reloadWeightData();
         }
 
         async function deleteEditedRecord() {
-            if (!editingDatetime) return;
-            await deleteData({
-                datetime: editingDatetime
-            }, "weight");
+            if (!editingItemId) return;
+            const result = await requestWeightApi("delete", {
+                type: "record",
+                itemId: editingItemId
+            });
+            if (!result) return;
             closeEditDialog();
             await reloadWeightData();
         }
@@ -975,51 +1090,82 @@
             document.getElementById("saveEditBtn").addEventListener("click", saveEditedRecord);
             document.getElementById("cancelEditBtn").addEventListener("click", closeEditDialog);
             document.getElementById("deleteEditBtn").addEventListener("click", deleteEditedRecord);
+            document.getElementById("loadOlderPeriodBtn").addEventListener("click", loadOlderWeightPeriod);
+            document.getElementById("loadNewerPeriodBtn").addEventListener("click", loadNewerWeightPeriod);
             document.getElementById("editDialog").addEventListener("click", function (event) {
                 if (event.target.id === "editDialog") closeEditDialog();
-            });
-            document.getElementById("settingsDialog").addEventListener("click", function (event) {
-                if (event.target.id === "settingsDialog") closeSettingsDialog();
             });
         }
 
         function startWeightApp(idToken) {
             token = idToken;
-            if (typeof changeLanguage === "function") {
-                changeLanguage("ja");
-            }
-            reloadWeightData().catch(function (error) {
+            return reloadWeightData().catch(function (error) {
                 console.error("initial weight load error:", error);
             });
         }
 
-        await initI18n(selectedUiLang);
+        function loadHeader() {
+            return new Promise((resolve, reject) => {
+                let settled = false;
+                const finish = () => {
+                    if (settled) return;
+                    settled = true;
+                    resolve();
+                };
+                const fail = (error) => {
+                    if (settled) return;
+                    settled = true;
+                    reject(error);
+                };
+                const timer = setTimeout(finish, 3000);
+                $("#header-container").load("../common/header.html", function (_responseText, status) {
+                    if (status === "error") {
+                        clearTimeout(timer);
+                        fail(new Error("Failed to load header.html"));
+                        return;
+                    }
+                    document.addEventListener("i18n-initialized", function () {
+                        clearTimeout(timer);
+                        finish();
+                    }, {
+                        once: true
+                    });
+                    $.getScript("../common/js/header.js").fail(function () {
+                        clearTimeout(timer);
+                        fail(new Error("Failed to load header.js"));
+                    });
+                });
+            });
+        }
 
         function bootWeightApp() {
-            if (window.IS_TEST_MODE) {
-                startWeightApp("TEST_ID_TOKEN");
-                return;
+            if (typeof showAppLoader === "function") {
+                showAppLoader();
             }
-
+            const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
             liff.init({
                 liffId: LIFF_ID,
-                withLoginOnExternalBrowser: true
+                withLoginOnExternalBrowser: !isDev
             }).then(() => {
-                console.log("00")
                 const idToken = liff.getIDToken();
                 const lang = typeof liff.getAppLanguage === "function" ? liff.getAppLanguage() : "en";
                 if (!isSupportedLang(localStorage.getItem(LANG_STORAGE_KEY))) {
                     selectedUiLang = normalizeLangToUi(lang);
                     localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
                 }
-                loadMetaToForm();
-                initPickers();
-                setTodayDefaults();
-                bindEvents();
-
-                startWeightApp(idToken);
+                return Promise.all([
+                    startWeightApp(idToken),
+                    loadHeader()
+                ]);
+            }).then(() => {
+                if (typeof hideAppLoader === "function") {
+                    hideAppLoader();
+                }
             }).catch((err) => {
-                liff.logout();
+                console.error("LIFF init failed:", err);
+                if (typeof hideAppLoader === "function") {
+                    hideAppLoader();
+                }
                 alert("LIFF init failed.");
             });
         }
@@ -1033,6 +1179,10 @@
             await initI18n(selectedUiLang);
             renderLanguageOptions();
             applyI18n();
+            loadMetaToForm();
+            initPickers();
+            setTodayDefaults();
+            bindEvents();
             bootWeightApp();
         });
     </script>
