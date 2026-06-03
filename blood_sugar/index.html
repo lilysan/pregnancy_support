@@ -546,32 +546,9 @@
 
         function loadInitialSugarWindow() {
             return fetchSugarPage(1, "replace").then((items) => {
-                if (items.length > 0) {
-                    allData = dedupeSugarItems(items);
-                    updateChart(allData);
-                    return;
-                }
-                const maxAutoPages = 120;
-                const walk = (page) => {
-                    if (page > maxAutoPages) {
-                        syncOlderButtons();
-                        allData = [];
-                        updateChart(allData);
-                        return;
-                    }
-                    return fetchSugarPage(page, "append").then((more) => {
-                        if (more.length > 0) {
-                            loadedWeekPages = page;
-                            sugarPage = page;
-                            allData = dedupeSugarItems(allData);
-                            updateChart(allData);
-                            syncOlderButtons();
-                            return;
-                        }
-                        return walk(page + 1);
-                    });
-                };
-                return walk(2);
+                allData = dedupeSugarItems(items);
+                updateChart(allData);
+                syncOlderButtons();
             });
         }
 
@@ -591,25 +568,18 @@
             if (loadingOlderSugar || !hasOlderSugar) return;
             loadingOlderSugar = true;
             syncOlderButtons();
-            const startPage = loadedWeekPages + 1;
-            const maxPages = 120;
-            const walk = (page) => {
-                if (page > maxPages) return Promise.resolve(false);
-                return fetchSugarPage(page, "append").then((items) => {
-                    if (items.length > 0) {
-                        loadedWeekPages = page;
-                        sugarPage = page;
-                        allData = dedupeSugarItems(allData);
-                        updateChart(allData);
-                        createTablePage();
-                        populateTable();
-                        return true;
-                    }
-                    return walk(page + 1);
-                });
-            };
-            walk(startPage).then((found) => {
-                if (!found) hasOlderSugar = false;
+            const nextPage = loadedWeekPages + 1;
+            fetchSugarPage(nextPage, "append").then((items) => {
+                if (items.length > 0) {
+                    loadedWeekPages = nextPage;
+                    sugarPage = nextPage;
+                    allData = dedupeSugarItems(allData);
+                    updateChart(allData);
+                    createTablePage();
+                    populateTable();
+                    return;
+                }
+                hasOlderSugar = false;
             }).catch((e) => {
                 console.error("load older sugar error:", e);
             }).finally(() => {
