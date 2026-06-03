@@ -197,7 +197,8 @@ $(function () {
     function createMenuItem(item) {
         // currentPagePath と item.path を比較
         const isDisabled = item.path === currentPagePath;
-        const $btn = $('<button>').attr('type', 'button').addClass("menu-option" + (item.path === 'data' ? " staff-only" : ""));
+        const isStaffOnly = item.path === 'data' || item.path === 'hospital';
+        const $btn = $('<button>').attr('type', 'button').addClass("menu-option" + (isStaffOnly ? " staff-only" : ""));
 
         // LIFF URLの生成
         const href = item.path ? `https://liff.line.me/${LIFF_ID}/${item.path}/` : '#';
