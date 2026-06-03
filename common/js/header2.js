@@ -56,7 +56,8 @@ $(function () {
             type: "group",
             children: [
                 {label: "翻訳アプリ", path: "translation"},
-                {label: "スタッフ専用", path: "data"}
+                {label: "病院情報＜スタッフ専用＞", path: "hospital"},
+                {label: "患者データ＜スタッフ専用＞", path: "data"},
             ]
         }
     ];
