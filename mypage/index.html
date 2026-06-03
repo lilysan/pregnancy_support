@@ -518,7 +518,6 @@
 
     function renderUserForm() {
         const user = state.user || {};
-        $("#userLangInput").val(user.lang || normalizeLangCode(liff.getAppLanguage()) || "");
         $("#userNameInput").val(user.name || "");
         $("#userNameFuriganaInput").val(user.nameFurigana || "");
         $("#userAgeInput").val(user.age != null ? user.age : "");
@@ -1146,7 +1145,6 @@
     }
 
     function getUserFormData() {
-        const lang = $("#userLangInput").val();
         const name = String($("#userNameInput").val() || "").trim();
         const nameFurigana = String($("#userNameFuriganaInput").val() || "").trim();
         const age = $("#userAgeInput").val();
@@ -1155,7 +1153,7 @@
         const dueDate = $("#userDueDateInput").val();
 
         return {
-            lang: lang || "",
+            lang: window.normalizedLanguageCode || "",
             name: name,
             nameFurigana: nameFurigana,
             age: age === "" ? "" : Number(age),
@@ -1195,11 +1193,6 @@
             });
             select.val(currentValue || "");
         });
-    }
-
-    function normalizeLangCode(value) {
-        const lang = String(value || "").replace(/-.+$/g, "");
-        return lang || "";
     }
 
     function toOptionalIntOrBlank(value) {

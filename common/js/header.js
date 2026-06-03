@@ -114,6 +114,7 @@ $(function () {
     const rtlLangs = new Set(["prs", "ur"]);
     const appLanguageCode = liff.getAppLanguage();
     const normalizedLanguageCode = normalizeLang(appLanguageCode);
+    window.normalizedLanguageCode = normalizedLanguageCode;
     let currentLanguage = LANGUAGES.find(({ code }) => code === normalizedLanguageCode) || {code: "", label: "-", note: "-"};
     const currentPagePath = typeof currentPage !== 'undefined' ? currentPage : ''; // HTML側で定義された 'currentPage' 変数を取得
 
