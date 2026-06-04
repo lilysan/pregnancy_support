@@ -162,6 +162,9 @@
       "registerHospital": {
         "title": "<ruby>病院<rt>びょういん</rt></ruby>を<ruby>登録<rt>とうろく</rt></ruby>",
         "desc": "<ruby>診察券番号<rt>しんさつけんばんごう</rt></ruby>などを<ruby>入力<rt>にゅうりょく</rt></ruby>して、<ruby>病院<rt>びょういん</rt></ruby>を<ruby>登録<rt>とうろく</rt></ruby>してください。"
+      },
+      "invalidQr": {
+        "title": "<ruby>病院<rt>びょういん</rt></ruby>QRコードを<ruby>読<rt>よ</rt></ruby>み<ruby>取<rt>と</rt></ruby>ってください"
       }
     },
     "levelTable": {
@@ -588,22 +591,52 @@
   },
   "vac": {
     "desc": "<ruby>自分<rt>じぶん</rt></ruby>の ワクチン<ruby>接種記録<rt>せっしゅきろく</rt></ruby>を <ruby>入力<rt>にゅうりょく</rt></ruby>しておきましょう。",
-    "q.diphtheria.label": "ジフテリア",
-    "q.pertussis.label": "<ruby>百日咳<rt>ひゃくにちぜき</rt></ruby>",
-    "q.tetanus.label": "<ruby>破傷風<rt>はしょうふう</rt></ruby>",
-    "q.influenza.label": "インフルエンザ",
-    "q.covid19.label": "<ruby>新型<rt>しんがた</rt></ruby>コロナ",
-    "q.measles.label": "<ruby>麻疹<rt>ましん</rt></ruby>",
-    "q.rubella.label": "<ruby>風疹<rt>ふうしん</rt></ruby>",
-    "q.rsvirus.label": "RSウイルス",
-    "q.date.label": "<ruby>最近<rt>さいきん</rt></ruby>の <ruby>接種日<rt>せっしゅび</rt></ruby>",
-    "q.custom.name.label": "ワクチン<ruby>名<rt>めい</rt></ruby>",
-    "q.custom.name.placeholder": "ワクチン<ruby>名<rt>めい</rt></ruby>を <ruby>入力<rt>にゅうりょく</rt></ruby>",
-    "q.all.yes": "<ruby>接種済<rt>せっしゅず</rt></ruby>み",
-    "q.all.no": "<ruby>未接種<rt>みせっしゅ</rt></ruby>",
-    "q.all.unknown": "<ruby>不明<rt>ふめい</rt></ruby>",
-    "button.addCustom": "ワクチンを <ruby>追加<rt>ついか</rt></ruby>",
-    "error.customNameRequired": "ワクチン<ruby>名<rt>めい</rt></ruby>を <ruby>入力<rt>にゅうりょく</rt></ruby>してください。"
+    "q": {
+      "diphtheria": {
+        "label": "ジフテリア"
+      },
+      "tetanus": {
+        "label": "<ruby>破傷風<rt>はしょうふう</rt></ruby>"
+      },
+      "pertussis": {
+        "label": "<ruby>百日咳<rt>ひゃくにちぜき</rt></ruby>"
+      },
+      "measles": {
+        "label": "<ruby>麻疹<rt>ましん</rt></ruby>"
+      },
+      "rubella": {
+        "label": "<ruby>風疹<rt>ふうしん</rt></ruby>"
+      },
+      "rsvirus": {
+        "label": "RSウイルス"
+      },
+      "influenza": {
+        "label": "インフルエンザ"
+      },
+      "covid19": {
+        "label": "<ruby>新型<rt>しんがた</rt></ruby>コロナ"
+      },
+      "date": {
+        "label": "<ruby>最近<rt>さいきん</rt></ruby>の <ruby>接種日<rt>せっしゅび</rt></ruby>"
+      },
+      "custom": {
+        "name": {
+          "label": "ワクチン<ruby>名<rt>めい</rt></ruby>",
+          "placeholder": "ワクチン<ruby>名<rt>めい</rt></ruby>を <ruby>入力<rt>にゅうりょく</rt></ruby>"
+        }
+      },
+      "all": {
+        "yes": "<ruby>接種済<rt>せっしゅず</rt></ruby>み",
+        "no": "<ruby>未接種<rt>みせっしゅ</rt></ruby>",
+        "unknown": "<ruby>不明<rt>ふめい</rt></ruby>"
+      }
+    },
+    "button": {
+      "addCustom": "ワクチンを <ruby>追加<rt>ついか</rt></ruby>"
+    },
+    "error": {
+      "customNameRequired": "ワクチン<ruby>名<rt>めい</rt></ruby>を <ruby>入力<rt>にゅうりょく</rt></ruby>してください。"
+    }
   },
   "today.baby.label.weight": "あかちゃんの <ruby>体重<rt>たいじゅう</rt></ruby>の <ruby>目安<rt>めやす</rt></ruby>",
   "today.baby.label.weightImage": "<ruby>重<rt>おも</rt></ruby>さの イメージ",

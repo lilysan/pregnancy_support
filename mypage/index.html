@@ -388,6 +388,7 @@
 
 <script>
     const currentPage = "mypage";
+    const HOSPITAL_QR_TOKEN_PREFIX = "qrt_";
 
     /** @type {import('@line/liff').Liff} */
     const liff = window.liff;
@@ -859,7 +860,7 @@
 
             const qrToken = extractQrToken(result.value);
             if (!qrToken) {
-                alert(tText("link.error.invalidQr", "Invalid QR code."));
+                showInvalidHospitalQrModal();
                 return;
             }
 
@@ -1123,13 +1124,16 @@
     }
 
     function extractQrToken(value) {
-        const rawValue = String(value || "").trim();
-        try {
-            const url = new URL(rawValue);
-            return url.searchParams.get("qrToken") || url.searchParams.get("token") || rawValue;
-        } catch (error) {
-            return rawValue;
-        }
+        const qrToken = String(value || "").trim();
+        return qrToken.startsWith(HOSPITAL_QR_TOKEN_PREFIX) ? qrToken : "";
+    }
+
+    function showInvalidHospitalQrModal() {
+        return modalManager.show({
+            title: tText("link.modal.invalidQr.title", "病院QRコードを読み取ってください"),
+            message: tText("link.error.invalidQr", "Invalid QR code."),
+            positiveText: tText("button.ok", "OK")
+        });
     }
 
     function showDeleteConfirmModal({messageKey, fallbackMessage}) {

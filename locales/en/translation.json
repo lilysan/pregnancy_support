@@ -71,14 +71,14 @@
   },
   "toast": {
     "success": "Success",
-    "error":  "Error",
+    "error": "Error",
     "alert": "Alert",
     "confirm": "Are you sure?"
   },
   "confirm": {
-  "delete": "Do you really want to delete?",
-  "clear": "Do you really want to clear your input?"
-},
+    "delete": "Do you really want to delete?",
+    "clear": "Do you really want to clear your input?"
+  },
   "success": {
     "save": "Saved successfully.",
     "delete": "Deleted successfully.",
@@ -162,6 +162,9 @@
       "registerHospital": {
         "title": "Register Hospital",
         "desc": "Enter your patient ID card number and other information to register this hospital."
+      },
+      "invalidQr": {
+        "title": "Please scan a hospital QR code"
       }
     },
     "levelTable": {
@@ -588,22 +591,52 @@
   },
   "vac": {
     "desc": "Enter your vaccination records.",
-    "q.diphtheria.label": "Diphtheria",
-    "q.tetanus.label": "Tetanus",
-    "q.pertussis.label": "Pertussis",
-    "q.measles.label": "Measles",
-    "q.rubella.label": "Rubella",
-    "q.rsvirus.label": "RS Virus",
-    "q.influenza.label": "Influenza",
-    "q.covid19.label": "COVID-19",
-    "q.date.label": "Most Recent Vaccination Date",
-    "q.custom.name.label": "Vaccine Name",
-    "q.custom.name.placeholder": "Enter vaccine name",
-    "q.all.yes": "Vaccinated",
-    "q.all.no": "Not Vaccinated",
-    "q.all.unknown": "Unknown",
-    "button.addCustom": "Add Vaccine",
-    "error.customNameRequired": "Please enter a vaccine name."
+    "q": {
+      "diphtheria": {
+        "label": "Diphtheria"
+      },
+      "tetanus": {
+        "label": "Tetanus"
+      },
+      "pertussis": {
+        "label": "Pertussis"
+      },
+      "measles": {
+        "label": "Measles"
+      },
+      "rubella": {
+        "label": "Rubella"
+      },
+      "rsvirus": {
+        "label": "RS Virus"
+      },
+      "influenza": {
+        "label": "Influenza"
+      },
+      "covid19": {
+        "label": "COVID-19"
+      },
+      "date": {
+        "label": "Most Recent Vaccination Date"
+      },
+      "custom": {
+        "name": {
+          "label": "Vaccine Name",
+          "placeholder": "Enter vaccine name"
+        }
+      },
+      "all": {
+        "yes": "Vaccinated",
+        "no": "Not Vaccinated",
+        "unknown": "Unknown"
+      }
+    },
+    "button": {
+      "addCustom": "Add Vaccine"
+    },
+    "error": {
+      "customNameRequired": "Please enter a vaccine name."
+    }
   },
   "today.baby.label.weight": "Baby’s Estimated Weight",
   "today.baby.label.weightImage": "About the Size of",

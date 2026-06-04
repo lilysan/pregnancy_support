@@ -71,7 +71,7 @@
   },
   "toast": {
     "success": "成功",
-    "error":  "エラー",
+    "error": "エラー",
     "alert": "警告",
     "confirm": "確認"
   },
@@ -162,6 +162,9 @@
       "registerHospital": {
         "title": "病院を登録",
         "desc": "診察券番号などを入力して、病院を登録してください。"
+      },
+      "invalidQr": {
+        "title": "病院QRコードを読み取ってください"
       }
     },
     "levelTable": {
@@ -588,22 +591,52 @@
   },
   "vac": {
     "desc": "自身の予防接種記録を入力しておきましょう。",
-    "q.diphtheria.label": "ジフテリア",
-    "q.tetanus.label": "破傷風",
-    "q.pertussis.label": "百日咳",
-    "q.measles.label": "麻疹",
-    "q.rubella.label": "風疹",
-    "q.rsvirus.label": "RSウイルス",
-    "q.influenza.label": "インフルエンザ",
-    "q.covid19.label": "新型コロナ",
-    "q.date.label": "直近接種日",
-    "q.custom.name.label": "ワクチン名",
-    "q.custom.name.placeholder": "ワクチン名を入力",
-    "q.all.yes": "接種済み",
-    "q.all.no": "未接種",
-    "q.all.unknown": "不明",
-    "button.addCustom": "ワクチンを追加",
-    "error.customNameRequired": "ワクチン名を入力してください。"
+    "q": {
+      "diphtheria": {
+        "label": "ジフテリア"
+      },
+      "tetanus": {
+        "label": "破傷風"
+      },
+      "pertussis": {
+        "label": "百日咳"
+      },
+      "measles": {
+        "label": "麻疹"
+      },
+      "rubella": {
+        "label": "風疹"
+      },
+      "rsvirus": {
+        "label": "RSウイルス"
+      },
+      "influenza": {
+        "label": "インフルエンザ"
+      },
+      "covid19": {
+        "label": "新型コロナ"
+      },
+      "date": {
+        "label": "直近接種日"
+      },
+      "custom": {
+        "name": {
+          "label": "ワクチン名",
+          "placeholder": "ワクチン名を入力"
+        }
+      },
+      "all": {
+        "yes": "接種済み",
+        "no": "未接種",
+        "unknown": "不明"
+      }
+    },
+    "button": {
+      "addCustom": "ワクチンを追加"
+    },
+    "error": {
+      "customNameRequired": "ワクチン名を入力してください。"
+    }
   },
   "today.baby.label.weight": "推定体重の目安",
   "today.baby.label.weightImage": "重さのイメージ",

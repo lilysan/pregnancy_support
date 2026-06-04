@@ -388,11 +388,23 @@
             overflow-wrap: anywhere;
         }
 
+        .hospital-account-user-details {
+            display: grid;
+            gap: 4px;
+            margin-top: 8px;
+        }
+
         .hospital-account-user-meta {
             margin: 2px 0 0;
             color: var(--sub-text);
             font-size: 13px;
             line-height: 1.45;
+            overflow-wrap: anywhere;
+        }
+
+        .hospital-account-user-meta-label {
+            color: var(--text);
+            font-weight: 700;
         }
 
         .hospital-invite-code-modal {
@@ -412,6 +424,27 @@
             font-weight: 700;
             line-height: 1.45;
             text-align: center;
+        }
+
+        .hospital-device-label-modal {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 12px;
+            text-align: left;
+        }
+
+        .hospital-device-label-modal label {
+            font-weight: 700;
+            line-height: 1.45;
+        }
+
+        .hospital-device-label-modal input {
+            width: 100%;
+        }
+
+        .hospital-device-label-modal .small {
+            margin: 0;
         }
 
         .birthplan-settings {
@@ -854,6 +887,7 @@
     const currentPage = "hospital";
     const BIRTHPLAN_SCHEMA_URL = "../birthplan/plan.structure.json";
     const BIRTHPLAN_TRANSLATION_URL = "../locales/ja/translation.json";
+    const HOSPITAL_INVITE_TOKEN_PREFIX = "hspinv_";
 
     /** @type {import('@line/liff').Liff} */
     const liff = window.liff;
@@ -886,7 +920,6 @@
             withLoginOnExternalBrowser: !isDev, // Enable automatic login process
         }).then(async () => {
             const idToken = liff.getIDToken();
-            await handleHospitalAccountInvite(idToken);
             return Promise.all([
                 main(idToken),
                 loadHeader()
@@ -1154,15 +1187,20 @@
         );
     }
 
-    function registerHospitalAccount(idToken, inviteToken) {
+    function registerHospitalAccount(idToken, inviteToken, deviceLabel = "") {
+        const postData = {
+            inviteToken: inviteToken
+        };
+        if (deviceLabel) {
+            postData.deviceLabel = deviceLabel;
+        }
+
         return $.ajax(
             getAccessObj({
                 path: "hospitalAccount",
                 method: "post",
                 idToken: idToken,
-                postData: {
-                    inviteToken: inviteToken
-                }
+                postData: postData
             })
         );
     }
@@ -1180,23 +1218,10 @@
         );
     }
 
-    async function handleHospitalAccountInvite(idToken) {
-        const inviteToken = getHospitalInviteToken();
-        if (!inviteToken) {
-            return;
-        }
-
-        const linked = await linkHospitalAccount(idToken, inviteToken);
-        if (linked) {
-            clearHospitalInviteToken();
-            showHospitalAccountLinkedModal();
-        }
-    }
-
-    async function linkHospitalAccount(idToken, inviteToken) {
+    async function linkHospitalAccount(idToken, inviteToken, deviceLabel = "") {
         let response;
         try {
-            response = await registerHospitalAccount(idToken, inviteToken);
+            response = await registerHospitalAccount(idToken, inviteToken, deviceLabel);
         } catch (error) {
             console.error("hospitalAccount invite failed:", error);
             alert("Network error!");
@@ -1214,16 +1239,6 @@
         }
 
         return true;
-    }
-
-    function getHospitalInviteToken() {
-        return new URLSearchParams(window.location.search).get("hospitalInviteToken") || "";
-    }
-
-    function clearHospitalInviteToken() {
-        const url = new URL(window.location.href);
-        url.searchParams.delete("hospitalInviteToken");
-        window.history.replaceState({}, document.title, url.toString());
     }
 
     async function scanHospitalAccountCode(idToken) {
@@ -1247,12 +1262,17 @@
 
         const inviteToken = extractHospitalInviteTokenFromScanValue(result.value);
         if (!inviteToken) {
-            alert("スタッフ招待コードを読み取ってください。");
+            showHospitalInviteCodeRequiredModal();
+            return;
+        }
+
+        const deviceLabel = await showHospitalAccountDeviceLabelModal();
+        if (deviceLabel === null) {
             return;
         }
 
         $("#loadingOverlay").addClass('is-open');
-        const linked = await linkHospitalAccount(idToken, inviteToken);
+        const linked = await linkHospitalAccount(idToken, inviteToken, deviceLabel);
         if (linked) {
             await main(idToken);
             showHospitalAccountLinkedModal();
@@ -1261,17 +1281,8 @@
     }
 
     function extractHospitalInviteTokenFromScanValue(value) {
-        const scannedValue = String(value || "").trim();
-        if (!scannedValue) {
-            return "";
-        }
-
-        try {
-            const url = new URL(scannedValue);
-            return url.searchParams.get("hospitalInviteToken") || "";
-        } catch (error) {
-            return scannedValue;
-        }
+        const inviteToken = String(value || "").trim();
+        return inviteToken.startsWith(HOSPITAL_INVITE_TOKEN_PREFIX) ? inviteToken : "";
     }
 
     async function fetchJson(url) {
@@ -1442,23 +1453,80 @@
 
         hospitalAccountState.users.forEach((user) => {
             const isCurrentUser = Number(user.isCurrentUser) === 1;
+            const deviceLabel = String(user.deviceLabel || "").trim();
+            const userId = String(user.userId || "").trim();
+            const createdAt = formatHospitalAccountDateTime(user.createdAt);
+            const lastUsedAt = formatHospitalAccountDate(user.lastUsedAt);
             const userEl = $("<div>").addClass("hospital-account-user");
             const bodyEl = $("<div>");
+            const detailsEl = $("<div>").addClass("hospital-account-user-details");
+
+            detailsEl
+                .append(renderHospitalAccountUserMeta("ユーザーID", userId || "未取得"))
+                .append(renderHospitalAccountUserMeta("登録日時", createdAt || "未取得"))
+                .append(renderHospitalAccountUserMeta("最終利用日時", lastUsedAt || "未取得"));
+
             bodyEl
-                .append($("<p>").addClass("hospital-account-user-id").text(user.userId || "ユーザーID未取得"))
-                .append($("<p>").addClass("hospital-account-user-meta").text(isCurrentUser ? "この端末" : "連携済み端末"));
+                .append($("<p>").addClass("hospital-account-user-id").text(deviceLabel || "ラベル未設定"))
+                .append($("<p>").addClass("hospital-account-user-meta").text(isCurrentUser ? "この端末" : "連携済み端末"))
+                .append(detailsEl);
             userEl.append(bodyEl);
-            if (user.userId) {
+            if (userId) {
                 userEl.append(
                     $("<button>")
                         .attr("type", "button")
                         .addClass("btn danger hospital-account-user-delete")
-                        .data("user-id", user.userId)
+                        .data("user-id", userId)
                         .data("is-current-user", isCurrentUser)
                         .text("解除")
                 );
             }
             usersEl.append(userEl);
+        });
+    }
+
+    function renderHospitalAccountUserMeta(label, value) {
+        return $("<p>")
+            .addClass("hospital-account-user-meta")
+            .append($("<span>").addClass("hospital-account-user-meta-label").text(`${label}: `))
+            .append(document.createTextNode(value));
+    }
+
+    function formatHospitalAccountDateTime(value) {
+        const rawValue = String(value || "").trim();
+        if (!rawValue) {
+            return "";
+        }
+
+        const date = new Date(rawValue);
+        if (Number.isNaN(date.getTime())) {
+            return rawValue;
+        }
+
+        return date.toLocaleString("ja-JP", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+    }
+
+    function formatHospitalAccountDate(value) {
+        const rawValue = String(value || "").trim();
+        if (!rawValue) {
+            return "";
+        }
+
+        const date = new Date(rawValue);
+        if (Number.isNaN(date.getTime())) {
+            return rawValue;
+        }
+
+        return date.toLocaleDateString("ja-JP", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit"
         });
     }
 
@@ -1539,6 +1607,31 @@
         });
     }
 
+    async function showHospitalAccountDeviceLabelModal() {
+        let deviceLabel = "";
+        const modalPromise = hospitalIntroModalManager.show({
+            title: "スタッフ端末を登録",
+            messageHtml: `
+                <div class="hospital-device-label-modal">
+                    <p class="small">この端末を管理しやすい名前で登録できます。</p>
+                    <label for="hospitalDeviceLabelInput">デバイスのラベル名</label>
+                    <input id="hospitalDeviceLabelInput" type="text" maxlength="50" autocomplete="off" placeholder="例：分娩室 iPad">
+                    <p class="small">未入力の場合は「スタッフ01」のように自動設定されます。</p>
+                </div>`,
+            negativeText: "キャンセル",
+            positiveText: "登録",
+            onPositive: () => {
+                deviceLabel = $("#hospitalDeviceLabelInput").val().trim();
+            }
+        });
+        window.setTimeout(() => {
+            $("#hospitalDeviceLabelInput").trigger("focus");
+        }, 0);
+
+        const action = await modalPromise;
+        return action === "positive" ? deviceLabel : null;
+    }
+
     function showHospitalAccountScanUnavailableModal() {
         return hospitalIntroModalManager.show({
             title: "QRコードを読み取れません",
@@ -1551,6 +1644,14 @@
         return hospitalIntroModalManager.show({
             title: "スタッフ招待コードを利用できません",
             message: "有効期限が切れているか、既に使用済みです。再度招待コードを発行してください。",
+            positiveText: "OK"
+        });
+    }
+
+    function showHospitalInviteCodeRequiredModal() {
+        return hospitalIntroModalManager.show({
+            title: "スタッフ招待コードを読み取ってください",
+            message: "このQRコードはスタッフ招待コードではありません。登録済みのスタッフ端末で発行したスタッフ招待コードを読み取ってください。",
             positiveText: "OK"
         });
     }
