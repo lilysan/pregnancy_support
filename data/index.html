@@ -1699,7 +1699,9 @@
             try {
                 const response = await fetch(url, {cache: "no-cache"});
                 if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
+                    console.warn(`failed to load ${key} schema: HTTP ${response.status}`);
+                    dataState.schemas[key] = null;
+                    return;
                 }
                 dataState.schemas[key] = await response.json();
             } catch (error) {
