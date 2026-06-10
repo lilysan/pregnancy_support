@@ -157,7 +157,7 @@
 
         .data-record {
             position: relative;
-            padding: 42px 12px 12px;
+            padding: 12px;
             border: 1px solid var(--border);
             border-radius: 8px;
             background: var(--background);
@@ -193,6 +193,23 @@
         .data-view-list {
             display: grid;
             gap: 12px;
+        }
+
+        .data-form-category + .data-form-category {
+            margin-top: 28px;
+        }
+
+        .data-form-category > h2,
+        .data-form-section > h3 {
+            margin-bottom: 0;
+        }
+
+        .data-form-section + .data-form-section {
+            margin-top: 22px;
+        }
+
+        .bp-question-block {
+            margin-top: 16px;
         }
 
         .bp-question,
@@ -261,6 +278,52 @@
             margin: 0 0 8px;
             font-weight: 600;
             line-height: 1.5;
+        }
+
+        .bp-question-help {
+            margin: 0 0 8px;
+            color: var(--sub-text);
+            font-size: 0.92rem;
+            line-height: 1.4;
+        }
+
+        .bp-options,
+        .vac-options {
+            margin-top: 6px;
+        }
+
+        .data-readonly-option {
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .data-unanswered-text {
+            margin: 8px 0 0;
+            color: var(--sub-text);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .vaccination-date {
+            margin: 10px 0 0;
+        }
+
+        .vaccination-date-label {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--sub-text);
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .vaccination-date-value {
+            display: block;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface);
+            font-weight: 600;
         }
 
         .badge-primary {
@@ -349,7 +412,7 @@
             position: relative;
             display: grid;
             gap: 6px;
-            padding: 42px 12px 12px;
+            padding: 12px;
             border: 1px solid var(--border);
             border-radius: 10px;
             background: var(--background);
@@ -479,10 +542,13 @@
         }
 
         .data-question-item {
-            padding: 10px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--surface);
+            padding: 10px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .data-question-item:first-child {
+            padding-top: 0;
+            border-top: 0;
         }
 
         .data-question-text,
@@ -656,7 +722,11 @@
         activeTabKey: DATA_TABS[0].key,
         recordsByTab: {},
         currentCardNo: "",
-        translations: {}
+        translations: {},
+        schemas: {
+            birthplan: null,
+            vaccination: null
+        }
     };
     let patientSelectionResolve = null;
 
@@ -671,7 +741,8 @@
             await Promise.all([
                 main(idToken),
                 loadHeader(),
-                loadLocaleMessages()
+                loadLocaleMessages(),
+                loadReferenceSchemas()
             ]);
         }).then(() => {
             $("#loadingOverlay").removeClass("is-open");
@@ -978,10 +1049,6 @@
 
         const data = response.data || {};
         const items = Array.isArray(data.items) ? data.items : [];
-        if (!items.length) {
-            renderDataPanelMessage(`${tab.label}の共有データはありません。`);
-            return;
-        }
 
         const panel = $("#dataPanel");
         panel.empty();
@@ -992,6 +1059,10 @@
         }
         if (tab.key === "vaccination") {
             panel.append(renderVaccinationRecords(items));
+            return;
+        }
+        if (!items.length) {
+            renderDataPanelMessage(`${tab.label}の共有データはありません。`);
             return;
         }
         if (tab.key === "weight") {
@@ -1034,60 +1105,171 @@
     }
 
     function renderBirthplanRecords(items) {
+        const schema = dataState.schemas.birthplan;
+        if (!schema || !Array.isArray(schema.categories)) {
+            return $("<p>").addClass("small").text("バースプランの質問データを読み込めませんでした。");
+        }
+
+        const responseMap = normalizeBirthplanResponseMap(items);
+        const container = $("<div>").addClass("data-form-view");
+        const questionCounter = {value: 0};
+
+        schema.categories.forEach((category) => {
+            const categoryEl = $("<section>").addClass("data-form-category")
+                .append($("<h2>").text(translateDataKey(`bp.${category.labelKey}`)));
+
+            (category.sections || []).forEach((section) => {
+                const sectionEl = $("<section>").addClass("data-form-section")
+                    .append($("<h3>").text(translateDataKey(`bp.${section.labelKey}`)));
+
+                appendBirthplanQuestions(sectionEl, section.questions, responseMap, questionCounter);
+                categoryEl.append(sectionEl);
+            });
+            container.append(categoryEl);
+        });
+        return container;
+    }
+
+    function renderVaccinationRecords(items) {
+        const schema = dataState.schemas.vaccination;
+        if (!schema || !Array.isArray(schema.questions)) {
+            return $("<p>").addClass("small").text("ワクチンの質問データを読み込めませんでした。");
+        }
+
+        const itemMap = {};
+        const customItems = [];
+        items.forEach((item) => {
+            if (!item || !item.vaccinationKey) {
+                return;
+            }
+            if (item.vaccinationKey === "customize") {
+                customItems.push(item);
+                return;
+            }
+            itemMap[item.vaccinationKey] = item;
+        });
+
         const list = $("<div>").addClass("data-view-list");
-        items.forEach((item, index) => {
-            const key = item && item.responceKey ? item.responceKey : "";
-            const label = translateDataKey(normalizeBirthPlanKey(key));
+        const questions = schema.questions.map((question) => ({
+            question: question,
+            item: itemMap[question.id] || null,
+            label: translateDataKey(`vac.${question.labelKey}`)
+        }));
+        customItems.forEach((item) => {
+            questions.push({
+                question: {id: `customize-${item.customizeId || questions.length}`},
+                item: item,
+                label: item.vaccinationName || "その他のワクチン"
+            });
+        });
+
+        questions.forEach((entry, index) => {
+            const item = entry.item;
+            const hasAnswer = item && Object.prototype.hasOwnProperty.call(item, "isVaccinated");
+            const status = formatVaccinationStatus(hasAnswer ? item.isVaccinated : null);
             const card = $("<article>")
-                .addClass("bp-question data-answer-card card is-answered")
-                .append(renderAnswerTime(item))
+                .addClass("vac-question card")
+                .toggleClass("is-answered", hasAnswer)
+                .toggleClass("is-unanswered", !hasAnswer)
                 .append(
-                    $("<p>").addClass("bp-question-label")
+                    $("<p>").addClass("vac-question-label")
                         .append($("<span>").addClass("badge badge-primary").text(index + 1))
-                        .append($("<span>").text(label || formatValue(key)))
+                        .append($("<span>").text(entry.label))
                 );
 
-            if (key) {
-                card.append($("<span>").addClass("data-answer-key").text(key));
+            const options = $("<div>").addClass("radio-row vac-options single-select");
+            ["yes", "no", "unknown"].forEach((optionKey) => {
+                options.append(
+                    $("<span>")
+                        .addClass("radio-chip data-readonly-option")
+                        .toggleClass("active", status.key === optionKey)
+                        .text(translateDataKey(`vac.q.all.${optionKey}`))
+                );
+            });
+            card.append(options);
+
+            if (!hasAnswer) {
+                card.append($("<p>").addClass("data-unanswered-text").text("未回答"));
             }
-            if (item && item.other) {
-                card.append($("<p>").addClass("data-answer-text").text(item.other));
+
+            if (status.key === "yes" && item.datetime) {
+                card.append(
+                    $("<p>").addClass("vaccination-date")
+                        .append($("<span>").addClass("vaccination-date-label").text(translateDataKey("vac.q.date.label")))
+                        .append($("<span>").addClass("vaccination-date-value").text(item.datetime))
+                );
             }
             list.append(card);
         });
         return list;
     }
 
-    function renderVaccinationRecords(items) {
-        const list = $("<div>").addClass("data-view-list");
-        items.forEach((item, index) => {
-            const status = formatVaccinationStatus(item && item.isVaccinated);
-            const card = $("<article>")
-                .addClass("vac-question data-answer-card card")
-                .toggleClass("is-answered", status.key === "yes")
-                .toggleClass("is-unanswered", status.key !== "yes")
-                .append(renderAnswerTime(item))
-                .append(
-                    $("<p>").addClass("vac-question-label")
-                        .append($("<span>").addClass("badge badge-primary").text(index + 1))
-                        .append($("<span>").text(formatValue(item && item.vaccinationName)))
-                )
-                .append(
-                    $("<span>")
-                        .addClass(`data-status-badge ${status.className}`)
-                        .text(status.label)
-                );
-
-            const vaccinationDate = item && (item.vaccinationDate || item.inoculationDate);
-            if (vaccinationDate) {
-                card.append($("<p>").addClass("data-answer-meta").text(`接種日：${formatValue(vaccinationDate)}`));
-            }
-            if (item && item.vaccinationKey) {
-                card.append($("<span>").addClass("data-answer-key").text(item.vaccinationKey));
-            }
-            list.append(card);
+    function appendBirthplanQuestions(container, questions, responseMap, questionCounter) {
+        (questions || []).forEach((question) => {
+            questionCounter.value += 1;
+            container.append(renderBirthplanQuestion(question, responseMap, questionCounter.value));
+            appendBirthplanQuestions(container, question.followUps, responseMap, questionCounter);
         });
-        return list;
+    }
+
+    function renderBirthplanQuestion(question, responseMap, questionNumber) {
+        const selectedOptions = (question.options || []).filter((option) => responseMap[option.labelKey]);
+        const questionResponse = responseMap[question.labelKey];
+        const textAnswer = [
+            questionResponse && questionResponse.other,
+            ...selectedOptions.map((option) => responseMap[option.labelKey].other)
+        ].find((value) => typeof value === "string" && value.trim()) || "";
+        const isAnswered = selectedOptions.length > 0 || Boolean(textAnswer);
+        const block = $("<div>").addClass("bp-question-block");
+        const card = $("<article>")
+            .addClass("bp-question card")
+            .toggleClass("is-answered", isAnswered)
+            .toggleClass("is-unanswered", !isAnswered)
+            .append(
+                $("<p>").addClass("bp-question-label")
+                    .append($("<span>").addClass("badge badge-primary").text(questionNumber))
+                    .append($("<span>").text(translateDataKey(`bp.${question.labelKey}`)))
+            );
+
+        if (question.helpKey) {
+            card.append($("<p>").addClass("bp-question-help").text(translateDataKey(`bp.${question.helpKey}`)));
+        }
+
+        const options = $("<div>").addClass("radio-row bp-options")
+            .toggleClass("single-select", question.inputType === "single" || question.inputType === "singleText");
+        (question.options || []).forEach((option) => {
+            options.append(
+                $("<span>")
+                    .addClass("radio-chip data-readonly-option")
+                    .toggleClass("active", Boolean(responseMap[option.labelKey]))
+                    .text(translateDataKey(`bp.${option.labelKey}`))
+            );
+        });
+        if ((question.options || []).length) {
+            card.append(options);
+        }
+
+        if (textAnswer) {
+            card.append($("<p>").addClass("data-answer-text").text(textAnswer));
+        } else if (!isAnswered) {
+            card.append($("<p>").addClass("data-unanswered-text").text("未回答"));
+        }
+
+        block.append(card);
+        return block;
+    }
+
+    function normalizeBirthplanResponseMap(items) {
+        const responseMap = {};
+        (items || []).forEach((item) => {
+            if (!item || !item.responceKey) {
+                return;
+            }
+            responseMap[item.responceKey] = {
+                other: typeof item.other === "string" ? item.other : ""
+            };
+        });
+        return responseMap;
     }
 
     function renderMetricRecords(tab, items, config) {
@@ -1097,7 +1279,6 @@
         sortedItems.forEach((item) => {
             list.append(
                 $("<article>").addClass("data-metric-card")
-                    .append(renderAnswerTime(item))
                     .append($("<span>").addClass("data-metric-date").text(formatRecordDate(item)))
                     .append($("<span>").addClass("data-metric-value").text(config.valueFormatter(item)))
                     .append($("<span>").addClass("data-metric-sub").text(config.subFormatter(item)))
@@ -1110,7 +1291,7 @@
 
     function renderQuestionAnswerRecords(tab, items, config) {
         const list = $("<div>").addClass("data-view-list");
-        items.slice().sort(compareRecordDate).forEach((item, index) => {
+        groupQuestionAnswerRecords(items, config.questionPrefix).forEach((item, index) => {
             const record = $("<article>").addClass("data-question-record");
             record.append(renderAnswerTime(item));
             const header = $("<div>").addClass("data-question-header")
@@ -1120,7 +1301,7 @@
             }
             record.append(header);
 
-            const answers = normalizeAnswerEntries(item && item.answers, config.questionPrefix);
+            const answers = item.normalizedAnswers;
             if (!answers.length) {
                 record.append($("<p>").addClass("small").text("回答データがありません。"));
                 list.append(record);
@@ -1146,6 +1327,26 @@
             list.append(record);
         });
         return list;
+    }
+
+    function groupQuestionAnswerRecords(items, questionPrefix) {
+        const groups = new Map();
+        items.slice().sort(compareRecordDate).forEach((item, index) => {
+            const datetime = getAnswerDatetime(item);
+            const groupKey = datetime || `record-${index}`;
+            if (!groups.has(groupKey)) {
+                groups.set(groupKey, Object.assign({}, item, {
+                    datetime: datetime,
+                    normalizedAnswers: []
+                }));
+            }
+            const group = groups.get(groupKey);
+            group.normalizedAnswers.push(...normalizeAnswerEntries(item && item.answers, questionPrefix));
+            if (item && item.score !== undefined && item.score !== null) {
+                group.score = item.score;
+            }
+        });
+        return Array.from(groups.values());
     }
 
     function renderLineChart(title, items, seriesConfig) {
@@ -1257,7 +1458,6 @@
 
     function renderRecord(tab, item, index) {
         const record = $("<div>").addClass("data-record");
-        record.append(renderAnswerTime(item));
         record.append($("<p>").addClass("data-record-title").text(`${tab.label} ${index + 1}`));
 
         const entries = Object.entries(item || {});
@@ -1286,6 +1486,9 @@
     }
 
     function formatVaccinationStatus(value) {
+        if (value === null || value === undefined || value === "") {
+            return {key: "none", label: "未回答", className: ""};
+        }
         const numericValue = Number(value);
         if (numericValue === 1) {
             return {key: "yes", label: "接種済み", className: "is-done"};
@@ -1510,7 +1713,17 @@
                 return translated;
             }
         }
-        return dataState.translations[key] || key;
+        const translated = getNestedValue(dataState.translations, key);
+        return translated === undefined || translated === null ? key : String(translated);
+    }
+
+    function getNestedValue(source, path) {
+        return String(path || "").split(".").reduce((value, part) => {
+            if (!value || typeof value !== "object") {
+                return undefined;
+            }
+            return value[part];
+        }, source);
     }
 
     function renderDataPanelMessage(message) {
@@ -1593,6 +1806,25 @@
             }
         }
         dataState.translations = {};
+    }
+
+    async function loadReferenceSchemas() {
+        const schemaEntries = [
+            ["birthplan", "../birthplan/plan.structure.json"],
+            ["vaccination", "../vaccination/plan.structure.json"]
+        ];
+        await Promise.all(schemaEntries.map(async ([key, url]) => {
+            try {
+                const response = await fetch(url, {cache: "no-cache"});
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                dataState.schemas[key] = await response.json();
+            } catch (error) {
+                console.warn(`failed to load ${key} schema:`, error);
+                dataState.schemas[key] = null;
+            }
+        }));
     }
 
     function formatTravelTime(value) {
