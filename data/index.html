@@ -122,12 +122,6 @@
             overflow-wrap: anywhere;
         }
 
-        .data-tab-main {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
         .data-panel {
             margin-top: 16px;
         }
@@ -594,7 +588,7 @@
                             $("<iconify-icon>").attr({icon: tab.icon, width: 18, height: 18, "aria-hidden": "true"})
                         )
                         .append(
-                            $("<span>").addClass("data-label").append($("<span>").addClass("tab-label").text(tab.label))
+                            $("<span>").text(tab.label).addClass("tab-label")
                         )
                 );
             });
