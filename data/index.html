@@ -149,47 +149,6 @@
             margin-top: 12px;
         }
 
-        .data-record-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .data-record {
-            position: relative;
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--background);
-        }
-
-        .data-record-title {
-            margin: 0 0 8px;
-            color: var(--primary-dark);
-            font-weight: 700;
-            line-height: 1.45;
-        }
-
-        .data-record-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 8px;
-        }
-
-        .data-record-field {
-            margin: 0;
-            color: var(--sub-text);
-            font-size: 13px;
-            line-height: 1.45;
-            overflow-wrap: anywhere;
-        }
-
-        .data-record-field strong {
-            display: block;
-            color: var(--text);
-            font-size: 14px;
-        }
-
         .data-view-list {
             display: grid;
             gap: 12px;
@@ -218,16 +177,10 @@
             overflow: hidden;
         }
 
-        .bp-question.data-answer-card,
-        .vac-question.data-answer-card {
-            margin-top: 0;
-            padding-top: 42px;
-        }
-
-        .bp-question:not(.data-answer-card).is-answered::after,
-        .vac-question:not(.data-answer-card).is-answered::after,
-        .bp-question:not(.data-answer-card).is-unanswered::after,
-        .vac-question:not(.data-answer-card).is-unanswered::after {
+        .bp-question.is-answered::after,
+        .vac-question.is-answered::after,
+        .bp-question.is-unanswered::after,
+        .vac-question.is-unanswered::after {
             content: "";
             position: absolute;
             top: 0;
@@ -238,20 +191,20 @@
             pointer-events: none;
         }
 
-        .bp-question:not(.data-answer-card).is-answered::after,
-        .vac-question:not(.data-answer-card).is-answered::after {
+        .bp-question.is-answered::after,
+        .vac-question.is-answered::after {
             border-top: 32px solid var(--success);
         }
 
-        .bp-question:not(.data-answer-card).is-unanswered::after,
-        .vac-question:not(.data-answer-card).is-unanswered::after {
+        .bp-question.is-unanswered::after,
+        .vac-question.is-unanswered::after {
             border-top: 32px solid var(--border);
         }
 
-        .bp-question:not(.data-answer-card).is-answered::before,
-        .vac-question:not(.data-answer-card).is-answered::before,
-        .bp-question:not(.data-answer-card).is-unanswered::before,
-        .vac-question:not(.data-answer-card).is-unanswered::before {
+        .bp-question.is-answered::before,
+        .vac-question.is-answered::before,
+        .bp-question.is-unanswered::before,
+        .vac-question.is-unanswered::before {
             position: absolute;
             top: 2px;
             right: 5px;
@@ -263,13 +216,13 @@
             pointer-events: none;
         }
 
-        .bp-question:not(.data-answer-card).is-answered::before,
-        .vac-question:not(.data-answer-card).is-answered::before {
+        .bp-question.is-answered::before,
+        .vac-question.is-answered::before {
             content: "✓";
         }
 
-        .bp-question:not(.data-answer-card).is-unanswered::before,
-        .vac-question:not(.data-answer-card).is-unanswered::before {
+        .bp-question.is-unanswered::before,
+        .vac-question.is-unanswered::before {
             content: "○";
         }
 
@@ -334,13 +287,6 @@
             margin-right: 8px;
         }
 
-        .data-answer-meta {
-            margin: 8px 0 0;
-            color: var(--sub-text);
-            font-size: 13px;
-            line-height: 1.45;
-        }
-
         .data-answer-text {
             margin: 8px 0 0;
             padding: 10px;
@@ -377,29 +323,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
             z-index: 2;
-        }
-
-        .data-status-badge {
-            display: inline-flex;
-            align-items: center;
-            width: fit-content;
-            margin-top: 8px;
-            padding: 5px 10px;
-            border-radius: 999px;
-            background: var(--surface);
-            color: var(--sub-text);
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        .data-status-badge.is-done {
-            background: color-mix(in srgb, var(--success) 18%, white);
-            color: var(--success);
-        }
-
-        .data-status-badge.is-unknown {
-            background: color-mix(in srgb, var(--warning) 18%, white);
-            color: var(--warning);
         }
 
         .data-metric-summary {
@@ -612,7 +535,6 @@
         @media (max-width: 520px) {
             .data-search-actions,
             .data-info-grid,
-            .data-record-grid,
             .data-metric-summary {
                 grid-template-columns: 1fr;
             }
@@ -714,6 +636,12 @@
         {key: "sugar", label: "血糖値", icon: "material-symbols:water-drop-rounded", path: "sugar"},
         {key: "epds", label: "EPDS", icon: "material-symbols:psychology-rounded", path: "epds"}
     ];
+
+    const STATUS_BY_API_VALUE = {
+        1: "yes",
+        0: "no",
+        2: "unknown"
+    };
 
     const dataState = {
         hospitalAccount: null,
@@ -1109,7 +1037,7 @@
             return;
         }
 
-        panel.append(renderGenericRecords(tab, items));
+        renderDataPanelMessage(`${tab.label}の表示形式が定義されていません。`);
     }
 
     function renderBirthplanRecords(items) {
@@ -1173,8 +1101,8 @@
 
         questions.forEach((entry, index) => {
             const item = entry.item;
-            const hasAnswer = item && Object.prototype.hasOwnProperty.call(item, "isVaccinated");
-            const status = formatVaccinationStatus(hasAnswer ? item.isVaccinated : null);
+            const hasAnswer = Boolean(item && Object.prototype.hasOwnProperty.call(STATUS_BY_API_VALUE, item.isVaccinated));
+            const status = hasAnswer ? STATUS_BY_API_VALUE[item.isVaccinated] : "none";
             const card = $("<article>")
                 .addClass("vac-question card")
                 .toggleClass("is-answered", hasAnswer)
@@ -1190,7 +1118,7 @@
                 options.append(
                     $("<span>")
                         .addClass("radio-chip data-readonly-option")
-                        .toggleClass("active", status.key === optionKey)
+                        .toggleClass("active", status === optionKey)
                         .text(translateDataKey(`vac.q.all.${optionKey}`))
                 );
             });
@@ -1200,7 +1128,7 @@
                 card.append($("<p>").addClass("data-unanswered-text").text("未回答"));
             }
 
-            if (status.key === "yes" && item.datetime) {
+            if (status === "yes" && item.datetime) {
                 card.append(
                     $("<p>").addClass("vaccination-date")
                         .append($("<span>").addClass("vaccination-date-label").text(translateDataKey("vac.q.date.label")))
@@ -1454,60 +1382,6 @@
             )
         );
         return chart;
-    }
-
-    function renderGenericRecords(tab, items) {
-        const list = $("<div>").addClass("data-record-list");
-        items.forEach((item, index) => {
-            list.append(renderRecord(tab, item, index));
-        });
-        return list;
-    }
-
-    function renderRecord(tab, item, index) {
-        const record = $("<div>").addClass("data-record");
-        record.append($("<p>").addClass("data-record-title").text(`${tab.label} ${index + 1}`));
-
-        const entries = Object.entries(item || {});
-        if (!entries.length) {
-            record.append($("<p>").addClass("small").text("表示できる項目がありません。"));
-            return record;
-        }
-
-        const grid = $("<div>").addClass("data-record-grid");
-        entries.forEach(([key, value]) => {
-            grid.append(
-                $("<p>").addClass("data-record-field")
-                    .append($("<strong>").text(formatFieldLabel(key)))
-                    .append(document.createTextNode(formatRecordValue(value)))
-            );
-        });
-        record.append(grid);
-        return record;
-    }
-
-    function normalizeBirthPlanKey(key) {
-        if (!key) {
-            return "";
-        }
-        return key.startsWith("bp.") ? key : `bp.${key}`;
-    }
-
-    function formatVaccinationStatus(value) {
-        if (value === null || value === undefined || value === "") {
-            return {key: "none", label: "未回答", className: ""};
-        }
-        const numericValue = Number(value);
-        if (numericValue === 1) {
-            return {key: "yes", label: "接種済み", className: "is-done"};
-        }
-        if (numericValue === 0) {
-            return {key: "no", label: "未接種", className: ""};
-        }
-        if (numericValue === 2) {
-            return {key: "unknown", label: "不明", className: "is-unknown"};
-        }
-        return {key: "none", label: "未回答", className: ""};
     }
 
     function renderAnswerTime(item) {
@@ -1857,39 +1731,6 @@
             return "-";
         }
         return String(value);
-    }
-
-    function formatRecordValue(value) {
-        if (value === null || value === undefined || value === "") {
-            return "-";
-        }
-        if (Array.isArray(value) || typeof value === "object") {
-            return JSON.stringify(value, null, 2);
-        }
-        return String(value);
-    }
-
-    function formatFieldLabel(key) {
-        const labels = {
-            itemId: "ID",
-            datetime: "日時",
-            date: "日付",
-            period: "時間帯",
-            weight: "体重",
-            high: "最高血圧",
-            low: "最低血圧",
-            medicine: "薬・インスリン",
-            sugar: "血糖値",
-            vaccinationName: "ワクチン名",
-            vaccinationKey: "ワクチンキー",
-            customizeId: "カスタムID",
-            isVaccinated: "接種状況",
-            answers: "回答",
-            score: "スコア",
-            responceKey: "回答キー",
-            other: "その他"
-        };
-        return labels[key] || key;
     }
 </script>
 </body>
