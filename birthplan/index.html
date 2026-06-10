@@ -442,7 +442,7 @@
             type: "POST",
             dataType: "json",
             data: JSON.stringify({
-                path: "birthplan",
+                path: "myBirthplan",
                 method: "get",
                 idToken: idToken
             }),
@@ -460,7 +460,7 @@
             }
             return response.data && Array.isArray(response.data.items) ? response.data.items : [];
         }, function () {
-            alert("Network error!birthplan");
+            alert("Network error!myBirthplan");
             return [];
         });
     }
@@ -1216,7 +1216,7 @@
             type: "POST",
             dataType: "json",
             data: JSON.stringify({
-                path: "birthplan",
+                path: "myBirthplan",
                 method: "post",
                 idToken: idToken,
                 postData: {
