@@ -122,17 +122,6 @@
             overflow-wrap: anywhere;
         }
 
-        .data-tabs {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            margin-top: 16px;
-        }
-
-        .data-tab {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 6px;
-        }
-
         .data-tab-main {
             display: inline-flex;
             align-items: center;
@@ -181,6 +170,44 @@
             display: block;
             color: var(--text);
             font-size: 14px;
+        }
+
+        .patient-choice-list {
+            display: grid;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .patient-choice-btn {
+            display: grid;
+            gap: 4px;
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--background);
+            color: var(--text);
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .patient-choice-btn:hover,
+        .patient-choice-btn:focus-visible {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .patient-choice-name {
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 1.45;
+        }
+
+        .patient-choice-meta {
+            color: var(--sub-text);
+            font-size: 14px;
+            line-height: 1.45;
         }
 
         .data-panel[hidden],
@@ -249,13 +276,24 @@
         <section class="data-result-section" id="sharedDataSection" hidden>
             <h2>共有データ</h2>
             <div class="tabs-grid data-tabs" id="dataTabs" role="tablist" aria-label="患者共有データ"></div>
-            <div class="data-panel card" id="dataPanel" role="tabpanel"></div>
+            <div class="data-panel" id="dataPanel" role="tabpanel"></div>
         </section>
     </article>
 </main>
 
 <div class="overlay is-open" id="loadingOverlay">
     <div class="spinner"></div>
+</div>
+
+<div class="overlay" id="patientSelectionOverlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="patientSelectionTitle">
+        <button type="button" class="modal-close" id="closePatientSelectionBtn" aria-label="閉じる">
+            <iconify-icon icon="material-symbols:close-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+        </button>
+        <h2 id="patientSelectionTitle" class="modal-title">表示する患者データを選択してください</h2>
+        <p class="modal-message small">同じ診察券番号で複数の患者データが見つかりました。</p>
+        <div class="patient-choice-list" id="patientChoiceList"></div>
+    </div>
 </div>
 
 <script>
@@ -268,7 +306,7 @@
         {key: "labor", label: "陣痛診断", icon: "material-symbols:siren-rounded", path: "labor"},
         {key: "birthplan", label: "バースプラン", icon: "material-symbols:edit-note-rounded", path: "birthplan"},
         {key: "vaccination", label: "予防接種", icon: "material-symbols:vaccines-rounded", path: "vaccination"},
-        {key: "weight", label: "体重", icon: "material-symbols:monitor-weight-rounded", path: "weight"},
+        {key: "weight", label: "体重", icon: "material-symbols:monitor-weight", path: "weight"},
         {key: "pressure", label: "血圧", icon: "material-symbols:favorite-rounded", path: "pressure"},
         {key: "sugar", label: "血糖値", icon: "material-symbols:water-drop-rounded", path: "sugar"},
         {key: "epds", label: "EPDS", icon: "material-symbols:psychology-rounded", path: "epds"}
@@ -277,10 +315,12 @@
     const dataState = {
         hospitalAccount: null,
         patient: null,
+        currentPatientUserId: "",
         activeTabKey: DATA_TABS[0].key,
         recordsByTab: {},
         currentCardNo: ""
     };
+    let patientSelectionResolve = null;
 
     $(function () {
         const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
@@ -316,6 +356,15 @@
         });
         $("#hospitalAccountLinkBtn").on("click", function () {
             redirectToHospitalPage();
+        });
+        $("#closePatientSelectionBtn, #patientSelectionOverlay").on("click", function (event) {
+            if (event.target === this || this.id === "closePatientSelectionBtn") {
+                closePatientSelectionModal(null);
+            }
+        });
+        $("#patientChoiceList").on("click", ".patient-choice-btn", function () {
+            const index = Number($(this).data("patient-index"));
+            closePatientSelectionModal(Number.isInteger(index) ? index : null);
         });
     });
 
@@ -367,19 +416,23 @@
             if (!handleAuthResponse(response)) {
                 return;
             }
-            if (response.statusCode !== 200) {
+            const patients = normalizePatientResponseData(response.data);
+            if (response.statusCode !== 200 || patients.length === 0) {
                 console.error(response.message);
                 showStatus(response.message || "患者情報を取得できませんでした。");
                 return;
             }
 
-            dataState.patient = response.data || {};
-            dataState.currentCardNo = cardNo;
-            dataState.recordsByTab = {};
-            renderPatientInfo(dataState.patient);
-            $("#patientInfoSection, #sharedDataSection").prop("hidden", false);
-            renderDataTabs();
-            await switchDataTab(dataState.activeTabKey, false);
+            let selectedPatient = patients[0];
+            if (patients.length > 1) {
+                $("#loadingOverlay").removeClass("is-open");
+                selectedPatient = await showPatientSelectionModal(patients);
+                if (!selectedPatient) {
+                    return;
+                }
+            }
+
+            await applySelectedPatient(selectedPatient, cardNo);
         } catch (error) {
             console.error("searchPatientData failed:", error);
             showStatus("通信エラーが発生しました。時間をおいて再度お試しください。");
@@ -407,6 +460,7 @@
                     idToken: liff.getIDToken(),
                     postData: {
                         cardNo: dataState.currentCardNo,
+                        userId: dataState.currentPatientUserId || undefined,
                         unit: "month",
                         limit: 1,
                         page: 1
@@ -428,6 +482,71 @@
         }
 
         renderDataPanel(tabKey);
+    }
+
+    async function applySelectedPatient(patient, cardNo) {
+        dataState.patient = patient || {};
+        dataState.currentPatientUserId = dataState.patient.userId || "";
+        dataState.currentCardNo = dataState.patient.cardNo || cardNo;
+        dataState.recordsByTab = {};
+        renderPatientInfo(dataState.patient);
+        $("#patientInfoSection, #sharedDataSection").prop("hidden", false);
+        renderDataTabs();
+        await switchDataTab(dataState.activeTabKey, false);
+    }
+
+    function normalizePatientResponseData(data) {
+        if (Array.isArray(data)) {
+            return data.filter(Boolean);
+        }
+        if (data && Array.isArray(data.patients)) {
+            return data.patients.filter(Boolean);
+        }
+        if (data && typeof data === "object" && Object.keys(data).length > 0) {
+            return [data];
+        }
+        return [];
+    }
+
+    function showPatientSelectionModal(patients) {
+        const list = $("#patientChoiceList");
+        list.empty();
+        patients.forEach((patient, index) => {
+            list.append(
+                $("<button>")
+                    .attr("type", "button")
+                    .addClass("patient-choice-btn")
+                    .data("patient-index", index)
+                    .append($("<span>").addClass("patient-choice-name").text(formatValue(patient.name)))
+                    .append($("<span>").addClass("patient-choice-meta").text(`出産予定日：${formatValue(patient.dueDate)}`))
+            );
+        });
+
+        $("#patientSelectionOverlay").addClass("is-open");
+        $("body").addClass("no-scroll");
+        list.find(".patient-choice-btn").first().trigger("focus");
+
+        return new Promise((resolve) => {
+            patientSelectionResolve = function (selectedIndex) {
+                const selectedPatient = Number.isInteger(selectedIndex) ? patients[selectedIndex] : null;
+                resolve(selectedPatient || null);
+            };
+        });
+    }
+
+    function closePatientSelectionModal(selectedIndex) {
+        const overlay = $("#patientSelectionOverlay");
+        if (!overlay.hasClass("is-open")) {
+            return;
+        }
+        overlay.removeClass("is-open");
+        $("body").removeClass("no-scroll");
+
+        if (typeof patientSelectionResolve === "function") {
+            const resolve = patientSelectionResolve;
+            patientSelectionResolve = null;
+            resolve(selectedIndex);
+        }
     }
 
     function renderHospitalAccount(account) {
@@ -473,9 +592,10 @@
                         .addClass("tab data-tab")
                         .data("tab-key", tab.key)
                         .append(
-                            $("<span>").addClass("data-tab-main")
-                                .append($("<iconify-icon>").attr({icon: tab.icon, width: 20, height: 20, "aria-hidden": "true"}))
-                                .append($("<span>").addClass("tab-label").text(tab.label))
+                            $("<iconify-icon>").attr({icon: tab.icon, width: 18, height: 18, "aria-hidden": "true"})
+                        )
+                        .append(
+                            $("<span>").addClass("data-label").append($("<span>").addClass("tab-label").text(tab.label))
                         )
                 );
             });
