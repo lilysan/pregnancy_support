@@ -57,7 +57,8 @@
   "button": {
     "ok": "OK",
     "cancel": "Cancelar",
-    "back": "Voltar"
+    "back": "Voltar",
+    "other": "Outros"
   },
   "bp": {
     "cat": {
@@ -605,6 +606,12 @@
           "r": "Consegue entender kanji também"
         }
       }
+    },
+    "placeholder": {
+      "nativeOther": "Exemplo: italiano"
+    },
+    "error": {
+      "selectFromList": "Selecione na lista."
     }
   }
 }

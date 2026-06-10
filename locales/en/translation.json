@@ -64,7 +64,8 @@
     "save": "Save",
     "clear": "Clear input",
     "reset": "Reset",
-    "delete": "Delete"
+    "delete": "Delete",
+    "other": "Other"
   },
   "placeholder": {
     "free": "Free text"
@@ -137,11 +138,10 @@
       "name": "Example: Maria Santos",
       "nameFurigana": "Example: まりあ さんとす",
       "age": "Example: 30",
-      "nationality": "Example: Philippines",
-      "native": "Example: Filipino"
+      "nativeOther": "Example: Italian"
     },
     "option": {
-      "notSet": "Not set",
+      "notSet": "--Not set--",
       "yes": "Yes",
       "no": "No",
       "undecided": "Undecided"
@@ -201,7 +201,8 @@
       "scanUnavailable": "QR code scanning is not available.",
       "invalidQr": "Invalid QR code.",
       "scanFailed": "Failed to scan the QR code.",
-      "isLaborPatientRequired": "Please select whether this is your delivery hospital."
+      "isLaborPatientRequired": "Please select whether this is your delivery hospital.",
+      "selectFromList": "Please select from the list."
     }
   },
   "bp": {

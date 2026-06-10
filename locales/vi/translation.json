@@ -57,7 +57,8 @@
   "button": {
     "ok": "OK",
     "cancel": "Hủy",
-    "back": "Quay lại"
+    "back": "Quay lại",
+    "other": "Khác"
   },
   "bp": {
     "cat": {
@@ -605,6 +606,12 @@
           "r": "Cũng hiểu được kanji"
         }
       }
+    },
+    "placeholder": {
+      "nativeOther": "Ví dụ: tiếng Ý"
+    },
+    "error": {
+      "selectFromList": "Vui lòng chọn từ danh sách."
     }
   }
 }

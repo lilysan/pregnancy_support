@@ -57,7 +57,8 @@
   "button": {
     "ok": "OK",
     "cancel": "Batal",
-    "back": "Kembali"
+    "back": "Kembali",
+    "other": "Lain-lain"
   },
   "bp": {
     "cat": {
@@ -605,6 +606,12 @@
           "r": "Boleh memahami kanji juga"
         }
       }
+    },
+    "placeholder": {
+      "nativeOther": "Contoh: Bahasa Itali"
+    },
+    "error": {
+      "selectFromList": "Sila pilih daripada senarai."
     }
   }
 }

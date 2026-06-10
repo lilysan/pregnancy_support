@@ -57,7 +57,8 @@
   "button": {
     "ok": "OK",
     "cancel": "Annuler",
-    "back": "Retour"
+    "back": "Retour",
+    "other": "Autres"
   },
   "bp": {
     "cat": {
@@ -605,6 +606,12 @@
           "r": "Comprend aussi les kanji"
         }
       }
+    },
+    "placeholder": {
+      "nativeOther": "Exemple : italien"
+    },
+    "error": {
+      "selectFromList": "Veuillez choisir dans la liste."
     }
   }
 }

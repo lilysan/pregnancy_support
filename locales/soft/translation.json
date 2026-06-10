@@ -64,7 +64,8 @@
     "no": "いいえ",
     "reset": "リセット",
     "save": "<ruby>保存<rt>ほぞん</rt></ruby>",
-    "yes": "はい"
+    "yes": "はい",
+    "other": "そのほか"
   },
   "placeholder": {
     "free": "じゆうにかいてください"
@@ -130,18 +131,17 @@
       "levelReading": "<ruby>読<rt>よ</rt></ruby>む"
     },
     "placeholder": {
-      "cardNo": "例：1234567",
-      "travelTime": "分",
-      "contactName": "例：陣痛タクシー",
-      "phoneNumber": "例：0312345678",
-      "name": "例：Maria Santos",
-      "nameFurigana": "例：まりあ さんとす",
-      "age": "例：30",
-      "nationality": "例：フィリピン",
-      "native": "例：フィリピノ語"
+      "cardNo": "例（れい）：1234567",
+      "travelTime": "分（ふん）",
+      "contactName": "例（れい）：陣痛タクシー",
+      "phoneNumber": "例（れい）：0312345678",
+      "name": "例（れい）：Maria Santos",
+      "nameFurigana": "例（れい）：まりあ さんとす",
+      "age": "例（れい）：30",
+      "nativeOther": "例：イタリア語"
     },
     "option": {
-      "notSet": "えらんでください",
+      "notSet": "--えらんでください--",
       "yes": "はい",
       "no": "いいえ",
       "undecided": "<ruby>未定<rt>みてい</rt></ruby>"
@@ -201,7 +201,8 @@
       "scanUnavailable": "QRコードを<ruby>読<rt>よ</rt></ruby>み<ruby>取<rt>と</rt></ruby>れません。",
       "invalidQr": "QRコードが<ruby>正<rt>ただ</rt></ruby>しくありません。",
       "scanFailed": "QRコードの<ruby>読<rt>よ</rt></ruby>み<ruby>取<rt>と</rt></ruby>りに<ruby>失敗<rt>しっぱい</rt></ruby>しました。",
-      "isLaborPatientRequired": "この<ruby>病院<rt>びょういん</rt></ruby>で<ruby>出産<rt>しゅっさん</rt></ruby>する<ruby>予定<rt>よてい</rt></ruby>かどうかを<ruby>選<rt>えら</rt></ruby>んでください。"
+      "isLaborPatientRequired": "この<ruby>病院<rt>びょういん</rt></ruby>で<ruby>出産<rt>しゅっさん</rt></ruby>する<ruby>予定<rt>よてい</rt></ruby>かどうかを<ruby>選<rt>えら</rt></ruby>んでください。",
+      "selectFromList": "リストからえらんでください。"
     }
   },
   "bp": {

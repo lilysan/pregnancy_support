@@ -252,12 +252,15 @@
                 <label>
                     <span data-i18n="[html]link.label.nationality"></span>
                     <span class="hospital-badge hospital-badge-required" data-i18n="[html]link.badge.required"></span>
-                    <input id="userNationalityInput" type="text" autocomplete="country-name" required data-i18n="[placeholder]link.placeholder.nationality">
+                    <input id="userNationalityInput" type="text" list="userNationalityOptions" autocomplete="country-name" required>
+                    <datalist id="userNationalityOptions"></datalist>
                 </label>
                 <label>
                     <span data-i18n="[html]link.label.native"></span>
                     <span class="hospital-badge hospital-badge-required" data-i18n="[html]link.badge.required"></span>
-                    <input id="userNativeInput" type="text" required data-i18n="[placeholder]link.placeholder.native">
+                    <input id="userNativeInput" type="text" list="userNativeOptions" required>
+                    <datalist id="userNativeOptions"></datalist>
+                    <input id="userNativeOtherInput" type="text" hidden>
                 </label>
                 <label>
                     <span data-i18n="[html]link.label.dueDate"></span>
@@ -389,6 +392,244 @@
 <script>
     const currentPage = "mypage";
     const HOSPITAL_QR_TOKEN_PREFIX = "qrt_";
+    const SEARCHABLE_INPUT_RESTORE_VALUE_KEY = "searchableInputRestoreValue";
+    const NATIONALITY_OPTIONS = [
+        { label: "Afghanistan / افغانستان", value: "アフガニスタン" },
+        { label: "Albania / Shqipëria", value: "アルバニア" },
+        { label: "Algeria / الجزائر", value: "アルジェリア" },
+        { label: "Andorra / Andorra", value: "アンドラ" },
+        { label: "Angola / Angola", value: "アンゴラ" },
+        { label: "Antigua and Barbuda / Antigua & Barbuda", value: "アンティグア・バーブーダ" },
+        { label: "Argentina / Argentina", value: "アルゼンチン" },
+        { label: "Armenia / Հայաստան", value: "アルメニア" },
+        { label: "Australia / Australia", value: "オーストラリア" },
+        { label: "Austria / Österreich", value: "オーストリア" },
+        { label: "Azerbaijan / Azərbaycan", value: "アゼルバイジャン" },
+        { label: "Bahamas / Bahamas", value: "バハマ" },
+        { label: "Bahrain / البحرين", value: "バーレーン" },
+        { label: "Bangladesh / বাংলাদেশ", value: "バングラデシュ" },
+        { label: "Barbados / Barbados", value: "バルバドス" },
+        { label: "Belarus / Беларусь", value: "ベラルーシ" },
+        { label: "Belgium / België", value: "ベルギー" },
+        { label: "Belize / Belize", value: "ベリーズ" },
+        { label: "Benin / Bénin", value: "ベナン" },
+        { label: "Bhutan / འབྲུག", value: "ブータン" },
+        { label: "Bolivia / Bolivia", value: "ボリビア" },
+        { label: "Bosnia and Herzegovina / Bosna i Hercegovina", value: "ボスニアヘルツェゴビナ" },
+        { label: "Botswana / Botswana", value: "ボツワナ" },
+        { label: "Brazil / Brasil", value: "ブラジル" },
+        { label: "Brunei Darussalam / Brunei", value: "ブルネイ" },
+        { label: "Bulgaria / България", value: "ブルガリア" },
+        { label: "Burkina Faso / Burkina Faso", value: "ブルキナファソ" },
+        { label: "Burundi / Uburundi", value: "ブルンジ" },
+        { label: "Cabo Verde / Cabo Verde", value: "カーボベルデ" },
+        { label: "Cambodia / កម្ពុជា", value: "カンボジア" },
+        { label: "Cameroon / Cameroun", value: "カメルーン" },
+        { label: "Canada / Canada", value: "カナダ" },
+        { label: "Central African Republic / République centrafricaine", value: "中央アフリカ" },
+        { label: "Chad / Tchad", value: "チャド" },
+        { label: "Chile / Chile", value: "チリ" },
+        { label: "China / 中国", value: "中国" },
+        { label: "Colombia / Colombia", value: "コロンビア" },
+        { label: "Comoros / جزر القمر", value: "コモロ" },
+        { label: "Congo / Congo-Brazzaville", value: "コンゴ共和国" },
+        { label: "Cook Islands / Cook Islands", value: "クック" },
+        { label: "Costa Rica / Costa Rica", value: "コスタリカ" },
+        { label: "Cote d'Ivoire / Côte d’Ivoire", value: "コートジボワール" },
+        { label: "Croatia / Hrvatska", value: "クロアチア" },
+        { label: "Cuba / Cuba", value: "キューバ" },
+        { label: "Cyprus / Κύπρος", value: "キプロス" },
+        { label: "Czechia / Česko", value: "チェコ" },
+        { label: "Democratic Republic of Congo / Congo-Kinshasa", value: "コンゴ" },
+        { label: "Denmark / Danmark", value: "デンマーク" },
+        { label: "Djibouti / Djibouti", value: "ジブチ" },
+        { label: "Dominica / Dominica", value: "ドミニカ" },
+        { label: "Dominican Republic / República Dominicana", value: "ドミニカ共和国" },
+        { label: "Ecuador / Ecuador", value: "エクアドル" },
+        { label: "Egypt / مصر", value: "エジプト" },
+        { label: "El Salvador / El Salvador", value: "エルサルバドル" },
+        { label: "Equatorial Guinea / Guinea Ecuatorial", value: "赤道ギニア" },
+        { label: "Eritrea / ኤርትራ", value: "エリトリア" },
+        { label: "Estonia / Eesti", value: "エストニア" },
+        { label: "Eswatini / Eswatini", value: "エスワティニ" },
+        { label: "Ethiopia / ኢትዮጵያ", value: "エチオピア" },
+        { label: "Fiji / Fiji", value: "フィジー" },
+        { label: "Finland / Suomi", value: "フィンランド" },
+        { label: "France / France", value: "フランス" },
+        { label: "Gabon / Gabon", value: "ガボン" },
+        { label: "Gambia / Gambia", value: "ガンビア" },
+        { label: "Georgia / საქართველო", value: "ジョージア" },
+        { label: "Germany / Deutschland", value: "ドイツ" },
+        { label: "Ghana / Ghana", value: "ガーナ" },
+        { label: "Greece / Ελλάδα", value: "ギリシャ" },
+        { label: "Grenada / Grenada", value: "グレナダ" },
+        { label: "Guatemala / Guatemala", value: "グアテマラ" },
+        { label: "Guinea / Guinée", value: "ギニア" },
+        { label: "Guinea-Bissau / Guiné-Bissau", value: "ギニアビサウ" },
+        { label: "Guyana / Guyana", value: "ガイアナ" },
+        { label: "Haiti / Haiti", value: "ハイチ" },
+        { label: "Holy See / Città del Vaticano", value: "バチカン" },
+        { label: "Honduras / Honduras", value: "ホンジュラス" },
+        { label: "Hong Kong / 中國香港特別行政區", value: "香港" },
+        { label: "Hungary / Magyarország", value: "ハンガリー" },
+        { label: "Iceland / Ísland", value: "アイスランド" },
+        { label: "India / भारत", value: "インド" },
+        { label: "Indonesia / Indonesia", value: "インドネシア" },
+        { label: "Iran / ایران", value: "イラン" },
+        { label: "Iraq / العراق", value: "イラク" },
+        { label: "Ireland / Ireland", value: "アイルランド" },
+        { label: "Israel / ישראל", value: "イスラエル" },
+        { label: "Italy / Italia", value: "イタリア" },
+        { label: "Jamaica / Jamaica", value: "ジャマイカ" },
+        { label: "Japan / 日本", value: "日本" },
+        { label: "Jordan / الأردن", value: "ヨルダン" },
+        { label: "Kazakhstan / Қазақстан", value: "カザフスタン" },
+        { label: "Kenya / Kenya", value: "ケニア" },
+        { label: "Kiribati / Kiribati", value: "キリバス" },
+        { label: "Kuwait / الكويت", value: "クウェート" },
+        { label: "Kyrgyzstan / Кыргызстан", value: "キルギス" },
+        { label: "Lao People's Democratic Republic / ລາວ", value: "ラオス" },
+        { label: "Latvia / Latvija", value: "ラトビア" },
+        { label: "Lebanon / لبنان", value: "レバノン" },
+        { label: "Lesotho / Lesotho", value: "レソト" },
+        { label: "Liberia / Liberia", value: "リベリア" },
+        { label: "Libya / ليبيا", value: "リビア" },
+        { label: "Liechtenstein / Liechtenstein", value: "リヒテンシュタイン" },
+        { label: "Lithuania / Lietuva", value: "リトアニア" },
+        { label: "Luxembourg / Lëtzebuerg", value: "ルクセンブルク" },
+        { label: "Macao / 中國澳門特別行政區", value: "マカオ" },
+        { label: "Madagascar / Madagasikara", value: "マダガスカル" },
+        { label: "Malawi / Malawi", value: "マラウイ" },
+        { label: "Malaysia / Malaysia", value: "マレーシア" },
+        { label: "Maldives / ދިވެހިރާއްޖެ", value: "モルディブ" },
+        { label: "Mali / Mali", value: "マリ" },
+        { label: "Malta / Malta", value: "マルタ" },
+        { label: "Marshall Islands / Marshall Islands", value: "マーシャル諸島" },
+        { label: "Mauritania / موريتانيا", value: "モーリタニア" },
+        { label: "Mauritius / Mauritius", value: "モーリシャス" },
+        { label: "Mexico / México", value: "メキシコ" },
+        { label: "Micronesia / Micronesia", value: "ミクロネシア" },
+        { label: "Monaco / Monaco", value: "モナコ" },
+        { label: "Mongolia / Монгол", value: "モンゴル" },
+        { label: "Montenegro / Crna Gora", value: "モンテネグロ" },
+        { label: "Morocco / المغرب", value: "モロッコ" },
+        { label: "Mozambique / Moçambique", value: "モザンビーク" },
+        { label: "Myanmar / မြန်မာ", value: "ミャンマー" },
+        { label: "Namibia / Namibia", value: "ナミビア" },
+        { label: "Nauru / Nauru", value: "ナウル" },
+        { label: "Nepal / नेपाल", value: "ネパール" },
+        { label: "Netherlands / Nederland", value: "オランダ" },
+        { label: "New Zealand / New Zealand", value: "ニュージーランド" },
+        { label: "Nicaragua / Nicaragua", value: "ニカラグア" },
+        { label: "Niger / Niger", value: "ニジェール" },
+        { label: "Nigeria / Nigeria", value: "ナイジェリア" },
+        { label: "Niue / Niue", value: "ニウエ" },
+        { label: "North Korea / 조선민주주의인민공화국", value: "北朝鮮" },
+        { label: "Norway / Norge", value: "ノルウェー" },
+        { label: "Oman / عُمان", value: "オマーン" },
+        { label: "Pakistan / پاکستان", value: "パキスタン" },
+        { label: "Palau / Palau", value: "パラオ" },
+        { label: "Palestine / فلسطين", value: "パレスチナ" },
+        { label: "Panama / Panamá", value: "パナマ" },
+        { label: "Papua New Guinea / Papua New Guinea", value: "パプアニューギニア" },
+        { label: "Paraguay / Paraguay", value: "パラグアイ" },
+        { label: "Peru / Perú", value: "ペルー" },
+        { label: "Philippines / Pilipinas", value: "フィリピン" },
+        { label: "Poland / Polska", value: "ポーランド" },
+        { label: "Portugal / Portugal", value: "ポルトガル" },
+        { label: "Qatar / قطر", value: "カタール" },
+        { label: "Republic of Korea / 대한민국", value: "韓国" },
+        { label: "Republic of Kosovo / Kosovë", value: "コソボ" },
+        { label: "Republic of Moldova / Republica Moldova", value: "モルドバ" },
+        { label: "Republic of North Macedonia / Северна Македонија", value: "北マケドニア" },
+        { label: "Republic of Serbia / Србија", value: "セルビア" },
+        { label: "Romania / România", value: "ルーマニア" },
+        { label: "Russian Federation / Россия", value: "ロシア" },
+        { label: "Rwanda / U Rwanda", value: "ルワンダ" },
+        { label: "Saint Kitts and Nevis / St Kitts & Nevis", value: "セントクリストファー・ネービス" },
+        { label: "Saint Lucia / St Lucia", value: "セントルシア" },
+        { label: "Saint Vincent and the Grenadines / St Vincent & the Grenadines", value: "セントビンセント及びグレナディーン諸島" },
+        { label: "Samoa / Samoa", value: "サモア" },
+        { label: "San Marino / San Marino", value: "サンマリノ" },
+        { label: "Sao Tome and Principe / São Tomé e Príncipe", value: "サントメ・プリンシペ" },
+        { label: "Saudi Arabia / المملكة العربية السعودية", value: "サウジアラビア" },
+        { label: "Senegal / Sénégal", value: "セネガル" },
+        { label: "Seychelles / Seychelles", value: "セーシェル" },
+        { label: "Sierra Leone / Sierra Leone", value: "シェラレオネ" },
+        { label: "Singapore / Singapore", value: "シンガポール" },
+        { label: "Slovakia / Slovensko", value: "スロバキア" },
+        { label: "Slovenia / Slovenija", value: "スロベニア" },
+        { label: "Solomon Islands / Solomon Islands", value: "ソロモン" },
+        { label: "Somalia / Soomaaliya", value: "ソマリア" },
+        { label: "South Africa / iNingizimu Afrika", value: "南アフリカ" },
+        { label: "South Sudan / South Sudan", value: "南スーダン" },
+        { label: "Spain / España", value: "スペイン" },
+        { label: "Sri Lanka / ශ්‍රී ලංකාව", value: "スリランカ" },
+        { label: "Sudan / السودان", value: "スーダン" },
+        { label: "Suriname / Suriname", value: "スリナム" },
+        { label: "Sweden / Sverige", value: "スウェーデン" },
+        { label: "Switzerland / Schweiz", value: "スイス" },
+        { label: "Syrian Arab Republic / سوريا", value: "シリア" },
+        { label: "Taiwan / 台灣", value: "台湾" },
+        { label: "Tajikistan / Тоҷикистон", value: "タジキスタン" },
+        { label: "Thailand / ประเทศไทย", value: "タイ" },
+        { label: "Timor-Leste / Timor-Leste", value: "東ティモール" },
+        { label: "Togo / Togo", value: "トーゴ" },
+        { label: "Tonga / Tonga", value: "トンガ" },
+        { label: "Trinidad and Tobago / Trinidad & Tobago", value: "トリニダード・トバゴ" },
+        { label: "Tunisia / تونس", value: "チュニジア" },
+        { label: "Turkey / Türkiye", value: "トルコ" },
+        { label: "Turkmenistan / Türkmenistan", value: "トルクメニスタン" },
+        { label: "Tuvalu / Tuvalu", value: "ツバル" },
+        { label: "Uganda / Uganda", value: "ウガンダ" },
+        { label: "Ukraine / Україна", value: "ウクライナ" },
+        { label: "United Arab Emirates / الإمارات العربية المتحدة", value: "UAE" },
+        { label: "United Kingdom / United Kingdom", value: "イギリス" },
+        { label: "United Republic of Tanzania / Tanzania", value: "タンザニア" },
+        { label: "United States of America / United States", value: "アメリカ" },
+        { label: "Uruguay / Uruguay", value: "ウルグアイ" },
+        { label: "Uzbekistan / Oʻzbekiston", value: "ウズベキスタン" },
+        { label: "Vanuatu / Vanuatu", value: "バヌアツ" },
+        { label: "Venezuela / Venezuela", value: "ベネズエラ" },
+        { label: "Viet Nam / Việt Nam", value: "ベトナム" },
+        { label: "Yemen / اليمن", value: "イエメン" },
+        { label: "Zambia / Zambia", value: "ザンビア" },
+        { label: "Zimbabwe / Zimbabwe", value: "ジンバブエ" },
+    ];
+    const NATIVE_LANGUAGE_OPTIONS = [
+        { label: "Arabic / العربية", value: "アラビア語" },
+        { label: "Bengali / বাংলা", value: "ベンガル語" },
+        { label: "Chinese / 中文", value: "中国語" },
+        { label: "Dari / دری", value: "ダリ語" },
+        { label: "English / English", value: "英語" },
+        { label: "French / Français", value: "フランス語" },
+        { label: "German / Deutsch", value: "ドイツ語" },
+        { label: "Hindi / हिन्दी", value: "ヒンディー語" },
+        { label: "Indonesian / Bahasa Indonesia", value: "インドネシア語" },
+        { label: "Japanese / 日本語", value: "日本語" },
+        { label: "Khmer / ភាសាខ្មែរ", value: "クメール語" },
+        { label: "Korean / 한국어", value: "韓国語" },
+        { label: "Lao / ລາວ", value: "ラオス語" },
+        { label: "Malay / Bahasa Melayu", value: "マレー語" },
+        { label: "Mongolian / Монгол", value: "モンゴル語" },
+        { label: "Myanmar / မြန်မာဘာသာ", value: "ミャンマー語" },
+        { label: "Nepali / नेपाली", value: "ネパール語" },
+        { label: "Portuguese / Português", value: "ポルトガル語" },
+        { label: "Russian / Русский", value: "ロシア語" },
+        { label: "Sinhala / සිංහල", value: "シンハラ語" },
+        { label: "Spanish / Español", value: "スペイン語" },
+        { label: "Tagalog / Tagalog", value: "タガログ語" },
+        { label: "Thai / ไทย", value: "タイ語" },
+        { label: "Turkish / Türkçe", value: "トルコ語" },
+        { label: "Ukrainian / Українська", value: "ウクライナ語" },
+        { label: "Urdu / اردو", value: "ウルドゥー語" },
+        { label: "Vietnamese / Tiếng Việt", value: "ベトナム語" }
+    ];
+    const OTHER_OPTION_TEXTS = [
+        "Other", "その他", "そのほか", "其他", "Autres", "기타", "Outros", "Iba pa", "Khác", "อื่นๆ",
+        "Sonstiges", "Lainnya", "Другое", "अन्य", "ອື່ນໆ", "Інше", "سایر", "වෙනත්",
+        "Lain-lain", "အခြား", "অন্যান্য", "دیگر"
+    ];
 
     /** @type {import('@line/liff').Liff} */
     const liff = window.liff;
@@ -402,7 +643,7 @@
     };
     const modalManager = createModalManager();
     let contactDraftId = 0;
-    let levelLanguageListenerBound = false;
+    let formOptionLanguageListenerBound = false;
 
     $(function () {
         const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
@@ -430,13 +671,17 @@
         $("#submitHospitalRegistrationBtn").on("click", handleSubmitHospitalRegistration);
         $("#closeHospitalRegistrationBtn, #cancelHospitalRegistrationBtn").on("click", closeHospitalRegistrationModal);
         $("#userForm").on("input change", updateUserSaveButtonState);
+        $("#userNationalityInput").on("input change", updateUserSaveButtonState);
+        $("#userNativeInput").on("input change", updateNativeOtherInputState);
+        bindSearchableProfileInput($("#userNationalityInput"));
+        bindSearchableProfileInput($("#userNativeInput"));
         $("#hospitalRegistrationForm").on("input change", updateHospitalRegistrationButtonState);
         $("#hospitalRegistrationLaborButtons .radio-chip").on("click", function () {
             $("#hospitalRegistrationLaborButtons .radio-chip").removeClass("active");
             $(this).addClass("active");
             updateHospitalRegistrationButtonState();
         });
-        renderLevelOptions();
+        renderLocalizedSelectOptions();
         updateUserSaveButtonState();
         updateHospitalRegistrationButtonState();
     });
@@ -477,18 +722,18 @@
 
     function localizeLinkPage() {
         if ($.fn.localize && window.i18next && i18next.isInitialized) {
-            bindLevelLanguageListener();
-            renderLevelOptions();
+            bindFormOptionLanguageListener();
+            renderLocalizedSelectOptions();
             $("main, #hospitalRegistrationOverlay").localize();
         }
     }
 
-    function bindLevelLanguageListener() {
-        if (levelLanguageListenerBound || !window.i18next) {
+    function bindFormOptionLanguageListener() {
+        if (formOptionLanguageListenerBound || !window.i18next) {
             return;
         }
-        i18next.on("languageChanged", renderLevelOptions);
-        levelLanguageListenerBound = true;
+        i18next.on("languageChanged", renderLocalizedSelectOptions);
+        formOptionLanguageListenerBound = true;
     }
 
     async function reloadUser() {
@@ -546,8 +791,9 @@
         $("#userNameInput").val(user.name || "");
         $("#userNameFuriganaInput").val(user.nameFurigana || "");
         $("#userAgeInput").val(user.age != null ? user.age : "");
-        $("#userNationalityInput").val(user.nationality || "");
-        $("#userNativeInput").val(user.native || "");
+        renderLocalizedSelectOptions();
+        setNationalityValue(user.nationality || "");
+        setNativeLanguageValue(user.native || "");
         $("#userDueDateInput").val(toDateInputValue(user.dueDate));
 
         const level = user.level || {};
@@ -1215,6 +1461,7 @@
 
     function updateUserSaveButtonState() {
         const form = $("#userForm");
+        validateSearchableProfileInputs();
         $("#saveUserBtn").prop("disabled", !isFormComplete(form));
     }
 
@@ -1240,12 +1487,34 @@
         return form.find(".radio-chip.active").length > 0;
     }
 
+    function validateSearchableProfileInputs() {
+        const nationalityInput = $("#userNationalityInput")[0];
+        const nativeInput = $("#userNativeInput")[0];
+        if (nationalityInput) {
+            nationalityInput.setCustomValidity(
+                nationalityInput.value && !normalizeNationalityToJapanese(nationalityInput.value)
+                    ? tText("link.error.selectFromList", "Please select from the list.")
+                    : ""
+            );
+        }
+        if (nativeInput) {
+            nativeInput.setCustomValidity(
+                nativeInput.value && !normalizeNativeLanguageToJapanese(nativeInput.value)
+                    ? tText("link.error.selectFromList", "Please select from the list.")
+                    : ""
+            );
+        }
+    }
+
     function getUserFormData() {
         const name = String($("#userNameInput").val() || "").trim();
         const nameFurigana = String($("#userNameFuriganaInput").val() || "").trim();
         const age = $("#userAgeInput").val();
-        const nationality = String($("#userNationalityInput").val() || "").trim();
-        const nativeLanguage = String($("#userNativeInput").val() || "").trim();
+        const nationality = normalizeNationalityToJapanese($("#userNationalityInput").val());
+        const selectedNativeLanguage = normalizeNativeLanguageToJapanese($("#userNativeInput").val());
+        const nativeLanguage = selectedNativeLanguage === "その他"
+            ? String($("#userNativeOtherInput").val() || "").trim()
+            : selectedNativeLanguage;
         const dueDate = $("#userDueDateInput").val();
 
         return {
@@ -1281,6 +1550,162 @@
                 r: ""
             }
         };
+    }
+
+    function renderLocalizedSelectOptions() {
+        renderNationalityOptions();
+        renderNativeLanguageOptions();
+        renderLevelOptions();
+    }
+
+    function renderNationalityOptions() {
+        const input = $("#userNationalityInput");
+        const currentValue = normalizeNationalityToJapanese(input.val());
+        const list = $("#userNationalityOptions");
+
+        list.empty();
+        NATIONALITY_OPTIONS.forEach((option) => {
+            list.append($("<option>").attr("value", option.label));
+        });
+        input
+            .attr("placeholder", tText("link.option.notSet", "未設定"))
+            .val(getNationalityLabelByValue(currentValue) || currentValue || "");
+    }
+
+
+    function renderNativeLanguageOptions() {
+        const input = $("#userNativeInput");
+        const currentValue = normalizeNativeLanguageToJapanese(input.val());
+        const list = $("#userNativeOptions");
+
+        list.empty();
+        NATIVE_LANGUAGE_OPTIONS.forEach((option) => {
+            list.append($("<option>").attr("value", option.label));
+        });
+        list.append($("<option>").attr("value", getOtherOptionLabel()));
+        input
+            .attr("placeholder", tText("link.option.notSet", "未設定"))
+            .val(getNativeLanguageLabelByValue(currentValue) || (currentValue === "その他" ? getOtherOptionLabel() : currentValue || ""));
+        updateNativeOtherInputState();
+    }
+
+    function setNationalityValue(value) {
+        const normalizedValue = normalizeNationalityToJapanese(value);
+        $("#userNationalityInput").val(getNationalityLabelByValue(normalizedValue) || "");
+        updateUserSaveButtonState();
+    }
+
+    function setNativeLanguageValue(value) {
+        const raw = String(value || "").trim();
+        const normalizedValue = normalizeNativeLanguageToJapanese(raw);
+        const isListedValue = Boolean(normalizedValue && normalizedValue !== "その他");
+
+        $("#userNativeInput").val(isListedValue ? getNativeLanguageLabelByValue(normalizedValue) : (raw ? getOtherOptionLabel() : ""));
+        $("#userNativeOtherInput").val(isListedValue || normalizedValue === "その他" ? "" : raw);
+        updateNativeOtherInputState();
+    }
+
+    function updateNativeOtherInputState() {
+        const isOtherSelected = normalizeNativeLanguageToJapanese($("#userNativeInput").val()) === "その他";
+        const input = $("#userNativeOtherInput");
+        input
+            .prop("hidden", !isOtherSelected)
+            .prop("required", isOtherSelected)
+            .attr("placeholder", tText("link.placeholder.nativeOther", tText("button.other", "Other")));
+        if (!isOtherSelected) {
+            input.val("");
+        }
+        updateUserSaveButtonState();
+    }
+
+    function bindSearchableProfileInput(input) {
+        input.on("focus", function () {
+            const currentValue = String(input.val() || "").trim();
+            if (!isKnownSearchableProfileLabel(this.id, currentValue)) {
+                return;
+            }
+            input.data(SEARCHABLE_INPUT_RESTORE_VALUE_KEY, currentValue);
+            input.val("");
+            updateUserSaveButtonState();
+        });
+
+        input.on("blur", function () {
+            const restoreValue = input.data(SEARCHABLE_INPUT_RESTORE_VALUE_KEY);
+            input.removeData(SEARCHABLE_INPUT_RESTORE_VALUE_KEY);
+            if (String(input.val() || "").trim() === "" && restoreValue) {
+                input.val(restoreValue);
+                handleSearchableProfileInputChanged(this.id);
+            }
+        });
+    }
+
+    function isKnownSearchableProfileLabel(inputId, value) {
+        if (!value) {
+            return false;
+        }
+        if (inputId === "userNationalityInput") {
+            return NATIONALITY_OPTIONS.some((option) => option.label === value);
+        }
+        if (inputId === "userNativeInput") {
+            return NATIVE_LANGUAGE_OPTIONS.some((option) => option.label === value) || isOtherOptionText(value);
+        }
+        return false;
+    }
+
+    function handleSearchableProfileInputChanged(inputId) {
+        if (inputId === "userNativeInput") {
+            updateNativeOtherInputState();
+            return;
+        }
+        updateUserSaveButtonState();
+    }
+
+    function getOtherOptionLabel() {
+        return tText("button.other", "Other");
+    }
+
+    function getNationalityLabelByValue(value) {
+        const option = NATIONALITY_OPTIONS.find((item) => item.value === value);
+        return option ? option.label : "";
+    }
+
+    function getNativeLanguageLabelByValue(value) {
+        const option = NATIVE_LANGUAGE_OPTIONS.find((item) => item.value === value);
+        return option ? option.label : "";
+    }
+
+    function normalizeNationalityToJapanese(value) {
+        const raw = String(value || "").trim();
+        if (!raw) {
+            return "";
+        }
+        const rawLower = raw.toLocaleLowerCase();
+        const matchedOption = NATIONALITY_OPTIONS.find((option) => {
+            return option.value === raw || option.label.toLocaleLowerCase() === rawLower;
+        });
+        return matchedOption ? matchedOption.value : "";
+    }
+
+    function normalizeNativeLanguageToJapanese(value) {
+        const raw = String(value || "").trim();
+        if (!raw) {
+            return "";
+        }
+        if (isOtherOptionText(raw)) {
+            return "その他";
+        }
+
+        const rawLower = raw.toLocaleLowerCase();
+        const matchedOption = NATIVE_LANGUAGE_OPTIONS.find((option) => {
+            return option.value === raw || option.label.toLocaleLowerCase() === rawLower;
+        });
+        return matchedOption ? matchedOption.value : "";
+    }
+
+    function isOtherOptionText(value) {
+        const rawLower = String(value || "").trim().toLocaleLowerCase();
+        return OTHER_OPTION_TEXTS.some((text) => text.toLocaleLowerCase() === rawLower)
+            || getOtherOptionLabel().toLocaleLowerCase() === rawLower;
     }
 
     function renderLevelOptions() {

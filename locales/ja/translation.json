@@ -64,7 +64,8 @@
     "save": "保存",
     "clear": "入力内容をクリア",
     "reset": "リセット",
-    "delete": "削除"
+    "delete": "削除",
+    "other": "その他"
   },
   "placeholder": {
     "free": "自由記述"
@@ -137,11 +138,10 @@
       "name": "例：Maria Santos",
       "nameFurigana": "例：まりあ さんとす",
       "age": "例：30",
-      "nationality": "例：Philippines",
-      "native": "例：フィリピノ語"
+      "nativeOther": "例：イタリア語"
     },
     "option": {
-      "notSet": "未設定",
+      "notSet": "--選択してください--",
       "yes": "はい",
       "no": "いいえ",
       "undecided": "未定"
@@ -201,7 +201,8 @@
       "scanUnavailable": "QRコードを読み取れません。",
       "invalidQr": "QRコードが正しくありません。",
       "scanFailed": "QRコードの読み取りに失敗しました。",
-      "isLaborPatientRequired": "この病院で分娩予定かどうかを選択してください。"
+      "isLaborPatientRequired": "この病院で分娩予定かどうかを選択してください。",
+      "selectFromList": "リストから選択してください。"
     }
   },
   "bp": {

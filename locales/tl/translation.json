@@ -57,7 +57,8 @@
   "button": {
     "ok": "OK",
     "cancel": "Kanselahin",
-    "back": "Bumalik"
+    "back": "Bumalik",
+    "other": "Iba pa"
   },
   "bp": {
     "cat": {
@@ -605,6 +606,12 @@
           "r": "Naiintindihan pati kanji"
         }
       }
+    },
+    "placeholder": {
+      "nativeOther": "Halimbawa: Italian"
+    },
+    "error": {
+      "selectFromList": "Pumili mula sa listahan."
     }
   }
 }

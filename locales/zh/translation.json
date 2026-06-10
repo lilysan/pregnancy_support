@@ -57,7 +57,8 @@
   "button": {
     "ok": "OK",
     "cancel": "取消",
-    "back": "返回"
+    "back": "返回",
+    "other": "其他"
   },
   "bp": {
     "cat": {
@@ -605,6 +606,12 @@
           "r": "也看得懂汉字"
         }
       }
+    },
+    "placeholder": {
+      "nativeOther": "例如：意大利语"
+    },
+    "error": {
+      "selectFromList": "请从列表中选择。"
     }
   }
 }

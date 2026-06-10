@@ -57,7 +57,8 @@
   "button": {
     "ok": "OK",
     "cancel": "취소",
-    "back": "뒤로"
+    "back": "뒤로",
+    "other": "기타"
   },
   "bp": {
     "cat": {
@@ -605,6 +606,12 @@
           "r": "한자도 이해할 수 있다"
         }
       }
+    },
+    "placeholder": {
+      "nativeOther": "예: 이탈리아어"
+    },
+    "error": {
+      "selectFromList": "목록에서 선택해 주세요."
     }
   }
 }
