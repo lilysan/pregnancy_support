@@ -126,6 +126,29 @@
             margin-top: 16px;
         }
 
+        .data-panel-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .data-panel-heading {
+            margin: 0;
+            color: var(--primary-dark);
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .data-panel-refresh-btn {
+            flex: 0 0 auto;
+        }
+
+        .data-panel-toolbar + .data-panel {
+            margin-top: 12px;
+        }
+
         .data-record-list {
             display: flex;
             flex-direction: column;
@@ -270,6 +293,14 @@
         <section class="data-result-section" id="sharedDataSection" hidden>
             <h2>共有データ</h2>
             <div class="tabs-grid data-tabs" id="dataTabs" role="tablist" aria-label="患者共有データ"></div>
+            <div class="data-panel-toolbar">
+                <p class="data-panel-heading" id="dataPanelHeading"></p>
+                <button type="button" class="btn secondary btn-small data-panel-refresh-btn"
+                        id="refreshDataTabBtn" disabled>
+                    <iconify-icon icon="material-symbols:refresh-rounded" aria-hidden="true"></iconify-icon>
+                    <span>再取得</span>
+                </button>
+            </div>
             <div class="data-panel" id="dataPanel" role="tabpanel"></div>
         </section>
     </article>
@@ -346,7 +377,17 @@
             }
         });
         $("#dataTabs").on("click", ".data-tab", function () {
-            switchDataTab($(this).data("tab-key"), true);
+            switchDataTab($(this).data("tab-key"), false);
+        });
+        $("#refreshDataTabBtn").on("click", function () {
+            const tabKey = dataState.activeTabKey;
+
+            if (!tabKey || !dataState.currentPatientUserId) {
+                return;
+            }
+
+            delete dataState.recordsByTab[tabKey];
+            switchDataTab(tabKey, true);
         });
         $("#hospitalAccountLinkBtn").on("click", function () {
             redirectToHospitalPage();
@@ -372,11 +413,12 @@
             return;
         }
 
-        const hospitalAccount = hospitalAccountResponse.data || {};
-        if (!hospitalAccount.hospitalId) {
-            redirectToHospitalPage();
-            return;
-        }
+        // const hospitalAccount = hospitalAccountResponse.data || {};
+        // if (!hospitalAccount.hospitalId) {
+        //     redirectToHospitalPage();
+        //     return;
+        // }
+        renderDataTabs();
 
         dataState.hospitalAccount = hospitalAccount;
         const hospitalResponse = await requestApi({
@@ -603,6 +645,10 @@
                 .toggleClass("active", isActive)
                 .attr("aria-selected", String(isActive));
         });
+
+        const activeTab = DATA_TABS.find((tab) => tab.key === dataState.activeTabKey);
+        $("#dataPanelHeading").text(activeTab ? activeTab.label : "");
+        $("#refreshDataTabBtn").prop("disabled", !dataState.currentPatientUserId);
     }
 
     function renderDataPanel(tabKey) {
