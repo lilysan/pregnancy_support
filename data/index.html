@@ -445,8 +445,8 @@
         dataState.activeTabKey = tabKey;
         updateDataTabActiveState();
 
-        if (!dataState.currentCardNo) {
-            renderDataPanelMessage("診察券番号を入力して患者情報を取得してください。");
+        if (!dataState.currentPatientUserId) {
+            renderDataPanelMessage("患者情報を選択してください。");
             return;
         }
 
@@ -459,8 +459,7 @@
                     method: "get",
                     idToken: liff.getIDToken(),
                     postData: {
-                        cardNo: dataState.currentCardNo,
-                        userId: dataState.currentPatientUserId || undefined,
+                        userId: dataState.currentPatientUserId,
                         unit: "month",
                         limit: 1,
                         page: 1
