@@ -133,7 +133,7 @@
         }
 
         .data-tabs.is-stuck {
-            grid-template-columns: repeat(7, minmax(0, 1fr));
+            grid-template-columns: repeat(8, minmax(0, 1fr));
         }
 
         .data-tabs.is-stuck .data-tab {
@@ -171,17 +171,7 @@
         }
 
         .data-tab-content {
-            margin-top: 14px;
-            padding: 16px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            background: var(--surface);
-        }
-
-        .data-tab-content.is-active {
-            border-color: var(--primary-border);
-            background: var(--background);
-            box-shadow: inset 4px 0 0 var(--primary-light);
+            margin-top: 40px;
         }
 
         .data-panel-toolbar {
@@ -190,13 +180,6 @@
             justify-content: space-between;
             gap: 12px;
             margin-top: 0;
-        }
-
-        .data-panel-heading {
-            margin: 0;
-            color: var(--primary-dark);
-            font-size: 16px;
-            font-weight: 700;
         }
 
         .data-panel-refresh-btn {
@@ -598,6 +581,7 @@
             }
 
             .data-tabs.is-stuck {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
                 gap: 6px;
             }
 
@@ -606,9 +590,6 @@
                 padding: 8px 6px;
             }
 
-            .data-tab-content {
-                padding: 14px;
-            }
         }
     </style>
 </head>
@@ -656,18 +637,12 @@
             </div>
         </section>
 
-        <section class="data-result-section" id="patientInfoSection" hidden>
-            <h2>基本情報</h2>
-            <div class="data-info-grid" id="patientInfoGrid"></div>
-        </section>
-
         <section class="data-result-section" id="sharedDataSection" hidden>
-            <h2>共有データ</h2>
             <div id="dataTabsSentinel" aria-hidden="true"></div>
             <div class="tabs-grid data-tabs" id="dataTabs" role="tablist" aria-label="患者共有データ"></div>
             <div class="data-tab-content">
                 <div class="data-panel-toolbar">
-                    <p class="data-panel-heading" id="dataPanelHeading"></p>
+                    <h2 id="dataPanelHeading"></h2>
                     <button type="button" class="btn secondary btn-small data-panel-refresh-btn"
                             id="refreshDataTabBtn" disabled>
                         <iconify-icon icon="material-symbols:refresh-rounded" aria-hidden="true"></iconify-icon>
@@ -702,6 +677,7 @@
     const liff = window.liff;
 
     const DATA_TABS = [
+        {key: "profile", label: "基本情報", icon: "material-symbols:person-rounded"},
         {key: "labor", label: "陣痛診断", icon: "material-symbols:siren-rounded", path: "labor"},
         {key: "birthplan", label: "バースプラン", icon: "material-symbols:edit-note-rounded", path: "birthplan"},
         {key: "vaccination", label: "予防接種", icon: "material-symbols:vaccines-rounded", path: "vaccination"},
@@ -721,7 +697,7 @@
         hospitalAccount: null,
         patient: null,
         currentPatientUserId: "",
-        activeTabKey: "",
+        activeTabKey: "profile",
         recordsByTab: {},
         currentCardNo: "",
         translations: {},
@@ -769,8 +745,9 @@
         });
         $("#refreshDataTabBtn").on("click", function () {
             const tabKey = dataState.activeTabKey;
+            const tab = DATA_TABS.find((item) => item.key === tabKey);
 
-            if (!tabKey || !dataState.currentPatientUserId) {
+            if (!tab || !tab.path || !dataState.currentPatientUserId) {
                 return;
             }
 
@@ -802,10 +779,10 @@
         }
 
         const hospitalAccount = hospitalAccountResponse.data || {};
-        // if (!hospitalAccount.hospitalId) {
-        //     redirectToHospitalPage();
-        //     return;
-        // }
+        if (!hospitalAccount.hospitalId) {
+            redirectToHospitalPage();
+            return;
+        }
 
         dataState.hospitalAccount = hospitalAccount;
         const hospitalResponse = await requestApi({
@@ -867,9 +844,9 @@
     async function switchDataTab(tabKey, shouldFetch) {
         const tab = DATA_TABS.find((item) => item.key === tabKey);
         if (!tab) {
-            dataState.activeTabKey = "";
+            dataState.activeTabKey = "profile";
             updateDataTabActiveState();
-            renderDataPanelMessage("確認したい共有データのタブを選択してください。");
+            renderDataPanel("profile");
             return;
         }
 
@@ -878,6 +855,11 @@
 
         if (!dataState.currentPatientUserId) {
             renderDataPanelMessage("患者情報を選択してください。");
+            return;
+        }
+
+        if (!tab.path) {
+            renderDataPanel(tabKey);
             return;
         }
 
@@ -918,11 +900,10 @@
         dataState.currentPatientUserId = dataState.patient.userId || "";
         dataState.currentCardNo = dataState.patient.cardNo || cardNo;
         dataState.recordsByTab = {};
-        dataState.activeTabKey = "";
-        renderPatientInfo(dataState.patient);
-        $("#patientInfoSection, #sharedDataSection").prop("hidden", false);
+        dataState.activeTabKey = "profile";
+        $("#sharedDataSection").prop("hidden", false);
         renderDataTabs();
-        renderDataPanelMessage("確認したい共有データのタブを選択してください。");
+        renderDataPanel("profile");
         setupDataStickyTabs();
     }
 
@@ -986,7 +967,7 @@
         $("#hospitalAccountLinkBtn").prop("disabled", false);
     }
 
-    function renderPatientInfo(patient) {
+    function renderPatientProfile(patient) {
         const items = [
             ["診察券番号", patient.cardNo || dataState.currentCardNo],
             ["名前", patient.name],
@@ -998,8 +979,7 @@
             ["分娩予定", formatBooleanLabel(patient.isLaborPatient)]
         ];
 
-        const grid = $("#patientInfoGrid");
-        grid.empty();
+        const grid = $("<div>").addClass("data-info-grid");
         items.forEach(([label, value]) => {
             grid.append(
                 $("<div>").addClass("data-info-item")
@@ -1007,6 +987,7 @@
                     .append($("<p>").addClass("data-info-value").text(formatValue(value)))
             );
         });
+        return grid;
     }
 
     function renderDataTabs() {
@@ -1044,8 +1025,7 @@
 
         const activeTab = DATA_TABS.find((tab) => tab.key === dataState.activeTabKey);
         $("#dataPanelHeading").text(activeTab ? activeTab.label : "");
-        $("#refreshDataTabBtn").prop("disabled", !dataState.currentPatientUserId || !activeTab);
-        $(".data-tab-content").toggleClass("is-active", Boolean(activeTab));
+        $("#refreshDataTabBtn").prop("disabled", !dataState.currentPatientUserId || !activeTab || !activeTab.path);
     }
 
     function setupDataStickyTabs() {
@@ -1088,6 +1068,11 @@
 
     function renderDataPanel(tabKey) {
         const tab = DATA_TABS.find((item) => item.key === tabKey) || DATA_TABS[0];
+        if (tab.key === "profile") {
+            $("#dataPanel").empty().append(renderPatientProfile(dataState.patient || {}));
+            return;
+        }
+
         const response = dataState.recordsByTab[tabKey];
         if (!response) {
             renderDataPanelMessage("データを取得してください。");
@@ -1167,11 +1152,11 @@
 
         schema.categories.forEach((category) => {
             const categoryEl = $("<section>").addClass("data-form-category")
-                .append($("<h2>").text(translateDataKey(`bp.${category.labelKey}`)));
+                .append($("<h3>").text(translateDataKey(`bp.${category.labelKey}`)));
 
             (category.sections || []).forEach((section) => {
                 const sectionEl = $("<section>").addClass("data-form-section")
-                    .append($("<h3>").text(translateDataKey(`bp.${section.labelKey}`)));
+                    .append($("<h4>").text(translateDataKey(`bp.${section.labelKey}`)));
 
                 appendBirthplanQuestions(sectionEl, section.questions, responseMap, questionCounter);
                 categoryEl.append(sectionEl);
