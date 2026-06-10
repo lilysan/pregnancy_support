@@ -122,8 +122,66 @@
             overflow-wrap: anywhere;
         }
 
+        .data-tabs {
+            position: sticky;
+            top: var(--data-tabs-sticky-top, 0px);
+            z-index: 15;
+            padding: 8px 0;
+            background: var(--background);
+            overflow-anchor: none;
+            transition: padding 0.18s ease;
+        }
+
+        .data-tabs.is-stuck {
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+        }
+
+        .data-tabs.is-stuck .data-tab {
+            justify-content: center;
+            min-height: 48px;
+            padding: 8px;
+            gap: 0;
+        }
+
+        .data-tabs.is-stuck .tab-label {
+            max-width: 0;
+            opacity: 0;
+            transform: translateX(-4px);
+        }
+
+        .data-tabs .data-tab {
+            transition: min-height 0.2s ease, padding 0.2s ease, gap 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .data-tabs .data-tab iconify-icon {
+            flex: 0 0 auto;
+        }
+
+        .data-tabs .tab-label {
+            display: inline-block;
+            max-width: 120px;
+            opacity: 1;
+            overflow: hidden;
+            white-space: nowrap;
+            transition: max-width 0.22s ease, opacity 0.16s ease, transform 0.2s ease;
+        }
+
         .data-panel {
-            margin-top: 16px;
+            margin-top: 14px;
+        }
+
+        .data-tab-content {
+            margin-top: 14px;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface);
+        }
+
+        .data-tab-content.is-active {
+            border-color: var(--primary-border);
+            background: var(--background);
+            box-shadow: inset 4px 0 0 var(--primary-light);
         }
 
         .data-panel-toolbar {
@@ -131,7 +189,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            margin-top: 16px;
+            margin-top: 0;
         }
 
         .data-panel-heading {
@@ -538,6 +596,19 @@
             .data-metric-summary {
                 grid-template-columns: 1fr;
             }
+
+            .data-tabs.is-stuck {
+                gap: 6px;
+            }
+
+            .data-tabs.is-stuck .data-tab {
+                min-height: 44px;
+                padding: 8px 6px;
+            }
+
+            .data-tab-content {
+                padding: 14px;
+            }
         }
     </style>
 </head>
@@ -592,16 +663,19 @@
 
         <section class="data-result-section" id="sharedDataSection" hidden>
             <h2>共有データ</h2>
+            <div id="dataTabsSentinel" aria-hidden="true"></div>
             <div class="tabs-grid data-tabs" id="dataTabs" role="tablist" aria-label="患者共有データ"></div>
-            <div class="data-panel-toolbar">
-                <p class="data-panel-heading" id="dataPanelHeading"></p>
-                <button type="button" class="btn secondary btn-small data-panel-refresh-btn"
-                        id="refreshDataTabBtn" disabled>
-                    <iconify-icon icon="material-symbols:refresh-rounded" aria-hidden="true"></iconify-icon>
-                    <span>再取得</span>
-                </button>
+            <div class="data-tab-content">
+                <div class="data-panel-toolbar">
+                    <p class="data-panel-heading" id="dataPanelHeading"></p>
+                    <button type="button" class="btn secondary btn-small data-panel-refresh-btn"
+                            id="refreshDataTabBtn" disabled>
+                        <iconify-icon icon="material-symbols:refresh-rounded" aria-hidden="true"></iconify-icon>
+                        <span>再取得</span>
+                    </button>
+                </div>
+                <div class="data-panel" id="dataPanel" role="tabpanel"></div>
             </div>
-            <div class="data-panel" id="dataPanel" role="tabpanel"></div>
         </section>
     </article>
 </main>
@@ -664,15 +738,16 @@
         liff.init({
             liffId: LIFF_ID,
             withLoginOnExternalBrowser: !isDev
-        }).then(async () => {
+        }).then(() => {
             const idToken = liff.getIDToken();
-            await Promise.all([
+            return Promise.all([
                 main(idToken),
                 loadHeader(),
                 loadLocaleMessages(),
                 loadReferenceSchemas()
             ]);
         }).then(() => {
+            setupDataStickyTabs();
             $("#loadingOverlay").removeClass("is-open");
         }).catch((err) => {
             console.error("LIFF init failed:", err);
@@ -727,10 +802,10 @@
         }
 
         const hospitalAccount = hospitalAccountResponse.data || {};
-        if (!hospitalAccount.hospitalId) {
-            redirectToHospitalPage();
-            return;
-        }
+        // if (!hospitalAccount.hospitalId) {
+        //     redirectToHospitalPage();
+        //     return;
+        // }
 
         dataState.hospitalAccount = hospitalAccount;
         const hospitalResponse = await requestApi({
@@ -848,6 +923,7 @@
         $("#patientInfoSection, #sharedDataSection").prop("hidden", false);
         renderDataTabs();
         renderDataPanelMessage("確認したい共有データのタブを選択してください。");
+        setupDataStickyTabs();
     }
 
     function normalizePatientResponseData(data) {
@@ -969,6 +1045,45 @@
         const activeTab = DATA_TABS.find((tab) => tab.key === dataState.activeTabKey);
         $("#dataPanelHeading").text(activeTab ? activeTab.label : "");
         $("#refreshDataTabBtn").prop("disabled", !dataState.currentPatientUserId || !activeTab);
+        $(".data-tab-content").toggleClass("is-active", Boolean(activeTab));
+    }
+
+    function setupDataStickyTabs() {
+        const tabs = document.getElementById("dataTabs");
+        const sentinel = document.getElementById("dataTabsSentinel");
+        const header = document.getElementById("header-container");
+        if (!tabs || !sentinel) {
+            return;
+        }
+        if (tabs.dataset.stickyInitialized === "1") {
+            window.dispatchEvent(new Event("resize"));
+            return;
+        }
+        tabs.dataset.stickyInitialized = "1";
+
+        let isStuck = false;
+        let stickyStartY = 0;
+        const recalculateStickyStart = () => {
+            const headerHeight = header ? header.offsetHeight : 0;
+            document.documentElement.style.setProperty("--data-tabs-sticky-top", `${headerHeight}px`);
+            stickyStartY = window.scrollY + sentinel.getBoundingClientRect().top - headerHeight;
+        };
+        const updateStickyTabs = () => {
+            if (!isStuck && window.scrollY >= stickyStartY) {
+                isStuck = true;
+            } else if (isStuck && window.scrollY < stickyStartY - 32) {
+                isStuck = false;
+            }
+            tabs.classList.toggle("is-stuck", isStuck);
+        };
+
+        recalculateStickyStart();
+        updateStickyTabs();
+        window.addEventListener("scroll", updateStickyTabs, {passive: true});
+        window.addEventListener("resize", () => {
+            recalculateStickyStart();
+            updateStickyTabs();
+        });
     }
 
     function renderDataPanel(tabKey) {
