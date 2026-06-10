@@ -156,7 +156,8 @@
         }
 
         .data-record {
-            padding: 12px;
+            position: relative;
+            padding: 42px 12px 12px;
             border: 1px solid var(--border);
             border-radius: 8px;
             background: var(--background);
@@ -187,6 +188,316 @@
             display: block;
             color: var(--text);
             font-size: 14px;
+        }
+
+        .data-view-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .bp-question,
+        .vac-question {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bp-question.data-answer-card,
+        .vac-question.data-answer-card {
+            margin-top: 0;
+            padding-top: 42px;
+        }
+
+        .bp-question:not(.data-answer-card).is-answered::after,
+        .vac-question:not(.data-answer-card).is-answered::after,
+        .bp-question:not(.data-answer-card).is-unanswered::after,
+        .vac-question:not(.data-answer-card).is-unanswered::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-left: 32px solid transparent;
+            pointer-events: none;
+        }
+
+        .bp-question:not(.data-answer-card).is-answered::after,
+        .vac-question:not(.data-answer-card).is-answered::after {
+            border-top: 32px solid var(--success);
+        }
+
+        .bp-question:not(.data-answer-card).is-unanswered::after,
+        .vac-question:not(.data-answer-card).is-unanswered::after {
+            border-top: 32px solid var(--border);
+        }
+
+        .bp-question:not(.data-answer-card).is-answered::before,
+        .vac-question:not(.data-answer-card).is-answered::before,
+        .bp-question:not(.data-answer-card).is-unanswered::before,
+        .vac-question:not(.data-answer-card).is-unanswered::before {
+            position: absolute;
+            top: 2px;
+            right: 5px;
+            color: var(--background);
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .bp-question:not(.data-answer-card).is-answered::before,
+        .vac-question:not(.data-answer-card).is-answered::before {
+            content: "✓";
+        }
+
+        .bp-question:not(.data-answer-card).is-unanswered::before,
+        .vac-question:not(.data-answer-card).is-unanswered::before {
+            content: "○";
+        }
+
+        .bp-question-label,
+        .vac-question-label {
+            margin: 0 0 8px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .badge-primary {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 4px 10px;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        .data-answer-meta {
+            margin: 8px 0 0;
+            color: var(--sub-text);
+            font-size: 13px;
+            line-height: 1.45;
+        }
+
+        .data-answer-text {
+            margin: 8px 0 0;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface);
+            line-height: 1.55;
+            white-space: pre-wrap;
+        }
+
+        .data-answer-key {
+            display: block;
+            margin-top: 4px;
+            color: var(--sub-text);
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .data-record-time {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            max-width: calc(100% - 24px);
+            padding: 4px 9px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: var(--background);
+            color: var(--sub-text);
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.3;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            z-index: 2;
+        }
+
+        .data-status-badge {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            margin-top: 8px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: var(--surface);
+            color: var(--sub-text);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .data-status-badge.is-done {
+            background: color-mix(in srgb, var(--success) 18%, white);
+            color: var(--success);
+        }
+
+        .data-status-badge.is-unknown {
+            background: color-mix(in srgb, var(--warning) 18%, white);
+            color: var(--warning);
+        }
+
+        .data-metric-summary {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .data-metric-card {
+            position: relative;
+            display: grid;
+            gap: 6px;
+            padding: 42px 12px 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--background);
+        }
+
+        .data-metric-date {
+            color: var(--sub-text);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .data-metric-value {
+            color: var(--primary-dark);
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1.25;
+        }
+
+        .data-metric-sub {
+            color: var(--sub-text);
+            font-size: 13px;
+            line-height: 1.45;
+        }
+
+        .data-chart-card {
+            margin-top: 16px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--background);
+        }
+
+        .data-chart-title {
+            margin: 0 0 10px;
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        .data-chart-svg {
+            display: block;
+            width: 100%;
+            height: auto;
+            overflow: visible;
+        }
+
+        .data-chart-axis,
+        .data-chart-grid {
+            stroke: var(--border);
+            stroke-width: 1;
+        }
+
+        .data-chart-line {
+            fill: none;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .data-chart-point {
+            stroke: var(--background);
+            stroke-width: 2;
+        }
+
+        .data-chart-label {
+            fill: var(--sub-text);
+            font-size: 11px;
+        }
+
+        .data-chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+            color: var(--sub-text);
+            font-size: 13px;
+        }
+
+        .data-chart-legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .data-chart-legend-color {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+        }
+
+        .data-question-record {
+            position: relative;
+            padding: 42px 12px 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--background);
+        }
+
+        .data-question-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .data-question-date {
+            margin: 0;
+            color: var(--sub-text);
+            font-size: 13px;
+        }
+
+        .data-score-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 64px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 800;
+        }
+
+        .data-question-list {
+            display: grid;
+            gap: 8px;
+        }
+
+        .data-question-item {
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface);
+        }
+
+        .data-question-text,
+        .data-choice-text {
+            margin: 0;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .data-question-text {
+            font-weight: 700;
+        }
+
+        .data-choice-text {
+            margin-top: 6px;
         }
 
         .patient-choice-list {
@@ -235,7 +546,8 @@
         @media (max-width: 520px) {
             .data-search-actions,
             .data-info-grid,
-            .data-record-grid {
+            .data-record-grid,
+            .data-metric-summary {
                 grid-template-columns: 1fr;
             }
         }
@@ -343,7 +655,8 @@
         currentPatientUserId: "",
         activeTabKey: DATA_TABS[0].key,
         recordsByTab: {},
-        currentCardNo: ""
+        currentCardNo: "",
+        translations: {}
     };
     let patientSelectionResolve = null;
 
@@ -357,7 +670,8 @@
             const idToken = liff.getIDToken();
             await Promise.all([
                 main(idToken),
-                loadHeader()
+                loadHeader(),
+                loadLocaleMessages()
             ]);
         }).then(() => {
             $("#loadingOverlay").removeClass("is-open");
@@ -413,12 +727,11 @@
             return;
         }
 
-        // const hospitalAccount = hospitalAccountResponse.data || {};
-        // if (!hospitalAccount.hospitalId) {
-        //     redirectToHospitalPage();
-        //     return;
-        // }
-        renderDataTabs();
+        const hospitalAccount = hospitalAccountResponse.data || {};
+        if (!hospitalAccount.hospitalId) {
+            redirectToHospitalPage();
+            return;
+        }
 
         dataState.hospitalAccount = hospitalAccount;
         const hospitalResponse = await requestApi({
@@ -671,15 +984,280 @@
         }
 
         const panel = $("#dataPanel");
-        panel.empty().append($("<div>").addClass("data-record-list"));
-        const list = panel.find(".data-record-list");
+        panel.empty();
+
+        if (tab.key === "birthplan") {
+            panel.append(renderBirthplanRecords(items));
+            return;
+        }
+        if (tab.key === "vaccination") {
+            panel.append(renderVaccinationRecords(items));
+            return;
+        }
+        if (tab.key === "weight") {
+            panel.append(renderMetricRecords(tab, items, {
+                series: [{key: "weight", label: "体重", unit: "kg", color: "#3f8f77"}],
+                valueFormatter: (item) => `${formatValue(item.weight)} kg`,
+                subFormatter: () => ""
+            }));
+            return;
+        }
+        if (tab.key === "pressure") {
+            panel.append(renderMetricRecords(tab, items, {
+                series: [
+                    {key: "high", label: "最高血圧", unit: "mmHg", color: "#d96b6b"},
+                    {key: "low", label: "最低血圧", unit: "mmHg", color: "#5b8ecf"}
+                ],
+                valueFormatter: (item) => `${formatValue(item.high)} / ${formatValue(item.low)} mmHg`,
+                subFormatter: (item) => [formatPeriod("pressure", item.period), item.medicine ? `薬：${item.medicine}` : ""].filter(Boolean).join(" / ")
+            }));
+            return;
+        }
+        if (tab.key === "sugar") {
+            panel.append(renderMetricRecords(tab, items, {
+                series: [{key: "sugar", label: "血糖値", unit: "mg/dL", color: "#cf8a3a"}],
+                valueFormatter: (item) => `${formatValue(item.sugar)} mg/dL`,
+                subFormatter: (item) => [formatPeriod("sugar", item.period), item.medicine ? `薬・インスリン：${item.medicine}` : ""].filter(Boolean).join(" / ")
+            }));
+            return;
+        }
+        if (tab.key === "epds") {
+            panel.append(renderQuestionAnswerRecords(tab, items, {questionPrefix: "epds", showScore: true}));
+            return;
+        }
+        if (tab.key === "labor") {
+            panel.append(renderQuestionAnswerRecords(tab, items, {questionPrefix: "sos", showScore: false}));
+            return;
+        }
+
+        panel.append(renderGenericRecords(tab, items));
+    }
+
+    function renderBirthplanRecords(items) {
+        const list = $("<div>").addClass("data-view-list");
+        items.forEach((item, index) => {
+            const key = item && item.responceKey ? item.responceKey : "";
+            const label = translateDataKey(normalizeBirthPlanKey(key));
+            const card = $("<article>")
+                .addClass("bp-question data-answer-card card is-answered")
+                .append(renderAnswerTime(item))
+                .append(
+                    $("<p>").addClass("bp-question-label")
+                        .append($("<span>").addClass("badge badge-primary").text(index + 1))
+                        .append($("<span>").text(label || formatValue(key)))
+                );
+
+            if (key) {
+                card.append($("<span>").addClass("data-answer-key").text(key));
+            }
+            if (item && item.other) {
+                card.append($("<p>").addClass("data-answer-text").text(item.other));
+            }
+            list.append(card);
+        });
+        return list;
+    }
+
+    function renderVaccinationRecords(items) {
+        const list = $("<div>").addClass("data-view-list");
+        items.forEach((item, index) => {
+            const status = formatVaccinationStatus(item && item.isVaccinated);
+            const card = $("<article>")
+                .addClass("vac-question data-answer-card card")
+                .toggleClass("is-answered", status.key === "yes")
+                .toggleClass("is-unanswered", status.key !== "yes")
+                .append(renderAnswerTime(item))
+                .append(
+                    $("<p>").addClass("vac-question-label")
+                        .append($("<span>").addClass("badge badge-primary").text(index + 1))
+                        .append($("<span>").text(formatValue(item && item.vaccinationName)))
+                )
+                .append(
+                    $("<span>")
+                        .addClass(`data-status-badge ${status.className}`)
+                        .text(status.label)
+                );
+
+            const vaccinationDate = item && (item.vaccinationDate || item.inoculationDate);
+            if (vaccinationDate) {
+                card.append($("<p>").addClass("data-answer-meta").text(`接種日：${formatValue(vaccinationDate)}`));
+            }
+            if (item && item.vaccinationKey) {
+                card.append($("<span>").addClass("data-answer-key").text(item.vaccinationKey));
+            }
+            list.append(card);
+        });
+        return list;
+    }
+
+    function renderMetricRecords(tab, items, config) {
+        const sortedItems = items.slice().sort(compareRecordDate);
+        const wrap = $("<div>");
+        const list = $("<div>").addClass("data-metric-summary");
+        sortedItems.forEach((item) => {
+            list.append(
+                $("<article>").addClass("data-metric-card")
+                    .append(renderAnswerTime(item))
+                    .append($("<span>").addClass("data-metric-date").text(formatRecordDate(item)))
+                    .append($("<span>").addClass("data-metric-value").text(config.valueFormatter(item)))
+                    .append($("<span>").addClass("data-metric-sub").text(config.subFormatter(item)))
+            );
+        });
+        wrap.append(list);
+        wrap.append(renderLineChart(`${tab.label}の推移`, sortedItems, config.series));
+        return wrap;
+    }
+
+    function renderQuestionAnswerRecords(tab, items, config) {
+        const list = $("<div>").addClass("data-view-list");
+        items.slice().sort(compareRecordDate).forEach((item, index) => {
+            const record = $("<article>").addClass("data-question-record");
+            record.append(renderAnswerTime(item));
+            const header = $("<div>").addClass("data-question-header")
+                .append($("<p>").addClass("data-question-date").text(`${tab.label} ${index + 1}`));
+            if (config.showScore) {
+                header.append($("<span>").addClass("data-score-badge").text(`Score ${formatValue(item && item.score)}`));
+            }
+            record.append(header);
+
+            const answers = normalizeAnswerEntries(item && item.answers, config.questionPrefix);
+            if (!answers.length) {
+                record.append($("<p>").addClass("small").text("回答データがありません。"));
+                list.append(record);
+                return;
+            }
+
+            const answerList = $("<div>").addClass("data-question-list");
+            answers.forEach((answer, answerIndex) => {
+                const questionText = translateDataKey(answer.questionTextKey || `${answer.questionKey}.text`);
+                const choiceText = translateDataKey(answer.answerKey);
+                answerList.append(
+                    $("<div>").addClass("data-question-item")
+                        .append(
+                            $("<p>").addClass("data-question-text")
+                                .append($("<span>").addClass("badge badge-primary").text(answerIndex + 1))
+                                .append(document.createTextNode(questionText || formatValue(answer.questionKey)))
+                        )
+                        .append($("<p>").addClass("data-choice-text").text(`選択：${choiceText || formatValue(answer.answerKey)}`))
+                        .append($("<span>").addClass("data-answer-key").text(`${answer.questionKey} / ${answer.answerKey}`))
+                );
+            });
+            record.append(answerList);
+            list.append(record);
+        });
+        return list;
+    }
+
+    function renderLineChart(title, items, seriesConfig) {
+        const chart = $("<section>").addClass("data-chart-card")
+            .append($("<p>").addClass("data-chart-title").text(title));
+        const series = seriesConfig.map((config) => ({
+            config: config,
+            points: items.map((item, index) => ({
+                index: index,
+                label: formatRecordDateTime(item),
+                value: toFiniteNumber(item && item[config.key])
+            })).filter((point) => point.value !== null)
+        })).filter((entry) => entry.points.length);
+
+        const values = series.flatMap((entry) => entry.points.map((point) => point.value));
+        if (!values.length) {
+            chart.append($("<p>").addClass("small").text("グラフ表示できる数値データがありません。"));
+            return chart;
+        }
+
+        const width = 640;
+        const height = 240;
+        const padding = {top: 20, right: 20, bottom: 40, left: 48};
+        const plotWidth = width - padding.left - padding.right;
+        const plotHeight = height - padding.top - padding.bottom;
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+        const pad = min === max ? Math.max(Math.abs(max) * 0.1, 1) : (max - min) * 0.15;
+        const yMin = min - pad;
+        const yMax = max + pad;
+        const xMax = Math.max(items.length - 1, 1);
+        const svg = $(document.createElementNS("http://www.w3.org/2000/svg", "svg"))
+            .addClass("data-chart-svg")
+            .attr({viewBox: `0 0 ${width} ${height}`, role: "img", "aria-label": title});
+
+        [0, 0.5, 1].forEach((ratio) => {
+            const y = padding.top + plotHeight * ratio;
+            svg.append(createSvgElement("line", {
+                x1: padding.left,
+                y1: y,
+                x2: width - padding.right,
+                y2: y,
+                class: "data-chart-grid"
+            }));
+        });
+        svg.append(createSvgElement("line", {
+            x1: padding.left,
+            y1: padding.top,
+            x2: padding.left,
+            y2: height - padding.bottom,
+            class: "data-chart-axis"
+        }));
+        svg.append(createSvgElement("line", {
+            x1: padding.left,
+            y1: height - padding.bottom,
+            x2: width - padding.right,
+            y2: height - padding.bottom,
+            class: "data-chart-axis"
+        }));
+
+        const yForValue = (value) => padding.top + ((yMax - value) / (yMax - yMin)) * plotHeight;
+        const xForIndex = (index) => padding.left + (index / xMax) * plotWidth;
+
+        series.forEach((entry) => {
+            const pointString = entry.points.map((point) => `${xForIndex(point.index)},${yForValue(point.value)}`).join(" ");
+            svg.append(createSvgElement("polyline", {
+                points: pointString,
+                class: "data-chart-line",
+                stroke: entry.config.color
+            }));
+            entry.points.forEach((point) => {
+                svg.append(createSvgElement("circle", {
+                    cx: xForIndex(point.index),
+                    cy: yForValue(point.value),
+                    r: 4,
+                    fill: entry.config.color,
+                    class: "data-chart-point"
+                }));
+            });
+        });
+
+        svg.append(createSvgText(padding.left - 8, padding.top + 4, formatChartNumber(yMax), "end"));
+        svg.append(createSvgText(padding.left - 8, height - padding.bottom + 4, formatChartNumber(yMin), "end"));
+        if (items.length) {
+            svg.append(createSvgText(padding.left, height - 12, formatShortDate(items[0]), "start"));
+            svg.append(createSvgText(width - padding.right, height - 12, formatShortDate(items[items.length - 1]), "end"));
+        }
+
+        chart.append(svg);
+        chart.append(
+            $("<div>").addClass("data-chart-legend").append(
+                seriesConfig.map((config) => (
+                    $("<span>").addClass("data-chart-legend-item")
+                        .append($("<span>").addClass("data-chart-legend-color").css("background-color", config.color))
+                        .append($("<span>").text(`${config.label}${config.unit ? ` (${config.unit})` : ""}`))
+                ))
+            )
+        );
+        return chart;
+    }
+
+    function renderGenericRecords(tab, items) {
+        const list = $("<div>").addClass("data-record-list");
         items.forEach((item, index) => {
             list.append(renderRecord(tab, item, index));
         });
+        return list;
     }
 
     function renderRecord(tab, item, index) {
         const record = $("<div>").addClass("data-record");
+        record.append(renderAnswerTime(item));
         record.append($("<p>").addClass("data-record-title").text(`${tab.label} ${index + 1}`));
 
         const entries = Object.entries(item || {});
@@ -698,6 +1276,241 @@
         });
         record.append(grid);
         return record;
+    }
+
+    function normalizeBirthPlanKey(key) {
+        if (!key) {
+            return "";
+        }
+        return key.startsWith("bp.") ? key : `bp.${key}`;
+    }
+
+    function formatVaccinationStatus(value) {
+        const numericValue = Number(value);
+        if (numericValue === 1) {
+            return {key: "yes", label: "接種済み", className: "is-done"};
+        }
+        if (numericValue === 0) {
+            return {key: "no", label: "未接種", className: ""};
+        }
+        if (numericValue === 2) {
+            return {key: "unknown", label: "不明", className: "is-unknown"};
+        }
+        return {key: "none", label: "未回答", className: ""};
+    }
+
+    function renderAnswerTime(item) {
+        const value = getAnswerDatetime(item);
+        return $("<span>").addClass("data-record-time").text(`回答日時：${formatValue(value)}`);
+    }
+
+    function getAnswerDatetime(item) {
+        if (!item) {
+            return "";
+        }
+        return item.answeredAt
+            || item.answerDatetime
+            || item.responseDatetime
+            || item.createdAt
+            || item.datetime
+            || item.date
+            || "";
+    }
+
+    function normalizeAnswerEntries(answers, questionPrefix) {
+        const entries = [];
+        const pushEntry = (questionKey, answerKey, score) => {
+            if (!questionKey && !answerKey) {
+                return;
+            }
+            const normalizedQuestionKey = normalizeQuestionKey(questionKey || "", questionPrefix);
+            entries.push({
+                questionKey: normalizedQuestionKey || formatValue(questionKey),
+                questionTextKey: normalizedQuestionKey ? `${normalizedQuestionKey}.text` : "",
+                answerKey: normalizeAnswerKey(answerKey || "", normalizedQuestionKey, questionPrefix),
+                score: score
+            });
+        };
+
+        if (Array.isArray(answers)) {
+            answers.forEach((answer) => {
+                if (!answer) {
+                    return;
+                }
+                if (typeof answer === "string") {
+                    pushEntry("", answer);
+                    return;
+                }
+                if (typeof answer !== "object") {
+                    pushEntry("", String(answer));
+                    return;
+                }
+                const explicitQuestion = answer.questionKey || answer.question || answer.key || answer.q;
+                const explicitAnswer = answer.answerKey || answer.answer || answer.value || answer.selected || answer.a;
+                if (explicitQuestion || explicitAnswer) {
+                    pushEntry(explicitQuestion, explicitAnswer, answer.score);
+                    return;
+                }
+                Object.entries(answer).forEach(([questionKey, answerKey]) => {
+                    pushEntry(questionKey, answerKey);
+                });
+            });
+            return entries;
+        }
+
+        if (answers && typeof answers === "object") {
+            Object.entries(answers).forEach(([questionKey, answerKey]) => {
+                pushEntry(questionKey, answerKey);
+            });
+        }
+        return entries;
+    }
+
+    function normalizeQuestionKey(key, questionPrefix) {
+        if (!key) {
+            return "";
+        }
+        const value = String(key);
+        if (value.startsWith(`${questionPrefix}.`)) {
+            return value.replace(/\.text$/, "");
+        }
+        if (/^q\.\d+/.test(value)) {
+            return `${questionPrefix}.${value.replace(/\.text$/, "")}`;
+        }
+        return value.replace(/\.text$/, "");
+    }
+
+    function normalizeAnswerKey(key, questionKey, questionPrefix) {
+        if (!key) {
+            return "";
+        }
+        const value = String(key);
+        if (/^q\.\d+\.o\d+/.test(value)) {
+            return `${questionPrefix}.${value}`;
+        }
+        if (value.includes(".")) {
+            return value;
+        }
+        if (questionKey && /^o\d+/.test(value)) {
+            return `${questionKey}.${value}`;
+        }
+        return value;
+    }
+
+    function compareRecordDate(a, b) {
+        const aTime = getRecordTime(a);
+        const bTime = getRecordTime(b);
+        if (aTime === bTime) {
+            return getPeriodOrder(a && a.period) - getPeriodOrder(b && b.period);
+        }
+        return aTime - bTime;
+    }
+
+    function getRecordTime(item) {
+        const value = item && (item.datetime || item.date);
+        if (!value) {
+            return 0;
+        }
+        const normalized = String(value).replace(/\//g, "-");
+        const time = new Date(normalized).getTime();
+        return Number.isFinite(time) ? time : 0;
+    }
+
+    function getPeriodOrder(period) {
+        const number = Number(period);
+        return Number.isFinite(number) ? number : 0;
+    }
+
+    function formatRecordDateTime(item) {
+        if (!item) {
+            return "-";
+        }
+        const date = item.datetime || item.date || "";
+        const period = item.period ? formatPeriod("", item.period) : "";
+        return [date, period].filter(Boolean).join(" / ") || "-";
+    }
+
+    function formatRecordDate(item) {
+        return item && (item.datetime || item.date) ? String(item.datetime || item.date) : "-";
+    }
+
+    function formatShortDate(item) {
+        const value = item && (item.datetime || item.date);
+        if (!value) {
+            return "-";
+        }
+        return String(value).split(/[ T]/)[0];
+    }
+
+    function formatPeriod(tabKey, period) {
+        const value = String(period || "");
+        const labels = {
+            pressure: {
+                1: "朝",
+                2: "昼",
+                3: "夜"
+            },
+            sugar: {
+                1: "朝食前",
+                2: "朝食後",
+                3: "昼食前",
+                4: "昼食後",
+                5: "夕食前",
+                6: "夕食後",
+                7: "就寝前"
+            },
+            "": {
+                1: "朝",
+                2: "昼",
+                3: "夜",
+                4: "昼食後",
+                5: "夕食前",
+                6: "夕食後",
+                7: "就寝前"
+            }
+        };
+        return labels[tabKey] && labels[tabKey][value] ? labels[tabKey][value] : (value ? `区分 ${value}` : "");
+    }
+
+    function toFiniteNumber(value) {
+        if (value === null || value === undefined || value === "") {
+            return null;
+        }
+        const number = Number(value);
+        return Number.isFinite(number) ? number : null;
+    }
+
+    function createSvgElement(name, attrs) {
+        return $(document.createElementNS("http://www.w3.org/2000/svg", name)).attr(attrs);
+    }
+
+    function createSvgText(x, y, text, anchor) {
+        return createSvgElement("text", {
+            x: x,
+            y: y,
+            class: "data-chart-label",
+            "text-anchor": anchor || "middle"
+        }).text(text);
+    }
+
+    function formatChartNumber(value) {
+        if (Math.abs(value) >= 100) {
+            return String(Math.round(value));
+        }
+        return String(Math.round(value * 10) / 10);
+    }
+
+    function translateDataKey(key) {
+        if (!key) {
+            return "";
+        }
+        if (window.i18next && typeof i18next.t === "function") {
+            const translated = i18next.t(key);
+            if (translated && translated !== key) {
+                return translated;
+            }
+        }
+        return dataState.translations[key] || key;
     }
 
     function renderDataPanelMessage(message) {
@@ -760,6 +1573,26 @@
                     });
             });
         });
+    }
+
+    async function loadLocaleMessages() {
+        const storedLanguage = localStorage.getItem("i18nextLng") || navigator.language || "ja";
+        const language = String(storedLanguage).split("-")[0] || "ja";
+        const localeCandidates = Array.from(new Set([language, "ja"]));
+
+        for (const locale of localeCandidates) {
+            try {
+                const response = await fetch(`../locales/${locale}/translation.json`, {cache: "no-cache"});
+                if (!response.ok) {
+                    continue;
+                }
+                dataState.translations = await response.json();
+                return;
+            } catch (error) {
+                console.warn("failed to load locale messages:", locale, error);
+            }
+        }
+        dataState.translations = {};
     }
 
     function formatTravelTime(value) {
