@@ -719,7 +719,7 @@
         hospitalAccount: null,
         patient: null,
         currentPatientUserId: "",
-        activeTabKey: DATA_TABS[0].key,
+        activeTabKey: "",
         recordsByTab: {},
         currentCardNo: "",
         translations: {},
@@ -862,6 +862,14 @@
     }
 
     async function switchDataTab(tabKey, shouldFetch) {
+        const tab = DATA_TABS.find((item) => item.key === tabKey);
+        if (!tab) {
+            dataState.activeTabKey = "";
+            updateDataTabActiveState();
+            renderDataPanelMessage("確認したい共有データのタブを選択してください。");
+            return;
+        }
+
         dataState.activeTabKey = tabKey;
         updateDataTabActiveState();
 
@@ -873,7 +881,6 @@
         if (shouldFetch || !dataState.recordsByTab[tabKey]) {
             $("#loadingOverlay").addClass("is-open");
             try {
-                const tab = DATA_TABS.find((item) => item.key === tabKey);
                 const response = await requestApi({
                     path: tab.path,
                     method: "get",
@@ -908,10 +915,11 @@
         dataState.currentPatientUserId = dataState.patient.userId || "";
         dataState.currentCardNo = dataState.patient.cardNo || cardNo;
         dataState.recordsByTab = {};
+        dataState.activeTabKey = "";
         renderPatientInfo(dataState.patient);
         $("#patientInfoSection, #sharedDataSection").prop("hidden", false);
         renderDataTabs();
-        await switchDataTab(dataState.activeTabKey, false);
+        renderDataPanelMessage("確認したい共有データのタブを選択してください。");
     }
 
     function normalizePatientResponseData(data) {
@@ -1032,7 +1040,7 @@
 
         const activeTab = DATA_TABS.find((tab) => tab.key === dataState.activeTabKey);
         $("#dataPanelHeading").text(activeTab ? activeTab.label : "");
-        $("#refreshDataTabBtn").prop("disabled", !dataState.currentPatientUserId);
+        $("#refreshDataTabBtn").prop("disabled", !dataState.currentPatientUserId || !activeTab);
     }
 
     function renderDataPanel(tabKey) {
