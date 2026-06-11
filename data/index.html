@@ -339,14 +339,6 @@
             white-space: pre-wrap;
         }
 
-        .data-answer-key {
-            display: block;
-            margin-top: 4px;
-            color: var(--sub-text);
-            font-size: 12px;
-            overflow-wrap: anywhere;
-        }
-
         .data-record-time {
             position: absolute;
             top: 10px;
@@ -367,43 +359,7 @@
             z-index: 2;
         }
 
-        .data-metric-summary {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 10px;
-        }
-
-        .data-metric-card {
-            position: relative;
-            display: grid;
-            gap: 6px;
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            background: var(--background);
-        }
-
-        .data-metric-date {
-            color: var(--sub-text);
-            font-size: 13px;
-            line-height: 1.4;
-        }
-
-        .data-metric-value {
-            color: var(--primary-dark);
-            font-size: 20px;
-            font-weight: 800;
-            line-height: 1.25;
-        }
-
-        .data-metric-sub {
-            color: var(--sub-text);
-            font-size: 13px;
-            line-height: 1.45;
-        }
-
         .data-chart-card {
-            margin-top: 16px;
             padding: 12px;
             border: 1px solid var(--border);
             border-radius: 10px;
@@ -465,6 +421,70 @@
             width: 10px;
             height: 10px;
             border-radius: 999px;
+        }
+
+        .data-metric-table-wrap {
+            margin-top: 16px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--background);
+        }
+
+        .data-metric-table {
+            width: 100%;
+            min-width: 520px;
+            border-collapse: collapse;
+        }
+
+        .data-metric-table th,
+        .data-metric-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .data-metric-table th {
+            color: var(--sub-text);
+            font-size: 13px;
+            font-weight: 700;
+            background: var(--surface);
+            white-space: nowrap;
+        }
+
+        .data-metric-table tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .data-metric-date-cell {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .data-metric-period {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .data-metric-value-cell {
+            color: var(--primary-dark);
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .data-metric-note-cell {
+            color: var(--sub-text);
+            font-size: 14px;
+            line-height: 1.5;
         }
 
         .data-question-record {
@@ -576,8 +596,7 @@
 
         @media (max-width: 520px) {
             .data-search-actions,
-            .data-info-grid,
-            .data-metric-summary {
+            .data-info-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -1135,7 +1154,7 @@
             panel.append(renderMetricRecords(tab, items, {
                 series: [{key: "weight", label: "体重", unit: "kg", color: "#3f8f77"}],
                 valueFormatter: (item) => `${formatValue(item.weight)} kg`,
-                subFormatter: () => ""
+                noteFormatter: () => ""
             }));
             return;
         }
@@ -1146,7 +1165,7 @@
                     {key: "low", label: "最低血圧", unit: "mmHg", color: "#5b8ecf"}
                 ],
                 valueFormatter: (item) => `${formatValue(item.high)} / ${formatValue(item.low)} mmHg`,
-                subFormatter: (item) => [formatPeriod("pressure", item.period), item.medicine ? `薬：${item.medicine}` : ""].filter(Boolean).join(" / ")
+                noteFormatter: (item) => item.medicine ? `薬：${item.medicine}` : ""
             }));
             return;
         }
@@ -1154,16 +1173,20 @@
             panel.append(renderMetricRecords(tab, items, {
                 series: [{key: "sugar", label: "血糖値", unit: "mg/dL", color: "#cf8a3a"}],
                 valueFormatter: (item) => `${formatValue(item.sugar)} mg/dL`,
-                subFormatter: (item) => [formatPeriod("sugar", item.period), item.medicine ? `薬・インスリン：${item.medicine}` : ""].filter(Boolean).join(" / ")
+                noteFormatter: (item) => item.medicine ? `薬・インスリン：${item.medicine}` : ""
             }));
             return;
         }
         if (tab.key === "epds") {
-            panel.append(renderQuestionAnswerRecords(tab, items, {questionPrefix: "epds", showScore: true}));
+            panel.append(renderQuestionAnswerRecords(items, {questionPrefix: "epds", showScore: true}));
             return;
         }
         if (tab.key === "labor") {
-            panel.append(renderQuestionAnswerRecords(tab, items, {questionPrefix: "sos", showScore: false}));
+            panel.append(renderQuestionAnswerRecords(items, {
+                questionPrefix: "sos",
+                showScore: false,
+                showAllQuestions: true
+            }));
             return;
         }
 
@@ -1339,35 +1362,62 @@
     }
 
     function renderMetricRecords(tab, items, config) {
-        const sortedItems = items.slice().sort(compareRecordDate);
+        const chartItems = items.slice().sort(compareRecordDate);
+        const tableItems = items.slice().sort(compareRecordDateDesc);
         const wrap = $("<div>");
-        const list = $("<div>").addClass("data-metric-summary");
-        sortedItems.forEach((item) => {
-            list.append(
-                $("<article>").addClass("data-metric-card")
-                    .append($("<span>").addClass("data-metric-date").text(formatRecordDate(item)))
-                    .append($("<span>").addClass("data-metric-value").text(config.valueFormatter(item)))
-                    .append($("<span>").addClass("data-metric-sub").text(config.subFormatter(item)))
-            );
-        });
-        wrap.append(list);
-        wrap.append(renderLineChart(`${tab.label}の推移`, sortedItems, config.series));
+        wrap.append(renderLineChart(`${tab.label}の推移`, chartItems, config.series));
+        wrap.append(renderMetricTable(tab, tableItems, config));
         return wrap;
     }
 
-    function renderQuestionAnswerRecords(tab, items, config) {
+    function renderMetricTable(tab, items, config) {
+        const tbody = $("<tbody>");
+        items.forEach((item) => {
+            const period = formatPeriod(tab.key, item && item.period);
+            const dateCell = $("<td>").append(
+                $("<span>").addClass("data-metric-date-cell")
+                    .append($("<span>").text(formatRecordDate(item)))
+            );
+            if (period) {
+                dateCell.find(".data-metric-date-cell")
+                    .append($("<span>").addClass("data-metric-period").text(period));
+            }
+            tbody.append(
+                $("<tr>")
+                    .append(dateCell)
+                    .append($("<td>").addClass("data-metric-value-cell").text(config.valueFormatter(item)))
+                    .append($("<td>").addClass("data-metric-note-cell").text(formatValue(config.noteFormatter ? config.noteFormatter(item) : "")))
+            );
+        });
+        return $("<div>").addClass("data-metric-table-wrap").append(
+            $("<table>").addClass("data-metric-table")
+                .append(
+                    $("<thead>").append(
+                        $("<tr>")
+                            .append($("<th>").text("日付"))
+                            .append($("<th>").text("値"))
+                            .append($("<th>").text("メモ"))
+                    )
+                )
+                .append(tbody)
+        );
+    }
+
+    function renderQuestionAnswerRecords(items, config) {
         const list = $("<div>").addClass("data-view-list");
-        groupQuestionAnswerRecords(items, config.questionPrefix).forEach((item, index) => {
+        groupQuestionAnswerRecords(items, config.questionPrefix).forEach((item) => {
             const record = $("<article>").addClass("data-question-record");
             record.append(renderAnswerTime(item));
-            const header = $("<div>").addClass("data-question-header")
-                .append($("<p>").addClass("data-question-date").text(`${tab.label} ${index + 1}`));
             if (config.showScore) {
-                header.append($("<span>").addClass("data-score-badge").text(`Score ${formatValue(item && item.score)}`));
+                record.append(
+                    $("<div>").addClass("data-question-header")
+                        .append($("<span>").addClass("data-score-badge").text(`Score ${formatValue(item && item.score)}`))
+                );
             }
-            record.append(header);
 
-            const answers = item.normalizedAnswers;
+            const answers = config.showAllQuestions
+                ? buildAllQuestionAnswers(item.normalizedAnswers, config.questionPrefix)
+                : item.normalizedAnswers;
             if (!answers.length) {
                 record.append($("<p>").addClass("small").text("回答データがありません。"));
                 list.append(record);
@@ -1377,7 +1427,7 @@
             const answerList = $("<div>").addClass("data-question-list");
             answers.forEach((answer, answerIndex) => {
                 const questionText = translateDataKey(answer.questionTextKey || `${answer.questionKey}.text`);
-                const choiceText = translateDataKey(answer.answerKey);
+                const choiceText = answer.answerKey ? translateDataKey(answer.answerKey) : "未回答";
                 answerList.append(
                     $("<div>").addClass("data-question-item")
                         .append(
@@ -1385,8 +1435,7 @@
                                 .append($("<span>").addClass("badge badge-primary").text(answerIndex + 1))
                                 .append(document.createTextNode(questionText || formatValue(answer.questionKey)))
                         )
-                        .append($("<p>").addClass("data-choice-text").text(`選択：${choiceText || formatValue(answer.answerKey)}`))
-                        .append($("<span>").addClass("data-answer-key").text(`${answer.questionKey} / ${answer.answerKey}`))
+                        .append($("<p>").addClass("data-choice-text").text(`選択：${choiceText}`))
                 );
             });
             record.append(answerList);
@@ -1412,7 +1461,32 @@
                 group.score = item.score;
             }
         });
-        return Array.from(groups.values());
+        return Array.from(groups.values()).sort((a, b) => getRecordTime(b) - getRecordTime(a));
+    }
+
+    function buildAllQuestionAnswers(answers, questionPrefix) {
+        const answerMap = {};
+        answers.forEach((answer) => {
+            if (answer.questionKey) {
+                answerMap[answer.questionKey] = answer;
+            }
+        });
+        return getQuestionKeys(questionPrefix).map((questionKey) => {
+            return answerMap[questionKey] || {
+                questionKey: questionKey,
+                questionTextKey: `${questionKey}.text`,
+                answerKey: ""
+            };
+        });
+    }
+
+    function getQuestionKeys(questionPrefix) {
+        const questionCounts = {
+            sos: 6,
+            epds: 10
+        };
+        const count = questionCounts[questionPrefix] || 0;
+        return Array.from({length: count}, (_, index) => `${questionPrefix}.q.${String(index + 1).padStart(2, "0")}`);
     }
 
     function renderLineChart(title, items, seriesConfig) {
@@ -1621,6 +1695,15 @@
         return aTime - bTime;
     }
 
+    function compareRecordDateDesc(a, b) {
+        const aTime = getRecordTime(a);
+        const bTime = getRecordTime(b);
+        if (aTime === bTime) {
+            return getPeriodOrder(b && b.period) - getPeriodOrder(a && a.period);
+        }
+        return bTime - aTime;
+    }
+
     function getRecordTime(item) {
         const value = item && (item.datetime || item.date);
         if (!value) {
@@ -1725,7 +1808,9 @@
                 return translated;
             }
         }
-        const translated = getNestedValue(dataState.translations, key);
+        const translated = Object.prototype.hasOwnProperty.call(dataState.translations, key)
+            ? dataState.translations[key]
+            : getNestedValue(dataState.translations, key);
         return translated === undefined || translated === null ? key : String(translated);
     }
 
