@@ -172,6 +172,7 @@
 
         .data-tab-content {
             margin-top: 40px;
+            min-height: 65vh;
         }
 
         .data-panel-toolbar {
@@ -778,11 +779,11 @@
             return;
         }
 
-        const hospitalAccount = hospitalAccountResponse.data || {};
-        if (!hospitalAccount.hospitalId) {
-            redirectToHospitalPage();
-            return;
-        }
+        // const hospitalAccount = hospitalAccountResponse.data || {};
+        // if (!hospitalAccount.hospitalId) {
+        //     redirectToHospitalPage();
+        //     return;
+        // }
 
         dataState.hospitalAccount = hospitalAccount;
         const hospitalResponse = await requestApi({
@@ -860,6 +861,7 @@
 
         if (!tab.path) {
             renderDataPanel(tabKey);
+            requestAnimationFrame(scrollToDataTabPanelTop);
             return;
         }
 
@@ -893,6 +895,7 @@
         }
 
         renderDataPanel(tabKey);
+        requestAnimationFrame(scrollToDataTabPanelTop);
     }
 
     async function applySelectedPatient(patient, cardNo) {
@@ -1063,6 +1066,23 @@
         window.addEventListener("resize", () => {
             recalculateStickyStart();
             updateStickyTabs();
+        });
+    }
+
+    function scrollToDataTabPanelTop() {
+        const panel = document.querySelector(".data-tab-content");
+        const header = document.getElementById("header-container");
+        const tabs = document.getElementById("dataTabs");
+        if (!panel || !tabs) {
+            return;
+        }
+
+        const headerHeight = header ? header.offsetHeight : 0;
+        const tabsHeight = tabs.offsetHeight;
+        const top = window.scrollY + panel.getBoundingClientRect().top - headerHeight - tabsHeight - 12;
+        window.scrollTo({
+            top: Math.max(0, top),
+            behavior: "smooth"
         });
     }
 
