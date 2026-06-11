@@ -1028,7 +1028,9 @@
 
         const activeTab = DATA_TABS.find((tab) => tab.key === dataState.activeTabKey);
         $("#dataPanelHeading").text(activeTab ? activeTab.label : "");
-        $("#refreshDataTabBtn").prop("disabled", !dataState.currentPatientUserId || !activeTab || !activeTab.path);
+        $("#refreshDataTabBtn")
+            .prop("hidden", !activeTab || !activeTab.path)
+            .prop("disabled", !dataState.currentPatientUserId || !activeTab || !activeTab.path);
     }
 
     function setupDataStickyTabs() {
