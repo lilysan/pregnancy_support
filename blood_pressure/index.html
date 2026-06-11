@@ -192,6 +192,11 @@
                 getIDToken: function () {
                     return "TEST_ID_TOKEN";
                 },
+                getProfile: function () {
+                    return Promise.resolve({
+                        userId: "TEST_USER_ID"
+                    });
+                },
                 getAppLanguage: function () {
                     const lang = (navigator.language || "en").toLowerCase();
                     if (lang.startsWith("ja")) return "ja";
@@ -915,6 +920,7 @@
         };
         var allData = [];
         var token;
+        var userId = "";
         var dataArray = ["", "朝", "昼", "夜"]
         var dataArray2 = ["", " 6:00", "18:00"]
         let labels = ['12/1 朝', '12/1 夜', '12/2 朝', '12/2 夜', '12/3 朝', '12/3 夜'];
@@ -1000,11 +1006,13 @@
         }
 
         const getAccessObj = (data) => {
+            const requestData = Object.assign({}, data);
+            if (userId) requestData.userId = userId;
             return {
                 url: API_URL,
                 type: "POST",
                 dataType: "json",
-                data: JSON.stringify(data),
+                data: JSON.stringify(requestData),
                 timeout: 30000,
             };
         };
@@ -1627,10 +1635,16 @@
                     renderLanguageOptions();
                     applyI18n();
                 }
-                return Promise.all([
-                    startPressureApp(idToken),
-                    loadHeader()
-                ]);
+                return Promise.resolve(typeof liff.getProfile === "function" ? liff.getProfile() : null)
+                    .catch(() => null)
+                    .then((profile) => {
+                        const decoded = typeof liff.getDecodedIDToken === "function" ? liff.getDecodedIDToken() : null;
+                        userId = profile && profile.userId ? profile.userId : ((decoded && (decoded.sub || decoded.userId)) || "");
+                        return Promise.all([
+                            startPressureApp(idToken),
+                            loadHeader()
+                        ]);
+                    });
             }).then(() => {
                 hideAppLoader();
             }).catch((error) => {

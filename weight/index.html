@@ -315,6 +315,7 @@
         ];
 
         let token = "";
+        let userId = "";
         let allData = [];
         let currentPeriod = null;
         let weightPeriodPage = 1;
@@ -644,6 +645,7 @@
                 path: "weight",
                 method: method,
                 idToken: token,
+                userId: userId,
                 postData: postData || {}
             });
             access.timeout = 12000;
@@ -1153,10 +1155,16 @@
                     selectedUiLang = normalizeLangToUi(lang);
                     localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
                 }
-                return Promise.all([
-                    startWeightApp(idToken),
-                    loadHeader()
-                ]);
+                return Promise.resolve(typeof liff.getProfile === "function" ? liff.getProfile() : null)
+                    .catch(() => null)
+                    .then((profile) => {
+                        const decoded = typeof liff.getDecodedIDToken === "function" ? liff.getDecodedIDToken() : null;
+                        userId = profile && profile.userId ? profile.userId : ((decoded && (decoded.sub || decoded.userId)) || "");
+                        return Promise.all([
+                            startWeightApp(idToken),
+                            loadHeader()
+                        ]);
+                    });
             }).then(() => {
                 if (typeof hideAppLoader === "function") {
                     hideAppLoader();

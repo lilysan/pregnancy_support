@@ -251,6 +251,7 @@
         }];
         let allData = [];
         let token = "";
+        let userId = "";
         let selectedUiLang = "en-US";
         let sugarPage = 1;
         let loadedWeekPages = 1;
@@ -1039,10 +1040,17 @@
                 sugarI18nReady
                     .then(() => setLanguage(selectedUiLang))
                     .catch((error) => console.error("blood sugar language apply failed:", error));
-                return Promise.all([
-                    startSugarApp(idToken),
-                    loadHeader()
-                ]);
+                return Promise.resolve(typeof liff.getProfile === "function" ? liff.getProfile() : null)
+                    .catch(() => null)
+                    .then((profile) => {
+                        const decoded = typeof liff.getDecodedIDToken === "function" ? liff.getDecodedIDToken() : null;
+                        userId = profile && profile.userId ? profile.userId : ((decoded && (decoded.sub || decoded.userId)) || "");
+                        window.userId = userId;
+                        return Promise.all([
+                            startSugarApp(idToken),
+                            loadHeader()
+                        ]);
+                    });
             }).then(() => {
                 if (typeof hideAppLoader === "function") {
                     hideAppLoader();

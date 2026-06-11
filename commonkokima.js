@@ -74,11 +74,14 @@
     window.hideAppLoader = hideAppLoader;
 
     const getAccessObj = (data) => {
+        const requestData = Object.assign({}, data);
+        const currentUserId = typeof userId !== "undefined" ? userId : window.userId;
+        if (currentUserId) requestData.userId = currentUserId;
         return {
             url: API_URL,
             type: "POST",
             dataType: "json",
-            data: JSON.stringify(data),
+            data: JSON.stringify(requestData),
             timeout: 30000,
         }
     }
