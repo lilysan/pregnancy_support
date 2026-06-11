@@ -779,11 +779,14 @@
             return;
         }
 
-        const hospitalAccount = hospitalAccountResponse.data || {};
-        if (!hospitalAccount.hospitalId) {
-            redirectToHospitalPage();
-            return;
-        }
+        renderDataTabs();
+
+
+        // const hospitalAccount = hospitalAccountResponse.data || {};
+        // if (!hospitalAccount.hospitalId) {
+        //     redirectToHospitalPage();
+        //     return;
+        // }
 
         dataState.hospitalAccount = hospitalAccount;
         const hospitalResponse = await requestApi({
@@ -1027,10 +1030,15 @@
         });
 
         const activeTab = DATA_TABS.find((tab) => tab.key === dataState.activeTabKey);
+        const canRefresh = Boolean(activeTab && activeTab.path);
         $("#dataPanelHeading").text(activeTab ? activeTab.label : "");
         $("#refreshDataTabBtn")
-            .prop("hidden", !activeTab || !activeTab.path)
-            .prop("disabled", !dataState.currentPatientUserId || !activeTab || !activeTab.path);
+            .prop("disabled", !dataState.currentPatientUserId || !canRefresh);
+        if (canRefresh) {
+            $("#refreshDataTabBtn").show();
+        } else {
+            $("#refreshDataTabBtn").hide();
+        }
     }
 
     function setupDataStickyTabs() {
