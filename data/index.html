@@ -801,11 +801,11 @@
         renderDataTabs();
 
 
-        // const hospitalAccount = hospitalAccountResponse.data || {};
-        // if (!hospitalAccount.hospitalId) {
-        //     redirectToHospitalPage();
-        //     return;
-        // }
+        const hospitalAccount = hospitalAccountResponse.data || {};
+        if (!hospitalAccount.hospitalId) {
+            redirectToHospitalPage();
+            return;
+        }
 
         dataState.hospitalAccount = hospitalAccount;
         const hospitalResponse = await requestApi({
