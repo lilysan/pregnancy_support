@@ -54,21 +54,12 @@
             </section>
 
             <section class="records-section">
-                <h2>記録</h2>
-                <p id="emptyText" class="empty-text">まだ記録はありません。</p>
-                <div class="records-table-wrap">
-                    <table id="recordsTable">
-                        <thead>
-                            <tr>
-                                <th>開始</th>
-                                <th>持続</th>
-                                <th>間隔</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                <div class="records-header">
+                    <h2>記録</h2>
+                    <button type="button" id="deleteSelectedBtn" class="delete-selected-btn">選択削除</button>
                 </div>
+                <p id="emptyText" class="empty-text">まだ記録はありません。</p>
+                <div id="timelineList" class="timeline-list"></div>
             </section>
         </article>
     </main>
@@ -163,6 +154,20 @@
             return `${pad(min)}:${pad(sec)}`;
         }
 
+        function formatDurationJa(seconds) {
+            if (!Number.isFinite(seconds) || seconds < 0) return "-";
+            const min = Math.floor(seconds / 60);
+            const sec = Math.floor(seconds % 60);
+            if (min <= 0) return `${sec}秒`;
+            return `${min}分${pad(sec)}秒`;
+        }
+
+        function formatRecordDate(dateString) {
+            const date = new Date(dateString);
+            if (Number.isNaN(date.getTime())) return "";
+            return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+        }
+
         function buildRecord(start, end) {
             const previous = state.records[state.records.length - 1];
             const durationSeconds = Math.max(0, Math.round((end.getTime() - start.getTime()) / 1000));
@@ -184,35 +189,45 @@
         }
 
         function render() {
-            const tbody = document.querySelector("#recordsTable tbody");
+            const list = document.getElementById("timelineList");
             const empty = document.getElementById("emptyText");
-            tbody.innerHTML = "";
+            list.innerHTML = "";
 
-            state.records.slice().reverse().forEach((record) => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${formatClock(record.startedAt)}</td>
-                    <td>${formatSeconds(record.durationSeconds)}</td>
-                    <td>${formatSeconds(record.intervalSeconds)}</td>
-                    <td><button type="button" class="delete-row-btn" data-local-id="${record.localId}">削除</button></td>
+            let currentDateLabel = "";
+            state.records.slice().reverse().forEach((record, index) => {
+                const dateLabel = formatRecordDate(record.startedAt);
+                if (dateLabel && dateLabel !== currentDateLabel) {
+                    currentDateLabel = dateLabel;
+                    const heading = document.createElement("h3");
+                    heading.className = "timeline-date";
+                    heading.textContent = dateLabel;
+                    list.appendChild(heading);
+                }
+                const item = document.createElement("div");
+                item.className = "timeline-item";
+                item.innerHTML = `
+                    <label class="timeline-check">
+                        <input type="checkbox" class="record-check" value="${record.localId}" aria-label="${formatClock(record.startedAt)}の記録を選択">
+                    </label>
+                    <div class="timeline-main">
+                        <div class="timeline-time">${formatClock(record.startedAt)}</div>
+                        <div class="timeline-duration">${formatDurationJa(record.durationSeconds)}</div>
+                    </div>
+                    <div class="timeline-rail" aria-hidden="true">
+                        <span class="timeline-dot"></span>
+                    </div>
+                    <div class="timeline-interval ${index < 3 ? "is-recent" : ""}">${formatDurationJa(record.intervalSeconds)}</div>
                 `;
-                tbody.appendChild(row);
+                list.appendChild(item);
             });
 
             empty.style.display = state.records.length ? "none" : "block";
+            list.style.display = state.records.length ? "block" : "none";
             document.getElementById("countText").textContent = `${state.records.length}回`;
             document.getElementById("averageIntervalText").textContent = formatSeconds(average(state.records.map((record) => record.intervalSeconds)));
             document.getElementById("averageDurationText").textContent = formatSeconds(average(state.records.map((record) => record.durationSeconds)));
             const last = state.records[state.records.length - 1];
             document.getElementById("lastIntervalText").textContent = `前回からの間隔: ${last ? formatSeconds(last.intervalSeconds) : "-"}`;
-
-            document.querySelectorAll(".delete-row-btn").forEach((button) => {
-                button.addEventListener("click", function () {
-                    state.records = state.records.filter((record) => record.localId !== this.dataset.localId);
-                    saveLocalRecords();
-                    render();
-                });
-            });
         }
 
         function updateActiveTimer() {
@@ -341,6 +356,17 @@
             render();
         }
 
+        function deleteSelectedRecords() {
+            const ids = Array.from(document.querySelectorAll(".record-check:checked")).map((checkbox) => checkbox.value);
+            if (!ids.length) {
+                alert("削除する記録を選択してください。");
+                return;
+            }
+            state.records = state.records.filter((record) => !ids.includes(record.localId));
+            saveLocalRecords();
+            render();
+        }
+
         function bindEvents() {
             document.getElementById("toggleTimerBtn").addEventListener("click", function () {
                 if (state.activeStart) {
@@ -351,6 +377,7 @@
             });
             document.getElementById("saveSessionBtn").addEventListener("click", registerSession);
             document.getElementById("clearRecordsBtn").addEventListener("click", clearRecords);
+            document.getElementById("deleteSelectedBtn").addEventListener("click", deleteSelectedRecords);
         }
 
         function bootLaborCounter() {
