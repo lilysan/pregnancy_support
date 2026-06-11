@@ -206,7 +206,7 @@
     }
   },
   "bp": {
-    "desc": "Enter your preferences for how you would like your childbirth experience to be.",
+    "desc": "Enter your preferences for the kind of birth you want.<br>You can use this as a reference when creating the birth plan to submit to the hospital.",
     "info1": "You can also save your progress and continue later.<br>Please note that not all preferences can always be accommodated.",
     "info2": "Grayed-out items are not supported at your planned delivery hospital.",
     "standardTitle": "What is the standard childbirth style in Japan?",
