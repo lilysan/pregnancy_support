@@ -172,7 +172,7 @@
 
         .data-tab-content {
             margin-top: 40px;
-            min-height: 65vh;
+            min-height: calc(100vh - 180px);;
         }
 
         .data-panel-toolbar {
@@ -779,11 +779,11 @@
             return;
         }
 
-        // const hospitalAccount = hospitalAccountResponse.data || {};
-        // if (!hospitalAccount.hospitalId) {
-        //     redirectToHospitalPage();
-        //     return;
-        // }
+        const hospitalAccount = hospitalAccountResponse.data || {};
+        if (!hospitalAccount.hospitalId) {
+            redirectToHospitalPage();
+            return;
+        }
 
         dataState.hospitalAccount = hospitalAccount;
         const hospitalResponse = await requestApi({

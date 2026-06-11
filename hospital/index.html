@@ -25,7 +25,7 @@
         }
 
         .hospital-tab-panel {
-            min-height: 65vh;
+            min-height: calc(100vh - 180px - 170px);
         }
 
         .hospital-tab-panel[hidden] {
@@ -1723,7 +1723,6 @@
 
     function setHospitalMode(hasHospital) {
         $(".hospital-start-options").toggle(!hasHospital && !hospitalViewState.isNewRegistrationStarted);
-        // $(".hospital-workflow-back").toggleClass("is-hidden", hasHospital || !hospitalViewState.isNewRegistrationStarted);
         setHospitalWorkflowVisible(hasHospital || hospitalViewState.isNewRegistrationStarted, hasHospital);
         if (hasHospital) {
             $("#hospitalDataPanel").removeClass("is-form-modal");
