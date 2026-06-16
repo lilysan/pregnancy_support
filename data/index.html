@@ -1241,16 +1241,14 @@
         if (tab.key === "epds") {
             panel.append(renderQuestionAnswerRecords(items, {
                 questionPrefix: "epds",
-                showScore: true,
-                showAllQuestions: true
+                showScore: true
             }));
             return;
         }
         if (tab.key === "labor") {
             panel.append(renderQuestionAnswerRecords(items, {
                 questionPrefix: "sos",
-                showScore: false,
-                showAllQuestions: true
+                showScore: false
             }));
             return;
         }
@@ -1484,9 +1482,7 @@
                 );
             }
 
-            const answers = config.showAllQuestions
-                ? buildAllQuestionAnswers(item.normalizedAnswers, config.questionPrefix)
-                : item.normalizedAnswers;
+            const answers = buildAllQuestionAnswers(item.normalizedAnswers, config.questionPrefix);
             if (!answers.length) {
                 record.append($("<p>").addClass("small").text("回答データがありません。"));
                 list.append(record);
