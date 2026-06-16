@@ -157,6 +157,24 @@
             flex: 0 0 auto;
         }
 
+        .data-tabs .data-tab.is-labor-tab iconify-icon {
+            color: var(--labor-dark);
+        }
+
+        .data-tabs .data-tab.is-checkup-tab iconify-icon {
+            color: var(--checkup-dark);
+        }
+
+        .data-tabs .data-tab.is-labor-tab.active {
+            border-color: var(--labor-dark);
+            background: var(--labor-light);
+        }
+
+        .data-tabs .data-tab.is-checkup-tab.active {
+            border-color: var(--checkup-dark);
+            background: var(--checkup-light);
+        }
+
         .data-tabs .tab-label {
             display: inline-block;
             max-width: 120px;
@@ -820,12 +838,11 @@
 
         renderDataTabs();
 
-        //TODO
-        // const hospitalAccount = hospitalAccountResponse.data || {};
-        // if (!hospitalAccount.hospitalId) {
-        //     redirectToHospitalPage();
-        //     return;
-        // }
+        const hospitalAccount = hospitalAccountResponse.data || {};
+        if (!hospitalAccount.hospitalId) {
+            redirectToHospitalPage();
+            return;
+        }
 
         dataState.hospitalAccount = hospitalAccount;
         const hospitalResponse = await requestApi({
@@ -1046,7 +1063,7 @@
                             role: "tab",
                             "aria-selected": "false"
                         })
-                        .addClass("tab data-tab")
+                        .addClass(`tab data-tab ${getDataTabToneClass(tab)}`.trim())
                         .data("tab-key", tab.key)
                         .append(
                             $("<iconify-icon>").attr({icon: tab.icon, width: 18, height: 18, "aria-hidden": "true"})
@@ -1057,7 +1074,31 @@
                 );
             });
         }
+        syncDataTabToneClasses();
         updateDataTabActiveState();
+    }
+
+    function syncDataTabToneClasses() {
+        $("#dataTabs .data-tab").each(function () {
+            const tabKey = $(this).data("tab-key");
+            const tab = DATA_TABS.find((item) => item.key === tabKey);
+            $(this)
+                .removeClass("is-labor-tab is-checkup-tab")
+                .addClass(getDataTabToneClass(tab));
+        });
+    }
+
+    function getDataTabToneClass(tab) {
+        if (!tab) {
+            return "";
+        }
+        if (tab.key === "labor") {
+            return "is-labor-tab";
+        }
+        if (tab.key !== "profile") {
+            return "is-checkup-tab";
+        }
+        return "";
     }
 
     function updateDataTabActiveState() {
