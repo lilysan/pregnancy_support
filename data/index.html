@@ -425,7 +425,7 @@
 
         .data-metric-table-wrap {
             margin-top: 16px;
-            overflow-x: auto;
+            overflow: hidden;
             border: 1px solid var(--border);
             border-radius: 10px;
             background: var(--background);
@@ -433,7 +433,7 @@
 
         .data-metric-table {
             width: 100%;
-            min-width: 520px;
+            table-layout: fixed;
             border-collapse: collapse;
         }
 
@@ -443,6 +443,7 @@
             border-bottom: 1px solid var(--border);
             text-align: left;
             vertical-align: middle;
+            overflow-wrap: anywhere;
         }
 
         .data-metric-table th {
@@ -459,9 +460,9 @@
 
         .data-metric-date-cell {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             gap: 8px;
-            white-space: nowrap;
         }
 
         .data-metric-period {
@@ -478,13 +479,25 @@
         .data-metric-value-cell {
             color: var(--primary-dark);
             font-weight: 800;
-            white-space: nowrap;
         }
 
         .data-metric-note-cell {
             color: var(--sub-text);
             font-size: 14px;
             line-height: 1.5;
+        }
+
+        @media (max-width: 520px) {
+            .data-metric-table th,
+            .data-metric-table td {
+                padding: 10px 8px;
+                font-size: 13px;
+            }
+
+            .data-metric-period {
+                padding: 2px 6px;
+                font-size: 11px;
+            }
         }
 
         .data-question-record {
@@ -513,11 +526,11 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-width: 64px;
+            width: 100%;
             padding: 6px 10px;
             border-radius: 999px;
-            background: var(--primary-light);
-            color: var(--primary-dark);
+            background: var(--info-dark);
+            color: var(--background);
             font-weight: 800;
         }
 
@@ -549,6 +562,13 @@
 
         .data-choice-text {
             margin-top: 6px;
+        }
+
+        .data-choice-marker {
+            display: inline;
+            padding: 0 2px;
+            font-weight: 700;
+            background: linear-gradient(transparent 58%, var(--labor-dark) 58%);
         }
 
         .patient-choice-list {
@@ -800,12 +820,12 @@
 
         renderDataTabs();
 
-
-        const hospitalAccount = hospitalAccountResponse.data || {};
-        if (!hospitalAccount.hospitalId) {
-            redirectToHospitalPage();
-            return;
-        }
+        //TODO
+        // const hospitalAccount = hospitalAccountResponse.data || {};
+        // if (!hospitalAccount.hospitalId) {
+        //     redirectToHospitalPage();
+        //     return;
+        // }
 
         dataState.hospitalAccount = hospitalAccount;
         const hospitalResponse = await requestApi({
@@ -1152,28 +1172,33 @@
         }
         if (tab.key === "weight") {
             panel.append(renderMetricRecords(tab, items, {
-                series: [{key: "weight", label: "体重", unit: "kg", color: "#3f8f77"}],
-                valueFormatter: (item) => `${formatValue(item.weight)} kg`,
-                noteFormatter: () => ""
+                series: [{key: "weight", label: "体重", unit: "kg", color: "var(--info-dark)"}],
+                valueFormatter: (item) => `${formatValue(item.weight)} kg`
             }));
             return;
         }
         if (tab.key === "pressure") {
             panel.append(renderMetricRecords(tab, items, {
                 series: [
-                    {key: "high", label: "最高血圧", unit: "mmHg", color: "#d96b6b"},
-                    {key: "low", label: "最低血圧", unit: "mmHg", color: "#5b8ecf"}
+                    {key: "high", label: "最高血圧", unit: "mmHg", color: "var(--checkup-dark)"},
+                    {key: "low", label: "最低血圧", unit: "mmHg", color: "var(--info-dark)"}
                 ],
                 valueFormatter: (item) => `${formatValue(item.high)} / ${formatValue(item.low)} mmHg`,
-                noteFormatter: (item) => item.medicine ? `薬：${item.medicine}` : ""
+                extraColumn: {
+                    label: "降圧薬",
+                    valueFormatter: (item) => Number(item && item.medicine) === 1 ? "あり" : "-"
+                }
             }));
             return;
         }
         if (tab.key === "sugar") {
             panel.append(renderMetricRecords(tab, items, {
-                series: [{key: "sugar", label: "血糖値", unit: "mg/dL", color: "#cf8a3a"}],
+                series: [{key: "sugar", label: "血糖値", unit: "mg/dL", color: "var(--info-dark)"}],
                 valueFormatter: (item) => `${formatValue(item.sugar)} mg/dL`,
-                noteFormatter: (item) => item.medicine ? `薬・インスリン：${item.medicine}` : ""
+                extraColumn: {
+                    label: "インスリン注射",
+                    valueFormatter: (item) => formatValue(item && item.medicine)
+                }
             }));
             return;
         }
@@ -1376,28 +1401,32 @@
             const period = formatPeriod(tab.key, item && item.period);
             const dateCell = $("<td>").append(
                 $("<span>").addClass("data-metric-date-cell")
-                    .append($("<span>").text(formatRecordDate(item)))
+                    .append($("<span>").text(formatMetricTableDate(item)))
             );
             if (period) {
                 dateCell.find(".data-metric-date-cell")
                     .append($("<span>").addClass("data-metric-period").text(period));
             }
-            tbody.append(
-                $("<tr>")
-                    .append(dateCell)
-                    .append($("<td>").addClass("data-metric-value-cell").text(config.valueFormatter(item)))
-                    .append($("<td>").addClass("data-metric-note-cell").text(formatValue(config.noteFormatter ? config.noteFormatter(item) : "")))
-            );
+            const row = $("<tr>")
+                .append(dateCell)
+                .append($("<td>").addClass("data-metric-value-cell").text(config.valueFormatter(item)));
+            if (config.extraColumn) {
+                row.append(
+                    $("<td>").addClass("data-metric-note-cell").text(config.extraColumn.valueFormatter(item))
+                );
+            }
+            tbody.append(row);
         });
+        const headerRow = $("<tr>")
+            .append($("<th>").text("日付"))
+            .append($("<th>").text("値"));
+        if (config.extraColumn) {
+            headerRow.append($("<th>").text(config.extraColumn.label));
+        }
         return $("<div>").addClass("data-metric-table-wrap").append(
             $("<table>").addClass("data-metric-table")
                 .append(
-                    $("<thead>").append(
-                        $("<tr>")
-                            .append($("<th>").text("日付"))
-                            .append($("<th>").text("値"))
-                            .append($("<th>").text("メモ"))
-                    )
+                    $("<thead>").append(headerRow)
                 )
                 .append(tbody)
         );
@@ -1411,7 +1440,7 @@
             if (config.showScore) {
                 record.append(
                     $("<div>").addClass("data-question-header")
-                        .append($("<span>").addClass("data-score-badge").text(`Score ${formatValue(item && item.score)}`))
+                        .append($("<span>").addClass("data-score-badge").text(`${formatValue(item && item.score)} 点`))
                 );
             }
 
@@ -1435,7 +1464,11 @@
                                 .append($("<span>").addClass("badge badge-primary").text(answerIndex + 1))
                                 .append(document.createTextNode(questionText || formatValue(answer.questionKey)))
                         )
-                        .append($("<p>").addClass("data-choice-text").text(`選択：${choiceText}`))
+                        .append(
+                            $("<p>").addClass("data-choice-text")
+                                .append(document.createTextNode("回答："))
+                                .append($("<span>").addClass("data-choice-marker").text(choiceText))
+                        )
                 );
             });
             record.append(answerList);
@@ -1730,6 +1763,18 @@
 
     function formatRecordDate(item) {
         return item && (item.datetime || item.date) ? String(item.datetime || item.date) : "-";
+    }
+
+    function formatMetricTableDate(item) {
+        const value = formatRecordDate(item);
+        const match = value.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})(.*)$/);
+        if (!match) {
+            return value;
+        }
+        const month = String(Number(match[2]));
+        const day = String(Number(match[3]));
+        const suffix = match[4].replace(/^T/, " ").replace(/^(\s+\d{1,2}:\d{2}).*$/, "$1");
+        return `${month}/${day}${suffix}`;
     }
 
     function formatShortDate(item) {
