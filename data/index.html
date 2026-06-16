@@ -190,7 +190,7 @@
 
         .data-tab-content {
             margin-top: 40px;
-            min-height: calc(100vh - 180px);;
+            min-height: calc(100vh - 180px);
         }
 
         .data-panel-toolbar {
@@ -529,12 +529,6 @@
             margin-bottom: 10px;
         }
 
-        .data-question-date {
-            margin: 0;
-            color: var(--sub-text);
-            font-size: 13px;
-        }
-
         .data-score-badge {
             display: inline-flex;
             align-items: center;
@@ -746,6 +740,42 @@
         2: "unknown"
     };
 
+    const METRIC_RECORD_CONFIGS = {
+        weight: {
+            series: [{key: "weight", label: "体重", unit: "kg", color: "var(--info-dark)"}],
+            valueFormatter: (item) => `${formatValue(item.weight)} kg`
+        },
+        pressure: {
+            series: [
+                {key: "high", label: "最高血圧", unit: "mmHg", color: "var(--checkup-dark)"},
+                {key: "low", label: "最低血圧", unit: "mmHg", color: "var(--info-dark)"}
+            ],
+            valueFormatter: (item) => `${formatValue(item.high)} / ${formatValue(item.low)} mmHg`,
+            extraColumn: {
+                label: "降圧薬",
+                valueFormatter: (item) => Number(item && item.medicine) === 1 ? "あり" : "-"
+            }
+        },
+        sugar: {
+            series: [{key: "sugar", label: "血糖値", unit: "mg/dL", color: "var(--info-dark)"}],
+            valueFormatter: (item) => `${formatValue(item.sugar)} mg/dL`,
+            extraColumn: {
+                label: "インスリン",
+                valueFormatter: (item) => formatValue(item && item.medicine)
+            }
+        }
+    };
+
+    const QUESTION_RECORD_CONFIGS = {
+        epds: {
+            questionPrefix: "epds",
+            showScore: true
+        },
+        labor: {
+            questionPrefix: "sos"
+        }
+    };
+
     const dataState = {
         hospitalAccount: null,
         patient: null,
@@ -798,7 +828,7 @@
         });
         $("#refreshDataTabBtn").on("click", function () {
             const tabKey = dataState.activeTabKey;
-            const tab = DATA_TABS.find((item) => item.key === tabKey);
+            const tab = getDataTab(tabKey);
 
             if (!tab || !tab.path || !dataState.currentPatientUserId) {
                 return;
@@ -897,7 +927,7 @@
     }
 
     async function switchDataTab(tabKey, shouldFetch) {
-        const tab = DATA_TABS.find((item) => item.key === tabKey);
+        const tab = getDataTab(tabKey);
         if (!tab) {
             dataState.activeTabKey = "profile";
             updateDataTabActiveState();
@@ -1069,42 +1099,22 @@
                 );
             });
         }
-        syncDataTabToneClasses();
         updateDataTabActiveState();
-    }
-
-    function syncDataTabToneClasses() {
-        $("#dataTabs .data-tab").each(function () {
-            const tabKey = $(this).data("tab-key");
-            const tab = DATA_TABS.find((item) => item.key === tabKey);
-            $(this)
-                .removeClass("is-labor-tab is-checkup-tab")
-                .addClass(getDataTabToneClass(tab));
-        });
-    }
-
-    function getDataTabToneClass(tab) {
-        if (!tab) {
-            return "";
-        }
-        if (tab.key === "labor") {
-            return "is-labor-tab";
-        }
-        if (tab.key !== "profile") {
-            return "is-checkup-tab";
-        }
-        return "";
     }
 
     function updateDataTabActiveState() {
         $("#dataTabs .data-tab").each(function () {
-            const isActive = $(this).data("tab-key") === dataState.activeTabKey;
+            const tabKey = $(this).data("tab-key");
+            const tab = getDataTab(tabKey);
+            const isActive = tabKey === dataState.activeTabKey;
             $(this)
+                .removeClass("is-labor-tab is-checkup-tab")
+                .addClass(getDataTabToneClass(tab))
                 .toggleClass("active", isActive)
                 .attr("aria-selected", String(isActive));
         });
 
-        const activeTab = DATA_TABS.find((tab) => tab.key === dataState.activeTabKey);
+        const activeTab = getDataTab(dataState.activeTabKey);
         const canRefresh = Boolean(activeTab && activeTab.path);
         $("#dataPanelHeading").text(activeTab ? activeTab.label : "");
         $("#refreshDataTabBtn")
@@ -1114,6 +1124,17 @@
         } else {
             $("#refreshDataTabBtn").hide();
         }
+    }
+
+    function getDataTabToneClass(tab) {
+        if (!tab || tab.key === "profile") {
+            return "";
+        }
+        return tab.key === "labor" ? "is-labor-tab" : "is-checkup-tab";
+    }
+
+    function getDataTab(tabKey) {
+        return DATA_TABS.find((item) => item.key === tabKey);
     }
 
     function setupDataStickyTabs() {
@@ -1172,7 +1193,7 @@
     }
 
     function renderDataPanel(tabKey) {
-        const tab = DATA_TABS.find((item) => item.key === tabKey) || DATA_TABS[0];
+        const tab = getDataTab(tabKey) || DATA_TABS[0];
         if (tab.key === "profile") {
             $("#dataPanel").empty().append(renderPatientProfile(dataState.patient || {}));
             return;
@@ -1206,50 +1227,12 @@
             renderDataPanelMessage(`${tab.label}の共有データはありません。`);
             return;
         }
-        if (tab.key === "weight") {
-            panel.append(renderMetricRecords(tab, items, {
-                series: [{key: "weight", label: "体重", unit: "kg", color: "var(--info-dark)"}],
-                valueFormatter: (item) => `${formatValue(item.weight)} kg`
-            }));
+        if (METRIC_RECORD_CONFIGS[tab.key]) {
+            panel.append(renderMetricRecords(tab, items, METRIC_RECORD_CONFIGS[tab.key]));
             return;
         }
-        if (tab.key === "pressure") {
-            panel.append(renderMetricRecords(tab, items, {
-                series: [
-                    {key: "high", label: "最高血圧", unit: "mmHg", color: "var(--checkup-dark)"},
-                    {key: "low", label: "最低血圧", unit: "mmHg", color: "var(--info-dark)"}
-                ],
-                valueFormatter: (item) => `${formatValue(item.high)} / ${formatValue(item.low)} mmHg`,
-                extraColumn: {
-                    label: "降圧薬",
-                    valueFormatter: (item) => Number(item && item.medicine) === 1 ? "あり" : "-"
-                }
-            }));
-            return;
-        }
-        if (tab.key === "sugar") {
-            panel.append(renderMetricRecords(tab, items, {
-                series: [{key: "sugar", label: "血糖値", unit: "mg/dL", color: "var(--info-dark)"}],
-                valueFormatter: (item) => `${formatValue(item.sugar)} mg/dL`,
-                extraColumn: {
-                    label: "インスリン",
-                    valueFormatter: (item) => formatValue(item && item.medicine)
-                }
-            }));
-            return;
-        }
-        if (tab.key === "epds") {
-            panel.append(renderQuestionAnswerRecords(items, {
-                questionPrefix: "epds",
-                showScore: true
-            }));
-            return;
-        }
-        if (tab.key === "labor") {
-            panel.append(renderQuestionAnswerRecords(items, {
-                questionPrefix: "sos",
-                showScore: false
-            }));
+        if (QUESTION_RECORD_CONFIGS[tab.key]) {
+            panel.append(renderQuestionAnswerRecords(items, QUESTION_RECORD_CONFIGS[tab.key]));
             return;
         }
 
@@ -1437,14 +1420,14 @@
         const tbody = $("<tbody>");
         items.forEach((item) => {
             const period = formatPeriod(tab.key, item && item.period);
-            const dateCell = $("<td>").append(
-                $("<span>").addClass("data-metric-date-cell")
-                    .append($("<span>").text(formatMetricTableDate(item)))
-            );
+            const dateContent = $("<span>").addClass("data-metric-date-cell")
+                .append($("<span>").text(formatMetricTableDate(item)));
             if (period) {
-                dateCell.find(".data-metric-date-cell")
-                    .append($("<span>").addClass("data-metric-period").text(period));
+                dateContent.append($("<span>").addClass("data-metric-period").text(period));
             }
+            const dateCell = $("<td>").append(
+                dateContent
+            );
             const row = $("<tr>")
                 .append(dateCell)
                 .append($("<td>").addClass("data-metric-value-cell").text(config.valueFormatter(item)));
@@ -1771,21 +1754,20 @@
     }
 
     function compareRecordDate(a, b) {
-        const aTime = getRecordTime(a);
-        const bTime = getRecordTime(b);
-        if (aTime === bTime) {
-            return getPeriodOrder(a && a.period) - getPeriodOrder(b && b.period);
-        }
-        return aTime - bTime;
+        return compareRecordDateByOrder(a, b, 1);
     }
 
     function compareRecordDateDesc(a, b) {
+        return compareRecordDateByOrder(a, b, -1);
+    }
+
+    function compareRecordDateByOrder(a, b, order) {
         const aTime = getRecordTime(a);
         const bTime = getRecordTime(b);
         if (aTime === bTime) {
-            return getPeriodOrder(b && b.period) - getPeriodOrder(a && a.period);
+            return (getPeriodOrder(a && a.period) - getPeriodOrder(b && b.period)) * order;
         }
-        return bTime - aTime;
+        return (aTime - bTime) * order;
     }
 
     function getRecordTime(item) {
@@ -1817,26 +1799,29 @@
     }
 
     function formatMetricTableDate(item) {
-        const value = formatRecordDate(item);
-        const match = value.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})(.*)$/);
-        if (!match) {
-            return value;
+        const dateParts = parseRecordDateParts(item);
+        if (!dateParts) {
+            return formatRecordDate(item);
         }
-        const month = String(Number(match[2]));
-        const day = String(Number(match[3]));
-        const suffix = match[4].replace(/^T/, " ").replace(/^(\s+\d{1,2}:\d{2}).*$/, "$1");
-        return `${month}/${day}${suffix}`;
+        const suffix = dateParts.suffix.replace(/^T/, " ").replace(/^(\s+\d{1,2}:\d{2}).*$/, "$1");
+        return `${dateParts.month}/${dateParts.day}${suffix}`;
     }
 
     function formatShortDate(item) {
-        const value = formatRecordDate(item);
-        const match = value.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})(.*)$/);
+        const dateParts = parseRecordDateParts(item);
+        return dateParts ? `${dateParts.month}/${dateParts.day}` : formatRecordDate(item);
+    }
+
+    function parseRecordDateParts(item) {
+        const match = formatRecordDate(item).match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})(.*)$/);
         if (!match) {
-            return value;
+            return null;
         }
-        const month = String(Number(match[2]));
-        const day = String(Number(match[3]));
-        return `${month}/${day}`;
+        return {
+            month: String(Number(match[2])),
+            day: String(Number(match[3])),
+            suffix: match[4] || ""
+        };
     }
 
     function formatPeriod(tabKey, period) {
