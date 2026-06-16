@@ -172,7 +172,7 @@
 
         .data-tabs .data-tab.is-checkup-tab.active {
             border-color: var(--info-dark);
-            background: var(--checkup-light);
+            background: var(--info-light);
         }
 
         .data-tabs .tab-label {
@@ -377,6 +377,13 @@
             z-index: 2;
         }
 
+        .data-chart-card {
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--background);
+        }
+
         .data-chart-title {
             margin: 0 0 10px;
             color: var(--primary-dark);
@@ -574,7 +581,7 @@
             display: inline;
             padding: 0 2px;
             font-weight: 700;
-            background: linear-gradient(transparent 58%, var(--labor-dark) 58%);
+            background: linear-gradient(transparent 58%, var(--labor) 58%);
         }
 
         .patient-choice-list {
@@ -1232,7 +1239,11 @@
             return;
         }
         if (tab.key === "epds") {
-            panel.append(renderQuestionAnswerRecords(items, {questionPrefix: "epds", showScore: true}));
+            panel.append(renderQuestionAnswerRecords(items, {
+                questionPrefix: "epds",
+                showScore: true,
+                showAllQuestions: true
+            }));
             return;
         }
         if (tab.key === "labor") {
@@ -1552,7 +1563,7 @@
     }
 
     function renderLineChart(title, items, seriesConfig) {
-        const chart = $("<section>")
+        const chart = $("<section>").addClass("data-chart-card")
             .append($("<p>").addClass("data-chart-title").text(title));
         const series = seriesConfig.map((config) => ({
             config: config,
