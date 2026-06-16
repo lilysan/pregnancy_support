@@ -377,13 +377,6 @@
             z-index: 2;
         }
 
-        .data-chart-card {
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            background: var(--background);
-        }
-
         .data-chart-title {
             margin: 0 0 10px;
             color: var(--primary-dark);
@@ -1564,7 +1557,7 @@
     }
 
     function renderLineChart(title, items, seriesConfig) {
-        const chart = $("<section>").addClass("data-chart-card")
+        const chart = $("<section>")
             .append($("<p>").addClass("data-chart-title").text(title));
         const series = seriesConfig.map((config) => ({
             config: config,
@@ -1733,14 +1726,16 @@
         if (!key) {
             return "";
         }
-        const value = String(key);
+        const value = String(key).replace(/\.text$/, "");
         if (value.startsWith(`${questionPrefix}.`)) {
-            return value.replace(/\.text$/, "");
+            const normalizedPath = normalizeQuestionPath(value.slice(questionPrefix.length + 1));
+            return normalizedPath ? `${questionPrefix}.${normalizedPath}` : value;
         }
-        if (/^q\.\d+/.test(value)) {
-            return `${questionPrefix}.${value.replace(/\.text$/, "")}`;
+        const normalizedPath = normalizeQuestionPath(value);
+        if (normalizedPath) {
+            return `${questionPrefix}.${normalizedPath}`;
         }
-        return value.replace(/\.text$/, "");
+        return value;
     }
 
     function normalizeAnswerKey(key, questionKey, questionPrefix) {
@@ -1748,8 +1743,13 @@
             return "";
         }
         const value = String(key);
-        if (/^q\.\d+\.o\d+/.test(value)) {
-            return `${questionPrefix}.${value}`;
+        if (value.startsWith(`${questionPrefix}.`)) {
+            const normalizedPath = normalizeQuestionPath(value.slice(questionPrefix.length + 1));
+            return normalizedPath ? `${questionPrefix}.${normalizedPath}` : value;
+        }
+        const normalizedPath = normalizeQuestionPath(value);
+        if (normalizedPath) {
+            return `${questionPrefix}.${normalizedPath}`;
         }
         if (value.includes(".")) {
             return value;
@@ -1758,6 +1758,14 @@
             return `${questionKey}.${value}`;
         }
         return value;
+    }
+
+    function normalizeQuestionPath(value) {
+        const match = String(value).match(/^q\.?(\d+)(.*)$/);
+        if (!match) {
+            return "";
+        }
+        return `q.${String(Number(match[1])).padStart(2, "0")}${match[2] || ""}`;
     }
 
     function compareRecordDate(a, b) {
