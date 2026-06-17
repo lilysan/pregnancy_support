@@ -41,26 +41,26 @@ function toPressureApiPostData(method, data) {
   const value = data || {};
   if (method === "get") {
     return {
-      unit: value.unit || value.unit || "date",
-      limit: Number(value.limit || value.limit || 1),
-      page: Number(value.page || value.page || 1),
+      unit: value.unit || value.Lunit || "date",
+      limit: Number(value.limit || value.Llimit || 1),
+      page: Number(value.page || value.Lpage || 1),
     };
   }
   if (method === "delete") {
     return {
-      date: value.date || value.date || "",
-      period: Number(value.period || value.period || 0),
+      date: value.date || value.Ldate || "",
+      period: Number(value.period || value.Lperiod || 0),
     };
   }
   const mapped = {
-    date: value.date || value.date || "",
-    period: Number(value.period || value.period || 0),
-    high: Number(value.high || value.high || 0),
-    low: Number(value.low || value.low || 0),
-    medicine: hasMedicineFlag(value.medicine ?? value.medicine) ? 1 : 0,
+    date: value.date || value.Ldate || "",
+    period: Number(value.period || value.Lperiod || 0),
+    high: Number(value.high || value.Lhigh || 0),
+    low: Number(value.low || value.Llow || 0),
+    medicine: hasMedicineFlag(value.medicine ?? value.Lmedicine) ? 1 : 0,
   };
   if (method === "put") {
-    mapped.itemId = value.itemId || value.itemId || "";
+    mapped.itemId = value.itemId || value.LitemId || "";
   }
   return mapped;
 }
@@ -70,24 +70,24 @@ function pressurePayload(method, data) {
 }
 
 function pressureApiPath(type) {
-  return type === "myPressure";
+  return type === "pressure" || type === "myPressure" ? "myPressure" : type;
 }
 
 function normalizePressureItem(item) {
   if (!item) return null;
   return {
-    itemId: item.itemId || item.itemId || item.id || "",
-    date: item.date || item.date || "",
-    period: Number(item.period || item.period || 0),
-    high: Number(item.high || item.high || 0),
-    low: Number(item.low || item.low || 0),
-    medicine: item.medicine ?? item.medicine ?? 0,
+    itemId: item.LitemId || item.itemId || item.id || "",
+    date: item.Ldate || item.date || "",
+    period: Number(item.Lperiod || item.period || 0),
+    high: Number(item.Lhigh || item.high || 0),
+    low: Number(item.Llow || item.low || 0),
+    medicine: item.Lmedicine ?? item.medicine ?? 0,
   };
 }
 
 function extractPressureItems(response) {
   const data = response && response.data ? response.data : {};
-  const rawItems = data.items || data.items || [];
+  const rawItems = data.Litems || data.items || [];
   return Array.isArray(rawItems)
     ? rawItems.map(normalizePressureItem).filter(Boolean)
     : [];
@@ -111,13 +111,13 @@ function loadData(idToken, type, postData, mergeMode) {
   showAppLoader();
   const method = "get";
   const safePostData =
-    type === "myPressure"
+    type === "pressure" || type === "myPressure"
       ? pressurePayload(method, postData)
       : postData || {};
   const safeMergeMode = mergeMode || "replace";
-  if (window.IS_TEST_MODE && type === "myPressure") {
-    const page = Number(safePostData.page || safePostData.page || 1);
-    const limit = Math.max(1, Number(safePostData.limit || safePostData.limit || 7));
+  if (window.IS_TEST_MODE && (type === "pressure" || type === "myPressure")) {
+    const page = Number(safePostData.page || 1);
+    const limit = Math.max(1, Number(safePostData.limit || 7));
     const start = (page - 1) * limit;
     const items = MOCK_PRESSURE_ITEMS.slice(start, start + limit);
     if (safeMergeMode === "append") {
@@ -178,7 +178,7 @@ function loadData(idToken, type, postData, mergeMode) {
 function addData(data, type) {
   showAppLoader();
   const method = "post";
-  if (window.IS_TEST_MODE && type === "myPressure") {
+  if (window.IS_TEST_MODE && (type === "pressure" || type === "myPressure")) {
     MOCK_PRESSURE_ITEMS.unshift(
       Object.assign(
         {
