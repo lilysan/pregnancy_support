@@ -40,6 +40,10 @@
         .bp-question.is-disabled::after {
             display: none;
         }
+        .bp-question.is-disabled .radio-chip {
+            background: var(--surface);
+            color: var(--sub-text);
+        }
 
         .bp-question.is-answered::after {
             content: "";
@@ -126,22 +130,6 @@
             cursor: not-allowed;
         }
 
-        .bp-sticky-actions {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 20;
-            background: #fff;
-            border-top: 1px solid var(--line);
-            padding: 0 24px calc(10px + env(safe-area-inset-bottom));
-            box-shadow: 0 -5px 5px 10px var(--background);
-        }
-
-        .bp-sticky-actions .btn-column {
-            margin-top: 0;
-        }
-
         .bp-form-footer {
             margin-top: 20px;
             display: flex;
@@ -176,7 +164,7 @@
             padding: 16px 12px;
             border: 1px solid var(--primary-light);
             border-radius: 12px;
-            background: var(--background);
+            background: var(--white);
             box-shadow: var(--shadow);
         }
 
@@ -232,20 +220,34 @@
             color: var(--background);
         }
 
-        #birthPlanForm > section > h2 {
-            position: sticky;
-            top: 86px;
-            z-index: 15;
-            background: var(--background);
-            box-shadow: 0 -10px 0 var(--background);
-            line-height: 1.0;
+        .bp-accordion-heading {
+            display: inline-flex;
+            width: 100%;
+            align-items: center;
         }
 
-        #birthPlanForm > section > section > h3 {
-            position: sticky;
-            top: 130px;
-            z-index: 14;
-            box-shadow: 0 -22px 0 var(--background), 0 5px 5px 10px var(--background);
+        .bp-accordion-heading .h3-sample {
+            min-width: 0;
+            flex: 1;
+            text-align: start;
+        }
+
+        .bp-section-counter {
+            flex: 0 0 auto;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: var(--background);
+            color: var(--sub-text);
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.4;
+            direction: ltr;
+            unicode-bidi: isolate;
+        }
+
+        .bp-section-counter.is-complete {
+            background: var(--toast-bg-success);
+            color: var(--success);
         }
 
         .badge-primary {
@@ -311,9 +313,9 @@
                     <span class="standard-btn-subtitle" data-i18n="[html]bp.standardDesc"></span>
                 </span>
             </button>
-            <div class="card">
+            <div class="card card-info">
                 <div class="state-card-inner">
-                    <iconify-icon icon="material-symbols:info-rounded" width="24" height="24" style="color:var(--info-state)"></iconify-icon>
+                    <iconify-icon icon="material-symbols:info-rounded" width="24" height="24"></iconify-icon>
                     <div>
                         <p class="small" data-i18n="[html]bp.info1"></p>
                         <p id="unsupportedNotice" class="small" data-i18n="[html]bp.info2" hidden></p>
@@ -323,12 +325,17 @@
         </div>
         <form id="birthPlanForm"></form>
         <div class="bp-form-footer">
-            <button type="button" id="clearDraftBtn" class="btn tertiary btn-small" data-i18n="[html]button.clear"></button>
+            <button type="button" id="clearDraftBtn" class="btn tertiary btn-small">
+                <span data-i18n="[html]button.clear"></span>
+            </button>
         </div>
-        <div class="bp-sticky-actions">
+        <div class="sticky-actions">
             <div class="fixed-container">
                 <div class="btn-column">
-                    <button type="button" id="saveDraftBtn" class="btn btn-primary" data-i18n="[html]button.save"></button>
+                    <button type="button" id="saveDraftBtn" class="btn btn-primary">
+                        <iconify-icon icon="material-symbols:save-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                        <span data-i18n="[html]button.save"></span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -379,6 +386,16 @@
         $("#clearDraftBtn").on("click", function(){
             handleClearDraft();
             localizeBirthPlanForm();
+        });
+        $("#birthPlanForm").on("click", ".accordion-trigger", function () {
+            const $trigger = $(this);
+            const $accordion = $trigger.closest(".accordion");
+            const $body = $accordion.children(".accordion-body");
+            const isOpen = $accordion.hasClass("is-open");
+
+            $accordion.toggleClass("is-open", !isOpen);
+            $trigger.toggleClass("active", !isOpen);
+            $body.css("max-height", isOpen ? "" : $body.prop("scrollHeight") + 32 + "px");
         });
         $(".standard-btn").on("click", function(){
             window.location.href = `https://liff.line.me/${LIFF_ID}/aruaru/`;
@@ -492,6 +509,7 @@
     function localizeBirthPlanForm() {
         if ($.fn.localize && window.i18next && i18next.isInitialized) {
             $("#birthPlanForm").localize();
+            updateOpenAccordionHeights();
         }
     }
 
@@ -521,26 +539,51 @@
         state.schema.categories.forEach((category) => {
             const categoryEl = $("<section>");
             categoryEl.append(
-                $("<h2>")
-                    .attr("data-i18n", `[html]${category.labelKey}`)
+                $("<h2>").attr("data-i18n", `[html]${category.labelKey}`)
             );
+            const accordionEl = $("<div>").addClass("accordion-list");
 
             category.sections.forEach((section) => {
-                const sectionEl = $("<section>");
-                sectionEl.append(
-                    $("<h3>")
-                        .attr("data-i18n", `[html]${section.labelKey}`)
-                );
+                const sectionEl = $("<div>")
+                    .addClass("accordion")
+                    .attr("data-section-id", section.id || section.labelKey);
+                const triggerEl = $("<button>")
+                    .attr("type", "button")
+                    .addClass("accordion-trigger")
+                    .append(
+                        $("<span>")
+                            .addClass("bp-accordion-heading")
+                            .append(
+                                $("<span>")
+                                    .addClass("h3-sample")
+                                    .attr("data-i18n", `[html]${section.labelKey}`)
+                            )
+                            .append(
+                                $("<span>")
+                                    .addClass("bp-section-counter")
+                                    .attr("aria-label", "0 / 0")
+                                    .text("0/0")
+                            )
+                    )
+                    .append($("<iconify-icon>").attr({
+                        icon: "material-symbols:expand-more-rounded",
+                        width: "24",
+                        height: "24",
+                        "aria-hidden": "true"
+                    }));
+                const bodyEl = $("<div>").addClass("accordion-body");
 
                 section.questions.forEach((question) => {
                     questionCounter += 1;
                     const questionEl = renderQuestion(question, String(questionCounter));
-                    sectionEl.append(questionEl);
+                    bodyEl.append(questionEl);
                 });
 
-                categoryEl.append(sectionEl);
+                sectionEl.append(triggerEl, bodyEl);
+                accordionEl.append(sectionEl);
             });
 
+            categoryEl.append(accordionEl);
             form.append(categoryEl);
         });
         updateProgressIndicators();
@@ -624,6 +667,7 @@
                     syncQuestionUi(question, wrap, true);
                     syncAllQuestionPrefaces(true);
                     updateProgressIndicators();
+                    updateOpenAccordionHeight(wrap);
                 });
 
             optionsEl.append(chip);
@@ -643,6 +687,7 @@
                     updateFreeText(question.id, $(this).val());
                     syncAnsweredFlag(question, wrap);
                     updateProgressIndicators();
+                    updateOpenAccordionHeight(wrap);
                 });
             toggleFreeTextAvailability(question, textArea);
             wrap.append(textArea);
@@ -665,6 +710,28 @@
 
         block.append(wrap);
         return block;
+    }
+
+    function updateOpenAccordionHeights() {
+        $("#birthPlanForm .accordion.is-open").each(function () {
+            updateAccordionHeight($(this));
+        });
+    }
+
+    function updateOpenAccordionHeight(sourceEl) {
+        const accordionEl = $(sourceEl).closest(".accordion.is-open");
+        if (!accordionEl.length) {
+            return;
+        }
+        window.setTimeout(() => updateAccordionHeight(accordionEl), 200);
+    }
+
+    function updateAccordionHeight(accordionEl) {
+        const bodyEl = $(accordionEl).children(".accordion-body");
+        if (!bodyEl.length) {
+            return;
+        }
+        bodyEl.css("max-height", bodyEl.prop("scrollHeight") + 32 + "px");
     }
 
     function syncQuestionUi(question, questionEl, animate = false) {
@@ -1110,6 +1177,31 @@
             .css("width", `${percent}%`)
             .attr("aria-valuenow", String(percent));
         $("#globalProgress .bp-progress-track").toggleClass("is-complete", percent >= 100);
+        updateSectionProgressIndicators();
+    }
+
+    function updateSectionProgressIndicators() {
+        if (!state.schema || !Array.isArray(state.schema.categories)) {
+            return;
+        }
+        const accordionEls = $("#birthPlanForm .accordion");
+        let sectionIndex = 0;
+        state.schema.categories.forEach((category) => {
+            if (!Array.isArray(category.sections)) {
+                return;
+            }
+            category.sections.forEach((section) => {
+                const sectionQuestions = Array.isArray(section.questions) ? section.questions : [];
+                const total = countQuestionsInList(sectionQuestions);
+                const answered = countAnsweredQuestionsInList(sectionQuestions);
+                const counterEl = accordionEls.eq(sectionIndex).find(".bp-section-counter").first();
+                counterEl
+                    .text(`${answered}/${total}`)
+                    .attr("aria-label", `${answered} / ${total}`)
+                    .toggleClass("is-complete", total > 0 && answered >= total);
+                sectionIndex += 1;
+            });
+        });
     }
 
     function countAnsweredQuestionsFromSchema(schema) {
@@ -1133,6 +1225,13 @@
         return answered;
     }
 
+    function countAnsweredQuestionsInList(questions) {
+        if (!Array.isArray(questions)) {
+            return 0;
+        }
+        return questions.reduce((total, question) => total + countAnsweredForQuestion(question), 0);
+    }
+
     function countAnsweredForQuestion(question) {
         if (!isItemEnabled(question.labelKey)) {
             return 0;
@@ -1151,6 +1250,13 @@
             }
         });
         return answered;
+    }
+
+    function countQuestionsInList(questions) {
+        if (!Array.isArray(questions)) {
+            return 0;
+        }
+        return questions.reduce((total, question) => total + countQuestionTreeSize(question), 0);
     }
 
     function countQuestionTreeSize(question) {

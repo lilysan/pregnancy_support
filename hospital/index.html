@@ -26,80 +26,20 @@
 
         .hospital-tab-panel {
             min-height: calc(100vh - 180px - 170px);
+            margin-top: 40px;
         }
 
         .hospital-tab-panel[hidden] {
             display: none;
         }
 
-        .hospital-section-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin: 0 0 14px;
-            padding-left: 0;
-            border-left: none;
-            color: var(--primary-dark);
-            font-size: 20px;
-            font-weight: 700;
-            line-height: 1.35;
-        }
-
-        .hospital-start-options {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 16px;
-            margin-top: 20px;
-        }
-
-        .hospital-start-card {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            gap: 16px;
-            margin-top: 0;
-        }
-
-        .hospital-start-card .hospital-section-title {
-            margin-bottom: 4px;
-        }
-
         .hospital-form {
             margin-top: 20px;
-        }
-
-        .hospital-field-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 16px;
         }
 
         .hospital-field-full {
             grid-column: 1 / -1;
         }
-
-        .hospital-badge {
-            display: inline-flex;
-            align-items: center;
-            margin-left: 6px;
-            border-radius: 999px;
-            padding: 2px 8px;
-            font-size: 12px;
-            font-weight: 700;
-            line-height: 1.45;
-            vertical-align: middle;
-        }
-
-        .hospital-badge-required {
-            background: var(--toast-bg-error);
-            color: var(--error);
-        }
-
-        .hospital-badge-optional {
-            background: var(--surface);
-            color: var(--sub-text);
-        }
-
         .hospital-form input:read-only {
             background: var(--surface);
             color: var(--sub-text);
@@ -129,23 +69,7 @@
             display: block;
         }
 
-        .hospital-actions {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 20;
-            padding: 0 24px calc(10px + env(safe-area-inset-bottom));
-            background: #fff;
-            box-shadow: 0 -5px 5px 10px var(--background);
-        }
-
-        .hospital-actions .btn-column {
-            margin-top: 0;
-        }
-
-        .hospital-actions .btn:disabled,
-        .birthplan-settings .btn:disabled {
+        .sticky-actions .btn:disabled {
             background: var(--border);
             border-color: var(--border);
             color: var(--sub-text);
@@ -292,7 +216,7 @@
             background: var(--background);
         }
 
-        #hospitalDataPanel.is-form-modal .hospital-actions {
+        #hospitalDataPanel.is-form-modal .sticky-actions {
             position: sticky;
             bottom: 0;
             margin: 24px -24px -110px;
@@ -301,7 +225,7 @@
             box-shadow: 0 -5px 12px rgba(0, 0, 0, 0.08);
         }
 
-        #hospitalDataPanel.is-form-modal .hospital-actions .fixed-container {
+        #hospitalDataPanel.is-form-modal .sticky-actions .fixed-container {
             max-width: none;
             padding: 0;
         }
@@ -447,23 +371,12 @@
             margin: 0;
         }
 
-        .birthplan-settings {
-            margin-top: 40px;
-        }
-
-        .bp-settings-category {
-            display: flex;
-            flex-direction: column;
-        }
-
         .bp-settings-question {
             display: flex;
             flex-direction: column;
             gap: 10px;
             padding: 12px;
-            border: 1px solid var(--border);
             border-radius: 12px;
-            background: var(--background);
         }
 
         .bp-settings-question + .bp-settings-question {
@@ -480,26 +393,50 @@
             justify-content: space-between;
             gap: 12px;
             width: 100%;
-            border: 1px solid var(--border);
+            border: 1px solid var(--primary-light);
             border-radius: 12px;
             padding: 12px;
-            background: var(--background);
-            color: var(--text);
+            background: var(--surface);
+            color: var(--sub-text);
             font: inherit;
             font-weight: 600;
             line-height: 1.45;
             text-align: left;
             cursor: pointer;
+            box-shadow: var(--shadow);
         }
 
         .bp-settings-toggle.is-active {
-            border-color: var(--primary);
-            background: var(--primary-light);
+            background: var(--white);
+            color: var(--text);
+            border: 1px solid var(--primary-light);
         }
 
         .bp-settings-toggle:disabled {
             cursor: not-allowed;
             opacity: 0.55;
+        }
+
+        .bp-settings-toggle.is-readonly {
+            border-style: dashed;
+            background: var(--surface);
+            color: var(--sub-text);
+            cursor: default;
+            box-shadow: none;
+        }
+
+        .bp-settings-toggle.is-readonly.is-active {
+            border-color: var(--primary-border);
+            background: var(--white);
+            color: var(--text);
+        }
+
+        .bp-settings-toggle.is-readonly .bp-settings-switch {
+            opacity: 0.72;
+        }
+
+        .bp-settings-toggle:disabled .bp-settings-switch {
+            opacity: 0.45;
         }
 
         .bp-settings-toggle-text {
@@ -551,8 +488,7 @@
         }
 
         @media (max-width: 520px) {
-            .hospital-start-options,
-            .hospital-field-grid,
+            .hospital-form .grid-2,
             .hospital-account-user {
                 grid-template-columns: 1fr;
             }
@@ -570,10 +506,10 @@
             病院情報を登録・編集し、バースプラン設定や妊婦さんに案内するQRコード、スタッフ端末を管理できます。
         </p>
 
-        <div class="hospital-start-options">
-            <div class="card hospital-start-card hospital-account-join-card">
-                <h2 class="hospital-section-title">
-                    <iconify-icon icon="material-symbols:qr-code-scanner-rounded" style="color: var(--primary-dark)" width="24" height="24" aria-hidden="true"></iconify-icon>
+        <div id="hospital-start-options" class="row-list">
+            <div class="card">
+                <h2>
+                    <iconify-icon icon="material-symbols:qr-code-scanner-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
                     <span>登録済みの病院情報を利用する</span>
                 </h2>
                 <p class="small">登録済みの端末から発行したスタッフ招待コードを読み取ると、この端末でも同じ病院情報を管理できます。</p>
@@ -585,9 +521,11 @@
                 </div>
             </div>
 
-            <div class="card hospital-start-card hospital-new-registration-card">
-                <h2 class="hospital-section-title">
-                    <iconify-icon icon="material-symbols:add-business-rounded" style="color: var(--primary-dark)" width="24" height="24" aria-hidden="true"></iconify-icon>
+            <div class="both-lines">または</div>
+
+            <div class="card">
+                <h2>
+                    <iconify-icon icon="material-symbols:add-business-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
                     <span>新しい病院情報を登録する</span>
                 </h2>
                 <p class="small">病院名・住所・電話番号を登録し、通院する妊婦さんに案内するQRコードを発行します。</p>
@@ -641,40 +579,40 @@
 
             <form name="form_hospital" class="h-adr hospital-form">
             <section class="card">
-                <h2 class="hospital-section-title">
+                <h2>
                     <iconify-icon icon="material-symbols:local-hospital-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
                     <span>病院名</span>
                 </h2>
-                <div class="hospital-field-grid">
+                <div class="grid-2">
                     <label>
-                        病院名（日本語）<span class="hospital-badge hospital-badge-required">必須</span>
+                        病院名（日本語）<span class="badge required">必須</span>
                         <input class="hospital_name_placeholder" type="text" autocomplete="organization" required>
                     </label>
                     <label>
-                        病院名（英語）<span class="hospital-badge hospital-badge-required">必須</span>
+                        病院名（英語）<span class="badge required">必須</span>
                         <input class="hospital_name_en_placeholder" type="text" autocomplete="organization" required>
                     </label>
                     <label class="hospital-field-full">
-                        病院名（ふりがな）<span class="hospital-badge hospital-badge-required">必須</span>
+                        病院名（ふりがな）<span class="badge required">必須</span>
                         <input class="hospital_name_furigana_placeholder" type="text" autocomplete="off" required>
                     </label>
                 </div>
             </section>
 
             <section class="card">
-                <h2 class="hospital-section-title">
+                <h2>
                     <iconify-icon icon="material-symbols:location-on-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
                     <span>住所</span>
                 </h2>
                 <span class="p-country-name" style="display:none;">Japan</span>
-                <div class="hospital-field-grid">
+                <div class="grid-2">
                     <label>
-                        郵便番号<span class="hospital-badge hospital-badge-required">必須</span>
+                        郵便番号<span class="badge required">必須</span>
                         <input type="text" class="hospital_postalcode_placeholder p-postal-code js-halfwidth-number-field" maxlength="16" inputmode="numeric" autocomplete="postal-code" pattern="[0-9-]+" title="半角数字とハイフンのみ入力できます" required>
                         <span class="hospital-field-warning">半角数字とハイフンのみ入力できます。</span>
                     </label>
                     <label>
-                        都道府県<span class="hospital-badge hospital-badge-required">必須</span>
+                        都道府県<span class="badge required">必須</span>
                         <select id="region" class="hospital_address1_placeholder p-region" required>
                                 <option value=""></option>
                                 <option value="北海道">北海道</option>
@@ -727,38 +665,38 @@
                             </select>
                     </label>
                     <label class="hospital-field-full">
-                        市区町村<span class="hospital-badge hospital-badge-required">必須</span>
+                        市区町村<span class="badge required">必須</span>
                         <input type="text" id="locality" class="hospital_address2_placeholder p-locality" autocomplete="address-level2" required>
                     </label>
                     <label class="hospital-field-full">
-                        町域<span class="hospital-badge hospital-badge-required">必須</span>
+                        町域<span class="badge required">必須</span>
                         <input type="text" id="street-address" class="hospital_address3_placeholder p-street-address" autocomplete="address-level3" required>
                     </label>
                     <label class="hospital-field-full">
-                        それ以降<span class="hospital-badge hospital-badge-required">必須</span>
+                        それ以降<span class="badge required">必須</span>
                         <input type="text" id="extended-address" class="hospital_address4_placeholder p-extended-address" autocomplete="street-address" required>
                     </label>
                 </div>
             </section>
 
             <section class="card">
-                <h2 class="hospital-section-title">
+                <h2>
                     <iconify-icon icon="material-symbols:phone-in-talk-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
                     <span>電話番号</span>
                 </h2>
-                <div class="hospital-field-grid">
+                <div class="grid-2">
                     <label class="hospital-field-full">
-                        代表電話番号<span class="hospital-badge hospital-badge-required">必須</span>
+                        代表電話番号<span class="badge required">必須</span>
                         <input class="phone_number1_placeholder js-halfwidth-number-field" type="tel" inputmode="numeric" autocomplete="tel" pattern="[0-9-]+" title="半角数字とハイフンのみ入力できます" required>
                         <span class="hospital-field-warning">半角数字とハイフンのみ入力できます。</span>
                     </label>
                     <label>
-                        産科外来電話番号<span class="hospital-badge hospital-badge-optional">任意</span>
+                        産科外来電話番号<span class="badge optional">任意</span>
                         <input class="phone_number2_placeholder js-halfwidth-number-field" type="tel" inputmode="numeric" autocomplete="tel" pattern="[0-9-]*" title="半角数字とハイフンのみ入力できます">
                         <span class="hospital-field-warning">半角数字とハイフンのみ入力できます。</span>
                     </label>
                     <label>
-                        夜間（診察時間外）電話番号<span class="hospital-badge hospital-badge-optional">任意</span>
+                        夜間（診察時間外）電話番号<span class="badge optional">任意</span>
                         <input class="phone_number3_placeholder js-halfwidth-number-field" type="tel" inputmode="numeric" autocomplete="tel" pattern="[0-9-]*" title="半角数字とハイフンのみ入力できます">
                         <span class="hospital-field-warning">半角数字とハイフンのみ入力できます。</span>
                     </label>
@@ -777,7 +715,7 @@
                                 <span>登録</span>
                             </button>
                         </div>
-                        <button type="button" class="btn hospital-edit-btn btn_edit">
+                        <button type="button" class="btn btn_edit">
                             <iconify-icon icon="material-symbols:edit" width="22" height="22" aria-hidden="true"></iconify-icon>
                             <span>編集</span>
                         </button>
@@ -787,17 +725,17 @@
         </form>
         </section>
 
-        <section id="birthplanSettingsPanel" class="birthplan-settings hospital-tab-panel hospital-workflow is-hidden" role="tabpanel" aria-labelledby="birthplanSettingsTab" hidden>
+        <section id="birthplanSettingsPanel" class="hospital-tab-panel hospital-workflow is-hidden" role="tabpanel" aria-labelledby="birthplanSettingsTab" hidden>
             <h2>バースプラン設定</h2>
             <p class="desc">妊婦さんに表示するバースプランの質問と選択肢を設定します。オフにした項目は妊婦さんの入力画面で選べなくなります。</p>
             <div class="card card-info">
                 <div class="state-card-inner">
-                    <iconify-icon icon="material-symbols:tune-rounded" width="24" height="24" style="color:var(--info-state)" aria-hidden="true"></iconify-icon>
+                    <iconify-icon icon="material-symbols:tune-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
                     <p class="small">質問をオフにすると、その質問全体が非対応として扱われます。</p>
                 </div>
             </div>
             <div id="birthplanSettingsForm" class="accordion-list"></div>
-            <div class="hospital-actions">
+            <div class="sticky-actions">
                 <div class="fixed-container">
                     <div class="btn-column">
                         <button type="button" class="btn btn_birthplan_settings_edit">
@@ -819,7 +757,7 @@
             </div>
         </section>
 
-        <section id="hospitalQrCodePanel" class="hospital-qrcode-card hospital-tab-panel hospital-workflow is-hidden" role="tabpanel" aria-labelledby="hospitalQrCodeTab" hidden>
+        <section id="hospitalQrCodePanel" class="hospital-tab-panel hospital-workflow is-hidden" role="tabpanel" aria-labelledby="hospitalQrCodeTab" hidden>
             <h2>病院QRコード</h2>
             <p class="desc">以下のQRコードを通院する妊婦さんに提示してください。</p>
             <div class="row-list">
@@ -834,7 +772,7 @@
                 <img src="" class="qrcode hospital-qrcode" alt="病院QRコード">
             </div>
             <div class="btn-column">
-                <a href="" type="button" class="btn tertiary hospital-download-btn btn_download">
+                <a href="" type="button" class="btn tertiary btn_download">
                     <iconify-icon icon="material-symbols:download-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
                     <span>病院QRコードのみをダウンロード</span>
                 </a>
@@ -975,7 +913,7 @@
         $(".btn_hospital_new_registration").on("click", function(){
             hospitalViewState.isNewRegistrationStarted = true;
             setHospitalWorkflowVisible(true, false);
-            $(".hospital-start-options").hide();
+            $("#hospital-start-options").hide();
             openHospitalFormModal();
             switchHospitalTab("hospitalDataPanel");
         });
@@ -1722,7 +1660,7 @@
     }
 
     function setHospitalMode(hasHospital) {
-        $(".hospital-start-options").toggle(!hasHospital && !hospitalViewState.isNewRegistrationStarted);
+        $("#hospital-start-options").toggle(!hasHospital && !hospitalViewState.isNewRegistrationStarted);
         setHospitalWorkflowVisible(hasHospital || hospitalViewState.isNewRegistrationStarted, hasHospital);
         if (hasHospital) {
             $("#hospitalDataPanel").removeClass("is-form-modal");
@@ -1924,14 +1862,14 @@
         }
 
         schema.categories.forEach((category) => {
-            const categoryEl = $("<section>").addClass("bp-settings-category");
-            categoryEl.append($("<h3>").addClass("bp-settings-category-title").text(translateBirthPlan(category.labelKey)));
+            const categoryEl = $("<section>");
+            categoryEl.append($("<h3>").text(translateBirthPlan(category.labelKey)));
             const accordionEl = $("<div>").addClass("accordion-list");
 
             if (Array.isArray(category.sections)) {
                 category.sections.forEach((section) => {
                     const sectionEl = $("<div>")
-                        .addClass("accordion bp-settings-section")
+                        .addClass("accordion")
                         .attr("data-section-id", section.id || section.labelKey);
                     const triggerEl = $("<button>")
                         .attr("type", "button")
@@ -1982,7 +1920,7 @@
     function renderBirthPlanQuestionSetting(question, isFollowUp, parentDisabled = false) {
         const questionEnabled = isBirthPlanSettingEnabled(question.labelKey);
         const questionEl = $("<div>")
-            .addClass("bp-settings-question")
+            .addClass("bp-settings-question card")
             .toggleClass("is-disabled", !questionEnabled || parentDisabled);
 
         questionEl.append(renderBirthPlanSettingToggle(question.labelKey, translateBirthPlan(question.labelKey), false, parentDisabled));
@@ -2013,16 +1951,17 @@
 
     function renderBirthPlanSettingToggle(key, label, isOption, isDisabled) {
         const isActive = isBirthPlanSettingEnabled(key);
-        return $("<button>")
+        const toggleEl = $("<button>")
             .attr("type", "button")
             .addClass("bp-settings-toggle")
             .toggleClass("is-active", isActive)
             .toggleClass("bp-settings-option-toggle", isOption)
-            .prop("disabled", isDisabled || !birthPlanSettingsState.isEditMode)
             .attr("aria-pressed", String(isActive))
             .attr("data-key", key)
             .append($("<span>").addClass("bp-settings-toggle-text").text(label))
             .append($("<span>").addClass("bp-settings-switch").attr("aria-hidden", "true"));
+        setBirthPlanToggleAvailability(toggleEl, isDisabled);
+        return toggleEl;
     }
 
     function setBirthPlanSettingsEditMode(isEditMode) {
@@ -2077,6 +2016,19 @@
         }
     }
 
+    function setBirthPlanToggleAvailability($toggle, isDisabled) {
+        const isReadonly = !birthPlanSettingsState.isEditMode && !isDisabled;
+        $toggle
+            .prop("disabled", isDisabled)
+            .toggleClass("is-readonly", isReadonly)
+            .attr("aria-readonly", String(isReadonly));
+        if (isReadonly) {
+            $toggle.attr("readonly", "readonly");
+        } else {
+            $toggle.removeAttr("readonly");
+        }
+    }
+
     function updateBirthPlanQuestionDisabledState($question) {
         const $questionToggle = $question.children(".bp-settings-toggle").first();
         const questionEnabled = isBirthPlanSettingEnabled($questionToggle.data("key"));
@@ -2085,12 +2037,14 @@
         $question.toggleClass("is-disabled", !questionEnabled || parentDisabled);
 
         $question.children(".bp-settings-options").each(function () {
-            $(this).children(".bp-settings-toggle").prop("disabled", parentDisabled || !questionEnabled || !birthPlanSettingsState.isEditMode);
+            $(this).children(".bp-settings-toggle").each(function () {
+                setBirthPlanToggleAvailability($(this), parentDisabled || !questionEnabled);
+            });
             $(this).children(".bp-settings-question").each(function () {
                 updateBirthPlanQuestionDisabledState($(this));
             });
         });
-        $questionToggle.prop("disabled", parentDisabled || !birthPlanSettingsState.isEditMode);
+        setBirthPlanToggleAvailability($questionToggle, parentDisabled);
     }
 
     function isParentBirthPlanQuestionDisabled($question) {

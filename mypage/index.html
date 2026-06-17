@@ -18,20 +18,6 @@
     <script src="../common/js/toast.js"></script>
     <link rel="stylesheet" href="../style.css"/>
     <style>
-        .link-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin: 20px 0;
-        }
-
-        .link-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-top: 16px;
-        }
-
         .link-card {
             display: flex;
             flex-direction: column;
@@ -112,14 +98,6 @@
             display: grid;
             gap: 14px;
         }
-
-        .contact-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-top: 16px;
-        }
-
         .contact-card {
             display: grid;
             gap: 14px;
@@ -158,10 +136,6 @@
             flex-basis: 100%;
         }
 
-        .form-reset-btn {
-            justify-content: center;
-        }
-
         .btn:disabled {
             background: var(--border);
             color: var(--sub-text);
@@ -176,12 +150,6 @@
             justify-content: flex-start;
         }
 
-        .contact-add-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
         .user-form {
             display: grid;
             gap: 14px;
@@ -191,29 +159,6 @@
             display: grid;
             gap: 12px;
         }
-
-        .hospital-badge {
-            display: inline-flex;
-            align-items: center;
-            margin-left: 6px;
-            border-radius: 999px;
-            padding: 2px 8px;
-            font-size: 12px;
-            font-weight: 700;
-            line-height: 1.45;
-            vertical-align: middle;
-        }
-
-        .hospital-badge-required {
-            background: var(--toast-bg-error);
-            color: var(--error);
-        }
-
-        .hospital-badge-optional {
-            background: var(--surface);
-            color: var(--sub-text);
-        }
-
         .user-level-label {
             display: inline-flex;
             align-items: center;
@@ -236,40 +181,40 @@
             <form id="userForm" class="card user-form">
                 <label>
                     <span data-i18n="[html]link.label.name"></span>
-                    <span class="hospital-badge hospital-badge-required" data-i18n="[html]link.badge.required"></span>
+                    <span class="badge required" data-i18n="[html]link.badge.required"></span>
                     <input id="userNameInput" type="text" autocomplete="name" required data-i18n="[placeholder]link.placeholder.name">
                 </label>
                 <label>
                     <span data-i18n="[html]link.label.nameFurigana"></span>
-                    <span class="hospital-badge hospital-badge-optional" data-i18n="[html]link.badge.optional"></span>
+                    <span class="badge optional" data-i18n="[html]link.badge.optional"></span>
                     <input id="userNameFuriganaInput" type="text" data-i18n="[placeholder]link.placeholder.nameFurigana">
                 </label>
                 <label>
                     <span data-i18n="[html]link.label.age"></span>
-                    <span class="hospital-badge hospital-badge-required" data-i18n="[html]link.badge.required"></span>
+                    <span class="badge required" data-i18n="[html]link.badge.required"></span>
                     <input id="userAgeInput" type="number" inputmode="numeric" min="0" step="1" required data-i18n="[placeholder]link.placeholder.age">
                 </label>
                 <label>
                     <span data-i18n="[html]link.label.nationality"></span>
-                    <span class="hospital-badge hospital-badge-required" data-i18n="[html]link.badge.required"></span>
+                    <span class="badge required" data-i18n="[html]link.badge.required"></span>
                     <input id="userNationalityInput" type="text" list="userNationalityOptions" autocomplete="country-name" required>
                     <datalist id="userNationalityOptions"></datalist>
                 </label>
                 <label>
                     <span data-i18n="[html]link.label.native"></span>
-                    <span class="hospital-badge hospital-badge-required" data-i18n="[html]link.badge.required"></span>
+                    <span class="badge required" data-i18n="[html]link.badge.required"></span>
                     <input id="userNativeInput" type="text" list="userNativeOptions" required>
                     <datalist id="userNativeOptions"></datalist>
                     <input id="userNativeOtherInput" type="text" hidden>
                 </label>
                 <label>
                     <span data-i18n="[html]link.label.dueDate"></span>
-                    <span class="hospital-badge hospital-badge-required" data-i18n="[html]link.badge.required"></span>
+                    <span class="badge required" data-i18n="[html]link.badge.required"></span>
                     <input id="userDueDateInput" type="date" required>
                 </label>
                 <div>
                     <span class="field-label user-level-label" data-i18n="[html]link.label.level"></span>
-                    <span class="hospital-badge hospital-badge-optional" data-i18n="[html]link.badge.optional"></span>
+                    <span class="badge optional" data-i18n="[html]link.badge.optional"></span>
                     <div class="user-level-grid">
                         <label>
                             <span data-i18n="[html]link.label.levelSpeaking"></span>
@@ -294,7 +239,7 @@
                         <iconify-icon icon="material-symbols:save-rounded" width="18" height="18" aria-hidden="true"></iconify-icon>
                         <span data-i18n="[html]button.save"></span>
                     </button>
-                    <button type="button" id="resetUserBtn" class="btn tertiary btn-small form-reset-btn">
+                    <button type="button" id="resetUserBtn" class="btn tertiary btn-small">
                         <iconify-icon icon="material-symbols:restart-alt-rounded" width="18" height="18" aria-hidden="true"></iconify-icon>
                         <span data-i18n="[html]button.reset"></span>
                     </button>
@@ -312,14 +257,14 @@
                     </div>
                 </div>
             </div>
-            <div id="emptyState" class="card link-empty link-list">
+            <div id="emptyState" class="card link-empty row-list">
                 <div class="state-card-inner">
                     <iconify-icon icon="material-symbols:link-off-rounded" width="24" height="24" style="color:var(--sub-text)"></iconify-icon>
                     <p class="small" data-i18n="[html]link.empty"></p>
                 </div>
             </div>
-            <div id="hospitalList" class="link-list"></div>
-            <div class="link-actions">
+            <div id="hospitalList" class="row-list"></div>
+            <div class="btn-column">
                 <button type="button" id="scanHospitalBtn" class="btn primary">
                     <iconify-icon icon="material-symbols:qr-code-scanner-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
                     <span data-i18n="[html]link.button.scan"></span>
@@ -331,15 +276,15 @@
             <h2 data-i18n="[html]link.section.contacts"></h2>
             <p class="desc" data-i18n="[html]link.contactDesc"></p>
 
-            <div id="emptyContactsState" class="card link-empty contact-list">
+            <div id="emptyContactsState" class="card link-empty row-list">
                 <div class="state-card-inner">
                     <iconify-icon icon="material-symbols:phone-disabled-rounded" width="24" height="24" style="color:var(--sub-text)"></iconify-icon>
                     <p class="small" data-i18n="[html]link.emptyContacts"></p>
                 </div>
             </div>
-            <div id="contactList" class="contact-list"></div>
+            <div id="contactList" class="row-list"></div>
             <div class="contact-add-actions">
-                <button type="button" id="addContactFormBtn" class="btn tertiary btn-small contact-add-btn">
+                <button type="button" id="addContactFormBtn" class="btn tertiary btn-small">
                     <iconify-icon icon="material-symbols:add-rounded" width="20" height="20" aria-hidden="true"></iconify-icon>
                     <span data-i18n="[html]link.button.addContact"></span>
                 </button>
@@ -362,18 +307,18 @@
         <form id="hospitalRegistrationForm" class="link-extra-form">
             <label>
                 <span data-i18n="[html]link.label.cardNo"></span>
-                <span class="hospital-badge hospital-badge-required" data-i18n="[html]link.badge.required"></span>
+                <span class="badge required" data-i18n="[html]link.badge.required"></span>
                 <input id="hospitalRegistrationCardNoInput" type="text" inputmode="text" autocomplete="off" required data-i18n="[placeholder]link.placeholder.cardNo">
             </label>
             <label>
                 <span data-i18n="[html]link.label.travelTime"></span>
-                <span class="hospital-badge hospital-badge-required" data-i18n="[html]link.badge.required"></span>
+                <span class="badge required" data-i18n="[html]link.badge.required"></span>
                 <input id="hospitalRegistrationTravelTimeInput" type="number" inputmode="numeric" min="0" step="1" required data-i18n="[placeholder]link.placeholder.travelTime">
             </label>
             <div class="link-labor-toggle">
                 <span class="field-label">
                     <span data-i18n="[html]link.label.isLaborPatient"></span>
-                    <span class="hospital-badge hospital-badge-required" data-i18n="[html]link.badge.required"></span>
+                    <span class="badge required" data-i18n="[html]link.badge.required"></span>
                 </span>
                 <div id="hospitalRegistrationLaborButtons" class="radio-row single-select">
                     <button type="button" class="radio-chip" data-value="1" data-i18n="[html]link.option.yes"></button>
@@ -1088,7 +1033,7 @@
 
     function renderRequiredBadge() {
         return $("<span>")
-            .addClass("hospital-badge hospital-badge-required")
+            .addClass("badge required")
             .attr("data-i18n", "[html]link.badge.required");
     }
 

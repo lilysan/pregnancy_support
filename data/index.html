@@ -18,72 +18,46 @@
             padding-bottom: 40px;
         }
 
-        .data-section-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin: 0 0 14px;
-            padding-left: 0;
-            border-left: none;
-            color: var(--primary-dark);
-            font-size: 20px;
-            font-weight: 700;
-            line-height: 1.35;
-        }
-
-        .data-search-card {
-            margin-top: 20px;
-        }
-
-        .data-search-actions {
+        #data-search-actions {
             display: grid;
             grid-template-columns: 1fr auto;
             gap: 12px;
             align-items: end;
         }
 
-        .data-search-actions .btn {
+        #data-search-actions .btn {
             min-width: 112px;
             min-height: 52px;
         }
 
-        .data-status-card {
+        #data-status-card {
             display: none;
         }
 
-        .data-status-card.is-visible {
+        #data-status-card.is-visible {
             display: block;
         }
 
-        .data-status-inner,
-        .data-account-inner {
+        #data-status-card > div {
             display: flex;
             align-items: flex-start;
             gap: 10px;
         }
 
-        .data-account-main {
+        #hospital-account-card {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 12px;
             min-width: 0;
-            flex: 1;
         }
 
-        .data-account-name {
+        #hospitalAccountName {
+            min-width: 0;
             margin: 0;
             font-weight: 700;
             line-height: 1.45;
             overflow-wrap: anywhere;
-        }
-
-        .data-account-link {
-            width: 44px;
-            height: 44px;
-            min-height: 44px;
-            flex: 0 0 44px;
-            padding: 0;
         }
 
         .data-info-grid {
@@ -168,16 +142,16 @@
             transition: max-width 0.22s ease, opacity 0.16s ease, transform 0.2s ease;
         }
 
-        .data-panel {
+        #dataPanel {
             margin-top: 14px;
         }
 
-        .data-tab-content {
+        #data-tab-content {
             margin-top: 40px;
             min-height: calc(100vh - 180px);
         }
 
-        .data-panel-toolbar {
+        #data-panel-toolbar {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -185,11 +159,7 @@
             margin-top: 0;
         }
 
-        .data-panel-refresh-btn {
-            flex: 0 0 auto;
-        }
-
-        .data-panel-toolbar + .data-panel {
+        #data-panel-toolbar + #dataPanel {
             margin-top: 12px;
         }
 
@@ -600,13 +570,13 @@
             line-height: 1.45;
         }
 
-        .data-panel[hidden],
-        .data-result-section[hidden] {
+        #dataPanel[hidden],
+        #sharedDataSection[hidden] {
             display: none;
         }
 
         @media (max-width: 520px) {
-            .data-search-actions,
+            #data-search-actions,
             .data-info-grid {
                 grid-template-columns: 1fr;
             }
@@ -633,23 +603,19 @@
         <h1>患者データ</h1>
         <p class="desc">診察券番号を入力すると、自院に共有されている妊婦さんの情報を確認できます。</p>
 
-        <section class="card data-account-card">
-            <div class="data-account-inner">
-                <div class="data-account-main">
-                    <p class="data-account-name" id="hospitalAccountName">病院情報を確認中</p>
-                    <button class="icon-btn square data-account-link" type="button" id="hospitalAccountLinkBtn" aria-label="病院情報を開く" disabled>
-                        <iconify-icon icon="material-symbols:settings-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
-                    </button>
-                </div>
-            </div>
+        <section class="card" id="hospital-account-card">
+            <p id="hospitalAccountName">病院情報を確認中</p>
+            <button class="icon-btn square" type="button" id="hospitalAccountLinkBtn" aria-label="病院情報を開く" disabled>
+                <iconify-icon icon="material-symbols:settings-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+            </button>
         </section>
 
-        <section class="card data-search-card">
-            <h2 class="data-section-title">
+        <section class="card">
+            <h2>
                 <iconify-icon icon="material-symbols:badge-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
                 <span>診察券番号</span>
             </h2>
-            <div class="data-search-actions">
+            <div id="data-search-actions">
                 <label for="cardNo">
                     診察券番号
                     <input type="text" id="cardNo" autocomplete="off" required>
@@ -661,26 +627,26 @@
             </div>
         </section>
 
-        <section class="card card-info data-status-card" id="dataStatusCard">
-            <div class="data-status-inner">
+        <section class="card card-info" id="data-status-card">
+            <div>
                 <iconify-icon icon="material-symbols:info-rounded" width="24" height="24" style="color:var(--info-state)" aria-hidden="true"></iconify-icon>
                 <p class="small" id="dataStatusText"></p>
             </div>
         </section>
 
-        <section class="data-result-section" id="sharedDataSection" hidden>
+        <section id="sharedDataSection" hidden>
             <div id="dataTabsSentinel" aria-hidden="true"></div>
             <div class="tabs-grid data-tabs" id="dataTabs" role="tablist" aria-label="患者共有データ"></div>
-            <div class="data-tab-content">
-                <div class="data-panel-toolbar">
+            <div id="data-tab-content">
+                <div id="data-panel-toolbar">
                     <h2 id="dataPanelHeading"></h2>
-                    <button type="button" class="btn secondary btn-small data-panel-refresh-btn"
+                    <button type="button" class="btn secondary btn-small"
                             id="refreshDataTabBtn" disabled>
                         <iconify-icon icon="material-symbols:refresh-rounded" aria-hidden="true"></iconify-icon>
                         <span>再取得</span>
                     </button>
                 </div>
-                <div class="data-panel" id="dataPanel" role="tabpanel"></div>
+                <div id="dataPanel" role="tabpanel"></div>
             </div>
         </section>
     </article>
@@ -1161,7 +1127,7 @@
     }
 
     function scrollToDataTabPanelTop() {
-        const panel = document.querySelector(".data-tab-content");
+        const panel = document.getElementById("data-tab-content");
         const header = document.getElementById("header-container");
         const tabs = document.getElementById("dataTabs");
         if (!panel || !tabs) {
@@ -1881,12 +1847,12 @@
 
     function showStatus(message) {
         $("#dataStatusText").text(message);
-        $("#dataStatusCard").addClass("is-visible");
+        $("#data-status-card").addClass("is-visible");
     }
 
     function hideStatus() {
         $("#dataStatusText").text("");
-        $("#dataStatusCard").removeClass("is-visible");
+        $("#data-status-card").removeClass("is-visible");
     }
 
     function requestApi(data) {
