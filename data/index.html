@@ -86,13 +86,6 @@
             padding: 0;
         }
 
-        .data-account-meta {
-            margin: 2px 0 0;
-            color: var(--sub-text);
-            font-size: 13px;
-            line-height: 1.45;
-        }
-
         .data-info-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -161,18 +154,9 @@
             color: var(--labor-dark);
         }
 
-        .data-tabs .data-tab.is-checkup-tab iconify-icon {
-            color: var(--info-dark);
-        }
-
         .data-tabs .data-tab.is-labor-tab.active {
             border-color: var(--labor-dark);
             background: var(--labor-light);
-        }
-
-        .data-tabs .data-tab.is-checkup-tab.active {
-            border-color: var(--info-dark);
-            background: var(--info-light);
         }
 
         .data-tabs .tab-label {
@@ -536,7 +520,7 @@
             width: 100%;
             padding: 6px 10px;
             border-radius: 999px;
-            background: var(--info-dark);
+            background: var(--accent);
             color: var(--background);
             font-weight: 800;
         }
@@ -575,7 +559,7 @@
             display: inline;
             padding: 0 2px;
             font-weight: 700;
-            background: linear-gradient(transparent 58%, var(--labor) 58%);
+            background: linear-gradient(transparent 58%, var(--accent-soft) 58%);
         }
 
         .patient-choice-list {
@@ -742,13 +726,13 @@
 
     const METRIC_RECORD_CONFIGS = {
         weight: {
-            series: [{key: "weight", label: "体重", unit: "kg", color: "var(--info-dark)"}],
+            series: [{key: "weight", label: "体重", unit: "kg", color: "var(--accent)"}],
             valueFormatter: (item) => `${formatValue(item.weight)} kg`
         },
         pressure: {
             series: [
-                {key: "high", label: "最高血圧", unit: "mmHg", color: "var(--checkup-dark)"},
-                {key: "low", label: "最低血圧", unit: "mmHg", color: "var(--info-dark)"}
+                {key: "high", label: "最高血圧", unit: "mmHg", color: "var(--accent)"},
+                {key: "low", label: "最低血圧", unit: "mmHg", color: "var(--info-state)"}
             ],
             valueFormatter: (item) => `${formatValue(item.high)} / ${formatValue(item.low)} mmHg`,
             extraColumn: {
@@ -757,7 +741,7 @@
             }
         },
         sugar: {
-            series: [{key: "sugar", label: "血糖値", unit: "mg/dL", color: "var(--info-dark)"}],
+            series: [{key: "sugar", label: "血糖値", unit: "mg/dL", color: "var(--accent)"}],
             valueFormatter: (item) => `${formatValue(item.sugar)} mg/dL`,
             extraColumn: {
                 label: "インスリン",
@@ -1112,7 +1096,7 @@
             const tab = getDataTab(tabKey);
             const isActive = tabKey === dataState.activeTabKey;
             $(this)
-                .removeClass("is-labor-tab is-checkup-tab")
+                .removeClass("is-labor-tab")
                 .addClass(getDataTabToneClass(tab))
                 .toggleClass("active", isActive)
                 .attr("aria-selected", String(isActive));
@@ -1131,10 +1115,7 @@
     }
 
     function getDataTabToneClass(tab) {
-        if (!tab || tab.key === "profile") {
-            return "";
-        }
-        return tab.key === "labor" ? "is-labor-tab" : "is-checkup-tab";
+        return tab ? (tab.key === "labor") ? "is-labor-tab": "": "";
     }
 
     function getDataTab(tabKey) {
