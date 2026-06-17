@@ -26,9 +26,8 @@ const getAccessObj = (data) => {
       userId: effectiveUserId
     });
   }
-  console.log("requestData" + requestData.userId)
   requestData.lang = window.normalizedLanguageCode || state.appLanguage || "";
-  console.log("blood_pressure request userId:", requestData.userId);
+  console.log("blood_pressure request payload:", requestData);
   return {
     url: API_URL,
     type: "POST",
@@ -42,26 +41,26 @@ function toPressureApiPostData(method, data) {
   const value = data || {};
   if (method === "get") {
     return {
-      unit: value.unit || "date",
-      limit: Number(value.limit || 1),
-      page: Number(value.page || 1),
+      unit: value.unit || value.unit || "date",
+      limit: Number(value.limit || value.limit || 1),
+      page: Number(value.page || value.page || 1),
     };
   }
   if (method === "delete") {
     return {
-      date: value.date || "",
-      period: Number(value.period || 0),
+      date: value.date || value.date || "",
+      period: Number(value.period || value.period || 0),
     };
   }
   const mapped = {
-    date: value.date || "",
-    period: Number(value.period || 0),
-    high: Number(value.high || 0),
-    low: Number(value.low || 0),
-    medicine: hasMedicineFlag(value.medicine) ? 1 : 0,
+    date: value.date || value.date || "",
+    period: Number(value.period || value.period || 0),
+    high: Number(value.high || value.high || 0),
+    low: Number(value.low || value.low || 0),
+    medicine: hasMedicineFlag(value.medicine ?? value.medicine) ? 1 : 0,
   };
   if (method === "put") {
-    mapped.itemId = value.itemId || "";
+    mapped.itemId = value.itemId || value.itemId || "";
   }
   return mapped;
 }
@@ -70,21 +69,25 @@ function pressurePayload(method, data) {
   return toPressureApiPostData(method, data);
 }
 
+function pressureApiPath(type) {
+  return type === "myPressure";
+}
+
 function normalizePressureItem(item) {
   if (!item) return null;
   return {
-    itemId: item.itemId || item.id || "",
-    date: item.date || "",
-    period: Number(item.period || 0),
-    high: Number(item.high || 0),
-    low: Number(item.low || 0),
-    medicine: item.medicine || 0,
+    itemId: item.itemId || item.itemId || item.id || "",
+    date: item.date || item.date || "",
+    period: Number(item.period || item.period || 0),
+    high: Number(item.high || item.high || 0),
+    low: Number(item.low || item.low || 0),
+    medicine: item.medicine ?? item.medicine ?? 0,
   };
 }
 
 function extractPressureItems(response) {
   const data = response && response.data ? response.data : {};
-  const rawItems = data.items || [];
+  const rawItems = data.items || data.items || [];
   return Array.isArray(rawItems)
     ? rawItems.map(normalizePressureItem).filter(Boolean)
     : [];
@@ -113,8 +116,8 @@ function loadData(idToken, type, postData, mergeMode) {
       : postData || {};
   const safeMergeMode = mergeMode || "replace";
   if (window.IS_TEST_MODE && type === "pressure") {
-    const page = Number(safePostData.page || 1);
-    const limit = Math.max(1, Number(safePostData.limit || 7));
+    const page = Number(safePostData.page || safePostData.page || 1);
+    const limit = Math.max(1, Number(safePostData.limit || safePostData.limit || 7));
     const start = (page - 1) * limit;
     const items = MOCK_PRESSURE_ITEMS.slice(start, start + limit);
     if (safeMergeMode === "append") {
@@ -128,7 +131,7 @@ function loadData(idToken, type, postData, mergeMode) {
   }
   return $.ajax(
     getAccessObj({
-      path: type,
+      path: pressureApiPath(type),
       method: method,
       idToken: idToken,
       postData: safePostData,
@@ -194,7 +197,7 @@ function addData(data, type) {
   }
   return $.ajax(
     getAccessObj({
-      path: type,
+      path: pressureApiPath(type),
       method: method,
       idToken: state.idToken,
       postData:
@@ -251,7 +254,7 @@ function putData(data, type) {
   }
   return $.ajax(
     getAccessObj({
-      path: type,
+      path: pressureApiPath(type),
       method: method,
       idToken: state.idToken,
       postData:
@@ -299,7 +302,7 @@ function deleteData(data, type) {
   }
   return $.ajax(
     getAccessObj({
-      path: type,
+      path: pressureApiPath(type),
       method: method,
       idToken: state.idToken,
       postData:
