@@ -1,177 +1,250 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blood Sugar Tracker</title>
     <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
     <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
     <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
     <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
     <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
-    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script
+      charset="utf-8"
+      src="https://static.line-scdn.net/liff/edge/2/sdk.js"
+    ></script>
     <script src="../common/js/config.js"></script>
     <script src="../common/js/toast.js"></script>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="./style.css">
-</head>
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
 
-<body>
+  <body>
     <div id="header-container" class="header-wrapper"></div>
     <div class="loader is-hidden">
-        <div class="text-center">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
+      <div class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
+      </div>
     </div>
 
     <main>
-        <article class="main-container blood-sugar-app">
-            <h1 class="title_bp" id="titleBs">血糖記録</h1>
+      <article class="main-container blood-sugar-app">
+        <h1 class="title_bp" id="titleBs">血糖記録</h1>
 
-            <button type="button" id="openAddFormBtn" class="open-add-form-btn">データを追加</button>
+        <button type="button" id="openAddFormBtn" class="open-add-form-btn">
+          データを追加
+        </button>
 
-            <div id="addFormPanel" class="add-form-panel" aria-hidden="true">
-                <form id="addDataForm">
-                    <label for="date" id="labelDate">日付</label>
-                    <input type="text" id="date" placeholder="日付を選択"><br>
+        <div id="addFormPanel" class="add-form-panel" aria-hidden="true">
+          <form id="addDataForm">
+            <label for="date" id="labelDate">日付</label>
+            <input type="text" id="date" placeholder="日付を選択" /><br />
 
-                    <label for="periodSelect" id="labelPeriod">時間</label>
-                    <section class="dropdown">
-                        <select id="periodSelect">
-                            <option value="1" id="periodBeforeBreakfast">朝食前</option>
-                            <option value="2" id="periodAfterBreakfast">朝食後</option>
-                            <option value="3" id="periodBeforeLunch">昼食前</option>
-                            <option value="4" id="periodAfterLunch">昼食後</option>
-                            <option value="5" id="periodBeforeDinner">夕食前</option>
-                            <option value="6" id="periodAfterDinner">夕食後</option>
-                            <option value="7" id="periodBeforeSleep">就寝前</option>
-                        </select>
-                    </section><br>
+            <label for="periodSelect" id="labelPeriod">時間</label>
+            <section class="dropdown">
+              <select id="periodSelect">
+                <option value="1" id="periodBeforeBreakfast">朝食前</option>
+                <option value="2" id="periodAfterBreakfast">朝食後</option>
+                <option value="3" id="periodBeforeLunch">昼食前</option>
+                <option value="4" id="periodAfterLunch">昼食後</option>
+                <option value="5" id="periodBeforeDinner">夕食前</option>
+                <option value="6" id="periodAfterDinner">夕食後</option>
+                <option value="7" id="periodBeforeSleep">就寝前</option>
+              </select>
+            </section>
+            <br />
 
-                    <label for="sugar" id="labelSugar">血糖</label>
-                    <input type="number" id="sugar" class="high" placeholder="血糖値"><br>
-                    <label for="medicationGroup" id="labelMedication">投薬</label>
-                    <div id="medicationGroup" class="medicine-radio-group">
-                        <label class="medicine-radio-option">
-                            <input type="radio" name="medicationStatus" value="none" checked>
-                            <span id="medicationNoneLabel">なし</span>
-                        </label>
-                        <label class="medicine-radio-option">
-                            <input type="radio" name="medicationStatus" value="yes">
-                            <span id="medicationYesLabel">あり</span>
-                        </label>
-                    </div>
-                    <div id="medicationUnitWrap" class="is-hidden">
-                        <label for="medicationUnit" id="labelMedicationUnit">単位</label>
-                        <input type="text" id="medicationUnit" class="high" placeholder="単位">
-                    </div>
-                    <p id="sugarTargetNote" class="settings-label">目標: 食前 95mg/dL未満、食後 140mg/dL未満</p>
-
-                    <button type="button" id="adddata">登録</button>
-                    <button type="button" id="closeAddFormBtn" onclick="closeAddForm()">閉じる</button>
-                </form>
+            <label for="sugar" id="labelSugar">血糖</label>
+            <input
+              type="number"
+              id="sugar"
+              class="high"
+              placeholder="血糖値"
+            /><br />
+            <label for="medicationGroup" id="labelMedication">投薬</label>
+            <div id="medicationGroup" class="medicine-radio-group">
+              <label class="medicine-radio-option">
+                <input
+                  type="radio"
+                  name="medicationStatus"
+                  value="none"
+                  checked
+                />
+                <span id="medicationNoneLabel">なし</span>
+              </label>
+              <label class="medicine-radio-option">
+                <input type="radio" name="medicationStatus" value="yes" />
+                <span id="medicationYesLabel">あり</span>
+              </label>
             </div>
-
-            <div id="chart-container-all">
-                <div id="chart-container" class="chart-container active-content">
-                    <h2 id="chartRangeTitle" class="chart-range-title"></h2>
-                    <canvas id="bloodSugarChart"></canvas>
-                </div>
-                <div id="olderChartsContainer" class="older-charts-container"></div>
-                <button type="button" id="loadOlderChartBtn" class="load-older-btn">以前の情報をみる</button>
+            <div id="medicationUnitWrap" class="is-hidden">
+              <label for="medicationUnit" id="labelMedicationUnit">単位</label>
+              <input
+                type="text"
+                id="medicationUnit"
+                class="high"
+                placeholder="単位"
+              />
             </div>
+            <p id="sugarTargetNote" class="settings-label">
+              目標: 食前 95mg/dL未満、食後 140mg/dL未満
+            </p>
 
-            <div id="table-container" class="table-container content">
-                <table id="table">
-                    <thead>
-                        <tr>
-                            <th id="thDate">日付</th>
-                            <th id="thPeriod">時間帯</th>
-                            <th id="thSugar">血糖</th>
-                            <th id="thMedication">投薬</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-                <button type="button" id="loadOlderTableBtn" class="load-older-btn">以前の情報をみる</button>
-            </div>
+            <button type="button" id="adddata">登録</button>
+            <button type="button" id="closeAddFormBtn" onclick="closeAddForm()">
+              閉じる
+            </button>
+          </form>
+        </div>
 
-            <div id="edit-container" class="edit-container content">
-                <div id="edit_table">
-                    <div id="edit_table_container">
-                        <table id="editTable">
-                            <thead>
-                                <tr>
-                                    <th id="ethDate">日付</th>
-                                    <th id="ethPeriod">時間帯</th>
-                                    <th id="ethSugar">血糖</th>
-                                    <th id="ethMedication">投薬</th>
-                                    <th id="ethEdit">編集</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-                <button type="button" id="loadOlderEditBtn" class="load-older-btn">以前の情報をみる</button>
+        <div id="chart-container-all">
+          <div id="chart-container" class="chart-container active-content">
+            <h2 id="chartRangeTitle" class="chart-range-title"></h2>
+            <canvas id="bloodSugarChart"></canvas>
+          </div>
+          <div id="olderChartsContainer" class="older-charts-container"></div>
+          <button type="button" id="loadOlderChartBtn" class="load-older-btn">
+            以前の情報をみる
+          </button>
+        </div>
+
+        <div id="table-container" class="table-container content">
+          <table id="table">
+            <thead>
+              <tr>
+                <th id="thDate">日付</th>
+                <th id="thPeriod">時間帯</th>
+                <th id="thSugar">血糖</th>
+                <th id="thMedication">投薬</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <button type="button" id="loadOlderTableBtn" class="load-older-btn">
+            以前の情報をみる
+          </button>
+        </div>
+
+        <div id="edit-container" class="edit-container content">
+          <div id="edit_table">
+            <div id="edit_table_container">
+              <table id="editTable">
+                <thead>
+                  <tr>
+                    <th id="ethDate">日付</th>
+                    <th id="ethPeriod">時間帯</th>
+                    <th id="ethSugar">血糖</th>
+                    <th id="ethMedication">投薬</th>
+                    <th id="ethEdit">編集</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
             </div>
-        </article>
+          </div>
+          <button type="button" id="loadOlderEditBtn" class="load-older-btn">
+            以前の情報をみる
+          </button>
+        </div>
+      </article>
     </main>
 
     <div id="editDialog" class="is-hidden">
-        <form id="editForm">
-            <label for="editDate" id="editDateLabel">日付</label>
-            <input type="text" id="editDate" class="datepicker2"><br><br>
+      <form id="editForm">
+        <label for="editDate" id="editDateLabel">日付</label>
+        <input type="text" id="editDate" class="datepicker2" /><br /><br />
 
-            <label for="editPeriod" id="editPeriodLabel">時間</label>
-            <select id="editPeriod" class="periodpicker2">
-                <option value="1" id="editPeriodBeforeBreakfast">朝食前</option>
-                <option value="2" id="editPeriodAfterBreakfast">朝食後</option>
-                <option value="3" id="editPeriodBeforeLunch">昼食前</option>
-                <option value="4" id="editPeriodAfterLunch">昼食後</option>
-                <option value="5" id="editPeriodBeforeDinner">夕食前</option>
-                <option value="6" id="editPeriodAfterDinner">夕食後</option>
-                <option value="7" id="editPeriodBeforeSleep">就寝前</option>
-            </select><br><br>
+        <label for="editPeriod" id="editPeriodLabel">時間</label>
+        <select id="editPeriod" class="periodpicker2">
+          <option value="1" id="editPeriodBeforeBreakfast">朝食前</option>
+          <option value="2" id="editPeriodAfterBreakfast">朝食後</option>
+          <option value="3" id="editPeriodBeforeLunch">昼食前</option>
+          <option value="4" id="editPeriodAfterLunch">昼食後</option>
+          <option value="5" id="editPeriodBeforeDinner">夕食前</option>
+          <option value="6" id="editPeriodAfterDinner">夕食後</option>
+          <option value="7" id="editPeriodBeforeSleep">就寝前</option></select
+        ><br /><br />
 
-            <label for="editSugar" id="editSugarLabel">血糖</label>
-            <input type="number" id="editSugar" class="high2"><br><br>
-            <label for="editMedicationGroup" id="editMedicationLabel">投薬</label>
-            <div id="editMedicationGroup" class="medicine-radio-group">
-                <label class="medicine-radio-option">
-                    <input type="radio" name="editMedicationStatus" value="none" checked>
-                    <span id="editMedicationNoneLabel">なし</span>
-                </label>
-                <label class="medicine-radio-option">
-                    <input type="radio" name="editMedicationStatus" value="yes">
-                    <span id="editMedicationYesLabel">あり</span>
-                </label>
-            </div>
-            <div id="editMedicationUnitWrap" class="is-hidden">
-                <label for="editMedicationUnit" id="editMedicationUnitLabel">単位</label>
-                <input type="text" id="editMedicationUnit" class="high2" placeholder="単位">
-            </div><br><br>
+        <label for="editSugar" id="editSugarLabel">血糖</label>
+        <input type="number" id="editSugar" class="high2" /><br /><br />
+        <label for="editMedicationGroup" id="editMedicationLabel">投薬</label>
+        <div id="editMedicationGroup" class="medicine-radio-group">
+          <label class="medicine-radio-option">
+            <input
+              type="radio"
+              name="editMedicationStatus"
+              value="none"
+              checked
+            />
+            <span id="editMedicationNoneLabel">なし</span>
+          </label>
+          <label class="medicine-radio-option">
+            <input type="radio" name="editMedicationStatus" value="yes" />
+            <span id="editMedicationYesLabel">あり</span>
+          </label>
+        </div>
+        <div id="editMedicationUnitWrap" class="is-hidden">
+          <label for="editMedicationUnit" id="editMedicationUnitLabel"
+            >単位</label
+          >
+          <input
+            type="text"
+            id="editMedicationUnit"
+            class="high2"
+            placeholder="単位"
+          />
+        </div>
+        <br /><br />
 
-            <button type="button" id="saveButton">保存</button>
-            <button type="button" id="cancelButton">キャンセル</button>
-            <button type="button" id="deleteButton">削除</button>
-        </form>
+        <button type="button" id="saveButton">保存</button>
+        <button type="button" id="cancelButton">キャンセル</button>
+        <button type="button" id="deleteButton">削除</button>
+      </form>
     </div>
 
     <div class="tab-bar">
-        <button id="tabChart" class="tab-button active" onclick="switchTab('chart-container', event)">グラフ</button>
-        <button id="tabTable" class="tab-button" onclick="switchTab('table-container', event)">テーブル</button>
-        <button id="tabEdit" class="tab-button" onclick="switchTab('edit-container', event)">編集</button>
+      <button
+        id="tabChart"
+        class="tab-button active"
+        onclick="switchTab('chart-container', event)"
+      >
+        グラフ
+      </button>
+      <button
+        id="tabTable"
+        class="tab-button"
+        onclick="switchTab('table-container', event)"
+      >
+        テーブル
+      </button>
+      <button
+        id="tabEdit"
+        class="tab-button"
+        onclick="switchTab('edit-container', event)"
+      >
+        編集
+      </button>
     </div>
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -180,979 +253,1131 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/date-fns@2.21.1/dist/date-fns.min.js"></script>
     <script>
-        const currentPage = "blood_sugar";
-        /** @type {import('@line/liff').Liff} */
-        const liff = window.liff;
+      const currentPage = "blood_sugar";
+      /** @type {import('@line/liff').Liff} */
+      const liff = window.liff;
     </script>
 
     <script>
-        const sugarI18n = i18next.createInstance();
-        const LANG_STORAGE_KEY = "sugar_ui_lang";
-        const LANGUAGE_OPTIONS = [{
-            code: "en-US",
-            label: "英語編(English)"
-        }, {
-            code: "zh",
-            label: "中国語編(中文版)"
-        }, {
-            code: "fr",
-            label: "フランス語編(French)"
-        }, {
-            code: "ko",
-            label: "韓国語編(Korean)"
-        }, {
-            code: "pr",
-            label: "ポルトガル語編(Portugues)"
-        }, {
-            code: "tl",
-            label: "タガログ語編(TAGALOG)"
-        }, {
-            code: "ve",
-            label: "ベトナム語編(Vietnam)"
-        }, {
-            code: "th",
-            label: "タイ語編(Thai)"
-        }, {
-            code: "de",
-            label: "ドイツ語編(German)"
-        }, {
-            code: "id",
-            label: "インドネシア語(Indonesia)"
-        }, {
-            code: "ru",
-            label: "ロシア語(Russian)"
-        }, {
-            code: "ne",
-            label: "ネパール語(Nepali)"
-        }, {
-            code: "lo",
-            label: "ラオス語(Laotian)"
-        }, {
-            code: "uk",
-            label: "ウクライナ語(Ukrainian)"
-        }, {
-            code: "fa-AF",
-            label: "ダリ語(Dari)"
-        }, {
-            code: "si",
-            label: "シンハラ語(Sinhala)"
-        }, {
-            code: "ms",
-            label: "マレー語(Malay)"
-        }, {
-            code: "my",
-            label: "ミャンマー語(Myanmar)"
-        }, {
-            code: "bn",
-            label: "ベンガル語(Bengali)"
-        }, {
-            code: "ur",
-            label: "ウルドゥー語(Urdu)"
-        }];
-        let allData = [];
-        let token = "";
-        let userId = "";
-        let selectedUiLang = "en-US";
-        let sugarPage = 1;
-        let loadedWeekPages = 1;
-        let hasOlderSugar = true;
-        let loadingOlderSugar = false;
-        let chartInstances = [];
-        let currentRow1 = null;
-        let currentItemId = "";
-        let before_dateValue = "";
-        let before_periodValue = 0;
-        let bloodSugarChart = null;
-        let sugarI18nReady = Promise.resolve();
+      const sugarI18n = i18next.createInstance();
+      const LANG_STORAGE_KEY = "sugar_ui_lang";
+      const LANGUAGE_OPTIONS = [
+        {
+          code: "en-US",
+          label: "英語編(English)",
+        },
+        {
+          code: "zh",
+          label: "中国語編(中文版)",
+        },
+        {
+          code: "fr",
+          label: "フランス語編(French)",
+        },
+        {
+          code: "ko",
+          label: "韓国語編(Korean)",
+        },
+        {
+          code: "pr",
+          label: "ポルトガル語編(Portugues)",
+        },
+        {
+          code: "tl",
+          label: "タガログ語編(TAGALOG)",
+        },
+        {
+          code: "ve",
+          label: "ベトナム語編(Vietnam)",
+        },
+        {
+          code: "th",
+          label: "タイ語編(Thai)",
+        },
+        {
+          code: "de",
+          label: "ドイツ語編(German)",
+        },
+        {
+          code: "id",
+          label: "インドネシア語(Indonesia)",
+        },
+        {
+          code: "ru",
+          label: "ロシア語(Russian)",
+        },
+        {
+          code: "ne",
+          label: "ネパール語(Nepali)",
+        },
+        {
+          code: "lo",
+          label: "ラオス語(Laotian)",
+        },
+        {
+          code: "uk",
+          label: "ウクライナ語(Ukrainian)",
+        },
+        {
+          code: "fa-AF",
+          label: "ダリ語(Dari)",
+        },
+        {
+          code: "si",
+          label: "シンハラ語(Sinhala)",
+        },
+        {
+          code: "ms",
+          label: "マレー語(Malay)",
+        },
+        {
+          code: "my",
+          label: "ミャンマー語(Myanmar)",
+        },
+        {
+          code: "bn",
+          label: "ベンガル語(Bengali)",
+        },
+        {
+          code: "ur",
+          label: "ウルドゥー語(Urdu)",
+        },
+      ];
+      let allData = [];
+      let token = "";
+      let userId = "";
+      let selectedUiLang = "en-US";
+      let sugarPage = 1;
+      let loadedWeekPages = 1;
+      let hasOlderSugar = true;
+      let loadingOlderSugar = false;
+      let chartInstances = [];
+      let currentRow1 = null;
+      let currentItemId = "";
+      let before_dateValue = "";
+      let before_periodValue = 0;
+      let bloodSugarChart = null;
+      let sugarI18nReady = Promise.resolve();
 
-        function resolveI18nLang(langCode) {
-            if (langCode === "ja") return "ja";
-            if (langCode === "zh") return "zh";
-            return "en-US";
+      function resolveI18nLang(langCode) {
+        if (langCode === "ja") return "ja";
+        if (langCode === "zh") return "zh";
+        return "en-US";
+      }
+
+      async function initI18n(langCode) {
+        await sugarI18n.use(i18nextHttpBackend).init({
+          lng: resolveI18nLang(langCode),
+          fallbackLng: "ja",
+          ns: ["translation"],
+          defaultNS: "translation",
+          load: "currentOnly",
+          backend: {
+            loadPath: "./i18n/{{lng}}.json",
+          },
+          interpolation: {
+            escapeValue: false,
+          },
+        });
+      }
+
+      function tx(key, langCode = selectedUiLang) {
+        const code = langCode === "ja" ? "ja" : resolveI18nLang(langCode);
+        try {
+          return sugarI18n.getFixedT(code, "translation")(key);
+        } catch (e) {
+          return "";
         }
+      }
 
-        async function initI18n(langCode) {
-            await sugarI18n
-                .use(i18nextHttpBackend)
-                .init({
-                    lng: resolveI18nLang(langCode),
-                    fallbackLng: "ja",
-                    ns: ["translation"],
-                    defaultNS: "translation",
-                    load: "currentOnly",
-                    backend: {
-                        loadPath: "./i18n/{{lng}}.json"
-                    },
-                    interpolation: {
-                        escapeValue: false
-                    }
-                });
-        }
+      function bt(key) {
+        const ja = tx(key, "ja") || key;
+        const translated = tx(key, selectedUiLang);
+        if (selectedUiLang === "ja" || !translated || translated === ja)
+          return ja;
+        return `${ja} / ${translated}`;
+      }
 
-        function tx(key, langCode = selectedUiLang) {
-            const code = langCode === "ja" ? "ja" : resolveI18nLang(langCode);
-            try {
-                return sugarI18n.getFixedT(code, "translation")(key);
-            } catch (e) {
-                return "";
-            }
-        }
+      function normalizeLangToUi(lang) {
+        const raw = String(lang || "ja").toLowerCase();
+        if (raw.startsWith("zh")) return "zh";
+        if (raw.startsWith("fr")) return "fr";
+        if (raw.startsWith("ko")) return "ko";
+        if (raw.startsWith("pt")) return "pr";
+        if (raw.startsWith("tl")) return "tl";
+        if (raw.startsWith("vi")) return "ve";
+        if (raw.startsWith("th")) return "th";
+        if (raw.startsWith("de")) return "de";
+        if (raw.startsWith("id")) return "id";
+        if (raw.startsWith("ru")) return "ru";
+        if (raw.startsWith("ne")) return "ne";
+        if (raw.startsWith("lo")) return "lo";
+        if (raw.startsWith("uk")) return "uk";
+        if (raw.startsWith("fa") || raw.startsWith("prs")) return "fa-AF";
+        if (raw.startsWith("si")) return "si";
+        if (raw.startsWith("ms")) return "ms";
+        if (raw.startsWith("my")) return "my";
+        if (raw.startsWith("bn")) return "bn";
+        if (raw.startsWith("ur")) return "ur";
+        if (raw.startsWith("ja")) return "ja";
+        return "en-US";
+      }
 
-        function bt(key) {
-            const ja = tx(key, "ja") || key;
-            const translated = tx(key, selectedUiLang);
-            if (selectedUiLang === "ja" || !translated || translated === ja) return ja;
-            return `${ja} / ${translated}`;
-        }
+      function isSupportedLang(code) {
+        return (
+          code === "ja" || LANGUAGE_OPTIONS.some((item) => item.code === code)
+        );
+      }
 
-        function normalizeLangToUi(lang) {
-            const raw = String(lang || "ja").toLowerCase();
-            if (raw.startsWith("zh")) return "zh";
-            if (raw.startsWith("fr")) return "fr";
-            if (raw.startsWith("ko")) return "ko";
-            if (raw.startsWith("pt")) return "pr";
-            if (raw.startsWith("tl")) return "tl";
-            if (raw.startsWith("vi")) return "ve";
-            if (raw.startsWith("th")) return "th";
-            if (raw.startsWith("de")) return "de";
-            if (raw.startsWith("id")) return "id";
-            if (raw.startsWith("ru")) return "ru";
-            if (raw.startsWith("ne")) return "ne";
-            if (raw.startsWith("lo")) return "lo";
-            if (raw.startsWith("uk")) return "uk";
-            if (raw.startsWith("fa") || raw.startsWith("prs")) return "fa-AF";
-            if (raw.startsWith("si")) return "si";
-            if (raw.startsWith("ms")) return "ms";
-            if (raw.startsWith("my")) return "my";
-            if (raw.startsWith("bn")) return "bn";
-            if (raw.startsWith("ur")) return "ur";
-            if (raw.startsWith("ja")) return "ja";
-            return "en-US";
-        }
+      function loadHeader() {
+        return new Promise((resolve, reject) => {
+          let settled = false;
+          const finish = () => {
+            if (settled) return;
+            settled = true;
+            resolve();
+          };
+          const fail = (error) => {
+            if (settled) return;
+            settled = true;
+            reject(error);
+          };
+          const timer = setTimeout(finish, 3000);
+          $("#header-container").load(
+            "../common/header.html",
+            function (responseText, status) {
+              if (status === "error") {
+                clearTimeout(timer);
+                fail(new Error("Failed to load header.html"));
+                return;
+              }
 
-        function isSupportedLang(code) {
-            return code === "ja" || LANGUAGE_OPTIONS.some(item => item.code === code);
-        }
-
-        function loadHeader() {
-            return new Promise((resolve, reject) => {
-                let settled = false;
-                const finish = () => {
-                    if (settled) return;
-                    settled = true;
-                    resolve();
-                };
-                const fail = (error) => {
-                    if (settled) return;
-                    settled = true;
-                    reject(error);
-                };
-                const timer = setTimeout(finish, 3000);
-                $("#header-container").load("../common/header.html", function (responseText, status) {
-                    if (status === "error") {
-                        clearTimeout(timer);
-                        fail(new Error("Failed to load header.html"));
-                        return;
-                    }
-
-                    document.addEventListener("i18n-initialized", function () {
-                        clearTimeout(timer);
-                        finish();
-                    }, {
-                        once: true
-                    });
-
-                    $.getScript("../common/js/header.js")
-                        .fail(function () {
-                            clearTimeout(timer);
-                            fail(new Error("Failed to load header.js"));
-                        });
-                });
-            });
-        }
-
-        function periodKey(periodValue) {
-            const map = {
-                1: "beforeBreakfast",
-                2: "afterBreakfast",
-                3: "beforeLunch",
-                4: "afterLunch",
-                5: "beforeDinner",
-                6: "afterDinner",
-                7: "beforeSleep"
-            };
-            return map[Number(periodValue)] || "beforeBreakfast";
-        }
-
-        function periodLabel(periodValue) {
-            return bt(periodKey(periodValue));
-        }
-
-        function chartPeriodLabelLines(periodValue) {
-            const key = periodKey(periodValue);
-            const ja = tx(key, "ja") || key;
-            const tr = tx(key, selectedUiLang);
-            if (!tr || selectedUiLang === "ja" || tr === ja) return [ja];
-            return [ja, tr];
-        }
-
-        function isPostMealPeriod(periodValue) {
-            return [2, 4, 6].includes(Number(periodValue));
-        }
-
-        function sugarTargetMax(periodValue) {
-            return isPostMealPeriod(periodValue) ? 140 : 95;
-        }
-
-        function isSugarAlert(item) {
-            if (!item) return false;
-            return Number(item.sugar) >= sugarTargetMax(item.period);
-        }
-
-        function readMedicationStatus(name) {
-            const checked = document.querySelector(`input[name="${name}"]:checked`);
-            return checked ? String(checked.value || "none") : "none";
-        }
-
-        function setMedicationStatus(name, value) {
-            const numeric = Number(value);
-            const normalized = String(value || "").trim().toLowerCase();
-            const targetValue = (!Number.isNaN(numeric) && numeric > 0) ||
-                normalized === "yes" ||
-                normalized === "あり" ||
-                normalized === "1" ? "yes" : "none";
-            const target = document.querySelector(`input[name="${name}"][value="${targetValue}"]`);
-            if (target) target.checked = true;
-        }
-
-        function resolveMedicineValue(item) {
-            if (!item) return 0;
-            const medicine = Number(item.medicine);
-            if (Number.isFinite(medicine) && medicine > 0) return medicine;
-            if (String(item.medicationStatus || "none") !== "yes") return 0;
-            const unit = Number(String(item.medicationUnit || "").trim());
-            if (Number.isFinite(unit) && unit > 0) return unit;
-            return 1;
-        }
-
-        function resolveItemId(item) {
-            if (!item) return "";
-            return item.itemId || item.LitemId || item.Litemid || item.litemId || item.id || "";
-        }
-
-        function medicationDisplayText(item) {
-            const medicine = resolveMedicineValue(item);
-            if (!(medicine > 0)) return "-";
-            return `○ ${medicine}`;
-        }
-
-        function medicationIconText(item) {
-            const amount = resolveMedicineValue(item);
-            if (Number.isFinite(amount) && amount > 0) {
-                const safeCount = Math.floor(amount);
-                if (safeCount <= 5) return "●".repeat(safeCount);
-                return `●×${safeCount}`;
-            }
-            return "";
-        }
-
-        function syncMedicationUnitVisibility() {
-            const addVisible = readMedicationStatus("medicationStatus") === "yes";
-            const editVisible = readMedicationStatus("editMedicationStatus") === "yes";
-            const addWrap = document.getElementById("medicationUnitWrap");
-            const editWrap = document.getElementById("editMedicationUnitWrap");
-            if (addWrap) addWrap.classList.toggle("is-hidden", !addVisible);
-            if (editWrap) editWrap.classList.toggle("is-hidden", !editVisible);
-        }
-
-        function formatDisplayDate(dateStr) {
-            const d = new Date(String(dateStr || ""));
-            if (isNaN(d.getTime())) return String(dateStr || "");
-            const y = d.getFullYear();
-            const m = String(d.getMonth() + 1).padStart(2, "0");
-            const day = String(d.getDate()).padStart(2, "0");
-            return `${y}-${m}-${day}`;
-        }
-
-        function formatChartDateShort(dateStr) {
-            const d = new Date(String(dateStr || ""));
-            if (isNaN(d.getTime())) return String(dateStr || "");
-            return `${d.getMonth() + 1}/${d.getDate()}`;
-        }
-
-        function updateChartRangeTitle() {
-            const el = document.getElementById("chartRangeTitle");
-            if (!el) return;
-            const now = new Date();
-            const prev = new Date();
-            prev.setDate(now.getDate() - 7);
-            el.textContent = `${formatChartDateShort(now)} ー ${formatChartDateShort(prev)}`;
-        }
-
-        function syncOlderButtons() {
-            const text = hasOlderSugar ? bt("older") : bt("noMore");
-            ["loadOlderChartBtn", "loadOlderTableBtn", "loadOlderEditBtn"].forEach((id) => {
-                const btn = document.getElementById(id);
-                if (!btn) return;
-                btn.textContent = loadingOlderSugar ? bt("loading") : text;
-                btn.disabled = loadingOlderSugar || !hasOlderSugar;
-            });
-        }
-
-        function getWeekWindow(page) {
-            const to = new Date();
-            to.setHours(23, 59, 59, 999);
-            to.setDate(to.getDate() - 7 * (page - 1));
-            const from = new Date(to);
-            from.setDate(from.getDate() - 7);
-            from.setHours(0, 0, 0, 0);
-            return {
-                from,
-                to
-            };
-        }
-
-        function getItemsForWeekPage(items, page) {
-            const win = getWeekWindow(page);
-            return (items || []).filter((item) => {
-                const d = new Date(item.date);
-                return !isNaN(d.getTime()) && win.from.getTime() < d.getTime() && d.getTime() <= win.to
-                    .getTime();
-            }).sort((a, b) => {
-                const dateA = new Date(a.date);
-                const dateB = new Date(b.date);
-                if (dateA - dateB !== 0) return dateA - dateB;
-                return Number(a.period || 0) - Number(b.period || 0);
-            });
-        }
-
-        function dedupeSugarItems(items) {
-            const map = new Map();
-            (items || []).forEach((item) => {
-                const key = `${String(item.date || "")}-${Number(item.period || 0)}`;
-                map.set(key, item);
-            });
-            return Array.from(map.values()).sort((a, b) => {
-                const da = new Date(a.date).getTime();
-                const db = new Date(b.date).getTime();
-                if (da !== db) return da - db;
-                return Number(a.period || 0) - Number(b.period || 0);
-            });
-        }
-
-        function fetchSugarPage(page, mergeMode) {
-            const query = {
-                unit: "date",
-                limit: 7,
-                page: page
-            };
-            return Promise.resolve(loadData(token, "sugar", query, mergeMode || "replace")).then((items) => {
-                allData = dedupeSugarItems(allData);
-                return items || [];
-            });
-        }
-
-        function withTimeout(promise, ms) {
-            return new Promise((resolve, reject) => {
-                const timer = setTimeout(() => {
-                    reject(new Error("Request timed out"));
-                }, ms);
-                Promise.resolve(promise).then((value) => {
-                    clearTimeout(timer);
-                    resolve(value);
-                }, (error) => {
-                    clearTimeout(timer);
-                    reject(error);
-                });
-            });
-        }
-
-        function loadInitialSugarWindow() {
-            return fetchSugarPage(1, "replace").then((items) => {
-                allData = dedupeSugarItems(items);
-                updateChart(allData);
-                syncOlderButtons();
-            });
-        }
-
-        function reloadSugarDataAndRender() {
-            sugarPage = 1;
-            loadedWeekPages = 1;
-            hasOlderSugar = true;
-            loadingOlderSugar = false;
-            syncOlderButtons();
-            return loadInitialSugarWindow().then(() => {
-                createTablePage();
-                populateTable();
-            });
-        }
-
-        function loadOlderSugarData() {
-            if (loadingOlderSugar || !hasOlderSugar) return;
-            loadingOlderSugar = true;
-            syncOlderButtons();
-            const nextPage = loadedWeekPages + 1;
-            const finishLoading = () => {
-                loadingOlderSugar = false;
-                syncOlderButtons();
-            };
-            withTimeout(fetchSugarPage(nextPage, "append"), 20000).then((items) => {
-                if (items.length > 0) {
-                    loadedWeekPages = nextPage;
-                    sugarPage = nextPage;
-                    allData = dedupeSugarItems(allData);
-                    updateChart(allData);
-                    createTablePage();
-                    populateTable();
-                    return;
-                }
-                hasOlderSugar = false;
-            }).catch((e) => {
-                console.error("load older sugar error:", e);
-                alert(bt("loading") + "に失敗しました。もう一度お試しください。");
-            }).then(finishLoading, finishLoading);
-        }
-
-        function getSortedSugarData() {
-            return (Array.isArray(allData) ? allData.slice() : []).sort((a, b) => {
-                const dateA = new Date(a.date).getTime();
-                const dateB = new Date(b.date).getTime();
-                if (dateA !== dateB) return dateA - dateB;
-                return Number(a.period || 0) - Number(b.period || 0);
-            });
-        }
-
-        function buildSugarChartConfig() {
-            return {
-                type: "line",
-                data: {
-                    labels: [],
-                    datasets: [{
-                        label: bt("sugarLabel"),
-                        data: [],
-                        borderColor: "#e87f2f",
-                        backgroundColor: "rgba(232, 127, 47, 0.18)",
-                        fill: true,
-                        tension: 0.28,
-                        pointRadius: function (ctx) {
-                            const raw = (ctx.dataset && ctx.dataset.rawItems && ctx.dataset.rawItems[ctx
-                                .dataIndex]) || null;
-                            return isSugarAlert(raw) ? 6 : 4;
-                        },
-                        pointHoverRadius: function (ctx) {
-                            const raw = (ctx.dataset && ctx.dataset.rawItems && ctx.dataset.rawItems[ctx
-                                .dataIndex]) || null;
-                            return isSugarAlert(raw) ? 8 : 6;
-                        },
-                        pointBackgroundColor: function (ctx) {
-                            const raw = (ctx.dataset && ctx.dataset.rawItems && ctx.dataset.rawItems[ctx
-                                .dataIndex]) || null;
-                            return isSugarAlert(raw) ? "#ff3b30" : "#ffffff";
-                        },
-                        pointBorderColor: function (ctx) {
-                            const raw = (ctx.dataset && ctx.dataset.rawItems && ctx.dataset.rawItems[ctx
-                                .dataIndex]) || null;
-                            return isSugarAlert(raw) ? "#ff3b30" : "#e87f2f";
-                        },
-                        pointBorderWidth: 2
-                    }]
+              document.addEventListener(
+                "i18n-initialized",
+                function () {
+                  clearTimeout(timer);
+                  finish();
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: {
-                        mode: "index",
-                        intersect: false
-                    },
-                    layout: {
-                        padding: {
-                            bottom: 20
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            position: "top",
-                            labels: {
-                                usePointStyle: true,
-                                pointStyle: "circle",
-                                boxWidth: 10,
-                                color: "#22324a",
-                                font: {
-                                    size: 12,
-                                    weight: "700"
-                                }
-                            }
-                        },
-                        tooltip: {
-                            backgroundColor: "rgba(28, 43, 66, 0.92)",
-                            titleColor: "#fff",
-                            bodyColor: "#fff",
-                            padding: 10,
-                            displayColors: true,
-                            callbacks: {
-                                afterBody: function (items) {
-                                    if (!items || !items.length) return [];
-                                    const raw = items[0].dataset && items[0].dataset.rawItems ? items[0].dataset
-                                        .rawItems[items[0].dataIndex] : null;
-                                    if (!raw) return [];
-                                    const target = sugarTargetMax(raw.period);
-                                    return isPostMealPeriod(raw.period) ? [`目標: 食後 140mg/dL未満`,
-                                        `判定基準: ${target}mg/dL`
-                                    ] : [`目標: 空腹時 95mg/dL未満`, `判定基準: ${target}mg/dL`];
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            title: {
-                                display: true,
-                                text: bt("yAxis")
-                            },
-                            min: 40,
-                            max: 220,
-                            grid: {
-                                color: "rgba(132, 161, 204, 0.20)"
-                            },
-                            ticks: {
-                                color: "#405370",
-                                stepSize: 20
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: bt("xAxis")
-                            },
-                            grid: {
-                                display: false
-                            },
-                            ticks: {
-                                color: "#405370",
-                                maxRotation: 20,
-                                minRotation: 0,
-                                autoSkip: true,
-                                maxTicksLimit: 8
-                            }
-                        }
-                    }
-                }
-            };
-        }
+                {
+                  once: true,
+                },
+              );
 
-        function setChartData(chart, items) {
-            const labelsLocal = [];
-            const sugarLocal = [];
-            (items || []).forEach((item) => {
-                const lines = [formatChartDateShort(item.date), ...chartPeriodLabelLines(item.period)];
-                const medicationIcons = medicationIconText(item);
-                if (medicationIcons) lines.push(medicationIcons);
-                labelsLocal.push(lines);
-                sugarLocal.push(Number(item.sugar));
-            });
-            chart.data.labels = labelsLocal;
-            chart.data.datasets[0].label = bt("sugarLabel");
-            chart.data.datasets[0].data = sugarLocal;
-            chart.data.datasets[0].rawItems = (items || []).slice();
-            chart.options.scales.y.title.text = bt("yAxis");
-            chart.options.scales.x.title.text = bt("xAxis");
-            chart.update();
-        }
+              $.getScript("../common/js/header.js").fail(function () {
+                clearTimeout(timer);
+                fail(new Error("Failed to load header.js"));
+              });
+            },
+          );
+        });
+      }
 
-        function renderWeeklyCharts(items) {
-            const page1 = getItemsForWeekPage(items, 1);
-            setChartData(bloodSugarChart, page1);
-            chartInstances.forEach((c) => c.destroy());
-            chartInstances = [];
-            const container = document.getElementById("olderChartsContainer");
-            if (!container) return;
-            container.innerHTML = "";
-            for (let p = 2; p <= loadedWeekPages; p++) {
-                const weekItems = getItemsForWeekPage(items, p);
-                if (!weekItems.length) continue;
-                const card = document.createElement("section");
-                card.className = "older-chart-card";
-                const title = document.createElement("h3");
-                title.className = "older-chart-title";
-                const win = getWeekWindow(p);
-                const start = new Date(win.from);
-                start.setDate(start.getDate() + 1);
-                title.textContent = `${p - 1}週間前 (${formatChartDateShort(start)}-${formatChartDateShort(win.to)})`;
-                const canvas = document.createElement("canvas");
-                card.appendChild(title);
-                card.appendChild(canvas);
-                container.appendChild(card);
-                const chart = new Chart(canvas.getContext("2d"), buildSugarChartConfig());
-                setChartData(chart, weekItems);
-                chartInstances.push(chart);
+      function periodKey(periodValue) {
+        const map = {
+          1: "beforeBreakfast",
+          2: "afterBreakfast",
+          3: "beforeLunch",
+          4: "afterLunch",
+          5: "beforeDinner",
+          6: "afterDinner",
+          7: "beforeSleep",
+        };
+        return map[Number(periodValue)] || "beforeBreakfast";
+      }
+
+      function periodLabel(periodValue) {
+        return bt(periodKey(periodValue));
+      }
+
+      function chartPeriodLabelLines(periodValue) {
+        const key = periodKey(periodValue);
+        const ja = tx(key, "ja") || key;
+        const tr = tx(key, selectedUiLang);
+        if (!tr || selectedUiLang === "ja" || tr === ja) return [ja];
+        return [ja, tr];
+      }
+
+      function isPostMealPeriod(periodValue) {
+        return [2, 4, 6].includes(Number(periodValue));
+      }
+
+      function sugarTargetMax(periodValue) {
+        return isPostMealPeriod(periodValue) ? 140 : 95;
+      }
+
+      function isSugarAlert(item) {
+        if (!item) return false;
+        return Number(item.sugar) >= sugarTargetMax(item.period);
+      }
+
+      function readMedicationStatus(name) {
+        const checked = document.querySelector(`input[name="${name}"]:checked`);
+        return checked ? String(checked.value || "none") : "none";
+      }
+
+      function setMedicationStatus(name, value) {
+        const numeric = Number(value);
+        const normalized = String(value || "")
+          .trim()
+          .toLowerCase();
+        const targetValue =
+          (!Number.isNaN(numeric) && numeric > 0) ||
+          normalized === "yes" ||
+          normalized === "あり" ||
+          normalized === "1"
+            ? "yes"
+            : "none";
+        const target = document.querySelector(
+          `input[name="${name}"][value="${targetValue}"]`,
+        );
+        if (target) target.checked = true;
+      }
+
+      function resolveMedicineValue(item) {
+        if (!item) return 0;
+        const medicine = Number(item.medicine);
+        if (Number.isFinite(medicine) && medicine > 0) return medicine;
+        if (String(item.medicationStatus || "none") !== "yes") return 0;
+        const unit = Number(String(item.medicationUnit || "").trim());
+        if (Number.isFinite(unit) && unit > 0) return unit;
+        return 1;
+      }
+
+      function resolveItemId(item) {
+        if (!item) return "";
+        return (
+          item.itemId ||
+          item.LitemId ||
+          item.Litemid ||
+          item.litemId ||
+          item.id ||
+          ""
+        );
+      }
+
+      function medicationDisplayText(item) {
+        const medicine = resolveMedicineValue(item);
+        if (!(medicine > 0)) return "-";
+        return `○ ${medicine}`;
+      }
+
+      function medicationIconText(item) {
+        const amount = resolveMedicineValue(item);
+        if (Number.isFinite(amount) && amount > 0) {
+          const safeCount = Math.floor(amount);
+          if (safeCount <= 5) return "●".repeat(safeCount);
+          return `●×${safeCount}`;
+        }
+        return "";
+      }
+
+      function syncMedicationUnitVisibility() {
+        const addVisible = readMedicationStatus("medicationStatus") === "yes";
+        const editVisible =
+          readMedicationStatus("editMedicationStatus") === "yes";
+        const addWrap = document.getElementById("medicationUnitWrap");
+        const editWrap = document.getElementById("editMedicationUnitWrap");
+        if (addWrap) addWrap.classList.toggle("is-hidden", !addVisible);
+        if (editWrap) editWrap.classList.toggle("is-hidden", !editVisible);
+      }
+
+      function formatDisplayDate(dateStr) {
+        const d = new Date(String(dateStr || ""));
+        if (isNaN(d.getTime())) return String(dateStr || "");
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, "0");
+        const day = String(d.getDate()).padStart(2, "0");
+        return `${y}-${m}-${day}`;
+      }
+
+      function formatChartDateShort(dateStr) {
+        const d = new Date(String(dateStr || ""));
+        if (isNaN(d.getTime())) return String(dateStr || "");
+        return `${d.getMonth() + 1}/${d.getDate()}`;
+      }
+
+      function updateChartRangeTitle() {
+        const el = document.getElementById("chartRangeTitle");
+        if (!el) return;
+        const now = new Date();
+        const prev = new Date();
+        prev.setDate(now.getDate() - 7);
+        el.textContent = `${formatChartDateShort(now)} ー ${formatChartDateShort(prev)}`;
+      }
+
+      function syncOlderButtons() {
+        const text = hasOlderSugar ? bt("older") : bt("noMore");
+        ["loadOlderChartBtn", "loadOlderTableBtn", "loadOlderEditBtn"].forEach(
+          (id) => {
+            const btn = document.getElementById(id);
+            if (!btn) return;
+            btn.textContent = loadingOlderSugar ? bt("loading") : text;
+            btn.disabled = loadingOlderSugar || !hasOlderSugar;
+          },
+        );
+      }
+
+      function getWeekWindow(page) {
+        const to = new Date();
+        to.setHours(23, 59, 59, 999);
+        to.setDate(to.getDate() - 7 * (page - 1));
+        const from = new Date(to);
+        from.setDate(from.getDate() - 7);
+        from.setHours(0, 0, 0, 0);
+        return {
+          from,
+          to,
+        };
+      }
+
+      function getItemsForWeekPage(items, page) {
+        const win = getWeekWindow(page);
+        return (items || [])
+          .filter((item) => {
+            const d = new Date(item.date);
+            return (
+              !isNaN(d.getTime()) &&
+              win.from.getTime() < d.getTime() &&
+              d.getTime() <= win.to.getTime()
+            );
+          })
+          .sort((a, b) => {
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            if (dateA - dateB !== 0) return dateA - dateB;
+            return Number(a.period || 0) - Number(b.period || 0);
+          });
+      }
+
+      function dedupeSugarItems(items) {
+        const map = new Map();
+        (items || []).forEach((item) => {
+          const key = `${String(item.date || "")}-${Number(item.period || 0)}`;
+          map.set(key, item);
+        });
+        return Array.from(map.values()).sort((a, b) => {
+          const da = new Date(a.date).getTime();
+          const db = new Date(b.date).getTime();
+          if (da !== db) return da - db;
+          return Number(a.period || 0) - Number(b.period || 0);
+        });
+      }
+
+      function fetchSugarPage(page, mergeMode) {
+        const query = {
+          unit: "date",
+          limit: 7,
+          page: page,
+        };
+        return Promise.resolve(
+          loadData(token, "mySugar", query, mergeMode || "replace"),
+        ).then((items) => {
+          allData = dedupeSugarItems(allData);
+          return items || [];
+        });
+      }
+
+      function withTimeout(promise, ms) {
+        return new Promise((resolve, reject) => {
+          const timer = setTimeout(() => {
+            reject(new Error("Request timed out"));
+          }, ms);
+          Promise.resolve(promise).then(
+            (value) => {
+              clearTimeout(timer);
+              resolve(value);
+            },
+            (error) => {
+              clearTimeout(timer);
+              reject(error);
+            },
+          );
+        });
+      }
+
+      function loadInitialSugarWindow() {
+        return fetchSugarPage(1, "replace").then((items) => {
+          allData = dedupeSugarItems(items);
+          updateChart(allData);
+          syncOlderButtons();
+        });
+      }
+
+      function reloadSugarDataAndRender() {
+        sugarPage = 1;
+        loadedWeekPages = 1;
+        hasOlderSugar = true;
+        loadingOlderSugar = false;
+        syncOlderButtons();
+        return loadInitialSugarWindow().then(() => {
+          createTablePage();
+          populateTable();
+        });
+      }
+
+      function loadOlderSugarData() {
+        if (loadingOlderSugar || !hasOlderSugar) return;
+        loadingOlderSugar = true;
+        syncOlderButtons();
+        const nextPage = loadedWeekPages + 1;
+        const finishLoading = () => {
+          loadingOlderSugar = false;
+          syncOlderButtons();
+        };
+        withTimeout(fetchSugarPage(nextPage, "append"), 20000)
+          .then((items) => {
+            if (items.length > 0) {
+              loadedWeekPages = nextPage;
+              sugarPage = nextPage;
+              allData = dedupeSugarItems(allData);
+              updateChart(allData);
+              createTablePage();
+              populateTable();
+              return;
             }
-        }
+            hasOlderSugar = false;
+          })
+          .catch((e) => {
+            console.error("load older sugar error:", e);
+            alert(bt("loading") + "に失敗しました。もう一度お試しください。");
+          })
+          .then(finishLoading, finishLoading);
+      }
 
-        function updateChart(data) {
-            const sorted = getSortedSugarData();
-            allData = sorted;
-            renderWeeklyCharts(sorted);
-        }
+      function getSortedSugarData() {
+        return (Array.isArray(allData) ? allData.slice() : []).sort((a, b) => {
+          const dateA = new Date(a.date).getTime();
+          const dateB = new Date(b.date).getTime();
+          if (dateA !== dateB) return dateA - dateB;
+          return Number(a.period || 0) - Number(b.period || 0);
+        });
+      }
 
-        function createTablePage() {
-            const tableBody = document.querySelector("#table tbody");
-            tableBody.innerHTML = "";
-            getSortedSugarData().forEach((label) => {
-                const alertClass = isSugarAlert(label) ? "sugar-alert" : "";
-                const row = `<tr>
+      function buildSugarChartConfig() {
+        return {
+          type: "line",
+          data: {
+            labels: [],
+            datasets: [
+              {
+                label: bt("sugarLabel"),
+                data: [],
+                borderColor: "#e87f2f",
+                backgroundColor: "rgba(232, 127, 47, 0.18)",
+                fill: true,
+                tension: 0.28,
+                pointRadius: function (ctx) {
+                  const raw =
+                    (ctx.dataset &&
+                      ctx.dataset.rawItems &&
+                      ctx.dataset.rawItems[ctx.dataIndex]) ||
+                    null;
+                  return isSugarAlert(raw) ? 6 : 4;
+                },
+                pointHoverRadius: function (ctx) {
+                  const raw =
+                    (ctx.dataset &&
+                      ctx.dataset.rawItems &&
+                      ctx.dataset.rawItems[ctx.dataIndex]) ||
+                    null;
+                  return isSugarAlert(raw) ? 8 : 6;
+                },
+                pointBackgroundColor: function (ctx) {
+                  const raw =
+                    (ctx.dataset &&
+                      ctx.dataset.rawItems &&
+                      ctx.dataset.rawItems[ctx.dataIndex]) ||
+                    null;
+                  return isSugarAlert(raw) ? "#ff3b30" : "#ffffff";
+                },
+                pointBorderColor: function (ctx) {
+                  const raw =
+                    (ctx.dataset &&
+                      ctx.dataset.rawItems &&
+                      ctx.dataset.rawItems[ctx.dataIndex]) ||
+                    null;
+                  return isSugarAlert(raw) ? "#ff3b30" : "#e87f2f";
+                },
+                pointBorderWidth: 2,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+              mode: "index",
+              intersect: false,
+            },
+            layout: {
+              padding: {
+                bottom: 20,
+              },
+            },
+            plugins: {
+              legend: {
+                position: "top",
+                labels: {
+                  usePointStyle: true,
+                  pointStyle: "circle",
+                  boxWidth: 10,
+                  color: "#22324a",
+                  font: {
+                    size: 12,
+                    weight: "700",
+                  },
+                },
+              },
+              tooltip: {
+                backgroundColor: "rgba(28, 43, 66, 0.92)",
+                titleColor: "#fff",
+                bodyColor: "#fff",
+                padding: 10,
+                displayColors: true,
+                callbacks: {
+                  afterBody: function (items) {
+                    if (!items || !items.length) return [];
+                    const raw =
+                      items[0].dataset && items[0].dataset.rawItems
+                        ? items[0].dataset.rawItems[items[0].dataIndex]
+                        : null;
+                    if (!raw) return [];
+                    const target = sugarTargetMax(raw.period);
+                    return isPostMealPeriod(raw.period)
+                      ? [`目標: 食後 140mg/dL未満`, `判定基準: ${target}mg/dL`]
+                      : [
+                          `目標: 空腹時 95mg/dL未満`,
+                          `判定基準: ${target}mg/dL`,
+                        ];
+                  },
+                },
+              },
+            },
+            scales: {
+              y: {
+                title: {
+                  display: true,
+                  text: bt("yAxis"),
+                },
+                min: 40,
+                max: 220,
+                grid: {
+                  color: "rgba(132, 161, 204, 0.20)",
+                },
+                ticks: {
+                  color: "#405370",
+                  stepSize: 20,
+                },
+              },
+              x: {
+                title: {
+                  display: true,
+                  text: bt("xAxis"),
+                },
+                grid: {
+                  display: false,
+                },
+                ticks: {
+                  color: "#405370",
+                  maxRotation: 20,
+                  minRotation: 0,
+                  autoSkip: true,
+                  maxTicksLimit: 8,
+                },
+              },
+            },
+          },
+        };
+      }
+
+      function setChartData(chart, items) {
+        const labelsLocal = [];
+        const sugarLocal = [];
+        (items || []).forEach((item) => {
+          const lines = [
+            formatChartDateShort(item.date),
+            ...chartPeriodLabelLines(item.period),
+          ];
+          const medicationIcons = medicationIconText(item);
+          if (medicationIcons) lines.push(medicationIcons);
+          labelsLocal.push(lines);
+          sugarLocal.push(Number(item.sugar));
+        });
+        chart.data.labels = labelsLocal;
+        chart.data.datasets[0].label = bt("sugarLabel");
+        chart.data.datasets[0].data = sugarLocal;
+        chart.data.datasets[0].rawItems = (items || []).slice();
+        chart.options.scales.y.title.text = bt("yAxis");
+        chart.options.scales.x.title.text = bt("xAxis");
+        chart.update();
+      }
+
+      function renderWeeklyCharts(items) {
+        const page1 = getItemsForWeekPage(items, 1);
+        setChartData(bloodSugarChart, page1);
+        chartInstances.forEach((c) => c.destroy());
+        chartInstances = [];
+        const container = document.getElementById("olderChartsContainer");
+        if (!container) return;
+        container.innerHTML = "";
+        for (let p = 2; p <= loadedWeekPages; p++) {
+          const weekItems = getItemsForWeekPage(items, p);
+          if (!weekItems.length) continue;
+          const card = document.createElement("section");
+          card.className = "older-chart-card";
+          const title = document.createElement("h3");
+          title.className = "older-chart-title";
+          const win = getWeekWindow(p);
+          const start = new Date(win.from);
+          start.setDate(start.getDate() + 1);
+          title.textContent = `${p - 1}週間前 (${formatChartDateShort(start)}-${formatChartDateShort(win.to)})`;
+          const canvas = document.createElement("canvas");
+          card.appendChild(title);
+          card.appendChild(canvas);
+          container.appendChild(card);
+          const chart = new Chart(
+            canvas.getContext("2d"),
+            buildSugarChartConfig(),
+          );
+          setChartData(chart, weekItems);
+          chartInstances.push(chart);
+        }
+      }
+
+      function updateChart(data) {
+        const sorted = getSortedSugarData();
+        allData = sorted;
+        renderWeeklyCharts(sorted);
+      }
+
+      function createTablePage() {
+        const tableBody = document.querySelector("#table tbody");
+        tableBody.innerHTML = "";
+        getSortedSugarData().forEach((label) => {
+          const alertClass = isSugarAlert(label) ? "sugar-alert" : "";
+          const row = `<tr>
                     <td>${formatDisplayDate(label.date)}</td>
                     <td>${periodLabel(label.period)}</td>
                     <td class="${alertClass}">${label.sugar}</td>
                     <td>${medicationDisplayText(label)}</td>
                 </tr>`;
-                tableBody.insertAdjacentHTML("beforeend", row);
-            });
-        }
+          tableBody.insertAdjacentHTML("beforeend", row);
+        });
+      }
 
-        function populateTable() {
-            const tableBody = document.querySelector("#editTable tbody");
-            tableBody.innerHTML = "";
-            getSortedSugarData().forEach((label) => {
-                const rawDate = String(label.date || "");
-                const itemId = resolveItemId(label);
-                const alertClass = isSugarAlert(label) ? "sugar-alert" : "";
-                const row = `<tr>
+      function populateTable() {
+        const tableBody = document.querySelector("#editTable tbody");
+        tableBody.innerHTML = "";
+        getSortedSugarData().forEach((label) => {
+          const rawDate = String(label.date || "");
+          const itemId = resolveItemId(label);
+          const alertClass = isSugarAlert(label) ? "sugar-alert" : "";
+          const row = `<tr>
                     <td class="date-picker" data-raw-date="${rawDate}" data-item-id="${itemId}">${formatDisplayDate(rawDate)}</td>
                     <td class="time-picker">${periodLabel(label.period)}</td>
                     <td class="sugar1 ${alertClass}">${label.sugar}</td>
                     <td class="medication1">${medicationDisplayText(label)}</td>
                     <td><button type="button" class="edit-btn">${bt("edit")}</button></td>
                 </tr>`;
-                tableBody.insertAdjacentHTML("beforeend", row);
+          tableBody.insertAdjacentHTML("beforeend", row);
+        });
+        document.querySelectorAll(".edit-btn").forEach((button) => {
+          button.addEventListener("click", function () {
+            currentRow1 = this.closest("tr");
+            const dateCell = currentRow1.querySelector(".date-picker");
+            const dateValue =
+              dateCell.getAttribute("data-raw-date") || dateCell.innerText;
+            const itemId = dateCell.getAttribute("data-item-id") || "";
+            const timeValue =
+              currentRow1.querySelector(".time-picker").innerText;
+            const sugarValue = currentRow1.querySelector(".sugar1").innerText;
+            const medicationValue =
+              currentRow1.querySelector(".medication1").innerText;
+            document.getElementById("editDate").value =
+              formatDisplayDate(dateValue);
+            document.getElementById("editPeriod").value =
+              findPeriodValueFromLabel(timeValue);
+            document.getElementById("editSugar").value = sugarValue;
+            setMedicationStatus(
+              "editMedicationStatus",
+              medicationValue.startsWith("○") ? "yes" : "none",
+            );
+            document.getElementById("editMedicationUnit").value =
+              medicationValue.startsWith("○")
+                ? medicationValue.replace(/^○\s*/, "")
+                : "";
+            syncMedicationUnitVisibility();
+            currentItemId = itemId;
+            before_dateValue = dateValue;
+            before_periodValue = findPeriodValueFromLabel(timeValue);
+            document.getElementById("editDialog").classList.remove("is-hidden");
+          });
+        });
+        document.getElementById("saveButton").onclick = savebutton;
+        document.getElementById("cancelButton").onclick = function () {
+          currentItemId = "";
+          document.getElementById("editDialog").classList.add("is-hidden");
+        };
+        document.getElementById("deleteButton").onclick = function () {
+          const list = {
+            date: before_dateValue,
+            period: before_periodValue,
+          };
+          Promise.resolve(deleteData(list, "mySugar"))
+            .then(() => reloadSugarDataAndRender())
+            .then(() => {
+              currentItemId = "";
+              document.getElementById("editDialog").classList.add("is-hidden");
+            })
+            .catch((error) => {
+              console.error("delete sugar error:", error);
+              alert("削除処理でエラーが発生しました。");
             });
-            document.querySelectorAll(".edit-btn").forEach((button) => {
-                button.addEventListener("click", function () {
-                    currentRow1 = this.closest("tr");
-                    const dateCell = currentRow1.querySelector(".date-picker");
-                    const dateValue = dateCell.getAttribute("data-raw-date") || dateCell.innerText;
-                    const itemId = dateCell.getAttribute("data-item-id") || "";
-                    const timeValue = currentRow1.querySelector(".time-picker").innerText;
-                    const sugarValue = currentRow1.querySelector(".sugar1").innerText;
-                    const medicationValue = currentRow1.querySelector(".medication1").innerText;
-                    document.getElementById("editDate").value = formatDisplayDate(dateValue);
-                    document.getElementById("editPeriod").value = findPeriodValueFromLabel(timeValue);
-                    document.getElementById("editSugar").value = sugarValue;
-                    setMedicationStatus("editMedicationStatus", medicationValue.startsWith("○") ?
-                        "yes" : "none");
-                    document.getElementById("editMedicationUnit").value = medicationValue.startsWith(
-                        "○") ? medicationValue.replace(/^○\s*/, "") : "";
-                    syncMedicationUnitVisibility();
-                    currentItemId = itemId;
-                    before_dateValue = dateValue;
-                    before_periodValue = findPeriodValueFromLabel(timeValue);
-                    document.getElementById("editDialog").classList.remove("is-hidden");
-                });
-            });
-            document.getElementById("saveButton").onclick = savebutton;
-            document.getElementById("cancelButton").onclick = function () {
-                currentItemId = "";
-                document.getElementById("editDialog").classList.add("is-hidden");
-            };
-            document.getElementById("deleteButton").onclick = function () {
-                const list = {
-                    date: before_dateValue,
-                    period: before_periodValue
-                };
-                Promise.resolve(deleteData(list, "sugar"))
-                    .then(() => reloadSugarDataAndRender())
-                    .then(() => {
-                        currentItemId = "";
-                        document.getElementById("editDialog").classList.add("is-hidden");
-                    })
-                    .catch((error) => {
-                        console.error("delete sugar error:", error);
-                        alert("削除処理でエラーが発生しました。");
-                    });
-            };
-        }
+        };
+      }
 
-        function findPeriodValueFromLabel(labelText) {
-            for (let i = 1; i <= 7; i++) {
-                if (periodLabel(i) === labelText) return i;
-            }
-            return 1;
+      function findPeriodValueFromLabel(labelText) {
+        for (let i = 1; i <= 7; i++) {
+          if (periodLabel(i) === labelText) return i;
         }
+        return 1;
+      }
 
-        function savebutton() {
-            const newDate = document.getElementById("editDate").value;
-            const newPeriod = Number(document.getElementById("editPeriod").value);
-            const newSugar = Number(document.getElementById("editSugar").value);
-            const medicationStatus = readMedicationStatus("editMedicationStatus");
-            const medicationUnit = String(document.getElementById("editMedicationUnit").value || "").trim();
-            if (!newDate || !Number.isFinite(newPeriod) || !Number.isFinite(newSugar)) {
-                alert(bt("fillAll"));
-                return;
-            }
-            const numericItemId = Number(currentItemId);
-            if (!Number.isFinite(numericItemId)) {
-                alert("識別IDが取得できません。画面を再読み込みしてからもう一度お試しください。");
-                return;
-            }
-            const newdata = {
-                itemId: numericItemId,
-                date: String(newDate),
-                period: newPeriod,
-                sugar: Math.round(newSugar),
-                medicine: medicationStatus === "yes" ? (Number.parseFloat(medicationUnit) || 0) : 0
-            };
-            const updateSugar = (typeof putData === "function") ? putData : ((payload, type) => addData(payload, type));
-            const request = Promise.resolve(updateSugar(newdata, "sugar"));
-            request.then(() => reloadSugarDataAndRender())
-                .then(() => {
-                    currentItemId = "";
-                    document.getElementById("editDialog").classList.add("is-hidden");
-                })
-                .catch((error) => {
-                    console.error("save sugar error:", error);
-                    alert("保存処理でエラーが発生しました。");
-                });
+      function savebutton() {
+        const newDate = document.getElementById("editDate").value;
+        const newPeriod = Number(document.getElementById("editPeriod").value);
+        const newSugar = Number(document.getElementById("editSugar").value);
+        const medicationStatus = readMedicationStatus("editMedicationStatus");
+        const medicationUnit = String(
+          document.getElementById("editMedicationUnit").value || "",
+        ).trim();
+        if (
+          !newDate ||
+          !Number.isFinite(newPeriod) ||
+          !Number.isFinite(newSugar)
+        ) {
+          alert(bt("fillAll"));
+          return;
         }
-
-        function setallData() {
-            allData = (Array.isArray(allData) ? allData : []).filter(item => !(String(item.date || "") === String(
-                before_dateValue || "") && Number(item.period || 0) === Number(before_periodValue || 0)));
-            if (currentRow1 && currentRow1.remove) currentRow1.remove();
+        const numericItemId = Number(currentItemId);
+        if (!Number.isFinite(numericItemId)) {
+          alert(
+            "識別IDが取得できません。画面を再読み込みしてからもう一度お試しください。",
+          );
+          return;
         }
+        const newdata = {
+          itemId: numericItemId,
+          date: String(newDate),
+          period: newPeriod,
+          sugar: Math.round(newSugar),
+          medicine:
+            medicationStatus === "yes"
+              ? Number.parseFloat(medicationUnit) || 0
+              : 0,
+        };
+        const updateSugar =
+          typeof putData === "function"
+            ? putData
+            : (payload, type) => addData(payload, type);
+        const request = Promise.resolve(updateSugar(newdata, "mySugar"));
+        request
+          .then(() => reloadSugarDataAndRender())
+          .then(() => {
+            currentItemId = "";
+            document.getElementById("editDialog").classList.add("is-hidden");
+          })
+          .catch((error) => {
+            console.error("save sugar error:", error);
+            alert("保存処理でエラーが発生しました。");
+          });
+      }
 
-        function openAddForm() {
-            const panel = document.getElementById("addFormPanel");
-            const openBtn = document.getElementById("openAddFormBtn");
-            panel.classList.add("open");
-            panel.setAttribute("aria-hidden", "false");
-            openBtn.style.display = "none";
+      function setallData() {
+        allData = (Array.isArray(allData) ? allData : []).filter(
+          (item) =>
+            !(
+              String(item.date || "") === String(before_dateValue || "") &&
+              Number(item.period || 0) === Number(before_periodValue || 0)
+            ),
+        );
+        if (currentRow1 && currentRow1.remove) currentRow1.remove();
+      }
+
+      function openAddForm() {
+        const panel = document.getElementById("addFormPanel");
+        const openBtn = document.getElementById("openAddFormBtn");
+        panel.classList.add("open");
+        panel.setAttribute("aria-hidden", "false");
+        openBtn.style.display = "none";
+      }
+
+      function closeAddForm() {
+        const panel = document.getElementById("addFormPanel");
+        const openBtn = document.getElementById("openAddFormBtn");
+        panel.classList.remove("open");
+        panel.setAttribute("aria-hidden", "true");
+        openBtn.style.display = "block";
+      }
+
+      function applyI18n() {
+        const setText = (id, text) => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = text;
+        };
+        setText("titleBs", bt("title"));
+        setText("openAddFormBtn", bt("add"));
+        setText("labelDate", bt("date"));
+        setText("labelPeriod", bt("period"));
+        setText("labelSugar", bt("sugar"));
+        setText("labelMedication", bt("medication"));
+        setText("medicationNoneLabel", bt("medicationNone"));
+        setText("medicationYesLabel", bt("medicationYes"));
+        setText("labelMedicationUnit", bt("medicationUnit"));
+        setText("sugarTargetNote", bt("targetNote"));
+        setText("adddata", bt("register"));
+        setText("closeAddFormBtn", bt("cancel"));
+        setText("thDate", bt("date"));
+        setText("thPeriod", bt("periodCol"));
+        setText("thSugar", bt("sugar"));
+        setText("thMedication", bt("medication"));
+        setText("ethDate", bt("date"));
+        setText("ethPeriod", bt("periodCol"));
+        setText("ethSugar", bt("sugar"));
+        setText("ethMedication", bt("medication"));
+        setText("ethEdit", bt("edit"));
+        setText("editDateLabel", bt("date"));
+        setText("editPeriodLabel", bt("period"));
+        setText("editSugarLabel", bt("sugar"));
+        setText("editMedicationLabel", bt("medication"));
+        setText("editMedicationNoneLabel", bt("medicationNone"));
+        setText("editMedicationYesLabel", bt("medicationYes"));
+        setText("editMedicationUnitLabel", bt("medicationUnit"));
+        setText("saveButton", bt("save"));
+        setText("cancelButton", bt("cancel"));
+        setText("deleteButton", bt("del"));
+        setText("tabChart", bt("chart"));
+        setText("tabTable", bt("table"));
+        setText("tabEdit", bt("edit"));
+        setText("periodBeforeBreakfast", bt("beforeBreakfast"));
+        setText("periodAfterBreakfast", bt("afterBreakfast"));
+        setText("periodBeforeLunch", bt("beforeLunch"));
+        setText("periodAfterLunch", bt("afterLunch"));
+        setText("periodBeforeDinner", bt("beforeDinner"));
+        setText("periodAfterDinner", bt("afterDinner"));
+        setText("periodBeforeSleep", bt("beforeSleep"));
+        setText("editPeriodBeforeBreakfast", bt("beforeBreakfast"));
+        setText("editPeriodAfterBreakfast", bt("afterBreakfast"));
+        setText("editPeriodBeforeLunch", bt("beforeLunch"));
+        setText("editPeriodAfterLunch", bt("afterLunch"));
+        setText("editPeriodBeforeDinner", bt("beforeDinner"));
+        setText("editPeriodAfterDinner", bt("afterDinner"));
+        setText("editPeriodBeforeSleep", bt("beforeSleep"));
+        if (bloodSugarChart) {
+          bloodSugarChart.data.datasets[0].label = bt("sugarLabel");
+          bloodSugarChart.options.scales.y.title.text = bt("yAxis");
+          bloodSugarChart.options.scales.x.title.text = bt("xAxis");
         }
+        syncOlderButtons();
+        updateChartRangeTitle();
+      }
 
-        function closeAddForm() {
-            const panel = document.getElementById("addFormPanel");
-            const openBtn = document.getElementById("openAddFormBtn");
-            panel.classList.remove("open");
-            panel.setAttribute("aria-hidden", "true");
-            openBtn.style.display = "block";
-        }
+      async function setLanguage(langCode) {
+        selectedUiLang = isSupportedLang(langCode) ? langCode : "en-US";
+        localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
+        await sugarI18n.changeLanguage(resolveI18nLang(selectedUiLang));
+        applyI18n();
+        updateChart(allData);
+        createTablePage();
+        populateTable();
+      }
 
-        function applyI18n() {
-            const setText = (id, text) => {
-                const el = document.getElementById(id);
-                if (el) el.textContent = text;
-            };
-            setText("titleBs", bt("title"));
-            setText("openAddFormBtn", bt("add"));
-            setText("labelDate", bt("date"));
-            setText("labelPeriod", bt("period"));
-            setText("labelSugar", bt("sugar"));
-            setText("labelMedication", bt("medication"));
-            setText("medicationNoneLabel", bt("medicationNone"));
-            setText("medicationYesLabel", bt("medicationYes"));
-            setText("labelMedicationUnit", bt("medicationUnit"));
-            setText("sugarTargetNote", bt("targetNote"));
-            setText("adddata", bt("register"));
-            setText("closeAddFormBtn", bt("cancel"));
-            setText("thDate", bt("date"));
-            setText("thPeriod", bt("periodCol"));
-            setText("thSugar", bt("sugar"));
-            setText("thMedication", bt("medication"));
-            setText("ethDate", bt("date"));
-            setText("ethPeriod", bt("periodCol"));
-            setText("ethSugar", bt("sugar"));
-            setText("ethMedication", bt("medication"));
-            setText("ethEdit", bt("edit"));
-            setText("editDateLabel", bt("date"));
-            setText("editPeriodLabel", bt("period"));
-            setText("editSugarLabel", bt("sugar"));
-            setText("editMedicationLabel", bt("medication"));
-            setText("editMedicationNoneLabel", bt("medicationNone"));
-            setText("editMedicationYesLabel", bt("medicationYes"));
-            setText("editMedicationUnitLabel", bt("medicationUnit"));
-            setText("saveButton", bt("save"));
-            setText("cancelButton", bt("cancel"));
-            setText("deleteButton", bt("del"));
-            setText("tabChart", bt("chart"));
-            setText("tabTable", bt("table"));
-            setText("tabEdit", bt("edit"));
-            setText("periodBeforeBreakfast", bt("beforeBreakfast"));
-            setText("periodAfterBreakfast", bt("afterBreakfast"));
-            setText("periodBeforeLunch", bt("beforeLunch"));
-            setText("periodAfterLunch", bt("afterLunch"));
-            setText("periodBeforeDinner", bt("beforeDinner"));
-            setText("periodAfterDinner", bt("afterDinner"));
-            setText("periodBeforeSleep", bt("beforeSleep"));
-            setText("editPeriodBeforeBreakfast", bt("beforeBreakfast"));
-            setText("editPeriodAfterBreakfast", bt("afterBreakfast"));
-            setText("editPeriodBeforeLunch", bt("beforeLunch"));
-            setText("editPeriodAfterLunch", bt("afterLunch"));
-            setText("editPeriodBeforeDinner", bt("beforeDinner"));
-            setText("editPeriodAfterDinner", bt("afterDinner"));
-            setText("editPeriodBeforeSleep", bt("beforeSleep"));
-            if (bloodSugarChart) {
-                bloodSugarChart.data.datasets[0].label = bt("sugarLabel");
-                bloodSugarChart.options.scales.y.title.text = bt("yAxis");
-                bloodSugarChart.options.scales.x.title.text = bt("xAxis");
-            }
-            syncOlderButtons();
-            updateChartRangeTitle();
-        }
-
-        async function setLanguage(langCode) {
-            selectedUiLang = isSupportedLang(langCode) ? langCode : "en-US";
-            localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
-            await sugarI18n.changeLanguage(resolveI18nLang(selectedUiLang));
-            applyI18n();
-            updateChart(allData);
+      function startSugarApp(idToken) {
+        token = idToken;
+        sugarPage = 1;
+        loadedWeekPages = 1;
+        hasOlderSugar = true;
+        loadingOlderSugar = false;
+        syncOlderButtons();
+        return loadInitialSugarWindow()
+          .then(() => {
             createTablePage();
             populateTable();
-        }
+          })
+          .catch((e) => {
+            console.error("initial sugar load error:", e);
+          });
+      }
 
-        function startSugarApp(idToken) {
-            token = idToken;
-            sugarPage = 1;
-            loadedWeekPages = 1;
-            hasOlderSugar = true;
-            loadingOlderSugar = false;
-            syncOlderButtons();
-            return loadInitialSugarWindow().then(() => {
-                createTablePage();
-                populateTable();
-            }).catch((e) => {
-                console.error("initial sugar load error:", e);
-            });
+      function bootSugarApp() {
+        if (typeof showAppLoader === "function") {
+          showAppLoader();
         }
-
-        function bootSugarApp() {
-            if (typeof showAppLoader === "function") {
-                showAppLoader();
+        const isDev =
+          location.hostname === "localhost" ||
+          location.hostname === "127.0.0.1";
+        liff
+          .init({
+            liffId: LIFF_ID,
+            withLoginOnExternalBrowser: !isDev,
+          })
+          .then(() => {
+            const idToken = liff.getIDToken();
+            const lang = liff.getAppLanguage();
+            if (!isSupportedLang(localStorage.getItem(LANG_STORAGE_KEY))) {
+              selectedUiLang = normalizeLangToUi(lang);
+              localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
             }
-            const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
-            liff.init({
-                liffId: LIFF_ID,
-                withLoginOnExternalBrowser: !isDev,
-            }).then(() => {
-                const idToken = liff.getIDToken();
-                const lang = liff.getAppLanguage();
-                if (!isSupportedLang(localStorage.getItem(LANG_STORAGE_KEY))) {
-                    selectedUiLang = normalizeLangToUi(lang);
-                    localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
-                }
-                sugarI18nReady
-                    .then(() => setLanguage(selectedUiLang))
-                    .catch((error) => console.error("blood sugar language apply failed:", error));
-                return Promise.resolve(typeof liff.getProfile === "function" ? liff.getProfile() : null)
-                    .catch(() => null)
-                    .then((profile) => {
-                        const decoded = typeof liff.getDecodedIDToken === "function" ? liff.getDecodedIDToken() : null;
-                        userId = profile && profile.userId ? profile.userId : ((decoded && (decoded.sub || decoded.userId)) || "");
-                        window.userId = userId;
-                        return Promise.all([
-                            startSugarApp(idToken),
-                            loadHeader()
-                        ]);
-                    });
-            }).then(() => {
-                if (typeof hideAppLoader === "function") {
-                    hideAppLoader();
-                }
-            }).catch((error) => {
-                console.error("LIFF init failed:", error);
-                if (typeof hideAppLoader === "function") {
-                    hideAppLoader();
-                }
-                alert("LIFF init failed.");
-            });
-        }
-
-        const ctx = document.getElementById("bloodSugarChart").getContext("2d");
-        bloodSugarChart = new Chart(ctx, buildSugarChartConfig());
-
-        $(function () {
-            $("#date").datepicker({
-                dateFormat: "yy/mm/dd"
-            });
-            $(".datepicker2").datepicker({
-                dateFormat: "yy-mm-dd"
-            });
-        });
-
-        document.getElementById("adddata").onclick = function () {
-            try {
-                const date = document.getElementById("date").value.trim();
-                const period = Number(document.getElementById("periodSelect").value);
-                const sugar = Number(document.getElementById("sugar").value);
-                const medicationStatus = readMedicationStatus("medicationStatus");
-                const medicationUnit = String(document.getElementById("medicationUnit").value || "").trim();
-                if (!date || !Number.isFinite(period) || !Number.isFinite(sugar)) {
-                    alert(bt("fillAll"));
-                    return;
-                }
-                const list = {
-                    date: String(date),
-                    period: period,
-                    sugar: Math.round(sugar),
-                    medicine: medicationStatus === "yes" ? (Number.parseFloat(medicationUnit) || 0) : 0
-                };
-                const saveSugar = (typeof setSugar === "function") ? setSugar : ((payload) => addData(payload,
-                    "sugar"));
-                Promise.resolve(saveSugar(list)).then(() => reloadSugarDataAndRender())
-                    .then(() => {
-                        switchTab("chart-container", {
-                            currentTarget: document.getElementById("tabChart")
-                        });
-                        document.getElementById("date").value = "";
-                        document.getElementById("sugar").value = "";
-                        setMedicationStatus("medicationStatus", "none");
-                        document.getElementById("medicationUnit").value = "";
-                        syncMedicationUnitVisibility();
-                        closeAddForm();
-                    }).catch((e) => {
-                        console.error("add sugar error:", e);
-                        alert("登録処理でエラーが発生しました。");
-                    });
-            } catch (e) {
-                console.error("add sugar exception:", e);
-                alert("登録処理でエラーが発生しました。");
+            sugarI18nReady
+              .then(() => setLanguage(selectedUiLang))
+              .catch((error) =>
+                console.error("blood sugar language apply failed:", error),
+              );
+            return Promise.resolve(
+              typeof liff.getProfile === "function" ? liff.getProfile() : null,
+            )
+              .catch(() => null)
+              .then((profile) => {
+                const decoded =
+                  typeof liff.getDecodedIDToken === "function"
+                    ? liff.getDecodedIDToken()
+                    : null;
+                userId =
+                  profile && profile.userId
+                    ? profile.userId
+                    : (decoded && (decoded.sub || decoded.userId)) || "";
+                window.userId = userId;
+                return Promise.all([startSugarApp(idToken), loadHeader()]);
+              });
+          })
+          .then(() => {
+            if (typeof hideAppLoader === "function") {
+              hideAppLoader();
             }
-        };
+          })
+          .catch((error) => {
+            console.error("LIFF init failed:", error);
+            if (typeof hideAppLoader === "function") {
+              hideAppLoader();
+            }
+            alert("LIFF init failed.");
+          });
+      }
 
-        document.getElementById("openAddFormBtn").addEventListener("click", openAddForm);
-        document.getElementById("closeAddFormBtn").addEventListener("click", closeAddForm);
-        document.getElementById("loadOlderChartBtn").addEventListener("click", loadOlderSugarData);
-        document.getElementById("loadOlderTableBtn").addEventListener("click", loadOlderSugarData);
-        document.getElementById("loadOlderEditBtn").addEventListener("click", loadOlderSugarData);
-        document.querySelectorAll('input[name="medicationStatus"], input[name="editMedicationStatus"]').forEach((
-            el) => {
-            el.addEventListener("change", syncMedicationUnitVisibility);
+      const ctx = document.getElementById("bloodSugarChart").getContext("2d");
+      bloodSugarChart = new Chart(ctx, buildSugarChartConfig());
+
+      $(function () {
+        $("#date").datepicker({
+          dateFormat: "yy/mm/dd",
         });
-        syncMedicationUnitVisibility();
+        $(".datepicker2").datepicker({
+          dateFormat: "yy-mm-dd",
+        });
+      });
+
+      document.getElementById("adddata").onclick = function () {
+        try {
+          const date = document.getElementById("date").value.trim();
+          const period = Number(document.getElementById("periodSelect").value);
+          const sugar = Number(document.getElementById("sugar").value);
+          const medicationStatus = readMedicationStatus("medicationStatus");
+          const medicationUnit = String(
+            document.getElementById("medicationUnit").value || "",
+          ).trim();
+          if (!date || !Number.isFinite(period) || !Number.isFinite(sugar)) {
+            alert(bt("fillAll"));
+            return;
+          }
+          const list = {
+            date: String(date),
+            period: period,
+            sugar: Math.round(sugar),
+            medicine:
+              medicationStatus === "yes"
+                ? Number.parseFloat(medicationUnit) || 0
+                : 0,
+          };
+          const saveSugar =
+            typeof setSugar === "function"
+              ? setSugar
+              : (payload) => addData(payload, "mySugar");
+          Promise.resolve(saveSugar(list))
+            .then(() => reloadSugarDataAndRender())
+            .then(() => {
+              switchTab("chart-container", {
+                currentTarget: document.getElementById("tabChart"),
+              });
+              document.getElementById("date").value = "";
+              document.getElementById("sugar").value = "";
+              setMedicationStatus("medicationStatus", "none");
+              document.getElementById("medicationUnit").value = "";
+              syncMedicationUnitVisibility();
+              closeAddForm();
+            })
+            .catch((e) => {
+              console.error("add sugar error:", e);
+              alert("登録処理でエラーが発生しました。");
+            });
+        } catch (e) {
+          console.error("add sugar exception:", e);
+          alert("登録処理でエラーが発生しました。");
+        }
+      };
+
+      document
+        .getElementById("openAddFormBtn")
+        .addEventListener("click", openAddForm);
+      document
+        .getElementById("closeAddFormBtn")
+        .addEventListener("click", closeAddForm);
+      document
+        .getElementById("loadOlderChartBtn")
+        .addEventListener("click", loadOlderSugarData);
+      document
+        .getElementById("loadOlderTableBtn")
+        .addEventListener("click", loadOlderSugarData);
+      document
+        .getElementById("loadOlderEditBtn")
+        .addEventListener("click", loadOlderSugarData);
+      document
+        .querySelectorAll(
+          'input[name="medicationStatus"], input[name="editMedicationStatus"]',
+        )
+        .forEach((el) => {
+          el.addEventListener("change", syncMedicationUnitVisibility);
+        });
+      syncMedicationUnitVisibility();
     </script>
     <script src="../commonkokima.js"></script>
     <script>
-        const baseSwitchTab = window.switchTab;
-        window.switchTab = function (contentId, event) {
-            if (contentId !== "chart-container") {
-                closeAddForm();
-            }
-            return baseSwitchTab(contentId, event);
-        };
+      const baseSwitchTab = window.switchTab;
+      window.switchTab = function (contentId, event) {
+        if (contentId !== "chart-container") {
+          closeAddForm();
+        }
+        return baseSwitchTab(contentId, event);
+      };
 
-        $(function () {
-            const initialSavedLang = localStorage.getItem(LANG_STORAGE_KEY);
-            const browserLang = normalizeLangToUi(navigator.language || "en-US");
-            selectedUiLang = isSupportedLang(initialSavedLang) ? initialSavedLang : browserLang;
-            localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
-            sugarI18nReady = initI18n(selectedUiLang).then(() => {
-                applyI18n();
-            }).catch((error) => {
-                console.error("blood sugar i18n init failed:", error);
-            });
-            bootSugarApp();
-            document.addEventListener("language-changed", function (event) {
-                setLanguage(normalizeLangToUi(event.detail && event.detail.langId));
-            });
+      $(function () {
+        const initialSavedLang = localStorage.getItem(LANG_STORAGE_KEY);
+        const browserLang = normalizeLangToUi(navigator.language || "en-US");
+        selectedUiLang = isSupportedLang(initialSavedLang)
+          ? initialSavedLang
+          : browserLang;
+        localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
+        sugarI18nReady = initI18n(selectedUiLang)
+          .then(() => {
+            applyI18n();
+          })
+          .catch((error) => {
+            console.error("blood sugar i18n init failed:", error);
+          });
+        bootSugarApp();
+        document.addEventListener("language-changed", function (event) {
+          setLanguage(normalizeLangToUi(event.detail && event.detail.langId));
         });
+      });
     </script>
-</body>
-
+  </body>
 </html>
