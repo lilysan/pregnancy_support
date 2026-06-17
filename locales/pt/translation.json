@@ -451,131 +451,295 @@
       }
     }
   },
-  "today.baby.week.8.weightGuide": "Cerca de 1 a 7g",
-  "today.baby.week.8.weightImage": "1 grão de feijão pequeno",
-  "today.baby.week.8.development": "O coração começa a bater e formam-se os brotos dos membros.",
-  "today.baby.week.9.weightGuide": "Cerca de 2 a 8g",
-  "today.baby.week.9.weightImage": "2 grãos de feijão pequenos",
-  "today.baby.week.9.development": "A forma do corpo começa a diferenciar-se gradualmente.",
-  "today.baby.week.10.weightGuide": "Cerca de 5 a 10g",
-  "today.baby.week.10.weightImage": "1 cereja",
-  "today.baby.week.10.development": "Os dedos formam-se e o bebé começa a parecer mais humano.",
-  "today.baby.week.11.weightGuide": "Cerca de 10g",
-  "today.baby.week.11.weightImage": "1 tomate cherry",
-  "today.baby.week.11.development": "As características faciais começam a tomar forma.",
-  "today.baby.week.12.weightGuide": "Cerca de 20g",
-  "today.baby.week.12.weightImage": "1 morango",
-  "today.baby.week.12.development": "A estrutura básica do corpo está quase completa.",
-  "today.baby.week.13.weightGuide": "Cerca de 25g",
-  "today.baby.week.13.weightImage": "Morango grande",
-  "today.baby.week.13.development": "Começa a praticar a deglutição de líquido amniótico.",
-  "today.baby.week.14.weightGuide": "Cerca de 50g",
-  "today.baby.week.14.weightImage": "1 ovo",
-  "today.baby.week.14.development": "Começa a mover o corpo ligeiramente.",
-  "today.baby.week.15.weightGuide": "Cerca de 70g",
-  "today.baby.week.15.weightImage": "Tangerina pequena",
-  "today.baby.week.15.development": "Podem observar-se movimentos da boca.",
-  "today.baby.week.16.weightGuide": "Cerca de 100g",
-  "today.baby.week.16.weightImage": "Meia maçã",
-  "today.baby.week.16.development": "O rosto torna-se mais definido.",
-  "today.baby.week.17.weightGuide": "Cerca de 150g",
-  "today.baby.week.17.weightImage": "1 maçã",
-  "today.baby.week.17.development": "Torna-se gradualmente mais rechonchudo.",
-  "today.baby.week.18.weightGuide": "Cerca de 200g",
-  "today.baby.week.18.weightImage": "Maçã grande",
-  "today.baby.week.18.development": "Começa a reagir a sons.",
-  "today.baby.week.19.weightGuide": "Cerca de 250g",
-  "today.baby.week.19.weightImage": "1 banana",
-  "today.baby.week.19.development": "Uma camada protetora (vernix) forma-se na pele.",
-  "today.baby.week.20.weightGuide": "Cerca de 300g",
-  "today.baby.week.20.weightImage": "Meia toranja",
-  "today.baby.week.20.development": "Começam a sentir-se os movimentos fetais.",
-  "today.baby.week.21.weightGuide": "Cerca de 400g",
-  "today.baby.week.21.weightImage": "1 toranja",
-  "today.baby.week.21.development": "A praticar a digestão.",
-  "today.baby.week.22.weightGuide": "Cerca de 450g",
-  "today.baby.week.22.weightImage": "2 beringelas pequenas",
-  "today.baby.week.22.development": "As funções do corpo estão a desenvolver-se.",
-  "today.baby.week.23.weightGuide": "Cerca de 500g",
-  "today.baby.week.23.weightImage": "1/4 de couve",
-  "today.baby.week.23.development": "Faz movimentos semelhantes à respiração.",
-  "today.baby.week.24.weightGuide": "Cerca de 600g",
-  "today.baby.week.24.weightImage": "Melão pequeno",
-  "today.baby.week.24.development": "Os pulmões começam a desenvolver-se.",
-  "today.baby.week.25.weightGuide": "Cerca de 700g",
-  "today.baby.week.25.weightImage": "3 espigas de milho",
-  "today.baby.week.25.development": "Reage a estímulos.",
-  "today.baby.week.26.weightGuide": "Cerca de 800g",
-  "today.baby.week.26.weightImage": "1/4 de abóbora",
-  "today.baby.week.26.development": "Começa a abrir os olhos.",
-  "today.baby.week.27.weightGuide": "Cerca de 900g",
-  "today.baby.week.27.weightImage": "1/3 de abóbora",
-  "today.baby.week.27.development": "Os movimentos tornam-se mais robustos.",
-  "today.baby.week.28.weightGuide": "Cerca de 1000g",
-  "today.baby.week.28.weightImage": "1 pacote de leite",
-  "today.baby.week.28.development": "O corpo começa a ficar mais preenchido.",
-  "today.baby.week.29.weightGuide": "Cerca de 1200g",
-  "today.baby.week.29.weightImage": "Ananás pequeno",
-  "today.baby.week.29.development": "A gordura corporal aumenta.",
-  "today.baby.week.30.weightGuide": "Cerca de 1300g",
-  "today.baby.week.30.weightImage": "1/4 de couve chinesa",
-  "today.baby.week.30.development": "Começa a mover-se com força.",
-  "today.baby.week.31.weightGuide": "Cerca de 1500g",
-  "today.baby.week.31.weightImage": "1 melão",
-  "today.baby.week.31.development": "Surge um ritmo de sono e vigília.",
-  "today.baby.week.32.weightGuide": "Cerca de 1800g",
-  "today.baby.week.32.weightImage": "1 ananás",
-  "today.baby.week.32.development": "A cabeça está mais frequentemente posicionada para baixo.",
-  "today.baby.week.33.weightGuide": "Cerca de 2000g",
-  "today.baby.week.33.weightImage": "Ananás grande",
-  "today.baby.week.33.development": "Os preparativos para o nascimento avançam.",
-  "today.baby.week.34.weightGuide": "Cerca de 2200g",
-  "today.baby.week.34.weightImage": "Melancia pequena",
-  "today.baby.week.34.development": "Pronto para praticar a amamentação.",
-  "today.baby.week.35.weightGuide": "Cerca de 2400g",
-  "today.baby.week.35.weightImage": "Melancia média",
-  "today.baby.week.35.development": "O corpo torna-se mais arredondado.",
-  "today.baby.week.36.weightGuide": "Cerca de 2500g",
-  "today.baby.week.36.weightImage": "Tamanho de recém-nascido",
-  "today.baby.week.36.development": "As funções do corpo estão totalmente desenvolvidas.",
-  "today.baby.week.37.weightGuide": "Cerca de 2700g",
-  "today.baby.week.37.weightImage": "Recém-nascido ligeiramente grande",
-  "today.baby.week.37.development": "Considerado a termo; pronto para nascer a qualquer momento.",
-  "today.baby.week.38.weightGuide": "Cerca de 2900g",
-  "today.baby.week.38.weightImage": "Recém-nascido médio",
-  "today.baby.week.38.development": "Quase totalmente desenvolvido.",
-  "today.baby.week.39.weightGuide": "Cerca de 3000g",
-  "today.baby.week.39.weightImage": "Recém-nascido médio",
-  "today.baby.week.39.development": "Os preparativos para o nascimento estão completos.",
-  "today.baby.week.40.weightGuide": "Cerca de 3000 a 3500g",
-  "today.baby.week.40.weightImage": "Recém-nascido (padrão)",
-  "today.baby.week.40.development": "O momento para o bebé nascer.",
-  "sos.q.01.text": "Tem sensação de aperto ou dor no abdômen?",
-  "sos.q.01.o1": "Sim",
-  "sos.q.01.o2": "Não",
-  "sos.q.02.text": "Qual é o intervalo entre os apertos no abdômen?",
-  "sos.q.02.o1": "Constante",
-  "sos.q.02.o2": "0~5 minutos",
-  "sos.q.02.o3": "5~10 minutos",
-  "sos.q.02.o4": "10~15 minutos",
-  "sos.q.02.o5": "Mais de 15 minutos",
-  "sos.q.03.text": "Tem sangramento?",
-  "sos.q.03.o1": "Sim",
-  "sos.q.03.o2": "Não",
-  "sos.q.04.text": "O bebé está a mexer-se?",
-  "sos.q.04.o1": "Sim",
-  "sos.q.04.o2": "Não",
-  "sos.q.04.o3": "Não sei",
-  "sos.q.05.text": "A sua bolsa rompeu?",
-  "sos.q.05.o1": "Sim",
-  "sos.q.05.o2": "Não",
-  "sos.q.05.o3": "Não sei",
-  "sos.q.06.text": "Quando a sua bolsa rompeu?",
-  "sos.q.06.o1": "Há 0~1 hora",
-  "sos.q.06.o2": "Há 1~24 horas",
-  "sos.q.06.o3": "Há mais de 24 horas",
-  "sos.result.callNow": "As perguntas terminaram.\nEntre em contato com o hospital.",
-  "sos.result.watchAndWait": "As perguntas terminaram.\nVamos aguardar um pouco mais e observar.",
+  "today": {
+    "baby": {
+      "week": {
+        "8": {
+          "weightGuide": "Cerca de 1 a 7g",
+          "weightImage": "1 grão de feijão pequeno",
+          "development": "O coração começa a bater e formam-se os brotos dos membros."
+        },
+        "9": {
+          "weightGuide": "Cerca de 2 a 8g",
+          "weightImage": "2 grãos de feijão pequenos",
+          "development": "A forma do corpo começa a diferenciar-se gradualmente."
+        },
+        "10": {
+          "weightGuide": "Cerca de 5 a 10g",
+          "weightImage": "1 cereja",
+          "development": "Os dedos formam-se e o bebé começa a parecer mais humano."
+        },
+        "11": {
+          "weightGuide": "Cerca de 10g",
+          "weightImage": "1 tomate cherry",
+          "development": "As características faciais começam a tomar forma."
+        },
+        "12": {
+          "weightGuide": "Cerca de 20g",
+          "weightImage": "1 morango",
+          "development": "A estrutura básica do corpo está quase completa."
+        },
+        "13": {
+          "weightGuide": "Cerca de 25g",
+          "weightImage": "Morango grande",
+          "development": "Começa a praticar a deglutição de líquido amniótico."
+        },
+        "14": {
+          "weightGuide": "Cerca de 50g",
+          "weightImage": "1 ovo",
+          "development": "Começa a mover o corpo ligeiramente."
+        },
+        "15": {
+          "weightGuide": "Cerca de 70g",
+          "weightImage": "Tangerina pequena",
+          "development": "Podem observar-se movimentos da boca."
+        },
+        "16": {
+          "weightGuide": "Cerca de 100g",
+          "weightImage": "Meia maçã",
+          "development": "O rosto torna-se mais definido."
+        },
+        "17": {
+          "weightGuide": "Cerca de 150g",
+          "weightImage": "1 maçã",
+          "development": "Torna-se gradualmente mais rechonchudo."
+        },
+        "18": {
+          "weightGuide": "Cerca de 200g",
+          "weightImage": "Maçã grande",
+          "development": "Começa a reagir a sons."
+        },
+        "19": {
+          "weightGuide": "Cerca de 250g",
+          "weightImage": "1 banana",
+          "development": "Uma camada protetora (vernix) forma-se na pele."
+        },
+        "20": {
+          "weightGuide": "Cerca de 300g",
+          "weightImage": "Meia toranja",
+          "development": "Começam a sentir-se os movimentos fetais."
+        },
+        "21": {
+          "weightGuide": "Cerca de 400g",
+          "weightImage": "1 toranja",
+          "development": "A praticar a digestão."
+        },
+        "22": {
+          "weightGuide": "Cerca de 450g",
+          "weightImage": "2 beringelas pequenas",
+          "development": "As funções do corpo estão a desenvolver-se."
+        },
+        "23": {
+          "weightGuide": "Cerca de 500g",
+          "weightImage": "1/4 de couve",
+          "development": "Faz movimentos semelhantes à respiração."
+        },
+        "24": {
+          "weightGuide": "Cerca de 600g",
+          "weightImage": "Melão pequeno",
+          "development": "Os pulmões começam a desenvolver-se."
+        },
+        "25": {
+          "weightGuide": "Cerca de 700g",
+          "weightImage": "3 espigas de milho",
+          "development": "Reage a estímulos."
+        },
+        "26": {
+          "weightGuide": "Cerca de 800g",
+          "weightImage": "1/4 de abóbora",
+          "development": "Começa a abrir os olhos."
+        },
+        "27": {
+          "weightGuide": "Cerca de 900g",
+          "weightImage": "1/3 de abóbora",
+          "development": "Os movimentos tornam-se mais robustos."
+        },
+        "28": {
+          "weightGuide": "Cerca de 1000g",
+          "weightImage": "1 pacote de leite",
+          "development": "O corpo começa a ficar mais preenchido."
+        },
+        "29": {
+          "weightGuide": "Cerca de 1200g",
+          "weightImage": "Ananás pequeno",
+          "development": "A gordura corporal aumenta."
+        },
+        "30": {
+          "weightGuide": "Cerca de 1300g",
+          "weightImage": "1/4 de couve chinesa",
+          "development": "Começa a mover-se com força."
+        },
+        "31": {
+          "weightGuide": "Cerca de 1500g",
+          "weightImage": "1 melão",
+          "development": "Surge um ritmo de sono e vigília."
+        },
+        "32": {
+          "weightGuide": "Cerca de 1800g",
+          "weightImage": "1 ananás",
+          "development": "A cabeça está mais frequentemente posicionada para baixo."
+        },
+        "33": {
+          "weightGuide": "Cerca de 2000g",
+          "weightImage": "Ananás grande",
+          "development": "Os preparativos para o nascimento avançam."
+        },
+        "34": {
+          "weightGuide": "Cerca de 2200g",
+          "weightImage": "Melancia pequena",
+          "development": "Pronto para praticar a amamentação."
+        },
+        "35": {
+          "weightGuide": "Cerca de 2400g",
+          "weightImage": "Melancia média",
+          "development": "O corpo torna-se mais arredondado."
+        },
+        "36": {
+          "weightGuide": "Cerca de 2500g",
+          "weightImage": "Tamanho de recém-nascido",
+          "development": "As funções do corpo estão totalmente desenvolvidas."
+        },
+        "37": {
+          "weightGuide": "Cerca de 2700g",
+          "weightImage": "Recém-nascido ligeiramente grande",
+          "development": "Considerado a termo; pronto para nascer a qualquer momento."
+        },
+        "38": {
+          "weightGuide": "Cerca de 2900g",
+          "weightImage": "Recém-nascido médio",
+          "development": "Quase totalmente desenvolvido."
+        },
+        "39": {
+          "weightGuide": "Cerca de 3000g",
+          "weightImage": "Recém-nascido médio",
+          "development": "Os preparativos para o nascimento estão completos."
+        },
+        "40": {
+          "weightGuide": "Cerca de 3000 a 3500g",
+          "weightImage": "Recém-nascido (padrão)",
+          "development": "O momento para o bebé nascer."
+        }
+      }
+    }
+  },
+  "epds": {
+    "q": {
+      "10": {
+        "text": "自分自身を傷つけるという考えが浮かんできた。",
+        "o1": "はい、かなりしばしばそうだった。",
+        "o2": "時々そうだった。",
+        "o3": "めったになかった。",
+        "o4": "まったくなかった。"
+      },
+      "01": {
+        "text": "笑うことができたし、物事のおかしい面もわかった。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "まったくできなかった。"
+      },
+      "02": {
+        "text": "物事を楽しみにして待った。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "ほとんどできなかった。"
+      },
+      "03": {
+        "text": "物事が悪くいった時、自分を不必要に責めた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、時々そうだった。",
+        "o3": "いいえ、あまり度々ではない。",
+        "o4": "いいえ、そうではなかった。"
+      },
+      "04": {
+        "text": "はっきりした理由もないのに不安になったり、心配した。",
+        "o1": "いいえ、そうではなかった。",
+        "o2": "ほとんどそうではなかった。",
+        "o3": "はい、時々あった。",
+        "o4": "はい、しょっちゅうあった。"
+      },
+      "05": {
+        "text": "はっきりした理由もないのに恐怖に襲われた。",
+        "o1": "はい、しょっちゅうあった。",
+        "o2": "はい、時々あった。",
+        "o3": "いいえ、めったになかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "06": {
+        "text": "することがたくさんあって大変だった。",
+        "o1": "はい、たいてい対処できなかった。",
+        "o2": "はい、いつものようにはうまく対処しなかった。",
+        "o3": "いいえ、たいていうまく対処した。",
+        "o4": "いいえ、普段通りに対処した。"
+      },
+      "07": {
+        "text": "不幸せなので、眠りにくかった。",
+        "o1": "はい、ほとんどいつもそうだった。",
+        "o2": "はい、ときどきそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "08": {
+        "text": "悲しくなったり、惨めになった。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      },
+      "09": {
+        "text": "不幸せなので、泣けてきた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "ほんの時々あった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      }
+    }
+  },
+  "sos": {
+    "q": {
+      "01": {
+        "text": "Tem sensação de aperto ou dor no abdômen?",
+        "o1": "Sim",
+        "o2": "Não"
+      },
+      "02": {
+        "text": "Qual é o intervalo entre os apertos no abdômen?",
+        "o1": "Constante",
+        "o2": "0~5 minutos",
+        "o3": "5~10 minutos",
+        "o4": "10~15 minutos",
+        "o5": "Mais de 15 minutos"
+      },
+      "03": {
+        "text": "Tem sangramento?",
+        "o1": "Sim",
+        "o2": "Não"
+      },
+      "04": {
+        "text": "O bebé está a mexer-se?",
+        "o1": "Sim",
+        "o2": "Não",
+        "o3": "Não sei"
+      },
+      "05": {
+        "text": "A sua bolsa rompeu?",
+        "o1": "Sim",
+        "o2": "Não",
+        "o3": "Não sei"
+      },
+      "06": {
+        "text": "Quando a sua bolsa rompeu?",
+        "o1": "Há 0~1 hora",
+        "o2": "Há 1~24 horas",
+        "o3": "Há mais de 24 horas"
+      }
+    },
+    "result": {
+      "callNow": "As perguntas terminaram.\nEntre em contato com o hospital.",
+      "watchAndWait": "As perguntas terminaram.\nVamos aguardar um pouco mais e observar."
+    }
+  },
   "link": {
     "levelTable": {
       "caption": "Escolha o nível que se aplica a cada habilidade.",

@@ -451,131 +451,295 @@
       }
     }
   },
-  "today.baby.week.8.weightGuide": "약 1~7g",
-  "today.baby.week.8.weightImage": "작은 콩 1알",
-  "today.baby.week.8.development": "심장이 뛰기 시작하고 팔다리의 기초가 생깁니다.",
-  "today.baby.week.9.weightGuide": "약 2~8g",
-  "today.baby.week.9.weightImage": "작은 콩 2알",
-  "today.baby.week.9.development": "몸의 형태가 조금씩 구분되기 시작합니다.",
-  "today.baby.week.10.weightGuide": "약 5~10g",
-  "today.baby.week.10.weightImage": "체리 1개",
-  "today.baby.week.10.development": "손가락이 생기고 아기다운 모습이 됩니다.",
-  "today.baby.week.11.weightGuide": "약 10g",
-  "today.baby.week.11.weightImage": "방울토마토 1개",
-  "today.baby.week.11.development": "이목구비가 정돈되기 시작합니다.",
-  "today.baby.week.12.weightGuide": "약 20g",
-  "today.baby.week.12.weightImage": "딸기 1개",
-  "today.baby.week.12.development": "몸의 기본 구조가 거의 완성됩니다.",
-  "today.baby.week.13.weightGuide": "약 25g",
-  "today.baby.week.13.weightImage": "큰 딸기",
-  "today.baby.week.13.development": "양수를 마시는 연습을 시작합니다.",
-  "today.baby.week.14.weightGuide": "약 50g",
-  "today.baby.week.14.weightImage": "계란 1개",
-  "today.baby.week.14.development": "몸을 조금씩 움직이기 시작합니다.",
-  "today.baby.week.15.weightGuide": "약 70g",
-  "today.baby.week.15.weightImage": "작은 귤",
-  "today.baby.week.15.development": "입을 움직이는 모습이 보입니다.",
-  "today.baby.week.16.weightGuide": "약 100g",
-  "today.baby.week.16.weightImage": "사과 반 개",
-  "today.baby.week.16.development": "얼굴이 또렷해집니다.",
-  "today.baby.week.17.weightGuide": "약 150g",
-  "today.baby.week.17.weightImage": "사과 1개",
-  "today.baby.week.17.development": "조금씩 통통해집니다.",
-  "today.baby.week.18.weightGuide": "약 200g",
-  "today.baby.week.18.weightImage": "큰 사과",
-  "today.baby.week.18.development": "소리에 반응하기 시작합니다.",
-  "today.baby.week.19.weightGuide": "약 250g",
-  "today.baby.week.19.weightImage": "바나나 1개",
-  "today.baby.week.19.development": "피부를 보호하는 층(태지)이 생깁니다.",
-  "today.baby.week.20.weightGuide": "약 300g",
-  "today.baby.week.20.weightImage": "자몽 반 개",
-  "today.baby.week.20.development": "태동을 느끼기 시작합니다.",
-  "today.baby.week.21.weightGuide": "약 400g",
-  "today.baby.week.21.weightImage": "자몽 1개",
-  "today.baby.week.21.development": "소화 연습을 하고 있습니다.",
-  "today.baby.week.22.weightGuide": "약 450g",
-  "today.baby.week.22.weightImage": "작은 가지 2개",
-  "today.baby.week.22.development": "신체 기능이 발달하고 있습니다.",
-  "today.baby.week.23.weightGuide": "약 500g",
-  "today.baby.week.23.weightImage": "양배추 1/4통",
-  "today.baby.week.23.development": "호흡과 비슷한 움직임을 합니다.",
-  "today.baby.week.24.weightGuide": "약 600g",
-  "today.baby.week.24.weightImage": "작은 멜론",
-  "today.baby.week.24.development": "폐가 발달하기 시작합니다.",
-  "today.baby.week.25.weightGuide": "약 700g",
-  "today.baby.week.25.weightImage": "옥수수 3개",
-  "today.baby.week.25.development": "자극에 반응합니다.",
-  "today.baby.week.26.weightGuide": "약 800g",
-  "today.baby.week.26.weightImage": "단호박 1/4개",
-  "today.baby.week.26.development": "눈을 뜨기 시작합니다.",
-  "today.baby.week.27.weightGuide": "약 900g",
-  "today.baby.week.27.weightImage": "단호박 1/3개",
-  "today.baby.week.27.development": "움직임이 활발해집니다.",
-  "today.baby.week.28.weightGuide": "약 1000g",
-  "today.baby.week.28.weightImage": "우유 1팩(1L)",
-  "today.baby.week.28.development": "살이 붙기 시작합니다.",
-  "today.baby.week.29.weightGuide": "약 1200g",
-  "today.baby.week.29.weightImage": "작은 파인애플",
-  "today.baby.week.29.development": "지방이 늘어납니다.",
-  "today.baby.week.30.weightGuide": "약 1300g",
-  "today.baby.week.30.weightImage": "배추 1/4포기",
-  "today.baby.week.30.development": "힘차게 움직이게 됩니다.",
-  "today.baby.week.31.weightGuide": "약 1500g",
-  "today.baby.week.31.weightImage": "멜론 1개",
-  "today.baby.week.31.development": "잠자고 일어나는 리듬이 생깁니다.",
-  "today.baby.week.32.weightGuide": "약 1800g",
-  "today.baby.week.32.weightImage": "파인애플 1개",
-  "today.baby.week.32.development": "머리를 아래로 향하는 경우가 많아집니다.",
-  "today.baby.week.33.weightGuide": "약 2000g",
-  "today.baby.week.33.weightImage": "큰 파인애플",
-  "today.baby.week.33.development": "태어날 준비가 진행됩니다.",
-  "today.baby.week.34.weightGuide": "약 2200g",
-  "today.baby.week.34.weightImage": "복수박",
-  "today.baby.week.34.development": "젖을 먹을 준비가 됩니다.",
-  "today.baby.week.35.weightGuide": "약 2400g",
-  "today.baby.week.35.weightImage": "중간 크기 수박",
-  "today.baby.week.35.development": "몸이 둥글게 변합니다.",
-  "today.baby.week.36.weightGuide": "약 2500g",
-  "today.baby.week.36.weightImage": "신생아 크기",
-  "today.baby.week.36.development": "신체 기능이 완성됩니다.",
-  "today.baby.week.37.weightGuide": "약 2700g",
-  "today.baby.week.37.weightImage": "약간 큰 신생아",
-  "today.baby.week.37.development": "언제 태어나도 좋은 시기입니다.",
-  "today.baby.week.38.weightGuide": "약 2900g",
-  "today.baby.week.38.weightImage": "평균 신생아",
-  "today.baby.week.38.development": "거의 완성되었습니다.",
-  "today.baby.week.39.weightGuide": "약 3000g",
-  "today.baby.week.39.weightImage": "평균 신생아",
-  "today.baby.week.39.development": "출산 준비가 완료됩니다.",
-  "today.baby.week.40.weightGuide": "약 3000~3500g",
-  "today.baby.week.40.weightImage": "신생아(표준)",
-  "today.baby.week.40.development": "아기가 태어나는 시기입니다.",
-  "sos.q.01.text": "배에 뭉침이나 통증이 있습니까?",
-  "sos.q.01.o1": "예",
-  "sos.q.01.o2": "아니요",
-  "sos.q.02.text": "배가 뭉치는 간격이 몇 분 정도입니까?",
-  "sos.q.02.o1": "계속",
-  "sos.q.02.o2": "0~5분",
-  "sos.q.02.o3": "5~10분",
-  "sos.q.02.o4": "10~15분",
-  "sos.q.02.o5": "15분 이상",
-  "sos.q.03.text": "출혈이 있습니까?",
-  "sos.q.03.o1": "예",
-  "sos.q.03.o2": "아니요",
-  "sos.q.04.text": "아기가 움직이고 있습니까?",
-  "sos.q.04.o1": "예",
-  "sos.q.04.o2": "아니요",
-  "sos.q.04.o3": "모르겠음",
-  "sos.q.05.text": "양수가 터졌습니까?",
-  "sos.q.05.o1": "예",
-  "sos.q.05.o2": "아니요",
-  "sos.q.05.o3": "모르겠음",
-  "sos.q.06.text": "언제 양수가 터졌습니까?",
-  "sos.q.06.o1": "0~1시간 전",
-  "sos.q.06.o2": "1~24시간 전",
-  "sos.q.06.o3": "24시간 이상 전",
-  "sos.result.callNow": "질문은 이상입니다.\n병원에 연락하십시오.",
-  "sos.result.watchAndWait": "질문은 이상입니다.\n조금 더 상태를 지켜봅시다.",
+  "today": {
+    "baby": {
+      "week": {
+        "8": {
+          "weightGuide": "약 1~7g",
+          "weightImage": "작은 콩 1알",
+          "development": "심장이 뛰기 시작하고 팔다리의 기초가 생깁니다."
+        },
+        "9": {
+          "weightGuide": "약 2~8g",
+          "weightImage": "작은 콩 2알",
+          "development": "몸의 형태가 조금씩 구분되기 시작합니다."
+        },
+        "10": {
+          "weightGuide": "약 5~10g",
+          "weightImage": "체리 1개",
+          "development": "손가락이 생기고 아기다운 모습이 됩니다."
+        },
+        "11": {
+          "weightGuide": "약 10g",
+          "weightImage": "방울토마토 1개",
+          "development": "이목구비가 정돈되기 시작합니다."
+        },
+        "12": {
+          "weightGuide": "약 20g",
+          "weightImage": "딸기 1개",
+          "development": "몸의 기본 구조가 거의 완성됩니다."
+        },
+        "13": {
+          "weightGuide": "약 25g",
+          "weightImage": "큰 딸기",
+          "development": "양수를 마시는 연습을 시작합니다."
+        },
+        "14": {
+          "weightGuide": "약 50g",
+          "weightImage": "계란 1개",
+          "development": "몸을 조금씩 움직이기 시작합니다."
+        },
+        "15": {
+          "weightGuide": "약 70g",
+          "weightImage": "작은 귤",
+          "development": "입을 움직이는 모습이 보입니다."
+        },
+        "16": {
+          "weightGuide": "약 100g",
+          "weightImage": "사과 반 개",
+          "development": "얼굴이 또렷해집니다."
+        },
+        "17": {
+          "weightGuide": "약 150g",
+          "weightImage": "사과 1개",
+          "development": "조금씩 통통해집니다."
+        },
+        "18": {
+          "weightGuide": "약 200g",
+          "weightImage": "큰 사과",
+          "development": "소리에 반응하기 시작합니다."
+        },
+        "19": {
+          "weightGuide": "약 250g",
+          "weightImage": "바나나 1개",
+          "development": "피부를 보호하는 층(태지)이 생깁니다."
+        },
+        "20": {
+          "weightGuide": "약 300g",
+          "weightImage": "자몽 반 개",
+          "development": "태동을 느끼기 시작합니다."
+        },
+        "21": {
+          "weightGuide": "약 400g",
+          "weightImage": "자몽 1개",
+          "development": "소화 연습을 하고 있습니다."
+        },
+        "22": {
+          "weightGuide": "약 450g",
+          "weightImage": "작은 가지 2개",
+          "development": "신체 기능이 발달하고 있습니다."
+        },
+        "23": {
+          "weightGuide": "약 500g",
+          "weightImage": "양배추 1/4통",
+          "development": "호흡과 비슷한 움직임을 합니다."
+        },
+        "24": {
+          "weightGuide": "약 600g",
+          "weightImage": "작은 멜론",
+          "development": "폐가 발달하기 시작합니다."
+        },
+        "25": {
+          "weightGuide": "약 700g",
+          "weightImage": "옥수수 3개",
+          "development": "자극에 반응합니다."
+        },
+        "26": {
+          "weightGuide": "약 800g",
+          "weightImage": "단호박 1/4개",
+          "development": "눈을 뜨기 시작합니다."
+        },
+        "27": {
+          "weightGuide": "약 900g",
+          "weightImage": "단호박 1/3개",
+          "development": "움직임이 활발해집니다."
+        },
+        "28": {
+          "weightGuide": "약 1000g",
+          "weightImage": "우유 1팩(1L)",
+          "development": "살이 붙기 시작합니다."
+        },
+        "29": {
+          "weightGuide": "약 1200g",
+          "weightImage": "작은 파인애플",
+          "development": "지방이 늘어납니다."
+        },
+        "30": {
+          "weightGuide": "약 1300g",
+          "weightImage": "배추 1/4포기",
+          "development": "힘차게 움직이게 됩니다."
+        },
+        "31": {
+          "weightGuide": "약 1500g",
+          "weightImage": "멜론 1개",
+          "development": "잠자고 일어나는 리듬이 생깁니다."
+        },
+        "32": {
+          "weightGuide": "약 1800g",
+          "weightImage": "파인애플 1개",
+          "development": "머리를 아래로 향하는 경우가 많아집니다."
+        },
+        "33": {
+          "weightGuide": "약 2000g",
+          "weightImage": "큰 파인애플",
+          "development": "태어날 준비가 진행됩니다."
+        },
+        "34": {
+          "weightGuide": "약 2200g",
+          "weightImage": "복수박",
+          "development": "젖을 먹을 준비가 됩니다."
+        },
+        "35": {
+          "weightGuide": "약 2400g",
+          "weightImage": "중간 크기 수박",
+          "development": "몸이 둥글게 변합니다."
+        },
+        "36": {
+          "weightGuide": "약 2500g",
+          "weightImage": "신생아 크기",
+          "development": "신체 기능이 완성됩니다."
+        },
+        "37": {
+          "weightGuide": "약 2700g",
+          "weightImage": "약간 큰 신생아",
+          "development": "언제 태어나도 좋은 시기입니다."
+        },
+        "38": {
+          "weightGuide": "약 2900g",
+          "weightImage": "평균 신생아",
+          "development": "거의 완성되었습니다."
+        },
+        "39": {
+          "weightGuide": "약 3000g",
+          "weightImage": "평균 신생아",
+          "development": "출산 준비가 완료됩니다."
+        },
+        "40": {
+          "weightGuide": "약 3000~3500g",
+          "weightImage": "신생아(표준)",
+          "development": "아기가 태어나는 시기입니다."
+        }
+      }
+    }
+  },
+  "epds": {
+    "q": {
+      "10": {
+        "text": "自分自身を傷つけるという考えが浮かんできた。",
+        "o1": "はい、かなりしばしばそうだった。",
+        "o2": "時々そうだった。",
+        "o3": "めったになかった。",
+        "o4": "まったくなかった。"
+      },
+      "01": {
+        "text": "笑うことができたし、物事のおかしい面もわかった。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "まったくできなかった。"
+      },
+      "02": {
+        "text": "物事を楽しみにして待った。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "ほとんどできなかった。"
+      },
+      "03": {
+        "text": "物事が悪くいった時、自分を不必要に責めた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、時々そうだった。",
+        "o3": "いいえ、あまり度々ではない。",
+        "o4": "いいえ、そうではなかった。"
+      },
+      "04": {
+        "text": "はっきりした理由もないのに不安になったり、心配した。",
+        "o1": "いいえ、そうではなかった。",
+        "o2": "ほとんどそうではなかった。",
+        "o3": "はい、時々あった。",
+        "o4": "はい、しょっちゅうあった。"
+      },
+      "05": {
+        "text": "はっきりした理由もないのに恐怖に襲われた。",
+        "o1": "はい、しょっちゅうあった。",
+        "o2": "はい、時々あった。",
+        "o3": "いいえ、めったになかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "06": {
+        "text": "することがたくさんあって大変だった。",
+        "o1": "はい、たいてい対処できなかった。",
+        "o2": "はい、いつものようにはうまく対処しなかった。",
+        "o3": "いいえ、たいていうまく対処した。",
+        "o4": "いいえ、普段通りに対処した。"
+      },
+      "07": {
+        "text": "不幸せなので、眠りにくかった。",
+        "o1": "はい、ほとんどいつもそうだった。",
+        "o2": "はい、ときどきそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "08": {
+        "text": "悲しくなったり、惨めになった。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      },
+      "09": {
+        "text": "不幸せなので、泣けてきた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "ほんの時々あった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      }
+    }
+  },
+  "sos": {
+    "q": {
+      "01": {
+        "text": "배에 뭉침이나 통증이 있습니까?",
+        "o1": "예",
+        "o2": "아니요"
+      },
+      "02": {
+        "text": "배가 뭉치는 간격이 몇 분 정도입니까?",
+        "o1": "계속",
+        "o2": "0~5분",
+        "o3": "5~10분",
+        "o4": "10~15분",
+        "o5": "15분 이상"
+      },
+      "03": {
+        "text": "출혈이 있습니까?",
+        "o1": "예",
+        "o2": "아니요"
+      },
+      "04": {
+        "text": "아기가 움직이고 있습니까?",
+        "o1": "예",
+        "o2": "아니요",
+        "o3": "모르겠음"
+      },
+      "05": {
+        "text": "양수가 터졌습니까?",
+        "o1": "예",
+        "o2": "아니요",
+        "o3": "모르겠음"
+      },
+      "06": {
+        "text": "언제 양수가 터졌습니까?",
+        "o1": "0~1시간 전",
+        "o2": "1~24시간 전",
+        "o3": "24시간 이상 전"
+      }
+    },
+    "result": {
+      "callNow": "질문은 이상입니다.\n병원에 연락하십시오.",
+      "watchAndWait": "질문은 이상입니다.\n조금 더 상태를 지켜봅시다."
+    }
+  },
   "link": {
     "levelTable": {
       "caption": "각 항목에서 해당하는 수준을 선택해 주세요.",

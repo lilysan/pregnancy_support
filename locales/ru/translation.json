@@ -451,131 +451,295 @@
       }
     }
   },
-  "today.baby.week.8.weightGuide": "Около 1–7 г",
-  "today.baby.week.8.weightImage": "1 маленькая фасолинка",
-  "today.baby.week.8.development": "Сердце начинает биться, формируются зачатки конечностей.",
-  "today.baby.week.9.weightGuide": "Около 2–8 г",
-  "today.baby.week.9.weightImage": "2 маленькие фасолинки",
-  "today.baby.week.9.development": "Форма тела начинает постепенно дифференцироваться.",
-  "today.baby.week.10.weightGuide": "Около 5–10 г",
-  "today.baby.week.10.weightImage": "1 черешня",
-  "today.baby.week.10.development": "Формируются пальцы, и ребенок становится больше похож на человека.",
-  "today.baby.week.11.weightGuide": "Около 10 г",
-  "today.baby.week.11.weightImage": "1 помидор черри",
-  "today.baby.week.11.development": "Начинают проступать черты лица.",
-  "today.baby.week.12.weightGuide": "Около 20 г",
-  "today.baby.week.12.weightImage": "1 клубника",
-  "today.baby.week.12.development": "Базовая структура тела почти завершена.",
-  "today.baby.week.13.weightGuide": "Около 25 г",
-  "today.baby.week.13.weightImage": "Крупная клубника",
-  "today.baby.week.13.development": "Начинает практиковаться в заглатывании околоплодных вод.",
-  "today.baby.week.14.weightGuide": "Около 50 г",
-  "today.baby.week.14.weightImage": "1 яйцо",
-  "today.baby.week.14.development": "Начинает слегка шевелить телом.",
-  "today.baby.week.15.weightGuide": "Около 70 г",
-  "today.baby.week.15.weightImage": "Маленький мандарин",
-  "today.baby.week.15.development": "Можно наблюдать движения рта.",
-  "today.baby.week.16.weightGuide": "Около 100 г",
-  "today.baby.week.16.weightImage": "Половина яблока",
-  "today.baby.week.16.development": "Лицо становится более четким.",
-  "today.baby.week.17.weightGuide": "Около 150 г",
-  "today.baby.week.17.weightImage": "1 яблоко",
-  "today.baby.week.17.development": "Постепенно становится пухлее.",
-  "today.baby.week.18.weightGuide": "Около 200 г",
-  "today.baby.week.18.weightImage": "Крупное яблоко",
-  "today.baby.week.18.development": "Начинает реагировать на звуки.",
-  "today.baby.week.19.weightGuide": "Около 250 г",
-  "today.baby.week.19.weightImage": "1 банан",
-  "today.baby.week.19.development": "На коже образуется защитный слой (первородная смазка).",
-  "today.baby.week.20.weightGuide": "Около 300 г",
-  "today.baby.week.20.weightImage": "Половина грейпфрута",
-  "today.baby.week.20.development": "Начинают ощущаться шевеления плода.",
-  "today.baby.week.21.weightGuide": "Около 400 г",
-  "today.baby.week.21.weightImage": "1 грейпфрут",
-  "today.baby.week.21.development": "Практикует пищеварение.",
-  "today.baby.week.22.weightGuide": "Около 450 г",
-  "today.baby.week.22.weightImage": "2 маленьких баклажана",
-  "today.baby.week.22.development": "Функции организма развиваются.",
-  "today.baby.week.23.weightGuide": "Около 500 г",
-  "today.baby.week.23.weightImage": "1/4 капусты",
-  "today.baby.week.23.development": "Делает дыхательные движения.",
-  "today.baby.week.24.weightGuide": "Около 600 г",
-  "today.baby.week.24.weightImage": "Маленькая дыня",
-  "today.baby.week.24.development": "Начинают развиваться легкие.",
-  "today.baby.week.25.weightGuide": "Около 700 г",
-  "today.baby.week.25.weightImage": "3 кукурузы",
-  "today.baby.week.25.development": "Реагирует на раздражители.",
-  "today.baby.week.26.weightGuide": "Около 800 г",
-  "today.baby.week.26.weightImage": "1/4 тыквы",
-  "today.baby.week.26.development": "Начинает открывать глаза.",
-  "today.baby.week.27.weightGuide": "Около 900 г",
-  "today.baby.week.27.weightImage": "1/3 тыквы",
-  "today.baby.week.27.development": "Движения становятся более уверенными.",
-  "today.baby.week.28.weightGuide": "Около 1000 г",
-  "today.baby.week.28.weightImage": "1 пакет молока",
-  "today.baby.week.28.development": "Тело начинает округляться.",
-  "today.baby.week.29.weightGuide": "Около 1200 г",
-  "today.baby.week.29.weightImage": "Маленький ананас",
-  "today.baby.week.29.development": "Количество жира увеличивается.",
-  "today.baby.week.30.weightGuide": "Около 1300 г",
-  "today.baby.week.30.weightImage": "1/4 пекинской капусты",
-  "today.baby.week.30.development": "Начинает двигаться энергично.",
-  "today.baby.week.31.weightGuide": "Около 1500 г",
-  "today.baby.week.31.weightImage": "1 дыня",
-  "today.baby.week.31.development": "Появляется ритм сна и бодрствования.",
-  "today.baby.week.32.weightGuide": "Около 1800 г",
-  "today.baby.week.32.weightImage": "1 ананас",
-  "today.baby.week.32.development": "Голова чаще всего направлена вниз.",
-  "today.baby.week.33.weightGuide": "Около 2000 г",
-  "today.baby.week.33.weightImage": "Крупный ананас",
-  "today.baby.week.33.development": "Подготовка к рождению продолжается.",
-  "today.baby.week.34.weightGuide": "Около 2200 г",
-  "today.baby.week.34.weightImage": "Маленький арбуз",
-  "today.baby.week.34.development": "Готов практиковаться в грудном вскармливании.",
-  "today.baby.week.35.weightGuide": "Около 2400 г",
-  "today.baby.week.35.weightImage": "Средний арбуз",
-  "today.baby.week.35.development": "Тело становится более округлым.",
-  "today.baby.week.36.weightGuide": "Около 2500 г",
-  "today.baby.week.36.weightImage": "Размер новорожденного",
-  "today.baby.week.36.development": "Функции организма полностью сформированы.",
-  "today.baby.week.37.weightGuide": "Около 2700 г",
-  "today.baby.week.37.weightImage": "Чуть крупнее новорожденного",
-  "today.baby.week.37.development": "Считается доношенным; готов родиться в любое время.",
-  "today.baby.week.38.weightGuide": "Около 2900 г",
-  "today.baby.week.38.weightImage": "Средний новорожденный",
-  "today.baby.week.38.development": "Почти полностью развит.",
-  "today.baby.week.39.weightGuide": "Около 3000 г",
-  "today.baby.week.39.weightImage": "Средний новорожденный",
-  "today.baby.week.39.development": "Подготовка к родам завершена.",
-  "today.baby.week.40.weightGuide": "Около 3000–3500 г",
-  "today.baby.week.40.weightImage": "Новорожденный (стандарт)",
-  "today.baby.week.40.development": "Время рождения ребенка.",
-  "sos.q.01.text": "Есть ли у вас напряжение или боль в животе?",
-  "sos.q.01.o1": "Да",
-  "sos.q.01.o2": "Нет",
-  "sos.q.02.text": "С каким интервалом напрягается живот?",
-  "sos.q.02.o1": "Постоянно",
-  "sos.q.02.o2": "0~5 минут",
-  "sos.q.02.o3": "5~10 минут",
-  "sos.q.02.o4": "10~15 минут",
-  "sos.q.02.o5": "Более 15 минут",
-  "sos.q.03.text": "Есть ли кровотечение?",
-  "sos.q.03.o1": "Да",
-  "sos.q.03.o2": "Нет",
-  "sos.q.04.text": "Двигается ли ребенок?",
-  "sos.q.04.o1": "Да",
-  "sos.q.04.o2": "Нет",
-  "sos.q.04.o3": "Не знаю",
-  "sos.q.05.text": "Отошли ли воды?",
-  "sos.q.05.o1": "Да",
-  "sos.q.05.o2": "Нет",
-  "sos.q.05.o3": "Не знаю",
-  "sos.q.06.text": "Когда отошли воды?",
-  "sos.q.06.o1": "0~1 час назад",
-  "sos.q.06.o2": "1~24 часа назад",
-  "sos.q.06.o3": "Более 24 часов назад",
-  "sos.result.callNow": "Вопросы окончены.\nСвяжитесь с больницей.",
-  "sos.result.watchAndWait": "Вопросы окончены.\nДавайте еще немного понаблюдаем.",
+  "today": {
+    "baby": {
+      "week": {
+        "8": {
+          "weightGuide": "Около 1–7 г",
+          "weightImage": "1 маленькая фасолинка",
+          "development": "Сердце начинает биться, формируются зачатки конечностей."
+        },
+        "9": {
+          "weightGuide": "Около 2–8 г",
+          "weightImage": "2 маленькие фасолинки",
+          "development": "Форма тела начинает постепенно дифференцироваться."
+        },
+        "10": {
+          "weightGuide": "Около 5–10 г",
+          "weightImage": "1 черешня",
+          "development": "Формируются пальцы, и ребенок становится больше похож на человека."
+        },
+        "11": {
+          "weightGuide": "Около 10 г",
+          "weightImage": "1 помидор черри",
+          "development": "Начинают проступать черты лица."
+        },
+        "12": {
+          "weightGuide": "Около 20 г",
+          "weightImage": "1 клубника",
+          "development": "Базовая структура тела почти завершена."
+        },
+        "13": {
+          "weightGuide": "Около 25 г",
+          "weightImage": "Крупная клубника",
+          "development": "Начинает практиковаться в заглатывании околоплодных вод."
+        },
+        "14": {
+          "weightGuide": "Около 50 г",
+          "weightImage": "1 яйцо",
+          "development": "Начинает слегка шевелить телом."
+        },
+        "15": {
+          "weightGuide": "Около 70 г",
+          "weightImage": "Маленький мандарин",
+          "development": "Можно наблюдать движения рта."
+        },
+        "16": {
+          "weightGuide": "Около 100 г",
+          "weightImage": "Половина яблока",
+          "development": "Лицо становится более четким."
+        },
+        "17": {
+          "weightGuide": "Около 150 г",
+          "weightImage": "1 яблоко",
+          "development": "Постепенно становится пухлее."
+        },
+        "18": {
+          "weightGuide": "Около 200 г",
+          "weightImage": "Крупное яблоко",
+          "development": "Начинает реагировать на звуки."
+        },
+        "19": {
+          "weightGuide": "Около 250 г",
+          "weightImage": "1 банан",
+          "development": "На коже образуется защитный слой (первородная смазка)."
+        },
+        "20": {
+          "weightGuide": "Около 300 г",
+          "weightImage": "Половина грейпфрута",
+          "development": "Начинают ощущаться шевеления плода."
+        },
+        "21": {
+          "weightGuide": "Около 400 г",
+          "weightImage": "1 грейпфрут",
+          "development": "Практикует пищеварение."
+        },
+        "22": {
+          "weightGuide": "Около 450 г",
+          "weightImage": "2 маленьких баклажана",
+          "development": "Функции организма развиваются."
+        },
+        "23": {
+          "weightGuide": "Около 500 г",
+          "weightImage": "1/4 капусты",
+          "development": "Делает дыхательные движения."
+        },
+        "24": {
+          "weightGuide": "Около 600 г",
+          "weightImage": "Маленькая дыня",
+          "development": "Начинают развиваться легкие."
+        },
+        "25": {
+          "weightGuide": "Около 700 г",
+          "weightImage": "3 кукурузы",
+          "development": "Реагирует на раздражители."
+        },
+        "26": {
+          "weightGuide": "Около 800 г",
+          "weightImage": "1/4 тыквы",
+          "development": "Начинает открывать глаза."
+        },
+        "27": {
+          "weightGuide": "Около 900 г",
+          "weightImage": "1/3 тыквы",
+          "development": "Движения становятся более уверенными."
+        },
+        "28": {
+          "weightGuide": "Около 1000 г",
+          "weightImage": "1 пакет молока",
+          "development": "Тело начинает округляться."
+        },
+        "29": {
+          "weightGuide": "Около 1200 г",
+          "weightImage": "Маленький ананас",
+          "development": "Количество жира увеличивается."
+        },
+        "30": {
+          "weightGuide": "Около 1300 г",
+          "weightImage": "1/4 пекинской капусты",
+          "development": "Начинает двигаться энергично."
+        },
+        "31": {
+          "weightGuide": "Около 1500 г",
+          "weightImage": "1 дыня",
+          "development": "Появляется ритм сна и бодрствования."
+        },
+        "32": {
+          "weightGuide": "Около 1800 г",
+          "weightImage": "1 ананас",
+          "development": "Голова чаще всего направлена вниз."
+        },
+        "33": {
+          "weightGuide": "Около 2000 г",
+          "weightImage": "Крупный ананас",
+          "development": "Подготовка к рождению продолжается."
+        },
+        "34": {
+          "weightGuide": "Около 2200 г",
+          "weightImage": "Маленький арбуз",
+          "development": "Готов практиковаться в грудном вскармливании."
+        },
+        "35": {
+          "weightGuide": "Около 2400 г",
+          "weightImage": "Средний арбуз",
+          "development": "Тело становится более округлым."
+        },
+        "36": {
+          "weightGuide": "Около 2500 г",
+          "weightImage": "Размер новорожденного",
+          "development": "Функции организма полностью сформированы."
+        },
+        "37": {
+          "weightGuide": "Около 2700 г",
+          "weightImage": "Чуть крупнее новорожденного",
+          "development": "Считается доношенным; готов родиться в любое время."
+        },
+        "38": {
+          "weightGuide": "Около 2900 г",
+          "weightImage": "Средний новорожденный",
+          "development": "Почти полностью развит."
+        },
+        "39": {
+          "weightGuide": "Около 3000 г",
+          "weightImage": "Средний новорожденный",
+          "development": "Подготовка к родам завершена."
+        },
+        "40": {
+          "weightGuide": "Около 3000–3500 г",
+          "weightImage": "Новорожденный (стандарт)",
+          "development": "Время рождения ребенка."
+        }
+      }
+    }
+  },
+  "epds": {
+    "q": {
+      "10": {
+        "text": "自分自身を傷つけるという考えが浮かんできた。",
+        "o1": "はい、かなりしばしばそうだった。",
+        "o2": "時々そうだった。",
+        "o3": "めったになかった。",
+        "o4": "まったくなかった。"
+      },
+      "01": {
+        "text": "笑うことができたし、物事のおかしい面もわかった。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "まったくできなかった。"
+      },
+      "02": {
+        "text": "物事を楽しみにして待った。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "ほとんどできなかった。"
+      },
+      "03": {
+        "text": "物事が悪くいった時、自分を不必要に責めた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、時々そうだった。",
+        "o3": "いいえ、あまり度々ではない。",
+        "o4": "いいえ、そうではなかった。"
+      },
+      "04": {
+        "text": "はっきりした理由もないのに不安になったり、心配した。",
+        "o1": "いいえ、そうではなかった。",
+        "o2": "ほとんどそうではなかった。",
+        "o3": "はい、時々あった。",
+        "o4": "はい、しょっちゅうあった。"
+      },
+      "05": {
+        "text": "はっきりした理由もないのに恐怖に襲われた。",
+        "o1": "はい、しょっちゅうあった。",
+        "o2": "はい、時々あった。",
+        "o3": "いいえ、めったになかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "06": {
+        "text": "することがたくさんあって大変だった。",
+        "o1": "はい、たいてい対処できなかった。",
+        "o2": "はい、いつものようにはうまく対処しなかった。",
+        "o3": "いいえ、たいていうまく対処した。",
+        "o4": "いいえ、普段通りに対処した。"
+      },
+      "07": {
+        "text": "不幸せなので、眠りにくかった。",
+        "o1": "はい、ほとんどいつもそうだった。",
+        "o2": "はい、ときどきそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "08": {
+        "text": "悲しくなったり、惨めになった。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      },
+      "09": {
+        "text": "不幸せなので、泣けてきた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "ほんの時々あった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      }
+    }
+  },
+  "sos": {
+    "q": {
+      "01": {
+        "text": "Есть ли у вас напряжение или боль в животе?",
+        "o1": "Да",
+        "o2": "Нет"
+      },
+      "02": {
+        "text": "С каким интервалом напрягается живот?",
+        "o1": "Постоянно",
+        "o2": "0~5 минут",
+        "o3": "5~10 минут",
+        "o4": "10~15 минут",
+        "o5": "Более 15 минут"
+      },
+      "03": {
+        "text": "Есть ли кровотечение?",
+        "o1": "Да",
+        "o2": "Нет"
+      },
+      "04": {
+        "text": "Двигается ли ребенок?",
+        "o1": "Да",
+        "o2": "Нет",
+        "o3": "Не знаю"
+      },
+      "05": {
+        "text": "Отошли ли воды?",
+        "o1": "Да",
+        "o2": "Нет",
+        "o3": "Не знаю"
+      },
+      "06": {
+        "text": "Когда отошли воды?",
+        "o1": "0~1 час назад",
+        "o2": "1~24 часа назад",
+        "o3": "Более 24 часов назад"
+      }
+    },
+    "result": {
+      "callNow": "Вопросы окончены.\nСвяжитесь с больницей.",
+      "watchAndWait": "Вопросы окончены.\nДавайте еще немного понаблюдаем."
+    }
+  },
   "link": {
     "levelTable": {
       "caption": "Выберите уровень, который подходит для каждого навыка.",

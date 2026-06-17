@@ -451,131 +451,295 @@
       }
     }
   },
-  "today.baby.week.8.weightGuide": "Kira-kira 1–7g",
-  "today.baby.week.8.weightImage": "1 kacang kecil",
-  "today.baby.week.8.development": "Jantung mula berdenyut, dan tunas anggota badan terbentuk.",
-  "today.baby.week.9.weightGuide": "Kira-kira 2–8g",
-  "today.baby.week.9.weightImage": "2 kacang kecil",
-  "today.baby.week.9.development": "Bentuk badan mula berbeza secara beransur-ansur.",
-  "today.baby.week.10.weightGuide": "Kira-kira 5–10g",
-  "today.baby.week.10.weightImage": "1 ceri",
-  "today.baby.week.10.development": "Jari terbentuk, dan bayi mula kelihatan lebih seperti manusia.",
-  "today.baby.week.11.weightGuide": "Kira-kira 10g",
-  "today.baby.week.11.weightImage": "1 tomato ceri",
-  "today.baby.week.11.development": "Ciri-ciri wajah mula terbentuk.",
-  "today.baby.week.12.weightGuide": "Kira-kira 20g",
-  "today.baby.week.12.weightImage": "1 strawberi",
-  "today.baby.week.12.development": "Struktur asas badan hampir lengkap.",
-  "today.baby.week.13.weightGuide": "Kira-kira 25g",
-  "today.baby.week.13.weightImage": "Strawberi besar",
-  "today.baby.week.13.development": "Mula berlatih menelan air ketuban.",
-  "today.baby.week.14.weightGuide": "Kira-kira 50g",
-  "today.baby.week.14.weightImage": "1 biji telur",
-  "today.baby.week.14.development": "Mula menggerakkan badan sedikit demi sedikit.",
-  "today.baby.week.15.weightGuide": "Kira-kira 70g",
-  "today.baby.week.15.weightImage": "Oren mandarin kecil",
-  "today.baby.week.15.development": "Pergerakan mulut dapat diperhatikan.",
-  "today.baby.week.16.weightGuide": "Kira-kira 100g",
-  "today.baby.week.16.weightImage": "Separuh epal",
-  "today.baby.week.16.development": "Wajah menjadi lebih jelas.",
-  "today.baby.week.17.weightGuide": "Kira-kira 150g",
-  "today.baby.week.17.weightImage": "1 biji epal",
-  "today.baby.week.17.development": "Beransur-ansur menjadi lebih berisi.",
-  "today.baby.week.18.weightGuide": "Kira-kira 200g",
-  "today.baby.week.18.weightImage": "Epal besar",
-  "today.baby.week.18.development": "Mula bertindak balas terhadap bunyi.",
-  "today.baby.week.19.weightGuide": "Kira-kira 250g",
-  "today.baby.week.19.weightImage": "1 biji pisang",
-  "today.baby.week.19.development": "Lapisan pelindung (vernix) terbentuk pada kulit.",
-  "today.baby.week.20.weightGuide": "Kira-kira 300g",
-  "today.baby.week.20.weightImage": "Separuh oren bali",
-  "today.baby.week.20.development": "Pergerakan janin mula dirasai.",
-  "today.baby.week.21.weightGuide": "Kira-kira 400g",
-  "today.baby.week.21.weightImage": "1 biji oren bali",
-  "today.baby.week.21.development": "Sedang berlatih penghadaman.",
-  "today.baby.week.22.weightGuide": "Kira-kira 450g",
-  "today.baby.week.22.weightImage": "2 terung kecil",
-  "today.baby.week.22.development": "Fungsi badan sedang berkembang.",
-  "today.baby.week.23.weightGuide": "Kira-kira 500g",
-  "today.baby.week.23.weightImage": "1/4 kubis",
-  "today.baby.week.23.development": "Melakukan pergerakan seperti bernafas.",
-  "today.baby.week.24.weightGuide": "Kira-kira 600g",
-  "today.baby.week.24.weightImage": "Melon kecil",
-  "today.baby.week.24.development": "Paru-paru mula berkembang.",
-  "today.baby.week.25.weightGuide": "Kira-kira 700g",
-  "today.baby.week.25.weightImage": "3 jagung",
-  "today.baby.week.25.development": "Bertindak balas terhadap rangsangan.",
-  "today.baby.week.26.weightGuide": "Kira-kira 800g",
-  "today.baby.week.26.weightImage": "1/4 labu",
-  "today.baby.week.26.development": "Mula membuka mata.",
-  "today.baby.week.27.weightGuide": "Kira-kira 900g",
-  "today.baby.week.27.weightImage": "1/3 labu",
-  "today.baby.week.27.development": "Pergerakan menjadi lebih kuat.",
-  "today.baby.week.28.weightGuide": "Kira-kira 1000g",
-  "today.baby.week.28.weightImage": "1 karton susu",
-  "today.baby.week.28.development": "Badan mula berisi.",
-  "today.baby.week.29.weightGuide": "Kira-kira 1200g",
-  "today.baby.week.29.weightImage": "Nanas kecil",
-  "today.baby.week.29.development": "Lemak badan meningkat.",
-  "today.baby.week.30.weightGuide": "Kira-kira 1300g",
-  "today.baby.week.30.weightImage": "1/4 kubis cina",
-  "today.baby.week.30.development": "Mula bergerak dengan kuat.",
-  "today.baby.week.31.weightGuide": "Kira-kira 1500g",
-  "today.baby.week.31.weightImage": "1 melon",
-  "today.baby.week.31.development": "Irama tidur-bangun muncul.",
-  "today.baby.week.32.weightGuide": "Kira-kira 1800g",
-  "today.baby.week.32.weightImage": "1 nanas",
-  "today.baby.week.32.development": "Kepala lebih kerap berada di bawah.",
-  "today.baby.week.33.weightGuide": "Kira-kira 2000g",
-  "today.baby.week.33.weightImage": "Nanas besar",
-  "today.baby.week.33.development": "Persediaan untuk kelahiran diteruskan.",
-  "today.baby.week.34.weightGuide": "Kira-kira 2200g",
-  "today.baby.week.34.weightImage": "Tembikai kecil",
-  "today.baby.week.34.development": "Sedia untuk berlatih menyusu.",
-  "today.baby.week.35.weightGuide": "Kira-kira 2400g",
-  "today.baby.week.35.weightImage": "Tembikai sederhana",
-  "today.baby.week.35.development": "Badan menjadi lebih bulat.",
-  "today.baby.week.36.weightGuide": "Kira-kira 2500g",
-  "today.baby.week.36.weightImage": "Saiz bayi baru lahir",
-  "today.baby.week.36.development": "Fungsi badan lengkap sepenuhnya.",
-  "today.baby.week.37.weightGuide": "Kira-kira 2700g",
-  "today.baby.week.37.weightImage": "Bayi baru lahir agak besar",
-  "today.baby.week.37.development": "Cukup bulan, sedia untuk dilahirkan pada bila-bila masa.",
-  "today.baby.week.38.weightGuide": "Kira-kira 2900g",
-  "today.baby.week.38.weightImage": "Rata-rata bayi baru lahir",
-  "today.baby.week.38.development": "Hampir berkembang sepenuhnya.",
-  "today.baby.week.39.weightGuide": "Kira-kira 3000g",
-  "today.baby.week.39.weightImage": "Rata-rata bayi baru lahir",
-  "today.baby.week.39.development": "Persediaan kelahiran selesai.",
-  "today.baby.week.40.weightGuide": "Kira-kira 3000–3500g",
-  "today.baby.week.40.weightImage": "Bayi baru lahir (standard)",
-  "today.baby.week.40.development": "Masa untuk bayi dilahirkan.",
-  "sos.q.01.text": "Adakah anda berasa tegang atau sakit pada perut?",
-  "sos.q.01.o1": "Ya",
-  "sos.q.01.o2": "Tidak",
-  "sos.q.02.text": "Berapakah jarak masa antara perut terasa tegang?",
-  "sos.q.02.o1": "Sentiasa",
-  "sos.q.02.o2": "0~5 minit",
-  "sos.q.02.o3": "5~10 minit",
-  "sos.q.02.o4": "10~15 minit",
-  "sos.q.02.o5": "Lebih 15 minit",
-  "sos.q.03.text": "Adakah terdapat pendarahan?",
-  "sos.q.03.o1": "Ya",
-  "sos.q.03.o2": "Tidak",
-  "sos.q.04.text": "Adakah bayi bergerak?",
-  "sos.q.04.o1": "Ya",
-  "sos.q.04.o2": "Tidak",
-  "sos.q.04.o3": "Tidak pasti",
-  "sos.q.05.text": "Adakah air ketuban pecah?",
-  "sos.q.05.o1": "Ya",
-  "sos.q.05.o2": "Tidak",
-  "sos.q.05.o3": "Tidak pasti",
-  "sos.q.06.text": "Bilakah air ketuban pecah?",
-  "sos.q.06.o1": "0~1 jam yang lalu",
-  "sos.q.06.o2": "1~24 jam yang lalu",
-  "sos.q.06.o3": "Lebih 24 jam yang lalu",
-  "sos.result.callNow": "Soalan berakhir di sini.\nSila hubungi hospital.",
-  "sos.result.watchAndWait": "Soalan berakhir di sini.\nMari pantau keadaan buat seketika.",
+  "today": {
+    "baby": {
+      "week": {
+        "8": {
+          "weightGuide": "Kira-kira 1–7g",
+          "weightImage": "1 kacang kecil",
+          "development": "Jantung mula berdenyut, dan tunas anggota badan terbentuk."
+        },
+        "9": {
+          "weightGuide": "Kira-kira 2–8g",
+          "weightImage": "2 kacang kecil",
+          "development": "Bentuk badan mula berbeza secara beransur-ansur."
+        },
+        "10": {
+          "weightGuide": "Kira-kira 5–10g",
+          "weightImage": "1 ceri",
+          "development": "Jari terbentuk, dan bayi mula kelihatan lebih seperti manusia."
+        },
+        "11": {
+          "weightGuide": "Kira-kira 10g",
+          "weightImage": "1 tomato ceri",
+          "development": "Ciri-ciri wajah mula terbentuk."
+        },
+        "12": {
+          "weightGuide": "Kira-kira 20g",
+          "weightImage": "1 strawberi",
+          "development": "Struktur asas badan hampir lengkap."
+        },
+        "13": {
+          "weightGuide": "Kira-kira 25g",
+          "weightImage": "Strawberi besar",
+          "development": "Mula berlatih menelan air ketuban."
+        },
+        "14": {
+          "weightGuide": "Kira-kira 50g",
+          "weightImage": "1 biji telur",
+          "development": "Mula menggerakkan badan sedikit demi sedikit."
+        },
+        "15": {
+          "weightGuide": "Kira-kira 70g",
+          "weightImage": "Oren mandarin kecil",
+          "development": "Pergerakan mulut dapat diperhatikan."
+        },
+        "16": {
+          "weightGuide": "Kira-kira 100g",
+          "weightImage": "Separuh epal",
+          "development": "Wajah menjadi lebih jelas."
+        },
+        "17": {
+          "weightGuide": "Kira-kira 150g",
+          "weightImage": "1 biji epal",
+          "development": "Beransur-ansur menjadi lebih berisi."
+        },
+        "18": {
+          "weightGuide": "Kira-kira 200g",
+          "weightImage": "Epal besar",
+          "development": "Mula bertindak balas terhadap bunyi."
+        },
+        "19": {
+          "weightGuide": "Kira-kira 250g",
+          "weightImage": "1 biji pisang",
+          "development": "Lapisan pelindung (vernix) terbentuk pada kulit."
+        },
+        "20": {
+          "weightGuide": "Kira-kira 300g",
+          "weightImage": "Separuh oren bali",
+          "development": "Pergerakan janin mula dirasai."
+        },
+        "21": {
+          "weightGuide": "Kira-kira 400g",
+          "weightImage": "1 biji oren bali",
+          "development": "Sedang berlatih penghadaman."
+        },
+        "22": {
+          "weightGuide": "Kira-kira 450g",
+          "weightImage": "2 terung kecil",
+          "development": "Fungsi badan sedang berkembang."
+        },
+        "23": {
+          "weightGuide": "Kira-kira 500g",
+          "weightImage": "1/4 kubis",
+          "development": "Melakukan pergerakan seperti bernafas."
+        },
+        "24": {
+          "weightGuide": "Kira-kira 600g",
+          "weightImage": "Melon kecil",
+          "development": "Paru-paru mula berkembang."
+        },
+        "25": {
+          "weightGuide": "Kira-kira 700g",
+          "weightImage": "3 jagung",
+          "development": "Bertindak balas terhadap rangsangan."
+        },
+        "26": {
+          "weightGuide": "Kira-kira 800g",
+          "weightImage": "1/4 labu",
+          "development": "Mula membuka mata."
+        },
+        "27": {
+          "weightGuide": "Kira-kira 900g",
+          "weightImage": "1/3 labu",
+          "development": "Pergerakan menjadi lebih kuat."
+        },
+        "28": {
+          "weightGuide": "Kira-kira 1000g",
+          "weightImage": "1 karton susu",
+          "development": "Badan mula berisi."
+        },
+        "29": {
+          "weightGuide": "Kira-kira 1200g",
+          "weightImage": "Nanas kecil",
+          "development": "Lemak badan meningkat."
+        },
+        "30": {
+          "weightGuide": "Kira-kira 1300g",
+          "weightImage": "1/4 kubis cina",
+          "development": "Mula bergerak dengan kuat."
+        },
+        "31": {
+          "weightGuide": "Kira-kira 1500g",
+          "weightImage": "1 melon",
+          "development": "Irama tidur-bangun muncul."
+        },
+        "32": {
+          "weightGuide": "Kira-kira 1800g",
+          "weightImage": "1 nanas",
+          "development": "Kepala lebih kerap berada di bawah."
+        },
+        "33": {
+          "weightGuide": "Kira-kira 2000g",
+          "weightImage": "Nanas besar",
+          "development": "Persediaan untuk kelahiran diteruskan."
+        },
+        "34": {
+          "weightGuide": "Kira-kira 2200g",
+          "weightImage": "Tembikai kecil",
+          "development": "Sedia untuk berlatih menyusu."
+        },
+        "35": {
+          "weightGuide": "Kira-kira 2400g",
+          "weightImage": "Tembikai sederhana",
+          "development": "Badan menjadi lebih bulat."
+        },
+        "36": {
+          "weightGuide": "Kira-kira 2500g",
+          "weightImage": "Saiz bayi baru lahir",
+          "development": "Fungsi badan lengkap sepenuhnya."
+        },
+        "37": {
+          "weightGuide": "Kira-kira 2700g",
+          "weightImage": "Bayi baru lahir agak besar",
+          "development": "Cukup bulan, sedia untuk dilahirkan pada bila-bila masa."
+        },
+        "38": {
+          "weightGuide": "Kira-kira 2900g",
+          "weightImage": "Rata-rata bayi baru lahir",
+          "development": "Hampir berkembang sepenuhnya."
+        },
+        "39": {
+          "weightGuide": "Kira-kira 3000g",
+          "weightImage": "Rata-rata bayi baru lahir",
+          "development": "Persediaan kelahiran selesai."
+        },
+        "40": {
+          "weightGuide": "Kira-kira 3000–3500g",
+          "weightImage": "Bayi baru lahir (standard)",
+          "development": "Masa untuk bayi dilahirkan."
+        }
+      }
+    }
+  },
+  "epds": {
+    "q": {
+      "10": {
+        "text": "自分自身を傷つけるという考えが浮かんできた。",
+        "o1": "はい、かなりしばしばそうだった。",
+        "o2": "時々そうだった。",
+        "o3": "めったになかった。",
+        "o4": "まったくなかった。"
+      },
+      "01": {
+        "text": "笑うことができたし、物事のおかしい面もわかった。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "まったくできなかった。"
+      },
+      "02": {
+        "text": "物事を楽しみにして待った。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "ほとんどできなかった。"
+      },
+      "03": {
+        "text": "物事が悪くいった時、自分を不必要に責めた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、時々そうだった。",
+        "o3": "いいえ、あまり度々ではない。",
+        "o4": "いいえ、そうではなかった。"
+      },
+      "04": {
+        "text": "はっきりした理由もないのに不安になったり、心配した。",
+        "o1": "いいえ、そうではなかった。",
+        "o2": "ほとんどそうではなかった。",
+        "o3": "はい、時々あった。",
+        "o4": "はい、しょっちゅうあった。"
+      },
+      "05": {
+        "text": "はっきりした理由もないのに恐怖に襲われた。",
+        "o1": "はい、しょっちゅうあった。",
+        "o2": "はい、時々あった。",
+        "o3": "いいえ、めったになかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "06": {
+        "text": "することがたくさんあって大変だった。",
+        "o1": "はい、たいてい対処できなかった。",
+        "o2": "はい、いつものようにはうまく対処しなかった。",
+        "o3": "いいえ、たいていうまく対処した。",
+        "o4": "いいえ、普段通りに対処した。"
+      },
+      "07": {
+        "text": "不幸せなので、眠りにくかった。",
+        "o1": "はい、ほとんどいつもそうだった。",
+        "o2": "はい、ときどきそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "08": {
+        "text": "悲しくなったり、惨めになった。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      },
+      "09": {
+        "text": "不幸せなので、泣けてきた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "ほんの時々あった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      }
+    }
+  },
+  "sos": {
+    "q": {
+      "01": {
+        "text": "Adakah anda berasa tegang atau sakit pada perut?",
+        "o1": "Ya",
+        "o2": "Tidak"
+      },
+      "02": {
+        "text": "Berapakah jarak masa antara perut terasa tegang?",
+        "o1": "Sentiasa",
+        "o2": "0~5 minit",
+        "o3": "5~10 minit",
+        "o4": "10~15 minit",
+        "o5": "Lebih 15 minit"
+      },
+      "03": {
+        "text": "Adakah terdapat pendarahan?",
+        "o1": "Ya",
+        "o2": "Tidak"
+      },
+      "04": {
+        "text": "Adakah bayi bergerak?",
+        "o1": "Ya",
+        "o2": "Tidak",
+        "o3": "Tidak pasti"
+      },
+      "05": {
+        "text": "Adakah air ketuban pecah?",
+        "o1": "Ya",
+        "o2": "Tidak",
+        "o3": "Tidak pasti"
+      },
+      "06": {
+        "text": "Bilakah air ketuban pecah?",
+        "o1": "0~1 jam yang lalu",
+        "o2": "1~24 jam yang lalu",
+        "o3": "Lebih 24 jam yang lalu"
+      }
+    },
+    "result": {
+      "callNow": "Soalan berakhir di sini.\nSila hubungi hospital.",
+      "watchAndWait": "Soalan berakhir di sini.\nMari pantau keadaan buat seketika."
+    }
+  },
   "link": {
     "levelTable": {
       "caption": "Pilih tahap yang sesuai untuk setiap kemahiran.",

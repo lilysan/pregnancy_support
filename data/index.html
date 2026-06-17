@@ -1115,7 +1115,7 @@
     }
 
     function getDataTabToneClass(tab) {
-        return tab ? (tab.key === "labor") ? "is-labor-tab": "": "";
+        return tab && tab.key === "labor" ? "is-labor-tab" : "";
     }
 
     function getDataTab(tabKey) {
@@ -1459,14 +1459,14 @@
 
             const answerList = $("<div>").addClass("data-question-list");
             answers.forEach((answer, answerIndex) => {
-                const questionText = translateDataKey(answer.questionTextKey || `${answer.questionKey}.text`);
-                const choiceText = answer.answerKey ? translateDataKey(answer.answerKey) : "未回答";
+                const questionText = translateDataKey(answer.questionLabelKey || answer.questionId);
+                const choiceText = answer.answerLabelKey ? translateDataKey(answer.answerLabelKey) : "未回答";
                 answerList.append(
                     $("<div>").addClass("data-question-item")
                         .append(
                             $("<p>").addClass("data-question-text")
                                 .append($("<span>").addClass("badge badge-primary").text(answerIndex + 1))
-                                .append(document.createTextNode(questionText || formatValue(answer.questionKey)))
+                                .append(document.createTextNode(questionText || formatValue(answer.questionId)))
                         )
                         .append(
                             $("<p>").addClass("data-choice-text")
@@ -1493,7 +1493,7 @@
                 }));
             }
             const group = groups.get(groupKey);
-            group.normalizedAnswers.push(...normalizeAnswerEntries(item && item.answers, questionPrefix));
+            group.normalizedAnswers.push(...normalizeAnswerEntries(item && item.answers));
             if (item && item.score !== undefined && item.score !== null) {
                 group.score = item.score;
             }
@@ -1504,22 +1504,27 @@
     function buildAllQuestionAnswers(answers, config) {
         const answerMap = {};
         answers.forEach((answer) => {
-            if (answer.questionKey) {
-                answerMap[answer.questionKey] = answer;
+            if (answer.questionId) {
+                answerMap[answer.questionId] = answer;
             }
         });
         return getQuestionDefinitions(config, Object.keys(answerMap)).map((question) => {
-            const questionKey = question.questionKey;
-            const answer = answerMap[questionKey];
+            const questionId = question.questionId;
+            const answer = answerMap[questionId];
+            const selectedOption = answer
+                ? question.options.find((option) => option.id === answer.answerId)
+                : null;
             if (answer) {
                 return Object.assign({}, answer, {
-                    questionTextKey: question.questionTextKey || answer.questionTextKey
+                    questionLabelKey: question.labelKey || answer.questionLabelKey,
+                    answerLabelKey: selectedOption ? selectedOption.labelKey : ""
                 });
             }
             return {
-                questionKey: questionKey,
-                questionTextKey: question.questionTextKey,
-                answerKey: ""
+                questionId: questionId,
+                questionLabelKey: question.labelKey,
+                answerId: "",
+                answerLabelKey: ""
             };
         });
     }
@@ -1529,30 +1534,27 @@
         const schema = dataState.schemas[config.schemaKey];
         const definitions = Array.isArray(schema && schema.questions)
             ? schema.questions.map((question) => {
-                const questionKey = normalizeQuestionKey(question.id, questionPrefix);
                 return {
-                    questionKey: questionKey,
-                    questionTextKey: buildQuestionTranslationKey(schema, question.labelKey, questionKey)
+                    questionId: question.id || "",
+                    labelKey: question.labelKey || "",
+                    options: (question.options || []).map((option) => ({
+                        id: option.id || "",
+                        labelKey: option.labelKey || ""
+                    }))
                 };
             })
             : [];
-        const existingKeys = new Set(definitions.map((question) => question.questionKey));
+        const existingKeys = new Set(definitions.map((question) => question.questionId));
         (answeredKeys || []).forEach((key) => {
-            if (key.startsWith(`${questionPrefix}.q.`) && !existingKeys.has(key)) {
+            if (!existingKeys.has(key)) {
                 definitions.push({
-                    questionKey: key,
-                    questionTextKey: `${key}.text`
+                    questionId: key,
+                    labelKey: `${questionPrefix}.${key}.text`,
+                    options: []
                 });
             }
         });
         return definitions;
-    }
-
-    function buildQuestionTranslationKey(schema, labelKey, fallbackKey) {
-        if (!labelKey) {
-            return fallbackKey;
-        }
-        return labelKey;
     }
 
     function renderLineChart(title, items, seriesConfig) {
@@ -1672,17 +1674,15 @@
             || "";
     }
 
-    function normalizeAnswerEntries(answers, questionPrefix) {
+    function normalizeAnswerEntries(answers) {
         const entries = [];
         const pushEntry = (questionKey, answerKey, score) => {
             if (!questionKey && !answerKey) {
                 return;
             }
-            const normalizedQuestionKey = normalizeQuestionKey(questionKey || "", questionPrefix);
             entries.push({
-                questionKey: normalizedQuestionKey || formatValue(questionKey),
-                questionTextKey: normalizedQuestionKey ? `${normalizedQuestionKey}.text` : "",
-                answerKey: normalizeAnswerKey(answerKey || "", normalizedQuestionKey, questionPrefix),
+                questionId: String(questionKey || ""),
+                answerId: String(answerKey || ""),
                 score: score
             });
         };
@@ -1719,52 +1719,6 @@
             });
         }
         return entries;
-    }
-
-    function normalizeQuestionKey(key, questionPrefix) {
-        if (!key) {
-            return "";
-        }
-        const value = String(key).replace(/\.text$/, "");
-        if (value.startsWith(`${questionPrefix}.`)) {
-            const normalizedPath = normalizeQuestionPath(value.slice(questionPrefix.length + 1));
-            return normalizedPath ? `${questionPrefix}.${normalizedPath}` : value;
-        }
-        const normalizedPath = normalizeQuestionPath(value);
-        if (normalizedPath) {
-            return `${questionPrefix}.${normalizedPath}`;
-        }
-        return value;
-    }
-
-    function normalizeAnswerKey(key, questionKey, questionPrefix) {
-        if (!key) {
-            return "";
-        }
-        const value = String(key);
-        if (value.startsWith(`${questionPrefix}.`)) {
-            const normalizedPath = normalizeQuestionPath(value.slice(questionPrefix.length + 1));
-            return normalizedPath ? `${questionPrefix}.${normalizedPath}` : value;
-        }
-        const normalizedPath = normalizeQuestionPath(value);
-        if (normalizedPath) {
-            return `${questionPrefix}.${normalizedPath}`;
-        }
-        if (value.includes(".")) {
-            return value;
-        }
-        if (questionKey && /^o\d+/.test(value)) {
-            return `${questionKey}.${value}`;
-        }
-        return value;
-    }
-
-    function normalizeQuestionPath(value) {
-        const match = String(value).match(/^q\.?(\d+)(.*)$/);
-        if (!match) {
-            return "";
-        }
-        return `q.${String(Number(match[1])).padStart(2, "0")}${match[2] || ""}`;
     }
 
     function compareRecordDate(a, b) {
@@ -1906,9 +1860,7 @@
                 return translated;
             }
         }
-        const translated = Object.prototype.hasOwnProperty.call(dataState.translations, key)
-            ? dataState.translations[key]
-            : getNestedValue(dataState.translations, key);
+        const translated = getNestedValue(dataState.translations, key);
         return translated === undefined || translated === null ? key : String(translated);
     }
 

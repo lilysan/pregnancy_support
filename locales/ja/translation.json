@@ -639,182 +639,299 @@
       "customNameRequired": "ワクチン名を入力してください。"
     }
   },
-  "today.baby.label.weight": "推定体重の目安",
-  "today.baby.label.weightImage": "重さのイメージ",
-  "today.baby.label.content": "成長の様子",
-  "today.baby.week.8.weightGuide": "約1～7g",
-  "today.baby.week.8.weightImage": "小さな豆1粒",
-  "today.baby.week.8.development": "心臓が動き始め、手足のもとができます",
-  "today.baby.week.9.weightGuide": "約2〜８g",
-  "today.baby.week.9.weightImage": "小さな豆2粒",
-  "today.baby.week.9.development": "体の形が少しずつわかれてきます",
-  "today.baby.week.10.weightGuide": "約5～10g",
-  "today.baby.week.10.weightImage": "さくらんぼ1個",
-  "today.baby.week.10.development": "指ができ、赤ちゃんらしくなります",
-  "today.baby.week.11.weightGuide": "約10g",
-  "today.baby.week.11.weightImage": "ミニトマト1個",
-  "today.baby.week.11.development": "顔立ちが整い始めます",
-  "today.baby.week.12.weightGuide": "約20g",
-  "today.baby.week.12.weightImage": "いちご1個",
-  "today.baby.week.12.development": "体の基本がほぼできあがります",
-  "today.baby.week.13.weightGuide": "約25g",
-  "today.baby.week.13.weightImage": "大きめいちご",
-  "today.baby.week.13.development": "羊水を飲む練習を始めます",
-  "today.baby.week.14.weightGuide": "約50g",
-  "today.baby.week.14.weightImage": "卵1個",
-  "today.baby.week.14.development": "体を少し動かし始めます",
-  "today.baby.week.15.weightGuide": "約70g",
-  "today.baby.week.15.weightImage": "小さめみかん",
-  "today.baby.week.15.development": "口を動かす様子が見られます",
-  "today.baby.week.16.weightGuide": "約100g",
-  "today.baby.week.16.weightImage": "りんご半分",
-  "today.baby.week.16.development": "顔がはっきりしてきます",
-  "today.baby.week.17.weightGuide": "約150g",
-  "today.baby.week.17.weightImage": "りんご1個",
-  "today.baby.week.17.development": "少しずつふっくらしてきます",
-  "today.baby.week.18.weightGuide": "約200g",
-  "today.baby.week.18.weightImage": "大きめりんご",
-  "today.baby.week.18.development": "音に反応し始めます",
-  "today.baby.week.19.weightGuide": "約250g",
-  "today.baby.week.19.weightImage": "バナナ1本",
-  "today.baby.week.19.development": "皮膚を守るものがつきます",
-  "today.baby.week.20.weightGuide": "約300g",
-  "today.baby.week.20.weightImage": "グレープフルーツ半分",
-  "today.baby.week.20.development": "胎動を感じ始めます",
-  "today.baby.week.21.weightGuide": "約400g",
-  "today.baby.week.21.weightImage": "グレープフルーツ1個",
-  "today.baby.week.21.development": "消化の練習をしています",
-  "today.baby.week.22.weightGuide": "約450g",
-  "today.baby.week.22.weightImage": "小さめナス2本",
-  "today.baby.week.22.development": "体の働きが育っています",
-  "today.baby.week.23.weightGuide": "約500g",
-  "today.baby.week.23.weightImage": "キャベツ1/4玉",
-  "today.baby.week.23.development": "呼吸のような動きをします",
-  "today.baby.week.24.weightGuide": "約600g",
-  "today.baby.week.24.weightImage": "小さめメロン",
-  "today.baby.week.24.development": "肺が育ち始めます",
-  "today.baby.week.25.weightGuide": "約700g",
-  "today.baby.week.25.weightImage": "とうもろこし3本",
-  "today.baby.week.25.development": "刺激に反応します",
-  "today.baby.week.26.weightGuide": "約800g",
-  "today.baby.week.26.weightImage": "かぼちゃ1/4",
-  "today.baby.week.26.development": "目を開け始めます",
-  "today.baby.week.27.weightGuide": "約900g",
-  "today.baby.week.27.weightImage": "かぼちゃ1/3",
-  "today.baby.week.27.development": "動きがしっかりしてきます",
-  "today.baby.week.28.weightGuide": "約1000g",
-  "today.baby.week.28.weightImage": "牛乳パック1本",
-  "today.baby.week.28.development": "体がふっくらし始めます",
-  "today.baby.week.29.weightGuide": "約1200g",
-  "today.baby.week.29.weightImage": "パイナップル小",
-  "today.baby.week.29.development": "脂肪が増えます",
-  "today.baby.week.30.weightGuide": "約1300g",
-  "today.baby.week.30.weightImage": "白菜1/4",
-  "today.baby.week.30.development": "力強く動くようになります",
-  "today.baby.week.31.weightGuide": "約1500g",
-  "today.baby.week.31.weightImage": "メロン1個",
-  "today.baby.week.31.development": "眠る・起きるリズムが出てきます",
-  "today.baby.week.32.weightGuide": "約1800g",
-  "today.baby.week.32.weightImage": "パイナップル1個",
-  "today.baby.week.32.development": "頭を下に向けることが多くなります",
-  "today.baby.week.33.weightGuide": "約2000g",
-  "today.baby.week.33.weightImage": "大きめパイナップル",
-  "today.baby.week.33.development": "生まれる準備が進みます",
-  "today.baby.week.34.weightGuide": "約2200g",
-  "today.baby.week.34.weightImage": "小玉すいか",
-  "today.baby.week.34.development": "おっぱいを飲む準備ができます",
-  "today.baby.week.35.weightGuide": "約2400g",
-  "today.baby.week.35.weightImage": "中くらいすいか",
-  "today.baby.week.35.development": "体が丸くなってきます",
-  "today.baby.week.36.weightGuide": "約2500g",
-  "today.baby.week.36.weightImage": "新生児サイズ",
-  "today.baby.week.36.development": "体の機能が整います",
-  "today.baby.week.37.weightGuide": "約2700g",
-  "today.baby.week.37.weightImage": "新生児やや大きめ",
-  "today.baby.week.37.development": "いつ生まれてもよい時期です",
-  "today.baby.week.38.weightGuide": "約2900g",
-  "today.baby.week.38.weightImage": "新生児平均",
-  "today.baby.week.38.development": "ほぼ完成しています",
-  "today.baby.week.39.weightGuide": "約3000g",
-  "today.baby.week.39.weightImage": "新生児平均",
-  "today.baby.week.39.development": "出産準備が整います",
-  "today.baby.week.40.weightGuide": "約3000〜3500g",
-  "today.baby.week.40.weightImage": "新生児（標準）",
-  "today.baby.week.40.development": "赤ちゃんが生まれる時期です",
-  "epds.q.01.text": "笑うことができたし、物事のおかしい面もわかった。",
-  "epds.q.01.o1": "いつもと同様にできた。",
-  "epds.q.01.o2": "あまりできなかった。",
-  "epds.q.01.o3": "明らかにできなかった。",
-  "epds.q.01.o4": "まったくできなかった。",
-  "epds.q.02.text": "物事を楽しみにして待った。",
-  "epds.q.02.o1": "いつもと同様にできた。",
-  "epds.q.02.o2": "あまりできなかった。",
-  "epds.q.02.o3": "明らかにできなかった。",
-  "epds.q.02.o4": "ほとんどできなかった。",
-  "epds.q.03.text": "物事が悪くいった時、自分を不必要に責めた。",
-  "epds.q.03.o1": "はい、たいていそうだった。",
-  "epds.q.03.o2": "はい、時々そうだった。",
-  "epds.q.03.o3": "いいえ、あまり度々ではない。",
-  "epds.q.03.o4": "いいえ、そうではなかった。",
-  "epds.q.04.text": "はっきりした理由もないのに不安になったり、心配した。",
-  "epds.q.04.o1": "いいえ、そうではなかった。",
-  "epds.q.04.o2": "ほとんどそうではなかった。",
-  "epds.q.04.o3": "はい、時々あった。",
-  "epds.q.04.o4": "はい、しょっちゅうあった。",
-  "epds.q.05.text": "はっきりした理由もないのに恐怖に襲われた。",
-  "epds.q.05.o1": "はい、しょっちゅうあった。",
-  "epds.q.05.o2": "はい、時々あった。",
-  "epds.q.05.o3": "いいえ、めったになかった。",
-  "epds.q.05.o4": "いいえ、まったくなかった。",
-  "epds.q.06.text": "することがたくさんあって大変だった。",
-  "epds.q.06.o1": "はい、たいてい対処できなかった。",
-  "epds.q.06.o2": "はい、いつものようにはうまく対処しなかった。",
-  "epds.q.06.o3": "いいえ、たいていうまく対処した。",
-  "epds.q.06.o4": "いいえ、普段通りに対処した。",
-  "epds.q.07.text": "不幸せなので、眠りにくかった。",
-  "epds.q.07.o1": "はい、ほとんどいつもそうだった。",
-  "epds.q.07.o2": "はい、ときどきそうだった。",
-  "epds.q.07.o3": "いいえ、あまり度々ではなかった。",
-  "epds.q.07.o4": "いいえ、まったくなかった。",
-  "epds.q.08.text": "悲しくなったり、惨めになった。",
-  "epds.q.08.o1": "はい、たいていそうだった。",
-  "epds.q.08.o2": "はい、かなりしばしばそうだった。",
-  "epds.q.08.o3": "いいえ、あまり度々ではなかった。",
-  "epds.q.08.o4": "いいえ、まったくそうではなかった。",
-  "epds.q.09.text": "不幸せなので、泣けてきた。",
-  "epds.q.09.o1": "はい、たいていそうだった。",
-  "epds.q.09.o2": "はい、かなりしばしばそうだった。",
-  "epds.q.09.o3": "ほんの時々あった。",
-  "epds.q.09.o4": "いいえ、まったくそうではなかった。",
-  "epds.q.10.text": "自分自身を傷つけるという考えが浮かんできた。",
-  "epds.q.10.o1": "はい、かなりしばしばそうだった。",
-  "epds.q.10.o2": "時々そうだった。",
-  "epds.q.10.o3": "めったになかった。",
-  "epds.q.10.o4": "まったくなかった。",
-  "sos.q.01.text": "お腹に張りや痛みはありますか？",
-  "sos.q.01.o1": "はい",
-  "sos.q.01.o2": "いいえ",
-  "sos.q.02.text": "お腹の張りの間隔は何分くらいですか？",
-  "sos.q.02.o1": "ずっと",
-  "sos.q.02.o2": "0~5分",
-  "sos.q.02.o3": "5~10分",
-  "sos.q.02.o4": "10~15分",
-  "sos.q.02.o5": "15分以上",
-  "sos.q.03.text": "出血がありますか？",
-  "sos.q.03.o1": "はい",
-  "sos.q.03.o2": "いいえ",
-  "sos.q.04.text": "赤ちゃんは動いていますか？",
-  "sos.q.04.o1": "はい",
-  "sos.q.04.o2": "いいえ",
-  "sos.q.04.o3": "分からない",
-  "sos.q.05.text": "破水していますか？",
-  "sos.q.05.o1": "はい",
-  "sos.q.05.o2": "いいえ",
-  "sos.q.05.o3": "分からない",
-  "sos.q.06.text": "いつ破水しましたか？",
-  "sos.q.06.o1": "0~1時間前",
-  "sos.q.06.o2": "1~24時間前",
-  "sos.q.06.o3": "24時間以上前",
-  "sos.result.callNow": "質問は以上です。\n病院へ連絡しましょう。",
-  "sos.result.watchAndWait": "質問は以上です。\nもう少し様子をみましょう。"
+  "today": {
+    "baby": {
+      "label": {
+        "pregnancyWeek": "妊娠週数",
+        "weight": "推定体重の目安",
+        "weightImage": "重さのイメージ",
+        "content": "成長の様子"
+      },
+      "week": {
+        "8": {
+          "weightGuide": "約1～7g",
+          "weightImage": "小さな豆1粒",
+          "development": "心臓が動き始め、手足のもとができます"
+        },
+        "9": {
+          "weightGuide": "約2〜８g",
+          "weightImage": "小さな豆2粒",
+          "development": "体の形が少しずつわかれてきます"
+        },
+        "10": {
+          "weightGuide": "約5～10g",
+          "weightImage": "さくらんぼ1個",
+          "development": "指ができ、赤ちゃんらしくなります"
+        },
+        "11": {
+          "weightGuide": "約10g",
+          "weightImage": "ミニトマト1個",
+          "development": "顔立ちが整い始めます"
+        },
+        "12": {
+          "weightGuide": "約20g",
+          "weightImage": "いちご1個",
+          "development": "体の基本がほぼできあがります"
+        },
+        "13": {
+          "weightGuide": "約25g",
+          "weightImage": "大きめいちご",
+          "development": "羊水を飲む練習を始めます"
+        },
+        "14": {
+          "weightGuide": "約50g",
+          "weightImage": "卵1個",
+          "development": "体を少し動かし始めます"
+        },
+        "15": {
+          "weightGuide": "約70g",
+          "weightImage": "小さめみかん",
+          "development": "口を動かす様子が見られます"
+        },
+        "16": {
+          "weightGuide": "約100g",
+          "weightImage": "りんご半分",
+          "development": "顔がはっきりしてきます"
+        },
+        "17": {
+          "weightGuide": "約150g",
+          "weightImage": "りんご1個",
+          "development": "少しずつふっくらしてきます"
+        },
+        "18": {
+          "weightGuide": "約200g",
+          "weightImage": "大きめりんご",
+          "development": "音に反応し始めます"
+        },
+        "19": {
+          "weightGuide": "約250g",
+          "weightImage": "バナナ1本",
+          "development": "皮膚を守るものがつきます"
+        },
+        "20": {
+          "weightGuide": "約300g",
+          "weightImage": "グレープフルーツ半分",
+          "development": "胎動を感じ始めます"
+        },
+        "21": {
+          "weightGuide": "約400g",
+          "weightImage": "グレープフルーツ1個",
+          "development": "消化の練習をしています"
+        },
+        "22": {
+          "weightGuide": "約450g",
+          "weightImage": "小さめナス2本",
+          "development": "体の働きが育っています"
+        },
+        "23": {
+          "weightGuide": "約500g",
+          "weightImage": "キャベツ1/4玉",
+          "development": "呼吸のような動きをします"
+        },
+        "24": {
+          "weightGuide": "約600g",
+          "weightImage": "小さめメロン",
+          "development": "肺が育ち始めます"
+        },
+        "25": {
+          "weightGuide": "約700g",
+          "weightImage": "とうもろこし3本",
+          "development": "刺激に反応します"
+        },
+        "26": {
+          "weightGuide": "約800g",
+          "weightImage": "かぼちゃ1/4",
+          "development": "目を開け始めます"
+        },
+        "27": {
+          "weightGuide": "約900g",
+          "weightImage": "かぼちゃ1/3",
+          "development": "動きがしっかりしてきます"
+        },
+        "28": {
+          "weightGuide": "約1000g",
+          "weightImage": "牛乳パック1本",
+          "development": "体がふっくらし始めます"
+        },
+        "29": {
+          "weightGuide": "約1200g",
+          "weightImage": "パイナップル小",
+          "development": "脂肪が増えます"
+        },
+        "30": {
+          "weightGuide": "約1300g",
+          "weightImage": "白菜1/4",
+          "development": "力強く動くようになります"
+        },
+        "31": {
+          "weightGuide": "約1500g",
+          "weightImage": "メロン1個",
+          "development": "眠る・起きるリズムが出てきます"
+        },
+        "32": {
+          "weightGuide": "約1800g",
+          "weightImage": "パイナップル1個",
+          "development": "頭を下に向けることが多くなります"
+        },
+        "33": {
+          "weightGuide": "約2000g",
+          "weightImage": "大きめパイナップル",
+          "development": "生まれる準備が進みます"
+        },
+        "34": {
+          "weightGuide": "約2200g",
+          "weightImage": "小玉すいか",
+          "development": "おっぱいを飲む準備ができます"
+        },
+        "35": {
+          "weightGuide": "約2400g",
+          "weightImage": "中くらいすいか",
+          "development": "体が丸くなってきます"
+        },
+        "36": {
+          "weightGuide": "約2500g",
+          "weightImage": "新生児サイズ",
+          "development": "体の機能が整います"
+        },
+        "37": {
+          "weightGuide": "約2700g",
+          "weightImage": "新生児やや大きめ",
+          "development": "いつ生まれてもよい時期です"
+        },
+        "38": {
+          "weightGuide": "約2900g",
+          "weightImage": "新生児平均",
+          "development": "ほぼ完成しています"
+        },
+        "39": {
+          "weightGuide": "約3000g",
+          "weightImage": "新生児平均",
+          "development": "出産準備が整います"
+        },
+        "40": {
+          "weightGuide": "約3000〜3500g",
+          "weightImage": "新生児（標準）",
+          "development": "赤ちゃんが生まれる時期です"
+        }
+      }
+    }
+  },
+  "epds": {
+    "q": {
+      "10": {
+        "text": "自分自身を傷つけるという考えが浮かんできた。",
+        "o1": "はい、かなりしばしばそうだった。",
+        "o2": "時々そうだった。",
+        "o3": "めったになかった。",
+        "o4": "まったくなかった。"
+      },
+      "01": {
+        "text": "笑うことができたし、物事のおかしい面もわかった。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "まったくできなかった。"
+      },
+      "02": {
+        "text": "物事を楽しみにして待った。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "ほとんどできなかった。"
+      },
+      "03": {
+        "text": "物事が悪くいった時、自分を不必要に責めた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、時々そうだった。",
+        "o3": "いいえ、あまり度々ではない。",
+        "o4": "いいえ、そうではなかった。"
+      },
+      "04": {
+        "text": "はっきりした理由もないのに不安になったり、心配した。",
+        "o1": "いいえ、そうではなかった。",
+        "o2": "ほとんどそうではなかった。",
+        "o3": "はい、時々あった。",
+        "o4": "はい、しょっちゅうあった。"
+      },
+      "05": {
+        "text": "はっきりした理由もないのに恐怖に襲われた。",
+        "o1": "はい、しょっちゅうあった。",
+        "o2": "はい、時々あった。",
+        "o3": "いいえ、めったになかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "06": {
+        "text": "することがたくさんあって大変だった。",
+        "o1": "はい、たいてい対処できなかった。",
+        "o2": "はい、いつものようにはうまく対処しなかった。",
+        "o3": "いいえ、たいていうまく対処した。",
+        "o4": "いいえ、普段通りに対処した。"
+      },
+      "07": {
+        "text": "不幸せなので、眠りにくかった。",
+        "o1": "はい、ほとんどいつもそうだった。",
+        "o2": "はい、ときどきそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "08": {
+        "text": "悲しくなったり、惨めになった。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      },
+      "09": {
+        "text": "不幸せなので、泣けてきた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "ほんの時々あった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      }
+    }
+  },
+  "sos": {
+    "q": {
+      "01": {
+        "text": "お腹に張りや痛みはありますか？",
+        "o1": "はい",
+        "o2": "いいえ"
+      },
+      "02": {
+        "text": "お腹の張りの間隔は何分くらいですか？",
+        "o1": "ずっと",
+        "o2": "0~5分",
+        "o3": "5~10分",
+        "o4": "10~15分",
+        "o5": "15分以上"
+      },
+      "03": {
+        "text": "出血がありますか？",
+        "o1": "はい",
+        "o2": "いいえ"
+      },
+      "04": {
+        "text": "赤ちゃんは動いていますか？",
+        "o1": "はい",
+        "o2": "いいえ",
+        "o3": "分からない"
+      },
+      "05": {
+        "text": "破水していますか？",
+        "o1": "はい",
+        "o2": "いいえ",
+        "o3": "分からない"
+      },
+      "06": {
+        "text": "いつ破水しましたか？",
+        "o1": "0~1時間前",
+        "o2": "1~24時間前",
+        "o3": "24時間以上前"
+      }
+    },
+    "result": {
+      "callNow": "質問は以上です。\n病院へ連絡しましょう。",
+      "watchAndWait": "質問は以上です。\nもう少し様子をみましょう。"
+    }
+  }
 }

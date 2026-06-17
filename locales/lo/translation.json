@@ -451,131 +451,295 @@
       }
     }
   },
-  "today.baby.week.8.weightGuide": "ປະມານ 1–7 ກຣາມ",
-  "today.baby.week.8.weightImage": "ໝາກຖົ່ວເມັດນ້ອຍ 1 ເມັດ",
-  "today.baby.week.8.development": "ຫົວໃຈເລີ່ມເຕັ້ນ ແລະ ເລີ່ມມີປຸ່ມແຂນຂາ",
-  "today.baby.week.9.weightGuide": "ປະມານ 2–8 ກຣາມ",
-  "today.baby.week.9.weightImage": "ໝາກຖົ່ວເມັດນ້ອຍ 2 ເມັດ",
-  "today.baby.week.9.development": "ຮູບຮ່າງຂອງຮ່າງກາຍເລີ່ມແຍກສ່ວນຊັດເຈນຂຶ້ນ",
-  "today.baby.week.10.weightGuide": "ປະມານ 5–10 ກຣາມ",
-  "today.baby.week.10.weightImage": "ໝາກເຊີຣີ 1 ໜ່ວຍ",
-  "today.baby.week.10.development": "ນິ້ວມືເລີ່ມກໍ່ຕົວ ແລະ ເລີ່ມເບິ່ງຄືເດັກນ້ອຍຫຼາຍຂຶ້ນ",
-  "today.baby.week.11.weightGuide": "ປະມານ 10 ກຣາມ",
-  "today.baby.week.11.weightImage": "ໝາກເລັ່ນນ້ອຍ 1 ໜ່ວຍ",
-  "today.baby.week.11.development": "ໃບໜ້າເລີ່ມເຂົ້າຮູບ",
-  "today.baby.week.12.weightGuide": "ປະມານ 20 ກຣາມ",
-  "today.baby.week.12.weightImage": "ໝາກສະຕໍເບີຣີ 1 ໜ່ວຍ",
-  "today.baby.week.12.development": "ໂຄງສ້າງພື້ນຖານຂອງຮ່າງກາຍເກືອບສົມບູນ",
-  "today.baby.week.13.weightGuide": "ປະມານ 25 ກຣາມ",
-  "today.baby.week.13.weightImage": "ໝາກສະຕໍເບີຣີໜ່ວຍໃຫຍ່",
-  "today.baby.week.13.development": "ເລີ່ມຫັດກືນນ້ຳຄ້ຳ",
-  "today.baby.week.14.weightGuide": "ປະມານ 50 ກຣາມ",
-  "today.baby.week.14.weightImage": "ໄຂ່ 1 ໜ່ວຍ",
-  "today.baby.week.14.development": "ເລີ່ມຂະຫຍັບຮ່າງກາຍເລັກນ້ອຍ",
-  "today.baby.week.15.weightGuide": "ປະມານ 70 ກຣາມ",
-  "today.baby.week.15.weightImage": "ໝາກກ້ຽງນ້ອຍ",
-  "today.baby.week.15.development": "ເລີ່ມເບິ່ງເຫັນການຂະຫຍັບປາກ",
-  "today.baby.week.16.weightGuide": "ປະມານ 100 ກຣາມ",
-  "today.baby.week.16.weightImage": "ໝາກແອັບເປິ້ນເຄິ່ງໜ່ວຍ",
-  "today.baby.week.16.development": "ໃບໜ້າເລີ່ມຊັດເຈນຂຶ້ນ",
-  "today.baby.week.17.weightGuide": "ປະມານ 150 ກຣາມ",
-  "today.baby.week.17.weightImage": "ໝາກແອັບເປິ້ນ 1 ໜ່ວຍ",
-  "today.baby.week.17.development": "ເລີ່ມມີເນື້ອມີນວນຂຶ້ນ",
-  "today.baby.week.18.weightGuide": "ປະມານ 200 ກຣາມ",
-  "today.baby.week.18.weightImage": "ໝາກແອັບເປິ້ນໜ່ວຍໃຫຍ່",
-  "today.baby.week.18.development": "ເລີ່ມຕອບສະໜອງຕໍ່ສຽງ",
-  "today.baby.week.19.weightGuide": "ປະມານ 250 ກຣາມ",
-  "today.baby.week.19.weightImage": "ໝາກກ້ວຍ 1 ໜ່ວຍ",
-  "today.baby.week.19.development": "ເລີ່ມມີໄຂປ້ອງກັນຜິວໜັງ",
-  "today.baby.week.20.weightGuide": "ປະມານ 300 ກຣາມ",
-  "today.baby.week.20.weightImage": "ໝາກກ້ຽງໂອເຄິ່ງໜ່ວຍ",
-  "today.baby.week.20.development": "ເລີ່ມຮູ້ສຶກເຖິງລູກດີດ",
-  "today.baby.week.21.weightGuide": "ປະມານ 400 ກຣາມ",
-  "today.baby.week.21.weightImage": "ໝາກກ້ຽງໂອ 1 ໜ່ວຍ",
-  "today.baby.week.21.development": "ກຳລັງຝຶກລະບົບຍ່ອຍອາຫານ",
-  "today.baby.week.22.weightGuide": "ປະມານ 450 ກຣາມ",
-  "today.baby.week.22.weightImage": "ໝາກເຂືອຍາວນ້ອຍ 2 ໜ່ວຍ",
-  "today.baby.week.22.development": "ການເຮັດວຽກຂອງຮ່າງກາຍກຳລັງພັດທະນາ",
-  "today.baby.week.23.weightGuide": "ປະມານ 500 ກຣາມ",
-  "today.baby.week.23.weightImage": "ກະລໍ່າປີ 1/4 ຫົວ",
-  "today.baby.week.23.development": "ເລີ່ມມີການເຄື່ອນໄຫວຄ້າຍຄືການຫາຍໃຈ",
-  "today.baby.week.24.weightGuide": "ປະມານ 600 ກຣາມ",
-  "today.baby.week.24.weightImage": "ໝາກເມລອນນ້ອຍ",
-  "today.baby.week.24.development": "ປອດເລີ່ມພັດທະນາ",
-  "today.baby.week.25.weightGuide": "ປະມານ 700 ກຣາມ",
-  "today.baby.week.25.weightImage": "ໝາກສາລີ 3 ຝັກ",
-  "today.baby.week.25.development": "ຕອບສະໜອງຕໍ່ສິ່ງກະຕຸ້ນ",
-  "today.baby.week.26.weightGuide": "ປະມານ 800 ກຣາມ",
-  "today.baby.week.26.weightImage": "ໝາກອຶ 1/4 ໜ່ວຍ",
-  "today.baby.week.26.development": "ເລີ່ມມືນຕາ",
-  "today.baby.week.27.weightGuide": "ປະມານ 900 ກຣາມ",
-  "today.baby.week.27.weightImage": "ໝາກອຶ 1/3 ໜ່ວຍ",
-  "today.baby.week.27.development": "ການເຄື່ອນໄຫວເລີ່ມແຂງແຮງຂຶ້ນ",
-  "today.baby.week.28.weightGuide": "ປະມານ 1000 ກຣາມ",
-  "today.baby.week.28.weightImage": "ນົມ 1 ກ່ອງ",
-  "today.baby.week.28.development": "ຮ່າງກາຍເລີ່ມອວບອີ່ມຂຶ້ນ",
-  "today.baby.week.29.weightGuide": "ປະມານ 1200 ກຣາມ",
-  "today.baby.week.29.weightImage": "ໝາກນັດນ້ອຍ",
-  "today.baby.week.29.development": "ໄຂມັນເພີ່ມຂຶ້ນ",
-  "today.baby.week.30.weightGuide": "ປະມານ 1300 ກຣາມ",
-  "today.baby.week.30.weightImage": "ຜັກກາດຂາວ 1/4 ຫົວ",
-  "today.baby.week.30.development": "ເລີ່ມດີດແຮງຂຶ້ນ",
-  "today.baby.week.31.weightGuide": "ປະມານ 1500 ກຣາມ",
-  "today.baby.week.31.weightImage": "ໝາກເມລອນ 1 ໜ່ວຍ",
-  "today.baby.week.31.development": "ເລີ່ມມີຈັງຫວະການນອນ ແລະ ຕື່ນ",
-  "today.baby.week.32.weightGuide": "ປະມານ 1800 ກຣາມ",
-  "today.baby.week.32.weightImage": "ໝາກນັດ 1 ໜ່ວຍ",
-  "today.baby.week.32.development": "ເດັກນ້ອຍມັກຈະປິ່ນຫົວລົງລຸ່ມ",
-  "today.baby.week.33.weightGuide": "ປະມານ 2000 ກຣາມ",
-  "today.baby.week.33.weightImage": "ໝາກນັດໜ່ວຍໃຫຍ່",
-  "today.baby.week.33.development": "ການກຽມຕົວເກີດມີຄວາມຄືບໜ້າ",
-  "today.baby.week.34.weightGuide": "ປະມານ 2200 ກຣາມ",
-  "today.baby.week.34.weightImage": "ໝາກໂມໜ່ວຍນ້ອຍ",
-  "today.baby.week.34.development": "ພ້ອມສຳລັບການຝຶກດູດນົມແມ່",
-  "today.baby.week.35.weightGuide": "ປະມານ 2400 ກຣາມ",
-  "today.baby.week.35.weightImage": "ໝາກໂມຂະໜາດກາງ",
-  "today.baby.week.35.development": "ຮ່າງກາຍເລີ່ມມົນຂຶ້ນ",
-  "today.baby.week.36.weightGuide": "ປະມານ 2500 ກຣາມ",
-  "today.baby.week.36.weightImage": "ຂະໜາດເດັກເກີດໃໝ່",
-  "today.baby.week.36.development": "ຟັງຊັນຕ່າງໆຂອງຮ່າງກາຍພ້ອມສົມບູນ",
-  "today.baby.week.37.weightGuide": "ປະມານ 2700 ກຣາມ",
-  "today.baby.week.37.weightImage": "ເດັກເກີດໃໝ່ຂະໜາດຂ້ອນຂ້າງໃຫຍ່",
-  "today.baby.week.37.development": "ຮອດກຳນົດເກີດ ພ້ອມຈະເກີດໄດ້ທຸກເວລາ",
-  "today.baby.week.38.weightGuide": "ປະມານ 2900 ກຣາມ",
-  "today.baby.week.38.weightImage": "ຂະໜາດສະເລ່ຍເດັກເກີດໃໝ່",
-  "today.baby.week.38.development": "ຮ່າງກາຍເກືອບສົມບູນ 100%",
-  "today.baby.week.39.weightGuide": "ປະມານ 3000 ກຣາມ",
-  "today.baby.week.39.weightImage": "ຂະໜາດສະເລ່ຍເດັກເກີດໃໝ່",
-  "today.baby.week.39.development": "ການກຽມຕົວເກີດສຳເລັດສົມບູນ",
-  "today.baby.week.40.weightGuide": "ປະມານ 3000–3500 ກຣາມ",
-  "today.baby.week.40.weightImage": "ເດັກເກີດໃໝ່ (ມາດຕະຖານ)",
-  "today.baby.week.40.development": "ເປັນຊ່ວງເວລາທີ່ເດັກຈະເກີດ",
-  "sos.q.01.text": "ເຈົ້າມີອາການທ້ອງຕຶງ ຫຼື ເຈັບທ້ອງບໍ່?",
-  "sos.q.01.o1": "ມີ",
-  "sos.q.01.o2": "ບໍ່ມີ",
-  "sos.q.02.text": "ທ້ອງຕຶງທຸກໆ ຈັກນາທີ?",
-  "sos.q.02.o1": "ຕະຫຼອດເວລາ",
-  "sos.q.02.o2": "0~5 ນາທີ",
-  "sos.q.02.o3": "5~10 ນາທີ",
-  "sos.q.02.o4": "10~15 ນາທີ",
-  "sos.q.02.o5": "15 ນາທີຂຶ້ນໄປ",
-  "sos.q.03.text": "ເຈົ້າມີເລືອດອອກບໍ່?",
-  "sos.q.03.o1": "ມີ",
-  "sos.q.03.o2": "ບໍ່ມີ",
-  "sos.q.04.text": "ລູກດິ້ງບໍ່?",
-  "sos.q.04.o1": "ດິ້ງ",
-  "sos.q.04.o2": "ບໍ່ດິ້ງ",
-  "sos.q.04.o3": "ບໍ່ຮູ້",
-  "sos.q.05.text": "ນ້ຳຄ້ຳຍ້ອຍບໍ່?",
-  "sos.q.05.o1": "ຍ້ອຍ",
-  "sos.q.05.o2": "ບໍ່ຍ້ອຍ",
-  "sos.q.05.o3": "ບໍ່ຮູ້",
-  "sos.q.06.text": "ນ້ຳຄ້ຳຍ້ອຍແຕ່ຕອນໃດ?",
-  "sos.q.06.o1": "0~1 ຊົ່ວໂມງກ່ອນ",
-  "sos.q.06.o2": "1~24 ຊົ່ວໂມງກ່ອນ",
-  "sos.q.06.o3": "ເກີນ 24 ຊົ່ວໂມງກ່ອນ",
-  "sos.result.callNow": "ຈົບຄຳຖາມແລ້ວ.\nກະລຸນາຕິດຕໍ່ໂຮງໝໍເດີ້.",
-  "sos.result.watchAndWait": "ຈົບຄຳຖາມແລ້ວ.\nລໍຖ້າເບິ່ງອາການອີກຈັກໜ່ອຍເນາະ.",
+  "today": {
+    "baby": {
+      "week": {
+        "8": {
+          "weightGuide": "ປະມານ 1–7 ກຣາມ",
+          "weightImage": "ໝາກຖົ່ວເມັດນ້ອຍ 1 ເມັດ",
+          "development": "ຫົວໃຈເລີ່ມເຕັ້ນ ແລະ ເລີ່ມມີປຸ່ມແຂນຂາ"
+        },
+        "9": {
+          "weightGuide": "ປະມານ 2–8 ກຣາມ",
+          "weightImage": "ໝາກຖົ່ວເມັດນ້ອຍ 2 ເມັດ",
+          "development": "ຮູບຮ່າງຂອງຮ່າງກາຍເລີ່ມແຍກສ່ວນຊັດເຈນຂຶ້ນ"
+        },
+        "10": {
+          "weightGuide": "ປະມານ 5–10 ກຣາມ",
+          "weightImage": "ໝາກເຊີຣີ 1 ໜ່ວຍ",
+          "development": "ນິ້ວມືເລີ່ມກໍ່ຕົວ ແລະ ເລີ່ມເບິ່ງຄືເດັກນ້ອຍຫຼາຍຂຶ້ນ"
+        },
+        "11": {
+          "weightGuide": "ປະມານ 10 ກຣາມ",
+          "weightImage": "ໝາກເລັ່ນນ້ອຍ 1 ໜ່ວຍ",
+          "development": "ໃບໜ້າເລີ່ມເຂົ້າຮູບ"
+        },
+        "12": {
+          "weightGuide": "ປະມານ 20 ກຣາມ",
+          "weightImage": "ໝາກສະຕໍເບີຣີ 1 ໜ່ວຍ",
+          "development": "ໂຄງສ້າງພື້ນຖານຂອງຮ່າງກາຍເກືອບສົມບູນ"
+        },
+        "13": {
+          "weightGuide": "ປະມານ 25 ກຣາມ",
+          "weightImage": "ໝາກສະຕໍເບີຣີໜ່ວຍໃຫຍ່",
+          "development": "ເລີ່ມຫັດກືນນ້ຳຄ້ຳ"
+        },
+        "14": {
+          "weightGuide": "ປະມານ 50 ກຣາມ",
+          "weightImage": "ໄຂ່ 1 ໜ່ວຍ",
+          "development": "ເລີ່ມຂະຫຍັບຮ່າງກາຍເລັກນ້ອຍ"
+        },
+        "15": {
+          "weightGuide": "ປະມານ 70 ກຣາມ",
+          "weightImage": "ໝາກກ້ຽງນ້ອຍ",
+          "development": "ເລີ່ມເບິ່ງເຫັນການຂະຫຍັບປາກ"
+        },
+        "16": {
+          "weightGuide": "ປະມານ 100 ກຣາມ",
+          "weightImage": "ໝາກແອັບເປິ້ນເຄິ່ງໜ່ວຍ",
+          "development": "ໃບໜ້າເລີ່ມຊັດເຈນຂຶ້ນ"
+        },
+        "17": {
+          "weightGuide": "ປະມານ 150 ກຣາມ",
+          "weightImage": "ໝາກແອັບເປິ້ນ 1 ໜ່ວຍ",
+          "development": "ເລີ່ມມີເນື້ອມີນວນຂຶ້ນ"
+        },
+        "18": {
+          "weightGuide": "ປະມານ 200 ກຣາມ",
+          "weightImage": "ໝາກແອັບເປິ້ນໜ່ວຍໃຫຍ່",
+          "development": "ເລີ່ມຕອບສະໜອງຕໍ່ສຽງ"
+        },
+        "19": {
+          "weightGuide": "ປະມານ 250 ກຣາມ",
+          "weightImage": "ໝາກກ້ວຍ 1 ໜ່ວຍ",
+          "development": "ເລີ່ມມີໄຂປ້ອງກັນຜິວໜັງ"
+        },
+        "20": {
+          "weightGuide": "ປະມານ 300 ກຣາມ",
+          "weightImage": "ໝາກກ້ຽງໂອເຄິ່ງໜ່ວຍ",
+          "development": "ເລີ່ມຮູ້ສຶກເຖິງລູກດີດ"
+        },
+        "21": {
+          "weightGuide": "ປະມານ 400 ກຣາມ",
+          "weightImage": "ໝາກກ້ຽງໂອ 1 ໜ່ວຍ",
+          "development": "ກຳລັງຝຶກລະບົບຍ່ອຍອາຫານ"
+        },
+        "22": {
+          "weightGuide": "ປະມານ 450 ກຣາມ",
+          "weightImage": "ໝາກເຂືອຍາວນ້ອຍ 2 ໜ່ວຍ",
+          "development": "ການເຮັດວຽກຂອງຮ່າງກາຍກຳລັງພັດທະນາ"
+        },
+        "23": {
+          "weightGuide": "ປະມານ 500 ກຣາມ",
+          "weightImage": "ກະລໍ່າປີ 1/4 ຫົວ",
+          "development": "ເລີ່ມມີການເຄື່ອນໄຫວຄ້າຍຄືການຫາຍໃຈ"
+        },
+        "24": {
+          "weightGuide": "ປະມານ 600 ກຣາມ",
+          "weightImage": "ໝາກເມລອນນ້ອຍ",
+          "development": "ປອດເລີ່ມພັດທະນາ"
+        },
+        "25": {
+          "weightGuide": "ປະມານ 700 ກຣາມ",
+          "weightImage": "ໝາກສາລີ 3 ຝັກ",
+          "development": "ຕອບສະໜອງຕໍ່ສິ່ງກະຕຸ້ນ"
+        },
+        "26": {
+          "weightGuide": "ປະມານ 800 ກຣາມ",
+          "weightImage": "ໝາກອຶ 1/4 ໜ່ວຍ",
+          "development": "ເລີ່ມມືນຕາ"
+        },
+        "27": {
+          "weightGuide": "ປະມານ 900 ກຣາມ",
+          "weightImage": "ໝາກອຶ 1/3 ໜ່ວຍ",
+          "development": "ການເຄື່ອນໄຫວເລີ່ມແຂງແຮງຂຶ້ນ"
+        },
+        "28": {
+          "weightGuide": "ປະມານ 1000 ກຣາມ",
+          "weightImage": "ນົມ 1 ກ່ອງ",
+          "development": "ຮ່າງກາຍເລີ່ມອວບອີ່ມຂຶ້ນ"
+        },
+        "29": {
+          "weightGuide": "ປະມານ 1200 ກຣາມ",
+          "weightImage": "ໝາກນັດນ້ອຍ",
+          "development": "ໄຂມັນເພີ່ມຂຶ້ນ"
+        },
+        "30": {
+          "weightGuide": "ປະມານ 1300 ກຣາມ",
+          "weightImage": "ຜັກກາດຂາວ 1/4 ຫົວ",
+          "development": "ເລີ່ມດີດແຮງຂຶ້ນ"
+        },
+        "31": {
+          "weightGuide": "ປະມານ 1500 ກຣາມ",
+          "weightImage": "ໝາກເມລອນ 1 ໜ່ວຍ",
+          "development": "ເລີ່ມມີຈັງຫວະການນອນ ແລະ ຕື່ນ"
+        },
+        "32": {
+          "weightGuide": "ປະມານ 1800 ກຣາມ",
+          "weightImage": "ໝາກນັດ 1 ໜ່ວຍ",
+          "development": "ເດັກນ້ອຍມັກຈະປິ່ນຫົວລົງລຸ່ມ"
+        },
+        "33": {
+          "weightGuide": "ປະມານ 2000 ກຣາມ",
+          "weightImage": "ໝາກນັດໜ່ວຍໃຫຍ່",
+          "development": "ການກຽມຕົວເກີດມີຄວາມຄືບໜ້າ"
+        },
+        "34": {
+          "weightGuide": "ປະມານ 2200 ກຣາມ",
+          "weightImage": "ໝາກໂມໜ່ວຍນ້ອຍ",
+          "development": "ພ້ອມສຳລັບການຝຶກດູດນົມແມ່"
+        },
+        "35": {
+          "weightGuide": "ປະມານ 2400 ກຣາມ",
+          "weightImage": "ໝາກໂມຂະໜາດກາງ",
+          "development": "ຮ່າງກາຍເລີ່ມມົນຂຶ້ນ"
+        },
+        "36": {
+          "weightGuide": "ປະມານ 2500 ກຣາມ",
+          "weightImage": "ຂະໜາດເດັກເກີດໃໝ່",
+          "development": "ຟັງຊັນຕ່າງໆຂອງຮ່າງກາຍພ້ອມສົມບູນ"
+        },
+        "37": {
+          "weightGuide": "ປະມານ 2700 ກຣາມ",
+          "weightImage": "ເດັກເກີດໃໝ່ຂະໜາດຂ້ອນຂ້າງໃຫຍ່",
+          "development": "ຮອດກຳນົດເກີດ ພ້ອມຈະເກີດໄດ້ທຸກເວລາ"
+        },
+        "38": {
+          "weightGuide": "ປະມານ 2900 ກຣາມ",
+          "weightImage": "ຂະໜາດສະເລ່ຍເດັກເກີດໃໝ່",
+          "development": "ຮ່າງກາຍເກືອບສົມບູນ 100%"
+        },
+        "39": {
+          "weightGuide": "ປະມານ 3000 ກຣາມ",
+          "weightImage": "ຂະໜາດສະເລ່ຍເດັກເກີດໃໝ່",
+          "development": "ການກຽມຕົວເກີດສຳເລັດສົມບູນ"
+        },
+        "40": {
+          "weightGuide": "ປະມານ 3000–3500 ກຣາມ",
+          "weightImage": "ເດັກເກີດໃໝ່ (ມາດຕະຖານ)",
+          "development": "ເປັນຊ່ວງເວລາທີ່ເດັກຈະເກີດ"
+        }
+      }
+    }
+  },
+  "epds": {
+    "q": {
+      "10": {
+        "text": "自分自身を傷つけるという考えが浮かんできた。",
+        "o1": "はい、かなりしばしばそうだった。",
+        "o2": "時々そうだった。",
+        "o3": "めったになかった。",
+        "o4": "まったくなかった。"
+      },
+      "01": {
+        "text": "笑うことができたし、物事のおかしい面もわかった。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "まったくできなかった。"
+      },
+      "02": {
+        "text": "物事を楽しみにして待った。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "ほとんどできなかった。"
+      },
+      "03": {
+        "text": "物事が悪くいった時、自分を不必要に責めた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、時々そうだった。",
+        "o3": "いいえ、あまり度々ではない。",
+        "o4": "いいえ、そうではなかった。"
+      },
+      "04": {
+        "text": "はっきりした理由もないのに不安になったり、心配した。",
+        "o1": "いいえ、そうではなかった。",
+        "o2": "ほとんどそうではなかった。",
+        "o3": "はい、時々あった。",
+        "o4": "はい、しょっちゅうあった。"
+      },
+      "05": {
+        "text": "はっきりした理由もないのに恐怖に襲われた。",
+        "o1": "はい、しょっちゅうあった。",
+        "o2": "はい、時々あった。",
+        "o3": "いいえ、めったになかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "06": {
+        "text": "することがたくさんあって大変だった。",
+        "o1": "はい、たいてい対処できなかった。",
+        "o2": "はい、いつものようにはうまく対処しなかった。",
+        "o3": "いいえ、たいていうまく対処した。",
+        "o4": "いいえ、普段通りに対処した。"
+      },
+      "07": {
+        "text": "不幸せなので、眠りにくかった。",
+        "o1": "はい、ほとんどいつもそうだった。",
+        "o2": "はい、ときどきそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "08": {
+        "text": "悲しくなったり、惨めになった。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      },
+      "09": {
+        "text": "不幸せなので、泣けてきた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "ほんの時々あった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      }
+    }
+  },
+  "sos": {
+    "q": {
+      "01": {
+        "text": "ເຈົ້າມີອາການທ້ອງຕຶງ ຫຼື ເຈັບທ້ອງບໍ່?",
+        "o1": "ມີ",
+        "o2": "ບໍ່ມີ"
+      },
+      "02": {
+        "text": "ທ້ອງຕຶງທຸກໆ ຈັກນາທີ?",
+        "o1": "ຕະຫຼອດເວລາ",
+        "o2": "0~5 ນາທີ",
+        "o3": "5~10 ນາທີ",
+        "o4": "10~15 ນາທີ",
+        "o5": "15 ນາທີຂຶ້ນໄປ"
+      },
+      "03": {
+        "text": "ເຈົ້າມີເລືອດອອກບໍ່?",
+        "o1": "ມີ",
+        "o2": "ບໍ່ມີ"
+      },
+      "04": {
+        "text": "ລູກດິ້ງບໍ່?",
+        "o1": "ດິ້ງ",
+        "o2": "ບໍ່ດິ້ງ",
+        "o3": "ບໍ່ຮູ້"
+      },
+      "05": {
+        "text": "ນ້ຳຄ້ຳຍ້ອຍບໍ່?",
+        "o1": "ຍ້ອຍ",
+        "o2": "ບໍ່ຍ້ອຍ",
+        "o3": "ບໍ່ຮູ້"
+      },
+      "06": {
+        "text": "ນ້ຳຄ້ຳຍ້ອຍແຕ່ຕອນໃດ?",
+        "o1": "0~1 ຊົ່ວໂມງກ່ອນ",
+        "o2": "1~24 ຊົ່ວໂມງກ່ອນ",
+        "o3": "ເກີນ 24 ຊົ່ວໂມງກ່ອນ"
+      }
+    },
+    "result": {
+      "callNow": "ຈົບຄຳຖາມແລ້ວ.\nກະລຸນາຕິດຕໍ່ໂຮງໝໍເດີ້.",
+      "watchAndWait": "ຈົບຄຳຖາມແລ້ວ.\nລໍຖ້າເບິ່ງອາການອີກຈັກໜ່ອຍເນາະ."
+    }
+  },
   "link": {
     "levelTable": {
       "caption": "ກະລຸນາເລືອກລະດັບທີ່ກົງກັບແຕ່ລະທັກສະ.",

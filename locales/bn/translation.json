@@ -451,131 +451,295 @@
       }
     }
   },
-  "today.baby.week.8.weightGuide": "প্রায় ১-৭ গ্রাম",
-  "today.baby.week.8.weightImage": "১টি ছোট শিম বিচি",
-  "today.baby.week.8.development": "হৃদস্পন্দন শুরু হয় এবং হাত-পায়ের কুঁড়ি তৈরি হয়।",
-  "today.baby.week.9.weightGuide": "প্রায় ২-৮ গ্রাম",
-  "today.baby.week.9.weightImage": "২টি ছোট শিম বিচি",
-  "today.baby.week.9.development": "শরীরের গঠন ধীরে ধীরে আলাদা হতে শুরু করে।",
-  "today.baby.week.10.weightGuide": "প্রায় ৫-১০ গ্রাম",
-  "today.baby.week.10.weightImage": "১টি চেরি",
-  "today.baby.week.10.development": "আঙ্গুল তৈরি হয় এবং শিশুকে আরও মানুষের মতো দেখায়।",
-  "today.baby.week.11.weightGuide": "প্রায় ১০ গ্রাম",
-  "today.baby.week.11.weightImage": "১টি চেরি টমেটো",
-  "today.baby.week.11.development": "মুখের অবয়ব তৈরি হতে শুরু করে।",
-  "today.baby.week.12.weightGuide": "প্রায় ২০ গ্রাম",
-  "today.baby.week.12.weightImage": "১টি স্ট্রবেরি",
-  "today.baby.week.12.development": "শরীরের মৌলিক কাঠামো প্রায় সম্পূর্ণ।",
-  "today.baby.week.13.weightGuide": "প্রায় ২৫ গ্রাম",
-  "today.baby.week.13.weightImage": "বড় স্ট্রবেরি",
-  "today.baby.week.13.development": "অ্যামনিওটিক ফ্লুইড গিলে ফেলার অভ্যাস শুরু করে।",
-  "today.baby.week.14.weightGuide": "প্রায় ৫০ গ্রাম",
-  "today.baby.week.14.weightImage": "১টি ডিম",
-  "today.baby.week.14.development": "শরীর কিছুটা নড়াচড়া করতে শুরু করে।",
-  "today.baby.week.15.weightGuide": "প্রায় ৭০ গ্রাম",
-  "today.baby.week.15.weightImage": "ছোট কমলালেবু",
-  "today.baby.week.15.development": "মুখের নড়াচড়া লক্ষ্য করা যায়।",
-  "today.baby.week.16.weightGuide": "প্রায় ১০০ গ্রাম",
-  "today.baby.week.16.weightImage": "অর্ধেক আপেল",
-  "today.baby.week.16.development": "মুখমণ্ডল আরও স্পষ্ট হয়।",
-  "today.baby.week.17.weightGuide": "প্রায় ১৫০ গ্রাম",
-  "today.baby.week.17.weightImage": "১টি আপেল",
-  "today.baby.week.17.development": "ধীরে ধীরে আরও নাদুস-নুদুস হয়।",
-  "today.baby.week.18.weightGuide": "প্রায় ২০০ গ্রাম",
-  "today.baby.week.18.weightImage": "বড় আপেল",
-  "today.baby.week.18.development": "শব্দে সাড়া দিতে শুরু করে।",
-  "today.baby.week.19.weightGuide": "প্রায় ২৫০ গ্রাম",
-  "today.baby.week.19.weightImage": "১টি কলা",
-  "today.baby.week.19.development": "ত্বকের ওপর একটি সুরক্ষামূলক স্তর (ভারনিক্স) তৈরি হয়।",
-  "today.baby.week.20.weightGuide": "প্রায় ৩০০ গ্রাম",
-  "today.baby.week.20.weightImage": "অর্ধেক বাতাবি লেবু",
-  "today.baby.week.20.development": "ভ্রূণের নড়াচড়া অনুভূত হতে শুরু করে।",
-  "today.baby.week.21.weightGuide": "প্রায় ৪০০ গ্রাম",
-  "today.baby.week.21.weightImage": "১টি বাতাবি লেবু",
-  "today.baby.week.21.development": "হজম প্রক্রিয়া অনুশীলন করছে।",
-  "today.baby.week.22.weightGuide": "প্রায় ৪৫০ গ্রাম",
-  "today.baby.week.22.weightImage": "২টি ছোট বেগুন",
-  "today.baby.week.22.development": "শরীরের কাজগুলো বিকশিত হচ্ছে।",
-  "today.baby.week.23.weightGuide": "প্রায় ৫০০ গ্রাম",
-  "today.baby.week.23.weightImage": "১/৪ বাঁধাকপি",
-  "today.baby.week.23.development": "শ্বাসের মতো নড়াচড়া করে।",
-  "today.baby.week.24.weightGuide": "প্রায় ৬০০ গ্রাম",
-  "today.baby.week.24.weightImage": "ছোট তরমুজ",
-  "today.baby.week.24.development": "ফুসফুস বিকশিত হতে শুরু করে।",
-  "today.baby.week.25.weightGuide": "প্রায় ৭০০ গ্রাম",
-  "today.baby.week.25.weightImage": "৩টি ভুট্টা",
-  "today.baby.week.25.development": "উত্তেজনায় সাড়া দেয়।",
-  "today.baby.week.26.weightGuide": "প্রায় ৮০০ গ্রাম",
-  "today.baby.week.26.weightImage": "১/৪ মিষ্টি কুমড়া",
-  "today.baby.week.26.development": "চোখ খুলতে শুরু করে।",
-  "today.baby.week.27.weightGuide": "প্রায় ৯০০ গ্রাম",
-  "today.baby.week.27.weightImage": "১/৩ মিষ্টি কুমড়া",
-  "today.baby.week.27.development": "নড়াচড়া আরও শক্তিশালী হয়।",
-  "today.baby.week.28.weightGuide": "প্রায় ১০০০ গ্রাম",
-  "today.baby.week.28.weightImage": "১ প্যাকেট দুধ",
-  "today.baby.week.28.development": "শরীর ভরাট হতে শুরু করে।",
-  "today.baby.week.29.weightGuide": "প্রায় ১২০০ গ্রাম",
-  "today.baby.week.29.weightImage": "ছোট আনারস",
-  "today.baby.week.29.development": "শরীরের চর্বি বৃদ্ধি পায়।",
-  "today.baby.week.30.weightGuide": "প্রায় ১৩০০ গ্রাম",
-  "today.baby.week.30.weightImage": "১/৪ বাঁধাকপি (চাইনিজ)",
-  "today.baby.week.30.development": "জোরালোভাবে নড়াচড়া শুরু করে।",
-  "today.baby.week.31.weightGuide": "প্রায় ১৫০০ গ্রাম",
-  "today.baby.week.31.weightImage": "১টি তরমুজ",
-  "today.baby.week.31.development": "ঘুম-জাগরণ ছন্দ দেখা দেয়।",
-  "today.baby.week.32.weightGuide": "প্রায় ১৮০০ গ্রাম",
-  "today.baby.week.32.weightImage": "১টি আনারস",
-  "today.baby.week.32.development": "মাথা প্রায়শই নিচের দিকে থাকে।",
-  "today.baby.week.33.weightGuide": "প্রায় ২০০০ গ্রাম",
-  "today.baby.week.33.weightImage": "বড় আনারস",
-  "today.baby.week.33.development": "জন্মের প্রস্তুতি এগিয়ে চলে।",
-  "today.baby.week.34.weightGuide": "প্রায় ২২০০ গ্রাম",
-  "today.baby.week.34.weightImage": "ছোট তরমুজ",
-  "today.baby.week.34.development": "স্তন্যপানের জন্য প্রস্তুত হচ্ছে।",
-  "today.baby.week.35.weightGuide": "প্রায় ২৪০০ গ্রাম",
-  "today.baby.week.35.weightImage": "মাঝারি তরমুজ",
-  "today.baby.week.35.development": "শরীর আরও গোলগাল হয়।",
-  "today.baby.week.36.weightGuide": "প্রায় ২৫০০ গ্রাম",
-  "today.baby.week.36.weightImage": "নবজাতকের আকার",
-  "today.baby.week.36.development": "শরীরের কার্যকারিতা সম্পূর্ণ হয়।",
-  "today.baby.week.37.weightGuide": "প্রায় ২৭০০ গ্রাম",
-  "today.baby.week.37.weightImage": "সামান্য বড় নবজাতক",
-  "today.baby.week.37.development": "যেকোনো সময় জন্মের জন্য প্রস্তুত।",
-  "today.baby.week.38.weightGuide": "প্রায় ২৯০০ গ্রাম",
-  "today.baby.week.38.weightImage": "গড় নবজাতক",
-  "today.baby.week.38.development": "প্রায় সম্পূর্ণ বিকশিত।",
-  "today.baby.week.39.weightGuide": "প্রায় ৩০০০ গ্রাম",
-  "today.baby.week.39.weightImage": "গড় নবজাতক",
-  "today.baby.week.39.development": "প্রসবের প্রস্তুতি সম্পন্ন।",
-  "today.baby.week.40.weightGuide": "প্রায় ৩০০০-৩৫০০ গ্রাম",
-  "today.baby.week.40.weightImage": "নবজাতক (স্বাভাবিক)",
-  "today.baby.week.40.development": "শিশুর জন্মের সময়।",
-  "sos.q.01.text": "পেটে কি কোনো টান বা ব্যথা আছে?",
-  "sos.q.01.o1": "হ্যাঁ",
-  "sos.q.01.o2": "না",
-  "sos.q.02.text": "পেটে কতক্ষণ অন্তর টান ধরছে?",
-  "sos.q.02.o1": "সব সময়",
-  "sos.q.02.o2": "০-৫ মিনিট",
-  "sos.q.02.o3": "৫-১০ মিনিট",
-  "sos.q.02.o4": "১০-১৫ মিনিট",
-  "sos.q.02.o5": "১৫ মিনিটের বেশি",
-  "sos.q.03.text": "রক্তপাত হচ্ছে কি?",
-  "sos.q.03.o1": "হ্যাঁ",
-  "sos.q.03.o2": "না",
-  "sos.q.04.text": "শিশু কি নড়াচড়া করছে?",
-  "sos.q.04.o1": "হ্যাঁ",
-  "sos.q.04.o2": "না",
-  "sos.q.04.o3": "জানি না",
-  "sos.q.05.text": "পানি ভেঙেছে কি?",
-  "sos.q.05.o1": "হ্যাঁ",
-  "sos.q.05.o2": "না",
-  "sos.q.05.o3": "জানি না",
-  "sos.q.06.text": "কখন পানি ভেঙেছে?",
-  "sos.q.06.o1": "০-১ ঘণ্টা আগে",
-  "sos.q.06.o2": "১-২৪ ঘণ্টা আগে",
-  "sos.q.06.o3": "২৪ ঘণ্টার বেশি আগে",
-  "sos.result.callNow": "সব প্রশ্ন শেষ হয়েছে।\nদয়া করে হাসপাতালে যোগাযোগ করুন।",
-  "sos.result.watchAndWait": "সব প্রশ্ন শেষ হয়েছে।\nআরো কিছুক্ষণ পর্যবেক্ষণ করুন।",
+  "today": {
+    "baby": {
+      "week": {
+        "8": {
+          "weightGuide": "প্রায় ১-৭ গ্রাম",
+          "weightImage": "১টি ছোট শিম বিচি",
+          "development": "হৃদস্পন্দন শুরু হয় এবং হাত-পায়ের কুঁড়ি তৈরি হয়।"
+        },
+        "9": {
+          "weightGuide": "প্রায় ২-৮ গ্রাম",
+          "weightImage": "২টি ছোট শিম বিচি",
+          "development": "শরীরের গঠন ধীরে ধীরে আলাদা হতে শুরু করে।"
+        },
+        "10": {
+          "weightGuide": "প্রায় ৫-১০ গ্রাম",
+          "weightImage": "১টি চেরি",
+          "development": "আঙ্গুল তৈরি হয় এবং শিশুকে আরও মানুষের মতো দেখায়।"
+        },
+        "11": {
+          "weightGuide": "প্রায় ১০ গ্রাম",
+          "weightImage": "১টি চেরি টমেটো",
+          "development": "মুখের অবয়ব তৈরি হতে শুরু করে।"
+        },
+        "12": {
+          "weightGuide": "প্রায় ২০ গ্রাম",
+          "weightImage": "১টি স্ট্রবেরি",
+          "development": "শরীরের মৌলিক কাঠামো প্রায় সম্পূর্ণ।"
+        },
+        "13": {
+          "weightGuide": "প্রায় ২৫ গ্রাম",
+          "weightImage": "বড় স্ট্রবেরি",
+          "development": "অ্যামনিওটিক ফ্লুইড গিলে ফেলার অভ্যাস শুরু করে।"
+        },
+        "14": {
+          "weightGuide": "প্রায় ৫০ গ্রাম",
+          "weightImage": "১টি ডিম",
+          "development": "শরীর কিছুটা নড়াচড়া করতে শুরু করে।"
+        },
+        "15": {
+          "weightGuide": "প্রায় ৭০ গ্রাম",
+          "weightImage": "ছোট কমলালেবু",
+          "development": "মুখের নড়াচড়া লক্ষ্য করা যায়।"
+        },
+        "16": {
+          "weightGuide": "প্রায় ১০০ গ্রাম",
+          "weightImage": "অর্ধেক আপেল",
+          "development": "মুখমণ্ডল আরও স্পষ্ট হয়।"
+        },
+        "17": {
+          "weightGuide": "প্রায় ১৫০ গ্রাম",
+          "weightImage": "১টি আপেল",
+          "development": "ধীরে ধীরে আরও নাদুস-নুদুস হয়।"
+        },
+        "18": {
+          "weightGuide": "প্রায় ২০০ গ্রাম",
+          "weightImage": "বড় আপেল",
+          "development": "শব্দে সাড়া দিতে শুরু করে।"
+        },
+        "19": {
+          "weightGuide": "প্রায় ২৫০ গ্রাম",
+          "weightImage": "১টি কলা",
+          "development": "ত্বকের ওপর একটি সুরক্ষামূলক স্তর (ভারনিক্স) তৈরি হয়।"
+        },
+        "20": {
+          "weightGuide": "প্রায় ৩০০ গ্রাম",
+          "weightImage": "অর্ধেক বাতাবি লেবু",
+          "development": "ভ্রূণের নড়াচড়া অনুভূত হতে শুরু করে।"
+        },
+        "21": {
+          "weightGuide": "প্রায় ৪০০ গ্রাম",
+          "weightImage": "১টি বাতাবি লেবু",
+          "development": "হজম প্রক্রিয়া অনুশীলন করছে।"
+        },
+        "22": {
+          "weightGuide": "প্রায় ৪৫০ গ্রাম",
+          "weightImage": "২টি ছোট বেগুন",
+          "development": "শরীরের কাজগুলো বিকশিত হচ্ছে।"
+        },
+        "23": {
+          "weightGuide": "প্রায় ৫০০ গ্রাম",
+          "weightImage": "১/৪ বাঁধাকপি",
+          "development": "শ্বাসের মতো নড়াচড়া করে।"
+        },
+        "24": {
+          "weightGuide": "প্রায় ৬০০ গ্রাম",
+          "weightImage": "ছোট তরমুজ",
+          "development": "ফুসফুস বিকশিত হতে শুরু করে।"
+        },
+        "25": {
+          "weightGuide": "প্রায় ৭০০ গ্রাম",
+          "weightImage": "৩টি ভুট্টা",
+          "development": "উত্তেজনায় সাড়া দেয়।"
+        },
+        "26": {
+          "weightGuide": "প্রায় ৮০০ গ্রাম",
+          "weightImage": "১/৪ মিষ্টি কুমড়া",
+          "development": "চোখ খুলতে শুরু করে।"
+        },
+        "27": {
+          "weightGuide": "প্রায় ৯০০ গ্রাম",
+          "weightImage": "১/৩ মিষ্টি কুমড়া",
+          "development": "নড়াচড়া আরও শক্তিশালী হয়।"
+        },
+        "28": {
+          "weightGuide": "প্রায় ১০০০ গ্রাম",
+          "weightImage": "১ প্যাকেট দুধ",
+          "development": "শরীর ভরাট হতে শুরু করে।"
+        },
+        "29": {
+          "weightGuide": "প্রায় ১২০০ গ্রাম",
+          "weightImage": "ছোট আনারস",
+          "development": "শরীরের চর্বি বৃদ্ধি পায়।"
+        },
+        "30": {
+          "weightGuide": "প্রায় ১৩০০ গ্রাম",
+          "weightImage": "১/৪ বাঁধাকপি (চাইনিজ)",
+          "development": "জোরালোভাবে নড়াচড়া শুরু করে।"
+        },
+        "31": {
+          "weightGuide": "প্রায় ১৫০০ গ্রাম",
+          "weightImage": "১টি তরমুজ",
+          "development": "ঘুম-জাগরণ ছন্দ দেখা দেয়।"
+        },
+        "32": {
+          "weightGuide": "প্রায় ১৮০০ গ্রাম",
+          "weightImage": "১টি আনারস",
+          "development": "মাথা প্রায়শই নিচের দিকে থাকে।"
+        },
+        "33": {
+          "weightGuide": "প্রায় ২০০০ গ্রাম",
+          "weightImage": "বড় আনারস",
+          "development": "জন্মের প্রস্তুতি এগিয়ে চলে।"
+        },
+        "34": {
+          "weightGuide": "প্রায় ২২০০ গ্রাম",
+          "weightImage": "ছোট তরমুজ",
+          "development": "স্তন্যপানের জন্য প্রস্তুত হচ্ছে।"
+        },
+        "35": {
+          "weightGuide": "প্রায় ২৪০০ গ্রাম",
+          "weightImage": "মাঝারি তরমুজ",
+          "development": "শরীর আরও গোলগাল হয়।"
+        },
+        "36": {
+          "weightGuide": "প্রায় ২৫০০ গ্রাম",
+          "weightImage": "নবজাতকের আকার",
+          "development": "শরীরের কার্যকারিতা সম্পূর্ণ হয়।"
+        },
+        "37": {
+          "weightGuide": "প্রায় ২৭০০ গ্রাম",
+          "weightImage": "সামান্য বড় নবজাতক",
+          "development": "যেকোনো সময় জন্মের জন্য প্রস্তুত।"
+        },
+        "38": {
+          "weightGuide": "প্রায় ২৯০০ গ্রাম",
+          "weightImage": "গড় নবজাতক",
+          "development": "প্রায় সম্পূর্ণ বিকশিত।"
+        },
+        "39": {
+          "weightGuide": "প্রায় ৩০০০ গ্রাম",
+          "weightImage": "গড় নবজাতক",
+          "development": "প্রসবের প্রস্তুতি সম্পন্ন।"
+        },
+        "40": {
+          "weightGuide": "প্রায় ৩০০০-৩৫০০ গ্রাম",
+          "weightImage": "নবজাতক (স্বাভাবিক)",
+          "development": "শিশুর জন্মের সময়।"
+        }
+      }
+    }
+  },
+  "epds": {
+    "q": {
+      "10": {
+        "text": "自分自身を傷つけるという考えが浮かんできた。",
+        "o1": "はい、かなりしばしばそうだった。",
+        "o2": "時々そうだった。",
+        "o3": "めったになかった。",
+        "o4": "まったくなかった。"
+      },
+      "01": {
+        "text": "笑うことができたし、物事のおかしい面もわかった。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "まったくできなかった。"
+      },
+      "02": {
+        "text": "物事を楽しみにして待った。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "ほとんどできなかった。"
+      },
+      "03": {
+        "text": "物事が悪くいった時、自分を不必要に責めた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、時々そうだった。",
+        "o3": "いいえ、あまり度々ではない。",
+        "o4": "いいえ、そうではなかった。"
+      },
+      "04": {
+        "text": "はっきりした理由もないのに不安になったり、心配した。",
+        "o1": "いいえ、そうではなかった。",
+        "o2": "ほとんどそうではなかった。",
+        "o3": "はい、時々あった。",
+        "o4": "はい、しょっちゅうあった。"
+      },
+      "05": {
+        "text": "はっきりした理由もないのに恐怖に襲われた。",
+        "o1": "はい、しょっちゅうあった。",
+        "o2": "はい、時々あった。",
+        "o3": "いいえ、めったになかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "06": {
+        "text": "することがたくさんあって大変だった。",
+        "o1": "はい、たいてい対処できなかった。",
+        "o2": "はい、いつものようにはうまく対処しなかった。",
+        "o3": "いいえ、たいていうまく対処した。",
+        "o4": "いいえ、普段通りに対処した。"
+      },
+      "07": {
+        "text": "不幸せなので、眠りにくかった。",
+        "o1": "はい、ほとんどいつもそうだった。",
+        "o2": "はい、ときどきそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "08": {
+        "text": "悲しくなったり、惨めになった。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      },
+      "09": {
+        "text": "不幸せなので、泣けてきた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "ほんの時々あった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      }
+    }
+  },
+  "sos": {
+    "q": {
+      "01": {
+        "text": "পেটে কি কোনো টান বা ব্যথা আছে?",
+        "o1": "হ্যাঁ",
+        "o2": "না"
+      },
+      "02": {
+        "text": "পেটে কতক্ষণ অন্তর টান ধরছে?",
+        "o1": "সব সময়",
+        "o2": "০-৫ মিনিট",
+        "o3": "৫-১০ মিনিট",
+        "o4": "১০-১৫ মিনিট",
+        "o5": "১৫ মিনিটের বেশি"
+      },
+      "03": {
+        "text": "রক্তপাত হচ্ছে কি?",
+        "o1": "হ্যাঁ",
+        "o2": "না"
+      },
+      "04": {
+        "text": "শিশু কি নড়াচড়া করছে?",
+        "o1": "হ্যাঁ",
+        "o2": "না",
+        "o3": "জানি না"
+      },
+      "05": {
+        "text": "পানি ভেঙেছে কি?",
+        "o1": "হ্যাঁ",
+        "o2": "না",
+        "o3": "জানি না"
+      },
+      "06": {
+        "text": "কখন পানি ভেঙেছে?",
+        "o1": "০-১ ঘণ্টা আগে",
+        "o2": "১-২৪ ঘণ্টা আগে",
+        "o3": "২৪ ঘণ্টার বেশি আগে"
+      }
+    },
+    "result": {
+      "callNow": "সব প্রশ্ন শেষ হয়েছে।\nদয়া করে হাসপাতালে যোগাযোগ করুন।",
+      "watchAndWait": "সব প্রশ্ন শেষ হয়েছে।\nআরো কিছুক্ষণ পর্যবেক্ষণ করুন।"
+    }
+  },
   "link": {
     "levelTable": {
       "caption": "প্রতিটি দক্ষতার জন্য যে স্তরটি প্রযোজ্য তা বেছে নিন।",

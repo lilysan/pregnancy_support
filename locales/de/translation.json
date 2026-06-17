@@ -451,131 +451,295 @@
       }
     }
   },
-  "today.baby.week.8.weightGuide": "Ca. 1–7g",
-  "today.baby.week.8.weightImage": "1 kleine Bohne",
-  "today.baby.week.8.development": "Das Herz beginnt zu schlagen, und die Ansätze der Gliedmaßen bilden sich.",
-  "today.baby.week.9.weightGuide": "Ca. 2–8g",
-  "today.baby.week.9.weightImage": "2 kleine Bohnen",
-  "today.baby.week.9.development": "Die Körperform beginnt sich allmählich zu differenzieren.",
-  "today.baby.week.10.weightGuide": "Ca. 5–10g",
-  "today.baby.week.10.weightImage": "1 Kirsche",
-  "today.baby.week.10.development": "Finger bilden sich, und das Baby sieht allmählich menschlicher aus.",
-  "today.baby.week.11.weightGuide": "Ca. 10g",
-  "today.baby.week.11.weightImage": "1 Cherry-Tomate",
-  "today.baby.week.11.development": "Gesichtszüge beginnen Gestalt anzunehmen.",
-  "today.baby.week.12.weightGuide": "Ca. 20g",
-  "today.baby.week.12.weightImage": "1 Erdbeere",
-  "today.baby.week.12.development": "Die Grundstruktur des Körpers ist fast vollständig.",
-  "today.baby.week.13.weightGuide": "Ca. 25g",
-  "today.baby.week.13.weightImage": "Große Erdbeere",
-  "today.baby.week.13.development": "Beginnt mit dem Üben des Schluckens von Fruchtwasser.",
-  "today.baby.week.14.weightGuide": "Ca. 50g",
-  "today.baby.week.14.weightImage": "1 Ei",
-  "today.baby.week.14.development": "Beginnt, den Körper leicht zu bewegen.",
-  "today.baby.week.15.weightGuide": "Ca. 70g",
-  "today.baby.week.15.weightImage": "Kleine Mandarine",
-  "today.baby.week.15.development": "Mundbewegungen können beobachtet werden.",
-  "today.baby.week.16.weightGuide": "Ca. 100g",
-  "today.baby.week.16.weightImage": "Halber Apfel",
-  "today.baby.week.16.development": "Das Gesicht wird deutlicher.",
-  "today.baby.week.17.weightGuide": "Ca. 150g",
-  "today.baby.week.17.weightImage": "1 Apfel",
-  "today.baby.week.17.development": "Wird allmählich pummeliger.",
-  "today.baby.week.18.weightGuide": "Ca. 200g",
-  "today.baby.week.18.weightImage": "Großer Apfel",
-  "today.baby.week.18.development": "Beginnt, auf Geräusche zu reagieren.",
-  "today.baby.week.19.weightGuide": "Ca. 250g",
-  "today.baby.week.19.weightImage": "1 Banane",
-  "today.baby.week.19.development": "Eine Schutzschicht (Vernix) bildet sich auf der Haut.",
-  "today.baby.week.20.weightGuide": "Ca. 300g",
-  "today.baby.week.20.weightImage": "Halbe Grapefruit",
-  "today.baby.week.20.development": "Kindsbewegungen werden spürbar.",
-  "today.baby.week.21.weightGuide": "Ca. 400g",
-  "today.baby.week.21.weightImage": "1 Grapefruit",
-  "today.baby.week.21.development": "Übt das Verdauen.",
-  "today.baby.week.22.weightGuide": "Ca. 450g",
-  "today.baby.week.22.weightImage": "2 kleine Auberginen",
-  "today.baby.week.22.development": "Körperfunktionen entwickeln sich.",
-  "today.baby.week.23.weightGuide": "Ca. 500g",
-  "today.baby.week.23.weightImage": "1/4 Kohlkopf",
-  "today.baby.week.23.development": "Macht atemähnliche Bewegungen.",
-  "today.baby.week.24.weightGuide": "Ca. 600g",
-  "today.baby.week.24.weightImage": "Kleine Melone",
-  "today.baby.week.24.development": "Die Lungen beginnen sich zu entwickeln.",
-  "today.baby.week.25.weightGuide": "Ca. 700g",
-  "today.baby.week.25.weightImage": "3 Maiskolben",
-  "today.baby.week.25.development": "Reagiert auf Reize.",
-  "today.baby.week.26.weightGuide": "Ca. 800g",
-  "today.baby.week.26.weightImage": "1/4 Kürbis",
-  "today.baby.week.26.development": "Beginnt, die Augen zu öffnen.",
-  "today.baby.week.27.weightGuide": "Ca. 900g",
-  "today.baby.week.27.weightImage": "1/3 Kürbis",
-  "today.baby.week.27.development": "Bewegungen werden kräftiger.",
-  "today.baby.week.28.weightGuide": "Ca. 1000g",
-  "today.baby.week.28.weightImage": "1 Milchkarton",
-  "today.baby.week.28.development": "Der Körper wird runder.",
-  "today.baby.week.29.weightGuide": "Ca. 1200g",
-  "today.baby.week.29.weightImage": "Kleine Ananas",
-  "today.baby.week.29.development": "Körperfett nimmt zu.",
-  "today.baby.week.30.weightGuide": "Ca. 1300g",
-  "today.baby.week.30.weightImage": "1/4 Chinakohl",
-  "today.baby.week.30.development": "Beginnt, sich kräftig zu bewegen.",
-  "today.baby.week.31.weightGuide": "Ca. 1500g",
-  "today.baby.week.31.weightImage": "1 Melone",
-  "today.baby.week.31.development": "Ein Schlaf-Wach-Rhythmus stellt sich ein.",
-  "today.baby.week.32.weightGuide": "Ca. 1800g",
-  "today.baby.week.32.weightImage": "1 Ananas",
-  "today.baby.week.32.development": "Der Kopf liegt häufiger nach unten.",
-  "today.baby.week.33.weightGuide": "Ca. 2000g",
-  "today.baby.week.33.weightImage": "Große Ananas",
-  "today.baby.week.33.development": "Geburtsvorbereitungen schreiten voran.",
-  "today.baby.week.34.weightGuide": "Ca. 2200g",
-  "today.baby.week.34.weightImage": "Kleine Wassermelone",
-  "today.baby.week.34.development": "Bereit zum Üben des Stillens.",
-  "today.baby.week.35.weightGuide": "Ca. 2400g",
-  "today.baby.week.35.weightImage": "Mittlere Wassermelone",
-  "today.baby.week.35.development": "Der Körper wird runder.",
-  "today.baby.week.36.weightGuide": "Ca. 2500g",
-  "today.baby.week.36.weightImage": "Neugeborenengröße",
-  "today.baby.week.36.development": "Körperfunktionen sind voll entwickelt.",
-  "today.baby.week.37.weightGuide": "Ca. 2700g",
-  "today.baby.week.37.weightImage": "Etwas größeres Neugeborenes",
-  "today.baby.week.37.development": "Bereit für die Geburt; jederzeit möglich.",
-  "today.baby.week.38.weightGuide": "Ca. 2900g",
-  "today.baby.week.38.weightImage": "Durchschnittliches Neugeborenes",
-  "today.baby.week.38.development": "Fast vollständig entwickelt.",
-  "today.baby.week.39.weightGuide": "Ca. 3000g",
-  "today.baby.week.39.weightImage": "Durchschnittliches Neugeborenes",
-  "today.baby.week.39.development": "Geburtsvorbereitungen abgeschlossen.",
-  "today.baby.week.40.weightGuide": "Ca. 3000–3500g",
-  "today.baby.week.40.weightImage": "Neugeborenes (Standard)",
-  "today.baby.week.40.development": "Zeitpunkt der Geburt.",
-  "sos.q.01.text": "Haben Sie Spannungen oder Schmerzen im Bauch?",
-  "sos.q.01.o1": "Ja",
-  "sos.q.01.o2": "Nein",
-  "sos.q.02.text": "In welchem Abstand tritt das Spannungsgefühl im Bauch auf?",
-  "sos.q.02.o1": "Ständig",
-  "sos.q.02.o2": "0~5 Minuten",
-  "sos.q.02.o3": "5~10 Minuten",
-  "sos.q.02.o4": "10~15 Minuten",
-  "sos.q.02.o5": "Über 15 Minuten",
-  "sos.q.03.text": "Haben Sie Blutungen?",
-  "sos.q.03.o1": "Ja",
-  "sos.q.03.o2": "Nein",
-  "sos.q.04.text": "Bewegt sich das Baby?",
-  "sos.q.04.o1": "Ja",
-  "sos.q.04.o2": "Nein",
-  "sos.q.04.o3": "Weiß nicht",
-  "sos.q.05.text": "Hatten Sie einen Blasensprung?",
-  "sos.q.05.o1": "Ja",
-  "sos.q.05.o2": "Nein",
-  "sos.q.05.o3": "Weiß nicht",
-  "sos.q.06.text": "Wann ist die Fruchtblase geplatzt?",
-  "sos.q.06.o1": "Vor 0~1 Stunde",
-  "sos.q.06.o2": "Vor 1~24 Stunden",
-  "sos.q.06.o3": "Vor mehr als 24 Stunden",
-  "sos.result.callNow": "Die Fragen sind beendet.\nBitte kontaktieren Sie das Krankenhaus.",
-  "sos.result.watchAndWait": "Die Fragen sind beendet.\nBeobachten wir es noch eine Weile.",
+  "today": {
+    "baby": {
+      "week": {
+        "8": {
+          "weightGuide": "Ca. 1–7g",
+          "weightImage": "1 kleine Bohne",
+          "development": "Das Herz beginnt zu schlagen, und die Ansätze der Gliedmaßen bilden sich."
+        },
+        "9": {
+          "weightGuide": "Ca. 2–8g",
+          "weightImage": "2 kleine Bohnen",
+          "development": "Die Körperform beginnt sich allmählich zu differenzieren."
+        },
+        "10": {
+          "weightGuide": "Ca. 5–10g",
+          "weightImage": "1 Kirsche",
+          "development": "Finger bilden sich, und das Baby sieht allmählich menschlicher aus."
+        },
+        "11": {
+          "weightGuide": "Ca. 10g",
+          "weightImage": "1 Cherry-Tomate",
+          "development": "Gesichtszüge beginnen Gestalt anzunehmen."
+        },
+        "12": {
+          "weightGuide": "Ca. 20g",
+          "weightImage": "1 Erdbeere",
+          "development": "Die Grundstruktur des Körpers ist fast vollständig."
+        },
+        "13": {
+          "weightGuide": "Ca. 25g",
+          "weightImage": "Große Erdbeere",
+          "development": "Beginnt mit dem Üben des Schluckens von Fruchtwasser."
+        },
+        "14": {
+          "weightGuide": "Ca. 50g",
+          "weightImage": "1 Ei",
+          "development": "Beginnt, den Körper leicht zu bewegen."
+        },
+        "15": {
+          "weightGuide": "Ca. 70g",
+          "weightImage": "Kleine Mandarine",
+          "development": "Mundbewegungen können beobachtet werden."
+        },
+        "16": {
+          "weightGuide": "Ca. 100g",
+          "weightImage": "Halber Apfel",
+          "development": "Das Gesicht wird deutlicher."
+        },
+        "17": {
+          "weightGuide": "Ca. 150g",
+          "weightImage": "1 Apfel",
+          "development": "Wird allmählich pummeliger."
+        },
+        "18": {
+          "weightGuide": "Ca. 200g",
+          "weightImage": "Großer Apfel",
+          "development": "Beginnt, auf Geräusche zu reagieren."
+        },
+        "19": {
+          "weightGuide": "Ca. 250g",
+          "weightImage": "1 Banane",
+          "development": "Eine Schutzschicht (Vernix) bildet sich auf der Haut."
+        },
+        "20": {
+          "weightGuide": "Ca. 300g",
+          "weightImage": "Halbe Grapefruit",
+          "development": "Kindsbewegungen werden spürbar."
+        },
+        "21": {
+          "weightGuide": "Ca. 400g",
+          "weightImage": "1 Grapefruit",
+          "development": "Übt das Verdauen."
+        },
+        "22": {
+          "weightGuide": "Ca. 450g",
+          "weightImage": "2 kleine Auberginen",
+          "development": "Körperfunktionen entwickeln sich."
+        },
+        "23": {
+          "weightGuide": "Ca. 500g",
+          "weightImage": "1/4 Kohlkopf",
+          "development": "Macht atemähnliche Bewegungen."
+        },
+        "24": {
+          "weightGuide": "Ca. 600g",
+          "weightImage": "Kleine Melone",
+          "development": "Die Lungen beginnen sich zu entwickeln."
+        },
+        "25": {
+          "weightGuide": "Ca. 700g",
+          "weightImage": "3 Maiskolben",
+          "development": "Reagiert auf Reize."
+        },
+        "26": {
+          "weightGuide": "Ca. 800g",
+          "weightImage": "1/4 Kürbis",
+          "development": "Beginnt, die Augen zu öffnen."
+        },
+        "27": {
+          "weightGuide": "Ca. 900g",
+          "weightImage": "1/3 Kürbis",
+          "development": "Bewegungen werden kräftiger."
+        },
+        "28": {
+          "weightGuide": "Ca. 1000g",
+          "weightImage": "1 Milchkarton",
+          "development": "Der Körper wird runder."
+        },
+        "29": {
+          "weightGuide": "Ca. 1200g",
+          "weightImage": "Kleine Ananas",
+          "development": "Körperfett nimmt zu."
+        },
+        "30": {
+          "weightGuide": "Ca. 1300g",
+          "weightImage": "1/4 Chinakohl",
+          "development": "Beginnt, sich kräftig zu bewegen."
+        },
+        "31": {
+          "weightGuide": "Ca. 1500g",
+          "weightImage": "1 Melone",
+          "development": "Ein Schlaf-Wach-Rhythmus stellt sich ein."
+        },
+        "32": {
+          "weightGuide": "Ca. 1800g",
+          "weightImage": "1 Ananas",
+          "development": "Der Kopf liegt häufiger nach unten."
+        },
+        "33": {
+          "weightGuide": "Ca. 2000g",
+          "weightImage": "Große Ananas",
+          "development": "Geburtsvorbereitungen schreiten voran."
+        },
+        "34": {
+          "weightGuide": "Ca. 2200g",
+          "weightImage": "Kleine Wassermelone",
+          "development": "Bereit zum Üben des Stillens."
+        },
+        "35": {
+          "weightGuide": "Ca. 2400g",
+          "weightImage": "Mittlere Wassermelone",
+          "development": "Der Körper wird runder."
+        },
+        "36": {
+          "weightGuide": "Ca. 2500g",
+          "weightImage": "Neugeborenengröße",
+          "development": "Körperfunktionen sind voll entwickelt."
+        },
+        "37": {
+          "weightGuide": "Ca. 2700g",
+          "weightImage": "Etwas größeres Neugeborenes",
+          "development": "Bereit für die Geburt; jederzeit möglich."
+        },
+        "38": {
+          "weightGuide": "Ca. 2900g",
+          "weightImage": "Durchschnittliches Neugeborenes",
+          "development": "Fast vollständig entwickelt."
+        },
+        "39": {
+          "weightGuide": "Ca. 3000g",
+          "weightImage": "Durchschnittliches Neugeborenes",
+          "development": "Geburtsvorbereitungen abgeschlossen."
+        },
+        "40": {
+          "weightGuide": "Ca. 3000–3500g",
+          "weightImage": "Neugeborenes (Standard)",
+          "development": "Zeitpunkt der Geburt."
+        }
+      }
+    }
+  },
+  "epds": {
+    "q": {
+      "10": {
+        "text": "自分自身を傷つけるという考えが浮かんできた。",
+        "o1": "はい、かなりしばしばそうだった。",
+        "o2": "時々そうだった。",
+        "o3": "めったになかった。",
+        "o4": "まったくなかった。"
+      },
+      "01": {
+        "text": "笑うことができたし、物事のおかしい面もわかった。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "まったくできなかった。"
+      },
+      "02": {
+        "text": "物事を楽しみにして待った。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "ほとんどできなかった。"
+      },
+      "03": {
+        "text": "物事が悪くいった時、自分を不必要に責めた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、時々そうだった。",
+        "o3": "いいえ、あまり度々ではない。",
+        "o4": "いいえ、そうではなかった。"
+      },
+      "04": {
+        "text": "はっきりした理由もないのに不安になったり、心配した。",
+        "o1": "いいえ、そうではなかった。",
+        "o2": "ほとんどそうではなかった。",
+        "o3": "はい、時々あった。",
+        "o4": "はい、しょっちゅうあった。"
+      },
+      "05": {
+        "text": "はっきりした理由もないのに恐怖に襲われた。",
+        "o1": "はい、しょっちゅうあった。",
+        "o2": "はい、時々あった。",
+        "o3": "いいえ、めったになかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "06": {
+        "text": "することがたくさんあって大変だった。",
+        "o1": "はい、たいてい対処できなかった。",
+        "o2": "はい、いつものようにはうまく対処しなかった。",
+        "o3": "いいえ、たいていうまく対処した。",
+        "o4": "いいえ、普段通りに対処した。"
+      },
+      "07": {
+        "text": "不幸せなので、眠りにくかった。",
+        "o1": "はい、ほとんどいつもそうだった。",
+        "o2": "はい、ときどきそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "08": {
+        "text": "悲しくなったり、惨めになった。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      },
+      "09": {
+        "text": "不幸せなので、泣けてきた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "ほんの時々あった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      }
+    }
+  },
+  "sos": {
+    "q": {
+      "01": {
+        "text": "Haben Sie Spannungen oder Schmerzen im Bauch?",
+        "o1": "Ja",
+        "o2": "Nein"
+      },
+      "02": {
+        "text": "In welchem Abstand tritt das Spannungsgefühl im Bauch auf?",
+        "o1": "Ständig",
+        "o2": "0~5 Minuten",
+        "o3": "5~10 Minuten",
+        "o4": "10~15 Minuten",
+        "o5": "Über 15 Minuten"
+      },
+      "03": {
+        "text": "Haben Sie Blutungen?",
+        "o1": "Ja",
+        "o2": "Nein"
+      },
+      "04": {
+        "text": "Bewegt sich das Baby?",
+        "o1": "Ja",
+        "o2": "Nein",
+        "o3": "Weiß nicht"
+      },
+      "05": {
+        "text": "Hatten Sie einen Blasensprung?",
+        "o1": "Ja",
+        "o2": "Nein",
+        "o3": "Weiß nicht"
+      },
+      "06": {
+        "text": "Wann ist die Fruchtblase geplatzt?",
+        "o1": "Vor 0~1 Stunde",
+        "o2": "Vor 1~24 Stunden",
+        "o3": "Vor mehr als 24 Stunden"
+      }
+    },
+    "result": {
+      "callNow": "Die Fragen sind beendet.\nBitte kontaktieren Sie das Krankenhaus.",
+      "watchAndWait": "Die Fragen sind beendet.\nBeobachten wir es noch eine Weile."
+    }
+  },
   "link": {
     "levelTable": {
       "caption": "Bitte wählen Sie die passende Stufe für jede Fähigkeit.",

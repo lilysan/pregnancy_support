@@ -451,131 +451,295 @@
       }
     }
   },
-  "today.baby.week.8.weightGuide": "ග්‍රෑම් 1-7 පමණ",
-  "today.baby.week.8.weightImage": "කුඩා බෝංචි ඇට 1ක්",
-  "today.baby.week.8.development": "හෘද ස්පන්දනය ආරම්භ වන අතර අත් පා වල මුල් අවධීන් නිර්මාණය වේ.",
-  "today.baby.week.9.weightGuide": "ග්‍රෑම් 2-8 පමණ",
-  "today.baby.week.9.weightImage": "කුඩා බෝංචි ඇට 2ක්",
-  "today.baby.week.9.development": "ශරීරයේ හැඩය ක්‍රමයෙන් වෙන් වීමට පටන් ගනී.",
-  "today.baby.week.10.weightGuide": "ග්‍රෑම් 5-10 පමණ",
-  "today.baby.week.10.weightImage": "චෙරි ගෙඩි 1ක්",
-  "today.baby.week.10.development": "ඇඟිලි සෑදෙන අතර දරුවා වඩාත් මනුෂ්‍ය පෙනුමක් ලබා ගනී.",
-  "today.baby.week.11.weightGuide": "ග්‍රෑම් 10ක් පමණ",
-  "today.baby.week.11.weightImage": "කුඩා තක්කාලි ගෙඩි 1ක්",
-  "today.baby.week.11.development": "මුහුණේ ලක්ෂණ හැඩගැසීමට පටන් ගනී.",
-  "today.baby.week.12.weightGuide": "ග්‍රෑම් 20ක් පමණ",
-  "today.baby.week.12.weightImage": "ස්ට්‍රෝබෙරි ගෙඩි 1ක්",
-  "today.baby.week.12.development": "ශරීරයේ මූලික ව්‍යුහය බොහෝ දුරට සම්පූර්ණ වී ඇත.",
-  "today.baby.week.13.weightGuide": "ග්‍රෑම් 25ක් පමණ",
-  "today.baby.week.13.weightImage": "විශාල ස්ට්‍රෝබෙරි ගෙඩියක්",
-  "today.baby.week.13.development": "ඇම්නියොටික් තරලය ගිලීමට පුහුණු වීම ආරම්භ කරයි.",
-  "today.baby.week.14.weightGuide": "ග්‍රෑම් 50ක් පමණ",
-  "today.baby.week.14.weightImage": "බිත්තර 1ක්",
-  "today.baby.week.14.development": "ශරීරය මදක් චලනය කිරීමට පටන් ගනී.",
-  "today.baby.week.15.weightGuide": "ග්‍රෑම් 70ක් පමණ",
-  "today.baby.week.15.weightImage": "කුඩා මැන්ඩරින් දොඩම් ගෙඩියක්",
-  "today.baby.week.15.development": "කට චලනය කරන අයුරු දැකගත හැකිය.",
-  "today.baby.week.16.weightGuide": "ග්‍රෑම් 100ක් පමණ",
-  "today.baby.week.16.weightImage": "ඇපල් ගෙඩියකින් භාගයක්",
-  "today.baby.week.16.development": "මුහුණ වඩාත් පැහැදිලි වේ.",
-  "today.baby.week.17.weightGuide": "ග්‍රෑම් 150ක් පමණ",
-  "today.baby.week.17.weightImage": "ඇපල් ගෙඩි 1ක්",
-  "today.baby.week.17.development": "ක්‍රමයෙන් තරබාරු වේ.",
-  "today.baby.week.18.weightGuide": "ග්‍රෑම් 200ක් පමණ",
-  "today.baby.week.18.weightImage": "විශාල ඇපල් ගෙඩියක්",
-  "today.baby.week.18.development": "ශබ්ද වලට ප්‍රතිචාර දැක්වීමට පටන් ගනී.",
-  "today.baby.week.19.weightGuide": "ග්‍රෑම් 250ක් පමණ",
-  "today.baby.week.19.weightImage": "කෙසෙල් ගෙඩි 1ක්",
-  "today.baby.week.19.development": "සම ආරක්ෂා කරන ස්ථරයක් (vernix) සෑදේ.",
-  "today.baby.week.20.weightGuide": "ග්‍රෑම් 300ක් පමණ",
-  "today.baby.week.20.weightImage": "ග්‍රේප්ෆෘට් ගෙඩියකින් භාගයක්",
-  "today.baby.week.20.development": "දරුවා චලනය වන බව දැනෙන්නට පටන් ගනී.",
-  "today.baby.week.21.weightGuide": "ග්‍රෑම් 400ක් පමණ",
-  "today.baby.week.21.weightImage": "ග්‍රේප්ෆෘට් ගෙඩි 1ක්",
-  "today.baby.week.21.development": "ජීරණය සඳහා පුහුණු වෙමින් පවතී.",
-  "today.baby.week.22.weightGuide": "ග්‍රෑම් 450ක් පමණ",
-  "today.baby.week.22.weightImage": "කුඩා වම්බටු ගෙඩි 2ක්",
-  "today.baby.week.22.development": "ශරීරයේ ක්‍රියාකාරිත්වයන් වර්ධනය වේ.",
-  "today.baby.week.23.weightGuide": "ග්‍රෑම් 500ක් පමණ",
-  "today.baby.week.23.weightImage": "ගෝවා ගෙඩියකින් 1/4ක්",
-  "today.baby.week.23.development": "හුස්ම ගැනීමට සමාන චලනයන් සිදු කරයි.",
-  "today.baby.week.24.weightGuide": "ග්‍රෑම් 600ක් පමණ",
-  "today.baby.week.24.weightImage": "කුඩා පැණි කොමඩු ගෙඩියක්",
-  "today.baby.week.24.development": "පෙනහළු වර්ධනය වීමට පටන් ගනී.",
-  "today.baby.week.25.weightGuide": "ග්‍රෑම් 700ක් පමණ",
-  "today.baby.week.25.weightImage": "ඉරිඟු කරල් 3ක්",
-  "today.baby.week.25.development": "පිබිදීම් වලට ප්‍රතිචාර දක්වයි.",
-  "today.baby.week.26.weightGuide": "ග්‍රෑම් 800ක් පමණ",
-  "today.baby.week.26.weightImage": "වට්ටක්කා ගෙඩියකින් 1/4ක්",
-  "today.baby.week.26.development": "ඇස් ඇරීමට පටන් ගනී.",
-  "today.baby.week.27.weightGuide": "ග්‍රෑම් 900ක් පමණ",
-  "today.baby.week.27.weightImage": "වට්ටක්කා ගෙඩියකින් 1/3ක්",
-  "today.baby.week.27.development": "චලනයන් වඩාත් ශක්තිමත් වේ.",
-  "today.baby.week.28.weightGuide": "ග්‍රෑම් 1000ක් පමණ",
-  "today.baby.week.28.weightImage": "කිරි පැකට් 1ක්",
-  "today.baby.week.28.development": "ශරීරය පිරී යාමට පටන් ගනී.",
-  "today.baby.week.29.weightGuide": "ග්‍රෑම් 1200ක් පමණ",
-  "today.baby.week.29.weightImage": "කුඩා අන්නාසි ගෙඩියක්",
-  "today.baby.week.29.development": "මේදය වැඩි වේ.",
-  "today.baby.week.30.weightGuide": "ග්‍රෑම් 1300ක් පමණ",
-  "today.baby.week.30.weightImage": "චීන ගෝවා ගෙඩියකින් 1/4ක්",
-  "today.baby.week.30.development": "ප්‍රබල ලෙස චලනය වීමට පටන් ගනී.",
-  "today.baby.week.31.weightGuide": "ග්‍රෑම් 1500ක් පමණ",
-  "today.baby.week.31.weightImage": "පැණි කොමඩු ගෙඩි 1ක්",
-  "today.baby.week.31.development": "නිදාගැනීමේ සහ අවදිවීමේ රිද්මයක් ඇති වේ.",
-  "today.baby.week.32.weightGuide": "ග්‍රෑම් 1800ක් පමණ",
-  "today.baby.week.32.weightImage": "අන්නාසි ගෙඩි 1ක්",
-  "today.baby.week.32.development": "හිස පහළට හරවා ගැනීම වැඩි වේ.",
-  "today.baby.week.33.weightGuide": "ග්‍රෑම් 2000ක් පමණ",
-  "today.baby.week.33.weightImage": "විශාල අන්නාසි ගෙඩියක්",
-  "today.baby.week.33.development": "උපත සඳහා සූදානම් වීම ඉදිරියට යයි.",
-  "today.baby.week.34.weightGuide": "ග්‍රෑම් 2200ක් පමණ",
-  "today.baby.week.34.weightImage": "කුඩා කොමඩු ගෙඩියක්",
-  "today.baby.week.34.development": "මව්කිරි බීමට පුහුණු වීමට සූදානම් වේ.",
-  "today.baby.week.35.weightGuide": "ග්‍රෑම් 2400ක් පමණ",
-  "today.baby.week.35.weightImage": "මධ්‍යම ප්‍රමාණයේ කොමඩු ගෙඩියක්",
-  "today.baby.week.35.development": "ශරීරය වඩාත් රවුම් වේ.",
-  "today.baby.week.36.weightGuide": "ග්‍රෑම් 2500ක් පමණ",
-  "today.baby.week.36.weightImage": "අලුත උපන් දරුවෙකුගේ ප්‍රමාණය",
-  "today.baby.week.36.development": "ශරීරයේ ක්‍රියාකාරීත්වයන් සම්පූර්ණ වේ.",
-  "today.baby.week.37.weightGuide": "ග්‍රෑම් 2700ක් පමණ",
-  "today.baby.week.37.weightImage": "මදක් විශාල අලුත උපන් දරුවෙක්",
-  "today.baby.week.37.development": "ඕනෑම වේලාවක උපත සිදුවිය හැකි කාලයයි.",
-  "today.baby.week.38.weightGuide": "ග්‍රෑම් 2900ක් පමණ",
-  "today.baby.week.38.weightImage": "සාමාන්‍ය අලුත උපන් දරුවෙක්",
-  "today.baby.week.38.development": "බොහෝ දුරට සම්පූර්ණ වී ඇත.",
-  "today.baby.week.39.weightGuide": "ග්‍රෑම් 3000ක් පමණ",
-  "today.baby.week.39.weightImage": "සාමාන්‍ය අලුත උපන් දරුවෙක්",
-  "today.baby.week.39.development": "දරු ප්‍රසූතිය සඳහා සූදානම සම්පූර්ණයි.",
-  "today.baby.week.40.weightGuide": "ග්‍රෑම් 3000-3500 පමණ",
-  "today.baby.week.40.weightImage": "අලුත උපන් දරුවා (සම්මත)",
-  "today.baby.week.40.development": "දරුවා උපත ලබන කාලයයි.",
-  "sos.q.01.text": "උදරයේ තද ගතියක් හෝ වේදනාවක් තිබේද?",
-  "sos.q.01.o1": "ඔව්",
-  "sos.q.01.o2": "නැත",
-  "sos.q.02.text": "උදරය තද වීමේ පරතරය විනාඩි කීයක් පමණද?",
-  "sos.q.02.o1": "නිරන්තරයෙන්",
-  "sos.q.02.o2": "0~5 විනාඩි",
-  "sos.q.02.o3": "5~10 විනාඩි",
-  "sos.q.02.o4": "10~15 විනාඩි",
-  "sos.q.02.o5": "විනාඩි 15 කට වඩා",
-  "sos.q.03.text": "රුධිර වහනයක් තිබේද?",
-  "sos.q.03.o1": "ඔව්",
-  "sos.q.03.o2": "නැත",
-  "sos.q.04.text": "දරුවා චලනය වෙනවාද?",
-  "sos.q.04.o1": "ඔව්",
-  "sos.q.04.o2": "නැත",
-  "sos.q.04.o3": "දන්නේ නැත",
-  "sos.q.05.text": "ඇම්නියොටික් දියර පිටවී තිබේද (water break)?",
-  "sos.q.05.o1": "ඔව්",
-  "sos.q.05.o2": "නැත",
-  "sos.q.05.o3": "දන්නේ නැත",
-  "sos.q.06.text": "ඇම්නියොටික් දියර පිටවුණේ කවදාද?",
-  "sos.q.06.o1": "පැය 0~1 කට පෙර",
-  "sos.q.06.o2": "පැය 1~24 කට පෙර",
-  "sos.q.06.o3": "පැය 24 කට වඩා පෙර",
-  "sos.result.callNow": "ප්‍රශ්න අවසන්.\nකරුණාකර රෝහල අමතන්න.",
-  "sos.result.watchAndWait": "ප්‍රශ්න අවසන්.\nතව ස්වල්ප වේලාවක් බලා සිටිමු.",
+  "today": {
+    "baby": {
+      "week": {
+        "8": {
+          "weightGuide": "ග්‍රෑම් 1-7 පමණ",
+          "weightImage": "කුඩා බෝංචි ඇට 1ක්",
+          "development": "හෘද ස්පන්දනය ආරම්භ වන අතර අත් පා වල මුල් අවධීන් නිර්මාණය වේ."
+        },
+        "9": {
+          "weightGuide": "ග්‍රෑම් 2-8 පමණ",
+          "weightImage": "කුඩා බෝංචි ඇට 2ක්",
+          "development": "ශරීරයේ හැඩය ක්‍රමයෙන් වෙන් වීමට පටන් ගනී."
+        },
+        "10": {
+          "weightGuide": "ග්‍රෑම් 5-10 පමණ",
+          "weightImage": "චෙරි ගෙඩි 1ක්",
+          "development": "ඇඟිලි සෑදෙන අතර දරුවා වඩාත් මනුෂ්‍ය පෙනුමක් ලබා ගනී."
+        },
+        "11": {
+          "weightGuide": "ග්‍රෑම් 10ක් පමණ",
+          "weightImage": "කුඩා තක්කාලි ගෙඩි 1ක්",
+          "development": "මුහුණේ ලක්ෂණ හැඩගැසීමට පටන් ගනී."
+        },
+        "12": {
+          "weightGuide": "ග්‍රෑම් 20ක් පමණ",
+          "weightImage": "ස්ට්‍රෝබෙරි ගෙඩි 1ක්",
+          "development": "ශරීරයේ මූලික ව්‍යුහය බොහෝ දුරට සම්පූර්ණ වී ඇත."
+        },
+        "13": {
+          "weightGuide": "ග්‍රෑම් 25ක් පමණ",
+          "weightImage": "විශාල ස්ට්‍රෝබෙරි ගෙඩියක්",
+          "development": "ඇම්නියොටික් තරලය ගිලීමට පුහුණු වීම ආරම්භ කරයි."
+        },
+        "14": {
+          "weightGuide": "ග්‍රෑම් 50ක් පමණ",
+          "weightImage": "බිත්තර 1ක්",
+          "development": "ශරීරය මදක් චලනය කිරීමට පටන් ගනී."
+        },
+        "15": {
+          "weightGuide": "ග්‍රෑම් 70ක් පමණ",
+          "weightImage": "කුඩා මැන්ඩරින් දොඩම් ගෙඩියක්",
+          "development": "කට චලනය කරන අයුරු දැකගත හැකිය."
+        },
+        "16": {
+          "weightGuide": "ග්‍රෑම් 100ක් පමණ",
+          "weightImage": "ඇපල් ගෙඩියකින් භාගයක්",
+          "development": "මුහුණ වඩාත් පැහැදිලි වේ."
+        },
+        "17": {
+          "weightGuide": "ග්‍රෑම් 150ක් පමණ",
+          "weightImage": "ඇපල් ගෙඩි 1ක්",
+          "development": "ක්‍රමයෙන් තරබාරු වේ."
+        },
+        "18": {
+          "weightGuide": "ග්‍රෑම් 200ක් පමණ",
+          "weightImage": "විශාල ඇපල් ගෙඩියක්",
+          "development": "ශබ්ද වලට ප්‍රතිචාර දැක්වීමට පටන් ගනී."
+        },
+        "19": {
+          "weightGuide": "ග්‍රෑම් 250ක් පමණ",
+          "weightImage": "කෙසෙල් ගෙඩි 1ක්",
+          "development": "සම ආරක්ෂා කරන ස්ථරයක් (vernix) සෑදේ."
+        },
+        "20": {
+          "weightGuide": "ග්‍රෑම් 300ක් පමණ",
+          "weightImage": "ග්‍රේප්ෆෘට් ගෙඩියකින් භාගයක්",
+          "development": "දරුවා චලනය වන බව දැනෙන්නට පටන් ගනී."
+        },
+        "21": {
+          "weightGuide": "ග්‍රෑම් 400ක් පමණ",
+          "weightImage": "ග්‍රේප්ෆෘට් ගෙඩි 1ක්",
+          "development": "ජීරණය සඳහා පුහුණු වෙමින් පවතී."
+        },
+        "22": {
+          "weightGuide": "ග්‍රෑම් 450ක් පමණ",
+          "weightImage": "කුඩා වම්බටු ගෙඩි 2ක්",
+          "development": "ශරීරයේ ක්‍රියාකාරිත්වයන් වර්ධනය වේ."
+        },
+        "23": {
+          "weightGuide": "ග්‍රෑම් 500ක් පමණ",
+          "weightImage": "ගෝවා ගෙඩියකින් 1/4ක්",
+          "development": "හුස්ම ගැනීමට සමාන චලනයන් සිදු කරයි."
+        },
+        "24": {
+          "weightGuide": "ග්‍රෑම් 600ක් පමණ",
+          "weightImage": "කුඩා පැණි කොමඩු ගෙඩියක්",
+          "development": "පෙනහළු වර්ධනය වීමට පටන් ගනී."
+        },
+        "25": {
+          "weightGuide": "ග්‍රෑම් 700ක් පමණ",
+          "weightImage": "ඉරිඟු කරල් 3ක්",
+          "development": "පිබිදීම් වලට ප්‍රතිචාර දක්වයි."
+        },
+        "26": {
+          "weightGuide": "ග්‍රෑම් 800ක් පමණ",
+          "weightImage": "වට්ටක්කා ගෙඩියකින් 1/4ක්",
+          "development": "ඇස් ඇරීමට පටන් ගනී."
+        },
+        "27": {
+          "weightGuide": "ග්‍රෑම් 900ක් පමණ",
+          "weightImage": "වට්ටක්කා ගෙඩියකින් 1/3ක්",
+          "development": "චලනයන් වඩාත් ශක්තිමත් වේ."
+        },
+        "28": {
+          "weightGuide": "ග්‍රෑම් 1000ක් පමණ",
+          "weightImage": "කිරි පැකට් 1ක්",
+          "development": "ශරීරය පිරී යාමට පටන් ගනී."
+        },
+        "29": {
+          "weightGuide": "ග්‍රෑම් 1200ක් පමණ",
+          "weightImage": "කුඩා අන්නාසි ගෙඩියක්",
+          "development": "මේදය වැඩි වේ."
+        },
+        "30": {
+          "weightGuide": "ග්‍රෑම් 1300ක් පමණ",
+          "weightImage": "චීන ගෝවා ගෙඩියකින් 1/4ක්",
+          "development": "ප්‍රබල ලෙස චලනය වීමට පටන් ගනී."
+        },
+        "31": {
+          "weightGuide": "ග්‍රෑම් 1500ක් පමණ",
+          "weightImage": "පැණි කොමඩු ගෙඩි 1ක්",
+          "development": "නිදාගැනීමේ සහ අවදිවීමේ රිද්මයක් ඇති වේ."
+        },
+        "32": {
+          "weightGuide": "ග්‍රෑම් 1800ක් පමණ",
+          "weightImage": "අන්නාසි ගෙඩි 1ක්",
+          "development": "හිස පහළට හරවා ගැනීම වැඩි වේ."
+        },
+        "33": {
+          "weightGuide": "ග්‍රෑම් 2000ක් පමණ",
+          "weightImage": "විශාල අන්නාසි ගෙඩියක්",
+          "development": "උපත සඳහා සූදානම් වීම ඉදිරියට යයි."
+        },
+        "34": {
+          "weightGuide": "ග්‍රෑම් 2200ක් පමණ",
+          "weightImage": "කුඩා කොමඩු ගෙඩියක්",
+          "development": "මව්කිරි බීමට පුහුණු වීමට සූදානම් වේ."
+        },
+        "35": {
+          "weightGuide": "ග්‍රෑම් 2400ක් පමණ",
+          "weightImage": "මධ්‍යම ප්‍රමාණයේ කොමඩු ගෙඩියක්",
+          "development": "ශරීරය වඩාත් රවුම් වේ."
+        },
+        "36": {
+          "weightGuide": "ග්‍රෑම් 2500ක් පමණ",
+          "weightImage": "අලුත උපන් දරුවෙකුගේ ප්‍රමාණය",
+          "development": "ශරීරයේ ක්‍රියාකාරීත්වයන් සම්පූර්ණ වේ."
+        },
+        "37": {
+          "weightGuide": "ග්‍රෑම් 2700ක් පමණ",
+          "weightImage": "මදක් විශාල අලුත උපන් දරුවෙක්",
+          "development": "ඕනෑම වේලාවක උපත සිදුවිය හැකි කාලයයි."
+        },
+        "38": {
+          "weightGuide": "ග්‍රෑම් 2900ක් පමණ",
+          "weightImage": "සාමාන්‍ය අලුත උපන් දරුවෙක්",
+          "development": "බොහෝ දුරට සම්පූර්ණ වී ඇත."
+        },
+        "39": {
+          "weightGuide": "ග්‍රෑම් 3000ක් පමණ",
+          "weightImage": "සාමාන්‍ය අලුත උපන් දරුවෙක්",
+          "development": "දරු ප්‍රසූතිය සඳහා සූදානම සම්පූර්ණයි."
+        },
+        "40": {
+          "weightGuide": "ග්‍රෑම් 3000-3500 පමණ",
+          "weightImage": "අලුත උපන් දරුවා (සම්මත)",
+          "development": "දරුවා උපත ලබන කාලයයි."
+        }
+      }
+    }
+  },
+  "epds": {
+    "q": {
+      "10": {
+        "text": "自分自身を傷つけるという考えが浮かんできた。",
+        "o1": "はい、かなりしばしばそうだった。",
+        "o2": "時々そうだった。",
+        "o3": "めったになかった。",
+        "o4": "まったくなかった。"
+      },
+      "01": {
+        "text": "笑うことができたし、物事のおかしい面もわかった。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "まったくできなかった。"
+      },
+      "02": {
+        "text": "物事を楽しみにして待った。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "ほとんどできなかった。"
+      },
+      "03": {
+        "text": "物事が悪くいった時、自分を不必要に責めた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、時々そうだった。",
+        "o3": "いいえ、あまり度々ではない。",
+        "o4": "いいえ、そうではなかった。"
+      },
+      "04": {
+        "text": "はっきりした理由もないのに不安になったり、心配した。",
+        "o1": "いいえ、そうではなかった。",
+        "o2": "ほとんどそうではなかった。",
+        "o3": "はい、時々あった。",
+        "o4": "はい、しょっちゅうあった。"
+      },
+      "05": {
+        "text": "はっきりした理由もないのに恐怖に襲われた。",
+        "o1": "はい、しょっちゅうあった。",
+        "o2": "はい、時々あった。",
+        "o3": "いいえ、めったになかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "06": {
+        "text": "することがたくさんあって大変だった。",
+        "o1": "はい、たいてい対処できなかった。",
+        "o2": "はい、いつものようにはうまく対処しなかった。",
+        "o3": "いいえ、たいていうまく対処した。",
+        "o4": "いいえ、普段通りに対処した。"
+      },
+      "07": {
+        "text": "不幸せなので、眠りにくかった。",
+        "o1": "はい、ほとんどいつもそうだった。",
+        "o2": "はい、ときどきそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "08": {
+        "text": "悲しくなったり、惨めになった。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      },
+      "09": {
+        "text": "不幸せなので、泣けてきた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "ほんの時々あった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      }
+    }
+  },
+  "sos": {
+    "q": {
+      "01": {
+        "text": "උදරයේ තද ගතියක් හෝ වේදනාවක් තිබේද?",
+        "o1": "ඔව්",
+        "o2": "නැත"
+      },
+      "02": {
+        "text": "උදරය තද වීමේ පරතරය විනාඩි කීයක් පමණද?",
+        "o1": "නිරන්තරයෙන්",
+        "o2": "0~5 විනාඩි",
+        "o3": "5~10 විනාඩි",
+        "o4": "10~15 විනාඩි",
+        "o5": "විනාඩි 15 කට වඩා"
+      },
+      "03": {
+        "text": "රුධිර වහනයක් තිබේද?",
+        "o1": "ඔව්",
+        "o2": "නැත"
+      },
+      "04": {
+        "text": "දරුවා චලනය වෙනවාද?",
+        "o1": "ඔව්",
+        "o2": "නැත",
+        "o3": "දන්නේ නැත"
+      },
+      "05": {
+        "text": "ඇම්නියොටික් දියර පිටවී තිබේද (water break)?",
+        "o1": "ඔව්",
+        "o2": "නැත",
+        "o3": "දන්නේ නැත"
+      },
+      "06": {
+        "text": "ඇම්නියොටික් දියර පිටවුණේ කවදාද?",
+        "o1": "පැය 0~1 කට පෙර",
+        "o2": "පැය 1~24 කට පෙර",
+        "o3": "පැය 24 කට වඩා පෙර"
+      }
+    },
+    "result": {
+      "callNow": "ප්‍රශ්න අවසන්.\nකරුණාකර රෝහල අමතන්න.",
+      "watchAndWait": "ප්‍රශ්න අවසන්.\nතව ස්වල්ප වේලාවක් බලා සිටිමු."
+    }
+  },
   "link": {
     "levelTable": {
       "caption": "එක් එක් කුසලතාවයට ගැලපෙන මට්ටම තෝරන්න.",

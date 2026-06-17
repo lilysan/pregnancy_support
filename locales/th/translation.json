@@ -451,131 +451,295 @@
       }
     }
   },
-  "today.baby.week.8.weightGuide": "ประมาณ 1–7 กรัม",
-  "today.baby.week.8.weightImage": "ถั่วเมล็ดเล็ก 1 เมล็ด",
-  "today.baby.week.8.development": "หัวใจเริ่มเต้น และเริ่มมีปุ่มแขนขา",
-  "today.baby.week.9.weightGuide": "ประมาณ 2–8 กรัม",
-  "today.baby.week.9.weightImage": "ถั่วเมล็ดเล็ก 2 เมล็ด",
-  "today.baby.week.9.development": "รูปร่างของร่างกายเริ่มแยกส่วนชัดเจนขึ้น",
-  "today.baby.week.10.weightGuide": "ประมาณ 5–10 กรัม",
-  "today.baby.week.10.weightImage": "เชอร์รี่ 1 ผล",
-  "today.baby.week.10.development": "นิ้วมือเริ่มก่อตัว และเริ่มดูเหมือนทารกมากขึ้น",
-  "today.baby.week.11.weightGuide": "ประมาณ 10 กรัม",
-  "today.baby.week.11.weightImage": "มะเขือเทศราชินี 1 ผล",
-  "today.baby.week.11.development": "ใบหน้าเริ่มเข้ารูป",
-  "today.baby.week.12.weightGuide": "ประมาณ 20 กรัม",
-  "today.baby.week.12.weightImage": "สตรอว์เบอร์รี 1 ผล",
-  "today.baby.week.12.development": "โครงสร้างพื้นฐานของร่างกายเกือบสมบูรณ์",
-  "today.baby.week.13.weightGuide": "ประมาณ 25 กรัม",
-  "today.baby.week.13.weightImage": "สตรอว์เบอร์รีผลใหญ่",
-  "today.baby.week.13.development": "เริ่มหัดกลืนน้ำคร่ำ",
-  "today.baby.week.14.weightGuide": "ประมาณ 50 กรัม",
-  "today.baby.week.14.weightImage": "ไข่ 1 ฟอง",
-  "today.baby.week.14.development": "เริ่มขยับร่างกายเล็กน้อย",
-  "today.baby.week.15.weightGuide": "ประมาณ 70 กรัม",
-  "today.baby.week.15.weightImage": "ส้มผลเล็ก",
-  "today.baby.week.15.development": "เริ่มมองเห็นการขยับปาก",
-  "today.baby.week.16.weightGuide": "ประมาณ 100 กรัม",
-  "today.baby.week.16.weightImage": "แอปเปิลครึ่งผล",
-  "today.baby.week.16.development": "ใบหน้าเริ่มชัดเจนขึ้น",
-  "today.baby.week.17.weightGuide": "ประมาณ 150 กรัม",
-  "today.baby.week.17.weightImage": "แอปเปิล 1 ผล",
-  "today.baby.week.17.development": "เริ่มมีเนื้อมีนวลขึ้น",
-  "today.baby.week.18.weightGuide": "ประมาณ 200 กรัม",
-  "today.baby.week.18.weightImage": "แอปเปิลผลใหญ่",
-  "today.baby.week.18.development": "เริ่มตอบสนองต่อเสียง",
-  "today.baby.week.19.weightGuide": "ประมาณ 250 กรัม",
-  "today.baby.week.19.weightImage": "กล้วย 1 ผล",
-  "today.baby.week.19.development": "เริ่มมีไขป้องกันผิวหนัง",
-  "today.baby.week.20.weightGuide": "ประมาณ 300 กรัม",
-  "today.baby.week.20.weightImage": "เกรปฟรุตครึ่งผล",
-  "today.baby.week.20.development": "เริ่มรู้สึกถึงลูกดิ้น",
-  "today.baby.week.21.weightGuide": "ประมาณ 400 กรัม",
-  "today.baby.week.21.weightImage": "เกรปฟรุต 1 ผล",
-  "today.baby.week.21.development": "กำลังฝึกระบบย่อยอาหาร",
-  "today.baby.week.22.weightGuide": "ประมาณ 450 กรัม",
-  "today.baby.week.22.weightImage": "มะเขือยาวเล็ก 2 ผล",
-  "today.baby.week.22.development": "การทำงานของร่างกายกำลังพัฒนา",
-  "today.baby.week.23.weightGuide": "ประมาณ 500 กรัม",
-  "today.baby.week.23.weightImage": "กะหล่ำปลี 1/4 หัว",
-  "today.baby.week.23.development": "เริ่มมีการเคลื่อนไหวคล้ายการหายใจ",
-  "today.baby.week.24.weightGuide": "ประมาณ 600 กรัม",
-  "today.baby.week.24.weightImage": "เมลอนผลเล็ก",
-  "today.baby.week.24.development": "ปอดเริ่มพัฒนา",
-  "today.baby.week.25.weightGuide": "ประมาณ 700 กรัม",
-  "today.baby.week.25.weightImage": "ข้าวโพด 3 ฝัก",
-  "today.baby.week.25.development": "ตอบสนองต่อสิ่งกระตุ้น",
-  "today.baby.week.26.weightGuide": "ประมาณ 800 กรัม",
-  "today.baby.week.26.weightImage": "ฟักทอง 1/4 ผล",
-  "today.baby.week.26.development": "เริ่มลืมตา",
-  "today.baby.week.27.weightGuide": "ประมาณ 900 กรัม",
-  "today.baby.week.27.weightImage": "ฟักทอง 1/3 ผล",
-  "today.baby.week.27.development": "การเคลื่อนไหวเริ่มแข็งแรงขึ้น",
-  "today.baby.week.28.weightGuide": "ประมาณ 1000 กรัม",
-  "today.baby.week.28.weightImage": "นม 1 กล่อง",
-  "today.baby.week.28.development": "ร่างกายเริ่มอวบอิ่มขึ้น",
-  "today.baby.week.29.weightGuide": "ประมาณ 1200 กรัม",
-  "today.baby.week.29.weightImage": "สับปะรดผลเล็ก",
-  "today.baby.week.29.development": "ไขมันเพิ่มขึ้น",
-  "today.baby.week.30.weightGuide": "ประมาณ 1300 กรัม",
-  "today.baby.week.30.weightImage": "ผักกาดขาว 1/4 ต้น",
-  "today.baby.week.30.development": "เริ่มดิ้นแรงขึ้น",
-  "today.baby.week.31.weightGuide": "ประมาณ 1500 กรั m",
-  "today.baby.week.31.weightImage": "เมลอน 1 ผล",
-  "today.baby.week.31.development": "เริ่มมีจังหวะการหลับและตื่น",
-  "today.baby.week.32.weightGuide": "ประมาณ 1800 กรัม",
-  "today.baby.week.32.weightImage": "สับปะรด 1 ผล",
-  "today.baby.week.32.development": "ทารกมักจะหันศีรษะลงข้างล่าง",
-  "today.baby.week.33.weightGuide": "ประมาณ 2000 กรัม",
-  "today.baby.week.33.weightImage": "สับปะรดผลใหญ่",
-  "today.baby.week.33.development": "การเตรียมตัวก่อนคลอดมีความคืบหน้า",
-  "today.baby.week.34.weightGuide": "ประมาณ 2200 กรัม",
-  "today.baby.week.34.weightImage": "แตงโมลูกเล็ก",
-  "today.baby.week.34.development": "พร้อมสำหรับการฝึกดูดนมแม่",
-  "today.baby.week.35.weightGuide": "ประมาณ 2400 กรัม",
-  "today.baby.week.35.weightImage": "แตงโมขนาดกลาง",
-  "today.baby.week.35.development": "ร่างกายเริ่มกลมขึ้น",
-  "today.baby.week.36.weightGuide": "ประมาณ 2500 กรัม",
-  "today.baby.week.36.weightImage": "ขนาดทารกแรกเกิด",
-  "today.baby.week.36.development": "ฟังก์ชันต่างๆ ของร่างกายพร้อมสมบูรณ์",
-  "today.baby.week.37.weightGuide": "ประมาณ 2700 กรัม",
-  "today.baby.week.37.weightImage": "ทารกแรกเกิดขนาดค่อนข้างใหญ่",
-  "today.baby.week.37.development": "ถึงกำหนดคลอด พร้อมจะลืมตาดูโลกได้ทุกเมื่อ",
-  "today.baby.week.38.weightGuide": "ประมาณ 2900 กรัม",
-  "today.baby.week.38.weightImage": "ขนาดเฉลี่ยทารกแรกเกิด",
-  "today.baby.week.38.development": "ร่างกายเกือบสมบูรณ์ 100%",
-  "today.baby.week.39.weightGuide": "ประมาณ 3000 กรัม",
-  "today.baby.week.39.weightImage": "ขนาดเฉลี่ยทารกแรกเกิด",
-  "today.baby.week.39.development": "การเตรียมตัวคลอดเสร็จสมบูรณ์",
-  "today.baby.week.40.weightGuide": "ประมาณ 3000–3500 กรัม",
-  "today.baby.week.40.weightImage": "ทารกแรกเกิด (มาตรฐาน)",
-  "today.baby.week.40.development": "เป็นช่วงเวลาที่ทารกจะเกิด",
-  "sos.q.01.text": "มีอาการท้องตึงหรือปวดท้องไหมคะ?",
-  "sos.q.01.o1": "มี",
-  "sos.q.01.o2": "ไม่มี",
-  "sos.q.02.text": "ท้องตึงทุกๆ กี่นาทีคะ?",
-  "sos.q.02.o1": "ตลอดเวลา",
-  "sos.q.02.o2": "0-5 นาที",
-  "sos.q.02.o3": "5-10 นาที",
-  "sos.q.02.o4": "10-15 นาที",
-  "sos.q.02.o5": "15 นาทีขึ้นไป",
-  "sos.q.03.text": "มีเลือดออกไหมคะ?",
-  "sos.q.03.o1": "มี",
-  "sos.q.03.o2": "ไม่มี",
-  "sos.q.04.text": "ลูกดิ้นไหมคะ?",
-  "sos.q.04.o1": "ดิ้น",
-  "sos.q.04.o2": "ไม่ดิ้น",
-  "sos.q.04.o3": "ไม่แน่ใจ",
-  "sos.q.05.text": "น้ำคร่ำเดินไหมคะ?",
-  "sos.q.05.o1": "เดิน",
-  "sos.q.05.o2": "ไม่เดิน",
-  "sos.q.05.o3": "ไม่แน่ใจ",
-  "sos.q.06.text": "น้ำคร่ำเดินเมื่อไหร่คะ?",
-  "sos.q.06.o1": "0-1 ชั่วโมงที่แล้ว",
-  "sos.q.06.o2": "1-24 ชั่วโมงที่แล้ว",
-  "sos.q.06.o3": "เกิน 24 ชั่วโมงที่แล้ว",
-  "sos.result.callNow": "จบคำถามแล้วค่ะ\nกรุณาติดต่อโรงพยาบาลนะคะ",
-  "sos.result.watchAndWait": "จบคำถามแล้วค่ะ\nรอดูอาการอีกสักพักนะคะ",
+  "today": {
+    "baby": {
+      "week": {
+        "8": {
+          "weightGuide": "ประมาณ 1–7 กรัม",
+          "weightImage": "ถั่วเมล็ดเล็ก 1 เมล็ด",
+          "development": "หัวใจเริ่มเต้น และเริ่มมีปุ่มแขนขา"
+        },
+        "9": {
+          "weightGuide": "ประมาณ 2–8 กรัม",
+          "weightImage": "ถั่วเมล็ดเล็ก 2 เมล็ด",
+          "development": "รูปร่างของร่างกายเริ่มแยกส่วนชัดเจนขึ้น"
+        },
+        "10": {
+          "weightGuide": "ประมาณ 5–10 กรัม",
+          "weightImage": "เชอร์รี่ 1 ผล",
+          "development": "นิ้วมือเริ่มก่อตัว และเริ่มดูเหมือนทารกมากขึ้น"
+        },
+        "11": {
+          "weightGuide": "ประมาณ 10 กรัม",
+          "weightImage": "มะเขือเทศราชินี 1 ผล",
+          "development": "ใบหน้าเริ่มเข้ารูป"
+        },
+        "12": {
+          "weightGuide": "ประมาณ 20 กรัม",
+          "weightImage": "สตรอว์เบอร์รี 1 ผล",
+          "development": "โครงสร้างพื้นฐานของร่างกายเกือบสมบูรณ์"
+        },
+        "13": {
+          "weightGuide": "ประมาณ 25 กรัม",
+          "weightImage": "สตรอว์เบอร์รีผลใหญ่",
+          "development": "เริ่มหัดกลืนน้ำคร่ำ"
+        },
+        "14": {
+          "weightGuide": "ประมาณ 50 กรัม",
+          "weightImage": "ไข่ 1 ฟอง",
+          "development": "เริ่มขยับร่างกายเล็กน้อย"
+        },
+        "15": {
+          "weightGuide": "ประมาณ 70 กรัม",
+          "weightImage": "ส้มผลเล็ก",
+          "development": "เริ่มมองเห็นการขยับปาก"
+        },
+        "16": {
+          "weightGuide": "ประมาณ 100 กรัม",
+          "weightImage": "แอปเปิลครึ่งผล",
+          "development": "ใบหน้าเริ่มชัดเจนขึ้น"
+        },
+        "17": {
+          "weightGuide": "ประมาณ 150 กรัม",
+          "weightImage": "แอปเปิล 1 ผล",
+          "development": "เริ่มมีเนื้อมีนวลขึ้น"
+        },
+        "18": {
+          "weightGuide": "ประมาณ 200 กรัม",
+          "weightImage": "แอปเปิลผลใหญ่",
+          "development": "เริ่มตอบสนองต่อเสียง"
+        },
+        "19": {
+          "weightGuide": "ประมาณ 250 กรัม",
+          "weightImage": "กล้วย 1 ผล",
+          "development": "เริ่มมีไขป้องกันผิวหนัง"
+        },
+        "20": {
+          "weightGuide": "ประมาณ 300 กรัม",
+          "weightImage": "เกรปฟรุตครึ่งผล",
+          "development": "เริ่มรู้สึกถึงลูกดิ้น"
+        },
+        "21": {
+          "weightGuide": "ประมาณ 400 กรัม",
+          "weightImage": "เกรปฟรุต 1 ผล",
+          "development": "กำลังฝึกระบบย่อยอาหาร"
+        },
+        "22": {
+          "weightGuide": "ประมาณ 450 กรัม",
+          "weightImage": "มะเขือยาวเล็ก 2 ผล",
+          "development": "การทำงานของร่างกายกำลังพัฒนา"
+        },
+        "23": {
+          "weightGuide": "ประมาณ 500 กรัม",
+          "weightImage": "กะหล่ำปลี 1/4 หัว",
+          "development": "เริ่มมีการเคลื่อนไหวคล้ายการหายใจ"
+        },
+        "24": {
+          "weightGuide": "ประมาณ 600 กรัม",
+          "weightImage": "เมลอนผลเล็ก",
+          "development": "ปอดเริ่มพัฒนา"
+        },
+        "25": {
+          "weightGuide": "ประมาณ 700 กรัม",
+          "weightImage": "ข้าวโพด 3 ฝัก",
+          "development": "ตอบสนองต่อสิ่งกระตุ้น"
+        },
+        "26": {
+          "weightGuide": "ประมาณ 800 กรัม",
+          "weightImage": "ฟักทอง 1/4 ผล",
+          "development": "เริ่มลืมตา"
+        },
+        "27": {
+          "weightGuide": "ประมาณ 900 กรัม",
+          "weightImage": "ฟักทอง 1/3 ผล",
+          "development": "การเคลื่อนไหวเริ่มแข็งแรงขึ้น"
+        },
+        "28": {
+          "weightGuide": "ประมาณ 1000 กรัม",
+          "weightImage": "นม 1 กล่อง",
+          "development": "ร่างกายเริ่มอวบอิ่มขึ้น"
+        },
+        "29": {
+          "weightGuide": "ประมาณ 1200 กรัม",
+          "weightImage": "สับปะรดผลเล็ก",
+          "development": "ไขมันเพิ่มขึ้น"
+        },
+        "30": {
+          "weightGuide": "ประมาณ 1300 กรัม",
+          "weightImage": "ผักกาดขาว 1/4 ต้น",
+          "development": "เริ่มดิ้นแรงขึ้น"
+        },
+        "31": {
+          "weightGuide": "ประมาณ 1500 กรั m",
+          "weightImage": "เมลอน 1 ผล",
+          "development": "เริ่มมีจังหวะการหลับและตื่น"
+        },
+        "32": {
+          "weightGuide": "ประมาณ 1800 กรัม",
+          "weightImage": "สับปะรด 1 ผล",
+          "development": "ทารกมักจะหันศีรษะลงข้างล่าง"
+        },
+        "33": {
+          "weightGuide": "ประมาณ 2000 กรัม",
+          "weightImage": "สับปะรดผลใหญ่",
+          "development": "การเตรียมตัวก่อนคลอดมีความคืบหน้า"
+        },
+        "34": {
+          "weightGuide": "ประมาณ 2200 กรัม",
+          "weightImage": "แตงโมลูกเล็ก",
+          "development": "พร้อมสำหรับการฝึกดูดนมแม่"
+        },
+        "35": {
+          "weightGuide": "ประมาณ 2400 กรัม",
+          "weightImage": "แตงโมขนาดกลาง",
+          "development": "ร่างกายเริ่มกลมขึ้น"
+        },
+        "36": {
+          "weightGuide": "ประมาณ 2500 กรัม",
+          "weightImage": "ขนาดทารกแรกเกิด",
+          "development": "ฟังก์ชันต่างๆ ของร่างกายพร้อมสมบูรณ์"
+        },
+        "37": {
+          "weightGuide": "ประมาณ 2700 กรัม",
+          "weightImage": "ทารกแรกเกิดขนาดค่อนข้างใหญ่",
+          "development": "ถึงกำหนดคลอด พร้อมจะลืมตาดูโลกได้ทุกเมื่อ"
+        },
+        "38": {
+          "weightGuide": "ประมาณ 2900 กรัม",
+          "weightImage": "ขนาดเฉลี่ยทารกแรกเกิด",
+          "development": "ร่างกายเกือบสมบูรณ์ 100%"
+        },
+        "39": {
+          "weightGuide": "ประมาณ 3000 กรัม",
+          "weightImage": "ขนาดเฉลี่ยทารกแรกเกิด",
+          "development": "การเตรียมตัวคลอดเสร็จสมบูรณ์"
+        },
+        "40": {
+          "weightGuide": "ประมาณ 3000–3500 กรัม",
+          "weightImage": "ทารกแรกเกิด (มาตรฐาน)",
+          "development": "เป็นช่วงเวลาที่ทารกจะเกิด"
+        }
+      }
+    }
+  },
+  "epds": {
+    "q": {
+      "10": {
+        "text": "自分自身を傷つけるという考えが浮かんできた。",
+        "o1": "はい、かなりしばしばそうだった。",
+        "o2": "時々そうだった。",
+        "o3": "めったになかった。",
+        "o4": "まったくなかった。"
+      },
+      "01": {
+        "text": "笑うことができたし、物事のおかしい面もわかった。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "まったくできなかった。"
+      },
+      "02": {
+        "text": "物事を楽しみにして待った。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "ほとんどできなかった。"
+      },
+      "03": {
+        "text": "物事が悪くいった時、自分を不必要に責めた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、時々そうだった。",
+        "o3": "いいえ、あまり度々ではない。",
+        "o4": "いいえ、そうではなかった。"
+      },
+      "04": {
+        "text": "はっきりした理由もないのに不安になったり、心配した。",
+        "o1": "いいえ、そうではなかった。",
+        "o2": "ほとんどそうではなかった。",
+        "o3": "はい、時々あった。",
+        "o4": "はい、しょっちゅうあった。"
+      },
+      "05": {
+        "text": "はっきりした理由もないのに恐怖に襲われた。",
+        "o1": "はい、しょっちゅうあった。",
+        "o2": "はい、時々あった。",
+        "o3": "いいえ、めったになかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "06": {
+        "text": "することがたくさんあって大変だった。",
+        "o1": "はい、たいてい対処できなかった。",
+        "o2": "はい、いつものようにはうまく対処しなかった。",
+        "o3": "いいえ、たいていうまく対処した。",
+        "o4": "いいえ、普段通りに対処した。"
+      },
+      "07": {
+        "text": "不幸せなので、眠りにくかった。",
+        "o1": "はい、ほとんどいつもそうだった。",
+        "o2": "はい、ときどきそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "08": {
+        "text": "悲しくなったり、惨めになった。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      },
+      "09": {
+        "text": "不幸せなので、泣けてきた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "ほんの時々あった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      }
+    }
+  },
+  "sos": {
+    "q": {
+      "01": {
+        "text": "มีอาการท้องตึงหรือปวดท้องไหมคะ?",
+        "o1": "มี",
+        "o2": "ไม่มี"
+      },
+      "02": {
+        "text": "ท้องตึงทุกๆ กี่นาทีคะ?",
+        "o1": "ตลอดเวลา",
+        "o2": "0-5 นาที",
+        "o3": "5-10 นาที",
+        "o4": "10-15 นาที",
+        "o5": "15 นาทีขึ้นไป"
+      },
+      "03": {
+        "text": "มีเลือดออกไหมคะ?",
+        "o1": "มี",
+        "o2": "ไม่มี"
+      },
+      "04": {
+        "text": "ลูกดิ้นไหมคะ?",
+        "o1": "ดิ้น",
+        "o2": "ไม่ดิ้น",
+        "o3": "ไม่แน่ใจ"
+      },
+      "05": {
+        "text": "น้ำคร่ำเดินไหมคะ?",
+        "o1": "เดิน",
+        "o2": "ไม่เดิน",
+        "o3": "ไม่แน่ใจ"
+      },
+      "06": {
+        "text": "น้ำคร่ำเดินเมื่อไหร่คะ?",
+        "o1": "0-1 ชั่วโมงที่แล้ว",
+        "o2": "1-24 ชั่วโมงที่แล้ว",
+        "o3": "เกิน 24 ชั่วโมงที่แล้ว"
+      }
+    },
+    "result": {
+      "callNow": "จบคำถามแล้วค่ะ\nกรุณาติดต่อโรงพยาบาลนะคะ",
+      "watchAndWait": "จบคำถามแล้วค่ะ\nรอดูอาการอีกสักพักนะคะ"
+    }
+  },
   "link": {
     "levelTable": {
       "caption": "กรุณาเลือกระดับที่ตรงกับแต่ละทักษะ",

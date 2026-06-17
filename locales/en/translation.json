@@ -639,182 +639,299 @@
       "customNameRequired": "Please enter a vaccine name."
     }
   },
-  "today.baby.label.weight": "Baby’s Estimated Weight",
-  "today.baby.label.weightImage": "About the Size of",
-  "today.baby.label.content": "How Your Baby Is Growing",
-  "today.baby.week.8.weightGuide": "Approx. 1–7g",
-  "today.baby.week.8.weightImage": "1 small bean",
-  "today.baby.week.8.development": "The heart starts beating, and the buds of the limbs are formed.",
-  "today.baby.week.9.weightGuide": "Approx. 2–8g",
-  "today.baby.week.9.weightImage": "2 small beans",
-  "today.baby.week.9.development": "The body shape gradually begins to differentiate.",
-  "today.baby.week.10.weightGuide": "Approx. 5–10g",
-  "today.baby.week.10.weightImage": "1 cherry",
-  "today.baby.week.10.development": "Fingers are formed, and the baby begins to look more human.",
-  "today.baby.week.11.weightGuide": "Approx. 10g",
-  "today.baby.week.11.weightImage": "1 cherry tomato",
-  "today.baby.week.11.development": "Facial features begin to take shape.",
-  "today.baby.week.12.weightGuide": "Approx. 20g",
-  "today.baby.week.12.weightImage": "1 strawberry",
-  "today.baby.week.12.development": "The basic structure of the body is almost complete.",
-  "today.baby.week.13.weightGuide": "Approx. 25g",
-  "today.baby.week.13.weightImage": "Large strawberry",
-  "today.baby.week.13.development": "Begins practicing swallowing amniotic fluid.",
-  "today.baby.week.14.weightGuide": "Approx. 50g",
-  "today.baby.week.14.weightImage": "1 egg",
-  "today.baby.week.14.development": "Begins to move the body slightly.",
-  "today.baby.week.15.weightGuide": "Approx. 70g",
-  "today.baby.week.15.weightImage": "Small mandarin orange",
-  "today.baby.week.15.development": "Mouth movements can be observed.",
-  "today.baby.week.16.weightGuide": "Approx. 100g",
-  "today.baby.week.16.weightImage": "Half an apple",
-  "today.baby.week.16.development": "The face becomes clearly defined.",
-  "today.baby.week.17.weightGuide": "Approx. 150g",
-  "today.baby.week.17.weightImage": "1 apple",
-  "today.baby.week.17.development": "Gradually becomes more plump.",
-  "today.baby.week.18.weightGuide": "Approx. 200g",
-  "today.baby.week.18.weightImage": "Large apple",
-  "today.baby.week.18.development": "Begins to react to sounds.",
-  "today.baby.week.19.weightGuide": "Approx. 250g",
-  "today.baby.week.19.weightImage": "1 banana",
-  "today.baby.week.19.development": "A protective layer (vernix) forms on the skin.",
-  "today.baby.week.20.weightGuide": "Approx. 300g",
-  "today.baby.week.20.weightImage": "Half a grapefruit",
-  "today.baby.week.20.development": "Fetal movements begin to be felt.",
-  "today.baby.week.21.weightGuide": "Approx. 400g",
-  "today.baby.week.21.weightImage": "1 grapefruit",
-  "today.baby.week.21.development": "Practicing digestion.",
-  "today.baby.week.22.weightGuide": "Approx. 450g",
-  "today.baby.week.22.weightImage": "2 small eggplants",
-  "today.baby.week.22.development": "Body functions are developing.",
-  "today.baby.week.23.weightGuide": "Approx. 500g",
-  "today.baby.week.23.weightImage": "1/4 cabbage",
-  "today.baby.week.23.development": "Makes breathing-like movements.",
-  "today.baby.week.24.weightGuide": "Approx. 600g",
-  "today.baby.week.24.weightImage": "Small melon",
-  "today.baby.week.24.development": "The lungs begin to develop.",
-  "today.baby.week.25.weightGuide": "Approx. 700g",
-  "today.baby.week.25.weightImage": "3 ears of corn",
-  "today.baby.week.25.development": "Reacts to stimuli.",
-  "today.baby.week.26.weightGuide": "Approx. 800g",
-  "today.baby.week.26.weightImage": "1/4 pumpkin",
-  "today.baby.week.26.development": "Begins to open their eyes.",
-  "today.baby.week.27.weightGuide": "Approx. 900g",
-  "today.baby.week.27.weightImage": "1/3 pumpkin",
-  "today.baby.week.27.development": "Movements become more robust.",
-  "today.baby.week.28.weightGuide": "Approx. 1000g",
-  "today.baby.week.28.weightImage": "1 milk carton",
-  "today.baby.week.28.development": "The body begins to fill out.",
-  "today.baby.week.29.weightGuide": "Approx. 1200g",
-  "today.baby.week.29.weightImage": "Small pineapple",
-  "today.baby.week.29.development": "Body fat increases.",
-  "today.baby.week.30.weightGuide": "Approx. 1300g",
-  "today.baby.week.30.weightImage": "1/4 Chinese cabbage",
-  "today.baby.week.30.development": "Begins to move forcefully.",
-  "today.baby.week.31.weightGuide": "Approx. 1500g",
-  "today.baby.week.31.weightImage": "1 melon",
-  "today.baby.week.31.development": "A sleep-wake rhythm emerges.",
-  "today.baby.week.32.weightGuide": "Approx. 1800g",
-  "today.baby.week.32.weightImage": "1 pineapple",
-  "today.baby.week.32.development": "The head is more often positioned downwards.",
-  "today.baby.week.33.weightGuide": "Approx. 2000g",
-  "today.baby.week.33.weightImage": "Large pineapple",
-  "today.baby.week.33.development": "Preparations for birth progress.",
-  "today.baby.week.34.weightGuide": "Approx. 2200g",
-  "today.baby.week.34.weightImage": "Small watermelon",
-  "today.baby.week.34.development": "Ready to practice breastfeeding.",
-  "today.baby.week.35.weightGuide": "Approx. 2400g",
-  "today.baby.week.35.weightImage": "Medium watermelon",
-  "today.baby.week.35.development": "The body becomes more rounded.",
-  "today.baby.week.36.weightGuide": "Approx. 2500g",
-  "today.baby.week.36.weightImage": "Newborn size",
-  "today.baby.week.36.development": "Body functions are fully developed.",
-  "today.baby.week.37.weightGuide": "Approx. 2700g",
-  "today.baby.week.37.weightImage": "Slightly large newborn",
-  "today.baby.week.37.development": "Considered full-term; ready to be born at any time.",
-  "today.baby.week.38.weightGuide": "Approx. 2900g",
-  "today.baby.week.38.weightImage": "Average newborn",
-  "today.baby.week.38.development": "Almost fully developed.",
-  "today.baby.week.39.weightGuide": "Approx. 3000g",
-  "today.baby.week.39.weightImage": "Average newborn",
-  "today.baby.week.39.development": "Preparations for birth are complete.",
-  "today.baby.week.40.weightGuide": "Approx. 3000–3500g",
-  "today.baby.week.40.weightImage": "Newborn (standard)",
-  "today.baby.week.40.development": "The time for the baby to be born.",
-  "epds.q.01.text": "I have been able to laugh and see the funny side of things.",
-  "epds.q.01.o1": "As much as I always could.",
-  "epds.q.01.o2": "Not quite so much now.",
-  "epds.q.01.o3": "Definitely not so much now.",
-  "epds.q.01.o4": "Not at all.",
-  "epds.q.02.text": "I have looked forward with enjoyment to things.",
-  "epds.q.02.o1": "As much as I ever did.",
-  "epds.q.02.o2": "Rather less than I used to.",
-  "epds.q.02.o3": "Definitely less than I used to.",
-  "epds.q.02.o4": "Hardly at all.",
-  "epds.q.03.text": "I have blamed myself unnecessarily when things went wrong.",
-  "epds.q.03.o1": "Yes, most of the time.",
-  "epds.q.03.o2": "Yes, some of the time.",
-  "epds.q.03.o3": "Not very often.",
-  "epds.q.03.o4": "No, never.",
-  "epds.q.04.text": "I have been anxious or worried for no good reason.",
-  "epds.q.04.o1": "No, not at all.",
-  "epds.q.04.o2": "Hardly at all.",
-  "epds.q.04.o3": "Yes, sometimes.",
-  "epds.q.04.o4": "Yes, very often.",
-  "epds.q.05.text": "I have felt scared or panicky for no good reason.",
-  "epds.q.05.o1": "Yes, quite a lot.",
-  "epds.q.05.o2": "Yes, sometimes.",
-  "epds.q.05.o3": "No, not much.",
-  "epds.q.05.o4": "No, not at all.",
-  "epds.q.06.text": "Things have been getting on top of me.",
-  "epds.q.06.o1": "Yes, most of the time I haven't been able to cope at all.",
-  "epds.q.06.o2": "Yes, sometimes I haven't been coping as well as usual.",
-  "epds.q.06.o3": "No, most of the time I have coped quite well.",
-  "epds.q.06.o4": "No, I have been coping as well as ever.",
-  "epds.q.07.text": "I have been so unhappy that I have had difficulty sleeping.",
-  "epds.q.07.o1": "Yes, most of the time.",
-  "epds.q.07.o2": "Yes, sometimes.",
-  "epds.q.07.o3": "Not very often.",
-  "epds.q.07.o4": "No, not at all.",
-  "epds.q.08.text": "I have felt sad or miserable.",
-  "epds.q.08.o1": "Yes, most of the time.",
-  "epds.q.08.o2": "Yes, quite often.",
-  "epds.q.08.o3": "Not very often.",
-  "epds.q.08.o4": "No, not at all.",
-  "epds.q.09.text": "I have been so unhappy that I have been crying.",
-  "epds.q.09.o1": "Yes, most of the time.",
-  "epds.q.09.o2": "Yes, quite often.",
-  "epds.q.09.o3": "Only occasionally.",
-  "epds.q.09.o4": "No, never.",
-  "epds.q.10.text": "The thought of harming myself has occurred to me.",
-  "epds.q.10.o1": "Yes, quite often.",
-  "epds.q.10.o2": "Sometimes.",
-  "epds.q.10.o3": "Hardly ever.",
-  "epds.q.10.o4": "Never.",
-  "sos.q.01.text": "Do you have any tightness or pain in your abdomen?",
-  "sos.q.01.o1": "Yes",
-  "sos.q.01.o2": "No",
-  "sos.q.02.text": "What is the interval between abdominal tightenings?",
-  "sos.q.02.o1": "Constant",
-  "sos.q.02.o2": "0–5 minutes",
-  "sos.q.02.o3": "5–10 minutes",
-  "sos.q.02.o4": "10–15 minutes",
-  "sos.q.02.o5": "More than 15 minutes",
-  "sos.q.03.text": "Do you have any bleeding?",
-  "sos.q.03.o1": "Yes",
-  "sos.q.03.o2": "No",
-  "sos.q.04.text": "Is the baby moving?",
-  "sos.q.04.o1": "Yes",
-  "sos.q.04.o2": "No",
-  "sos.q.04.o3": "I don't know",
-  "sos.q.05.text": "Has your water broken?",
-  "sos.q.05.o1": "Yes",
-  "sos.q.05.o2": "No",
-  "sos.q.05.o3": "I don't know",
-  "sos.q.06.text": "When did your water break?",
-  "sos.q.06.o1": "0–1 hour ago",
-  "sos.q.06.o2": "1–24 hours ago",
-  "sos.q.06.o3": "More than 24 hours ago",
-  "sos.result.callNow": "That's all for the questions.\nPlease contact the hospital.",
-  "sos.result.watchAndWait": "That's all for the questions.\nLet's wait and see for a while."
+  "today": {
+    "baby": {
+      "label": {
+        "pregnancyWeek": "Weeks Pregnant",
+        "weight": "Baby’s Estimated Weight",
+        "weightImage": "About the Size of",
+        "content": "How Your Baby is Growing"
+      },
+      "week": {
+        "8": {
+          "weightGuide": "Approx. 1–7g",
+          "weightImage": "1 small bean",
+          "development": "The heart starts beating, and the buds of the limbs are formed."
+        },
+        "9": {
+          "weightGuide": "Approx. 2–8g",
+          "weightImage": "2 small beans",
+          "development": "The body shape gradually begins to differentiate."
+        },
+        "10": {
+          "weightGuide": "Approx. 5–10g",
+          "weightImage": "1 cherry",
+          "development": "Fingers are formed, and the baby begins to look more human."
+        },
+        "11": {
+          "weightGuide": "Approx. 10g",
+          "weightImage": "1 cherry tomato",
+          "development": "Facial features begin to take shape."
+        },
+        "12": {
+          "weightGuide": "Approx. 20g",
+          "weightImage": "1 strawberry",
+          "development": "The basic structure of the body is almost complete."
+        },
+        "13": {
+          "weightGuide": "Approx. 25g",
+          "weightImage": "Large strawberry",
+          "development": "Begins practicing swallowing amniotic fluid."
+        },
+        "14": {
+          "weightGuide": "Approx. 50g",
+          "weightImage": "1 egg",
+          "development": "Begins to move the body slightly."
+        },
+        "15": {
+          "weightGuide": "Approx. 70g",
+          "weightImage": "Small mandarin orange",
+          "development": "Mouth movements can be observed."
+        },
+        "16": {
+          "weightGuide": "Approx. 100g",
+          "weightImage": "Half an apple",
+          "development": "The face becomes clearly defined."
+        },
+        "17": {
+          "weightGuide": "Approx. 150g",
+          "weightImage": "1 apple",
+          "development": "Gradually becomes more plump."
+        },
+        "18": {
+          "weightGuide": "Approx. 200g",
+          "weightImage": "Large apple",
+          "development": "Begins to react to sounds."
+        },
+        "19": {
+          "weightGuide": "Approx. 250g",
+          "weightImage": "1 banana",
+          "development": "A protective layer (vernix) forms on the skin."
+        },
+        "20": {
+          "weightGuide": "Approx. 300g",
+          "weightImage": "Half a grapefruit",
+          "development": "Fetal movements begin to be felt."
+        },
+        "21": {
+          "weightGuide": "Approx. 400g",
+          "weightImage": "1 grapefruit",
+          "development": "Practicing digestion."
+        },
+        "22": {
+          "weightGuide": "Approx. 450g",
+          "weightImage": "2 small eggplants",
+          "development": "Body functions are developing."
+        },
+        "23": {
+          "weightGuide": "Approx. 500g",
+          "weightImage": "1/4 cabbage",
+          "development": "Makes breathing-like movements."
+        },
+        "24": {
+          "weightGuide": "Approx. 600g",
+          "weightImage": "Small melon",
+          "development": "The lungs begin to develop."
+        },
+        "25": {
+          "weightGuide": "Approx. 700g",
+          "weightImage": "3 ears of corn",
+          "development": "Reacts to stimuli."
+        },
+        "26": {
+          "weightGuide": "Approx. 800g",
+          "weightImage": "1/4 pumpkin",
+          "development": "Begins to open their eyes."
+        },
+        "27": {
+          "weightGuide": "Approx. 900g",
+          "weightImage": "1/3 pumpkin",
+          "development": "Movements become more robust."
+        },
+        "28": {
+          "weightGuide": "Approx. 1000g",
+          "weightImage": "1 milk carton",
+          "development": "The body begins to fill out."
+        },
+        "29": {
+          "weightGuide": "Approx. 1200g",
+          "weightImage": "Small pineapple",
+          "development": "Body fat increases."
+        },
+        "30": {
+          "weightGuide": "Approx. 1300g",
+          "weightImage": "1/4 Chinese cabbage",
+          "development": "Begins to move forcefully."
+        },
+        "31": {
+          "weightGuide": "Approx. 1500g",
+          "weightImage": "1 melon",
+          "development": "A sleep-wake rhythm emerges."
+        },
+        "32": {
+          "weightGuide": "Approx. 1800g",
+          "weightImage": "1 pineapple",
+          "development": "The head is more often positioned downwards."
+        },
+        "33": {
+          "weightGuide": "Approx. 2000g",
+          "weightImage": "Large pineapple",
+          "development": "Preparations for birth progress."
+        },
+        "34": {
+          "weightGuide": "Approx. 2200g",
+          "weightImage": "Small watermelon",
+          "development": "Ready to practice breastfeeding."
+        },
+        "35": {
+          "weightGuide": "Approx. 2400g",
+          "weightImage": "Medium watermelon",
+          "development": "The body becomes more rounded."
+        },
+        "36": {
+          "weightGuide": "Approx. 2500g",
+          "weightImage": "Newborn size",
+          "development": "Body functions are fully developed."
+        },
+        "37": {
+          "weightGuide": "Approx. 2700g",
+          "weightImage": "Slightly large newborn",
+          "development": "Considered full-term; ready to be born at any time."
+        },
+        "38": {
+          "weightGuide": "Approx. 2900g",
+          "weightImage": "Average newborn",
+          "development": "Almost fully developed."
+        },
+        "39": {
+          "weightGuide": "Approx. 3000g",
+          "weightImage": "Average newborn",
+          "development": "Preparations for birth are complete."
+        },
+        "40": {
+          "weightGuide": "Approx. 3000–3500g",
+          "weightImage": "Newborn (standard)",
+          "development": "The time for the baby to be born."
+        }
+      }
+    }
+  },
+  "epds": {
+    "q": {
+      "10": {
+        "text": "The thought of harming myself has occurred to me.",
+        "o1": "Yes, quite often.",
+        "o2": "Sometimes.",
+        "o3": "Hardly ever.",
+        "o4": "Never."
+      },
+      "01": {
+        "text": "I have been able to laugh and see the funny side of things.",
+        "o1": "As much as I always could.",
+        "o2": "Not quite so much now.",
+        "o3": "Definitely not so much now.",
+        "o4": "Not at all."
+      },
+      "02": {
+        "text": "I have looked forward with enjoyment to things.",
+        "o1": "As much as I ever did.",
+        "o2": "Rather less than I used to.",
+        "o3": "Definitely less than I used to.",
+        "o4": "Hardly at all."
+      },
+      "03": {
+        "text": "I have blamed myself unnecessarily when things went wrong.",
+        "o1": "Yes, most of the time.",
+        "o2": "Yes, some of the time.",
+        "o3": "Not very often.",
+        "o4": "No, never."
+      },
+      "04": {
+        "text": "I have been anxious or worried for no good reason.",
+        "o1": "No, not at all.",
+        "o2": "Hardly at all.",
+        "o3": "Yes, sometimes.",
+        "o4": "Yes, very often."
+      },
+      "05": {
+        "text": "I have felt scared or panicky for no good reason.",
+        "o1": "Yes, quite a lot.",
+        "o2": "Yes, sometimes.",
+        "o3": "No, not much.",
+        "o4": "No, not at all."
+      },
+      "06": {
+        "text": "Things have been getting on top of me.",
+        "o1": "Yes, most of the time I haven't been able to cope at all.",
+        "o2": "Yes, sometimes I haven't been coping as well as usual.",
+        "o3": "No, most of the time I have coped quite well.",
+        "o4": "No, I have been coping as well as ever."
+      },
+      "07": {
+        "text": "I have been so unhappy that I have had difficulty sleeping.",
+        "o1": "Yes, most of the time.",
+        "o2": "Yes, sometimes.",
+        "o3": "Not very often.",
+        "o4": "No, not at all."
+      },
+      "08": {
+        "text": "I have felt sad or miserable.",
+        "o1": "Yes, most of the time.",
+        "o2": "Yes, quite often.",
+        "o3": "Not very often.",
+        "o4": "No, not at all."
+      },
+      "09": {
+        "text": "I have been so unhappy that I have been crying.",
+        "o1": "Yes, most of the time.",
+        "o2": "Yes, quite often.",
+        "o3": "Only occasionally.",
+        "o4": "No, never."
+      }
+    }
+  },
+  "sos": {
+    "q": {
+      "01": {
+        "text": "Do you have any tightness or pain in your abdomen?",
+        "o1": "Yes",
+        "o2": "No"
+      },
+      "02": {
+        "text": "What is the interval between abdominal tightenings?",
+        "o1": "Constant",
+        "o2": "0–5 minutes",
+        "o3": "5–10 minutes",
+        "o4": "10–15 minutes",
+        "o5": "More than 15 minutes"
+      },
+      "03": {
+        "text": "Do you have any bleeding?",
+        "o1": "Yes",
+        "o2": "No"
+      },
+      "04": {
+        "text": "Is the baby moving?",
+        "o1": "Yes",
+        "o2": "No",
+        "o3": "I don't know"
+      },
+      "05": {
+        "text": "Has your water broken?",
+        "o1": "Yes",
+        "o2": "No",
+        "o3": "I don't know"
+      },
+      "06": {
+        "text": "When did your water break?",
+        "o1": "0–1 hour ago",
+        "o2": "1–24 hours ago",
+        "o3": "More than 24 hours ago"
+      }
+    },
+    "result": {
+      "callNow": "That's all for the questions.\nPlease contact the hospital.",
+      "watchAndWait": "That's all for the questions.\nLet's wait and see for a while."
+    }
+  }
 }

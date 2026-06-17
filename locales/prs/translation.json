@@ -451,131 +451,295 @@
       }
     }
   },
-  "today.baby.week.8.weightGuide": "تقریباً 1-7 گرام",
-  "today.baby.week.8.weightImage": "1 لوبیای کوچک",
-  "today.baby.week.8.development": "قلب شروع به تپیدن می‌کند و جوانه‌های دست و پا شکل می‌گیرند.",
-  "today.baby.week.9.weightGuide": "تقریباً 2-8 گرام",
-  "today.baby.week.9.weightImage": "2 لوبیای کوچک",
-  "today.baby.week.9.development": "شکل بدن به تدریج متمایز می‌شود.",
-  "today.baby.week.10.weightGuide": "تقریباً 5-10 گرام",
-  "today.baby.week.10.weightImage": "1 آلبالو",
-  "today.baby.week.10.development": "انگشتان شکل می‌گیرند و نوزاد بیشتر شبیه انسان می‌شود.",
-  "today.baby.week.11.weightGuide": "تقریباً 10 گرام",
-  "today.baby.week.11.weightImage": "1 بانجان رومی ریز (گیلاسی)",
-  "today.baby.week.11.development": "ویژگی‌های صورت شروع به شکل‌گیری می‌کنند.",
-  "today.baby.week.12.weightGuide": "تقریباً 20 گرام",
-  "today.baby.week.12.weightImage": "1 توت زمینی",
-  "today.baby.week.12.development": "ساختار اساسی بدن تقریباً کامل شده است.",
-  "today.baby.week.13.weightGuide": "تقریباً 25 گرام",
-  "today.baby.week.13.weightImage": "توت زمینی بزرگ",
-  "today.baby.week.13.development": "تمرین بلعیدن مایع آمنیوتیک را شروع می‌کند.",
-  "today.baby.week.14.weightGuide": "تقریباً 50 گرام",
-  "today.baby.week.14.weightImage": "1 تخم مرغ",
-  "today.baby.week.14.development": "شروع به حرکت دادن جزئی بدن می‌کند.",
-  "today.baby.week.15.weightGuide": "تقریباً 70 گرام",
-  "today.baby.week.15.weightImage": "مالتای کوچک",
-  "today.baby.week.15.development": "حرکات دهان قابل مشاهده است.",
-  "today.baby.week.16.weightGuide": "تقریباً 100 گرام",
-  "today.baby.week.16.weightImage": "نصف سیب",
-  "today.baby.week.16.development": "صورت واضح‌تر می‌شود.",
-  "today.baby.week.17.weightGuide": "تقریباً 150 گرام",
-  "today.baby.week.17.weightImage": "1 سیب",
-  "today.baby.week.17.development": "به تدریج کمی تپل‌تر می‌شود.",
-  "today.baby.week.18.weightGuide": "تقریباً 200 گرام",
-  "today.baby.week.18.weightImage": "سیب بزرگ",
-  "today.baby.week.18.development": "شروع به واکنش به صداها می‌کند.",
-  "today.baby.week.19.weightGuide": "تقریباً 250 گرام",
-  "today.baby.week.19.weightImage": "1 کیله",
-  "today.baby.week.19.development": "یک لایه محافظ (ورنیکس) روی پوست تشکیل می‌شود.",
-  "today.baby.week.20.weightGuide": "تقریباً 300 گرام",
-  "today.baby.week.20.weightImage": "نصف چکوتره",
-  "today.baby.week.20.development": "حرکات جنین شروع به محسوس شدن می‌کنند.",
-  "today.baby.week.21.weightGuide": "تقریباً 400 گرام",
-  "today.baby.week.21.weightImage": "1 چکوتره",
-  "today.baby.week.21.development": "در حال تمرین هضم غذا است.",
-  "today.baby.week.22.weightGuide": "تقریباً 450 گرام",
-  "today.baby.week.22.weightImage": "2 بانجان سیاه کوچک",
-  "today.baby.week.22.development": "عملکردهای بدن در حال رشد هستند.",
-  "today.baby.week.23.weightGuide": "تقریباً 500 گرام",
-  "today.baby.week.23.weightImage": "1/4 کرم (کلم)",
-  "today.baby.week.23.development": "حرکاتی شبیه تنفس انجام می‌دهد.",
-  "today.baby.week.24.weightGuide": "تقریباً 600 گرام",
-  "today.baby.week.24.weightImage": "خربزه کوچک",
-  "today.baby.week.24.development": "ریه‌ها شروع به رشد می‌کنند.",
-  "today.baby.week.25.weightGuide": "تقریباً 700 گرام",
-  "today.baby.week.25.weightImage": "3 جواری",
-  "today.baby.week.25.development": "به محرک‌ها واکنش نشان می‌دهد.",
-  "today.baby.week.26.weightGuide": "تقریباً 800 گرام",
-  "today.baby.week.26.weightImage": "1/4 کدو",
-  "today.baby.week.26.development": "شروع به باز کردن چشم‌ها می‌کند.",
-  "today.baby.week.27.weightGuide": "تقریباً 900 گرام",
-  "today.baby.week.27.weightImage": "1/3 کدو",
-  "today.baby.week.27.development": "حرکات قوی‌تر می‌شوند.",
-  "today.baby.week.28.weightGuide": "تقریباً 1000 گرام",
-  "today.baby.week.28.weightImage": "1 پاکت شیر",
-  "today.baby.week.28.development": "بدن شروع به پر شدن می‌کند.",
-  "today.baby.week.29.weightGuide": "تقریباً 1200 گرام",
-  "today.baby.week.29.weightImage": "آناناس کوچک",
-  "today.baby.week.29.development": "چربی بدن افزایش می‌یابد.",
-  "today.baby.week.30.weightGuide": "تقریباً 1300 گرام",
-  "today.baby.week.30.weightImage": "1/4 کرم چینی",
-  "today.baby.week.30.development": "شروع به حرکت با قدرت می‌کند.",
-  "today.baby.week.31.weightGuide": "تقریباً 1500 گرام",
-  "today.baby.week.31.weightImage": "1 خربزه",
-  "today.baby.week.31.development": "ریتم خواب و بیداری ظاهر می‌شود.",
-  "today.baby.week.32.weightGuide": "تقریباً 1800 گرام",
-  "today.baby.week.32.weightImage": "1 آناناس",
-  "today.baby.week.32.development": "سر بیشتر اوقات به سمت پایین قرار می‌گیرد.",
-  "today.baby.week.33.weightGuide": "تقریباً 2000 گرام",
-  "today.baby.week.33.weightImage": "آناناس بزرگ",
-  "today.baby.week.33.development": "آمادگی برای تولد پیش می‌رود.",
-  "today.baby.week.34.weightGuide": "تقریباً 2200 گرام",
-  "today.baby.week.34.weightImage": "تربوز کوچک",
-  "today.baby.week.34.development": "آماده برای تمرین شیردهی است.",
-  "today.baby.week.35.weightGuide": "تقریباً 2400 گرام",
-  "today.baby.week.35.weightImage": "تربوز متوسط",
-  "today.baby.week.35.development": "بدن گردتر می‌شود.",
-  "today.baby.week.36.weightGuide": "تقریباً 2500 گرام",
-  "today.baby.week.36.weightImage": "اندازه نوزاد تازه متولد شده",
-  "today.baby.week.36.development": "عملکردهای بدن به طور کامل شکل گرفته‌اند.",
-  "today.baby.week.37.weightGuide": "تقریباً 2700 گرام",
-  "today.baby.week.37.weightImage": "نوزاد کمی بزرگتر از حد معمول",
-  "today.baby.week.37.development": "رسیده؛ هر لحظه آماده تولد است.",
-  "today.baby.week.38.weightGuide": "تقریباً 2900 گرام",
-  "today.baby.week.38.weightImage": "نوزاد متوسط",
-  "today.baby.week.38.development": "تقریباً به طور کامل رشد کرده است.",
-  "today.baby.week.39.weightGuide": "تقریباً 3000 گرام",
-  "today.baby.week.39.weightImage": "نوزاد متوسط",
-  "today.baby.week.39.development": "آمادگی برای زایمان کامل شده است.",
-  "today.baby.week.40.weightGuide": "تقریباً 3000-3500 گرام",
-  "today.baby.week.40.weightImage": "نوزاد تازه متولد شده (استاندارد)",
-  "today.baby.week.40.development": "زمان تولد نوزاد است.",
-  "sos.q.01.text": "آیا در شکم خود احساس سفت شدن یا درد دارید؟",
-  "sos.q.01.o1": "بلی",
-  "sos.q.01.o2": "نخیر",
-  "sos.q.02.text": "فاصله زمانی بین سفت شدن شکم چقدر است؟",
-  "sos.q.02.o1": "مداوم",
-  "sos.q.02.o2": "0~5 دقیقه",
-  "sos.q.02.o3": "5~10 دقیقه",
-  "sos.q.02.o4": "10~15 دقیقه",
-  "sos.q.02.o5": "بیشتر از 15 دقیقه",
-  "sos.q.03.text": "آیا خونریزی دارید؟",
-  "sos.q.03.o1": "بلی",
-  "sos.q.03.o2": "نخیر",
-  "sos.q.04.text": "آیا نوزاد حرکت می‌کند؟",
-  "sos.q.04.o1": "بلی",
-  "sos.q.04.o2": "نخیر",
-  "sos.q.04.o3": "نمی‌دانم",
-  "sos.q.05.text": "آیا کیسه آب پاره شده است؟",
-  "sos.q.05.o1": "بلی",
-  "sos.q.05.o2": "نخیر",
-  "sos.q.05.o3": "نمی‌دانم",
-  "sos.q.06.text": "چه زمانی کیسه آب پاره شد؟",
-  "sos.q.06.o1": "0~1 ساعت قبل",
-  "sos.q.06.o2": "1~24 ساعت قبل",
-  "sos.q.06.o3": "بیشتر از 24 ساعت قبل",
-  "sos.result.callNow": "سوالات تمام شد.\nلطفاً با شفاخانه تماس بگیرید.",
-  "sos.result.watchAndWait": "سوالات تمام شد.\nکمی بیشتر منتظر بمانیم و وضعیت را ببینیم.",
+  "today": {
+    "baby": {
+      "week": {
+        "8": {
+          "weightGuide": "تقریباً 1-7 گرام",
+          "weightImage": "1 لوبیای کوچک",
+          "development": "قلب شروع به تپیدن می‌کند و جوانه‌های دست و پا شکل می‌گیرند."
+        },
+        "9": {
+          "weightGuide": "تقریباً 2-8 گرام",
+          "weightImage": "2 لوبیای کوچک",
+          "development": "شکل بدن به تدریج متمایز می‌شود."
+        },
+        "10": {
+          "weightGuide": "تقریباً 5-10 گرام",
+          "weightImage": "1 آلبالو",
+          "development": "انگشتان شکل می‌گیرند و نوزاد بیشتر شبیه انسان می‌شود."
+        },
+        "11": {
+          "weightGuide": "تقریباً 10 گرام",
+          "weightImage": "1 بانجان رومی ریز (گیلاسی)",
+          "development": "ویژگی‌های صورت شروع به شکل‌گیری می‌کنند."
+        },
+        "12": {
+          "weightGuide": "تقریباً 20 گرام",
+          "weightImage": "1 توت زمینی",
+          "development": "ساختار اساسی بدن تقریباً کامل شده است."
+        },
+        "13": {
+          "weightGuide": "تقریباً 25 گرام",
+          "weightImage": "توت زمینی بزرگ",
+          "development": "تمرین بلعیدن مایع آمنیوتیک را شروع می‌کند."
+        },
+        "14": {
+          "weightGuide": "تقریباً 50 گرام",
+          "weightImage": "1 تخم مرغ",
+          "development": "شروع به حرکت دادن جزئی بدن می‌کند."
+        },
+        "15": {
+          "weightGuide": "تقریباً 70 گرام",
+          "weightImage": "مالتای کوچک",
+          "development": "حرکات دهان قابل مشاهده است."
+        },
+        "16": {
+          "weightGuide": "تقریباً 100 گرام",
+          "weightImage": "نصف سیب",
+          "development": "صورت واضح‌تر می‌شود."
+        },
+        "17": {
+          "weightGuide": "تقریباً 150 گرام",
+          "weightImage": "1 سیب",
+          "development": "به تدریج کمی تپل‌تر می‌شود."
+        },
+        "18": {
+          "weightGuide": "تقریباً 200 گرام",
+          "weightImage": "سیب بزرگ",
+          "development": "شروع به واکنش به صداها می‌کند."
+        },
+        "19": {
+          "weightGuide": "تقریباً 250 گرام",
+          "weightImage": "1 کیله",
+          "development": "یک لایه محافظ (ورنیکس) روی پوست تشکیل می‌شود."
+        },
+        "20": {
+          "weightGuide": "تقریباً 300 گرام",
+          "weightImage": "نصف چکوتره",
+          "development": "حرکات جنین شروع به محسوس شدن می‌کنند."
+        },
+        "21": {
+          "weightGuide": "تقریباً 400 گرام",
+          "weightImage": "1 چکوتره",
+          "development": "در حال تمرین هضم غذا است."
+        },
+        "22": {
+          "weightGuide": "تقریباً 450 گرام",
+          "weightImage": "2 بانجان سیاه کوچک",
+          "development": "عملکردهای بدن در حال رشد هستند."
+        },
+        "23": {
+          "weightGuide": "تقریباً 500 گرام",
+          "weightImage": "1/4 کرم (کلم)",
+          "development": "حرکاتی شبیه تنفس انجام می‌دهد."
+        },
+        "24": {
+          "weightGuide": "تقریباً 600 گرام",
+          "weightImage": "خربزه کوچک",
+          "development": "ریه‌ها شروع به رشد می‌کنند."
+        },
+        "25": {
+          "weightGuide": "تقریباً 700 گرام",
+          "weightImage": "3 جواری",
+          "development": "به محرک‌ها واکنش نشان می‌دهد."
+        },
+        "26": {
+          "weightGuide": "تقریباً 800 گرام",
+          "weightImage": "1/4 کدو",
+          "development": "شروع به باز کردن چشم‌ها می‌کند."
+        },
+        "27": {
+          "weightGuide": "تقریباً 900 گرام",
+          "weightImage": "1/3 کدو",
+          "development": "حرکات قوی‌تر می‌شوند."
+        },
+        "28": {
+          "weightGuide": "تقریباً 1000 گرام",
+          "weightImage": "1 پاکت شیر",
+          "development": "بدن شروع به پر شدن می‌کند."
+        },
+        "29": {
+          "weightGuide": "تقریباً 1200 گرام",
+          "weightImage": "آناناس کوچک",
+          "development": "چربی بدن افزایش می‌یابد."
+        },
+        "30": {
+          "weightGuide": "تقریباً 1300 گرام",
+          "weightImage": "1/4 کرم چینی",
+          "development": "شروع به حرکت با قدرت می‌کند."
+        },
+        "31": {
+          "weightGuide": "تقریباً 1500 گرام",
+          "weightImage": "1 خربزه",
+          "development": "ریتم خواب و بیداری ظاهر می‌شود."
+        },
+        "32": {
+          "weightGuide": "تقریباً 1800 گرام",
+          "weightImage": "1 آناناس",
+          "development": "سر بیشتر اوقات به سمت پایین قرار می‌گیرد."
+        },
+        "33": {
+          "weightGuide": "تقریباً 2000 گرام",
+          "weightImage": "آناناس بزرگ",
+          "development": "آمادگی برای تولد پیش می‌رود."
+        },
+        "34": {
+          "weightGuide": "تقریباً 2200 گرام",
+          "weightImage": "تربوز کوچک",
+          "development": "آماده برای تمرین شیردهی است."
+        },
+        "35": {
+          "weightGuide": "تقریباً 2400 گرام",
+          "weightImage": "تربوز متوسط",
+          "development": "بدن گردتر می‌شود."
+        },
+        "36": {
+          "weightGuide": "تقریباً 2500 گرام",
+          "weightImage": "اندازه نوزاد تازه متولد شده",
+          "development": "عملکردهای بدن به طور کامل شکل گرفته‌اند."
+        },
+        "37": {
+          "weightGuide": "تقریباً 2700 گرام",
+          "weightImage": "نوزاد کمی بزرگتر از حد معمول",
+          "development": "رسیده؛ هر لحظه آماده تولد است."
+        },
+        "38": {
+          "weightGuide": "تقریباً 2900 گرام",
+          "weightImage": "نوزاد متوسط",
+          "development": "تقریباً به طور کامل رشد کرده است."
+        },
+        "39": {
+          "weightGuide": "تقریباً 3000 گرام",
+          "weightImage": "نوزاد متوسط",
+          "development": "آمادگی برای زایمان کامل شده است."
+        },
+        "40": {
+          "weightGuide": "تقریباً 3000-3500 گرام",
+          "weightImage": "نوزاد تازه متولد شده (استاندارد)",
+          "development": "زمان تولد نوزاد است."
+        }
+      }
+    }
+  },
+  "epds": {
+    "q": {
+      "10": {
+        "text": "自分自身を傷つけるという考えが浮かんできた。",
+        "o1": "はい、かなりしばしばそうだった。",
+        "o2": "時々そうだった。",
+        "o3": "めったになかった。",
+        "o4": "まったくなかった。"
+      },
+      "01": {
+        "text": "笑うことができたし、物事のおかしい面もわかった。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "まったくできなかった。"
+      },
+      "02": {
+        "text": "物事を楽しみにして待った。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "ほとんどできなかった。"
+      },
+      "03": {
+        "text": "物事が悪くいった時、自分を不必要に責めた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、時々そうだった。",
+        "o3": "いいえ、あまり度々ではない。",
+        "o4": "いいえ、そうではなかった。"
+      },
+      "04": {
+        "text": "はっきりした理由もないのに不安になったり、心配した。",
+        "o1": "いいえ、そうではなかった。",
+        "o2": "ほとんどそうではなかった。",
+        "o3": "はい、時々あった。",
+        "o4": "はい、しょっちゅうあった。"
+      },
+      "05": {
+        "text": "はっきりした理由もないのに恐怖に襲われた。",
+        "o1": "はい、しょっちゅうあった。",
+        "o2": "はい、時々あった。",
+        "o3": "いいえ、めったになかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "06": {
+        "text": "することがたくさんあって大変だった。",
+        "o1": "はい、たいてい対処できなかった。",
+        "o2": "はい、いつものようにはうまく対処しなかった。",
+        "o3": "いいえ、たいていうまく対処した。",
+        "o4": "いいえ、普段通りに対処した。"
+      },
+      "07": {
+        "text": "不幸せなので、眠りにくかった。",
+        "o1": "はい、ほとんどいつもそうだった。",
+        "o2": "はい、ときどきそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "08": {
+        "text": "悲しくなったり、惨めになった。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      },
+      "09": {
+        "text": "不幸せなので、泣けてきた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "ほんの時々あった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      }
+    }
+  },
+  "sos": {
+    "q": {
+      "01": {
+        "text": "آیا در شکم خود احساس سفت شدن یا درد دارید؟",
+        "o1": "بلی",
+        "o2": "نخیر"
+      },
+      "02": {
+        "text": "فاصله زمانی بین سفت شدن شکم چقدر است؟",
+        "o1": "مداوم",
+        "o2": "0~5 دقیقه",
+        "o3": "5~10 دقیقه",
+        "o4": "10~15 دقیقه",
+        "o5": "بیشتر از 15 دقیقه"
+      },
+      "03": {
+        "text": "آیا خونریزی دارید؟",
+        "o1": "بلی",
+        "o2": "نخیر"
+      },
+      "04": {
+        "text": "آیا نوزاد حرکت می‌کند؟",
+        "o1": "بلی",
+        "o2": "نخیر",
+        "o3": "نمی‌دانم"
+      },
+      "05": {
+        "text": "آیا کیسه آب پاره شده است؟",
+        "o1": "بلی",
+        "o2": "نخیر",
+        "o3": "نمی‌دانم"
+      },
+      "06": {
+        "text": "چه زمانی کیسه آب پاره شد؟",
+        "o1": "0~1 ساعت قبل",
+        "o2": "1~24 ساعت قبل",
+        "o3": "بیشتر از 24 ساعت قبل"
+      }
+    },
+    "result": {
+      "callNow": "سوالات تمام شد.\nلطفاً با شفاخانه تماس بگیرید.",
+      "watchAndWait": "سوالات تمام شد.\nکمی بیشتر منتظر بمانیم و وضعیت را ببینیم."
+    }
+  },
   "link": {
     "levelTable": {
       "caption": "برای هر مهارت، سطح مناسب را انتخاب کنید.",

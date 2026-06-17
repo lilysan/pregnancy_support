@@ -451,131 +451,295 @@
       }
     }
   },
-  "today.baby.week.8.weightGuide": "约1-7克",
-  "today.baby.week.8.weightImage": "1粒小豆",
-  "today.baby.week.8.development": "心脏开始跳动，四肢的萌芽形成。",
-  "today.baby.week.9.weightGuide": "约2-8克",
-  "today.baby.week.9.weightImage": "2粒小豆",
-  "today.baby.week.9.development": "身体形状逐渐分化。",
-  "today.baby.week.10.weightGuide": "约5-10克",
-  "today.baby.week.10.weightImage": "1颗樱桃",
-  "today.baby.week.10.development": "手指形成，宝宝开始更像人类。",
-  "today.baby.week.11.weightGuide": "约10克",
-  "today.baby.week.11.weightImage": "1颗小番茄",
-  "today.baby.week.11.development": "面部特征开始形成。",
-  "today.baby.week.12.weightGuide": "约20克",
-  "today.baby.week.12.weightImage": "1颗草莓",
-  "today.baby.week.12.development": "身体的基本结构几乎完成。",
-  "today.baby.week.13.weightGuide": "约25克",
-  "today.baby.week.13.weightImage": "大草莓",
-  "today.baby.week.13.development": "开始练习吞咽羊水。",
-  "today.baby.week.14.weightGuide": "约50克",
-  "today.baby.week.14.weightImage": "1个鸡蛋",
-  "today.baby.week.14.development": "身体开始轻微活动。",
-  "today.baby.week.15.weightGuide": "约70克",
-  "today.baby.week.15.weightImage": "小橘子",
-  "today.baby.week.15.development": "可以观察到嘴部动作。",
-  "today.baby.week.16.weightGuide": "约100克",
-  "today.baby.week.16.weightImage": "半个苹果",
-  "today.baby.week.16.development": "面部变得清晰。",
-  "today.baby.week.17.weightGuide": "约150克",
-  "today.baby.week.17.weightImage": "1个苹果",
-  "today.baby.week.17.development": "逐渐变得丰满。",
-  "today.baby.week.18.weightGuide": "约200克",
-  "today.baby.week.18.weightImage": "大苹果",
-  "today.baby.week.18.development": "开始对声音有反应。",
-  "today.baby.week.19.weightGuide": "约250克",
-  "today.baby.week.19.weightImage": "1根香蕉",
-  "today.baby.week.19.development": "皮肤上形成保护层（胎脂）。",
-  "today.baby.week.20.weightGuide": "约300克",
-  "today.baby.week.20.weightImage": "半个葡萄柚",
-  "today.baby.week.20.development": "开始感觉到胎动。",
-  "today.baby.week.21.weightGuide": "约400克",
-  "today.baby.week.21.weightImage": "1个葡萄柚",
-  "today.baby.week.21.development": "正在练习消化。",
-  "today.baby.week.22.weightGuide": "约450克",
-  "today.baby.week.22.weightImage": "2个小茄子",
-  "today.baby.week.22.development": "身体机能正在发育。",
-  "today.baby.week.23.weightGuide": "约500克",
-  "today.baby.week.23.weightImage": "1/4卷心菜",
-  "today.baby.week.23.development": "做出类似呼吸的动作。",
-  "today.baby.week.24.weightGuide": "约600克",
-  "today.baby.week.24.weightImage": "小甜瓜",
-  "today.baby.week.24.development": "肺部开始发育。",
-  "today.baby.week.25.weightGuide": "约700克",
-  "today.baby.week.25.weightImage": "3根玉米",
-  "today.baby.week.25.development": "对刺激有反应。",
-  "today.baby.week.26.weightGuide": "约800克",
-  "today.baby.week.26.weightImage": "1/4南瓜",
-  "today.baby.week.26.development": "开始睁开眼睛。",
-  "today.baby.week.27.weightGuide": "约900克",
-  "today.baby.week.27.weightImage": "1/3南瓜",
-  "today.baby.week.27.development": "动作变得更加有力。",
-  "today.baby.week.28.weightGuide": "约1000克",
-  "today.baby.week.28.weightImage": "1盒牛奶",
-  "today.baby.week.28.development": "身体开始丰满。",
-  "today.baby.week.29.weightGuide": "约1200克",
-  "today.baby.week.29.weightImage": "小菠萝",
-  "today.baby.week.29.development": "脂肪增加。",
-  "today.baby.week.30.weightGuide": "约1300克",
-  "today.baby.week.30.weightImage": "1/4大白菜",
-  "today.baby.week.30.development": "开始有力地移动。",
-  "today.baby.week.31.weightGuide": "约1500克",
-  "today.baby.week.31.weightImage": "1个甜瓜",
-  "today.baby.week.31.development": "出现睡眠-觉醒节律。",
-  "today.baby.week.32.weightGuide": "约1800克",
-  "today.baby.week.32.weightImage": "1个菠萝",
-  "today.baby.week.32.development": "头部更多地朝下。",
-  "today.baby.week.33.weightGuide": "约2000克",
-  "today.baby.week.33.weightImage": "大菠萝",
-  "today.baby.week.33.development": "为分娩做准备。",
-  "today.baby.week.34.weightGuide": "约2200克",
-  "today.baby.week.34.weightImage": "小西瓜",
-  "today.baby.week.34.development": "准备好练习母乳喂养。",
-  "today.baby.week.35.weightGuide": "约2400克",
-  "today.baby.week.35.weightImage": "中等西瓜",
-  "today.baby.week.35.development": "身体变得更圆润。",
-  "today.baby.week.36.weightGuide": "约2500克",
-  "today.baby.week.36.weightImage": "新生儿大小",
-  "today.baby.week.36.development": "身体机能完全发育。",
-  "today.baby.week.37.weightGuide": "约2700克",
-  "today.baby.week.37.weightImage": "稍大的新生儿",
-  "today.baby.week.37.development": "足月，随时可以出生。",
-  "today.baby.week.38.weightGuide": "约2900克",
-  "today.baby.week.38.weightImage": "平均新生儿",
-  "today.baby.week.38.development": "几乎完全发育。",
-  "today.baby.week.39.weightGuide": "约3000克",
-  "today.baby.week.39.weightImage": "平均新生儿",
-  "today.baby.week.39.development": "分娩准备完成。",
-  "today.baby.week.40.weightGuide": "约3000-3500克",
-  "today.baby.week.40.weightImage": "新生儿（标准）",
-  "today.baby.week.40.development": "宝宝出生的时候。",
-  "sos.q.01.text": "肚子有紧绷感或疼痛吗？",
-  "sos.q.01.o1": "有",
-  "sos.q.01.o2": "没有",
-  "sos.q.02.text": "肚子紧绷的时间间隔大约是多少分钟？",
-  "sos.q.02.o1": "一直紧绷",
-  "sos.q.02.o2": "0~5分钟",
-  "sos.q.02.o3": "5~10分钟",
-  "sos.q.02.o4": "10~15分钟",
-  "sos.q.02.o5": "15分钟以上",
-  "sos.q.03.text": "有出血吗？",
-  "sos.q.03.o1": "有",
-  "sos.q.03.o2": "没有",
-  "sos.q.04.text": "宝宝在动吗？",
-  "sos.q.04.o1": "在动",
-  "sos.q.04.o2": "没动",
-  "sos.q.04.o3": "不清楚",
-  "sos.q.05.text": "破水了吗？",
-  "sos.q.05.o1": "破了",
-  "sos.q.05.o2": "没破",
-  "sos.q.05.o3": "不清楚",
-  "sos.q.06.text": "什么时候破水的？",
-  "sos.q.06.o1": "0~1小时前",
-  "sos.q.06.o2": "1~24小时前",
-  "sos.q.06.o3": "24小时以上",
-  "sos.result.callNow": "提问结束。\n请联系医院。",
-  "sos.result.watchAndWait": "提问结束。\n请再观察一会儿。",
+  "today": {
+    "baby": {
+      "week": {
+        "8": {
+          "weightGuide": "约1-7克",
+          "weightImage": "1粒小豆",
+          "development": "心脏开始跳动，四肢的萌芽形成。"
+        },
+        "9": {
+          "weightGuide": "约2-8克",
+          "weightImage": "2粒小豆",
+          "development": "身体形状逐渐分化。"
+        },
+        "10": {
+          "weightGuide": "约5-10克",
+          "weightImage": "1颗樱桃",
+          "development": "手指形成，宝宝开始更像人类。"
+        },
+        "11": {
+          "weightGuide": "约10克",
+          "weightImage": "1颗小番茄",
+          "development": "面部特征开始形成。"
+        },
+        "12": {
+          "weightGuide": "约20克",
+          "weightImage": "1颗草莓",
+          "development": "身体的基本结构几乎完成。"
+        },
+        "13": {
+          "weightGuide": "约25克",
+          "weightImage": "大草莓",
+          "development": "开始练习吞咽羊水。"
+        },
+        "14": {
+          "weightGuide": "约50克",
+          "weightImage": "1个鸡蛋",
+          "development": "身体开始轻微活动。"
+        },
+        "15": {
+          "weightGuide": "约70克",
+          "weightImage": "小橘子",
+          "development": "可以观察到嘴部动作。"
+        },
+        "16": {
+          "weightGuide": "约100克",
+          "weightImage": "半个苹果",
+          "development": "面部变得清晰。"
+        },
+        "17": {
+          "weightGuide": "约150克",
+          "weightImage": "1个苹果",
+          "development": "逐渐变得丰满。"
+        },
+        "18": {
+          "weightGuide": "约200克",
+          "weightImage": "大苹果",
+          "development": "开始对声音有反应。"
+        },
+        "19": {
+          "weightGuide": "约250克",
+          "weightImage": "1根香蕉",
+          "development": "皮肤上形成保护层（胎脂）。"
+        },
+        "20": {
+          "weightGuide": "约300克",
+          "weightImage": "半个葡萄柚",
+          "development": "开始感觉到胎动。"
+        },
+        "21": {
+          "weightGuide": "约400克",
+          "weightImage": "1个葡萄柚",
+          "development": "正在练习消化。"
+        },
+        "22": {
+          "weightGuide": "约450克",
+          "weightImage": "2个小茄子",
+          "development": "身体机能正在发育。"
+        },
+        "23": {
+          "weightGuide": "约500克",
+          "weightImage": "1/4卷心菜",
+          "development": "做出类似呼吸的动作。"
+        },
+        "24": {
+          "weightGuide": "约600克",
+          "weightImage": "小甜瓜",
+          "development": "肺部开始发育。"
+        },
+        "25": {
+          "weightGuide": "约700克",
+          "weightImage": "3根玉米",
+          "development": "对刺激有反应。"
+        },
+        "26": {
+          "weightGuide": "约800克",
+          "weightImage": "1/4南瓜",
+          "development": "开始睁开眼睛。"
+        },
+        "27": {
+          "weightGuide": "约900克",
+          "weightImage": "1/3南瓜",
+          "development": "动作变得更加有力。"
+        },
+        "28": {
+          "weightGuide": "约1000克",
+          "weightImage": "1盒牛奶",
+          "development": "身体开始丰满。"
+        },
+        "29": {
+          "weightGuide": "约1200克",
+          "weightImage": "小菠萝",
+          "development": "脂肪增加。"
+        },
+        "30": {
+          "weightGuide": "约1300克",
+          "weightImage": "1/4大白菜",
+          "development": "开始有力地移动。"
+        },
+        "31": {
+          "weightGuide": "约1500克",
+          "weightImage": "1个甜瓜",
+          "development": "出现睡眠-觉醒节律。"
+        },
+        "32": {
+          "weightGuide": "约1800克",
+          "weightImage": "1个菠萝",
+          "development": "头部更多地朝下。"
+        },
+        "33": {
+          "weightGuide": "约2000克",
+          "weightImage": "大菠萝",
+          "development": "为分娩做准备。"
+        },
+        "34": {
+          "weightGuide": "约2200克",
+          "weightImage": "小西瓜",
+          "development": "准备好练习母乳喂养。"
+        },
+        "35": {
+          "weightGuide": "约2400克",
+          "weightImage": "中等西瓜",
+          "development": "身体变得更圆润。"
+        },
+        "36": {
+          "weightGuide": "约2500克",
+          "weightImage": "新生儿大小",
+          "development": "身体机能完全发育。"
+        },
+        "37": {
+          "weightGuide": "约2700克",
+          "weightImage": "稍大的新生儿",
+          "development": "足月，随时可以出生。"
+        },
+        "38": {
+          "weightGuide": "约2900克",
+          "weightImage": "平均新生儿",
+          "development": "几乎完全发育。"
+        },
+        "39": {
+          "weightGuide": "约3000克",
+          "weightImage": "平均新生儿",
+          "development": "分娩准备完成。"
+        },
+        "40": {
+          "weightGuide": "约3000-3500克",
+          "weightImage": "新生儿（标准）",
+          "development": "宝宝出生的时候。"
+        }
+      }
+    }
+  },
+  "epds": {
+    "q": {
+      "10": {
+        "text": "自分自身を傷つけるという考えが浮かんできた。",
+        "o1": "はい、かなりしばしばそうだった。",
+        "o2": "時々そうだった。",
+        "o3": "めったになかった。",
+        "o4": "まったくなかった。"
+      },
+      "01": {
+        "text": "笑うことができたし、物事のおかしい面もわかった。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "まったくできなかった。"
+      },
+      "02": {
+        "text": "物事を楽しみにして待った。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "ほとんどできなかった。"
+      },
+      "03": {
+        "text": "物事が悪くいった時、自分を不必要に責めた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、時々そうだった。",
+        "o3": "いいえ、あまり度々ではない。",
+        "o4": "いいえ、そうではなかった。"
+      },
+      "04": {
+        "text": "はっきりした理由もないのに不安になったり、心配した。",
+        "o1": "いいえ、そうではなかった。",
+        "o2": "ほとんどそうではなかった。",
+        "o3": "はい、時々あった。",
+        "o4": "はい、しょっちゅうあった。"
+      },
+      "05": {
+        "text": "はっきりした理由もないのに恐怖に襲われた。",
+        "o1": "はい、しょっちゅうあった。",
+        "o2": "はい、時々あった。",
+        "o3": "いいえ、めったになかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "06": {
+        "text": "することがたくさんあって大変だった。",
+        "o1": "はい、たいてい対処できなかった。",
+        "o2": "はい、いつものようにはうまく対処しなかった。",
+        "o3": "いいえ、たいていうまく対処した。",
+        "o4": "いいえ、普段通りに対処した。"
+      },
+      "07": {
+        "text": "不幸せなので、眠りにくかった。",
+        "o1": "はい、ほとんどいつもそうだった。",
+        "o2": "はい、ときどきそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "08": {
+        "text": "悲しくなったり、惨めになった。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      },
+      "09": {
+        "text": "不幸せなので、泣けてきた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "ほんの時々あった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      }
+    }
+  },
+  "sos": {
+    "q": {
+      "01": {
+        "text": "肚子有紧绷感或疼痛吗？",
+        "o1": "有",
+        "o2": "没有"
+      },
+      "02": {
+        "text": "肚子紧绷的时间间隔大约是多少分钟？",
+        "o1": "一直紧绷",
+        "o2": "0~5分钟",
+        "o3": "5~10分钟",
+        "o4": "10~15分钟",
+        "o5": "15分钟以上"
+      },
+      "03": {
+        "text": "有出血吗？",
+        "o1": "有",
+        "o2": "没有"
+      },
+      "04": {
+        "text": "宝宝在动吗？",
+        "o1": "在动",
+        "o2": "没动",
+        "o3": "不清楚"
+      },
+      "05": {
+        "text": "破水了吗？",
+        "o1": "破了",
+        "o2": "没破",
+        "o3": "不清楚"
+      },
+      "06": {
+        "text": "什么时候破水的？",
+        "o1": "0~1小时前",
+        "o2": "1~24小时前",
+        "o3": "24小时以上"
+      }
+    },
+    "result": {
+      "callNow": "提问结束。\n请联系医院。",
+      "watchAndWait": "提问结束。\n请再观察一会儿。"
+    }
+  },
   "link": {
     "levelTable": {
       "caption": "请在每项能力中选择符合自己的程度。",

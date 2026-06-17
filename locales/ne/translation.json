@@ -453,131 +453,295 @@
       }
     }
   },
-  "today.baby.week.8.weightGuide": "लगभग १-७ ग्राम",
-  "today.baby.week.8.weightImage": "१ सानो सिमीको दाना",
-  "today.baby.week.8.development": "मुटु धड्कन थाल्छ, र हातगोडाको कोपिला बन्छ।",
-  "today.baby.week.9.weightGuide": "लगभग २-८ ग्राम",
-  "today.baby.week.9.weightImage": "२ सानो सिमीको दाना",
-  "today.baby.week.9.development": "शरीरको आकार बिस्तारै छुट्टिन थाल्छ।",
-  "today.baby.week.10.weightGuide": "लगभग ५-१० ग्राम",
-  "today.baby.week.10.weightImage": "१ चेरी",
-  "today.baby.week.10.development": "औंलाहरू बन्छन्, र बच्चा अझ बढी मानिसजस्तो देखिन थाल्छ।",
-  "today.baby.week.11.weightGuide": "लगभग १० ग्राम",
-  "today.baby.week.11.weightImage": "१ सानो टमाटर",
-  "today.baby.week.11.development": "अनुहारको बनावट मिल्न थाल्छ।",
-  "today.baby.week.12.weightGuide": "लगभग २० ग्राम",
-  "today.baby.week.12.weightImage": "१ स्ट्रबेरी",
-  "today.baby.week.12.development": "शरीरको आधारभूत संरचना लगभग पूरा हुन्छ।",
-  "today.baby.week.13.weightGuide": "लगभग २५ ग्राम",
-  "today.baby.week.13.weightImage": "ठूलो स्ट्रबेरी",
-  "today.baby.week.13.development": "एमनियोटिक फ्लुइड निल्ने अभ्यास सुरु गर्छ।",
-  "today.baby.week.14.weightGuide": "लगभग ५० ग्राम",
-  "today.baby.week.14.weightImage": "१ अण्डा",
-  "today.baby.week.14.development": "शरीरलाई थोरै चलाउन थाल्छ।",
-  "today.baby.week.15.weightGuide": "लगभग ७० ग्राम",
-  "today.baby.week.15.weightImage": "सानो सुन्तला",
-  "today.baby.week.15.development": "मुख चलाएको देख्न सकिन्छ।",
-  "today.baby.week.16.weightGuide": "लगभग १०० ग्राम",
-  "today.baby.week.16.weightImage": "आधा स्याउ",
-  "today.baby.week.16.development": "अनुहार स्पष्ट हुँदै जान्छ।",
-  "today.baby.week.17.weightGuide": "लगभग १५० ग्राम",
-  "today.baby.week.17.weightImage": "१ स्याउ",
-  "today.baby.week.17.development": "बिस्तारै मोटो हुँदै जान्छ।",
-  "today.baby.week.18.weightGuide": "लगभग २०० ग्राम",
-  "today.baby.week.18.weightImage": "ठूलो स्याउ",
-  "today.baby.week.18.development": "आवाजमा प्रतिक्रिया दिन थाल्छ।",
-  "today.baby.week.19.weightGuide": "लगभग २५० ग्राम",
-  "today.baby.week.19.weightImage": "१ कोसा केरा",
-  "today.baby.week.19.development": "छालाको सुरक्षा गर्ने तह (vernix) बन्छ।",
-  "today.baby.week.20.weightGuide": "लगभग ३०० ग्राम",
-  "today.baby.week.20.weightImage": "आधा भोगटे",
-  "today.baby.week.20.development": "बच्चा चलेको महसुस हुन थाल्छ।",
-  "today.baby.week.21.weightGuide": "लगभग ४०० ग्राम",
-  "today.baby.week.21.weightImage": "१ भोगटे",
-  "today.baby.week.21.development": "पाचन प्रक्रियाको अभ्यास गरिरहेको हुन्छ।",
-  "today.baby.week.22.weightGuide": "लगभग ४५० ग्राम",
-  "today.baby.week.22.weightImage": "२ साना भान्टा",
-  "today.baby.week.22.development": "शरीरका अंगहरू विकसित हुँदैछन्।",
-  "today.baby.week.23.weightGuide": "लगभग ५०० ग्राम",
-  "today.baby.week.23.weightImage": "१/४ बन्दागोभी",
-  "today.baby.week.23.development": "सास फेरेको जस्तो चाल गर्छ।",
-  "today.baby.week.24.weightGuide": "लगभग ६०० ग्राम",
-  "today.baby.week.24.weightImage": "सानो खरबुजा",
-  "today.baby.week.24.development": "फोक्सो विकसित हुन थाल्छ।",
-  "today.baby.week.25.weightGuide": "लगभग ७०० ग्राम",
-  "today.baby.week.25.weightImage": "३ घोगा मकै",
-  "today.baby.week.25.development": "उत्तेजनामा प्रतिक्रिया दिन्छ।",
-  "today.baby.week.26.weightGuide": "लगभग ८०० ग्राम",
-  "today.baby.week.26.weightImage": "१/४ फर्सी",
-  "today.baby.week.26.development": "आँखा खोल्न थाल्छ।",
-  "today.baby.week.27.weightGuide": "लगभग ९०० ग्राम",
-  "today.baby.week.27.weightImage": "१/३ फर्सी",
-  "today.baby.week.27.development": "हलचल अझ बलियो हुँदै जान्छ।",
-  "today.baby.week.28.weightGuide": "लगभग १००० ग्राम",
-  "today.baby.week.28.weightImage": "१ प्याकेट दूध",
-  "today.baby.week.28.development": "शरीर भरिन थाल्छ।",
-  "today.baby.week.29.weightGuide": "लगभग १२०० ग्राम",
-  "today.baby.week.29.weightImage": "सानो भुइँकटर",
-  "today.baby.week.29.development": "बोसो बढ्छ।",
-  "today.baby.week.30.weightGuide": "लगभग १३०० ग्राम",
-  "today.baby.week.30.weightImage": "१/४ चिनियाँ बन्दागोभी",
-  "today.baby.week.30.development": "जोडसँग चल्न थाल्छ।",
-  "today.baby.week.31.weightGuide": "लगभग १५०० ग्राम",
-  "today.baby.week.31.weightImage": "१ खरबुजा",
-  "today.baby.week.31.development": "सुत्ने-उठ्ने चक्र देखिन थाल्छ।",
-  "today.baby.week.32.weightGuide": "लगभग १८०० ग्राम",
-  "today.baby.week.32.weightImage": "१ भुइँकटर",
-  "today.baby.week.32.development": "टाउको तलतिर फर्केको धेरै हुन्छ।",
-  "today.baby.week.33.weightGuide": "लगभग २००० ग्राम",
-  "today.baby.week.33.weightImage": "ठूलो भुइँकटर",
-  "today.baby.week.33.development": "जन्मको तयारी अघि बढ्छ।",
-  "today.baby.week.34.weightGuide": "लगभग २२०० ग्राम",
-  "today.baby.week.34.weightImage": "सानो खरबुजा",
-  "today.baby.week.34.development": "दूध चुस्ने अभ्यासको लागि तयार हुन्छ।",
-  "today.baby.week.35.weightGuide": "लगभग २४०० ग्राम",
-  "today.baby.week.35.weightImage": "मध्यम खरबुजा",
-  "today.baby.week.35.development": "शरीर गोलाकार हुँदै जान्छ।",
-  "today.baby.week.36.weightGuide": "लगभग २५०० ग्राम",
-  "today.baby.week.36.weightImage": "नवजात शिशुको आकार",
-  "today.baby.week.36.development": "शरीरका कार्यहरू पूर्ण हुन्छन्।",
-  "today.baby.week.37.weightGuide": "लगभग २७०० ग्राम",
-  "today.baby.week.37.weightImage": "अलि ठूलो नवजात शिशु",
-  "today.baby.week.37.development": "जुनसुकै बेला जन्मिन सक्ने समय हो।",
-  "today.baby.week.38.weightGuide": "लगभग २९०० ग्राम",
-  "today.baby.week.38.weightImage": "औसत नवजात शिशु",
-  "today.baby.week.38.development": "लगभग पूर्ण विकसित।",
-  "today.baby.week.39.weightGuide": "लगभग ३००० ग्राम",
-  "today.baby.week.39.weightImage": "औसत नवजात शिशु",
-  "today.baby.week.39.development": "जन्मको तयारी पूरा हुन्छ।",
-  "today.baby.week.40.weightGuide": "लगभग ३०००-३५०० ग्राम",
-  "today.baby.week.40.weightImage": "नवजात शिशु (मानक)",
-  "today.baby.week.40.development": "बच्चा जन्मिने समय।",
-  "sos.q.01.text": "के तपाईंको पेट कडा भएको वा पेट दुखेको छ?",
-  "sos.q.01.o1": "छ",
-  "sos.q.01.o2": "छैन",
-  "sos.q.02.text": "पेट कडा हुने समयको अन्तर कति मिनेट छ?",
-  "sos.q.02.o1": "सधैँ",
-  "sos.q.02.o2": "०-५ मिनेट",
-  "sos.q.02.o3": "५-१० मिनेट",
-  "sos.q.02.o4": "१०-१५ मिनेट",
-  "sos.q.02.o5": "१५ मिनेटभन्दा बढी",
-  "sos.q.03.text": "के रक्तस्राव भएको छ?",
-  "sos.q.03.o1": "छ",
-  "sos.q.03.o2": "छैन",
-  "sos.q.04.text": "के बच्चा चलिरहेको छ?",
-  "sos.q.04.o1": "छ",
-  "sos.q.04.o2": "छैन",
-  "sos.q.04.o3": "थाहा छैन",
-  "sos.q.05.text": "के पानी बगेको छ (water break)?",
-  "sos.q.05.o1": "छ",
-  "sos.q.05.o2": "छैन",
-  "sos.q.05.o3": "थाहा छैन",
-  "sos.q.06.text": "पानी कहिले बगेको थियो?",
-  "sos.q.06.o1": "०-१ घण्टा अघि",
-  "sos.q.06.o2": "१-२४ घण्टा अघि",
-  "sos.q.06.o3": "२४ घण्टाभन्दा बढी अघि",
-  "sos.result.callNow": "प्रश्नहरू सकिए।\nकृपया अस्पतालमा सम्पर्क गर्नुहोस्।",
-  "sos.result.watchAndWait": "प्रश्नहरू सकिए।\nकेही बेर अझै पर्खौँ र अवस्था हेरौँ।",
+  "today": {
+    "baby": {
+      "week": {
+        "8": {
+          "weightGuide": "लगभग १-७ ग्राम",
+          "weightImage": "१ सानो सिमीको दाना",
+          "development": "मुटु धड्कन थाल्छ, र हातगोडाको कोपिला बन्छ।"
+        },
+        "9": {
+          "weightGuide": "लगभग २-८ ग्राम",
+          "weightImage": "२ सानो सिमीको दाना",
+          "development": "शरीरको आकार बिस्तारै छुट्टिन थाल्छ।"
+        },
+        "10": {
+          "weightGuide": "लगभग ५-१० ग्राम",
+          "weightImage": "१ चेरी",
+          "development": "औंलाहरू बन्छन्, र बच्चा अझ बढी मानिसजस्तो देखिन थाल्छ।"
+        },
+        "11": {
+          "weightGuide": "लगभग १० ग्राम",
+          "weightImage": "१ सानो टमाटर",
+          "development": "अनुहारको बनावट मिल्न थाल्छ।"
+        },
+        "12": {
+          "weightGuide": "लगभग २० ग्राम",
+          "weightImage": "१ स्ट्रबेरी",
+          "development": "शरीरको आधारभूत संरचना लगभग पूरा हुन्छ।"
+        },
+        "13": {
+          "weightGuide": "लगभग २५ ग्राम",
+          "weightImage": "ठूलो स्ट्रबेरी",
+          "development": "एमनियोटिक फ्लुइड निल्ने अभ्यास सुरु गर्छ।"
+        },
+        "14": {
+          "weightGuide": "लगभग ५० ग्राम",
+          "weightImage": "१ अण्डा",
+          "development": "शरीरलाई थोरै चलाउन थाल्छ।"
+        },
+        "15": {
+          "weightGuide": "लगभग ७० ग्राम",
+          "weightImage": "सानो सुन्तला",
+          "development": "मुख चलाएको देख्न सकिन्छ।"
+        },
+        "16": {
+          "weightGuide": "लगभग १०० ग्राम",
+          "weightImage": "आधा स्याउ",
+          "development": "अनुहार स्पष्ट हुँदै जान्छ।"
+        },
+        "17": {
+          "weightGuide": "लगभग १५० ग्राम",
+          "weightImage": "१ स्याउ",
+          "development": "बिस्तारै मोटो हुँदै जान्छ।"
+        },
+        "18": {
+          "weightGuide": "लगभग २०० ग्राम",
+          "weightImage": "ठूलो स्याउ",
+          "development": "आवाजमा प्रतिक्रिया दिन थाल्छ।"
+        },
+        "19": {
+          "weightGuide": "लगभग २५० ग्राम",
+          "weightImage": "१ कोसा केरा",
+          "development": "छालाको सुरक्षा गर्ने तह (vernix) बन्छ।"
+        },
+        "20": {
+          "weightGuide": "लगभग ३०० ग्राम",
+          "weightImage": "आधा भोगटे",
+          "development": "बच्चा चलेको महसुस हुन थाल्छ।"
+        },
+        "21": {
+          "weightGuide": "लगभग ४०० ग्राम",
+          "weightImage": "१ भोगटे",
+          "development": "पाचन प्रक्रियाको अभ्यास गरिरहेको हुन्छ।"
+        },
+        "22": {
+          "weightGuide": "लगभग ४५० ग्राम",
+          "weightImage": "२ साना भान्टा",
+          "development": "शरीरका अंगहरू विकसित हुँदैछन्।"
+        },
+        "23": {
+          "weightGuide": "लगभग ५०० ग्राम",
+          "weightImage": "१/४ बन्दागोभी",
+          "development": "सास फेरेको जस्तो चाल गर्छ।"
+        },
+        "24": {
+          "weightGuide": "लगभग ६०० ग्राम",
+          "weightImage": "सानो खरबुजा",
+          "development": "फोक्सो विकसित हुन थाल्छ।"
+        },
+        "25": {
+          "weightGuide": "लगभग ७०० ग्राम",
+          "weightImage": "३ घोगा मकै",
+          "development": "उत्तेजनामा प्रतिक्रिया दिन्छ।"
+        },
+        "26": {
+          "weightGuide": "लगभग ८०० ग्राम",
+          "weightImage": "१/४ फर्सी",
+          "development": "आँखा खोल्न थाल्छ।"
+        },
+        "27": {
+          "weightGuide": "लगभग ९०० ग्राम",
+          "weightImage": "१/३ फर्सी",
+          "development": "हलचल अझ बलियो हुँदै जान्छ।"
+        },
+        "28": {
+          "weightGuide": "लगभग १००० ग्राम",
+          "weightImage": "१ प्याकेट दूध",
+          "development": "शरीर भरिन थाल्छ।"
+        },
+        "29": {
+          "weightGuide": "लगभग १२०० ग्राम",
+          "weightImage": "सानो भुइँकटर",
+          "development": "बोसो बढ्छ।"
+        },
+        "30": {
+          "weightGuide": "लगभग १३०० ग्राम",
+          "weightImage": "१/४ चिनियाँ बन्दागोभी",
+          "development": "जोडसँग चल्न थाल्छ।"
+        },
+        "31": {
+          "weightGuide": "लगभग १५०० ग्राम",
+          "weightImage": "१ खरबुजा",
+          "development": "सुत्ने-उठ्ने चक्र देखिन थाल्छ।"
+        },
+        "32": {
+          "weightGuide": "लगभग १८०० ग्राम",
+          "weightImage": "१ भुइँकटर",
+          "development": "टाउको तलतिर फर्केको धेरै हुन्छ।"
+        },
+        "33": {
+          "weightGuide": "लगभग २००० ग्राम",
+          "weightImage": "ठूलो भुइँकटर",
+          "development": "जन्मको तयारी अघि बढ्छ।"
+        },
+        "34": {
+          "weightGuide": "लगभग २२०० ग्राम",
+          "weightImage": "सानो खरबुजा",
+          "development": "दूध चुस्ने अभ्यासको लागि तयार हुन्छ।"
+        },
+        "35": {
+          "weightGuide": "लगभग २४०० ग्राम",
+          "weightImage": "मध्यम खरबुजा",
+          "development": "शरीर गोलाकार हुँदै जान्छ।"
+        },
+        "36": {
+          "weightGuide": "लगभग २५०० ग्राम",
+          "weightImage": "नवजात शिशुको आकार",
+          "development": "शरीरका कार्यहरू पूर्ण हुन्छन्।"
+        },
+        "37": {
+          "weightGuide": "लगभग २७०० ग्राम",
+          "weightImage": "अलि ठूलो नवजात शिशु",
+          "development": "जुनसुकै बेला जन्मिन सक्ने समय हो।"
+        },
+        "38": {
+          "weightGuide": "लगभग २९०० ग्राम",
+          "weightImage": "औसत नवजात शिशु",
+          "development": "लगभग पूर्ण विकसित।"
+        },
+        "39": {
+          "weightGuide": "लगभग ३००० ग्राम",
+          "weightImage": "औसत नवजात शिशु",
+          "development": "जन्मको तयारी पूरा हुन्छ।"
+        },
+        "40": {
+          "weightGuide": "लगभग ३०००-३५०० ग्राम",
+          "weightImage": "नवजात शिशु (मानक)",
+          "development": "बच्चा जन्मिने समय।"
+        }
+      }
+    }
+  },
+  "epds": {
+    "q": {
+      "10": {
+        "text": "自分自身を傷つけるという考えが浮かんできた。",
+        "o1": "はい、かなりしばしばそうだった。",
+        "o2": "時々そうだった。",
+        "o3": "めったになかった。",
+        "o4": "まったくなかった。"
+      },
+      "01": {
+        "text": "笑うことができたし、物事のおかしい面もわかった。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "まったくできなかった。"
+      },
+      "02": {
+        "text": "物事を楽しみにして待った。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "ほとんどできなかった。"
+      },
+      "03": {
+        "text": "物事が悪くいった時、自分を不必要に責めた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、時々そうだった。",
+        "o3": "いいえ、あまり度々ではない。",
+        "o4": "いいえ、そうではなかった。"
+      },
+      "04": {
+        "text": "はっきりした理由もないのに不安になったり、心配した。",
+        "o1": "いいえ、そうではなかった。",
+        "o2": "ほとんどそうではなかった。",
+        "o3": "はい、時々あった。",
+        "o4": "はい、しょっちゅうあった。"
+      },
+      "05": {
+        "text": "はっきりした理由もないのに恐怖に襲われた。",
+        "o1": "はい、しょっちゅうあった。",
+        "o2": "はい、時々あった。",
+        "o3": "いいえ、めったになかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "06": {
+        "text": "することがたくさんあって大変だった。",
+        "o1": "はい、たいてい対処できなかった。",
+        "o2": "はい、いつものようにはうまく対処しなかった。",
+        "o3": "いいえ、たいていうまく対処した。",
+        "o4": "いいえ、普段通りに対処した。"
+      },
+      "07": {
+        "text": "不幸せなので、眠りにくかった。",
+        "o1": "はい、ほとんどいつもそうだった。",
+        "o2": "はい、ときどきそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "08": {
+        "text": "悲しくなったり、惨めになった。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      },
+      "09": {
+        "text": "不幸せなので、泣けてきた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "ほんの時々あった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      }
+    }
+  },
+  "sos": {
+    "q": {
+      "01": {
+        "text": "के तपाईंको पेट कडा भएको वा पेट दुखेको छ?",
+        "o1": "छ",
+        "o2": "छैन"
+      },
+      "02": {
+        "text": "पेट कडा हुने समयको अन्तर कति मिनेट छ?",
+        "o1": "सधैँ",
+        "o2": "०-५ मिनेट",
+        "o3": "५-१० मिनेट",
+        "o4": "१०-१५ मिनेट",
+        "o5": "१५ मिनेटभन्दा बढी"
+      },
+      "03": {
+        "text": "के रक्तस्राव भएको छ?",
+        "o1": "छ",
+        "o2": "छैन"
+      },
+      "04": {
+        "text": "के बच्चा चलिरहेको छ?",
+        "o1": "छ",
+        "o2": "छैन",
+        "o3": "थाहा छैन"
+      },
+      "05": {
+        "text": "के पानी बगेको छ (water break)?",
+        "o1": "छ",
+        "o2": "छैन",
+        "o3": "थाहा छैन"
+      },
+      "06": {
+        "text": "पानी कहिले बगेको थियो?",
+        "o1": "०-१ घण्टा अघि",
+        "o2": "१-२४ घण्टा अघि",
+        "o3": "२४ घण्टाभन्दा बढी अघि"
+      }
+    },
+    "result": {
+      "callNow": "प्रश्नहरू सकिए।\nकृपया अस्पतालमा सम्पर्क गर्नुहोस्।",
+      "watchAndWait": "प्रश्नहरू सकिए।\nकेही बेर अझै पर्खौँ र अवस्था हेरौँ।"
+    }
+  },
   "link": {
     "levelTable": {
       "caption": "प्रत्येक सीपका लागि आफूलाई मिल्ने स्तर छान्नुहोस्।",

@@ -451,131 +451,295 @@
       }
     }
   },
-  "today.baby.week.8.weightGuide": "Приблизно 1–7 г",
-  "today.baby.week.8.weightImage": "1 маленька квасолина",
-  "today.baby.week.8.development": "Серце починає битися, формуються зачатки кінцівок.",
-  "today.baby.week.9.weightGuide": "Приблизно 2–8 г",
-  "today.baby.week.9.weightImage": "2 маленькі квасолини",
-  "today.baby.week.9.development": "Форма тіла починає поступово диференціюватися.",
-  "today.baby.week.10.weightGuide": "Приблизно 5–10 г",
-  "today.baby.week.10.weightImage": "1 черешня",
-  "today.baby.week.10.development": "Формуються пальці, і дитина стає більше схожою на людину.",
-  "today.baby.week.11.weightGuide": "Приблизно 10 г",
-  "today.baby.week.11.weightImage": "1 помідор чері",
-  "today.baby.week.11.development": "Починають з'являтися риси обличчя.",
-  "today.baby.week.12.weightGuide": "Приблизно 20 г",
-  "today.baby.week.12.weightImage": "1 полуниця",
-  "today.baby.week.12.development": "Базова структура тіла майже завершена.",
-  "today.baby.week.13.weightGuide": "Приблизно 25 г",
-  "today.baby.week.13.weightImage": "Велика полуниця",
-  "today.baby.week.13.development": "Починає тренуватися ковтати навколоплідні води.",
-  "today.baby.week.14.weightGuide": "Приблизно 50 г",
-  "today.baby.week.14.weightImage": "1 яйце",
-  "today.baby.week.14.development": "Починає злегка рухати тілом.",
-  "today.baby.week.15.weightGuide": "Приблизно 70 г",
-  "today.baby.week.15.weightImage": "Маленький мандарин",
-  "today.baby.week.15.development": "Можна спостерігати рухи рота.",
-  "today.baby.week.16.weightGuide": "Приблизно 100 г",
-  "today.baby.week.16.weightImage": "Половина яблука",
-  "today.baby.week.16.development": "Обличчя стає чіткішим.",
-  "today.baby.week.17.weightGuide": "Приблизно 150 г",
-  "today.baby.week.17.weightImage": "1 яблуко",
-  "today.baby.week.17.development": "Поступово стає пухкішим.",
-  "today.baby.week.18.weightGuide": "Приблизно 200 г",
-  "today.baby.week.18.weightImage": "Велике яблуко",
-  "today.baby.week.18.development": "Починає реагувати на звуки.",
-  "today.baby.week.19.weightGuide": "Приблизно 250 г",
-  "today.baby.week.19.weightImage": "1 банан",
-  "today.baby.week.19.development": "На шкірі утворюється захисний шар (первородне мастило).",
-  "today.baby.week.20.weightGuide": "Приблизно 300 г",
-  "today.baby.week.20.weightImage": "Половина грейпфрута",
-  "today.baby.week.20.development": "Починають відчуватися рухи плода.",
-  "today.baby.week.21.weightGuide": "Приблизно 400 г",
-  "today.baby.week.21.weightImage": "1 грейпфрут",
-  "today.baby.week.21.development": "Практикує травлення.",
-  "today.baby.week.22.weightGuide": "Приблизно 450 г",
-  "today.baby.week.22.weightImage": "2 маленьких баклажани",
-  "today.baby.week.22.development": "Функції організму розвиваються.",
-  "today.baby.week.23.weightGuide": "Приблизно 500 г",
-  "today.baby.week.23.weightImage": "1/4 капусти",
-  "today.baby.week.23.development": "Робить дихальні рухи.",
-  "today.baby.week.24.weightGuide": "Приблизно 600 г",
-  "today.baby.week.24.weightImage": "Маленька диня",
-  "today.baby.week.24.development": "Починають розвиватися легені.",
-  "today.baby.week.25.weightGuide": "Приблизно 700 г",
-  "today.baby.week.25.weightImage": "3 кукурудзи",
-  "today.baby.week.25.development": "Реагує на подразники.",
-  "today.baby.week.26.weightGuide": "Приблизно 800 г",
-  "today.baby.week.26.weightImage": "1/4 гарбуза",
-  "today.baby.week.26.development": "Починає відкривати очі.",
-  "today.baby.week.27.weightGuide": "Приблизно 900 г",
-  "today.baby.week.27.weightImage": "1/3 гарбуза",
-  "today.baby.week.27.development": "Рухи стають впевненішими.",
-  "today.baby.week.28.weightGuide": "Приблизно 1000 г",
-  "today.baby.week.28.weightImage": "1 пакет молока",
-  "today.baby.week.28.development": "Тіло починає округлятися.",
-  "today.baby.week.29.weightGuide": "Приблизно 1200 г",
-  "today.baby.week.29.weightImage": "Маленький ананас",
-  "today.baby.week.29.development": "Кількість жиру збільшується.",
-  "today.baby.week.30.weightGuide": "Приблизно 1300 г",
-  "today.baby.week.30.weightImage": "1/4 пекінської капусти",
-  "today.baby.week.30.development": "Починає рухатися енергійно.",
-  "today.baby.week.31.weightGuide": "Приблизно 1500 г",
-  "today.baby.week.31.weightImage": "1 диня",
-  "today.baby.week.31.development": "З'являється ритм сну та неспання.",
-  "today.baby.week.32.weightGuide": "Приблизно 1800 г",
-  "today.baby.week.32.weightImage": "1 ананас",
-  "today.baby.week.32.development": "Голова частіше за все спрямована вниз.",
-  "today.baby.week.33.weightGuide": "Приблизно 2000 г",
-  "today.baby.week.33.weightImage": "Великий ананас",
-  "today.baby.week.33.development": "Підготовка до народження триває.",
-  "today.baby.week.34.weightGuide": "Приблизно 2200 г",
-  "today.baby.week.34.weightImage": "Маленький кавун",
-  "today.baby.week.34.development": "Готовий тренуватися в грудному вигодовуванні.",
-  "today.baby.week.35.weightGuide": "Приблизно 2400 г",
-  "today.baby.week.35.weightImage": "Середній кавун",
-  "today.baby.week.35.development": "Тіло стає округлішим.",
-  "today.baby.week.36.weightGuide": "Приблизно 2500 г",
-  "today.baby.week.36.weightImage": "Розмір новонародженого",
-  "today.baby.week.36.development": "Функції організму повністю сформовані.",
-  "today.baby.week.37.weightGuide": "Приблизно 2700 г",
-  "today.baby.week.37.weightImage": "Трохи більший за новонародженого",
-  "today.baby.week.37.development": "Вважається доношеним; готовий народитися в будь-який час.",
-  "today.baby.week.38.weightGuide": "Приблизно 2900 г",
-  "today.baby.week.38.weightImage": "Середній новонароджений",
-  "today.baby.week.38.development": "Майже повністю розвинений.",
-  "today.baby.week.39.weightGuide": "Приблизно 3000 г",
-  "today.baby.week.39.weightImage": "Середній новонароджений",
-  "today.baby.week.39.development": "Підготовка до пологів завершена.",
-  "today.baby.week.40.weightGuide": "Приблизно 3000–3500 г",
-  "today.baby.week.40.weightImage": "Новонароджений (стандарт)",
-  "today.baby.week.40.development": "Час народження дитини.",
-  "sos.q.01.text": "Чи відчуваєте ви напруження або біль у животі?",
-  "sos.q.01.o1": "Так",
-  "sos.q.01.o2": "Ні",
-  "sos.q.02.text": "Який інтервал між нападами напруження живота?",
-  "sos.q.02.o1": "Постійно",
-  "sos.q.02.o2": "0~5 хвилин",
-  "sos.q.02.o3": "5~10 хвилин",
-  "sos.q.02.o4": "10~15 хвилин",
-  "sos.q.02.o5": "Понад 15 хвилин",
-  "sos.q.03.text": "Чи є кровотеча?",
-  "sos.q.03.o1": "Так",
-  "sos.q.03.o2": "Ні",
-  "sos.q.04.text": "Чи рухається дитина?",
-  "sos.q.04.o1": "Так",
-  "sos.q.04.o2": "Ні",
-  "sos.q.04.o3": "Не знаю",
-  "sos.q.05.text": "Чи відійшли води?",
-  "sos.q.05.o1": "Так",
-  "sos.q.05.o2": "Ні",
-  "sos.q.05.o3": "Не знаю",
-  "sos.q.06.text": "Коли відійшли води?",
-  "sos.q.06.o1": "0~1 годину тому",
-  "sos.q.06.o2": "1~24 години тому",
-  "sos.q.06.o3": "Понад 24 години тому",
-  "sos.result.callNow": "Запитання закінчено.\nБудь ласка, зверніться до лікарні.",
-  "sos.result.watchAndWait": "Запитання закінчено.\nДавайте ще трохи понаглядаємо.",
+  "today": {
+    "baby": {
+      "week": {
+        "8": {
+          "weightGuide": "Приблизно 1–7 г",
+          "weightImage": "1 маленька квасолина",
+          "development": "Серце починає битися, формуються зачатки кінцівок."
+        },
+        "9": {
+          "weightGuide": "Приблизно 2–8 г",
+          "weightImage": "2 маленькі квасолини",
+          "development": "Форма тіла починає поступово диференціюватися."
+        },
+        "10": {
+          "weightGuide": "Приблизно 5–10 г",
+          "weightImage": "1 черешня",
+          "development": "Формуються пальці, і дитина стає більше схожою на людину."
+        },
+        "11": {
+          "weightGuide": "Приблизно 10 г",
+          "weightImage": "1 помідор чері",
+          "development": "Починають з'являтися риси обличчя."
+        },
+        "12": {
+          "weightGuide": "Приблизно 20 г",
+          "weightImage": "1 полуниця",
+          "development": "Базова структура тіла майже завершена."
+        },
+        "13": {
+          "weightGuide": "Приблизно 25 г",
+          "weightImage": "Велика полуниця",
+          "development": "Починає тренуватися ковтати навколоплідні води."
+        },
+        "14": {
+          "weightGuide": "Приблизно 50 г",
+          "weightImage": "1 яйце",
+          "development": "Починає злегка рухати тілом."
+        },
+        "15": {
+          "weightGuide": "Приблизно 70 г",
+          "weightImage": "Маленький мандарин",
+          "development": "Можна спостерігати рухи рота."
+        },
+        "16": {
+          "weightGuide": "Приблизно 100 г",
+          "weightImage": "Половина яблука",
+          "development": "Обличчя стає чіткішим."
+        },
+        "17": {
+          "weightGuide": "Приблизно 150 г",
+          "weightImage": "1 яблуко",
+          "development": "Поступово стає пухкішим."
+        },
+        "18": {
+          "weightGuide": "Приблизно 200 г",
+          "weightImage": "Велике яблуко",
+          "development": "Починає реагувати на звуки."
+        },
+        "19": {
+          "weightGuide": "Приблизно 250 г",
+          "weightImage": "1 банан",
+          "development": "На шкірі утворюється захисний шар (первородне мастило)."
+        },
+        "20": {
+          "weightGuide": "Приблизно 300 г",
+          "weightImage": "Половина грейпфрута",
+          "development": "Починають відчуватися рухи плода."
+        },
+        "21": {
+          "weightGuide": "Приблизно 400 г",
+          "weightImage": "1 грейпфрут",
+          "development": "Практикує травлення."
+        },
+        "22": {
+          "weightGuide": "Приблизно 450 г",
+          "weightImage": "2 маленьких баклажани",
+          "development": "Функції організму розвиваються."
+        },
+        "23": {
+          "weightGuide": "Приблизно 500 г",
+          "weightImage": "1/4 капусти",
+          "development": "Робить дихальні рухи."
+        },
+        "24": {
+          "weightGuide": "Приблизно 600 г",
+          "weightImage": "Маленька диня",
+          "development": "Починають розвиватися легені."
+        },
+        "25": {
+          "weightGuide": "Приблизно 700 г",
+          "weightImage": "3 кукурудзи",
+          "development": "Реагує на подразники."
+        },
+        "26": {
+          "weightGuide": "Приблизно 800 г",
+          "weightImage": "1/4 гарбуза",
+          "development": "Починає відкривати очі."
+        },
+        "27": {
+          "weightGuide": "Приблизно 900 г",
+          "weightImage": "1/3 гарбуза",
+          "development": "Рухи стають впевненішими."
+        },
+        "28": {
+          "weightGuide": "Приблизно 1000 г",
+          "weightImage": "1 пакет молока",
+          "development": "Тіло починає округлятися."
+        },
+        "29": {
+          "weightGuide": "Приблизно 1200 г",
+          "weightImage": "Маленький ананас",
+          "development": "Кількість жиру збільшується."
+        },
+        "30": {
+          "weightGuide": "Приблизно 1300 г",
+          "weightImage": "1/4 пекінської капусти",
+          "development": "Починає рухатися енергійно."
+        },
+        "31": {
+          "weightGuide": "Приблизно 1500 г",
+          "weightImage": "1 диня",
+          "development": "З'являється ритм сну та неспання."
+        },
+        "32": {
+          "weightGuide": "Приблизно 1800 г",
+          "weightImage": "1 ананас",
+          "development": "Голова частіше за все спрямована вниз."
+        },
+        "33": {
+          "weightGuide": "Приблизно 2000 г",
+          "weightImage": "Великий ананас",
+          "development": "Підготовка до народження триває."
+        },
+        "34": {
+          "weightGuide": "Приблизно 2200 г",
+          "weightImage": "Маленький кавун",
+          "development": "Готовий тренуватися в грудному вигодовуванні."
+        },
+        "35": {
+          "weightGuide": "Приблизно 2400 г",
+          "weightImage": "Середній кавун",
+          "development": "Тіло стає округлішим."
+        },
+        "36": {
+          "weightGuide": "Приблизно 2500 г",
+          "weightImage": "Розмір новонародженого",
+          "development": "Функції організму повністю сформовані."
+        },
+        "37": {
+          "weightGuide": "Приблизно 2700 г",
+          "weightImage": "Трохи більший за новонародженого",
+          "development": "Вважається доношеним; готовий народитися в будь-який час."
+        },
+        "38": {
+          "weightGuide": "Приблизно 2900 г",
+          "weightImage": "Середній новонароджений",
+          "development": "Майже повністю розвинений."
+        },
+        "39": {
+          "weightGuide": "Приблизно 3000 г",
+          "weightImage": "Середній новонароджений",
+          "development": "Підготовка до пологів завершена."
+        },
+        "40": {
+          "weightGuide": "Приблизно 3000–3500 г",
+          "weightImage": "Новонароджений (стандарт)",
+          "development": "Час народження дитини."
+        }
+      }
+    }
+  },
+  "epds": {
+    "q": {
+      "10": {
+        "text": "自分自身を傷つけるという考えが浮かんできた。",
+        "o1": "はい、かなりしばしばそうだった。",
+        "o2": "時々そうだった。",
+        "o3": "めったになかった。",
+        "o4": "まったくなかった。"
+      },
+      "01": {
+        "text": "笑うことができたし、物事のおかしい面もわかった。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "まったくできなかった。"
+      },
+      "02": {
+        "text": "物事を楽しみにして待った。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "ほとんどできなかった。"
+      },
+      "03": {
+        "text": "物事が悪くいった時、自分を不必要に責めた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、時々そうだった。",
+        "o3": "いいえ、あまり度々ではない。",
+        "o4": "いいえ、そうではなかった。"
+      },
+      "04": {
+        "text": "はっきりした理由もないのに不安になったり、心配した。",
+        "o1": "いいえ、そうではなかった。",
+        "o2": "ほとんどそうではなかった。",
+        "o3": "はい、時々あった。",
+        "o4": "はい、しょっちゅうあった。"
+      },
+      "05": {
+        "text": "はっきりした理由もないのに恐怖に襲われた。",
+        "o1": "はい、しょっちゅうあった。",
+        "o2": "はい、時々あった。",
+        "o3": "いいえ、めったになかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "06": {
+        "text": "することがたくさんあって大変だった。",
+        "o1": "はい、たいてい対処できなかった。",
+        "o2": "はい、いつものようにはうまく対処しなかった。",
+        "o3": "いいえ、たいていうまく対処した。",
+        "o4": "いいえ、普段通りに対処した。"
+      },
+      "07": {
+        "text": "不幸せなので、眠りにくかった。",
+        "o1": "はい、ほとんどいつもそうだった。",
+        "o2": "はい、ときどきそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "08": {
+        "text": "悲しくなったり、惨めになった。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      },
+      "09": {
+        "text": "不幸せなので、泣けてきた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "ほんの時々あった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      }
+    }
+  },
+  "sos": {
+    "q": {
+      "01": {
+        "text": "Чи відчуваєте ви напруження або біль у животі?",
+        "o1": "Так",
+        "o2": "Ні"
+      },
+      "02": {
+        "text": "Який інтервал між нападами напруження живота?",
+        "o1": "Постійно",
+        "o2": "0~5 хвилин",
+        "o3": "5~10 хвилин",
+        "o4": "10~15 хвилин",
+        "o5": "Понад 15 хвилин"
+      },
+      "03": {
+        "text": "Чи є кровотеча?",
+        "o1": "Так",
+        "o2": "Ні"
+      },
+      "04": {
+        "text": "Чи рухається дитина?",
+        "o1": "Так",
+        "o2": "Ні",
+        "o3": "Не знаю"
+      },
+      "05": {
+        "text": "Чи відійшли води?",
+        "o1": "Так",
+        "o2": "Ні",
+        "o3": "Не знаю"
+      },
+      "06": {
+        "text": "Коли відійшли води?",
+        "o1": "0~1 годину тому",
+        "o2": "1~24 години тому",
+        "o3": "Понад 24 години тому"
+      }
+    },
+    "result": {
+      "callNow": "Запитання закінчено.\nБудь ласка, зверніться до лікарні.",
+      "watchAndWait": "Запитання закінчено.\nДавайте ще трохи понаглядаємо."
+    }
+  },
   "link": {
     "levelTable": {
       "caption": "Виберіть рівень, який відповідає кожній навичці.",

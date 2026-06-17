@@ -451,131 +451,295 @@
       }
     }
   },
-  "today.baby.week.8.weightGuide": "تقریباً 1-7 گرام",
-  "today.baby.week.8.weightImage": "1 چھوٹی پھلی کا دانہ",
-  "today.baby.week.8.development": "دل دھڑکنا شروع ہوتا ہے، اور اعضاء کی کونپلیں بنتی ہیں۔",
-  "today.baby.week.9.weightGuide": "تقریباً 2-8 گرام",
-  "today.baby.week.9.weightImage": "2 چھوٹی پھلی کے دانے",
-  "today.baby.week.9.development": "جسمانی شکل آہستہ آہستہ واضح ہونے لگتی ہے۔",
-  "today.baby.week.10.weightGuide": "تقریباً 5-10 گرام",
-  "today.baby.week.10.weightImage": "1 چیری",
-  "today.baby.week.10.development": "انگلیاں بنتی ہیں، اور بچہ مزید انسان جیسا نظر آنے لگتا ہے۔",
-  "today.baby.week.11.weightGuide": "تقریباً 10 گرام",
-  "today.baby.week.11.weightImage": "1 چیری ٹماٹر",
-  "today.baby.week.11.development": "چہرے کے خدوخال بننا شروع ہوتے ہیں۔",
-  "today.baby.week.12.weightGuide": "تقریباً 20 گرام",
-  "today.baby.week.12.weightImage": "1 اسٹرابیری",
-  "today.baby.week.12.development": "جسمانی بنیادی ڈھانچہ تقریباً مکمل ہو چکا ہے۔",
-  "today.baby.week.13.weightGuide": "تقریباً 25 گرام",
-  "today.baby.week.13.weightImage": "بڑی اسٹرابیری",
-  "today.baby.week.13.development": "ایمنیوٹک فلوئڈ (amniotic fluid) نگلنے کی مشق شروع کرتا ہے۔",
-  "today.baby.week.14.weightGuide": "تقریباً 50 گرام",
-  "today.baby.week.14.weightImage": "1 انڈا",
-  "today.baby.week.14.development": "جسم کو تھوڑا سا حرکت دینا شروع کرتا ہے۔",
-  "today.baby.week.15.weightGuide": "تقریباً 70 گرام",
-  "today.baby.week.15.weightImage": "چھوٹا کینو",
-  "today.baby.week.15.development": "منہ کی حرکات دیکھی جا سکتی ہیں۔",
-  "today.baby.week.16.weightGuide": "تقریباً 100 گرام",
-  "today.baby.week.16.weightImage": "آدھا سیب",
-  "today.baby.week.16.development": "چہرہ مزید واضح ہو جاتا ہے۔",
-  "today.baby.week.17.weightGuide": "تقریباً 150 گرام",
-  "today.baby.week.17.weightImage": "1 سیب",
-  "today.baby.week.17.development": "آہستہ آہستہ تھوڑا فربہ ہوتا ہے۔",
-  "today.baby.week.18.weightGuide": "تقریباً 200 گرام",
-  "today.baby.week.18.weightImage": "بڑا سیب",
-  "today.baby.week.18.development": "آوازوں پر ردعمل دینا شروع کرتا ہے۔",
-  "today.baby.week.19.weightGuide": "تقریباً 250 گرام",
-  "today.baby.week.19.weightImage": "1 کیلا",
-  "today.baby.week.19.development": "جلد پر حفاظتی تہہ (vernix) بنتی ہے۔",
-  "today.baby.week.20.weightGuide": "تقریباً 300 گرام",
-  "today.baby.week.20.weightImage": "آدھا چکوترا",
-  "today.baby.week.20.development": "جنین کی حرکات محسوس ہونا شروع ہوتی ہیں۔",
-  "today.baby.week.21.weightGuide": "تقریباً 400 گرام",
-  "today.baby.week.21.weightImage": "1 چکوترا",
-  "today.baby.week.21.development": "ہضم کرنے کی مشق کر رہا ہے۔",
-  "today.baby.week.22.weightGuide": "تقریباً 450 گرام",
-  "today.baby.week.22.weightImage": "2 چھوٹے بینگن",
-  "today.baby.week.22.development": "جسمانی افعال نشوونما پا رہے ہیں۔",
-  "today.baby.week.23.weightGuide": "تقریباً 500 گرام",
-  "today.baby.week.23.weightImage": "1/4 بند گوبھی",
-  "today.baby.week.23.development": "سانس لینے جیسی حرکات کرتا ہے۔",
-  "today.baby.week.24.weightGuide": "تقریباً 600 گرام",
-  "today.baby.week.24.weightImage": "چھوٹا خربوزہ",
-  "today.baby.week.24.development": "پھیپھڑے بننا شروع ہوتے ہیں۔",
-  "today.baby.week.25.weightGuide": "تقریباً 700 گرام",
-  "today.baby.week.25.weightImage": "3 مکئی",
-  "today.baby.week.25.development": "تحریکوں پر ردعمل دیتا ہے۔",
-  "today.baby.week.26.weightGuide": "تقریباً 800 گرام",
-  "today.baby.week.26.weightImage": "1/4 کدو",
-  "today.baby.week.26.development": "آنکھیں کھولنا شروع کرتا ہے۔",
-  "today.baby.week.27.weightGuide": "تقریباً 900 گرام",
-  "today.baby.week.27.weightImage": "1/3 کدو",
-  "today.baby.week.27.development": "حرکات مزید مضبوط ہو جاتی ہیں۔",
-  "today.baby.week.28.weightGuide": "تقریباً 1000 گرام",
-  "today.baby.week.28.weightImage": "1 دودھ کا ڈبہ",
-  "today.baby.week.28.development": "جسم بھرنا شروع ہوتا ہے۔",
-  "today.baby.week.29.weightGuide": "تقریباً 1200 گرام",
-  "today.baby.week.29.weightImage": "چھوٹا انناس",
-  "today.baby.week.29.development": "جسمانی چربی بڑھتی ہے۔",
-  "today.baby.week.30.weightGuide": "تقریباً 1300 گرام",
-  "today.baby.week.30.weightImage": "1/4 چینی بند گوبھی",
-  "today.baby.week.30.development": "زور و شور سے حرکت کرنا شروع کرتا ہے۔",
-  "today.baby.week.31.weightGuide": "تقریباً 1500 گرام",
-  "today.baby.week.31.weightImage": "1 خربوزہ",
-  "today.baby.week.31.development": "سونے اور جاگنے کا ردھم ظاہر ہوتا ہے۔",
-  "today.baby.week.32.weightGuide": "تقریباً 1800 گرام",
-  "today.baby.week.32.weightImage": "1 انناس",
-  "today.baby.week.32.development": "سر زیادہ تر نیچے کی طرف ہوتا ہے۔",
-  "today.baby.week.33.weightGuide": "تقریباً 2000 گرام",
-  "today.baby.week.33.weightImage": "بڑا انناس",
-  "today.baby.week.33.development": "پیدائش کی تیاریاں آگے بڑھتی ہیں۔",
-  "today.baby.week.34.weightGuide": "تقریباً 2200 گرام",
-  "today.baby.week.34.weightImage": "چھوٹا تربوز",
-  "today.baby.week.34.development": "دودھ پلانے کی مشق کے لیے تیار ہے۔",
-  "today.baby.week.35.weightGuide": "تقریباً 2400 گرام",
-  "today.baby.week.35.weightImage": "درمیانہ تربوز",
-  "today.baby.week.35.development": "جسم مزید گول مٹول ہو جاتا ہے۔",
-  "today.baby.week.36.weightGuide": "تقریباً 2500 گرام",
-  "today.baby.week.36.weightImage": "نوزائیدہ بچہ کا سائز",
-  "today.baby.week.36.development": "جسمانی افعال مکمل ہو چکے ہیں۔",
-  "today.baby.week.37.weightGuide": "تقریباً 2700 گرام",
-  "today.baby.week.37.weightImage": "قدرے بڑا نوزائیدہ بچہ",
-  "today.baby.week.37.development": "کسی بھی وقت پیدا ہونے کے لیے تیار۔",
-  "today.baby.week.38.weightGuide": "تقریباً 2900 گرام",
-  "today.baby.week.38.weightImage": "اوسط نوزائیدہ بچہ",
-  "today.baby.week.38.development": "تقریباً مکمل طور پر تیار۔",
-  "today.baby.week.39.weightGuide": "تقریباً 3000 گرام",
-  "today.baby.week.39.weightImage": "اوسط نوزائیدہ بچہ",
-  "today.baby.week.39.development": "پیدائش کی تیاری مکمل ہے۔",
-  "today.baby.week.40.weightGuide": "تقریباً 3000-3500 گرام",
-  "today.baby.week.40.weightImage": "نوزائیدہ بچہ (معیاری)",
-  "today.baby.week.40.development": "بچے کی پیدائش کا وقت۔",
-  "sos.q.01.text": "کیا پیٹ میں تناؤ یا درد ہے؟",
-  "sos.q.01.o1": "جی ہاں",
-  "sos.q.01.o2": "نہیں",
-  "sos.q.02.text": "پیٹ میں تناؤ کا وقفہ کتنا ہے؟",
-  "sos.q.02.o1": "مسلسل",
-  "sos.q.02.o2": "0~5 منٹ",
-  "sos.q.02.o3": "5~10 منٹ",
-  "sos.q.02.o4": "10~15 منٹ",
-  "sos.q.02.o5": "15 منٹ سے زیادہ",
-  "sos.q.03.text": "کیا خون بہہ رہا ہے؟",
-  "sos.q.03.o1": "جی ہاں",
-  "sos.q.03.o2": "نہیں",
-  "sos.q.04.text": "کیا بچہ حرکت کر رہا ہے؟",
-  "sos.q.04.o1": "جی ہاں",
-  "sos.q.04.o2": "نہیں",
-  "sos.q.04.o3": "معلوم نہیں",
-  "sos.q.05.text": "کیا پانی تھوڑا نکلا ہے (water break)؟",
-  "sos.q.05.o1": "جی ہاں",
-  "sos.q.05.o2": "نہیں",
-  "sos.q.05.o3": "معلوم نہیں",
-  "sos.q.06.text": "پانی کب نکلا تھا؟",
-  "sos.q.06.o1": "0~1 گھنٹہ پہلے",
-  "sos.q.06.o2": "1~24 گھنٹے پہلے",
-  "sos.q.06.o3": "24 گھنٹے سے زیادہ پہلے",
-  "sos.result.callNow": "سوالات ختم ہوئے۔\nبراہ کرم ہسپتال سے رابطہ کریں۔",
-  "sos.result.watchAndWait": "سوالات ختم ہوئے۔\nتھوڑی دیر انتظار کر کے دیکھیں۔",
+  "today": {
+    "baby": {
+      "week": {
+        "8": {
+          "weightGuide": "تقریباً 1-7 گرام",
+          "weightImage": "1 چھوٹی پھلی کا دانہ",
+          "development": "دل دھڑکنا شروع ہوتا ہے، اور اعضاء کی کونپلیں بنتی ہیں۔"
+        },
+        "9": {
+          "weightGuide": "تقریباً 2-8 گرام",
+          "weightImage": "2 چھوٹی پھلی کے دانے",
+          "development": "جسمانی شکل آہستہ آہستہ واضح ہونے لگتی ہے۔"
+        },
+        "10": {
+          "weightGuide": "تقریباً 5-10 گرام",
+          "weightImage": "1 چیری",
+          "development": "انگلیاں بنتی ہیں، اور بچہ مزید انسان جیسا نظر آنے لگتا ہے۔"
+        },
+        "11": {
+          "weightGuide": "تقریباً 10 گرام",
+          "weightImage": "1 چیری ٹماٹر",
+          "development": "چہرے کے خدوخال بننا شروع ہوتے ہیں۔"
+        },
+        "12": {
+          "weightGuide": "تقریباً 20 گرام",
+          "weightImage": "1 اسٹرابیری",
+          "development": "جسمانی بنیادی ڈھانچہ تقریباً مکمل ہو چکا ہے۔"
+        },
+        "13": {
+          "weightGuide": "تقریباً 25 گرام",
+          "weightImage": "بڑی اسٹرابیری",
+          "development": "ایمنیوٹک فلوئڈ (amniotic fluid) نگلنے کی مشق شروع کرتا ہے۔"
+        },
+        "14": {
+          "weightGuide": "تقریباً 50 گرام",
+          "weightImage": "1 انڈا",
+          "development": "جسم کو تھوڑا سا حرکت دینا شروع کرتا ہے۔"
+        },
+        "15": {
+          "weightGuide": "تقریباً 70 گرام",
+          "weightImage": "چھوٹا کینو",
+          "development": "منہ کی حرکات دیکھی جا سکتی ہیں۔"
+        },
+        "16": {
+          "weightGuide": "تقریباً 100 گرام",
+          "weightImage": "آدھا سیب",
+          "development": "چہرہ مزید واضح ہو جاتا ہے۔"
+        },
+        "17": {
+          "weightGuide": "تقریباً 150 گرام",
+          "weightImage": "1 سیب",
+          "development": "آہستہ آہستہ تھوڑا فربہ ہوتا ہے۔"
+        },
+        "18": {
+          "weightGuide": "تقریباً 200 گرام",
+          "weightImage": "بڑا سیب",
+          "development": "آوازوں پر ردعمل دینا شروع کرتا ہے۔"
+        },
+        "19": {
+          "weightGuide": "تقریباً 250 گرام",
+          "weightImage": "1 کیلا",
+          "development": "جلد پر حفاظتی تہہ (vernix) بنتی ہے۔"
+        },
+        "20": {
+          "weightGuide": "تقریباً 300 گرام",
+          "weightImage": "آدھا چکوترا",
+          "development": "جنین کی حرکات محسوس ہونا شروع ہوتی ہیں۔"
+        },
+        "21": {
+          "weightGuide": "تقریباً 400 گرام",
+          "weightImage": "1 چکوترا",
+          "development": "ہضم کرنے کی مشق کر رہا ہے۔"
+        },
+        "22": {
+          "weightGuide": "تقریباً 450 گرام",
+          "weightImage": "2 چھوٹے بینگن",
+          "development": "جسمانی افعال نشوونما پا رہے ہیں۔"
+        },
+        "23": {
+          "weightGuide": "تقریباً 500 گرام",
+          "weightImage": "1/4 بند گوبھی",
+          "development": "سانس لینے جیسی حرکات کرتا ہے۔"
+        },
+        "24": {
+          "weightGuide": "تقریباً 600 گرام",
+          "weightImage": "چھوٹا خربوزہ",
+          "development": "پھیپھڑے بننا شروع ہوتے ہیں۔"
+        },
+        "25": {
+          "weightGuide": "تقریباً 700 گرام",
+          "weightImage": "3 مکئی",
+          "development": "تحریکوں پر ردعمل دیتا ہے۔"
+        },
+        "26": {
+          "weightGuide": "تقریباً 800 گرام",
+          "weightImage": "1/4 کدو",
+          "development": "آنکھیں کھولنا شروع کرتا ہے۔"
+        },
+        "27": {
+          "weightGuide": "تقریباً 900 گرام",
+          "weightImage": "1/3 کدو",
+          "development": "حرکات مزید مضبوط ہو جاتی ہیں۔"
+        },
+        "28": {
+          "weightGuide": "تقریباً 1000 گرام",
+          "weightImage": "1 دودھ کا ڈبہ",
+          "development": "جسم بھرنا شروع ہوتا ہے۔"
+        },
+        "29": {
+          "weightGuide": "تقریباً 1200 گرام",
+          "weightImage": "چھوٹا انناس",
+          "development": "جسمانی چربی بڑھتی ہے۔"
+        },
+        "30": {
+          "weightGuide": "تقریباً 1300 گرام",
+          "weightImage": "1/4 چینی بند گوبھی",
+          "development": "زور و شور سے حرکت کرنا شروع کرتا ہے۔"
+        },
+        "31": {
+          "weightGuide": "تقریباً 1500 گرام",
+          "weightImage": "1 خربوزہ",
+          "development": "سونے اور جاگنے کا ردھم ظاہر ہوتا ہے۔"
+        },
+        "32": {
+          "weightGuide": "تقریباً 1800 گرام",
+          "weightImage": "1 انناس",
+          "development": "سر زیادہ تر نیچے کی طرف ہوتا ہے۔"
+        },
+        "33": {
+          "weightGuide": "تقریباً 2000 گرام",
+          "weightImage": "بڑا انناس",
+          "development": "پیدائش کی تیاریاں آگے بڑھتی ہیں۔"
+        },
+        "34": {
+          "weightGuide": "تقریباً 2200 گرام",
+          "weightImage": "چھوٹا تربوز",
+          "development": "دودھ پلانے کی مشق کے لیے تیار ہے۔"
+        },
+        "35": {
+          "weightGuide": "تقریباً 2400 گرام",
+          "weightImage": "درمیانہ تربوز",
+          "development": "جسم مزید گول مٹول ہو جاتا ہے۔"
+        },
+        "36": {
+          "weightGuide": "تقریباً 2500 گرام",
+          "weightImage": "نوزائیدہ بچہ کا سائز",
+          "development": "جسمانی افعال مکمل ہو چکے ہیں۔"
+        },
+        "37": {
+          "weightGuide": "تقریباً 2700 گرام",
+          "weightImage": "قدرے بڑا نوزائیدہ بچہ",
+          "development": "کسی بھی وقت پیدا ہونے کے لیے تیار۔"
+        },
+        "38": {
+          "weightGuide": "تقریباً 2900 گرام",
+          "weightImage": "اوسط نوزائیدہ بچہ",
+          "development": "تقریباً مکمل طور پر تیار۔"
+        },
+        "39": {
+          "weightGuide": "تقریباً 3000 گرام",
+          "weightImage": "اوسط نوزائیدہ بچہ",
+          "development": "پیدائش کی تیاری مکمل ہے۔"
+        },
+        "40": {
+          "weightGuide": "تقریباً 3000-3500 گرام",
+          "weightImage": "نوزائیدہ بچہ (معیاری)",
+          "development": "بچے کی پیدائش کا وقت۔"
+        }
+      }
+    }
+  },
+  "epds": {
+    "q": {
+      "10": {
+        "text": "自分自身を傷つけるという考えが浮かんできた。",
+        "o1": "はい、かなりしばしばそうだった。",
+        "o2": "時々そうだった。",
+        "o3": "めったになかった。",
+        "o4": "まったくなかった。"
+      },
+      "01": {
+        "text": "笑うことができたし、物事のおかしい面もわかった。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "まったくできなかった。"
+      },
+      "02": {
+        "text": "物事を楽しみにして待った。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "ほとんどできなかった。"
+      },
+      "03": {
+        "text": "物事が悪くいった時、自分を不必要に責めた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、時々そうだった。",
+        "o3": "いいえ、あまり度々ではない。",
+        "o4": "いいえ、そうではなかった。"
+      },
+      "04": {
+        "text": "はっきりした理由もないのに不安になったり、心配した。",
+        "o1": "いいえ、そうではなかった。",
+        "o2": "ほとんどそうではなかった。",
+        "o3": "はい、時々あった。",
+        "o4": "はい、しょっちゅうあった。"
+      },
+      "05": {
+        "text": "はっきりした理由もないのに恐怖に襲われた。",
+        "o1": "はい、しょっちゅうあった。",
+        "o2": "はい、時々あった。",
+        "o3": "いいえ、めったになかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "06": {
+        "text": "することがたくさんあって大変だった。",
+        "o1": "はい、たいてい対処できなかった。",
+        "o2": "はい、いつものようにはうまく対処しなかった。",
+        "o3": "いいえ、たいていうまく対処した。",
+        "o4": "いいえ、普段通りに対処した。"
+      },
+      "07": {
+        "text": "不幸せなので、眠りにくかった。",
+        "o1": "はい、ほとんどいつもそうだった。",
+        "o2": "はい、ときどきそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "08": {
+        "text": "悲しくなったり、惨めになった。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      },
+      "09": {
+        "text": "不幸せなので、泣けてきた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "ほんの時々あった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      }
+    }
+  },
+  "sos": {
+    "q": {
+      "01": {
+        "text": "کیا پیٹ میں تناؤ یا درد ہے؟",
+        "o1": "جی ہاں",
+        "o2": "نہیں"
+      },
+      "02": {
+        "text": "پیٹ میں تناؤ کا وقفہ کتنا ہے؟",
+        "o1": "مسلسل",
+        "o2": "0~5 منٹ",
+        "o3": "5~10 منٹ",
+        "o4": "10~15 منٹ",
+        "o5": "15 منٹ سے زیادہ"
+      },
+      "03": {
+        "text": "کیا خون بہہ رہا ہے؟",
+        "o1": "جی ہاں",
+        "o2": "نہیں"
+      },
+      "04": {
+        "text": "کیا بچہ حرکت کر رہا ہے؟",
+        "o1": "جی ہاں",
+        "o2": "نہیں",
+        "o3": "معلوم نہیں"
+      },
+      "05": {
+        "text": "کیا پانی تھوڑا نکلا ہے (water break)؟",
+        "o1": "جی ہاں",
+        "o2": "نہیں",
+        "o3": "معلوم نہیں"
+      },
+      "06": {
+        "text": "پانی کب نکلا تھا؟",
+        "o1": "0~1 گھنٹہ پہلے",
+        "o2": "1~24 گھنٹے پہلے",
+        "o3": "24 گھنٹے سے زیادہ پہلے"
+      }
+    },
+    "result": {
+      "callNow": "سوالات ختم ہوئے۔\nبراہ کرم ہسپتال سے رابطہ کریں۔",
+      "watchAndWait": "سوالات ختم ہوئے۔\nتھوڑی دیر انتظار کر کے دیکھیں۔"
+    }
+  },
   "link": {
     "levelTable": {
       "caption": "ہر مہارت کے لیے موزوں سطح منتخب کریں۔",

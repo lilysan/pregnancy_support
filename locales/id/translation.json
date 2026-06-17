@@ -451,131 +451,295 @@
       }
     }
   },
-  "today.baby.week.8.weightGuide": "Sekitar 1–7g",
-  "today.baby.week.8.weightImage": "1 kacang kecil",
-  "today.baby.week.8.development": "Jantung mulai berdetak, dan tunas anggota tubuh terbentuk.",
-  "today.baby.week.9.weightGuide": "Sekitar 2–8g",
-  "today.baby.week.9.weightImage": "2 kacang kecil",
-  "today.baby.week.9.development": "Bentuk tubuh mulai berdiferensiasi secara bertahap.",
-  "today.baby.week.10.weightGuide": "Sekitar 5–10g",
-  "today.baby.week.10.weightImage": "1 ceri",
-  "today.baby.week.10.development": "Jari-jari terbentuk, dan bayi mulai terlihat lebih seperti manusia.",
-  "today.baby.week.11.weightGuide": "Sekitar 10g",
-  "today.baby.week.11.weightImage": "1 tomat ceri",
-  "today.baby.week.11.development": "Fitur wajah mulai terbentuk.",
-  "today.baby.week.12.weightGuide": "Sekitar 20g",
-  "today.baby.week.12.weightImage": "1 stroberi",
-  "today.baby.week.12.development": "Struktur dasar tubuh hampir lengkap.",
-  "today.baby.week.13.weightGuide": "Sekitar 25g",
-  "today.baby.week.13.weightImage": "Stroberi besar",
-  "today.baby.week.13.development": "Mulai berlatih menelan cairan ketuban.",
-  "today.baby.week.14.weightGuide": "Sekitar 50g",
-  "today.baby.week.14.weightImage": "1 telur",
-  "today.baby.week.14.development": "Mulai menggerakkan tubuh sedikit demi sedikit.",
-  "today.baby.week.15.weightGuide": "Sekitar 70g",
-  "today.baby.week.15.weightImage": "Jeruk mandarin kecil",
-  "today.baby.week.15.development": "Gerakan mulut dapat diamati.",
-  "today.baby.week.16.weightGuide": "Sekitar 100g",
-  "today.baby.week.16.weightImage": "Setengah apel",
-  "today.baby.week.16.development": "Wajah menjadi lebih jelas.",
-  "today.baby.week.17.weightGuide": "Sekitar 150g",
-  "today.baby.week.17.weightImage": "1 apel",
-  "today.baby.week.17.development": "Bertahap menjadi lebih berisi.",
-  "today.baby.week.18.weightGuide": "Sekitar 200g",
-  "today.baby.week.18.weightImage": "Apel besar",
-  "today.baby.week.18.development": "Mulai bereaksi terhadap suara.",
-  "today.baby.week.19.weightGuide": "Sekitar 250g",
-  "today.baby.week.19.weightImage": "1 pisang",
-  "today.baby.week.19.development": "Lapisan pelindung (vernix) terbentuk pada kulit.",
-  "today.baby.week.20.weightGuide": "Sekitar 300g",
-  "today.baby.week.20.weightImage": "Setengah jeruk bali",
-  "today.baby.week.20.development": "Gerakan janin mulai terasa.",
-  "today.baby.week.21.weightGuide": "Sekitar 400g",
-  "today.baby.week.21.weightImage": "1 jeruk bali",
-  "today.baby.week.21.development": "Berlatih mencerna.",
-  "today.baby.week.22.weightGuide": "Sekitar 450g",
-  "today.baby.week.22.weightImage": "2 terong kecil",
-  "today.baby.week.22.development": "Fungsi tubuh sedang berkembang.",
-  "today.baby.week.23.weightGuide": "Sekitar 500g",
-  "today.baby.week.23.weightImage": "1/4 kubis",
-  "today.baby.week.23.development": "Melakukan gerakan seperti bernapas.",
-  "today.baby.week.24.weightGuide": "Sekitar 600g",
-  "today.baby.week.24.weightImage": "Melon kecil",
-  "today.baby.week.24.development": "Paru-paru mulai berkembang.",
-  "today.baby.week.25.weightGuide": "Sekitar 700g",
-  "today.baby.week.25.weightImage": "3 jagung",
-  "today.baby.week.25.development": "Bereaksi terhadap rangsangan.",
-  "today.baby.week.26.weightGuide": "Sekitar 800g",
-  "today.baby.week.26.weightImage": "1/4 labu",
-  "today.baby.week.26.development": "Mulai membuka mata.",
-  "today.baby.week.27.weightGuide": "Sekitar 900g",
-  "today.baby.week.27.weightImage": "1/3 labu",
-  "today.baby.week.27.development": "Gerakan menjadi lebih kuat.",
-  "today.baby.week.28.weightGuide": "Sekitar 1000g",
-  "today.baby.week.28.weightImage": "1 karton susu",
-  "today.baby.week.28.development": "Tubuh mulai berisi.",
-  "today.baby.week.29.weightGuide": "Sekitar 1200g",
-  "today.baby.week.29.weightImage": "Nanas kecil",
-  "today.baby.week.29.development": "Lemak tubuh meningkat.",
-  "today.baby.week.30.weightGuide": "Sekitar 1300g",
-  "today.baby.week.30.weightImage": "1/4 sawi putih",
-  "today.baby.week.30.development": "Mulai bergerak dengan kuat.",
-  "today.baby.week.31.weightGuide": "Sekitar 1500g",
-  "today.baby.week.31.weightImage": "1 melon",
-  "today.baby.week.31.development": "Irama tidur-bangun muncul.",
-  "today.baby.week.32.weightGuide": "Sekitar 1800g",
-  "today.baby.week.32.weightImage": "1 nanas",
-  "today.baby.week.32.development": "Kepala lebih sering berada di bawah.",
-  "today.baby.week.33.weightGuide": "Sekitar 2000g",
-  "today.baby.week.33.weightImage": "Nanas besar",
-  "today.baby.week.33.development": "Persiapan kelahiran berlanjut.",
-  "today.baby.week.34.weightGuide": "Sekitar 2200g",
-  "today.baby.week.34.weightImage": "Semangka kecil",
-  "today.baby.week.34.development": "Siap untuk berlatih menyusu.",
-  "today.baby.week.35.weightGuide": "Sekitar 2400g",
-  "today.baby.week.35.weightImage": "Semangka sedang",
-  "today.baby.week.35.development": "Tubuh menjadi lebih bulat.",
-  "today.baby.week.36.weightGuide": "Sekitar 2500g",
-  "today.baby.week.36.weightImage": "Ukuran bayi baru lahir",
-  "today.baby.week.36.development": "Fungsi tubuh lengkap.",
-  "today.baby.week.37.weightGuide": "Sekitar 2700g",
-  "today.baby.week.37.weightImage": "Bayi baru lahir agak besar",
-  "today.baby.week.37.development": "Sudah cukup bulan, siap lahir kapan saja.",
-  "today.baby.week.38.weightGuide": "Sekitar 2900g",
-  "today.baby.week.38.weightImage": "Rata-rata bayi baru lahir",
-  "today.baby.week.38.development": "Hampir sepenuhnya berkembang.",
-  "today.baby.week.39.weightGuide": "Sekitar 3000g",
-  "today.baby.week.39.weightImage": "Rata-rata bayi baru lahir",
-  "today.baby.week.39.development": "Persiapan persalinan selesai.",
-  "today.baby.week.40.weightGuide": "Sekitar 3000–3500g",
-  "today.baby.week.40.weightImage": "Bayi baru lahir (standar)",
-  "today.baby.week.40.development": "Waktunya bayi dilahirkan.",
-  "sos.q.01.text": "Apakah ada rasa kencang atau nyeri pada perut?",
-  "sos.q.01.o1": "Ya",
-  "sos.q.01.o2": "Tidak",
-  "sos.q.02.text": "Berapa menit selang waktu perut terasa kencang?",
-  "sos.q.02.o1": "Terus-menerus",
-  "sos.q.02.o2": "0~5 menit",
-  "sos.q.02.o3": "5~10 menit",
-  "sos.q.02.o4": "10~15 menit",
-  "sos.q.02.o5": "Lebih dari 15 menit",
-  "sos.q.03.text": "Apakah ada pendarahan?",
-  "sos.q.03.o1": "Ya",
-  "sos.q.03.o2": "Tidak",
-  "sos.q.04.text": "Apakah bayi bergerak?",
-  "sos.q.04.o1": "Ya",
-  "sos.q.04.o2": "Tidak",
-  "sos.q.04.o3": "Tidak tahu",
-  "sos.q.05.text": "Apakah ketuban pecah?",
-  "sos.q.05.o1": "Ya",
-  "sos.q.05.o2": "Tidak",
-  "sos.q.05.o3": "Tidak tahu",
-  "sos.q.06.text": "Kapan ketuban pecah?",
-  "sos.q.06.o1": "0~1 jam yang lalu",
-  "sos.q.06.o2": "1~24 jam yang lalu",
-  "sos.q.06.o3": "Lebih dari 24 jam yang lalu",
-  "sos.result.callNow": "Pertanyaan selesai.\nSilakan hubungi rumah sakit.",
-  "sos.result.watchAndWait": "Pertanyaan selesai.\nMari pantau keadaannya sebentar lagi.",
+  "today": {
+    "baby": {
+      "week": {
+        "8": {
+          "weightGuide": "Sekitar 1–7g",
+          "weightImage": "1 kacang kecil",
+          "development": "Jantung mulai berdetak, dan tunas anggota tubuh terbentuk."
+        },
+        "9": {
+          "weightGuide": "Sekitar 2–8g",
+          "weightImage": "2 kacang kecil",
+          "development": "Bentuk tubuh mulai berdiferensiasi secara bertahap."
+        },
+        "10": {
+          "weightGuide": "Sekitar 5–10g",
+          "weightImage": "1 ceri",
+          "development": "Jari-jari terbentuk, dan bayi mulai terlihat lebih seperti manusia."
+        },
+        "11": {
+          "weightGuide": "Sekitar 10g",
+          "weightImage": "1 tomat ceri",
+          "development": "Fitur wajah mulai terbentuk."
+        },
+        "12": {
+          "weightGuide": "Sekitar 20g",
+          "weightImage": "1 stroberi",
+          "development": "Struktur dasar tubuh hampir lengkap."
+        },
+        "13": {
+          "weightGuide": "Sekitar 25g",
+          "weightImage": "Stroberi besar",
+          "development": "Mulai berlatih menelan cairan ketuban."
+        },
+        "14": {
+          "weightGuide": "Sekitar 50g",
+          "weightImage": "1 telur",
+          "development": "Mulai menggerakkan tubuh sedikit demi sedikit."
+        },
+        "15": {
+          "weightGuide": "Sekitar 70g",
+          "weightImage": "Jeruk mandarin kecil",
+          "development": "Gerakan mulut dapat diamati."
+        },
+        "16": {
+          "weightGuide": "Sekitar 100g",
+          "weightImage": "Setengah apel",
+          "development": "Wajah menjadi lebih jelas."
+        },
+        "17": {
+          "weightGuide": "Sekitar 150g",
+          "weightImage": "1 apel",
+          "development": "Bertahap menjadi lebih berisi."
+        },
+        "18": {
+          "weightGuide": "Sekitar 200g",
+          "weightImage": "Apel besar",
+          "development": "Mulai bereaksi terhadap suara."
+        },
+        "19": {
+          "weightGuide": "Sekitar 250g",
+          "weightImage": "1 pisang",
+          "development": "Lapisan pelindung (vernix) terbentuk pada kulit."
+        },
+        "20": {
+          "weightGuide": "Sekitar 300g",
+          "weightImage": "Setengah jeruk bali",
+          "development": "Gerakan janin mulai terasa."
+        },
+        "21": {
+          "weightGuide": "Sekitar 400g",
+          "weightImage": "1 jeruk bali",
+          "development": "Berlatih mencerna."
+        },
+        "22": {
+          "weightGuide": "Sekitar 450g",
+          "weightImage": "2 terong kecil",
+          "development": "Fungsi tubuh sedang berkembang."
+        },
+        "23": {
+          "weightGuide": "Sekitar 500g",
+          "weightImage": "1/4 kubis",
+          "development": "Melakukan gerakan seperti bernapas."
+        },
+        "24": {
+          "weightGuide": "Sekitar 600g",
+          "weightImage": "Melon kecil",
+          "development": "Paru-paru mulai berkembang."
+        },
+        "25": {
+          "weightGuide": "Sekitar 700g",
+          "weightImage": "3 jagung",
+          "development": "Bereaksi terhadap rangsangan."
+        },
+        "26": {
+          "weightGuide": "Sekitar 800g",
+          "weightImage": "1/4 labu",
+          "development": "Mulai membuka mata."
+        },
+        "27": {
+          "weightGuide": "Sekitar 900g",
+          "weightImage": "1/3 labu",
+          "development": "Gerakan menjadi lebih kuat."
+        },
+        "28": {
+          "weightGuide": "Sekitar 1000g",
+          "weightImage": "1 karton susu",
+          "development": "Tubuh mulai berisi."
+        },
+        "29": {
+          "weightGuide": "Sekitar 1200g",
+          "weightImage": "Nanas kecil",
+          "development": "Lemak tubuh meningkat."
+        },
+        "30": {
+          "weightGuide": "Sekitar 1300g",
+          "weightImage": "1/4 sawi putih",
+          "development": "Mulai bergerak dengan kuat."
+        },
+        "31": {
+          "weightGuide": "Sekitar 1500g",
+          "weightImage": "1 melon",
+          "development": "Irama tidur-bangun muncul."
+        },
+        "32": {
+          "weightGuide": "Sekitar 1800g",
+          "weightImage": "1 nanas",
+          "development": "Kepala lebih sering berada di bawah."
+        },
+        "33": {
+          "weightGuide": "Sekitar 2000g",
+          "weightImage": "Nanas besar",
+          "development": "Persiapan kelahiran berlanjut."
+        },
+        "34": {
+          "weightGuide": "Sekitar 2200g",
+          "weightImage": "Semangka kecil",
+          "development": "Siap untuk berlatih menyusu."
+        },
+        "35": {
+          "weightGuide": "Sekitar 2400g",
+          "weightImage": "Semangka sedang",
+          "development": "Tubuh menjadi lebih bulat."
+        },
+        "36": {
+          "weightGuide": "Sekitar 2500g",
+          "weightImage": "Ukuran bayi baru lahir",
+          "development": "Fungsi tubuh lengkap."
+        },
+        "37": {
+          "weightGuide": "Sekitar 2700g",
+          "weightImage": "Bayi baru lahir agak besar",
+          "development": "Sudah cukup bulan, siap lahir kapan saja."
+        },
+        "38": {
+          "weightGuide": "Sekitar 2900g",
+          "weightImage": "Rata-rata bayi baru lahir",
+          "development": "Hampir sepenuhnya berkembang."
+        },
+        "39": {
+          "weightGuide": "Sekitar 3000g",
+          "weightImage": "Rata-rata bayi baru lahir",
+          "development": "Persiapan persalinan selesai."
+        },
+        "40": {
+          "weightGuide": "Sekitar 3000–3500g",
+          "weightImage": "Bayi baru lahir (standar)",
+          "development": "Waktunya bayi dilahirkan."
+        }
+      }
+    }
+  },
+  "epds": {
+    "q": {
+      "10": {
+        "text": "自分自身を傷つけるという考えが浮かんできた。",
+        "o1": "はい、かなりしばしばそうだった。",
+        "o2": "時々そうだった。",
+        "o3": "めったになかった。",
+        "o4": "まったくなかった。"
+      },
+      "01": {
+        "text": "笑うことができたし、物事のおかしい面もわかった。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "まったくできなかった。"
+      },
+      "02": {
+        "text": "物事を楽しみにして待った。",
+        "o1": "いつもと同様にできた。",
+        "o2": "あまりできなかった。",
+        "o3": "明らかにできなかった。",
+        "o4": "ほとんどできなかった。"
+      },
+      "03": {
+        "text": "物事が悪くいった時、自分を不必要に責めた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、時々そうだった。",
+        "o3": "いいえ、あまり度々ではない。",
+        "o4": "いいえ、そうではなかった。"
+      },
+      "04": {
+        "text": "はっきりした理由もないのに不安になったり、心配した。",
+        "o1": "いいえ、そうではなかった。",
+        "o2": "ほとんどそうではなかった。",
+        "o3": "はい、時々あった。",
+        "o4": "はい、しょっちゅうあった。"
+      },
+      "05": {
+        "text": "はっきりした理由もないのに恐怖に襲われた。",
+        "o1": "はい、しょっちゅうあった。",
+        "o2": "はい、時々あった。",
+        "o3": "いいえ、めったになかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "06": {
+        "text": "することがたくさんあって大変だった。",
+        "o1": "はい、たいてい対処できなかった。",
+        "o2": "はい、いつものようにはうまく対処しなかった。",
+        "o3": "いいえ、たいていうまく対処した。",
+        "o4": "いいえ、普段通りに対処した。"
+      },
+      "07": {
+        "text": "不幸せなので、眠りにくかった。",
+        "o1": "はい、ほとんどいつもそうだった。",
+        "o2": "はい、ときどきそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくなかった。"
+      },
+      "08": {
+        "text": "悲しくなったり、惨めになった。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "いいえ、あまり度々ではなかった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      },
+      "09": {
+        "text": "不幸せなので、泣けてきた。",
+        "o1": "はい、たいていそうだった。",
+        "o2": "はい、かなりしばしばそうだった。",
+        "o3": "ほんの時々あった。",
+        "o4": "いいえ、まったくそうではなかった。"
+      }
+    }
+  },
+  "sos": {
+    "q": {
+      "01": {
+        "text": "Apakah ada rasa kencang atau nyeri pada perut?",
+        "o1": "Ya",
+        "o2": "Tidak"
+      },
+      "02": {
+        "text": "Berapa menit selang waktu perut terasa kencang?",
+        "o1": "Terus-menerus",
+        "o2": "0~5 menit",
+        "o3": "5~10 menit",
+        "o4": "10~15 menit",
+        "o5": "Lebih dari 15 menit"
+      },
+      "03": {
+        "text": "Apakah ada pendarahan?",
+        "o1": "Ya",
+        "o2": "Tidak"
+      },
+      "04": {
+        "text": "Apakah bayi bergerak?",
+        "o1": "Ya",
+        "o2": "Tidak",
+        "o3": "Tidak tahu"
+      },
+      "05": {
+        "text": "Apakah ketuban pecah?",
+        "o1": "Ya",
+        "o2": "Tidak",
+        "o3": "Tidak tahu"
+      },
+      "06": {
+        "text": "Kapan ketuban pecah?",
+        "o1": "0~1 jam yang lalu",
+        "o2": "1~24 jam yang lalu",
+        "o3": "Lebih dari 24 jam yang lalu"
+      }
+    },
+    "result": {
+      "callNow": "Pertanyaan selesai.\nSilakan hubungi rumah sakit.",
+      "watchAndWait": "Pertanyaan selesai.\nMari pantau keadaannya sebentar lagi."
+    }
+  },
   "link": {
     "levelTable": {
       "caption": "Pilih tingkat yang sesuai untuk setiap kemampuan.",
