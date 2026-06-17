@@ -19,8 +19,9 @@ function hideAppLoader() {
 
 const getAccessObj = (data) => {
   const requestData = Object.assign({}, data);
-  if (userId) requestData.userId = userId;
+  requestData.userId = userId || "";
   requestData.lang = window.normalizedLanguageCode || state.appLanguage || "";
+  console.log("blood_pressure request userId:", requestData.userId);
   return {
     url: API_URL,
     type: "POST",
@@ -80,6 +81,20 @@ function extractPressureItems(response) {
   return Array.isArray(rawItems)
     ? rawItems.map(normalizePressureItem).filter(Boolean)
     : [];
+}
+
+function decodeIdTokenUserId(idToken) {
+  try {
+    const payload = String(idToken || "").split(".")[1];
+    if (!payload) return "";
+    const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
+    const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=");
+    const decoded = JSON.parse(decodeURIComponent(escape(atob(padded))));
+    return decoded.sub || decoded.userId || "";
+  } catch (error) {
+    console.warn("Failed to decode LIFF ID token:", error);
+    return "";
+  }
 }
 
 function loadData(idToken, type, postData, mergeMode) {
@@ -420,7 +435,11 @@ function bootPressureApp() {
           userId =
             profile && profile.userId
               ? profile.userId
-              : (decoded && (decoded.sub || decoded.userId)) || "";
+              : (decoded && (decoded.sub || decoded.userId)) ||
+                decodeIdTokenUserId(state.idToken) ||
+                "";
+          window.userId = userId;
+          console.log("blood_pressure resolved userId:", userId);
           return Promise.all([startPressureApp(state.idToken), loadHeader()]);
         });
     })
