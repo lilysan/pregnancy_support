@@ -90,7 +90,7 @@ function populateTable(id) {
       period: before_periodValue,
     };
 
-    Promise.resolve(deleteData(list, "pressure"))
+    Promise.resolve(deleteData(list, "myPressure"))
       .then(() => reloadPressureDataAndRender())
       .then(() => {
         dialog.classList.add("is-hidden");
@@ -133,15 +133,15 @@ function savebutton() {
     const savePressure =
       typeof setPressure === "function"
         ? setPressure
-        : (payload) => addData(payload, "pressure");
+        : (payload) => addData(payload, "myPressure");
     const updatePressure =
       typeof putData === "function"
         ? putData
-        : (payload) => addData(payload, "pressure");
+        : (payload) => addData(payload, "myPressure");
     const request = sameKey
-      ? Promise.resolve(updatePressure(newdata, "pressure"))
-      : Promise.resolve(updatePressure(newdata, "pressure")).then(() =>
-          deleteData(olddata, "pressure"),
+      ? Promise.resolve(updatePressure(newdata, "myPressure"))
+      : Promise.resolve(updatePressure(newdata, "myPressure")).then(() =>
+          deleteData(olddata, "myPressure"),
         );
 
     request

@@ -935,7 +935,7 @@ function fetchPressurePage(page, mergeMode) {
     limit: 7,
     page: page,
   };
-  const req = loadData(token, "pressure", query, mergeMode || "replace");
+  const req = loadData(token, "myPressure", query, mergeMode || "replace");
   return Promise.resolve(req).then((items) =>
     Array.isArray(items) ? items : [],
   );

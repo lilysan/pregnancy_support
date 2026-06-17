@@ -146,7 +146,7 @@ document.getElementById("adddata").onclick = function () {
     const savePressure =
       typeof setPressure === "function"
         ? setPressure
-        : (payload) => addData(payload, "pressure");
+        : (payload) => addData(payload, "myPressure");
     Promise.resolve(savePressure(list))
       .then(() => {
         return reloadPressureDataAndRender();

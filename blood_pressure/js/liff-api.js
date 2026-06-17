@@ -111,11 +111,11 @@ function loadData(idToken, type, postData, mergeMode) {
   showAppLoader();
   const method = "get";
   const safePostData =
-    type === "pressure" || type === "myPressure"
+    type === "myPressure"
       ? pressurePayload(method, postData)
       : postData || {};
   const safeMergeMode = mergeMode || "replace";
-  if (window.IS_TEST_MODE && (type === "pressure" || type === "myPressure")) {
+  if (window.IS_TEST_MODE && type === "myPressure") {
     const page = Number(safePostData.page || 1);
     const limit = Math.max(1, Number(safePostData.limit || 7));
     const start = (page - 1) * limit;
@@ -178,7 +178,7 @@ function loadData(idToken, type, postData, mergeMode) {
 function addData(data, type) {
   showAppLoader();
   const method = "post";
-  if (window.IS_TEST_MODE && (type === "pressure" || type === "myPressure")) {
+  if (window.IS_TEST_MODE && type === "myPressure") {
     MOCK_PRESSURE_ITEMS.unshift(
       Object.assign(
         {
