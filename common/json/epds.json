@@ -1,0 +1,227 @@
+{
+  "formId": "epds",
+  "ver": "1",
+  "i18n": "epds",
+  "questions": [
+    {
+      "id": "q.01",
+      "labelKey": "epds.q.01.text",
+      "options": [
+        {
+          "id": "o1",
+          "labelKey": "epds.q.01.o1"
+        },
+        {
+          "id": "o2",
+          "labelKey": "epds.q.01.o2"
+        },
+        {
+          "id": "o3",
+          "labelKey": "epds.q.01.o3"
+        },
+        {
+          "id": "o4",
+          "labelKey": "epds.q.01.o4"
+        }
+      ]
+    },
+    {
+      "id": "q.02",
+      "labelKey": "epds.q.02.text",
+      "options": [
+        {
+          "id": "o1",
+          "labelKey": "epds.q.02.o1"
+        },
+        {
+          "id": "o2",
+          "labelKey": "epds.q.02.o2"
+        },
+        {
+          "id": "o3",
+          "labelKey": "epds.q.02.o3"
+        },
+        {
+          "id": "o4",
+          "labelKey": "epds.q.02.o4"
+        }
+      ]
+    },
+    {
+      "id": "q.03",
+      "labelKey": "epds.q.03.text",
+      "options": [
+        {
+          "id": "o1",
+          "labelKey": "epds.q.03.o1"
+        },
+        {
+          "id": "o2",
+          "labelKey": "epds.q.03.o2"
+        },
+        {
+          "id": "o3",
+          "labelKey": "epds.q.03.o3"
+        },
+        {
+          "id": "o4",
+          "labelKey": "epds.q.03.o4"
+        }
+      ]
+    },
+    {
+      "id": "q.04",
+      "labelKey": "epds.q.04.text",
+      "options": [
+        {
+          "id": "o1",
+          "labelKey": "epds.q.04.o1"
+        },
+        {
+          "id": "o2",
+          "labelKey": "epds.q.04.o2"
+        },
+        {
+          "id": "o3",
+          "labelKey": "epds.q.04.o3"
+        },
+        {
+          "id": "o4",
+          "labelKey": "epds.q.04.o4"
+        }
+      ]
+    },
+    {
+      "id": "q.05",
+      "labelKey": "epds.q.05.text",
+      "options": [
+        {
+          "id": "o1",
+          "labelKey": "epds.q.05.o1"
+        },
+        {
+          "id": "o2",
+          "labelKey": "epds.q.05.o2"
+        },
+        {
+          "id": "o3",
+          "labelKey": "epds.q.05.o3"
+        },
+        {
+          "id": "o4",
+          "labelKey": "epds.q.05.o4"
+        }
+      ]
+    },
+    {
+      "id": "q.06",
+      "labelKey": "epds.q.06.text",
+      "options": [
+        {
+          "id": "o1",
+          "labelKey": "epds.q.06.o1"
+        },
+        {
+          "id": "o2",
+          "labelKey": "epds.q.06.o2"
+        },
+        {
+          "id": "o3",
+          "labelKey": "epds.q.06.o3"
+        },
+        {
+          "id": "o4",
+          "labelKey": "epds.q.06.o4"
+        }
+      ]
+    },
+    {
+      "id": "q.07",
+      "labelKey": "epds.q.07.text",
+      "options": [
+        {
+          "id": "o1",
+          "labelKey": "epds.q.07.o1"
+        },
+        {
+          "id": "o2",
+          "labelKey": "epds.q.07.o2"
+        },
+        {
+          "id": "o3",
+          "labelKey": "epds.q.07.o3"
+        },
+        {
+          "id": "o4",
+          "labelKey": "epds.q.07.o4"
+        }
+      ]
+    },
+    {
+      "id": "q.08",
+      "labelKey": "epds.q.08.text",
+      "options": [
+        {
+          "id": "o1",
+          "labelKey": "epds.q.08.o1"
+        },
+        {
+          "id": "o2",
+          "labelKey": "epds.q.08.o2"
+        },
+        {
+          "id": "o3",
+          "labelKey": "epds.q.08.o3"
+        },
+        {
+          "id": "o4",
+          "labelKey": "epds.q.08.o4"
+        }
+      ]
+    },
+    {
+      "id": "q.09",
+      "labelKey": "epds.q.09.text",
+      "options": [
+        {
+          "id": "o1",
+          "labelKey": "epds.q.09.o1"
+        },
+        {
+          "id": "o2",
+          "labelKey": "epds.q.09.o2"
+        },
+        {
+          "id": "o3",
+          "labelKey": "epds.q.09.o3"
+        },
+        {
+          "id": "o4",
+          "labelKey": "epds.q.09.o4"
+        }
+      ]
+    },
+    {
+      "id": "q.10",
+      "labelKey": "epds.q.10.text",
+      "options": [
+        {
+          "id": "o1",
+          "labelKey": "epds.q.10.o1"
+        },
+        {
+          "id": "o2",
+          "labelKey": "epds.q.10.o2"
+        },
+        {
+          "id": "o3",
+          "labelKey": "epds.q.10.o3"
+        },
+        {
+          "id": "o4",
+          "labelKey": "epds.q.10.o4"
+        }
+      ]
+    }
+  ]
+}

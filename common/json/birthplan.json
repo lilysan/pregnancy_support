@@ -5,34 +5,34 @@
   "categories": [
     {
       "id": "laborBirth",
-      "labelKey": "cat.laborBirth",
+      "labelKey": "bp.cat.laborBirth",
       "sections": [
         {
           "id": "deliveryMethod",
-          "labelKey": "sec.laborBirth.deliveryMethod",
+          "labelKey": "bp.sec.laborBirth.deliveryMethod",
           "questions": [
             {
               "id": "a012",
-              "labelKey": "q.a012.label",
+              "labelKey": "bp.q.a012.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.a012.o1"
+                  "labelKey": "bp.q.a012.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.a012.o2"
+                  "labelKey": "bp.q.a012.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.a012.o3"
+                  "labelKey": "bp.q.a012.o3"
                 }
               ],
               "followUps": [
                 {
                   "id": "a012b",
-                  "labelKey": "q.a012b.label",
+                  "labelKey": "bp.q.a012b.label",
                   "inputType": "multi",
                   "showWhenParentIs": [
                     "o1",
@@ -41,19 +41,19 @@
                   "options": [
                     {
                       "id": "o1",
-                      "labelKey": "q.a012b.o1"
+                      "labelKey": "bp.q.a012b.o1"
                     },
                     {
                       "id": "o2",
-                      "labelKey": "q.a012b.o2"
+                      "labelKey": "bp.q.a012b.o2"
                     },
                     {
                       "id": "o3",
-                      "labelKey": "q.a012b.o3"
+                      "labelKey": "bp.q.a012b.o3"
                     },
                     {
                       "id": "o4",
-                      "labelKey": "q.a012b.o4"
+                      "labelKey": "bp.q.a012b.o4"
                     }
                   ]
                 }
@@ -61,9 +61,9 @@
             },
             {
               "id": "a013",
-              "labelKey": "q.a013.label",
-              "helpKey": "q.a013.h",
-              "prefaceKey": "q.a013.p",
+              "labelKey": "bp.q.a013.label",
+              "helpKey": "bp.q.a013.h",
+              "prefaceKey": "bp.q.a013.p",
               "showPrefaceWhen": {
                 "questionId": "a012",
                 "is": [
@@ -74,25 +74,25 @@
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.a013.o1"
+                  "labelKey": "bp.q.a013.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.a013.o2"
+                  "labelKey": "bp.q.a013.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.a013.o3"
+                  "labelKey": "bp.q.a013.o3"
                 },
                 {
                   "id": "o4",
-                  "labelKey": "q.a013.o4"
+                  "labelKey": "bp.q.a013.o4"
                 }
               ],
               "followUps": [
                 {
                   "id": "a013a",
-                  "labelKey": "q.a013a.label",
+                  "labelKey": "bp.q.a013a.label",
                   "inputType": "single",
                   "showWhenParentIs": [
                     "o1",
@@ -102,15 +102,15 @@
                   "options": [
                     {
                       "id": "o1",
-                      "labelKey": "q.a013a.o1"
+                      "labelKey": "bp.q.a013a.o1"
                     },
                     {
                       "id": "o2",
-                      "labelKey": "q.a013a.o2"
+                      "labelKey": "bp.q.a013a.o2"
                     },
                     {
                       "id": "o3",
-                      "labelKey": "q.a013a.o3"
+                      "labelKey": "bp.q.a013a.o3"
                     }
                   ]
                 }
@@ -118,48 +118,48 @@
             },
             {
               "id": "a012a",
-              "labelKey": "q.a012a.label",
-              "helpKey": "q.a012a.h",
+              "labelKey": "bp.q.a012a.label",
+              "helpKey": "bp.q.a012a.h",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.a012a.o1"
+                  "labelKey": "bp.q.a012a.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.a012a.o2"
+                  "labelKey": "bp.q.a012a.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.a012a.o3"
+                  "labelKey": "bp.q.a012a.o3"
                 },
                 {
                   "id": "o4",
-                  "labelKey": "q.a012a.o4"
+                  "labelKey": "bp.q.a012a.o4"
                 }
               ]
             },
             {
               "id": "a014",
-              "labelKey": "q.a014.label",
+              "labelKey": "bp.q.a014.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.a014.o1"
+                  "labelKey": "bp.q.a014.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.a014.o2"
+                  "labelKey": "bp.q.a014.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.a014.o3"
+                  "labelKey": "bp.q.a014.o3"
                 },
                 {
                   "id": "o4",
-                  "labelKey": "q.a014.o4"
+                  "labelKey": "bp.q.a014.o4"
                 }
               ]
             }
@@ -167,30 +167,30 @@
         },
         {
           "id": "attendance",
-          "labelKey": "sec.laborBirth.attendance",
+          "labelKey": "bp.sec.laborBirth.attendance",
           "questions": [
             {
               "id": "a001",
-              "labelKey": "q.a001.label",
+              "labelKey": "bp.q.a001.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.a001.o1"
+                  "labelKey": "bp.q.a001.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.a001.o2"
+                  "labelKey": "bp.q.a001.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.a001.o3"
+                  "labelKey": "bp.q.a001.o3"
                 }
               ],
               "followUps": [
                 {
                   "id": "a001a",
-                  "labelKey": "q.a001a.label",
+                  "labelKey": "bp.q.a001a.label",
                   "inputType": "multiText",
                   "showWhenParentIs": [
                     "o1",
@@ -199,30 +199,30 @@
                   "options": [
                     {
                       "id": "o1",
-                      "labelKey": "q.a001a.o1"
+                      "labelKey": "bp.q.a001a.o1"
                     },
                     {
                       "id": "o2",
-                      "labelKey": "q.a001a.o2"
+                      "labelKey": "bp.q.a001a.o2"
                     },
                     {
                       "id": "o3",
-                      "labelKey": "q.a001a.o3"
+                      "labelKey": "bp.q.a001a.o3"
                     },
                     {
                       "id": "o4",
-                      "labelKey": "q.a001a.o4"
+                      "labelKey": "bp.q.a001a.o4"
                     },
                     {
                       "id": "o5",
-                      "labelKey": "q.a001a.o5",
+                      "labelKey": "bp.q.a001a.o5",
                       "activatesText": true
                     }
                   ]
                 },
                 {
                   "id": "a001b",
-                  "labelKey": "q.a001b.label",
+                  "labelKey": "bp.q.a001b.label",
                   "inputType": "single",
                   "showWhenParentIs": [
                     "o1",
@@ -231,19 +231,19 @@
                   "options": [
                     {
                       "id": "o1",
-                      "labelKey": "q.a001b.o1"
+                      "labelKey": "bp.q.a001b.o1"
                     },
                     {
                       "id": "o2",
-                      "labelKey": "q.a001b.o2"
+                      "labelKey": "bp.q.a001b.o2"
                     },
                     {
                       "id": "o3",
-                      "labelKey": "q.a001b.o3"
+                      "labelKey": "bp.q.a001b.o3"
                     },
                     {
                       "id": "o4",
-                      "labelKey": "q.a001b.o4"
+                      "labelKey": "bp.q.a001b.o4"
                     }
                   ]
                 }
@@ -251,20 +251,20 @@
             },
             {
               "id": "a004",
-              "labelKey": "q.a004.label",
+              "labelKey": "bp.q.a004.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.a004.o1"
+                  "labelKey": "bp.q.a004.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.a004.o2"
+                  "labelKey": "bp.q.a004.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.a004.o3"
+                  "labelKey": "bp.q.a004.o3"
                 }
               ]
             }
@@ -272,72 +272,72 @@
         },
         {
           "id": "environment",
-          "labelKey": "sec.laborBirth.environment",
+          "labelKey": "bp.sec.laborBirth.environment",
           "questions": [
             {
               "id": "a005",
-              "labelKey": "q.a005.label",
+              "labelKey": "bp.q.a005.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.a005.o1"
+                  "labelKey": "bp.q.a005.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.a005.o2"
+                  "labelKey": "bp.q.a005.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.a005.o3"
+                  "labelKey": "bp.q.a005.o3"
                 }
               ]
             },
             {
               "id": "a006",
-              "labelKey": "q.a006.label",
+              "labelKey": "bp.q.a006.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.a006.o1"
+                  "labelKey": "bp.q.a006.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.a006.o2"
+                  "labelKey": "bp.q.a006.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.a006.o3"
+                  "labelKey": "bp.q.a006.o3"
                 },
                 {
                   "id": "o4",
-                  "labelKey": "q.a006.o4"
+                  "labelKey": "bp.q.a006.o4"
                 }
               ]
             },
             {
               "id": "a007",
-              "labelKey": "q.a007.label",
+              "labelKey": "bp.q.a007.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.a007.o1"
+                  "labelKey": "bp.q.a007.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.a007.o2"
+                  "labelKey": "bp.q.a007.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.a007.o3"
+                  "labelKey": "bp.q.a007.o3"
                 }
               ],
               "followUps": [
                 {
                   "id": "a007a",
-                  "labelKey": "q.a007a.label",
+                  "labelKey": "bp.q.a007a.label",
                   "inputType": "singleText",
                   "showWhenParentIs": [
                     "o1",
@@ -346,12 +346,12 @@
                   "options": [
                     {
                       "id": "o1",
-                      "labelKey": "q.a007a.o1",
+                      "labelKey": "bp.q.a007a.o1",
                       "activatesText": true
                     },
                     {
                       "id": "o2",
-                      "labelKey": "q.a007a.o2"
+                      "labelKey": "bp.q.a007a.o2"
                     }
                   ]
                 }
@@ -359,47 +359,47 @@
             },
             {
               "id": "a008",
-              "labelKey": "q.a008.label",
+              "labelKey": "bp.q.a008.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.a008.o1"
+                  "labelKey": "bp.q.a008.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.a008.o2"
+                  "labelKey": "bp.q.a008.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.a008.o3"
+                  "labelKey": "bp.q.a008.o3"
                 }
               ]
             },
             {
               "id": "a009",
-              "labelKey": "q.a009.label",
+              "labelKey": "bp.q.a009.label",
               "inputType": "multiText",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.a009.o1"
+                  "labelKey": "bp.q.a009.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.a009.o2"
+                  "labelKey": "bp.q.a009.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.a009.o3"
+                  "labelKey": "bp.q.a009.o3"
                 },
                 {
                   "id": "o4",
-                  "labelKey": "q.a009.o4"
+                  "labelKey": "bp.q.a009.o4"
                 },
                 {
                   "id": "o5",
-                  "labelKey": "q.a009.o5",
+                  "labelKey": "bp.q.a009.o5",
                   "activatesText": true
                 }
               ]
@@ -408,30 +408,30 @@
         },
         {
           "id": "records",
-          "labelKey": "sec.laborBirth.records",
+          "labelKey": "bp.sec.laborBirth.records",
           "questions": [
             {
               "id": "a010",
-              "labelKey": "q.a010.label",
+              "labelKey": "bp.q.a010.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.a010.o1"
+                  "labelKey": "bp.q.a010.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.a010.o2"
+                  "labelKey": "bp.q.a010.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.a010.o3"
+                  "labelKey": "bp.q.a010.o3"
                 }
               ],
               "followUps": [
                 {
                   "id": "a011",
-                  "labelKey": "q.a011.label",
+                  "labelKey": "bp.q.a011.label",
                   "inputType": "multiText",
                   "showWhenParentIs": [
                     "o1",
@@ -440,27 +440,27 @@
                   "options": [
                     {
                       "id": "o1",
-                      "labelKey": "q.a011.o1"
+                      "labelKey": "bp.q.a011.o1"
                     },
                     {
                       "id": "o2",
-                      "labelKey": "q.a011.o2"
+                      "labelKey": "bp.q.a011.o2"
                     },
                     {
                       "id": "o3",
-                      "labelKey": "q.a011.o3"
+                      "labelKey": "bp.q.a011.o3"
                     },
                     {
                       "id": "o4",
-                      "labelKey": "q.a011.o4"
+                      "labelKey": "bp.q.a011.o4"
                     },
                     {
                       "id": "o5",
-                      "labelKey": "q.a011.o5"
+                      "labelKey": "bp.q.a011.o5"
                     },
                     {
                       "id": "o6",
-                      "labelKey": "q.a011.o6",
+                      "labelKey": "bp.q.a011.o6",
                       "activatesText": true
                     }
                   ]
@@ -471,28 +471,28 @@
         },
         {
           "id": "painCare",
-          "labelKey": "sec.laborBirth.painCare",
+          "labelKey": "bp.sec.laborBirth.painCare",
           "questions": [
             {
               "id": "a018",
-              "labelKey": "q.a018.label",
+              "labelKey": "bp.q.a018.label",
               "inputType": "multi",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.a018.o1"
+                  "labelKey": "bp.q.a018.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.a018.o2"
+                  "labelKey": "bp.q.a018.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.a018.o3"
+                  "labelKey": "bp.q.a018.o3"
                 },
                 {
                   "id": "o4",
-                  "labelKey": "q.a018.o4"
+                  "labelKey": "bp.q.a018.o4"
                 }
               ]
             }
@@ -500,70 +500,70 @@
         },
         {
           "id": "medicalCareExplain",
-          "labelKey": "sec.laborBirth.medicalCareExplain",
+          "labelKey": "bp.sec.laborBirth.medicalCareExplain",
           "questions": [
             {
               "id": "a019",
-              "labelKey": "q.a019.label",
+              "labelKey": "bp.q.a019.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.a019.o1"
+                  "labelKey": "bp.q.a019.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.a019.o2"
+                  "labelKey": "bp.q.a019.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.a019.o3"
+                  "labelKey": "bp.q.a019.o3"
                 },
                 {
                   "id": "o4",
-                  "labelKey": "q.a019.o4"
+                  "labelKey": "bp.q.a019.o4"
                 }
               ]
             },
             {
               "id": "a020",
-              "labelKey": "q.a020.label",
+              "labelKey": "bp.q.a020.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.a020.o1"
+                  "labelKey": "bp.q.a020.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.a020.o2"
+                  "labelKey": "bp.q.a020.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.a020.o3"
+                  "labelKey": "bp.q.a020.o3"
                 },
                 {
                   "id": "o4",
-                  "labelKey": "q.a020.o4"
+                  "labelKey": "bp.q.a020.o4"
                 }
               ]
             },
             {
               "id": "a021",
-              "labelKey": "q.a021.label",
+              "labelKey": "bp.q.a021.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.a021.o1"
+                  "labelKey": "bp.q.a021.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.a021.o2"
+                  "labelKey": "bp.q.a021.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.a021.o3"
+                  "labelKey": "bp.q.a021.o3"
                 }
               ]
             }
@@ -573,47 +573,47 @@
     },
     {
       "id": "postBirth",
-      "labelKey": "cat.postBirth",
+      "labelKey": "bp.cat.postBirth",
       "sections": [
         {
           "id": "newbornContact",
-          "labelKey": "sec.postBirth.newbornContact",
+          "labelKey": "bp.sec.postBirth.newbornContact",
           "questions": [
             {
               "id": "b001",
-              "labelKey": "q.b001.label",
+              "labelKey": "bp.q.b001.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.b001.o1"
+                  "labelKey": "bp.q.b001.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.b001.o2"
+                  "labelKey": "bp.q.b001.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.b001.o3"
+                  "labelKey": "bp.q.b001.o3"
                 }
               ]
             },
             {
               "id": "b002",
-              "labelKey": "q.b002.label",
+              "labelKey": "bp.q.b002.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.b002.o1"
+                  "labelKey": "bp.q.b002.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.b002.o2"
+                  "labelKey": "bp.q.b002.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.b002.o3"
+                  "labelKey": "bp.q.b002.o3"
                 }
               ]
             }
@@ -621,30 +621,30 @@
         },
         {
           "id": "proceduresTests",
-          "labelKey": "sec.postBirth.proceduresTests",
+          "labelKey": "bp.sec.postBirth.proceduresTests",
           "questions": [
             {
               "id": "b003",
-              "labelKey": "q.b003.label",
+              "labelKey": "bp.q.b003.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.b003.o1"
+                  "labelKey": "bp.q.b003.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.b003.o2"
+                  "labelKey": "bp.q.b003.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.b003.o3"
+                  "labelKey": "bp.q.b003.o3"
                 }
               ],
               "followUps": [
                 {
                   "id": "b003a",
-                  "labelKey": "q.b003a.label",
+                  "labelKey": "bp.q.b003a.label",
                   "inputType": "singleText",
                   "showWhenParentIs": [
                     "o1",
@@ -653,23 +653,23 @@
                   "options": [
                     {
                       "id": "o1",
-                      "labelKey": "q.b003a.o1"
+                      "labelKey": "bp.q.b003a.o1"
                     },
                     {
                       "id": "o2",
-                      "labelKey": "q.b003a.o2"
+                      "labelKey": "bp.q.b003a.o2"
                     },
                     {
                       "id": "o3",
-                      "labelKey": "q.b003a.o3"
+                      "labelKey": "bp.q.b003a.o3"
                     },
                     {
                       "id": "o4",
-                      "labelKey": "q.b003a.o4"
+                      "labelKey": "bp.q.b003a.o4"
                     },
                     {
                       "id": "o5",
-                      "labelKey": "q.b003a.o5",
+                      "labelKey": "bp.q.b003a.o5",
                       "activatesText": true
                     }
                   ]
@@ -678,67 +678,67 @@
             },
             {
               "id": "b004",
-              "labelKey": "q.b004.label",
-              "helpKey": "q.b004.h",
+              "labelKey": "bp.q.b004.label",
+              "helpKey": "bp.q.b004.h",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.b004.o1"
+                  "labelKey": "bp.q.b004.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.b004.o2"
+                  "labelKey": "bp.q.b004.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.b004.o3"
+                  "labelKey": "bp.q.b004.o3"
                 }
               ]
             },
             {
               "id": "b005",
-              "labelKey": "q.b005.label",
+              "labelKey": "bp.q.b005.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.b005.o1"
+                  "labelKey": "bp.q.b005.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.b005.o2"
+                  "labelKey": "bp.q.b005.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.b005.o3"
+                  "labelKey": "bp.q.b005.o3"
                 },
                 {
                   "id": "o4",
-                  "labelKey": "q.b005.o4"
+                  "labelKey": "bp.q.b005.o4"
                 }
               ]
             },
             {
               "id": "b006",
-              "labelKey": "q.b006.label",
+              "labelKey": "bp.q.b006.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.b006.o1"
+                  "labelKey": "bp.q.b006.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.b006.o2"
+                  "labelKey": "bp.q.b006.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.b006.o3"
+                  "labelKey": "bp.q.b006.o3"
                 },
                 {
                   "id": "o4",
-                  "labelKey": "q.b006.o4"
+                  "labelKey": "bp.q.b006.o4"
                 }
               ]
             }
@@ -746,24 +746,24 @@
         },
         {
           "id": "environment",
-          "labelKey": "sec.postBirth.environment",
+          "labelKey": "bp.sec.postBirth.environment",
           "questions": [
             {
               "id": "b007",
-              "labelKey": "q.b007.label",
+              "labelKey": "bp.q.b007.label",
               "inputType": "multiText",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.b007.o1"
+                  "labelKey": "bp.q.b007.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.b007.o2"
+                  "labelKey": "bp.q.b007.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.b007.o3",
+                  "labelKey": "bp.q.b007.o3",
                   "activatesText": true
                 }
               ]
@@ -772,49 +772,49 @@
         },
         {
           "id": "records",
-          "labelKey": "sec.postBirth.records",
+          "labelKey": "bp.sec.postBirth.records",
           "questions": [
             {
               "id": "b008",
-              "labelKey": "q.b008.label",
+              "labelKey": "bp.q.b008.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.b008.o1"
+                  "labelKey": "bp.q.b008.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.b008.o2"
+                  "labelKey": "bp.q.b008.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.b008.o3"
+                  "labelKey": "bp.q.b008.o3"
                 }
               ]
             },
             {
               "id": "b009",
-              "labelKey": "q.b009.label",
+              "labelKey": "bp.q.b009.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.b009.o1"
+                  "labelKey": "bp.q.b009.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.b009.o2"
+                  "labelKey": "bp.q.b009.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.b009.o3"
+                  "labelKey": "bp.q.b009.o3"
                 }
               ],
               "followUps": [
                 {
                   "id": "b010",
-                  "labelKey": "q.b010.label",
+                  "labelKey": "bp.q.b010.label",
                   "inputType": "multiText",
                   "showWhenParentIs": [
                     "o1",
@@ -823,27 +823,27 @@
                   "options": [
                     {
                       "id": "o1",
-                      "labelKey": "q.b010.o1"
+                      "labelKey": "bp.q.b010.o1"
                     },
                     {
                       "id": "o2",
-                      "labelKey": "q.b010.o2"
+                      "labelKey": "bp.q.b010.o2"
                     },
                     {
                       "id": "o3",
-                      "labelKey": "q.b010.o3"
+                      "labelKey": "bp.q.b010.o3"
                     },
                     {
                       "id": "o4",
-                      "labelKey": "q.b010.o4"
+                      "labelKey": "bp.q.b010.o4"
                     },
                     {
                       "id": "o5",
-                      "labelKey": "q.b010.o5"
+                      "labelKey": "bp.q.b010.o5"
                     },
                     {
                       "id": "o6",
-                      "labelKey": "q.b010.o6",
+                      "labelKey": "bp.q.b010.o6",
                       "activatesText": true
                     }
                   ]
@@ -852,58 +852,58 @@
             },
             {
               "id": "b011",
-              "labelKey": "q.b011.label",
+              "labelKey": "bp.q.b011.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.b011.o1"
+                  "labelKey": "bp.q.b011.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.b011.o2"
+                  "labelKey": "bp.q.b011.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.b011.o3"
+                  "labelKey": "bp.q.b011.o3"
                 }
               ]
             },
             {
               "id": "b012",
-              "labelKey": "q.b012.label",
+              "labelKey": "bp.q.b012.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.b012.o1"
+                  "labelKey": "bp.q.b012.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.b012.o2"
+                  "labelKey": "bp.q.b012.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.b012.o3"
+                  "labelKey": "bp.q.b012.o3"
                 }
               ]
             },
             {
               "id": "b013",
-              "labelKey": "q.b013.label",
+              "labelKey": "bp.q.b013.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.b013.o1"
+                  "labelKey": "bp.q.b013.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.b013.o2"
+                  "labelKey": "bp.q.b013.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.b013.o3"
+                  "labelKey": "bp.q.b013.o3"
                 }
               ]
             }
@@ -913,47 +913,47 @@
     },
     {
       "id": "hospitalStay",
-      "labelKey": "cat.hospitalStay",
+      "labelKey": "bp.cat.hospitalStay",
       "sections": [
         {
           "id": "roomingIn",
-          "labelKey": "sec.hospitalStay.roomingIn",
+          "labelKey": "bp.sec.hospitalStay.roomingIn",
           "questions": [
             {
               "id": "c001",
-              "labelKey": "q.c001.label",
+              "labelKey": "bp.q.c001.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.c001.o1"
+                  "labelKey": "bp.q.c001.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.c001.o2"
+                  "labelKey": "bp.q.c001.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.c001.o3"
+                  "labelKey": "bp.q.c001.o3"
                 }
               ]
             },
             {
               "id": "c002",
-              "labelKey": "q.c002.label",
+              "labelKey": "bp.q.c002.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.c002.o1"
+                  "labelKey": "bp.q.c002.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.c002.o2"
+                  "labelKey": "bp.q.c002.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.c002.o3"
+                  "labelKey": "bp.q.c002.o3"
                 }
               ]
             }
@@ -961,34 +961,34 @@
         },
         {
           "id": "feeding",
-          "labelKey": "sec.hospitalStay.feeding",
+          "labelKey": "bp.sec.hospitalStay.feeding",
           "questions": [
             {
               "id": "c003",
-              "labelKey": "q.c003.label",
+              "labelKey": "bp.q.c003.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.c003.o1"
+                  "labelKey": "bp.q.c003.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.c003.o2"
+                  "labelKey": "bp.q.c003.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.c003.o3"
+                  "labelKey": "bp.q.c003.o3"
                 },
                 {
                   "id": "o4",
-                  "labelKey": "q.c003.o4"
+                  "labelKey": "bp.q.c003.o4"
                 }
               ],
               "followUps": [
                 {
                   "id": "c003a",
-                  "labelKey": "q.c003a.label",
+                  "labelKey": "bp.q.c003a.label",
                   "inputType": "single",
                   "showWhenParentIs": [
                     "o2",
@@ -998,11 +998,11 @@
                   "options": [
                     {
                       "id": "o1",
-                      "labelKey": "q.c003a.o1"
+                      "labelKey": "bp.q.c003a.o1"
                     },
                     {
                       "id": "o2",
-                      "labelKey": "q.c003a.o2"
+                      "labelKey": "bp.q.c003a.o2"
                     }
                   ]
                 }
@@ -1012,84 +1012,84 @@
         },
         {
           "id": "environment",
-          "labelKey": "sec.hospitalStay.environment",
+          "labelKey": "bp.sec.hospitalStay.environment",
           "questions": [
             {
               "id": "c004",
-              "labelKey": "q.c004.label",
+              "labelKey": "bp.q.c004.label",
               "inputType": "multiText",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.c004.o1"
+                  "labelKey": "bp.q.c004.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.c004.o2"
+                  "labelKey": "bp.q.c004.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.c004.o3"
+                  "labelKey": "bp.q.c004.o3"
                 },
                 {
                   "id": "o4",
-                  "labelKey": "q.c004.o4"
+                  "labelKey": "bp.q.c004.o4"
                 },
                 {
                   "id": "o5",
-                  "labelKey": "q.c004.o5"
+                  "labelKey": "bp.q.c004.o5"
                 },
                 {
                   "id": "o6",
-                  "labelKey": "q.c004.o6"
+                  "labelKey": "bp.q.c004.o6"
                 },
                 {
                   "id": "o7",
-                  "labelKey": "q.c004.o7"
+                  "labelKey": "bp.q.c004.o7"
                 },
                 {
                   "id": "o8",
-                  "labelKey": "q.c004.o8"
+                  "labelKey": "bp.q.c004.o8"
                 },
                 {
                   "id": "o9",
-                  "labelKey": "q.c004.o9"
+                  "labelKey": "bp.q.c004.o9"
                 },
                 {
                   "id": "o10",
-                  "labelKey": "q.c004.o10"
+                  "labelKey": "bp.q.c004.o10"
                 },
                 {
                   "id": "o11",
-                  "labelKey": "q.c004.o11",
+                  "labelKey": "bp.q.c004.o11",
                   "activatesText": true
                 },
                 {
                   "id": "o12",
-                  "labelKey": "q.c004.o12"
+                  "labelKey": "bp.q.c004.o12"
                 }
               ]
             },
             {
               "id": "c005",
-              "labelKey": "q.c005.label",
+              "labelKey": "bp.q.c005.label",
               "inputType": "multiText",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.c005.o1"
+                  "labelKey": "bp.q.c005.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.c005.o2"
+                  "labelKey": "bp.q.c005.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.c005.o3"
+                  "labelKey": "bp.q.c005.o3"
                 },
                 {
                   "id": "o4",
-                  "labelKey": "q.c005.o4",
+                  "labelKey": "bp.q.c005.o4",
                   "activatesText": true
                 }
               ]
@@ -1098,30 +1098,30 @@
         },
         {
           "id": "visitation",
-          "labelKey": "sec.hospitalStay.visitation",
+          "labelKey": "bp.sec.hospitalStay.visitation",
           "questions": [
             {
               "id": "c006",
-              "labelKey": "q.c006.label",
+              "labelKey": "bp.q.c006.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.c006.o1"
+                  "labelKey": "bp.q.c006.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.c006.o2"
+                  "labelKey": "bp.q.c006.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.c006.o3"
+                  "labelKey": "bp.q.c006.o3"
                 }
               ],
               "followUps": [
                 {
                   "id": "c006a",
-                  "labelKey": "q.c006a.label",
+                  "labelKey": "bp.q.c006a.label",
                   "inputType": "multiText",
                   "showWhenParentIs": [
                     "o1",
@@ -1130,25 +1130,25 @@
                   "options": [
                     {
                       "id": "o1",
-                      "labelKey": "q.c006a.o1"
+                      "labelKey": "bp.q.c006a.o1"
                     },
                     {
                       "id": "o2",
-                      "labelKey": "q.c006a.o2"
+                      "labelKey": "bp.q.c006a.o2"
                     },
                     {
                       "id": "o3",
-                      "labelKey": "q.c006a.o3"
+                      "labelKey": "bp.q.c006a.o3"
                     },
                     {
                       "id": "o4",
-                      "labelKey": "q.c006a.o4"
+                      "labelKey": "bp.q.c006a.o4"
                     },
-                {
-                  "id": "o5",
-                  "labelKey": "q.c006a.o5",
-                  "activatesText": true
-                }
+                    {
+                      "id": "o5",
+                      "labelKey": "bp.q.c006a.o5",
+                      "activatesText": true
+                    }
                   ]
                 }
               ]
@@ -1157,62 +1157,62 @@
         },
         {
           "id": "maternalCare",
-          "labelKey": "sec.hospitalStay.maternalCare",
+          "labelKey": "bp.sec.hospitalStay.maternalCare",
           "questions": [
             {
               "id": "c008",
-              "labelKey": "q.c008.label",
+              "labelKey": "bp.q.c008.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.c008.o1"
+                  "labelKey": "bp.q.c008.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.c008.o2"
+                  "labelKey": "bp.q.c008.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.c008.o3"
+                  "labelKey": "bp.q.c008.o3"
                 }
               ]
             },
             {
               "id": "c009",
-              "labelKey": "q.c009.label",
+              "labelKey": "bp.q.c009.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.c009.o1"
+                  "labelKey": "bp.q.c009.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.c009.o2"
+                  "labelKey": "bp.q.c009.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.c009.o3"
+                  "labelKey": "bp.q.c009.o3"
                 }
               ]
             },
             {
               "id": "c010",
-              "labelKey": "q.c010.label",
+              "labelKey": "bp.q.c010.label",
               "inputType": "single",
               "options": [
                 {
                   "id": "o1",
-                  "labelKey": "q.c010.o1"
+                  "labelKey": "bp.q.c010.o1"
                 },
                 {
                   "id": "o2",
-                  "labelKey": "q.c010.o2"
+                  "labelKey": "bp.q.c010.o2"
                 },
                 {
                   "id": "o3",
-                  "labelKey": "q.c010.o3"
+                  "labelKey": "bp.q.c010.o3"
                 }
               ]
             }

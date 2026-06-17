@@ -272,7 +272,7 @@
 
 <script>
     const currentPage = "vaccination";
-    const FORM_SCHEMA_URL = "./plan.structure.json";
+    const FORM_SCHEMA_URL = "../common/json/vaccination.json";
 
     /** @type {import('@line/liff').Liff} */
     const liff = window.liff;
@@ -485,7 +485,7 @@
                     )
                     .append(
                         $("<span>")
-                            .attr("data-i18n", `[html]vac.${question.labelKey}`)
+                            .attr("data-i18n", `[html]${question.labelKey}`)
                     )
             );
         }
@@ -500,7 +500,7 @@
                 .addClass("radio-chip")
                 .toggleClass("active", isActive)
                 .attr("data-value", option.id)
-                .attr("data-i18n", `[html]vac.${option.labelKey}`)
+                .attr("data-i18n", `[html]${option.labelKey}`)
                 .on("click", function () {
                     updateSelection(question, option.id);
                     syncQuestionUi(question, wrap);
@@ -882,9 +882,9 @@
         return state.schema && Array.isArray(state.schema.questions) && state.schema.questions[0]
             ? state.schema.questions[0].options
             : [
-                {id: "yes", labelKey: "q.all.yes", activatesDate: true},
-                {id: "no", labelKey: "q.all.no"},
-                {id: "unknown", labelKey: "q.all.unknown"}
+                {id: "yes", labelKey: "vac.q.all.yes", activatesDate: true},
+                {id: "no", labelKey: "vac.q.all.no"},
+                {id: "unknown", labelKey: "vac.q.all.unknown"}
             ];
     }
 

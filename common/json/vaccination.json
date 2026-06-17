@@ -5,164 +5,163 @@
   "questions": [
     {
       "id": "diphtheria",
-      "labelKey": "q.diphtheria.label",
+      "labelKey": "vac.q.diphtheria.label",
       "inputType": "single",
       "options": [
         {
           "id": "yes",
-          "labelKey": "q.all.yes",
+          "labelKey": "vac.q.all.yes",
           "activatesDate": true
         },
         {
           "id": "no",
-          "labelKey": "q.all.no"
+          "labelKey": "vac.q.all.no"
         },
         {
           "id": "unknown",
-          "labelKey": "q.all.unknown"
+          "labelKey": "vac.q.all.unknown"
         }
       ]
     },
     {
       "id": "tetanus",
-      "labelKey": "q.tetanus.label",
+      "labelKey": "vac.q.tetanus.label",
       "inputType": "single",
       "options": [
         {
           "id": "yes",
-          "labelKey": "q.all.yes",
+          "labelKey": "vac.q.all.yes",
           "activatesDate": true
         },
         {
           "id": "no",
-          "labelKey": "q.all.no"
+          "labelKey": "vac.q.all.no"
         },
         {
           "id": "unknown",
-          "labelKey": "q.all.unknown"
+          "labelKey": "vac.q.all.unknown"
         }
       ]
     },
     {
       "id": "pertussis",
-      "labelKey": "q.pertussis.label",
+      "labelKey": "vac.q.pertussis.label",
       "inputType": "single",
       "options": [
         {
           "id": "yes",
-          "labelKey": "q.all.yes",
+          "labelKey": "vac.q.all.yes",
           "activatesDate": true
         },
         {
           "id": "no",
-          "labelKey": "q.all.no"
+          "labelKey": "vac.q.all.no"
         },
         {
           "id": "unknown",
-          "labelKey": "q.all.unknown"
+          "labelKey": "vac.q.all.unknown"
         }
       ]
     },
     {
       "id": "measles",
-      "labelKey": "q.measles.label",
+      "labelKey": "vac.q.measles.label",
       "inputType": "single",
       "options": [
         {
           "id": "yes",
-          "labelKey": "q.all.yes",
+          "labelKey": "vac.q.all.yes",
           "activatesDate": true
         },
         {
           "id": "no",
-          "labelKey": "q.all.no"
+          "labelKey": "vac.q.all.no"
         },
         {
           "id": "unknown",
-          "labelKey": "q.all.unknown"
+          "labelKey": "vac.q.all.unknown"
         }
       ]
     },
     {
       "id": "rubella",
-      "labelKey": "q.rubella.label",
+      "labelKey": "vac.q.rubella.label",
       "inputType": "single",
       "options": [
         {
           "id": "yes",
-          "labelKey": "q.all.yes",
+          "labelKey": "vac.q.all.yes",
           "activatesDate": true
         },
         {
           "id": "no",
-          "labelKey": "q.all.no"
+          "labelKey": "vac.q.all.no"
         },
         {
           "id": "unknown",
-          "labelKey": "q.all.unknown"
+          "labelKey": "vac.q.all.unknown"
         }
       ]
     },
     {
       "id": "rsvirus",
-      "labelKey": "q.rsvirus.label",
+      "labelKey": "vac.q.rsvirus.label",
       "inputType": "single",
       "options": [
         {
           "id": "yes",
-          "labelKey": "q.all.yes",
+          "labelKey": "vac.q.all.yes",
           "activatesDate": true
         },
         {
           "id": "no",
-          "labelKey": "q.all.no"
+          "labelKey": "vac.q.all.no"
         },
         {
           "id": "unknown",
-          "labelKey": "q.all.unknown"
+          "labelKey": "vac.q.all.unknown"
         }
       ]
     },
     {
       "id": "influenza",
-      "labelKey": "q.influenza.label",
+      "labelKey": "vac.q.influenza.label",
       "inputType": "single",
       "options": [
         {
           "id": "yes",
-          "labelKey": "q.all.yes",
+          "labelKey": "vac.q.all.yes",
           "activatesDate": true
         },
         {
           "id": "no",
-          "labelKey": "q.all.no"
+          "labelKey": "vac.q.all.no"
         },
         {
           "id": "unknown",
-          "labelKey": "q.all.unknown"
+          "labelKey": "vac.q.all.unknown"
         }
       ]
     },
     {
       "id": "covid19",
-      "labelKey": "q.covid19.label",
+      "labelKey": "vac.q.covid19.label",
       "inputType": "single",
       "options": [
         {
           "id": "yes",
-          "labelKey": "q.all.yes",
+          "labelKey": "vac.q.all.yes",
           "activatesDate": true
         },
         {
           "id": "no",
-          "labelKey": "q.all.no"
+          "labelKey": "vac.q.all.no"
         },
         {
           "id": "unknown",
-          "labelKey": "q.all.unknown"
+          "labelKey": "vac.q.all.unknown"
         }
       ]
     }
   ]
-
 }

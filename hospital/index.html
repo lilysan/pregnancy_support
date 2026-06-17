@@ -885,7 +885,7 @@
 
 <script>
     const currentPage = "hospital";
-    const BIRTHPLAN_SCHEMA_URL = "../birthplan/plan.structure.json";
+    const BIRTHPLAN_SCHEMA_URL = "../common/json/birthplan.json";
     const BIRTHPLAN_TRANSLATION_URL = "../locales/ja/translation.json";
     const HOSPITAL_INVITE_TOKEN_PREFIX = "hspinv_";
 
@@ -1903,7 +1903,7 @@
     }
 
     function translateBirthPlan(labelKey) {
-        const value = getNestedValue(birthPlanSettingsState.translations, `bp.${labelKey}`);
+        const value = getNestedValue(birthPlanSettingsState.translations, labelKey);
         return value || labelKey;
     }
 

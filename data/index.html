@@ -769,10 +769,12 @@
     const QUESTION_RECORD_CONFIGS = {
         epds: {
             questionPrefix: "epds",
+            schemaKey: "epds",
             showScore: true
         },
         labor: {
-            questionPrefix: "sos"
+            questionPrefix: "sos",
+            schemaKey: "sos"
         }
     };
 
@@ -786,7 +788,9 @@
         translations: {},
         schemas: {
             birthplan: null,
-            vaccination: null
+            vaccination: null,
+            epds: null,
+            sos: null
         }
     };
     let patientSelectionResolve = null;
@@ -1251,11 +1255,11 @@
 
         schema.categories.forEach((category) => {
             const categoryEl = $("<section>").addClass("data-form-category")
-                .append($("<h3>").text(translateDataKey(`bp.${category.labelKey}`)));
+                .append($("<h3>").text(translateDataKey(category.labelKey)));
 
             (category.sections || []).forEach((section) => {
                 const sectionEl = $("<section>").addClass("data-form-section")
-                    .append($("<h4>").text(translateDataKey(`bp.${section.labelKey}`)));
+                    .append($("<h4>").text(translateDataKey(section.labelKey)));
 
                 appendBirthplanQuestions(sectionEl, section.questions, responseMap, questionCounter);
                 categoryEl.append(sectionEl);
@@ -1288,7 +1292,7 @@
         const questions = schema.questions.map((question) => ({
             question: question,
             item: itemMap[question.id] || null,
-            label: translateDataKey(`vac.${question.labelKey}`)
+            label: translateDataKey(question.labelKey)
         }));
         customItems.forEach((item) => {
             questions.push({
@@ -1363,11 +1367,11 @@
             .append(
                 $("<p>").addClass("bp-question-label")
                     .append($("<span>").addClass("badge badge-primary").text(questionNumber))
-                    .append($("<span>").text(translateDataKey(`bp.${question.labelKey}`)))
+                    .append($("<span>").text(translateDataKey(question.labelKey)))
             );
 
         if (question.helpKey) {
-            card.append($("<p>").addClass("bp-question-help").text(translateDataKey(`bp.${question.helpKey}`)));
+            card.append($("<p>").addClass("bp-question-help").text(translateDataKey(question.helpKey)));
         }
 
         const options = $("<div>").addClass("radio-row bp-options")
@@ -1377,7 +1381,7 @@
                 $("<span>")
                     .addClass("radio-chip data-readonly-option")
                     .toggleClass("active", Boolean(responseMap[option.labelKey]))
-                    .text(translateDataKey(`bp.${option.labelKey}`))
+                    .text(translateDataKey(option.labelKey))
             );
         });
         if ((question.options || []).length) {
@@ -1465,7 +1469,7 @@
                 );
             }
 
-            const answers = buildAllQuestionAnswers(item.normalizedAnswers, config.questionPrefix);
+            const answers = buildAllQuestionAnswers(item.normalizedAnswers, config);
             if (!answers.length) {
                 record.append($("<p>").addClass("small").text("回答データがありません。"));
                 list.append(record);
@@ -1516,29 +1520,58 @@
         return Array.from(groups.values()).sort((a, b) => getRecordTime(b) - getRecordTime(a));
     }
 
-    function buildAllQuestionAnswers(answers, questionPrefix) {
+    function buildAllQuestionAnswers(answers, config) {
         const answerMap = {};
         answers.forEach((answer) => {
             if (answer.questionKey) {
                 answerMap[answer.questionKey] = answer;
             }
         });
-        return getQuestionKeys(questionPrefix).map((questionKey) => {
-            return answerMap[questionKey] || {
+        return getQuestionDefinitions(config, Object.keys(answerMap)).map((question) => {
+            const questionKey = question.questionKey;
+            const answer = answerMap[questionKey];
+            if (answer) {
+                return Object.assign({}, answer, {
+                    questionTextKey: question.questionTextKey || answer.questionTextKey
+                });
+            }
+            return {
                 questionKey: questionKey,
-                questionTextKey: `${questionKey}.text`,
+                questionTextKey: question.questionTextKey,
                 answerKey: ""
             };
         });
     }
 
-    function getQuestionKeys(questionPrefix) {
-        const questionCounts = {
-            sos: 6,
-            epds: 10
-        };
-        const count = questionCounts[questionPrefix] || 0;
-        return Array.from({length: count}, (_, index) => `${questionPrefix}.q.${String(index + 1).padStart(2, "0")}`);
+    function getQuestionDefinitions(config, answeredKeys) {
+        const questionPrefix = config.questionPrefix;
+        const schema = dataState.schemas[config.schemaKey];
+        const definitions = Array.isArray(schema && schema.questions)
+            ? schema.questions.map((question) => {
+                const questionKey = normalizeQuestionKey(question.id, questionPrefix);
+                return {
+                    questionKey: questionKey,
+                    questionTextKey: buildQuestionTranslationKey(schema, question.labelKey, questionKey)
+                };
+            })
+            : [];
+        const existingKeys = new Set(definitions.map((question) => question.questionKey));
+        (answeredKeys || []).forEach((key) => {
+            if (key.startsWith(`${questionPrefix}.q.`) && !existingKeys.has(key)) {
+                definitions.push({
+                    questionKey: key,
+                    questionTextKey: `${key}.text`
+                });
+            }
+        });
+        return definitions;
+    }
+
+    function buildQuestionTranslationKey(schema, labelKey, fallbackKey) {
+        if (!labelKey) {
+            return fallbackKey;
+        }
+        return labelKey;
     }
 
     function renderLineChart(title, items, seriesConfig) {
@@ -1991,8 +2024,10 @@
 
     async function loadReferenceSchemas() {
         const schemaEntries = [
-            ["birthplan", "../birthplan/plan.structure.json"],
-            ["vaccination", "../vaccination/plan.structure.json"]
+            ["birthplan", "../common/json/birthplan.json"],
+            ["vaccination", "../common/json/vaccination.json"],
+            ["epds", "../common/json/epds.json"],
+            ["sos", "../common/json/sos.json"]
         ];
         await Promise.all(schemaEntries.map(async ([key, url]) => {
             try {

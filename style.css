@@ -5,6 +5,8 @@
     --surface: #f3f8fa;
     --primary-dark: #4F7C8A;
     --primary-border: #b8cdd5;
+    --accent: #e46f47;
+    --accent-soft: #ffe5db;
     --checkup: #a4def9;
     --checkup-light: #f1faff;
     --checkup-dark: #7cc7ed;
@@ -293,6 +295,10 @@ body[dir="rtl"] .dropdown.language {
 }
 .lang-option:first-child,
 .menu-option:first-child { border-top: none; }
+.menu-option:hover {
+    background: var(--accent-soft);
+    border-radius: 12px;
+}
 .lang-option.is-active { background: var(--surface); }
 .lang-option span,
 .menu-option span {
@@ -302,7 +308,9 @@ body[dir="rtl"] .dropdown.language {
 .menu-option.is-disabled {
     opacity: 0.8;
     cursor: not-allowed;
-    background: var(--surface);
+    background: var(--background);
+    border: 2px dashed var(--accent);
+    border-radius: 12px;
 }
 main {
     max-width: 600px;

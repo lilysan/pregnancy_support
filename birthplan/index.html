@@ -341,7 +341,7 @@
 
 <script>
     const currentPage = "birthplan";
-    const FORM_SCHEMA_URL = "./plan.structure.json";
+    const FORM_SCHEMA_URL = "../common/json/birthplan.json";
 
     /** @type {import('@line/liff').Liff} */
     const liff = window.liff;
@@ -522,14 +522,14 @@
             const categoryEl = $("<section>");
             categoryEl.append(
                 $("<h2>")
-                    .attr("data-i18n", `[html]bp.${category.labelKey}`)
+                    .attr("data-i18n", `[html]${category.labelKey}`)
             );
 
             category.sections.forEach((section) => {
                 const sectionEl = $("<section>");
                 sectionEl.append(
                     $("<h3>")
-                        .attr("data-i18n", `[html]bp.${section.labelKey}`)
+                        .attr("data-i18n", `[html]${section.labelKey}`)
                 );
 
                 section.questions.forEach((question) => {
@@ -560,7 +560,7 @@
             block.append(
                 $("<p>")
                     .addClass("bp-question-preface")
-                    .attr("data-i18n", `[html]bp.${question.prefaceKey}`)
+                    .attr("data-i18n", `[html]${question.prefaceKey}`)
                     .toggle(shouldShowPreface(question))
             );
         }
@@ -580,7 +580,7 @@
                 )
                 .append(
                     $("<span>")
-                        .attr("data-i18n", `[html]bp.${question.labelKey}`)
+                        .attr("data-i18n", `[html]${question.labelKey}`)
                 )
         );
 
@@ -588,7 +588,7 @@
             wrap.append(
                 $("<p>")
                     .addClass("bp-question-help")
-                    .attr("data-i18n", `[html]bp.${question.helpKey}`)
+                    .attr("data-i18n", `[html]${question.helpKey}`)
             );
         }
 
@@ -615,7 +615,7 @@
                 .prop("disabled", !optionEnabled)
                 .attr("aria-disabled", String(!optionEnabled))
                 .attr("data-value", option.id)
-                .attr("data-i18n", `[html]bp.${option.labelKey}`)
+                .attr("data-i18n", `[html]${option.labelKey}`)
                 .on("click", function () {
                     if (!isItemEnabled(question.labelKey) || !isItemEnabled(option.labelKey)) {
                         return;

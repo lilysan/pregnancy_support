@@ -1,0 +1,160 @@
+{
+  "questions": [
+    {
+      "id": "q.01",
+      "labelKey": "sos.q.01.text",
+      "options": [
+        {
+          "id": "o1",
+          "labelKey": "sos.q.01.o1",
+          "alert": false,
+          "next": "q.02"
+        },
+        {
+          "id": "o2",
+          "labelKey": "sos.q.01.o2",
+          "alert": false,
+          "next": "q.03"
+        }
+      ]
+    },
+    {
+      "id": "q.02",
+      "labelKey": "sos.q.02.text",
+      "options": [
+        {
+          "id": "o1",
+          "labelKey": "sos.q.02.o1",
+          "alert": true,
+          "next": "q.03"
+        },
+        {
+          "id": "o2",
+          "labelKey": "sos.q.02.o2",
+          "alert": true,
+          "next": "q.03"
+        },
+        {
+          "id": "o3",
+          "labelKey": "sos.q.02.o3",
+          "alert": true,
+          "next": "q.03"
+        },
+        {
+          "id": "o4",
+          "labelKey": "sos.q.02.o4",
+          "alert": false,
+          "next": "q.03"
+        },
+        {
+          "id": "o5",
+          "labelKey": "sos.q.02.o5",
+          "alert": false,
+          "next": "q.03"
+        }
+      ]
+    },
+    {
+      "id": "q.03",
+      "labelKey": "sos.q.03.text",
+      "options": [
+        {
+          "id": "o1",
+          "labelKey": "sos.q.03.o1",
+          "alert": true,
+          "next": "q.04"
+        },
+        {
+          "id": "o2",
+          "labelKey": "sos.q.03.o2",
+          "alert": false,
+          "next": "q.04"
+        }
+      ]
+    },
+    {
+      "id": "q.04",
+      "labelKey": "sos.q.04.text",
+      "options": [
+        {
+          "id": "o1",
+          "labelKey": "sos.q.04.o1",
+          "alert": false,
+          "next": "q.05"
+        },
+        {
+          "id": "o2",
+          "labelKey": "sos.q.04.o2",
+          "alert": true,
+          "next": "q.05"
+        },
+        {
+          "id": "o3",
+          "labelKey": "sos.q.04.o3",
+          "alert": true,
+          "next": "q.05"
+        }
+      ]
+    },
+    {
+      "id": "q.05",
+      "labelKey": "sos.q.05.text",
+      "options": [
+        {
+          "id": "o1",
+          "labelKey": "sos.q.05.o1",
+          "alert": true,
+          "next": "q.06"
+        },
+        {
+          "id": "o2",
+          "labelKey": "sos.q.05.o2",
+          "alert": false,
+          "next": "result"
+        },
+        {
+          "id": "o3",
+          "labelKey": "sos.q.05.o3",
+          "alert": true,
+          "next": "result"
+        }
+      ]
+    },
+    {
+      "id": "q.06",
+      "labelKey": "sos.q.06.text",
+      "options": [
+        {
+          "id": "o1",
+          "labelKey": "sos.q.06.o1",
+          "alert": false,
+          "next": "result"
+        },
+        {
+          "id": "o2",
+          "labelKey": "sos.q.06.o2",
+          "alert": false,
+          "next": "result"
+        },
+        {
+          "id": "o3",
+          "labelKey": "sos.q.06.o3",
+          "alert": false,
+          "next": "result"
+        }
+      ]
+    }
+  ],
+  "resultRules": [
+    {
+      "if": "anyAlert",
+      "result": "callNow",
+      "messageKey": "sos.result.callNow"
+    },
+    {
+      "if": "noAlert",
+      "result": "watchAndWait",
+      "messageKey": "sos.result.watchAndWait"
+    }
+  ]
+}
