@@ -111,11 +111,11 @@ function loadData(idToken, type, postData, mergeMode) {
   showAppLoader();
   const method = "get";
   const safePostData =
-    type === "pressure"
+    type === "myPressure"
       ? pressurePayload(method, postData)
       : postData || {};
   const safeMergeMode = mergeMode || "replace";
-  if (window.IS_TEST_MODE && type === "pressure") {
+  if (window.IS_TEST_MODE && type === "myPressure") {
     const page = Number(safePostData.page || safePostData.page || 1);
     const limit = Math.max(1, Number(safePostData.limit || safePostData.limit || 7));
     const start = (page - 1) * limit;
@@ -149,7 +149,7 @@ function loadData(idToken, type, postData, mergeMode) {
           return [];
         } else {
           const items =
-            type === "pressure"
+            type === "myPressure"
               ? extractPressureItems(response)
               : response.data && Array.isArray(response.data.items)
                 ? response.data.items
@@ -178,7 +178,7 @@ function loadData(idToken, type, postData, mergeMode) {
 function addData(data, type) {
   showAppLoader();
   const method = "post";
-  if (window.IS_TEST_MODE && type === "pressure") {
+  if (window.IS_TEST_MODE && type === "myPressure") {
     MOCK_PRESSURE_ITEMS.unshift(
       Object.assign(
         {
@@ -201,7 +201,7 @@ function addData(data, type) {
       method: method,
       idToken: state.idToken,
       postData:
-        type === "pressure" ? pressurePayload(method, data) : data,
+        type === "myPressure" ? pressurePayload(method, data) : data,
     }),
   )
     .then(function (response) {
@@ -225,13 +225,13 @@ function addData(data, type) {
 }
 
 function setPressure(data) {
-  return addData(data, "pressure");
+  return addData(data, "myPressure");
 }
 
 function putData(data, type) {
   showAppLoader();
   const method = "put";
-  if (window.IS_TEST_MODE && type === "pressure") {
+  if (window.IS_TEST_MODE && type === "myPressure") {
     const normalized = normalizePressureItem(data);
     const idx = MOCK_PRESSURE_ITEMS.findIndex(
       (item) =>
@@ -258,7 +258,7 @@ function putData(data, type) {
       method: method,
       idToken: state.idToken,
       postData:
-        type === "pressure" ? pressurePayload(method, data) : data,
+        type === "myPressure" ? pressurePayload(method, data) : data,
     }),
   )
     .then(function (response) {
@@ -284,7 +284,7 @@ function putData(data, type) {
 function deleteData(data, type) {
   showAppLoader();
   const method = "delete";
-  if (window.IS_TEST_MODE && type === "pressure") {
+  if (window.IS_TEST_MODE && type === "myPressure") {
     const payload = pressurePayload(method, data);
     const idx = MOCK_PRESSURE_ITEMS.findIndex(
       (item) =>
@@ -306,7 +306,7 @@ function deleteData(data, type) {
       method: method,
       idToken: state.idToken,
       postData:
-        type === "pressure" ? pressurePayload(method, data) : data,
+        type === "myPressure" ? pressurePayload(method, data) : data,
     }),
   )
     .then(function (response) {
