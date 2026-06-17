@@ -19,7 +19,14 @@ function hideAppLoader() {
 
 const getAccessObj = (data) => {
   const requestData = Object.assign({}, data);
-  requestData.userId = userId || "";
+  const effectiveUserId = state.userId || window.userId || "";
+  requestData.userId = effectiveUserId;
+  if (requestData.postData && typeof requestData.postData === "object") {
+    requestData.postData = Object.assign({}, requestData.postData, {
+      userId: effectiveUserId
+    });
+  }
+  console.log("requestData" + requestData.userId)
   requestData.lang = window.normalizedLanguageCode || state.appLanguage || "";
   console.log("blood_pressure request userId:", requestData.userId);
   return {
@@ -406,7 +413,8 @@ const liff = window.liff;
 
 const state = {
     idToken: null,
-    appLanguage: ""
+    appLanguage: "",
+    userId:null
 };
 
 function bootPressureApp() {
@@ -432,14 +440,16 @@ function bootPressureApp() {
             typeof liff.getDecodedIDToken === "function"
               ? liff.getDecodedIDToken()
               : null;
-          userId =
+          state.userId =
             profile && profile.userId
               ? profile.userId
               : (decoded && (decoded.sub || decoded.userId)) ||
                 decodeIdTokenUserId(state.idToken) ||
-                "";
-          window.userId = userId;
-          console.log("blood_pressure resolved userId:", userId);
+              "";
+          console.log(state.userId)
+          window.userId = state.userId;
+          console.log(window.userId)
+          console.log("blood_pressure resolved userId:", state.userId);
           return Promise.all([startPressureApp(state.idToken), loadHeader()]);
         });
     })

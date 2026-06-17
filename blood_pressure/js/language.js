@@ -713,7 +713,6 @@ const UI_TEXT = {
 };
 var allData = [];
 var token;
-var userId = "";
 var dataArray = ["", "朝", "昼", "夜"];
 var dataArray2 = ["", " 6:00", "18:00"];
 let labels = [
