@@ -1827,11 +1827,11 @@
         if (!question || !question.labelKey) {
             return;
         }
-        keys.push(question.labelKey);
+        keys.push(toBirthPlanSettingKey(question.labelKey));
         if (Array.isArray(question.options)) {
             question.options.forEach((option) => {
                 if (option && option.labelKey) {
-                    keys.push(option.labelKey);
+                    keys.push(toBirthPlanSettingKey(option.labelKey));
                 }
             });
         }
@@ -1918,18 +1918,19 @@
     }
 
     function renderBirthPlanQuestionSetting(question, isFollowUp, parentDisabled = false) {
-        const questionEnabled = isBirthPlanSettingEnabled(question.labelKey);
+        const questionKey = toBirthPlanSettingKey(question.labelKey);
+        const questionEnabled = isBirthPlanSettingEnabled(questionKey);
         const questionEl = $("<div>")
             .addClass("bp-settings-question card")
             .toggleClass("is-disabled", !questionEnabled || parentDisabled);
 
-        questionEl.append(renderBirthPlanSettingToggle(question.labelKey, translateBirthPlan(question.labelKey), false, parentDisabled));
+        questionEl.append(renderBirthPlanSettingToggle(questionKey, translateBirthPlan(question.labelKey), false, parentDisabled));
 
         if (Array.isArray(question.options) && question.options.length > 0) {
             const optionsEl = $("<div>").addClass("bp-settings-options");
             question.options.forEach((option) => {
                 optionsEl.append(renderBirthPlanSettingToggle(
-                    option.labelKey,
+                    toBirthPlanSettingKey(option.labelKey),
                     translateBirthPlan(option.labelKey),
                     true,
                     parentDisabled || !questionEnabled
@@ -2060,6 +2061,12 @@
         return birthPlanSettingsState.keys.map((key) => ({
             [key]: isBirthPlanSettingEnabled(key) ? 1 : 0
         }));
+    }
+
+    function toBirthPlanSettingKey(labelKey) {
+        return String(labelKey || "")
+            .replace(/^bp\./, "")
+            .replace(/\.label$/, "");
     }
 
     function saveBirthPlanSettings(idToken) {

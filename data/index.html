@@ -172,13 +172,8 @@
             margin-top: 28px;
         }
 
-        .data-form-category > h2,
-        .data-form-section > h3 {
-            margin-bottom: 0;
-        }
-
-        .data-form-section + .data-form-section {
-            margin-top: 22px;
+        .data-form-category > h3 {
+            margin-bottom: 12px;
         }
 
         .bp-question-block {
@@ -189,6 +184,22 @@
         .vac-question {
             position: relative;
             overflow: hidden;
+        }
+
+        .bp-question.is-disabled {
+            background: var(--surface);
+            color: var(--sub-text);
+            opacity: 0.7;
+        }
+
+        .bp-question.is-disabled::before,
+        .bp-question.is-disabled::after {
+            display: none;
+        }
+
+        .bp-question.is-disabled .radio-chip {
+            background: var(--surface);
+            color: var(--sub-text);
         }
 
         .bp-question.is-answered::after,
@@ -741,7 +752,8 @@
             vaccination: null,
             epds: null,
             sos: null
-        }
+        },
+        birthPlanSettings: {}
     };
     let patientSelectionResolve = null;
 
@@ -779,6 +791,16 @@
         });
         $("#dataTabs").on("click", ".data-tab", function () {
             switchDataTab($(this).data("tab-key"), false);
+        });
+        $("#dataPanel").on("click", ".accordion-trigger", function () {
+            const $trigger = $(this);
+            const $accordion = $trigger.closest(".accordion");
+            const $body = $accordion.children(".accordion-body");
+            const isOpen = $accordion.hasClass("is-open");
+
+            $accordion.toggleClass("is-open", !isOpen);
+            $trigger.toggleClass("active", !isOpen);
+            $body.css("max-height", isOpen ? "" : $body.prop("scrollHeight") + 32 + "px");
         });
         $("#refreshDataTabBtn").on("click", function () {
             const tabKey = dataState.activeTabKey;
@@ -824,13 +846,26 @@
         }
 
         dataState.hospitalAccount = hospitalAccount;
-        const hospitalResponse = await requestApi({
-            path: "hospital",
-            method: "get",
-            idToken: idToken
-        });
-        if (!handleAuthResponse(hospitalResponse)) {
+        const [hospitalResponse, birthPlanSettingsResponse] = await Promise.all([
+            requestApi({
+                path: "hospital",
+                method: "get",
+                idToken: idToken
+            }),
+            requestApi({
+                path: "birthplanSettings",
+                method: "get",
+                idToken: idToken
+            })
+        ]);
+        if (!handleAuthResponse(hospitalResponse) || !handleAuthResponse(birthPlanSettingsResponse)) {
             return;
+        }
+        if (birthPlanSettingsResponse.statusCode === 200) {
+            dataState.birthPlanSettings = normalizeBirthPlanSettings(birthPlanSettingsResponse.data && birthPlanSettingsResponse.data.items);
+        } else {
+            console.warn(birthPlanSettingsResponse.message || "birthplanSettingsを取得できませんでした。");
+            dataState.birthPlanSettings = {};
         }
         renderHospitalAccount(Object.assign({}, hospitalAccount, hospitalResponse.statusCode === 200 ? hospitalResponse.data : {}));
         renderDataTabs();
@@ -1203,17 +1238,42 @@
         schema.categories.forEach((category) => {
             const categoryEl = $("<section>").addClass("data-form-category")
                 .append($("<h3>").text(translateDataKey(category.labelKey)));
+            const accordionList = $("<div>").addClass("accordion-list");
 
             (category.sections || []).forEach((section) => {
-                const sectionEl = $("<section>").addClass("data-form-section")
-                    .append($("<h4>").text(translateDataKey(section.labelKey)));
+                const sectionEl = $("<div>").addClass("accordion");
+                const bodyEl = $("<div>").addClass("accordion-body");
 
-                appendBirthplanQuestions(sectionEl, section.questions, responseMap, questionCounter);
-                categoryEl.append(sectionEl);
+                sectionEl
+                    .append(
+                        $("<button>")
+                            .attr("type", "button")
+                            .addClass("accordion-trigger")
+                            .append($("<span>").addClass("h3-sample").text(translateDataKey(section.labelKey)))
+                            .append($("<iconify-icon>").attr({
+                                icon: "material-symbols:expand-more-rounded",
+                                width: "24",
+                                height: "24",
+                                "aria-hidden": "true"
+                            }))
+                    )
+                    .append(bodyEl);
+
+                appendBirthplanQuestions(bodyEl, section.questions, responseMap, questionCounter, false);
+                if (!bodyEl.children().length) {
+                    return;
+                }
+                accordionList.append(sectionEl);
             });
+            if (!accordionList.children().length) {
+                return;
+            }
+            categoryEl.append(accordionList);
             container.append(categoryEl);
         });
-        return container;
+        return container.children().length
+            ? container
+            : $("<p>").addClass("small").text("表示対象のバースプラン項目はありません。");
     }
 
     function renderVaccinationRecords(items) {
@@ -1290,27 +1350,34 @@
         return list;
     }
 
-    function appendBirthplanQuestions(container, questions, responseMap, questionCounter) {
+    function appendBirthplanQuestions(container, questions, responseMap, questionCounter, isFollowUp) {
         (questions || []).forEach((question) => {
+            if (isFollowUp && !isBirthPlanItemEnabled(question.labelKey)) {
+                return;
+            }
             questionCounter.value += 1;
             container.append(renderBirthplanQuestion(question, responseMap, questionCounter.value));
-            appendBirthplanQuestions(container, question.followUps, responseMap, questionCounter);
+            appendBirthplanQuestions(container, question.followUps, responseMap, questionCounter, true);
         });
     }
 
     function renderBirthplanQuestion(question, responseMap, questionNumber) {
-        const selectedOptions = (question.options || []).filter((option) => responseMap[option.labelKey]);
-        const questionResponse = responseMap[question.labelKey];
+        const questionEnabled = isBirthPlanItemEnabled(question.labelKey);
+        const questionOptions = question.options || [];
+        const selectedOptions = questionOptions.filter((option) => responseMap[toBirthPlanSettingKey(option.labelKey)]);
+        const questionResponse = responseMap[toBirthPlanSettingKey(question.labelKey)];
         const textAnswer = [
             questionResponse && questionResponse.other,
-            ...selectedOptions.map((option) => responseMap[option.labelKey].other)
+            ...selectedOptions.map((option) => responseMap[toBirthPlanSettingKey(option.labelKey)].other)
         ].find((value) => typeof value === "string" && value.trim()) || "";
         const isAnswered = selectedOptions.length > 0 || Boolean(textAnswer);
         const block = $("<div>").addClass("bp-question-block");
         const card = $("<article>")
             .addClass("bp-question card")
+            .toggleClass("is-disabled", !questionEnabled)
             .toggleClass("is-answered", isAnswered)
             .toggleClass("is-unanswered", !isAnswered)
+            .attr("aria-disabled", String(!questionEnabled))
             .append(
                 $("<p>").addClass("bp-question-label")
                     .append($("<span>").addClass("badge badge-primary").text(questionNumber))
@@ -1323,15 +1390,18 @@
 
         const options = $("<div>").addClass("radio-row bp-options")
             .toggleClass("single-select", question.inputType === "single" || question.inputType === "singleText");
-        (question.options || []).forEach((option) => {
+        questionOptions.forEach((option) => {
+            const optionEnabled = questionEnabled && isBirthPlanItemEnabled(option.labelKey);
             options.append(
                 $("<span>")
                     .addClass("radio-chip data-readonly-option")
-                    .toggleClass("active", Boolean(responseMap[option.labelKey]))
+                    .toggleClass("active", Boolean(responseMap[toBirthPlanSettingKey(option.labelKey)]))
+                    .toggleClass("disabled", !optionEnabled)
+                    .attr("aria-disabled", String(!optionEnabled))
                     .text(translateDataKey(option.labelKey))
             );
         });
-        if ((question.options || []).length) {
+        if (questionOptions.length) {
             card.append(options);
         }
 
@@ -1343,6 +1413,36 @@
 
         block.append(card);
         return block;
+    }
+
+    function isBirthPlanItemEnabled(labelKey) {
+        const key = toBirthPlanSettingKey(labelKey);
+        if (!key || !Object.prototype.hasOwnProperty.call(dataState.birthPlanSettings, key)) {
+            return true;
+        }
+        return Number(dataState.birthPlanSettings[key]) !== 0;
+    }
+
+    function normalizeBirthPlanSettings(items) {
+        const settings = {};
+        if (!Array.isArray(items)) {
+            return settings;
+        }
+        items.forEach((item) => {
+            if (!item || typeof item !== "object") {
+                return;
+            }
+            Object.keys(item).forEach((key) => {
+                settings[key] = Number(item[key]);
+            });
+        });
+        return settings;
+    }
+
+    function toBirthPlanSettingKey(labelKey) {
+        return String(labelKey || "")
+            .replace(/^bp\./, "")
+            .replace(/\.label$/, "");
     }
 
     function normalizeBirthplanResponseMap(items) {

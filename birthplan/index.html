@@ -959,10 +959,17 @@
     }
 
     function isItemEnabled(labelKey) {
-        if (!labelKey || !Object.prototype.hasOwnProperty.call(state.birthPlanSettings, labelKey)) {
+        const key = toBirthPlanSettingKey(labelKey);
+        if (!key || !Object.prototype.hasOwnProperty.call(state.birthPlanSettings, key)) {
             return true;
         }
-        return Number(state.birthPlanSettings[labelKey]) !== 0;
+        return Number(state.birthPlanSettings[key]) !== 0;
+    }
+
+    function toBirthPlanSettingKey(labelKey) {
+        return String(labelKey || "")
+            .replace(/^bp\./, "")
+            .replace(/\.label$/, "");
     }
 
     function getQuestionOptionById(question, optionId) {
@@ -1017,7 +1024,7 @@
 
             if (Array.isArray(question.options)) {
                 question.options.forEach((option) => {
-                    const item = responseMap[option.labelKey];
+                    const item = responseMap[toBirthPlanSettingKey(option.labelKey)];
                     if (!item) {
                         return;
                     }
@@ -1032,8 +1039,9 @@
                 });
             }
 
-            if (responseMap[question.labelKey] && responseMap[question.labelKey].other) {
-                answer.text = responseMap[question.labelKey].other;
+            const questionItem = responseMap[toBirthPlanSettingKey(question.labelKey)];
+            if (questionItem && questionItem.other) {
+                answer.text = questionItem.other;
             }
 
             if ((Array.isArray(answer.selected) && answer.selected.length > 0) || answer.selected != null || answer.text) {
@@ -1384,7 +1392,7 @@
                         return;
                     }
                     const value = option.activatesText && answer.text ? answer.text : 1;
-                    items.push({[option.labelKey]: value});
+                    items.push({[toBirthPlanSettingKey(option.labelKey)]: value});
                 });
             }
             if (Array.isArray(question.followUps)) {
