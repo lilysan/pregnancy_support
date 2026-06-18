@@ -249,26 +249,29 @@
 
         <section>
             <h2 data-i18n="[html]link.section.hospitals"></h2>
-            <div class="card card-info">
-                <div class="state-card-inner">
-                    <iconify-icon icon="material-symbols:info-rounded" width="24" height="24" style="color:var(--info-state)"></iconify-icon>
-                    <div>
-                        <p class="small" data-i18n="[html]link.info"></p>
+            <div class="row-list">
+                <div class="card card-info">
+                    <div class="state-card-inner">
+                        <iconify-icon icon="material-symbols:info-rounded" width="24" height="24" style="color:var(--info-state)"></iconify-icon>
+                        <div>
+                            <p class="small" data-i18n="[html]link.info"></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="emptyState" class="card link-empty row-list">
-                <div class="state-card-inner">
-                    <iconify-icon icon="material-symbols:link-off-rounded" width="24" height="24" style="color:var(--sub-text)"></iconify-icon>
-                    <p class="small" data-i18n="[html]link.empty"></p>
+                <div id="hospitalList" class="row-list">
+                    <div id="emptyState" class="card link-empty">
+                        <div class="state-card-inner">
+                            <iconify-icon icon="material-symbols:link-off-rounded" width="24" height="24" style="color:var(--sub-text)"></iconify-icon>
+                            <p class="small" data-i18n="[html]link.empty"></p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div id="hospitalList" class="row-list"></div>
-            <div class="btn-column">
-                <button type="button" id="scanHospitalBtn" class="btn primary">
-                    <iconify-icon icon="material-symbols:qr-code-scanner-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
-                    <span data-i18n="[html]link.button.scan"></span>
-                </button>
+                <div class="btn-column">
+                    <button type="button" id="scanHospitalBtn" class="btn primary">
+                        <iconify-icon icon="material-symbols:qr-code-scanner-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                        <span data-i18n="[html]link.button.scan"></span>
+                    </button>
+                </div>
             </div>
         </section>
 
