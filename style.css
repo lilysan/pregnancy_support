@@ -183,7 +183,7 @@ body[dir="rtl"] .dropdown.language {
     align-items: center; /* Vertically align items */
     padding: 4px 16px;
     margin: 0 auto;
-    background: var(--surface); /* Match header background */
+    background: var(--background); /* Match header background */
 }
 .menu-branding {
     display: flex;
@@ -212,6 +212,7 @@ body[dir="rtl"] .dropdown.language {
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
+    background: var(--background);
 }
 .menu-category-title {
     font-size: 19px;
@@ -228,11 +229,10 @@ body[dir="rtl"] .dropdown.language {
 .menu-subcategory-title {
     font-size: 15px;
     font-weight: 600;
-    color: var(--primary-dark);
-    background: var(--primary-light);
+    color: var(--primary);
     margin-top: 8px;
-    margin-bottom: 4px;
     padding: 8px 8px 8px 16px;
+    border-bottom: 1px solid var(--primary);
 }
 .dropdown-head {
     display: flex;
@@ -292,15 +292,15 @@ body[dir="rtl"] .dropdown.language {
     justify-content: space-between;
     gap: 12px;
     padding: 12px 16px;
-    background: var(--background);
+    background: var(--white);
+    box-shadow: var(--shadow);
+    border-radius: 12px;
     text-align: left;
-    border-bottom: 1px solid var(--divider);
 }
 .lang-option:first-child,
 .menu-option:first-child { border-top: none; }
 .menu-option:hover {
-    background: var(--accent-soft);
-    border-radius: 12px;
+    background: var(--primary-light);
 }
 .lang-option.is-active { background: var(--surface); }
 .lang-option span,
@@ -311,9 +311,10 @@ body[dir="rtl"] .dropdown.language {
 .menu-option.is-disabled {
     opacity: 0.8;
     cursor: not-allowed;
-    background: var(--background);
-    border: 2px dashed var(--accent);
+    background: var(--primary);
+    color: var(--white);
     border-radius: 12px;
+    font-weight: bold;
 }
 main {
     max-width: 600px;
