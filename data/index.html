@@ -180,6 +180,12 @@
             margin-top: 16px;
         }
 
+        .followups {
+            margin-top: 16px;
+            padding-left: 12px;
+            border-left: 3px solid var(--primary-light);
+        }
+
         .bp-question,
         .vac-question {
             position: relative;
@@ -1357,7 +1363,6 @@
             }
             questionCounter.value += 1;
             container.append(renderBirthplanQuestion(question, responseMap, questionCounter.value));
-            appendBirthplanQuestions(container, question.followUps, responseMap, questionCounter, true);
         });
     }
 
@@ -1409,6 +1414,19 @@
             card.append($("<p>").addClass("data-answer-text").text(textAnswer));
         } else if (!isAnswered) {
             card.append($("<p>").addClass("data-unanswered-text").text("未回答"));
+        }
+
+        if (Array.isArray(question.followUps) && question.followUps.length > 0) {
+            const followUps = $("<div>").addClass("followups");
+            question.followUps.forEach((followUpQuestion, index) => {
+                if (!isBirthPlanItemEnabled(followUpQuestion.labelKey)) {
+                    return;
+                }
+                followUps.append(renderBirthplanQuestion(followUpQuestion, responseMap, `${questionNumber}-${index + 1}`));
+            });
+            if (followUps.children().length) {
+                card.append(followUps);
+            }
         }
 
         block.append(card);
