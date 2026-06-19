@@ -524,48 +524,6 @@
                   "labelKey": "bp.q.a019.o4"
                 }
               ]
-            },
-            {
-              "id": "a020",
-              "labelKey": "bp.q.a020.label",
-              "inputType": "single",
-              "options": [
-                {
-                  "id": "o1",
-                  "labelKey": "bp.q.a020.o1"
-                },
-                {
-                  "id": "o2",
-                  "labelKey": "bp.q.a020.o2"
-                },
-                {
-                  "id": "o3",
-                  "labelKey": "bp.q.a020.o3"
-                },
-                {
-                  "id": "o4",
-                  "labelKey": "bp.q.a020.o4"
-                }
-              ]
-            },
-            {
-              "id": "a021",
-              "labelKey": "bp.q.a021.label",
-              "inputType": "single",
-              "options": [
-                {
-                  "id": "o1",
-                  "labelKey": "bp.q.a021.o1"
-                },
-                {
-                  "id": "o2",
-                  "labelKey": "bp.q.a021.o2"
-                },
-                {
-                  "id": "o3",
-                  "labelKey": "bp.q.a021.o3"
-                }
-              ]
             }
           ]
         }
@@ -693,52 +651,6 @@
                 {
                   "id": "o3",
                   "labelKey": "bp.q.b004.o3"
-                }
-              ]
-            },
-            {
-              "id": "b005",
-              "labelKey": "bp.q.b005.label",
-              "inputType": "single",
-              "options": [
-                {
-                  "id": "o1",
-                  "labelKey": "bp.q.b005.o1"
-                },
-                {
-                  "id": "o2",
-                  "labelKey": "bp.q.b005.o2"
-                },
-                {
-                  "id": "o3",
-                  "labelKey": "bp.q.b005.o3"
-                },
-                {
-                  "id": "o4",
-                  "labelKey": "bp.q.b005.o4"
-                }
-              ]
-            },
-            {
-              "id": "b006",
-              "labelKey": "bp.q.b006.label",
-              "inputType": "single",
-              "options": [
-                {
-                  "id": "o1",
-                  "labelKey": "bp.q.b006.o1"
-                },
-                {
-                  "id": "o2",
-                  "labelKey": "bp.q.b006.o2"
-                },
-                {
-                  "id": "o3",
-                  "labelKey": "bp.q.b006.o3"
-                },
-                {
-                  "id": "o4",
-                  "labelKey": "bp.q.b006.o4"
                 }
               ]
             }
