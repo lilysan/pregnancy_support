@@ -777,5 +777,16 @@
     "error": {
       "selectFromList": "Vui lòng chọn từ danh sách."
     }
+  },
+  "translationApp": {
+    "desc": "Danh sách các ứng dụng có thể dùng để dịch. Nếu chưa cài ứng dụng, bạn sẽ được chuyển đến cửa hàng hoặc trang web.",
+    "info": "Biểu tượng đậm cho biết tính năng được hỗ trợ. Biểu tượng nhạt cho biết tính năng không được hỗ trợ hoặc chưa được xác nhận.",
+    "feature": {
+      "text": "Văn bản",
+      "voice": "Giọng nói",
+      "camera": "Máy ảnh",
+      "conversation": "Hội thoại",
+      "handwriting": "Chữ viết tay"
+    }
   }
 }

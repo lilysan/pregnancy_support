@@ -777,5 +777,16 @@
     "error": {
       "selectFromList": "Bitte aus der Liste auswählen."
     }
+  },
+  "translationApp": {
+    "desc": "Eine Liste von Apps, die Sie zum Übersetzen verwenden können. Wenn die App nicht installiert ist, werden Sie zum Store oder zur Website weitergeleitet.",
+    "info": "Dunkle Symbole zeigen unterstützte Funktionen. Helle Symbole zeigen nicht unterstützte oder nicht bestätigte Funktionen.",
+    "feature": {
+      "text": "Text",
+      "voice": "Sprache",
+      "camera": "Kamera",
+      "conversation": "Unterhaltung",
+      "handwriting": "Handschrift"
+    }
   }
 }

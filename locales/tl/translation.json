@@ -777,5 +777,16 @@
     "error": {
       "selectFromList": "Pumili mula sa listahan."
     }
+  },
+  "translationApp": {
+    "desc": "Listahan ng mga app na magagamit para sa pagsasalin. Kung hindi naka-install ang app, dadalhin ka sa store o website.",
+    "info": "Ang madidilim na icon ay mga suportadong feature. Ang mapupusyaw na icon ay hindi suportado o hindi pa nakukumpirmang feature.",
+    "feature": {
+      "text": "Text",
+      "voice": "Boses",
+      "camera": "Camera",
+      "conversation": "Pag-uusap",
+      "handwriting": "Sulat-kamay"
+    }
   }
 }

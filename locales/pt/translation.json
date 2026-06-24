@@ -777,5 +777,16 @@
     "error": {
       "selectFromList": "Selecione na lista."
     }
+  },
+  "translationApp": {
+    "desc": "Lista de aplicativos que você pode usar para tradução. Se o aplicativo não estiver instalado, você será levado à loja ou ao site.",
+    "info": "Ícones escuros indicam recursos compatíveis. Ícones claros indicam recursos não compatíveis ou não confirmados.",
+    "feature": {
+      "text": "Texto",
+      "voice": "Voz",
+      "camera": "Câmera",
+      "conversation": "Conversa",
+      "handwriting": "Escrita à mão"
+    }
   }
 }

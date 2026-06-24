@@ -777,5 +777,16 @@
     "error": {
       "selectFromList": "목록에서 선택해 주세요."
     }
+  },
+  "translationApp": {
+    "desc": "번역에 사용할 수 있는 앱 목록입니다. 앱이 설치되어 있지 않으면 스토어 또는 웹페이지로 이동합니다.",
+    "info": "진한 아이콘은 지원 기능, 연한 아이콘은 미지원 또는 확인되지 않은 기능입니다.",
+    "feature": {
+      "text": "텍스트",
+      "voice": "음성",
+      "camera": "카메라",
+      "conversation": "대화",
+      "handwriting": "필기"
+    }
   }
 }

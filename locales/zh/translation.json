@@ -777,5 +777,16 @@
     "error": {
       "selectFromList": "请从列表中选择。"
     }
+  },
+  "translationApp": {
+    "desc": "这是可用于翻译的应用列表。如果未安装应用，将跳转到应用商店或网页。",
+    "info": "深色图标表示支持的功能，浅色图标表示不支持或尚未确认的功能。",
+    "feature": {
+      "text": "文本",
+      "voice": "语音",
+      "camera": "相机",
+      "conversation": "会话",
+      "handwriting": "手写"
+    }
   }
 }

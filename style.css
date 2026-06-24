@@ -293,9 +293,11 @@ body[dir="rtl"] .dropdown.language {
     gap: 12px;
     padding: 12px 16px;
     background: var(--white);
+    text-align: left;
+}
+.menu-option {
     box-shadow: var(--shadow);
     border-radius: 12px;
-    text-align: left;
 }
 .lang-option:first-child,
 .menu-option:first-child { border-top: none; }

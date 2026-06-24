@@ -777,5 +777,16 @@
     "error": {
       "selectFromList": "Pilih dari daftar."
     }
+  },
+  "translationApp": {
+    "desc": "Daftar aplikasi yang dapat digunakan untuk penerjemahan. Jika aplikasi belum terpasang, Anda akan diarahkan ke toko aplikasi atau halaman web.",
+    "info": "Ikon gelap menunjukkan fitur yang didukung. Ikon terang menunjukkan fitur yang tidak didukung atau belum dikonfirmasi.",
+    "feature": {
+      "text": "Teks",
+      "voice": "Suara",
+      "camera": "Kamera",
+      "conversation": "Percakapan",
+      "handwriting": "Tulisan tangan"
+    }
   }
 }

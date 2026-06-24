@@ -933,5 +933,16 @@
       "callNow": "That's all for the questions.\nPlease contact the hospital.",
       "watchAndWait": "That's all for the questions.\nLet's wait and see for a while."
     }
+  },
+  "translationApp": {
+    "desc": "A list of apps you can use for translation. If the app is not installed, you will be taken to the store or website.",
+    "info": "Dark icons indicate supported features. Light icons indicate unsupported or unconfirmed features.",
+    "feature": {
+      "text": "Text",
+      "voice": "Voice",
+      "camera": "Camera",
+      "conversation": "Conversation",
+      "handwriting": "Handwriting"
+    }
   }
 }

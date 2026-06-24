@@ -777,5 +777,16 @@
     "error": {
       "selectFromList": "Veuillez choisir dans la liste."
     }
+  },
+  "translationApp": {
+    "desc": "Liste des applications utilisables pour la traduction. Si l’application n’est pas installée, vous serez redirigé vers la boutique ou le site web.",
+    "info": "Les icônes foncées indiquent les fonctions prises en charge. Les icônes claires indiquent des fonctions non prises en charge ou non confirmées.",
+    "feature": {
+      "text": "Texte",
+      "voice": "Voix",
+      "camera": "Caméra",
+      "conversation": "Conversation",
+      "handwriting": "Écriture manuscrite"
+    }
   }
 }
