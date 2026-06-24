@@ -60,7 +60,7 @@ $(function () {
                     i18n: "subgroupTitle.other",
                     type: "subgroup",
                     items: [
-                        { label: "メモ", path: "memo", i18n: "title.memo" },
+                        { label: "メモ", path: "note", i18n: "title.memo" },
                     ]
                 }
             ]

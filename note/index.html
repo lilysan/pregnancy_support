@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Memo | Pregnancy Support</title>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="../common/js/config.js"></script>
+    <script src="../common/js/toast.js"></script>
+    <link rel="stylesheet" href="../style.css"/>
+    <style>
+        main {
+            padding-bottom: 112px;
+        }
+
+        .note-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .note-card {
+            min-height: 164px;
+            text-align: left;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        .note-card:focus-visible,
+        .note-editor-close:focus-visible,
+        .note-delete-btn:focus-visible {
+            outline: 3px solid var(--primary-dark-a20);
+            outline-offset: 3px;
+        }
+
+        .note-card-preview {
+            display: -webkit-box;
+            min-height: calc(1.6em * 5);
+            margin: 0;
+            overflow: hidden;
+            color: var(--text);
+            font-size: 17px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+            white-space: pre-wrap;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 5;
+        }
+
+        .note-card-preview.is-empty {
+            color: var(--sub-text);
+        }
+
+        .note-card-meta {
+            margin: 12px 0 0;
+            color: var(--sub-text);
+            font-size: 13px;
+            line-height: 1.45;
+        }
+
+        .note-form-footer {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .note-editor {
+            position: fixed;
+            inset: 0;
+            z-index: 90;
+            display: none;
+            background: var(--background);
+        }
+
+        .note-editor.is-open {
+            display: block;
+        }
+
+        .note-editor-shell {
+            display: flex;
+            flex-direction: column;
+            min-height: 100dvh;
+        }
+
+        .note-editor-header {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background: var(--background);
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .note-editor-header-inner {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .note-editor-close,
+        .note-delete-btn {
+            border: none;
+            background: transparent;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .note-editor-close {
+            width: 48px;
+            height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            color: var(--text);
+        }
+
+        .note-delete-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 999px;
+            color: var(--error);
+        }
+
+        .note-editor-title {
+            flex: 1;
+            margin: 0;
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .note-editor-body {
+            flex: 1;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px 24px 124px;
+        }
+
+        .note-editor-textarea {
+            min-height: calc(100dvh - 220px);
+            margin-top: 0;
+            padding: 16px;
+            border-color: var(--primary-light);
+            background: var(--white);
+            box-shadow: var(--shadow);
+            resize: none;
+        }
+
+        .note-editor .sticky-actions {
+            z-index: 3;
+        }
+
+        body.note-editor-open {
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .note-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="header-container" class="header-wrapper"></div>
+
+<main>
+    <article class="main-container">
+        <h1 data-i18n="[html]title.memo">メモ</h1>
+        <p class="desc">気になること、診察で聞きたいこと、日々の体調などを自由に記録できます。</p>
+
+        <section class="note-list" id="noteList" aria-label="メモ一覧"></section>
+
+        <div class="note-form-footer">
+            <button type="button" id="addNoteBtn" class="btn tertiary btn-small">
+                <iconify-icon icon="material-symbols:add-rounded" width="20" height="20" aria-hidden="true"></iconify-icon>
+                <span>メモを追加</span>
+            </button>
+        </div>
+    </article>
+</main>
+
+<div class="note-editor" id="noteEditor" aria-hidden="true">
+    <div class="note-editor-shell">
+        <header class="note-editor-header">
+            <div class="note-editor-header-inner">
+                <button type="button" id="closeEditorBtn" class="note-editor-close" aria-label="閉じる">
+                    <iconify-icon icon="material-symbols:close-rounded" width="28" height="28" aria-hidden="true"></iconify-icon>
+                </button>
+                <p class="note-editor-title">メモを編集</p>
+                <button type="button" id="deleteNoteBtn" class="note-delete-btn" aria-label="削除">
+                    <iconify-icon icon="material-symbols:delete-outline-rounded" width="26" height="26" aria-hidden="true"></iconify-icon>
+                </button>
+            </div>
+        </header>
+        <div class="note-editor-body">
+            <textarea id="noteText" class="note-editor-textarea" placeholder="メモを入力してください"></textarea>
+        </div>
+        <div class="sticky-actions">
+            <div class="fixed-container">
+                <div class="btn-column">
+                    <button type="button" id="saveNoteBtn" class="btn btn-primary" data-i18n="[html]button.save">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="overlay is-open" id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
+
+<script>
+    const currentPage = "note";
+
+    const state = {
+        notes: [],
+        activeNoteId: null,
+        idToken: null,
+        nextDraftId: 1
+    };
+
+    $(function () {
+        bindEvents();
+        initializePage();
+    });
+
+    function initializePage() {
+        const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+        const bootPromise = window.liff && typeof liff.init === "function"
+            ? liff.init({
+                liffId: LIFF_ID,
+                withLoginOnExternalBrowser: !isDev,
+            }).then(() => {
+                state.idToken = liff.getIDToken();
+                return Promise.all([
+                    loadNotesFromApi(),
+                    loadHeader()
+                ]);
+            })
+            : Promise.all([
+                loadNotesFromApi(),
+                loadHeader()
+            ]);
+
+        bootPromise.then(() => {
+            if ($.fn.localize && window.i18next && i18next.isInitialized) {
+                $("body").localize();
+            }
+            renderNotes();
+        }).catch((error) => {
+            console.error("note init failed:", error);
+            alert("Failed to load memos.");
+            ensureAtLeastOneNote();
+            renderNotes();
+        }).finally(() => {
+            $("#loadingOverlay").removeClass("is-open");
+        });
+    }
+
+    function bindEvents() {
+        $("#addNoteBtn").on("click", handleAddNote);
+        $("#closeEditorBtn").on("click", closeEditor);
+        $("#saveNoteBtn").on("click", handleSaveNote);
+        $("#deleteNoteBtn").on("click", handleDeleteNote);
+        $(document).on("keydown", function (event) {
+            if (event.key === "Escape" && $("#noteEditor").hasClass("is-open")) {
+                closeEditor();
+            }
+        });
+    }
+
+    function loadHeader() {
+        return new Promise((resolve, reject) => {
+            $("#header-container").load("../common/header.html", function (responseText, status) {
+                if (status === "error") {
+                    reject(new Error("Failed to load header.html"));
+                    return;
+                }
+
+                document.addEventListener("i18n-initialized", function () {
+                    resolve();
+                }, {once: true});
+
+                $.getScript("../common/js/header.js")
+                    .fail(function () {
+                        reject(new Error("Failed to load header.js"));
+                    });
+            });
+        });
+    }
+
+    async function loadNotesFromApi() {
+        const response = await apiRequest({
+            path: "memo",
+            method: "get",
+            idToken: state.idToken
+        }, "fetchMemo");
+
+        const items = response && response.data && Array.isArray(response.data.items)
+            ? response.data.items
+            : [];
+        state.notes = items.map(normalizeApiNote).filter(Boolean);
+        ensureAtLeastOneNote();
+    }
+
+    function normalizeApiNote(item) {
+        if (!item || item.memoId == null) {
+            return null;
+        }
+        return {
+            id: `memo-${item.memoId}`,
+            memoId: Number(item.memoId),
+            text: typeof item.memo === "string" ? item.memo : "",
+            updatedAt: typeof item.updatedAt === "string" ? item.updatedAt : ""
+        };
+    }
+
+    function createDraftNote(text) {
+        const note = {
+            id: `draft-${state.nextDraftId}`,
+            memoId: null,
+            text: text || "",
+            updatedAt: ""
+        };
+        state.nextDraftId += 1;
+        return note;
+    }
+
+    function ensureAtLeastOneNote() {
+        if (!state.notes.length) {
+            state.notes.push(createDraftNote(""));
+        }
+    }
+
+    function renderNotes() {
+        const list = $("#noteList");
+        list.empty();
+
+        state.notes.forEach((note, index) => {
+            const previewText = getPreviewText(note.text);
+            const card = $("<button>")
+                .attr("type", "button")
+                .addClass("note-card card")
+                .attr("data-note-id", note.id)
+                .attr("aria-label", `メモ${index + 1}を編集`)
+                .on("click", function () {
+                    openEditor(note.id);
+                });
+
+            card.append(
+                $("<p>")
+                    .addClass("note-card-preview")
+                    .toggleClass("is-empty", !previewText)
+                    .text(previewText || "未入力のメモ")
+            );
+            card.append(
+                $("<p>")
+                    .addClass("note-card-meta")
+                    .text(formatUpdatedAt(note.updatedAt))
+            );
+
+            list.append(card);
+        });
+    }
+
+    function getPreviewText(text) {
+        const normalized = (text || "").trim();
+        if (!normalized) {
+            return "";
+        }
+
+        const maxPreviewChars = 120;
+        const lines = normalized.split(/\r?\n/);
+        const lineLimited = lines.slice(0, 5).join("\n");
+        const charLimited = lineLimited.length > maxPreviewChars
+            ? lineLimited.slice(0, maxPreviewChars).trimEnd()
+            : lineLimited;
+        const isLong = lines.length > 5 || normalized.length > charLimited.length;
+        return isLong ? `${charLimited}...` : charLimited;
+    }
+
+    function formatUpdatedAt(value) {
+        if (!value) {
+            return "";
+        }
+        const date = new Date(String(value).replace(/-/g, "/"));
+        if (Number.isNaN(date.getTime())) {
+            return value;
+        }
+        return `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, "0")}/${String(date.getDate()).padStart(2, "0")} ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+    }
+
+    function handleAddNote() {
+        const note = createDraftNote("");
+        state.notes.push(note);
+        renderNotes();
+        const noteEl = $(`[data-note-id="${note.id}"]`);
+        if (noteEl.length) {
+            noteEl[0].scrollIntoView({behavior: "smooth", block: "center"});
+            noteEl.trigger("focus");
+        }
+    }
+
+    function openEditor(noteId) {
+        const note = findNote(noteId);
+        if (!note) {
+            return;
+        }
+        state.activeNoteId = noteId;
+        $("#noteText").val(note.text);
+        $("#noteEditor").addClass("is-open").attr("aria-hidden", "false");
+        $("body").addClass("note-editor-open");
+        setTimeout(() => $("#noteText").trigger("focus"), 0);
+    }
+
+    function closeEditor() {
+        state.activeNoteId = null;
+        $("#noteEditor").removeClass("is-open").attr("aria-hidden", "true");
+        $("body").removeClass("note-editor-open");
+    }
+
+    async function handleSaveNote() {
+        const note = findNote(state.activeNoteId);
+        if (!note) {
+            return;
+        }
+
+        const saveButton = $("#saveNoteBtn");
+        saveButton.prop("disabled", true);
+        $("#loadingOverlay").addClass("is-open");
+        try {
+            const memoText = $("#noteText").val();
+            const response = await saveNoteToApi(note, memoText);
+            if (!note.memoId && response && response.data && response.data.memoId != null) {
+                note.memoId = Number(response.data.memoId);
+                note.id = `memo-${note.memoId}`;
+            }
+            note.text = memoText;
+            note.updatedAt = getCurrentTimestamp();
+            renderNotes();
+            closeEditor();
+            showToast("success.save", "保存しました。", "material-symbols:check-circle-rounded", "var(--success)", "var(--toast-bg-success)");
+            loadNotesFromApi().then(renderNotes).catch((error) => console.error("memo reload failed:", error));
+        } catch (error) {
+            console.error("memo save failed:", error);
+        } finally {
+            $("#loadingOverlay").removeClass("is-open");
+            saveButton.prop("disabled", false);
+        }
+    }
+
+    function saveNoteToApi(note, memoText) {
+        const postData = {memo: memoText};
+        if (note.memoId != null) {
+            postData.memoId = note.memoId;
+        }
+        return apiRequest({
+            path: "memo",
+            method: "post",
+            idToken: state.idToken,
+            postData: postData
+        }, "saveMemo");
+    }
+
+    async function handleDeleteNote() {
+        const note = findNote(state.activeNoteId);
+        if (!note) {
+            return;
+        }
+        if (!window.confirm(getI18nText("confirm.delete", "本当に削除しますか？"))) {
+            return;
+        }
+
+        const deleteButton = $("#deleteNoteBtn");
+        deleteButton.prop("disabled", true);
+        $("#loadingOverlay").addClass("is-open");
+        try {
+            if (note.memoId != null) {
+                await deleteNoteFromApi(note.memoId);
+            }
+            state.notes = state.notes.filter((item) => item.id !== note.id);
+            ensureAtLeastOneNote();
+            renderNotes();
+            closeEditor();
+            showToast("success.delete", "削除しました。", "material-symbols:delete-rounded", "var(--error)", "var(--toast-bg-error)");
+        } catch (error) {
+            console.error("memo delete failed:", error);
+        } finally {
+            $("#loadingOverlay").removeClass("is-open");
+            deleteButton.prop("disabled", false);
+        }
+    }
+
+    function deleteNoteFromApi(memoId) {
+        return apiRequest({
+            path: "memo",
+            method: "delete",
+            idToken: state.idToken,
+            postData: {memoId: memoId}
+        }, "deleteMemo");
+    }
+
+    function apiRequest(payload, label) {
+        return $.ajax({
+            url: API_URL,
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(payload),
+            timeout: 30000,
+        }).then(function (response) {
+            if (response.statusCode === 401) {
+                liff.logout();
+                window.location.reload();
+                return null;
+            }
+            if (response.statusCode !== 200) {
+                console.error(response.message);
+                alert(response.message || `${label} failed`);
+                throw new Error(response.message || `${label} failed`);
+            }
+            return response;
+        }, function () {
+            alert(`Network error!${label}`);
+            throw new Error(`Network error!${label}`);
+        });
+    }
+
+    function findNote(noteId) {
+        return state.notes.find((note) => note.id === noteId) || null;
+    }
+
+    function getCurrentTimestamp() {
+        const date = new Date();
+        return `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, "0")}/${String(date.getDate()).padStart(2, "0")} ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+    }
+
+    function getI18nText(key, fallback) {
+        return window.i18next && i18next.isInitialized ? i18next.t(key, fallback) : fallback;
+    }
+
+    function showToast(messageKey, fallbackMessage, icon, color, bg) {
+        if (typeof createToastManager !== "function") {
+            return;
+        }
+        const toastManager = createToastManager();
+        toastManager.show({
+            title: getI18nText("toast.success", "成功"),
+            message: getI18nText(messageKey, fallbackMessage),
+            color: color,
+            bg: bg,
+            icon: icon
+        });
+    }
+</script>
+</body>
+</html>

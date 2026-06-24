@@ -192,49 +192,104 @@
             color: var(--primary-dark);
         }
 
-        .hospital-form-modal-close {
+        .hospital-form-modal-header {
             display: none;
         }
 
         #hospitalDataPanel.is-form-modal {
             position: fixed;
-            top: var(--hospital-form-modal-top, 0px);
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 60;
+            inset: 0;
+            z-index: 90;
             display: block;
-            flex-direction: column;
-            gap: 28px;
-            max-width: 600px;
-            min-height: calc(100vh - var(--hospital-form-modal-top, 0px));
-            margin: 0 auto;
+            max-width: none;
+            min-height: 100dvh;
+            margin: 0;
             margin-top: 0;
-            padding: 24px;
-            padding-bottom: 120px;
+            padding: 0;
             overflow-y: auto;
             background: var(--background);
         }
 
-        #hospitalDataPanel.is-form-modal .sticky-actions {
+        #hospitalDataPanel.is-form-modal .hospital-form-modal-header {
             position: sticky;
-            bottom: 0;
-            margin: 24px -24px -110px;
-            padding: 12px 0;
+            top: 0;
+            z-index: 2;
+            display: block;
             background: var(--background);
-            box-shadow: 0 -5px 12px rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .hospital-form-modal-header-inner {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .hospital-form-modal-close {
+            width: 48px;
+            height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 999px;
+            background: transparent;
+            color: var(--text);
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .hospital-form-modal-close:focus-visible {
+            outline: 3px solid var(--primary-dark-a20);
+            outline-offset: 3px;
+        }
+
+        .hospital-form-modal-title {
+            flex: 1;
+            margin: 0;
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .hospital-form-modal-spacer {
+            width: 48px;
+            height: 48px;
+            flex: 0 0 auto;
+        }
+
+        #hospitalDataPanel.is-form-modal .hospital-data-heading {
+            display: none;
+        }
+
+        #hospitalDataPanel.is-form-modal > .desc,
+        #hospitalDataPanel.is-form-modal .hospital-form {
+            width: 100%;
+            max-width: 600px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        #hospitalDataPanel.is-form-modal > .desc {
+            margin-top: 20px;
+            padding: 0 24px;
+        }
+
+        #hospitalDataPanel.is-form-modal .hospital-form {
+            padding: 0 24px 124px;
+        }
+
+        #hospitalDataPanel.is-form-modal .sticky-actions {
+            z-index: 3;
         }
 
         #hospitalDataPanel.is-form-modal .sticky-actions .fixed-container {
-            max-width: none;
-            padding: 0;
-        }
-
-        #hospitalDataPanel.is-form-modal .hospital-form-modal-close {
-            position: fixed;
-            top: calc(var(--hospital-form-modal-top, 0px) + 16px);
-            right: max(24px, calc((100vw - 600px) / 2 + 24px));
-            display: inline-flex;
+            max-width: 600px;
         }
 
         .hospital-intro-steps {
@@ -566,10 +621,16 @@
         </div>
 
         <section id="hospitalDataPanel" class="hospital-tab-panel hospital-workflow is-hidden" role="tabpanel" aria-labelledby="hospitalDataTab">
-            <button type="button" class="modal-close hospital-form-modal-close btn_hospital_form_modal_close" aria-label="閉じる">
-                <iconify-icon icon="material-symbols:close-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
-            </button>
-            <h2>基本情報</h2>
+            <header class="hospital-form-modal-header">
+                <div class="hospital-form-modal-header-inner">
+                    <button type="button" class="hospital-form-modal-close btn_hospital_form_modal_close" aria-label="閉じる">
+                        <iconify-icon icon="material-symbols:close-rounded" width="28" height="28" aria-hidden="true"></iconify-icon>
+                    </button>
+                    <p class="hospital-form-modal-title">基本情報を編集</p>
+                    <span class="hospital-form-modal-spacer" aria-hidden="true"></span>
+                </div>
+            </header>
+            <h2 class="hospital-data-heading">基本情報</h2>
             <p class="desc">病院名、住所、電話番号を入力してください。</p>
 
             <form name="form_hospital" class="h-adr hospital-form">
@@ -877,6 +938,8 @@
         });
         $(".btn_hospital_cancel").on("click", function(){
             cancelHospitalEdit();
+            $("#hospitalDataPanel").removeClass("is-form-modal");
+            $("body").removeClass("no-scroll");
         });
         $(".btn_download").on("click", function(e){
             e.preventDefault();
@@ -1078,7 +1141,6 @@
         window.addEventListener("resize", () => {
             recalculateStickyStart();
             updateStickyTabs();
-            setHospitalFormModalTop();
         });
     }
 
@@ -1685,7 +1747,6 @@
     }
 
     function openHospitalFormModal() {
-        setHospitalFormModalTop();
         $("#hospitalDataPanel")
             .removeClass("is-hidden")
             .addClass("is-form-modal");
@@ -1694,6 +1755,7 @@
 
     function closeHospitalFormModal() {
         if (hospitalState.hospitalId) {
+            cancelHospitalEdit();
             $("#hospitalDataPanel").removeClass("is-form-modal");
             $("body").removeClass("no-scroll");
             return;
@@ -1703,12 +1765,6 @@
         $("body").removeClass("no-scroll");
         setHospitalMode(false);
         switchHospitalTab("hospitalDataPanel");
-    }
-
-    function setHospitalFormModalTop() {
-        const header = document.getElementById("header-container");
-        const headerHeight = header ? header.offsetHeight : 0;
-        document.documentElement.style.setProperty("--hospital-form-modal-top", `${headerHeight}px`);
     }
 
     function resetHospitalToInitialScreen() {
