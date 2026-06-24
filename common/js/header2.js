@@ -29,7 +29,7 @@ $(function () {
                     label: "その他",
                     type: "subgroup",
                     items: [
-                        {label: "メモ", path: "memo"},
+                        {label: "メモ", path: "note"},
                     ]
                 }
             ]
@@ -42,7 +42,7 @@ $(function () {
                 {label: "周産期制度・システム", path: "systeminformation"},
                 {label: "日本の出産スタンダード", path: "aruaru"},
                 {label: "妊娠中の性交性について", path: "aboutsex"},
-                {label: "よくある質問", path: "faq"},
+                {label: "よくある質問", path: "qanda"},
                 {label: "使い方", path: "usage"},
             ]
         },
