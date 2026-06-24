@@ -30,7 +30,10 @@
     "movementCounter": "<ruby>胎動<rt>たいどう</rt></ruby>カウンター",
     "translation": "<ruby>翻訳<rt>ほんやく</rt></ruby>アプリ",
     "hospital": "病院情報＜スタッフ専用＞",
-    "data": "患者データ＜スタッフ専用＞"
+    "data": "患者データ＜スタッフ専用＞",
+    "systemInformation": "<ruby>周産期<rt>しゅうさんき</rt></ruby>の<ruby>制度<rt>せいど</rt></ruby>・システム",
+    "standard": "<ruby>日本<rt>にほん</rt></ruby>の<ruby>出産<rt>しゅっさん</rt></ruby>スタンダード",
+    "sex": "<ruby>妊娠中<rt>にんしんちゅう</rt></ruby>の<ruby>性交<rt>せいこう</rt></ruby>について"
   },
   "header": {
     "selectLanguage": "<ruby>言語<rt>げんご</rt></ruby>を <ruby>選択<rt>せんたく</rt></ruby>",
@@ -943,6 +946,28 @@
       "camera": "カメラ",
       "conversation": "<ruby>会話<rt>かいわ</rt></ruby>",
       "handwriting": "<ruby>手書<rt>てが</rt></ruby>き"
+    }
+  },
+  "note": {
+    "desc": "<ruby>気<rt>き</rt></ruby>になること、<ruby>診察<rt>しんさつ</rt></ruby>で<ruby>聞<rt>き</rt></ruby>きたいこと、<ruby>毎日<rt>まいにち</rt></ruby>の<ruby>体調<rt>たいちょう</rt></ruby>などを <ruby>自由<rt>じゆう</rt></ruby>に <ruby>記録<rt>きろく</rt></ruby>できます。",
+    "listLabel": "メモの 一覧",
+    "editorTitle": "メモを <ruby>編集<rt>へんしゅう</rt></ruby>",
+    "placeholder": "メモを 入力（にゅうりょく）してください",
+    "empty": "空（から）のメモ",
+    "cardAria": "メモ{{count}}を 編集",
+    "confirmDelete": "本当に 消しますか？",
+    "button": {
+      "add": "メモを <ruby>追加<rt>ついか</rt></ruby>",
+      "close": "閉じる",
+      "delete": "消す",
+      "save": "<ruby>保存<rt>ほぞん</rt></ruby>"
+    },
+    "success": {
+      "save": "保存しました。",
+      "delete": "消しました。"
+    },
+    "error": {
+      "load": "メモの 読み込みに 失敗しました。"
     }
   }
 }

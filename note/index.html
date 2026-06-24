@@ -185,14 +185,14 @@
 <main>
     <article class="main-container">
         <h1 data-i18n="[html]title.memo">メモ</h1>
-        <p class="desc">気になること、診察で聞きたいこと、日々の体調などを自由に記録できます。</p>
+        <p class="desc" data-i18n="[html]note.desc">気になること、診察で聞きたいこと、日々の体調などを自由に記録できます。</p>
 
-        <section class="note-list" id="noteList" aria-label="メモ一覧"></section>
+        <section class="note-list" id="noteList" aria-label="メモ一覧" data-i18n="[aria-label]note.listLabel"></section>
 
         <div class="note-form-footer">
             <button type="button" id="addNoteBtn" class="btn tertiary btn-small">
                 <iconify-icon icon="material-symbols:add-rounded" width="20" height="20" aria-hidden="true"></iconify-icon>
-                <span>メモを追加</span>
+                <span data-i18n="[html]note.button.add">メモを追加</span>
             </button>
         </div>
     </article>
@@ -202,22 +202,22 @@
     <div class="note-editor-shell">
         <header class="note-editor-header">
             <div class="note-editor-header-inner">
-                <button type="button" id="closeEditorBtn" class="note-editor-close" aria-label="閉じる">
+                <button type="button" id="closeEditorBtn" class="note-editor-close" aria-label="閉じる" data-i18n="[aria-label]note.button.close">
                     <iconify-icon icon="material-symbols:close-rounded" width="28" height="28" aria-hidden="true"></iconify-icon>
                 </button>
-                <p class="note-editor-title">メモを編集</p>
-                <button type="button" id="deleteNoteBtn" class="note-delete-btn" aria-label="削除">
+                <p class="note-editor-title" data-i18n="[html]note.editorTitle">メモを編集</p>
+                <button type="button" id="deleteNoteBtn" class="note-delete-btn" aria-label="削除" data-i18n="[aria-label]note.button.delete">
                     <iconify-icon icon="material-symbols:delete-outline-rounded" width="26" height="26" aria-hidden="true"></iconify-icon>
                 </button>
             </div>
         </header>
         <div class="note-editor-body">
-            <textarea id="noteText" class="note-editor-textarea" placeholder="メモを入力してください"></textarea>
+            <textarea id="noteText" class="note-editor-textarea" placeholder="メモを入力してください" data-i18n="[placeholder]note.placeholder"></textarea>
         </div>
         <div class="sticky-actions">
             <div class="fixed-container">
                 <div class="btn-column">
-                    <button type="button" id="saveNoteBtn" class="btn btn-primary" data-i18n="[html]button.save">保存</button>
+                    <button type="button" id="saveNoteBtn" class="btn btn-primary" data-i18n="[html]note.button.save">保存</button>
                 </div>
             </div>
         </div>
@@ -264,11 +264,12 @@
         bootPromise.then(() => {
             if ($.fn.localize && window.i18next && i18next.isInitialized) {
                 $("body").localize();
+                setLocalizedDocumentTitle();
             }
             renderNotes();
         }).catch((error) => {
             console.error("note init failed:", error);
-            alert("Failed to load memos.");
+            alert(getI18nText("note.error.load", "メモの読み込みに失敗しました。"));
             ensureAtLeastOneNote();
             renderNotes();
         }).finally(() => {
@@ -361,7 +362,7 @@
                 .attr("type", "button")
                 .addClass("note-card card")
                 .attr("data-note-id", note.id)
-                .attr("aria-label", `メモ${index + 1}を編集`)
+                .attr("aria-label", getI18nText("note.cardAria", "メモ{{count}}を編集", {count: index + 1}))
                 .on("click", function () {
                     openEditor(note.id);
                 });
@@ -370,7 +371,7 @@
                 $("<p>")
                     .addClass("note-card-preview")
                     .toggleClass("is-empty", !previewText)
-                    .text(previewText || "未入力のメモ")
+                    .text(previewText || getI18nText("note.empty", "未入力のメモ"))
             );
             card.append(
                 $("<p>")
@@ -458,7 +459,7 @@
             note.updatedAt = getCurrentTimestamp();
             renderNotes();
             closeEditor();
-            showToast("success.save", "保存しました。", "material-symbols:check-circle-rounded", "var(--success)", "var(--toast-bg-success)");
+            showToast("note.success.save", "保存しました。", "material-symbols:check-circle-rounded", "var(--success)", "var(--toast-bg-success)");
             loadNotesFromApi().then(renderNotes).catch((error) => console.error("memo reload failed:", error));
         } catch (error) {
             console.error("memo save failed:", error);
@@ -486,7 +487,7 @@
         if (!note) {
             return;
         }
-        if (!window.confirm(getI18nText("confirm.delete", "本当に削除しますか？"))) {
+        if (!window.confirm(getI18nText("note.confirmDelete", "本当に削除しますか？"))) {
             return;
         }
 
@@ -501,7 +502,7 @@
             ensureAtLeastOneNote();
             renderNotes();
             closeEditor();
-            showToast("success.delete", "削除しました。", "material-symbols:delete-rounded", "var(--error)", "var(--toast-bg-error)");
+            showToast("note.success.delete", "削除しました。", "material-symbols:delete-rounded", "var(--error)", "var(--toast-bg-error)");
         } catch (error) {
             console.error("memo delete failed:", error);
         } finally {
@@ -553,8 +554,13 @@
         return `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, "0")}/${String(date.getDate()).padStart(2, "0")} ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
     }
 
-    function getI18nText(key, fallback) {
-        return window.i18next && i18next.isInitialized ? i18next.t(key, fallback) : fallback;
+    function getI18nText(key, fallback, options = {}) {
+        return window.i18next && i18next.isInitialized ? i18next.t(key, Object.assign({defaultValue: fallback}, options)) : fallback.replace(/\{\{count}}/g, options.count || "");
+    }
+
+    function setLocalizedDocumentTitle() {
+        const title = getI18nText("title.memo", "メモ").replace(/<[^>]*>/g, "");
+        document.title = `${title} | Pregnancy Support`;
     }
 
     function showToast(messageKey, fallbackMessage, icon, color, bg) {

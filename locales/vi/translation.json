@@ -29,7 +29,10 @@
     "laborCounter": "Bộ đếm cơn co",
     "movementCounter": "Bộ đếm thai máy",
     "translation": "Ứng dụng dịch",
-    "data": "Lấy dữ liệu"
+    "data": "Lấy dữ liệu",
+    "systemInformation": "Chế độ và hệ thống chu sinh",
+    "standard": "Tiêu chuẩn sinh con tại Nhật Bản",
+    "sex": "Về quan hệ tình dục khi mang thai"
   },
   "header": {
     "selectLanguage": "Chọn ngôn ngữ",
@@ -787,6 +790,28 @@
       "camera": "Máy ảnh",
       "conversation": "Hội thoại",
       "handwriting": "Chữ viết tay"
+    }
+  },
+  "note": {
+    "desc": "Bạn có thể tự do ghi lại những điều lo lắng, câu hỏi cho buổi khám và tình trạng sức khỏe hằng ngày.",
+    "listLabel": "Danh sách ghi chú",
+    "editorTitle": "Chỉnh sửa ghi chú",
+    "placeholder": "Nhập ghi chú",
+    "empty": "Ghi chú trống",
+    "cardAria": "Chỉnh sửa ghi chú {{count}}",
+    "confirmDelete": "Bạn có thật sự muốn xóa ghi chú này không?",
+    "button": {
+      "add": "Thêm ghi chú",
+      "close": "Đóng",
+      "delete": "Xóa",
+      "save": "Lưu"
+    },
+    "success": {
+      "save": "Đã lưu.",
+      "delete": "Đã xóa."
+    },
+    "error": {
+      "load": "Không tải được ghi chú."
     }
   }
 }

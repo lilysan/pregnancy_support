@@ -71,7 +71,10 @@ $(function () {
             type: "group",
             children: [
                 { label: "ガイドブック", path: "guidebook", i18n: "title.guidebook" },
-                { label: "よくある質問", path: "faq", i18n: "title.faq" },
+                { label: "周産期制度・システム", path: "systeminformation", i18n: "title.systemInformation" },
+                { label: "日本の出産スタンダード", path: "aruaru", i18n: "title.standard" },
+                { label: "妊娠中の性交性について", path: "aboutsex", i18n: "title.sex" },
+                { label: "よくある質問", path: "qanda", i18n: "title.faq" },
                 { label: "使い方", path: "usage", i18n: "title.usage" },
             ]
         },

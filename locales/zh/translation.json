@@ -29,7 +29,10 @@
     "laborCounter": "宫缩计数器",
     "movementCounter": "胎动计数器",
     "translation": "翻译应用",
-    "data": "数据获取"
+    "data": "数据获取",
+    "systemInformation": "围产期制度与系统",
+    "standard": "日本的分娩标准",
+    "sex": "关于孕期性生活"
   },
   "header": {
     "selectLanguage": "选择语言",
@@ -787,6 +790,28 @@
       "camera": "相机",
       "conversation": "会话",
       "handwriting": "手写"
+    }
+  },
+  "note": {
+    "desc": "可以自由记录在意的事情、就诊时想问的问题以及每天的身体状况。",
+    "listLabel": "备忘录列表",
+    "editorTitle": "编辑备忘录",
+    "placeholder": "请输入备忘录",
+    "empty": "未输入的备忘录",
+    "cardAria": "编辑备忘录{{count}}",
+    "confirmDelete": "确定要删除此备忘录吗？",
+    "button": {
+      "add": "添加备忘录",
+      "close": "关闭",
+      "delete": "删除",
+      "save": "保存"
+    },
+    "success": {
+      "save": "已保存。",
+      "delete": "已删除。"
+    },
+    "error": {
+      "load": "备忘录加载失败。"
     }
   }
 }

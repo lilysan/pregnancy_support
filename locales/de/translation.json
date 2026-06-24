@@ -29,7 +29,10 @@
     "laborCounter": "Wehenzähler",
     "movementCounter": "Kicks-Zähler",
     "translation": "Übersetzungs-App",
-    "data": "Datenabruf"
+    "data": "Datenabruf",
+    "systemInformation": "Perinatale Systeme und Angebote",
+    "standard": "Geburtsstandards in Japan",
+    "sex": "Sex während der Schwangerschaft"
   },
   "header": {
     "selectLanguage": "Sprache auswählen",
@@ -787,6 +790,28 @@
       "camera": "Kamera",
       "conversation": "Unterhaltung",
       "handwriting": "Handschrift"
+    }
+  },
+  "note": {
+    "desc": "Halten Sie Anliegen, Fragen für Termine und tägliche Beschwerden frei fest.",
+    "listLabel": "Notizliste",
+    "editorTitle": "Notiz bearbeiten",
+    "placeholder": "Notiz eingeben",
+    "empty": "Leere Notiz",
+    "cardAria": "Notiz {{count}} bearbeiten",
+    "confirmDelete": "Möchten Sie diese Notiz wirklich löschen?",
+    "button": {
+      "add": "Notiz hinzufügen",
+      "close": "Schließen",
+      "delete": "Löschen",
+      "save": "Speichern"
+    },
+    "success": {
+      "save": "Gespeichert.",
+      "delete": "Gelöscht."
+    },
+    "error": {
+      "load": "Notizen konnten nicht geladen werden."
     }
   }
 }

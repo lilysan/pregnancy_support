@@ -24,6 +24,9 @@
     "bloodSugar": "血糖値",
     "memo": "メモ",
     "guidebook": "ガイドブック",
+    "systemInformation": "周産期制度・システム",
+    "standard": "日本の出産スタンダード",
+    "sex": "妊娠中の性交性について",
     "faq": "よくある質問",
     "usage": "使い方",
     "laborCounter": "陣痛カウンター",
@@ -916,6 +919,28 @@
       "camera": "カメラ",
       "conversation": "会話",
       "handwriting": "手書き"
+    }
+  },
+  "note": {
+    "desc": "気になること、診察で聞きたいこと、日々の体調などを自由に記録できます。",
+    "listLabel": "メモ一覧",
+    "editorTitle": "メモを編集",
+    "placeholder": "メモを入力してください",
+    "empty": "未入力のメモ",
+    "cardAria": "メモ{{count}}を編集",
+    "confirmDelete": "本当に削除しますか？",
+    "button": {
+      "add": "メモを追加",
+      "close": "閉じる",
+      "delete": "削除",
+      "save": "保存"
+    },
+    "success": {
+      "save": "保存しました。",
+      "delete": "削除しました。"
+    },
+    "error": {
+      "load": "メモの読み込みに失敗しました。"
     }
   }
 }

@@ -29,7 +29,10 @@
     "laborCounter": "Kaunter kontraksi",
     "movementCounter": "Kaunter pergerakan janin",
     "translation": "Aplikasi terjemahan",
-    "data": "Pengambilan data"
+    "data": "Pengambilan data",
+    "systemInformation": "Sistem dan perkhidmatan perinatal",
+    "standard": "Standard kelahiran di Jepun",
+    "sex": "Hubungan seks semasa kehamilan"
   },
   "header": {
     "selectLanguage": "Pilih bahasa",
@@ -787,6 +790,28 @@
       "camera": "Kamera",
       "conversation": "Perbualan",
       "handwriting": "Tulisan tangan"
+    }
+  },
+  "note": {
+    "desc": "Catat kebimbangan, soalan untuk pemeriksaan, dan keadaan harian anda dengan bebas.",
+    "listLabel": "Senarai memo",
+    "editorTitle": "Edit memo",
+    "placeholder": "Masukkan memo",
+    "empty": "Memo kosong",
+    "cardAria": "Edit memo {{count}}",
+    "confirmDelete": "Adakah anda benar-benar mahu memadam memo ini?",
+    "button": {
+      "add": "Tambah memo",
+      "close": "Tutup",
+      "delete": "Padam",
+      "save": "Simpan"
+    },
+    "success": {
+      "save": "Disimpan.",
+      "delete": "Dipadam."
+    },
+    "error": {
+      "load": "Gagal memuatkan memo."
     }
   }
 }

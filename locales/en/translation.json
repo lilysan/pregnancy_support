@@ -30,7 +30,10 @@
     "movementCounter": "Kick Counter",
     "translation": "Translation Apps",
     "hospital": "病院情報＜スタッフ専用＞",
-    "data": "患者データ＜スタッフ専用＞"
+    "data": "患者データ＜スタッフ専用＞",
+    "systemInformation": "Perinatal Systems and Services",
+    "standard": "Japanese Childbirth Standards",
+    "sex": "Sex During Pregnancy"
   },
   "header": {
     "selectLanguage": "Select Language",
@@ -943,6 +946,28 @@
       "camera": "Camera",
       "conversation": "Conversation",
       "handwriting": "Handwriting"
+    }
+  },
+  "note": {
+    "desc": "Freely record concerns, questions for appointments, and daily symptoms.",
+    "listLabel": "Memo list",
+    "editorTitle": "Edit memo",
+    "placeholder": "Enter your memo",
+    "empty": "Empty memo",
+    "cardAria": "Edit memo {{count}}",
+    "confirmDelete": "Do you really want to delete this memo?",
+    "button": {
+      "add": "Add memo",
+      "close": "Close",
+      "delete": "Delete",
+      "save": "Save"
+    },
+    "success": {
+      "save": "Saved successfully.",
+      "delete": "Deleted successfully."
+    },
+    "error": {
+      "load": "Failed to load memos."
     }
   }
 }

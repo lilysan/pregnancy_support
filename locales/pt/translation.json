@@ -29,7 +29,10 @@
     "laborCounter": "Contador de contrações",
     "movementCounter": "Contador de movimentos fetais",
     "translation": "Aplicativo de tradução",
-    "data": "Obtenção de dados"
+    "data": "Obtenção de dados",
+    "systemInformation": "Sistemas e serviços perinatais",
+    "standard": "Padrões de parto no Japão",
+    "sex": "Sexo durante a gravidez"
   },
   "header": {
     "selectLanguage": "Selecionar idioma",
@@ -787,6 +790,28 @@
       "camera": "Câmera",
       "conversation": "Conversa",
       "handwriting": "Escrita à mão"
+    }
+  },
+  "note": {
+    "desc": "Registre livremente preocupações, perguntas para a consulta e sintomas do dia a dia.",
+    "listLabel": "Lista de memos",
+    "editorTitle": "Editar memo",
+    "placeholder": "Digite seu memo",
+    "empty": "Memo vazio",
+    "cardAria": "Editar memo {{count}}",
+    "confirmDelete": "Deseja realmente excluir este memo?",
+    "button": {
+      "add": "Adicionar memo",
+      "close": "Fechar",
+      "delete": "Excluir",
+      "save": "Salvar"
+    },
+    "success": {
+      "save": "Salvo.",
+      "delete": "Excluído."
+    },
+    "error": {
+      "load": "Falha ao carregar os memos."
     }
   }
 }

@@ -29,7 +29,10 @@
     "laborCounter": "Compteur de contractions",
     "movementCounter": "Compteur de mouvements fœtaux",
     "translation": "Application de traduction",
-    "data": "Récupération des données"
+    "data": "Récupération des données",
+    "systemInformation": "Systèmes et dispositifs périnataux",
+    "standard": "Normes d'accouchement au Japon",
+    "sex": "Rapports sexuels pendant la grossesse"
   },
   "header": {
     "selectLanguage": "Choisir la langue",
@@ -787,6 +790,28 @@
       "camera": "Caméra",
       "conversation": "Conversation",
       "handwriting": "Écriture manuscrite"
+    }
+  },
+  "note": {
+    "desc": "Notez librement vos préoccupations, les questions à poser en consultation et votre état quotidien.",
+    "listLabel": "Liste des mémos",
+    "editorTitle": "Modifier le mémo",
+    "placeholder": "Saisissez votre mémo",
+    "empty": "Mémo vide",
+    "cardAria": "Modifier le mémo {{count}}",
+    "confirmDelete": "Voulez-vous vraiment supprimer ce mémo ?",
+    "button": {
+      "add": "Ajouter un mémo",
+      "close": "Fermer",
+      "delete": "Supprimer",
+      "save": "Enregistrer"
+    },
+    "success": {
+      "save": "Enregistré.",
+      "delete": "Supprimé."
+    },
+    "error": {
+      "load": "Échec du chargement des mémos."
     }
   }
 }

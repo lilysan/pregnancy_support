@@ -29,7 +29,10 @@
     "laborCounter": "진통 카운터",
     "movementCounter": "태동 카운터",
     "translation": "번역 앱",
-    "data": "데이터 가져오기"
+    "data": "데이터 가져오기",
+    "systemInformation": "주산기 제도와 시스템",
+    "standard": "일본의 출산 표준",
+    "sex": "임신 중 성관계에 대해"
   },
   "header": {
     "selectLanguage": "언어 선택",
@@ -787,6 +790,28 @@
       "camera": "카메라",
       "conversation": "대화",
       "handwriting": "필기"
+    }
+  },
+  "note": {
+    "desc": "걱정되는 일, 진료 때 묻고 싶은 것, 매일의 몸 상태 등을 자유롭게 기록할 수 있습니다.",
+    "listLabel": "메모 목록",
+    "editorTitle": "메모 편집",
+    "placeholder": "메모를 입력하세요",
+    "empty": "입력되지 않은 메모",
+    "cardAria": "메모 {{count}} 편집",
+    "confirmDelete": "정말 이 메모를 삭제하시겠습니까?",
+    "button": {
+      "add": "메모 추가",
+      "close": "닫기",
+      "delete": "삭제",
+      "save": "저장"
+    },
+    "success": {
+      "save": "저장했습니다.",
+      "delete": "삭제했습니다."
+    },
+    "error": {
+      "load": "메모를 불러오지 못했습니다."
     }
   }
 }

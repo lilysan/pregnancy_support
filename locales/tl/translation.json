@@ -29,7 +29,10 @@
     "laborCounter": "Labor counter",
     "movementCounter": "Kick counter",
     "translation": "Translation app",
-    "data": "Pagkuha ng data"
+    "data": "Pagkuha ng data",
+    "systemInformation": "Mga sistema at serbisyo sa perinatal period",
+    "standard": "Pamantayan ng panganganak sa Japan",
+    "sex": "Pakikipagtalik habang buntis"
   },
   "header": {
     "selectLanguage": "Pumili ng wika",
@@ -787,6 +790,28 @@
       "camera": "Camera",
       "conversation": "Pag-uusap",
       "handwriting": "Sulat-kamay"
+    }
+  },
+  "note": {
+    "desc": "Malaya mong maitatala ang mga alalahanin, mga tanong para sa checkup, at araw-araw na kondisyon ng katawan.",
+    "listLabel": "Listahan ng memo",
+    "editorTitle": "I-edit ang memo",
+    "placeholder": "Ilagay ang memo",
+    "empty": "Walang laman na memo",
+    "cardAria": "I-edit ang memo {{count}}",
+    "confirmDelete": "Sigurado ka bang burahin ang memo na ito?",
+    "button": {
+      "add": "Magdagdag ng memo",
+      "close": "Isara",
+      "delete": "Burahin",
+      "save": "I-save"
+    },
+    "success": {
+      "save": "Na-save.",
+      "delete": "Nabura."
+    },
+    "error": {
+      "load": "Hindi na-load ang mga memo."
     }
   }
 }
