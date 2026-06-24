@@ -70,7 +70,6 @@
             padding: 12px;
             border: 1px solid var(--border);
             border-radius: 8px;
-            background: var(--background);
         }
 
         .data-info-label {
@@ -323,13 +322,6 @@
             z-index: 2;
         }
 
-        .data-chart-card {
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            background: var(--background);
-        }
-
         .data-chart-title {
             margin: 0 0 10px;
             color: var(--primary-dark);
@@ -392,7 +384,6 @@
             overflow: hidden;
             border: 1px solid var(--border);
             border-radius: 10px;
-            background: var(--background);
         }
 
         .data-metric-table {
@@ -464,7 +455,6 @@
             padding: 42px 12px 12px;
             border: 1px solid var(--border);
             border-radius: 10px;
-            background: var(--background);
         }
 
         .data-question-header {
@@ -1039,7 +1029,7 @@
         const grid = $("<div>").addClass("data-info-grid");
         items.forEach(([label, value]) => {
             grid.append(
-                $("<div>").addClass("data-info-item")
+                $("<div>").addClass("data-info-item card")
                     .append($("<p>").addClass("data-info-label").text(label))
                     .append($("<p>").addClass("data-info-value").text(formatValue(value)))
             );
@@ -1556,7 +1546,7 @@
             headerRow.append($("<th>").text(config.extraColumn.label));
         }
         return $("<div>").addClass("data-metric-table-wrap").append(
-            $("<table>").addClass("data-metric-table")
+            $("<table>").addClass("data-metric-table card")
                 .append(
                     $("<thead>").append(headerRow)
                 )
@@ -1567,7 +1557,7 @@
     function renderQuestionAnswerRecords(items, config) {
         const list = $("<div>").addClass("data-view-list");
         groupQuestionAnswerRecords(items, config.questionPrefix).forEach((item) => {
-            const record = $("<article>").addClass("data-question-record");
+            const record = $("<article>").addClass("data-question-record card");
             record.append(renderAnswerTime(item));
             if (config.showScore) {
                 record.append(
@@ -1684,7 +1674,7 @@
     }
 
     function renderLineChart(title, items, seriesConfig) {
-        const chart = $("<section>").addClass("data-chart-card")
+        const chart = $("<section>").addClass("card")
             .append($("<p>").addClass("data-chart-title").text(title));
         const series = seriesConfig.map((config) => ({
             config: config,
