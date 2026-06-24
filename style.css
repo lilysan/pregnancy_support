@@ -644,6 +644,13 @@ hr {
     font-size: 13px;
     font-weight: 600;
 }
+.badge-primary {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    padding: 4px 10px;
+    font-weight: 700;
+    margin-right: 8px;
+}
 .badge.required,
 .badge.optional {
     margin-left: 6px;
@@ -846,6 +853,32 @@ textarea { min-height: 96px; resize: vertical; }
     padding: 16px;
     text-align: left;
     color: var(--text);
+}
+.bp-accordion-heading {
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
+}
+.bp-accordion-heading .h3-sample {
+    min-width: 0;
+    flex: 1;
+    text-align: start;
+}
+.bp-section-counter {
+    flex: 0 0 auto;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--background);
+    color: var(--sub-text);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+    direction: ltr;
+    unicode-bidi: isolate;
+}
+.bp-section-counter.is-complete {
+    background: var(--toast-bg-success);
+    color: var(--success);
 }
 .accordion-trigger iconify-icon { transition: transform 0.3s ease; }
 .accordion.is-open .accordion-trigger iconify-icon { transform: rotate(180deg); }

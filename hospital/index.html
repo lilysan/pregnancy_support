@@ -440,6 +440,8 @@
         }
 
         .bp-settings-toggle-text {
+            display: inline-flex;
+            align-items: center;
             min-width: 0;
             overflow-wrap: anywhere;
         }
@@ -478,7 +480,6 @@
             flex-direction: column;
             gap: 8px;
             padding-left: 14px;
-            border-left: 3px solid var(--primary-light);
         }
 
         @media (max-width: 400px) {
@@ -1861,6 +1862,7 @@
             return;
         }
 
+        let questionCounter = 0;
         schema.categories.forEach((category) => {
             const categoryEl = $("<section>");
             categoryEl.append($("<h3>").text(translateBirthPlan(category.labelKey)));
@@ -1885,7 +1887,8 @@
 
                     if (Array.isArray(section.questions)) {
                         section.questions.forEach((question) => {
-                            bodyEl.append(renderBirthPlanQuestionSetting(question, false));
+                            questionCounter += 1;
+                            bodyEl.append(renderBirthPlanQuestionSetting(question, false, false, String(questionCounter)));
                         });
                     }
                     sectionEl.append(triggerEl, bodyEl);
@@ -1917,14 +1920,14 @@
         });
     }
 
-    function renderBirthPlanQuestionSetting(question, isFollowUp, parentDisabled = false) {
+    function renderBirthPlanQuestionSetting(question, isFollowUp, parentDisabled = false, questionNumber = "") {
         const questionKey = toBirthPlanSettingKey(question.labelKey);
         const questionEnabled = isBirthPlanSettingEnabled(questionKey);
         const questionEl = $("<div>")
             .addClass("bp-settings-question card")
             .toggleClass("is-disabled", !questionEnabled || parentDisabled);
 
-        questionEl.append(renderBirthPlanSettingToggle(questionKey, translateBirthPlan(question.labelKey), false, parentDisabled));
+        questionEl.append(renderBirthPlanSettingToggle(questionKey, translateBirthPlan(question.labelKey), false, parentDisabled, questionNumber));
 
         if (Array.isArray(question.options) && question.options.length > 0) {
             const optionsEl = $("<div>").addClass("bp-settings-options");
@@ -1941,8 +1944,9 @@
 
         if (Array.isArray(question.followUps) && question.followUps.length > 0) {
             const followUpsEl = $("<div>").addClass("bp-settings-options");
-            question.followUps.forEach((followUp) => {
-                followUpsEl.append(renderBirthPlanQuestionSetting(followUp, true, parentDisabled || !questionEnabled));
+            question.followUps.forEach((followUp, index) => {
+                const followUpNumber = questionNumber ? `${questionNumber}-${index + 1}` : String(index + 1);
+                followUpsEl.append(renderBirthPlanQuestionSetting(followUp, true, parentDisabled || !questionEnabled, followUpNumber));
             });
             questionEl.append(followUpsEl);
         }
@@ -1950,8 +1954,14 @@
         return isFollowUp ? questionEl.addClass("bp-settings-followup") : questionEl;
     }
 
-    function renderBirthPlanSettingToggle(key, label, isOption, isDisabled) {
+    function renderBirthPlanSettingToggle(key, label, isOption, isDisabled, questionNumber = "") {
         const isActive = isBirthPlanSettingEnabled(key);
+        const labelEl = $("<span>").addClass("bp-settings-toggle-text");
+        if (questionNumber) {
+            labelEl.append($("<span>").addClass("badge badge-primary").text(questionNumber));
+        }
+        labelEl.append($("<span>").text(label));
+
         const toggleEl = $("<button>")
             .attr("type", "button")
             .addClass("bp-settings-toggle")
@@ -1959,7 +1969,7 @@
             .toggleClass("bp-settings-option-toggle", isOption)
             .attr("aria-pressed", String(isActive))
             .attr("data-key", key)
-            .append($("<span>").addClass("bp-settings-toggle-text").text(label))
+            .append(labelEl)
             .append($("<span>").addClass("bp-settings-switch").attr("aria-hidden", "true"));
         setBirthPlanToggleAvailability(toggleEl, isDisabled);
         return toggleEl;

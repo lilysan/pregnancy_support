@@ -183,7 +183,6 @@
         .followups {
             margin-top: 16px;
             padding-left: 12px;
-            border-left: 3px solid var(--primary-light);
         }
 
         .bp-question,
@@ -310,20 +309,12 @@
             font-weight: 600;
         }
 
-        .badge-primary {
-            background: var(--primary-light);
-            color: var(--primary-dark);
-            padding: 4px 10px;
-            font-weight: 700;
-            margin-right: 8px;
-        }
-
         .data-answer-text {
             margin: 8px 0 0;
             padding: 10px;
-            border: 1px solid var(--border);
+            border: 1px solid var(--primary);
             border-radius: 8px;
-            background: var(--surface);
+            background: var(--white);
             line-height: 1.55;
             white-space: pre-wrap;
         }
@@ -845,11 +836,12 @@
 
         renderDataTabs();
 
-        const hospitalAccount = hospitalAccountResponse.data || {};
-        if (!hospitalAccount.hospitalId) {
-            redirectToHospitalPage();
-            return;
-        }
+        // const hospitalAccount = hospitalAccountResponse.data || {};
+        // if (!hospitalAccount.hospitalId) {
+        //     redirectToHospitalPage();
+        //     return;
+        // }
+        renderBirthplanRecords([]);
 
         dataState.hospitalAccount = hospitalAccount;
         const [hospitalResponse, birthPlanSettingsResponse] = await Promise.all([
@@ -1249,13 +1241,26 @@
             (category.sections || []).forEach((section) => {
                 const sectionEl = $("<div>").addClass("accordion");
                 const bodyEl = $("<div>").addClass("accordion-body");
+                const sectionQuestions = Array.isArray(section.questions) ? section.questions : [];
+                const sectionTotal = countBirthplanQuestionsInList(sectionQuestions);
+                const sectionAnswered = countAnsweredBirthplanQuestionsInList(sectionQuestions, responseMap);
 
                 sectionEl
                     .append(
                         $("<button>")
                             .attr("type", "button")
                             .addClass("accordion-trigger")
-                            .append($("<span>").addClass("h3-sample").text(translateDataKey(section.labelKey)))
+                            .append(
+                                $("<span>").addClass("bp-accordion-heading")
+                                    .append($("<span>").addClass("h3-sample").text(translateDataKey(section.labelKey)))
+                                    .append(
+                                        $("<span>")
+                                            .addClass("bp-section-counter")
+                                            .toggleClass("is-complete", sectionTotal > 0 && sectionAnswered >= sectionTotal)
+                                            .attr("aria-label", `${sectionAnswered} / ${sectionTotal}`)
+                                            .text(`${sectionAnswered}/${sectionTotal}`)
+                                    )
+                            )
                             .append($("<iconify-icon>").attr({
                                 icon: "material-symbols:expand-more-rounded",
                                 width: "24",
@@ -1265,7 +1270,7 @@
                     )
                     .append(bodyEl);
 
-                appendBirthplanQuestions(bodyEl, section.questions, responseMap, questionCounter, false);
+                appendBirthplanQuestions(bodyEl, sectionQuestions, responseMap, questionCounter, false);
                 if (!bodyEl.children().length) {
                     return;
                 }
@@ -1366,16 +1371,70 @@
         });
     }
 
+    function countAnsweredBirthplanQuestionsInList(questions, responseMap) {
+        if (!Array.isArray(questions)) {
+            return 0;
+        }
+        return questions.reduce((total, question) => total + countAnsweredBirthplanQuestion(question, responseMap), 0);
+    }
+
+    function countAnsweredBirthplanQuestion(question, responseMap) {
+        if (!isBirthPlanItemEnabled(question.labelKey)) {
+            return 0;
+        }
+        let answered = isBirthplanQuestionAnswered(question, responseMap) ? 1 : 0;
+        if (!Array.isArray(question.followUps)) {
+            return answered;
+        }
+        question.followUps.forEach((followUpQuestion) => {
+            answered += countAnsweredBirthplanQuestion(followUpQuestion, responseMap);
+        });
+        return answered;
+    }
+
+    function countBirthplanQuestionsInList(questions) {
+        if (!Array.isArray(questions)) {
+            return 0;
+        }
+        return questions.reduce((total, question) => total + countBirthplanQuestionTreeSize(question), 0);
+    }
+
+    function countBirthplanQuestionTreeSize(question) {
+        if (!isBirthPlanItemEnabled(question.labelKey)) {
+            return 0;
+        }
+        let size = 1;
+        if (!Array.isArray(question.followUps)) {
+            return size;
+        }
+        question.followUps.forEach((followUpQuestion) => {
+            size += countBirthplanQuestionTreeSize(followUpQuestion);
+        });
+        return size;
+    }
+
+    function isBirthplanQuestionAnswered(question, responseMap) {
+        const questionOptions = question.options || [];
+        const selectedOptions = questionOptions.filter((option) => responseMap[toBirthPlanSettingKey(option.labelKey)]);
+        return selectedOptions.length > 0 || Boolean(getBirthplanQuestionTextAnswer(question, responseMap));
+    }
+
+    function getBirthplanQuestionTextAnswer(question, responseMap) {
+        const questionOptions = question.options || [];
+        const selectedOptions = questionOptions.filter((option) => responseMap[toBirthPlanSettingKey(option.labelKey)]);
+        const questionResponse = responseMap[toBirthPlanSettingKey(question.labelKey)];
+        return [
+            questionResponse && questionResponse.other,
+            ...selectedOptions.map((option) => responseMap[toBirthPlanSettingKey(option.labelKey)].other)
+        ].find((value) => typeof value === "string" && value.trim()) || "";
+    }
+
     function renderBirthplanQuestion(question, responseMap, questionNumber) {
         const questionEnabled = isBirthPlanItemEnabled(question.labelKey);
         const questionOptions = question.options || [];
         const selectedOptions = questionOptions.filter((option) => responseMap[toBirthPlanSettingKey(option.labelKey)]);
-        const questionResponse = responseMap[toBirthPlanSettingKey(question.labelKey)];
-        const textAnswer = [
-            questionResponse && questionResponse.other,
-            ...selectedOptions.map((option) => responseMap[toBirthPlanSettingKey(option.labelKey)].other)
-        ].find((value) => typeof value === "string" && value.trim()) || "";
-        const isAnswered = selectedOptions.length > 0 || Boolean(textAnswer);
+        const textAnswer = getBirthplanQuestionTextAnswer(question, responseMap);
+        const isAnswered = isBirthplanQuestionAnswered(question, responseMap);
         const block = $("<div>").addClass("bp-question-block");
         const card = $("<article>")
             .addClass("bp-question card")
@@ -1393,8 +1452,8 @@
             card.append($("<p>").addClass("bp-question-help").text(translateDataKey(question.helpKey)));
         }
 
-        const options = $("<div>").addClass("radio-row bp-options")
-            .toggleClass("single-select", question.inputType === "single" || question.inputType === "singleText");
+        const isSingle = question.inputType === "single" || question.inputType === "singleText";
+        const options = $("<div>").addClass(`radio-row bp-options ${isSingle ? "single-select" : "multi-select"}`);
         questionOptions.forEach((option) => {
             const optionEnabled = questionEnabled && isBirthPlanItemEnabled(option.labelKey);
             options.append(
