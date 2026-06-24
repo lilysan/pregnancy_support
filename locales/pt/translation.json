@@ -813,5 +813,10 @@
     "error": {
       "load": "Falha ao carregar os memos."
     }
+  },
+  "guidebook": {
+    "desc": "Links to each language page of the Mom and Baby Support Series, a guidebook about pregnancy and childbirth.",
+    "info": "The links open external RASC pages. You can download PDF guidebooks from each page.",
+    "listLabel": "Guidebook links"
   }
 }

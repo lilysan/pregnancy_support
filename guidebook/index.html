@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Guidebook | Pregnancy Support</title>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="../common/js/config.js"></script>
+    <link rel="stylesheet" href="../style.css"/>
+    <style>
+        main {
+            padding-bottom: 40px;
+        }
+
+        .guidebook-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .guidebook-link {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: center;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .guidebook-link:focus-visible {
+            outline: 3px solid var(--primary-dark-a20);
+            outline-offset: 3px;
+        }
+
+        .guidebook-language-ja,
+        .guidebook-language-native {
+            margin: 0;
+            line-height: 1.45;
+        }
+
+        .guidebook-language-ja {
+            font-weight: 700;
+        }
+
+        .guidebook-language-native {
+            color: var(--sub-text);
+            font-size: 15px;
+        }
+
+        .guidebook-link-icon {
+            color: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+<div id="header-container" class="header-wrapper"></div>
+
+<main>
+    <article class="main-container">
+        <h1 data-i18n="[html]title.guidebook">ガイドブック</h1>
+        <p class="desc" data-i18n="[html]guidebook.desc">妊娠・出産に関する冊子「ママとあかちゃんのサポートシリーズ」の各言語ページへのリンク集です。</p>
+        <div class="card card-info">
+            <div class="state-card-inner">
+                <iconify-icon icon="material-symbols:info-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
+                <div>
+                    <p class="small" data-i18n="[html]guidebook.info">リンク先はRASC（多文化医療サービス研究会）の外部ページです。各ページからPDF冊子をダウンロードできます。</p>
+                </div>
+            </div>
+        </div>
+
+        <section class="guidebook-list" id="guidebookList" aria-label="冊子リンク一覧" data-i18n="[aria-label]guidebook.listLabel"></section>
+    </article>
+</main>
+
+<div class="overlay is-open" id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
+
+<script>
+    const currentPage = "guidebook";
+
+    const GUIDEBOOK_LINKS = [
+        {label: "英語 / English", nativeName: "English", url: "https://rasc.jp/momandbaby/english/"},
+        {label: "中国語 / 中文版", nativeName: "中文版", url: "https://rasc.jp/momandbaby/chinese/"},
+        {label: "フランス語 / Français", nativeName: "Français", url: "https://rasc.jp/momandbaby/french/"},
+        {label: "韓国語 / 한국어", nativeName: "한국어", url: "https://rasc.jp/momandbaby/korean/"},
+        {label: "ポルトガル語 / Português", nativeName: "Português", url: "https://rasc.jp/momandbaby/portuguese/"},
+        {label: "タガログ語 / TAGALOG", nativeName: "TAGALOG", url: "https://rasc.jp/momandbaby/tagalog/"},
+        {label: "ベトナム語 / Tiếng Việt", nativeName: "Tiếng Việt", url: "https://rasc.jp/momandbaby/vietnamese/"},
+        {label: "タイ語 / ภาษาไทย", nativeName: "ภาษาไทย", url: "https://rasc.jp/momandbaby/thai/"},
+        {label: "ドイツ語 / Deutsch", nativeName: "Deutsch", url: "https://rasc.jp/momandbaby/german/"},
+        {label: "インドネシア語 / Bahasa Indonesia", nativeName: "Bahasa Indonesia", url: "https://rasc.jp/momandbaby/indonesia/"},
+        {label: "ロシア語 / Русский", nativeName: "Русский", url: "https://rasc.jp/momandbaby/russian/"},
+        {label: "ネパール語 / नेपाली", nativeName: "नेपाली", url: "https://rasc.jp/momandbaby/nepali/"},
+        {label: "ラオス語 / ພາສາລາວ", nativeName: "ພາສາລາວ", url: "https://rasc.jp/momandbaby/laotian/"},
+        {label: "ウクライナ語 / Українська", nativeName: "Українська", url: "https://rasc.jp/momandbaby/ukrainian/"},
+        {label: "ダリ語 / Dari", nativeName: "Dari", url: "https://rasc.jp/momandbaby/dari/"},
+        {label: "シンハラ語 / සිංහල", nativeName: "සිංහල", url: "https://rasc.jp/momandbaby/sinhala/"},
+        {label: "マレー語 / Bahasa Melayu", nativeName: "Bahasa Melayu", url: "https://rasc.jp/momandbaby/malay/"},
+        {label: "ミャンマー語 / မြန်မာဘာသာ", nativeName: "မြန်မာဘာသာ", url: "https://rasc.jp/momandbaby/myanmar/"},
+        {label: "ベンガル語 / বাংলা", nativeName: "বাংলা", url: "https://rasc.jp/momandbaby/momandbaby-bengali/"},
+        {label: "ウルドゥー語 / اردو", nativeName: "اردو", url: "https://rasc.jp/momandbaby/urdu/"}
+    ];
+
+    $(function () {
+        const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+        const bootPromise = window.liff && typeof liff.init === "function"
+            ? liff.init({
+                liffId: LIFF_ID,
+                withLoginOnExternalBrowser: !isDev,
+            }).then(loadHeader)
+            : loadHeader();
+
+        bootPromise.then(() => {
+            if ($.fn.localize && window.i18next && i18next.isInitialized) {
+                $("body").localize();
+                setLocalizedDocumentTitle();
+            }
+            renderGuidebookLinks();
+        }).catch((error) => {
+            console.error("guidebook init failed:", error);
+            renderGuidebookLinks();
+        }).finally(() => {
+            $("#loadingOverlay").removeClass("is-open");
+        });
+    });
+
+    function loadHeader() {
+        return new Promise((resolve, reject) => {
+            $("#header-container").load("../common/header.html", function (responseText, status) {
+                if (status === "error") {
+                    reject(new Error("Failed to load header.html"));
+                    return;
+                }
+
+                document.addEventListener("i18n-initialized", function () {
+                    resolve();
+                }, {once: true});
+
+                $.getScript("../common/js/header.js")
+                    .fail(function () {
+                        reject(new Error("Failed to load header.js"));
+                    });
+            });
+        });
+    }
+
+    function renderGuidebookLinks() {
+        const list = $("#guidebookList");
+        list.empty();
+        GUIDEBOOK_LINKS.forEach((item) => {
+            list.append(
+                $("<a>")
+                    .addClass("guidebook-link card")
+                    .attr({
+                        href: item.url,
+                        target: "_blank",
+                        rel: "noopener noreferrer"
+                    })
+                    .append(
+                        $("<div>")
+                            .append(
+                                $("<p>")
+                                    .addClass("guidebook-language-ja")
+                                    .text(item.label)
+                            )
+                    )
+                    .append(
+                        $("<iconify-icon>")
+                            .addClass("guidebook-link-icon")
+                            .attr("icon", "material-symbols:open-in-new-rounded")
+                            .attr("width", "24")
+                            .attr("height", "24")
+                            .attr("aria-hidden", "true")
+                    )
+            );
+        });
+        if ($.fn.localize && window.i18next && i18next.isInitialized) {
+            list.localize();
+        }
+    }
+
+    function getI18nText(key, fallback) {
+        return window.i18next && i18next.isInitialized ? i18next.t(key, {defaultValue: fallback}) : fallback;
+    }
+
+    function setLocalizedDocumentTitle() {
+        const title = getI18nText("title.guidebook", "ガイドブック").replace(/<[^>]*>/g, "");
+        document.title = `${title} | Pregnancy Support`;
+    }
+</script>
+</body>
+</html>

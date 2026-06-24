@@ -969,5 +969,10 @@
     "error": {
       "load": "メモの 読み込みに 失敗しました。"
     }
+  },
+  "guidebook": {
+    "desc": "<ruby>妊娠<rt>にんしん</rt></ruby>・<ruby>出産<rt>しゅっさん</rt></ruby>についての<ruby>冊子<rt>さっし</rt></ruby>「ママとあかちゃんのサポートシリーズ」の、いろいろな<ruby>言語<rt>げんご</rt></ruby>のページへのリンクです。",
+    "info": "リンク<ruby>先<rt>さき</rt></ruby>はRASC（<ruby>多文化医療<rt>たぶんかいりょう</rt></ruby>サービス<ruby>研究会<rt>けんきゅうかい</rt></ruby>）のページです。それぞれのページからPDFをダウンロードできます。",
+    "listLabel": "冊子リンク一覧"
   }
 }
