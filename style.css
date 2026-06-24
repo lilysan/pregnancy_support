@@ -687,6 +687,7 @@ select {
     font: inherit;
     font-size: 17px;
     color: var(--text);
+    background: transparent;
 }
 select {
     -webkit-appearance: none;
