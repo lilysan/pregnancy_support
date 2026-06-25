@@ -119,7 +119,7 @@ $(function () {
     const normalizedLanguageCode = normalizeLang(appLanguageCode);
     window.normalizedLanguageCode = normalizedLanguageCode;
     let currentLanguage = LANGUAGES.find(({ code }) => code === normalizedLanguageCode) || {code: "", label: "-", note: "-"};
-    const currentPagePath = typeof currentPage !== 'undefined' ? currentPage : ''; // HTML側で定義された 'currentPage' 変数を取得
+    const currentPagePath = typeof currentPage !== 'undefined' && currentPage ? currentPage : getCurrentPagePath(appRootUrl);
 
     $currentLanguageEl.text(currentLanguage.label);
     $(".site-title-logo").attr("src", new URL("common/assets/logo.svg", appRootUrl).href);
@@ -240,6 +240,16 @@ $(function () {
         }
 
         return new URL("/", window.location.origin);
+    }
+
+    function getCurrentPagePath(appRootUrl) {
+        const rootPath = appRootUrl && appRootUrl.pathname ? appRootUrl.pathname : "/";
+        const currentPath = window.location.pathname;
+        const relativePath = currentPath.startsWith(rootPath)
+            ? currentPath.slice(rootPath.length)
+            : currentPath.replace(/^\/+/, "");
+        const firstSegment = relativePath.split("/").filter(Boolean)[0] || "";
+        return firstSegment.replace(/\/?index\.html$/, "");
     }
 
     function getCommonScriptUrl(fileName) {

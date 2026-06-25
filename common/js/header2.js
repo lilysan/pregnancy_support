@@ -65,8 +65,8 @@ $(function () {
         }
     ];
 
-    const currentPagePath = typeof currentPage !== "undefined" ? currentPage : "";
     const appRootUrl = getAppRootUrl();
+    const currentPagePath = typeof currentPage !== "undefined" && currentPage ? currentPage : getCurrentPagePath(appRootUrl);
 
     $(".site-title-logo").attr("src", new URL("common/assets/logo.svg", appRootUrl).href);
     $("#langBtn, #languageDropdown").remove();
@@ -153,6 +153,16 @@ $(function () {
         }
 
         return new URL("/", window.location.origin);
+    }
+
+    function getCurrentPagePath(appRootUrl) {
+        const rootPath = appRootUrl && appRootUrl.pathname ? appRootUrl.pathname : "/";
+        const currentPath = window.location.pathname;
+        const relativePath = currentPath.startsWith(rootPath)
+            ? currentPath.slice(rootPath.length)
+            : currentPath.replace(/^\/+/, "");
+        const firstSegment = relativePath.split("/").filter(Boolean)[0] || "";
+        return firstSegment.replace(/\/?index\.html$/, "");
     }
 
     function getCommonScriptUrl(fileName) {
