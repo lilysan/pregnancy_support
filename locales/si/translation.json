@@ -815,8 +815,31 @@
     }
   },
   "guidebook": {
-    "desc": "Links to each language page of the Mom and Baby Support Series, a guidebook about pregnancy and childbirth.",
-    "info": "The links open external RASC pages. You can download PDF guidebooks from each page.",
-    "listLabel": "Guidebook links"
+    "desc": "ඔබගේ ප්‍රදර්ශන භාෂාවට අනුව Mom and Baby Support Series හි PDF පෙන්වයි.",
+    "info": "ඔබගේ ප්‍රදර්ශන භාෂාව සඳහා මාර්ගෝපදේශ පොතක් නොමැති නම් ඉංග්‍රීසි අනුවාදය පෙන්වයි. PDF ගොනු RASC හි බාහිර ගොනු වේ.",
+    "listLabel": "වෙන් කළ PDF ලැයිස්තුව",
+    "bulkTitle": "සියලු පිටු බලන්න",
+    "splitTitle": "එක් එක් පිටුව බලන්න",
+    "pdfTitles": {
+      "bulk": "මව්වරුන් සහ ළදරුවන් සඳහා සහාය මාර්ගෝපදේශය",
+      "split": [
+        "1. ප්‍රසව හා  නාරිවේද වෛද්‍යවරයා  අසන ප්‍රශ්න",
+        "2. රෝහලක් අමතන විට",
+        "3. ජපානයේ දරු ප්‍රසූතිය",
+        "4. ගර්භනී අධිරුධිර පීඩනය",
+        "5. ගර්භණී දියවැඩියාව",
+        "6. ගබ්සාව　සහ නොමේරූ දරු උපත්",
+        "7. B කාණ්ඩයේ Hemolytic　Streptococcus",
+        "8. ප්‍රසව උත්තේජක",
+        "9. උපත් සැලැස්ම",
+        "10. දරු ප්‍රසූතියෙන් පසු ජීවිතය",
+        "11. මව්කිරි දීම",
+        "12. ළදරුවා  පිළිබඳ",
+        "13. සමාජ සම්පත් පිළිබඳ",
+        "14. එන්නත් කිරීම",
+        "15. දරු ප්‍රසූතියට අදාළ බහුලව භාවිතා වන වචන",
+        "ජපානයේ　දරුවන් ප්‍රසූත කල මව්වරුන්ගේ අදහස්"
+      ]
+    }
   }
 }

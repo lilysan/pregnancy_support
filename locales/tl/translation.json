@@ -815,8 +815,31 @@
     }
   },
   "guidebook": {
-    "desc": "Links to each language page of the Mom and Baby Support Series, a guidebook about pregnancy and childbirth.",
-    "info": "The links open external RASC pages. You can download PDF guidebooks from each page.",
-    "listLabel": "Guidebook links"
+    "desc": "Ipinapakita ang mga PDF mula sa Mom and Baby Support Series ayon sa iyong display language.",
+    "info": "Kung walang guidebook para sa iyong display language, ipapakita ang English version. Ang mga PDF ay external files mula sa RASC.",
+    "listLabel": "Listahan ng hiwa-hiwalay na PDF",
+    "bulkTitle": "Tingnan ang lahat ng pahina",
+    "splitTitle": "Tingnan ang bawat pahina",
+    "pdfTitles": {
+      "bulk": "Gabay sa Suporta para sa mga Nanay at Sanggol",
+      "split": [
+        "1. Mga tinatanong nsa OB-Gyne",
+        "2. Pag tatawag ka sa ospital",
+        "3. Ang panganganak sa Japan",
+        "4. Hypertensive Disorder of Pregnancy(HDP)",
+        "5. Gestational Diabetes Mellitus(GDM)",
+        "6. Threatened abortion/Threatened Premature Labor",
+        "7. Group B Streptococcus (GBS)",
+        "8. Labor induction",
+        "9. Plano ng panganganak",
+        "10. Ang buhay pag tapos ng panganganak",
+        "11. Pagbigay ng gatas",
+        "12. Tungkol sa sanggol",
+        "13. Tungkol sa Social Resources",
+        "14. Pagbakuna",
+        "15. Ang mga salitang ginagamit sa pag-anak",
+        "Mga payo mula sa nanay ng ibat-ibang bansa"
+      ]
+    }
   }
 }

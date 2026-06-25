@@ -119,6 +119,7 @@ $(function () {
     const normalizedLanguageCode = normalizeLang(appLanguageCode);
     window.normalizedLanguageCode = normalizedLanguageCode;
     let currentLanguage = LANGUAGES.find(({ code }) => code === normalizedLanguageCode) || {code: "", label: "-", note: "-"};
+    let languageSwitchRequestId = 0;
     const currentPagePath = typeof currentPage !== 'undefined' && currentPage ? currentPage : getCurrentPagePath(appRootUrl);
 
     $currentLanguageEl.text(currentLanguage.label);
@@ -141,7 +142,9 @@ $(function () {
         })
         .then(() => {
             jqueryI18next.init(i18next, $, { useOptionsAttr: true });
-            changeLanguage(normalizedLanguageCode);
+            return changeLanguage(normalizedLanguageCode);
+        })
+        .then(() => {
             document.dispatchEvent(new CustomEvent('i18n-initialized'));
         })
         .catch((err) => {
@@ -297,10 +300,8 @@ $(function () {
     }
 
     function changeLanguage(lng){
-        i18next
-            .changeLanguage(lng)
-            .then(() => $body.localize())
-            .catch((err) => console.error("Language switch failed:", err));
+        const requestId = ++languageSwitchRequestId;
+        window.normalizedLanguageCode = lng;
 
         // 文字の向き LTR or RTL
         $body.attr('dir', rtlLangs.has(lng) ? 'rtl' : 'ltr');
@@ -308,9 +309,16 @@ $(function () {
         // データ取得メニューは日本語以外で非表示にする
         $(".staff-only").toggle(lng === "ja");
 
-        // イベントを発行する
-        const event = new CustomEvent('language-changed', { detail: { langId: lng } });
-        document.dispatchEvent(event);
+        return i18next
+            .changeLanguage(lng)
+            .then(() => {
+                if (requestId !== languageSwitchRequestId) {
+                    return;
+                }
+                $body.localize();
+                document.dispatchEvent(new CustomEvent('language-changed', { detail: { langId: lng } }));
+            })
+            .catch((err) => console.error("Language switch failed:", err));
     }
 
     $langBtn.on('click', () => {

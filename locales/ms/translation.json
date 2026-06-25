@@ -815,8 +815,31 @@
     }
   },
   "guidebook": {
-    "desc": "Links to each language page of the Mom and Baby Support Series, a guidebook about pregnancy and childbirth.",
-    "info": "The links open external RASC pages. You can download PDF guidebooks from each page.",
-    "listLabel": "Guidebook links"
+    "desc": "PDF daripada Mom and Baby Support Series dipaparkan mengikut bahasa paparan anda.",
+    "info": "Jika tiada buku panduan tersedia untuk bahasa paparan anda, versi bahasa Inggeris akan dipaparkan. PDF ialah fail luaran daripada RASC.",
+    "listLabel": "Senarai PDF berasingan",
+    "bulkTitle": "Lihat semua halaman",
+    "splitTitle": "Lihat setiap halaman",
+    "pdfTitles": {
+      "bulk": "Panduan Sokongan untuk Ibu dan Bayi",
+      "split": [
+        "1. Soalan oleh Pakar Perbidanan dan Sakit Puan",
+        "2. Bila Anda Perlu Hubungi Hospital",
+        "3. Melahirkan Bayi di Jepun",
+        "4. Tekanan Darah Tinggi Ketika Hamil HDP",
+        "5. Kencing Manis Ketika Hamil GDM",
+        "6. Ancaman Keguguran dan Kelahiran Pramatang",
+        "7. Streptokokus Grup B BGS",
+        "8. Ubat Merangsang Kontraksi – Induce",
+        "9. Rancagan Kelahiran- Birth Plan",
+        "10. Kehidupan Selepas Bersalin",
+        "11. Menyusu Badan",
+        "12. Mengenai Bayi",
+        "13. Sokongan Masyarakat",
+        "14. Vaksinasi",
+        "15. Istilah Yang Biasa Digunakan Berkaitan Kelahira",
+        "Saranan dari ibu-ibu yang bersalin di Jepun"
+      ]
+    }
   }
 }

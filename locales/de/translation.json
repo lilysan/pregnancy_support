@@ -815,8 +815,31 @@
     }
   },
   "guidebook": {
-    "desc": "Links to each language page of the Mom and Baby Support Series, a guidebook about pregnancy and childbirth.",
-    "info": "The links open external RASC pages. You can download PDF guidebooks from each page.",
-    "listLabel": "Guidebook links"
+    "desc": "PDFs der Reihe „Mom and Baby Support Series“ werden passend zu Ihrer Anzeigesprache angezeigt.",
+    "info": "Wenn für Ihre Anzeigesprache kein Leitfaden verfügbar ist, wird die englische Version angezeigt. Die PDFs sind externe Dateien von RASC.",
+    "listLabel": "Liste der einzelnen PDFs",
+    "bulkTitle": "Alle Seiten ansehen",
+    "splitTitle": "Einzelne Seiten ansehen",
+    "pdfTitles": {
+      "bulk": "Unterstützungsleitfaden für Mütter und Babys",
+      "split": [
+        "1. Was Sie von Frauenarzt gefragt warden",
+        "2. Wenn Sie mit dem Krankenhaus Kontakt aufnehmen",
+        "3. Geburt in Japan",
+        "4. Schwangerschaft-Bluthochdruck- Syndrom (HDP)",
+        "5. Schwangerschaftsdiabetes (GDM)",
+        "6. Drohender Abort, Drohende Fehlgeburt",
+        "7. B-Streptokokken in der Schwangerschaft(GBS)",
+        "8. Geburtseinleitung",
+        "9. Geburtsplan",
+        "10. Alltag nach der Geburt",
+        "11. Stillen",
+        "12. Über ein Baby",
+        "13. Soziale Ressourcen",
+        "14. Schutzimpfungen",
+        "15. Brauchbare Wörter bei der Geburt",
+        "Kolumne: Tipps von der Mütter, die in Japan entbunden haben"
+      ]
+    }
   }
 }

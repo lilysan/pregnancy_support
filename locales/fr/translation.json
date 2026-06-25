@@ -815,8 +815,31 @@
     }
   },
   "guidebook": {
-    "desc": "Links to each language page of the Mom and Baby Support Series, a guidebook about pregnancy and childbirth.",
-    "info": "The links open external RASC pages. You can download PDF guidebooks from each page.",
-    "listLabel": "Guidebook links"
+    "desc": "Les PDF de la série « Mom and Baby Support Series » sont affichés selon votre langue d’affichage.",
+    "info": "Si aucun guide n’est disponible dans votre langue d’affichage, la version anglaise est affichée. Les PDF sont des fichiers externes de RASC.",
+    "listLabel": "Liste des PDF séparés",
+    "bulkTitle": "Voir toutes les pages",
+    "splitTitle": "Voir chaque page",
+    "pdfTitles": {
+      "bulk": "Guide de soutien pour les mamans et les bébés",
+      "split": [
+        "1. Questionnaire chez le gynécologue",
+        "2. Quand partir à la maternité",
+        "3. Accoucher au Japon",
+        "4. Hypertension artérielle gravidique",
+        "5. Diabète gestationnel",
+        "6. Fausse-couche sponanée,Délivrance prématurée spontanée",
+        "7. Streptocoque group B",
+        "8. Déclenchement du travail",
+        "9. Plan de la naissance",
+        "10. La vie après l’accouchement",
+        "11. L’allaitement",
+        "12. Bébé",
+        "13. Les ressources sociales",
+        "14. Vaccination",
+        "15. Terminologies communes sur l’accouchement",
+        "Chronique. Les conseils des mamans étrangeres qui ont accouché au Japon"
+      ]
+    }
   }
 }

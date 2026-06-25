@@ -815,8 +815,31 @@
     }
   },
   "guidebook": {
-    "desc": "Links to each language page of the Mom and Baby Support Series, a guidebook about pregnancy and childbirth.",
-    "info": "The links open external RASC pages. You can download PDF guidebooks from each page.",
-    "listLabel": "Guidebook links"
+    "desc": "Các PDF từ Mom and Baby Support Series được hiển thị theo ngôn ngữ hiển thị của bạn.",
+    "info": "Nếu không có sổ tay cho ngôn ngữ hiển thị của bạn, phiên bản tiếng Anh sẽ được hiển thị. PDF là tệp bên ngoài từ RASC.",
+    "listLabel": "Danh sách PDF tách riêng",
+    "bulkTitle": "Xem tất cả các trang",
+    "splitTitle": "Xem từng trang",
+    "pdfTitles": {
+      "bulk": "Sổ tay hỗ trợ cho mẹ và bé",
+      "split": [
+        "1. Những điều sẽ được hỏi khi đi khám phụ khoa",
+        "2. Khi liên hệ đến bệnh viện",
+        "3. Sinh con ở Nhật",
+        "4. Hội chứng cao huyết áp do mang thai (HDP)",
+        "5. Bệnh tiểu đường do mang thai (GDM)",
+        "6. Dọa xảy thai – Dọa sinh non",
+        "7. Liên cầu khuẩn nhóm B",
+        "8. Thuốc giục sinh",
+        "9. Kế hoạch sinh",
+        "10. Sinh hoạt sau khi sinh",
+        "11. Nuôiconbằngsữamẹ",
+        "12. Điều cần biết về bé",
+        "13. Hỗ trợ xã hội",
+        "14. Tiêm phòng",
+        "15. Các từ/cụm từ hay được dung",
+        "Chuyên mục. Lời khuyên từ các bà mẹ người nước ngoài khác"
+      ]
+    }
   }
 }

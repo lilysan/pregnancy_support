@@ -815,8 +815,31 @@
     }
   },
   "guidebook": {
-    "desc": "Links to each language page of the Mom and Baby Support Series, a guidebook about pregnancy and childbirth.",
-    "info": "The links open external RASC pages. You can download PDF guidebooks from each page.",
-    "listLabel": "Guidebook links"
+    "desc": "표시 언어에 맞는 「엄마와 아기를 위한 지원 시리즈」 PDF를 표시합니다.",
+    "info": "표시 언어에 해당하는 가이드북이 없으면 영어판을 표시합니다. PDF는 RASC의 외부 파일입니다.",
+    "listLabel": "분할 PDF 목록",
+    "bulkTitle": "전체 페이지 보기",
+    "splitTitle": "각 페이지 보기",
+    "pdfTitles": {
+      "bulk": "엄마와 아기를 위한 지원 가이드",
+      "split": [
+        "1. 산부인과에서 질문하는 내용",
+        "2. 병원에 연락을 해야 할 때",
+        "3. 일본의 출산에 대해서",
+        "4. 임신고혈압증후군(HDP)",
+        "5. 임신성당뇨병(GDM)",
+        "6. 절박유산・절박조산",
+        "7. B 군 연쇄상구균(GBS)",
+        "8. 진통촉진제",
+        "9. 출산 계획",
+        "10. 출산 후 생활",
+        "11. 수유",
+        "12. 아기에 대해서",
+        "13. 사회 자원에 대해서",
+        "14. 예방접종",
+        "15. 자주 사용하는 출산에 관한 단어",
+        "칼럼. 일본에서 출산을 한 다양한 나라의 엄마들의 어드바이스"
+      ]
+    }
   }
 }

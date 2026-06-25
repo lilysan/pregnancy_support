@@ -971,8 +971,31 @@
     }
   },
   "guidebook": {
-    "desc": "Links to each language page of the Mom and Baby Support Series, a guidebook about pregnancy and childbirth.",
-    "info": "The links open external RASC pages. You can download PDF guidebooks from each page.",
-    "listLabel": "Guidebook links"
+    "desc": "PDFs from the Mom and Baby Support Series are shown for your display language.",
+    "info": "If no guidebook is available for your display language, the English version is shown. PDFs are external files from RASC.",
+    "listLabel": "Split PDF list",
+    "bulkTitle": "View all pages",
+    "splitTitle": "View each page",
+    "pdfTitles": {
+      "bulk": "The Support Guide for Moms and Babies",
+      "split": [
+        "1. Questions Asked by Obstetrics and Gynecology (OB-GYN)",
+        "2. When You Need to Contact Hospital",
+        "3. Childbirth in Japan",
+        "4. Hypertensive Disorder of Pregnancy (HDP)",
+        "5. Gestational Diabetes Mellitus (GDM)",
+        "6. Threatened Miscarriage ・Preterm Labor",
+        "7. Group B Streptococci",
+        "8. Labor Induction Medications",
+        "9. Birth Plan",
+        "10. The Postpartum Life",
+        "11. Breastfeeding",
+        "12. About Baby",
+        "13. Social Resources",
+        "14. Vaccinations",
+        "15. Words Frequently Used about Childbirth",
+        "Column. Advices from non-Japanese moms who gave birth in Japan"
+      ]
+    }
   }
 }

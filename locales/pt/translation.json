@@ -815,8 +815,31 @@
     }
   },
   "guidebook": {
-    "desc": "Links to each language page of the Mom and Baby Support Series, a guidebook about pregnancy and childbirth.",
-    "info": "The links open external RASC pages. You can download PDF guidebooks from each page.",
-    "listLabel": "Guidebook links"
+    "desc": "Os PDFs da série Mom and Baby Support Series são exibidos de acordo com o idioma de exibição.",
+    "info": "Se não houver guia disponível para o idioma de exibição, a versão em inglês será exibida. Os PDFs são arquivos externos da RASC.",
+    "listLabel": "Lista de PDFs separados",
+    "bulkTitle": "Ver todas as páginas",
+    "splitTitle": "Ver cada página",
+    "pdfTitles": {
+      "bulk": "Guia de Apoio para Mães e Bebês",
+      "split": [
+        "1. Perguntas feitas pelo ginecologista",
+        "2. Quando comunicar o hospital?",
+        "3. Sobre o parto no Japão",
+        "4. Doença Hipertensiva Específica da Gestação (DHEG)",
+        "5. Diabetes Mellitus Gestacional(DMG)",
+        "6. Aborto e parto prematuro iminentes",
+        "7. Bactéria Estreptococos do Grupo B(EGB)",
+        "8. Sobre a indução do parto",
+        "9. Plano de nascimento",
+        "10. Cotidiano pós-parto",
+        "11. Amamentaçã",
+        "12. Sobre o recém-nascido",
+        "13. Sobre recursos sociais",
+        "14. Vacinação",
+        "15. Termos comuns ao parto",
+        "Coluna. Conselhos de mães de outros países que tiveram o parto no Japão"
+      ]
+    }
   }
 }

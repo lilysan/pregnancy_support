@@ -19,21 +19,35 @@
         main {
             padding-bottom: 40px;
         }
+        .guidebook-section {
+            margin-top: 24px;
+        }
 
         .guidebook-list {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-top: 16px;
+            margin-top: 12px;
         }
 
         .guidebook-link {
             display: grid;
-            grid-template-columns: 1fr auto;
+            grid-template-columns: 44px 1fr auto;
             gap: 12px;
             align-items: center;
             color: var(--text);
             text-decoration: none;
+        }
+
+        .guidebook-link-visual {
+            display: inline-flex;
+            width: 44px;
+            height: 44px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(79, 124, 138, 0.12), rgba(255, 255, 255, 0.92));
+            color: var(--primary-dark);
         }
 
         .guidebook-link:focus-visible {
@@ -41,23 +55,35 @@
             outline-offset: 3px;
         }
 
-        .guidebook-language-ja,
-        .guidebook-language-native {
+        .guidebook-link-title,
+        .guidebook-link-meta {
             margin: 0;
             line-height: 1.45;
         }
 
-        .guidebook-language-ja {
+        .guidebook-link-title {
             font-weight: 700;
         }
 
-        .guidebook-language-native {
+        .guidebook-link-meta {
             color: var(--sub-text);
-            font-size: 15px;
+            font-size: 13px;
         }
 
         .guidebook-link-icon {
             color: var(--primary-dark);
+        }
+
+        @media (max-width: 480px) {
+            .guidebook-link {
+                grid-template-columns: 40px 1fr auto;
+            }
+
+            .guidebook-link-visual {
+                width: 40px;
+                height: 40px;
+                border-radius: 14px;
+            }
         }
     </style>
 </head>
@@ -67,17 +93,25 @@
 <main>
     <article class="main-container">
         <h1 data-i18n="[html]title.guidebook">ガイドブック</h1>
-        <p class="desc" data-i18n="[html]guidebook.desc">妊娠・出産に関する冊子「ママとあかちゃんのサポートシリーズ」の各言語ページへのリンク集です。</p>
+        <p class="desc" data-i18n="[html]guidebook.desc">表示言語に対応する「ママとあかちゃんのサポートシリーズ」のPDFを表示します。</p>
         <div class="card card-info">
             <div class="state-card-inner">
                 <iconify-icon icon="material-symbols:info-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
                 <div>
-                    <p class="small" data-i18n="[html]guidebook.info">リンク先はRASC（多文化医療サービス研究会）の外部ページです。各ページからPDF冊子をダウンロードできます。</p>
+                    <p class="small" data-i18n="[html]guidebook.info">表示言語に対応する冊子がない場合は英語版を表示します。PDFはRASC（多文化医療サービス研究会）の外部ファイルです。</p>
                 </div>
             </div>
         </div>
 
-        <section class="guidebook-list" id="guidebookList" aria-label="冊子リンク一覧" data-i18n="[aria-label]guidebook.listLabel"></section>
+        <section class="guidebook-section" aria-labelledby="guidebookBulkTitle">
+            <h2 id="guidebookBulkTitle" data-i18n="[html]guidebook.bulkTitle">全ページを見る</h2>
+            <div id="guidebookBulkLink"></div>
+        </section>
+
+        <section class="guidebook-section" aria-labelledby="guidebookSplitTitle">
+            <h2 id="guidebookSplitTitle" data-i18n="[html]guidebook.splitTitle">各ページを見る</h2>
+            <div class="guidebook-list" id="guidebookSplitList" aria-label="分割PDF一覧" data-i18n="[aria-label]guidebook.listLabel"></div>
+        </section>
     </article>
 </main>
 
@@ -87,31 +121,474 @@
 
 <script>
     const currentPage = "guidebook";
-
-    const GUIDEBOOK_LINKS = [
-        {label: "英語 / English", nativeName: "English", url: "https://rasc.jp/momandbaby/english/"},
-        {label: "中国語 / 中文版", nativeName: "中文版", url: "https://rasc.jp/momandbaby/chinese/"},
-        {label: "フランス語 / Français", nativeName: "Français", url: "https://rasc.jp/momandbaby/french/"},
-        {label: "韓国語 / 한국어", nativeName: "한국어", url: "https://rasc.jp/momandbaby/korean/"},
-        {label: "ポルトガル語 / Português", nativeName: "Português", url: "https://rasc.jp/momandbaby/portuguese/"},
-        {label: "タガログ語 / TAGALOG", nativeName: "TAGALOG", url: "https://rasc.jp/momandbaby/tagalog/"},
-        {label: "ベトナム語 / Tiếng Việt", nativeName: "Tiếng Việt", url: "https://rasc.jp/momandbaby/vietnamese/"},
-        {label: "タイ語 / ภาษาไทย", nativeName: "ภาษาไทย", url: "https://rasc.jp/momandbaby/thai/"},
-        {label: "ドイツ語 / Deutsch", nativeName: "Deutsch", url: "https://rasc.jp/momandbaby/german/"},
-        {label: "インドネシア語 / Bahasa Indonesia", nativeName: "Bahasa Indonesia", url: "https://rasc.jp/momandbaby/indonesia/"},
-        {label: "ロシア語 / Русский", nativeName: "Русский", url: "https://rasc.jp/momandbaby/russian/"},
-        {label: "ネパール語 / नेपाली", nativeName: "नेपाली", url: "https://rasc.jp/momandbaby/nepali/"},
-        {label: "ラオス語 / ພາສາລາວ", nativeName: "ພາສາລາວ", url: "https://rasc.jp/momandbaby/laotian/"},
-        {label: "ウクライナ語 / Українська", nativeName: "Українська", url: "https://rasc.jp/momandbaby/ukrainian/"},
-        {label: "ダリ語 / Dari", nativeName: "Dari", url: "https://rasc.jp/momandbaby/dari/"},
-        {label: "シンハラ語 / සිංහල", nativeName: "සිංහල", url: "https://rasc.jp/momandbaby/sinhala/"},
-        {label: "マレー語 / Bahasa Melayu", nativeName: "Bahasa Melayu", url: "https://rasc.jp/momandbaby/malay/"},
-        {label: "ミャンマー語 / မြန်မာဘာသာ", nativeName: "မြန်မာဘာသာ", url: "https://rasc.jp/momandbaby/myanmar/"},
-        {label: "ベンガル語 / বাংলা", nativeName: "বাংলা", url: "https://rasc.jp/momandbaby/momandbaby-bengali/"},
-        {label: "ウルドゥー語 / اردو", nativeName: "اردو", url: "https://rasc.jp/momandbaby/urdu/"}
+    const GUIDEBOOK_PAGE_ICONS = [
+        "material-symbols:chat",
+        "material-symbols:call",
+        "material-symbols:pregnant-woman-rounded",
+        "material-symbols:monitor-heart-rounded",
+        "material-symbols:water-drop-rounded",
+        "material-symbols:event-busy-rounded",
+        "material-symbols:biotech-rounded",
+        "material-symbols:medication-rounded",
+        "material-symbols:edit-note-rounded",
+        "material-symbols:home-health-rounded",
+        "material-symbols:breastfeeding",
+        "material-symbols:crib-rounded",
+        "material-symbols:diversity-3-rounded",
+        "material-symbols:vaccines-rounded",
+        "material-symbols:translate-rounded",
+        "material-symbols:tips-and-updates-rounded"
     ];
 
+    const GUIDEBOOK_DATA = {
+      "en": {
+            "sourceUrl": "https://rasc.jp/momandbaby/english/",
+            "bulk": "https://rasc.jp/wp-content/uploads/英語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/english01.pdf",
+                  "https://rasc.jp/wp-content/uploads/english02.pdf",
+                  "https://rasc.jp/wp-content/uploads/english03.pdf",
+                  "https://rasc.jp/wp-content/uploads/english04.pdf",
+                  "https://rasc.jp/wp-content/uploads/english05.pdf",
+                  "https://rasc.jp/wp-content/uploads/english06.pdf",
+                  "https://rasc.jp/wp-content/uploads/english07.pdf",
+                  "https://rasc.jp/wp-content/uploads/english08.pdf",
+                  "https://rasc.jp/wp-content/uploads/english09.pdf",
+                  "https://rasc.jp/wp-content/uploads/english10.pdf",
+                  "https://rasc.jp/wp-content/uploads/english11.pdf",
+                  "https://rasc.jp/wp-content/uploads/english12.pdf",
+                  "https://rasc.jp/wp-content/uploads/english13.pdf",
+                  "https://rasc.jp/wp-content/uploads/english14.pdf",
+                  "https://rasc.jp/wp-content/uploads/english15.pdf",
+                  "https://rasc.jp/wp-content/uploads/english98.pdf"
+            ]
+      },
+      "zh": {
+            "sourceUrl": "https://rasc.jp/momandbaby/chinese/",
+            "bulk": "https://rasc.jp/wp-content/uploads/中国語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/chinese01.pdf",
+                  "https://rasc.jp/wp-content/uploads/chinese02.pdf",
+                  "https://rasc.jp/wp-content/uploads/chinese03.pdf",
+                  "https://rasc.jp/wp-content/uploads/chinese04.pdf",
+                  "https://rasc.jp/wp-content/uploads/chinese05.pdf",
+                  "https://rasc.jp/wp-content/uploads/chinese06.pdf",
+                  "https://rasc.jp/wp-content/uploads/chinese07.pdf",
+                  "https://rasc.jp/wp-content/uploads/chinese08.pdf",
+                  "https://rasc.jp/wp-content/uploads/chinese09.pdf",
+                  "https://rasc.jp/wp-content/uploads/chinese10.pdf",
+                  "https://rasc.jp/wp-content/uploads/chinese11.pdf",
+                  "https://rasc.jp/wp-content/uploads/chinese12.pdf",
+                  "https://rasc.jp/wp-content/uploads/chinese13.pdf",
+                  "https://rasc.jp/wp-content/uploads/chinese14.pdf",
+                  "https://rasc.jp/wp-content/uploads/chinese15.pdf",
+                  "https://rasc.jp/wp-content/uploads/chinese98.pdf"
+            ]
+      },
+      "fr": {
+            "sourceUrl": "https://rasc.jp/momandbaby/french/",
+            "bulk": "https://rasc.jp/wp-content/uploads/フランス語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/french01.pdf",
+                  "https://rasc.jp/wp-content/uploads/french02.pdf",
+                  "https://rasc.jp/wp-content/uploads/french03.pdf",
+                  "https://rasc.jp/wp-content/uploads/french04.pdf",
+                  "https://rasc.jp/wp-content/uploads/french05.pdf",
+                  "https://rasc.jp/wp-content/uploads/french06.pdf",
+                  "https://rasc.jp/wp-content/uploads/french07.pdf",
+                  "https://rasc.jp/wp-content/uploads/french08.pdf",
+                  "https://rasc.jp/wp-content/uploads/french09.pdf",
+                  "https://rasc.jp/wp-content/uploads/french10.pdf",
+                  "https://rasc.jp/wp-content/uploads/french11.pdf",
+                  "https://rasc.jp/wp-content/uploads/french12.pdf",
+                  "https://rasc.jp/wp-content/uploads/french13.pdf",
+                  "https://rasc.jp/wp-content/uploads/french14.pdf",
+                  "https://rasc.jp/wp-content/uploads/french15.pdf",
+                  "https://rasc.jp/wp-content/uploads/french98.pdf"
+            ]
+      },
+      "ko": {
+            "sourceUrl": "https://rasc.jp/momandbaby/korean/",
+            "bulk": "https://rasc.jp/wp-content/uploads/ハングル版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/korean01.pdf",
+                  "https://rasc.jp/wp-content/uploads/korean02.pdf",
+                  "https://rasc.jp/wp-content/uploads/korean03.pdf",
+                  "https://rasc.jp/wp-content/uploads/korean04.pdf",
+                  "https://rasc.jp/wp-content/uploads/korean05.pdf",
+                  "https://rasc.jp/wp-content/uploads/korean06.pdf",
+                  "https://rasc.jp/wp-content/uploads/korean07.pdf",
+                  "https://rasc.jp/wp-content/uploads/korean08.pdf",
+                  "https://rasc.jp/wp-content/uploads/korean09.pdf",
+                  "https://rasc.jp/wp-content/uploads/korean10.pdf",
+                  "https://rasc.jp/wp-content/uploads/korean11.pdf",
+                  "https://rasc.jp/wp-content/uploads/korean12.pdf",
+                  "https://rasc.jp/wp-content/uploads/korean13.pdf",
+                  "https://rasc.jp/wp-content/uploads/korean14.pdf",
+                  "https://rasc.jp/wp-content/uploads/korean15.pdf",
+                  "https://rasc.jp/wp-content/uploads/korean98.pdf"
+            ]
+      },
+      "pt": {
+            "sourceUrl": "https://rasc.jp/momandbaby/portuguese/",
+            "bulk": "https://rasc.jp/wp-content/uploads/ポルトガル語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/portuguese01.pdf",
+                  "https://rasc.jp/wp-content/uploads/portuguese02.pdf",
+                  "https://rasc.jp/wp-content/uploads/portuguese03.pdf",
+                  "https://rasc.jp/wp-content/uploads/portuguese04.pdf",
+                  "https://rasc.jp/wp-content/uploads/portuguese05.pdf",
+                  "https://rasc.jp/wp-content/uploads/portuguese06.pdf",
+                  "https://rasc.jp/wp-content/uploads/portuguese07.pdf",
+                  "https://rasc.jp/wp-content/uploads/portuguese08.pdf",
+                  "https://rasc.jp/wp-content/uploads/portuguese09.pdf",
+                  "https://rasc.jp/wp-content/uploads/portuguese10.pdf",
+                  "https://rasc.jp/wp-content/uploads/portuguese11.pdf",
+                  "https://rasc.jp/wp-content/uploads/portuguese12.pdf",
+                  "https://rasc.jp/wp-content/uploads/portuguese13.pdf",
+                  "https://rasc.jp/wp-content/uploads/portuguese14.pdf",
+                  "https://rasc.jp/wp-content/uploads/portuguese15.pdf",
+                  "https://rasc.jp/wp-content/uploads/portuguese98.pdf"
+            ]
+      },
+      "tl": {
+            "sourceUrl": "https://rasc.jp/momandbaby/tagalog/",
+            "bulk": "https://rasc.jp/wp-content/uploads/タガログ語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/tagalog01.pdf",
+                  "https://rasc.jp/wp-content/uploads/tagalog02.pdf",
+                  "https://rasc.jp/wp-content/uploads/tagalog03.pdf",
+                  "https://rasc.jp/wp-content/uploads/tagalog04.pdf",
+                  "https://rasc.jp/wp-content/uploads/tagalog05.pdf",
+                  "https://rasc.jp/wp-content/uploads/tagalog06.pdf",
+                  "https://rasc.jp/wp-content/uploads/tagalog07.pdf",
+                  "https://rasc.jp/wp-content/uploads/tagalog08.pdf",
+                  "https://rasc.jp/wp-content/uploads/tagalog09.pdf",
+                  "https://rasc.jp/wp-content/uploads/tagalog10.pdf",
+                  "https://rasc.jp/wp-content/uploads/tagalog11.pdf",
+                  "https://rasc.jp/wp-content/uploads/tagalog12.pdf",
+                  "https://rasc.jp/wp-content/uploads/tagalog13.pdf",
+                  "https://rasc.jp/wp-content/uploads/tagalog14.pdf",
+                  "https://rasc.jp/wp-content/uploads/tagalog15.pdf",
+                  "https://rasc.jp/wp-content/uploads/tagalog98.pdf"
+            ]
+      },
+      "vi": {
+            "sourceUrl": "https://rasc.jp/momandbaby/vietnamese/",
+            "bulk": "https://rasc.jp/wp-content/uploads/ベトナム語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/vietnamese01.pdf",
+                  "https://rasc.jp/wp-content/uploads/vietnamese02.pdf",
+                  "https://rasc.jp/wp-content/uploads/vietnamese03.pdf",
+                  "https://rasc.jp/wp-content/uploads/vietnamese04.pdf",
+                  "https://rasc.jp/wp-content/uploads/vietnamese05.pdf",
+                  "https://rasc.jp/wp-content/uploads/vietnamese06.pdf",
+                  "https://rasc.jp/wp-content/uploads/vietnamese07.pdf",
+                  "https://rasc.jp/wp-content/uploads/vietnamese08.pdf",
+                  "https://rasc.jp/wp-content/uploads/vietnamese09.pdf",
+                  "https://rasc.jp/wp-content/uploads/vietnamese10.pdf",
+                  "https://rasc.jp/wp-content/uploads/vietnamese11.pdf",
+                  "https://rasc.jp/wp-content/uploads/vietnamese12.pdf",
+                  "https://rasc.jp/wp-content/uploads/vietnamese13.pdf",
+                  "https://rasc.jp/wp-content/uploads/vietnamese14.pdf",
+                  "https://rasc.jp/wp-content/uploads/vietnamese15.pdf",
+                  "https://rasc.jp/wp-content/uploads/vietnamese98.pdf"
+            ]
+      },
+      "th": {
+            "sourceUrl": "https://rasc.jp/momandbaby/thai/",
+            "bulk": "https://rasc.jp/wp-content/uploads/タイ語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/thai01.pdf",
+                  "https://rasc.jp/wp-content/uploads/thai02.pdf",
+                  "https://rasc.jp/wp-content/uploads/thai03.pdf",
+                  "https://rasc.jp/wp-content/uploads/thai04.pdf",
+                  "https://rasc.jp/wp-content/uploads/thai05.pdf",
+                  "https://rasc.jp/wp-content/uploads/thai06.pdf",
+                  "https://rasc.jp/wp-content/uploads/thai07.pdf",
+                  "https://rasc.jp/wp-content/uploads/thai08.pdf",
+                  "https://rasc.jp/wp-content/uploads/thai09.pdf",
+                  "https://rasc.jp/wp-content/uploads/thai10.pdf",
+                  "https://rasc.jp/wp-content/uploads/thai11.pdf",
+                  "https://rasc.jp/wp-content/uploads/thai12.pdf",
+                  "https://rasc.jp/wp-content/uploads/thai13.pdf",
+                  "https://rasc.jp/wp-content/uploads/thai14.pdf",
+                  "https://rasc.jp/wp-content/uploads/thai15.pdf",
+                  "https://rasc.jp/wp-content/uploads/thai98.pdf"
+            ]
+      },
+      "de": {
+            "sourceUrl": "https://rasc.jp/momandbaby/german/",
+            "bulk": "https://rasc.jp/wp-content/uploads/ドイツ語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/german01.pdf",
+                  "https://rasc.jp/wp-content/uploads/german02.pdf",
+                  "https://rasc.jp/wp-content/uploads/german03.pdf",
+                  "https://rasc.jp/wp-content/uploads/german04.pdf",
+                  "https://rasc.jp/wp-content/uploads/german05.pdf",
+                  "https://rasc.jp/wp-content/uploads/german06.pdf",
+                  "https://rasc.jp/wp-content/uploads/german07.pdf",
+                  "https://rasc.jp/wp-content/uploads/german08.pdf",
+                  "https://rasc.jp/wp-content/uploads/german09.pdf",
+                  "https://rasc.jp/wp-content/uploads/german10.pdf",
+                  "https://rasc.jp/wp-content/uploads/german11.pdf",
+                  "https://rasc.jp/wp-content/uploads/german12.pdf",
+                  "https://rasc.jp/wp-content/uploads/german13.pdf",
+                  "https://rasc.jp/wp-content/uploads/german14.pdf",
+                  "https://rasc.jp/wp-content/uploads/german15.pdf",
+                  "https://rasc.jp/wp-content/uploads/german98.pdf"
+            ]
+      },
+      "id": {
+            "sourceUrl": "https://rasc.jp/momandbaby/indonesia/",
+            "bulk": "https://rasc.jp/wp-content/uploads/インドネシア語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/indonesian01.pdf",
+                  "https://rasc.jp/wp-content/uploads/indonesian02.pdf",
+                  "https://rasc.jp/wp-content/uploads/indonesian03.pdf",
+                  "https://rasc.jp/wp-content/uploads/indonesian04.pdf",
+                  "https://rasc.jp/wp-content/uploads/indonesian05.pdf",
+                  "https://rasc.jp/wp-content/uploads/indonesian06.pdf",
+                  "https://rasc.jp/wp-content/uploads/indonesian07.pdf",
+                  "https://rasc.jp/wp-content/uploads/indonesian08.pdf",
+                  "https://rasc.jp/wp-content/uploads/indonesian09.pdf",
+                  "https://rasc.jp/wp-content/uploads/indonesian10.pdf",
+                  "https://rasc.jp/wp-content/uploads/indonesian11.pdf",
+                  "https://rasc.jp/wp-content/uploads/indonesian12.pdf",
+                  "https://rasc.jp/wp-content/uploads/indonesian13.pdf",
+                  "https://rasc.jp/wp-content/uploads/indonesian14.pdf",
+                  "https://rasc.jp/wp-content/uploads/indonesian15.pdf",
+                  "https://rasc.jp/wp-content/uploads/indonesian98.pdf"
+            ]
+      },
+      "ru": {
+            "sourceUrl": "https://rasc.jp/momandbaby/russian/",
+            "bulk": "https://rasc.jp/wp-content/uploads/ロシア語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/russian01.pdf",
+                  "https://rasc.jp/wp-content/uploads/russian02.pdf",
+                  "https://rasc.jp/wp-content/uploads/russian03.pdf",
+                  "https://rasc.jp/wp-content/uploads/russian04.pdf",
+                  "https://rasc.jp/wp-content/uploads/russian05.pdf",
+                  "https://rasc.jp/wp-content/uploads/russian06.pdf",
+                  "https://rasc.jp/wp-content/uploads/russian07.pdf",
+                  "https://rasc.jp/wp-content/uploads/russian08.pdf",
+                  "https://rasc.jp/wp-content/uploads/russian09.pdf",
+                  "https://rasc.jp/wp-content/uploads/russian10.pdf",
+                  "https://rasc.jp/wp-content/uploads/russian11.pdf",
+                  "https://rasc.jp/wp-content/uploads/russian12.pdf",
+                  "https://rasc.jp/wp-content/uploads/russian13.pdf",
+                  "https://rasc.jp/wp-content/uploads/russian14.pdf",
+                  "https://rasc.jp/wp-content/uploads/russian15.pdf",
+                  "https://rasc.jp/wp-content/uploads/russian98.pdf"
+            ]
+      },
+      "ne": {
+            "sourceUrl": "https://rasc.jp/momandbaby/nepali/",
+            "bulk": "https://rasc.jp/wp-content/uploads/ネパール語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/nepalese01.pdf",
+                  "https://rasc.jp/wp-content/uploads/nepalese02.pdf",
+                  "https://rasc.jp/wp-content/uploads/nepalese03.pdf",
+                  "https://rasc.jp/wp-content/uploads/nepalese04.pdf",
+                  "https://rasc.jp/wp-content/uploads/nepalese05.pdf",
+                  "https://rasc.jp/wp-content/uploads/nepalese06.pdf",
+                  "https://rasc.jp/wp-content/uploads/nepalese07.pdf",
+                  "https://rasc.jp/wp-content/uploads/nepalese08.pdf",
+                  "https://rasc.jp/wp-content/uploads/nepalese09.pdf",
+                  "https://rasc.jp/wp-content/uploads/nepalese10.pdf",
+                  "https://rasc.jp/wp-content/uploads/nepalese11.pdf",
+                  "https://rasc.jp/wp-content/uploads/nepalese12.pdf",
+                  "https://rasc.jp/wp-content/uploads/nepalese13.pdf",
+                  "https://rasc.jp/wp-content/uploads/nepalese14.pdf",
+                  "https://rasc.jp/wp-content/uploads/nepalese15.pdf",
+                  "https://rasc.jp/wp-content/uploads/nepalese98.pdf"
+            ]
+      },
+      "lo": {
+            "sourceUrl": "https://rasc.jp/momandbaby/laotian/",
+            "bulk": "https://rasc.jp/wp-content/uploads/ラオス語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/laotian01.pdf",
+                  "https://rasc.jp/wp-content/uploads/laotian02.pdf",
+                  "https://rasc.jp/wp-content/uploads/laotian03.pdf",
+                  "https://rasc.jp/wp-content/uploads/laotian04.pdf",
+                  "https://rasc.jp/wp-content/uploads/laotian05.pdf",
+                  "https://rasc.jp/wp-content/uploads/laotian06.pdf",
+                  "https://rasc.jp/wp-content/uploads/laotian07.pdf",
+                  "https://rasc.jp/wp-content/uploads/laotian08.pdf",
+                  "https://rasc.jp/wp-content/uploads/laotian09.pdf",
+                  "https://rasc.jp/wp-content/uploads/laotian10.pdf",
+                  "https://rasc.jp/wp-content/uploads/laotian11.pdf",
+                  "https://rasc.jp/wp-content/uploads/laotian12.pdf",
+                  "https://rasc.jp/wp-content/uploads/laotian13.pdf",
+                  "https://rasc.jp/wp-content/uploads/laotian14.pdf",
+                  "https://rasc.jp/wp-content/uploads/laotian15.pdf",
+                  "https://rasc.jp/wp-content/uploads/laotian98.pdf"
+            ]
+      },
+      "uk": {
+            "sourceUrl": "https://rasc.jp/momandbaby/ukrainian/",
+            "bulk": "https://rasc.jp/wp-content/uploads/ukrainian-ウクライナ語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/ukrainian01-産婦人科で聞かれること.pdf",
+                  "https://rasc.jp/wp-content/uploads/ukrainian02-病院に連絡するとき.pdf",
+                  "https://rasc.jp/wp-content/uploads/ukrainian03-日本の出産について.pdf",
+                  "https://rasc.jp/wp-content/uploads/ukrainian04-HDP.pdf",
+                  "https://rasc.jp/wp-content/uploads/ukrainian05-GDM.pdf",
+                  "https://rasc.jp/wp-content/uploads/ukrainian06-切迫流早産.pdf",
+                  "https://rasc.jp/wp-content/uploads/ukrainian07-GBS.pdf",
+                  "https://rasc.jp/wp-content/uploads/ukrainian08-陣痛促進剤.pdf",
+                  "https://rasc.jp/wp-content/uploads/ukrainian09-バースプラン.pdf",
+                  "https://rasc.jp/wp-content/uploads/ukrainian10-出産のあとの生活.pdf",
+                  "https://rasc.jp/wp-content/uploads/ukrainian11-授乳.pdf",
+                  "https://rasc.jp/wp-content/uploads/ukrainian12-赤ちゃんについて.pdf",
+                  "https://rasc.jp/wp-content/uploads/ukrainian13-社会資源について.pdf",
+                  "https://rasc.jp/wp-content/uploads/ukrainian14-予防接種.pdf",
+                  "https://rasc.jp/wp-content/uploads/ukrainian15-よく使うことば.pdf",
+                  "https://rasc.jp/wp-content/uploads/ukrainian98-コラム.pdf"
+            ]
+      },
+      "prs": {
+            "sourceUrl": "https://rasc.jp/momandbaby/dari/",
+            "bulk": "https://rasc.jp/wp-content/uploads/ダリ語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/dari01.pdf",
+                  "https://rasc.jp/wp-content/uploads/dari02.pdf",
+                  "https://rasc.jp/wp-content/uploads/dari03.pdf",
+                  "https://rasc.jp/wp-content/uploads/dari04.pdf",
+                  "https://rasc.jp/wp-content/uploads/dari05.pdf",
+                  "https://rasc.jp/wp-content/uploads/dari06.pdf",
+                  "https://rasc.jp/wp-content/uploads/dari07.pdf",
+                  "https://rasc.jp/wp-content/uploads/dari08.pdf",
+                  "https://rasc.jp/wp-content/uploads/english09.pdf",
+                  "https://rasc.jp/wp-content/uploads/dari10.pdf",
+                  "https://rasc.jp/wp-content/uploads/dari11.pdf",
+                  "https://rasc.jp/wp-content/uploads/dari12.pdf",
+                  "https://rasc.jp/wp-content/uploads/dari13.pdf",
+                  "https://rasc.jp/wp-content/uploads/dari14.pdf",
+                  "https://rasc.jp/wp-content/uploads/dari15.pdf",
+                  "https://rasc.jp/wp-content/uploads/dari98.pdf"
+            ]
+      },
+      "si": {
+            "sourceUrl": "https://rasc.jp/momandbaby/sinhala/",
+            "bulk": "https://rasc.jp/wp-content/uploads/シンハラ語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/sinhala01.pdf",
+                  "https://rasc.jp/wp-content/uploads/sinhala02.pdf",
+                  "https://rasc.jp/wp-content/uploads/sinhala03.pdf",
+                  "https://rasc.jp/wp-content/uploads/sinhala04.pdf",
+                  "https://rasc.jp/wp-content/uploads/sinhala05.pdf",
+                  "https://rasc.jp/wp-content/uploads/sinhala06.pdf",
+                  "https://rasc.jp/wp-content/uploads/sinhala07.pdf",
+                  "https://rasc.jp/wp-content/uploads/sinhala08.pdf",
+                  "https://rasc.jp/wp-content/uploads/sinhala09.pdf",
+                  "https://rasc.jp/wp-content/uploads/sinhala10.pdf",
+                  "https://rasc.jp/wp-content/uploads/sinhala11.pdf",
+                  "https://rasc.jp/wp-content/uploads/sinhala12.pdf",
+                  "https://rasc.jp/wp-content/uploads/sinhala13.pdf",
+                  "https://rasc.jp/wp-content/uploads/sinhala14.pdf",
+                  "https://rasc.jp/wp-content/uploads/sinhala15.pdf",
+                  "https://rasc.jp/wp-content/uploads/sinhala98.pdf"
+            ]
+      },
+      "ms": {
+            "sourceUrl": "https://rasc.jp/momandbaby/malay/",
+            "bulk": "https://rasc.jp/wp-content/uploads/マレー語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/malay01.pdf",
+                  "https://rasc.jp/wp-content/uploads/malay02.pdf",
+                  "https://rasc.jp/wp-content/uploads/malay03.pdf",
+                  "https://rasc.jp/wp-content/uploads/malay04.pdf",
+                  "https://rasc.jp/wp-content/uploads/malay05.pdf",
+                  "https://rasc.jp/wp-content/uploads/malay06.pdf",
+                  "https://rasc.jp/wp-content/uploads/malay07.pdf",
+                  "https://rasc.jp/wp-content/uploads/malay08.pdf",
+                  "https://rasc.jp/wp-content/uploads/malay09.pdf",
+                  "https://rasc.jp/wp-content/uploads/malay10.pdf",
+                  "https://rasc.jp/wp-content/uploads/malay11.pdf",
+                  "https://rasc.jp/wp-content/uploads/malay12.pdf",
+                  "https://rasc.jp/wp-content/uploads/malay13.pdf",
+                  "https://rasc.jp/wp-content/uploads/malay14.pdf",
+                  "https://rasc.jp/wp-content/uploads/malay15.pdf",
+                  "https://rasc.jp/wp-content/uploads/malay98.pdf"
+            ]
+      },
+      "my": {
+            "sourceUrl": "https://rasc.jp/momandbaby/myanmar/",
+            "bulk": "https://rasc.jp/wp-content/uploads/ミャンマー語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/myanmar01.pdf",
+                  "https://rasc.jp/wp-content/uploads/myanmar02.pdf",
+                  "https://rasc.jp/wp-content/uploads/myanmar03.pdf",
+                  "https://rasc.jp/wp-content/uploads/myanmar04.pdf",
+                  "https://rasc.jp/wp-content/uploads/myanmar05.pdf",
+                  "https://rasc.jp/wp-content/uploads/myanmar06.pdf",
+                  "https://rasc.jp/wp-content/uploads/myanmar07.pdf",
+                  "https://rasc.jp/wp-content/uploads/myanmar08.pdf",
+                  "https://rasc.jp/wp-content/uploads/english09.pdf",
+                  "https://rasc.jp/wp-content/uploads/myanmar10.pdf",
+                  "https://rasc.jp/wp-content/uploads/myanmar11.pdf",
+                  "https://rasc.jp/wp-content/uploads/myanmar12.pdf",
+                  "https://rasc.jp/wp-content/uploads/myanmar13.pdf",
+                  "https://rasc.jp/wp-content/uploads/myanmar14.pdf",
+                  "https://rasc.jp/wp-content/uploads/myanmar15.pdf",
+                  "https://rasc.jp/wp-content/uploads/myanmar98.pdf"
+            ]
+      },
+      "bn": {
+            "sourceUrl": "https://rasc.jp/momandbaby/momandbaby-bengali/",
+            "bulk": "https://rasc.jp/wp-content/uploads/ベンガル語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/Bengali01.pdf",
+                  "https://rasc.jp/wp-content/uploads/Bengali02.pdf",
+                  "https://rasc.jp/wp-content/uploads/Bengali03.pdf",
+                  "https://rasc.jp/wp-content/uploads/Bengali04.pdf",
+                  "https://rasc.jp/wp-content/uploads/Bengali05.pdf",
+                  "https://rasc.jp/wp-content/uploads/Bengali06.pdf",
+                  "https://rasc.jp/wp-content/uploads/Bengali07.pdf",
+                  "https://rasc.jp/wp-content/uploads/Bengali08.pdf",
+                  "https://rasc.jp/wp-content/uploads/Bengali09　.pdf",
+                  "https://rasc.jp/wp-content/uploads/Bengali10　.pdf",
+                  "https://rasc.jp/wp-content/uploads/Bengali11.pdf",
+                  "https://rasc.jp/wp-content/uploads/Bengali12.pdf",
+                  "https://rasc.jp/wp-content/uploads/Bengali13.pdf",
+                  "https://rasc.jp/wp-content/uploads/Bengali14.pdf",
+                  "https://rasc.jp/wp-content/uploads/Bengali15.pdf",
+                  "https://rasc.jp/wp-content/uploads/Bengali98　.pdf"
+            ]
+      },
+      "ur": {
+            "sourceUrl": "https://rasc.jp/momandbaby/urdu/",
+            "bulk": "https://rasc.jp/wp-content/uploads/ウルドゥー語版.pdf",
+            "split": [
+                  "https://rasc.jp/wp-content/uploads/urdu01.pdf",
+                  "https://rasc.jp/wp-content/uploads/urdu02.pdf",
+                  "https://rasc.jp/wp-content/uploads/urdu03.pdf",
+                  "https://rasc.jp/wp-content/uploads/urdu04.pdf",
+                  "https://rasc.jp/wp-content/uploads/urdu05.pdf",
+                  "https://rasc.jp/wp-content/uploads/urdu06.pdf",
+                  "https://rasc.jp/wp-content/uploads/urdu07.pdf",
+                  "https://rasc.jp/wp-content/uploads/english08.pdf",
+                  "https://rasc.jp/wp-content/uploads/english09.pdf",
+                  "https://rasc.jp/wp-content/uploads/urdu10.pdf",
+                  "https://rasc.jp/wp-content/uploads/urdu11.pdf",
+                  "https://rasc.jp/wp-content/uploads/urdu12.pdf",
+                  "https://rasc.jp/wp-content/uploads/urdu13.pdf",
+                  "https://rasc.jp/wp-content/uploads/urdu14.pdf",
+                  "https://rasc.jp/wp-content/uploads/urdu15.pdf",
+                  "https://rasc.jp/wp-content/uploads/urdu98.pdf"
+            ]
+      }
+};
+
     $(function () {
+        document.addEventListener("language-changed", function (event) {
+            renderGuidebook(event.detail && event.detail.langId);
+            setLocalizedDocumentTitle();
+        });
+
         const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
         const bootPromise = window.liff && typeof liff.init === "function"
             ? liff.init({
@@ -125,10 +602,10 @@
                 $("body").localize();
                 setLocalizedDocumentTitle();
             }
-            renderGuidebookLinks();
+            renderGuidebook();
         }).catch((error) => {
             console.error("guidebook init failed:", error);
-            renderGuidebookLinks();
+            renderGuidebook();
         }).finally(() => {
             $("#loadingOverlay").removeClass("is-open");
         });
@@ -154,39 +631,76 @@
         });
     }
 
-    function renderGuidebookLinks() {
-        const list = $("#guidebookList");
-        list.empty();
-        GUIDEBOOK_LINKS.forEach((item) => {
-            list.append(
-                $("<a>")
-                    .addClass("guidebook-link card")
-                    .attr({
-                        href: item.url,
-                        target: "_blank",
-                        rel: "noopener noreferrer"
-                    })
-                    .append(
-                        $("<div>")
-                            .append(
-                                $("<p>")
-                                    .addClass("guidebook-language-ja")
-                                    .text(item.label)
-                            )
-                    )
+    function renderGuidebook(languageCode) {
+        const currentLanguage = getGuidebookLanguageCode(languageCode);
+        const guidebook = GUIDEBOOK_DATA[currentLanguage] || GUIDEBOOK_DATA.en;
+        $("#guidebookBulkLink").empty().append(renderPdfLink(guidebook.bulk, getGuidebookPdfTitle("bulk", "PDF"), "material-symbols:menu-book-rounded"));
+
+        const splitList = $("#guidebookSplitList");
+        splitList.empty();
+        guidebook.split.forEach((url, index) => {
+            splitList.append(renderPdfLink(url, getGuidebookPdfTitle(`split.${index}`, `PDF ${index + 1}`), GUIDEBOOK_PAGE_ICONS[index]));
+        });
+    }
+
+    function renderPdfLink(url, title, icon) {
+        return $("<a>")
+            .addClass("guidebook-link card")
+            .attr({
+                href: url,
+                target: "_blank",
+                rel: "noopener noreferrer"
+            })
+            .append(
+                $("<span>")
+                    .addClass("guidebook-link-visual")
                     .append(
                         $("<iconify-icon>")
-                            .addClass("guidebook-link-icon")
-                            .attr("icon", "material-symbols:open-in-new-rounded")
+                            .attr("icon", icon || "material-symbols:article-rounded")
                             .attr("width", "24")
                             .attr("height", "24")
                             .attr("aria-hidden", "true")
                     )
+            )
+            .append(
+                $("<div>")
+                    .append(
+                        $("<p>")
+                            .addClass("guidebook-link-title")
+                            .html(title)
+                    )
+            )
+            .append(
+                $("<iconify-icon>")
+                    .addClass("guidebook-link-icon")
+                    .attr("icon", "material-symbols:open-in-new-rounded")
+                    .attr("width", "24")
+                    .attr("height", "24")
+                    .attr("aria-hidden", "true")
             );
-        });
-        if ($.fn.localize && window.i18next && i18next.isInitialized) {
-            list.localize();
-        }
+    }
+
+    function getGuidebookPdfTitle(key, fallback) {
+        return getI18nText(`guidebook.pdfTitles.${key}`, fallback);
+    }
+
+    function getGuidebookLanguageCode(languageCode) {
+        const activeLanguageCode = languageCode || window.normalizedLanguageCode || (window.i18next && i18next.isInitialized ? i18next.language : "en");
+        const normalized = normalizeGuidebookLanguage(activeLanguageCode);
+        return GUIDEBOOK_DATA[normalized] ? normalized : "en";
+    }
+
+    function normalizeGuidebookLanguage(languageCode) {
+        const code = String(languageCode || "").toLowerCase();
+        const baseCode = code.split("-")[0];
+        const aliases = {
+            pr: "pt",
+            fa: "prs",
+            ve: "vi",
+            soft: "en",
+            ja: "en"
+        };
+        return aliases[code] || aliases[baseCode] || code || "en";
     }
 
     function getI18nText(key, fallback) {

@@ -33,7 +33,7 @@
     "data": "患者データ＜スタッフ専用＞",
     "systemInformation": "<ruby>周産期<rt>しゅうさんき</rt></ruby>の<ruby>制度<rt>せいど</rt></ruby>・システム",
     "standard": "<ruby>日本<rt>にほん</rt></ruby>の<ruby>出産<rt>しゅっさん</rt></ruby>スタンダード",
-    "sex": "<ruby>妊娠中<rt>にんしんちゅう</rt></ruby>の<ruby>性交<rt>せいこう</rt></ruby>について"
+    "sex": "<ruby>妊娠中<rt>にんしんちゅう</rt></ruby>の<ruby>性交渉<rt>せいこうしょう</rt></ruby>について"
   },
   "header": {
     "selectLanguage": "<ruby>言語<rt>げんご</rt></ruby>を <ruby>選択<rt>せんたく</rt></ruby>",
@@ -971,8 +971,31 @@
     }
   },
   "guidebook": {
-    "desc": "<ruby>妊娠<rt>にんしん</rt></ruby>・<ruby>出産<rt>しゅっさん</rt></ruby>についての<ruby>冊子<rt>さっし</rt></ruby>「ママとあかちゃんのサポートシリーズ」の、いろいろな<ruby>言語<rt>げんご</rt></ruby>のページへのリンクです。",
-    "info": "リンク<ruby>先<rt>さき</rt></ruby>はRASC（<ruby>多文化医療<rt>たぶんかいりょう</rt></ruby>サービス<ruby>研究会<rt>けんきゅうかい</rt></ruby>）のページです。それぞれのページからPDFをダウンロードできます。",
-    "listLabel": "冊子リンク一覧"
+    "desc": "<ruby>表示言語<rt>ひょうじげんご</rt></ruby>に あわせた「ママとあかちゃんのサポートシリーズ」のPDFを <ruby>表示<rt>ひょうじ</rt></ruby>します。",
+    "info": "<ruby>表示言語<rt>ひょうじげんご</rt></ruby>に あう<ruby>冊子<rt>さっし</rt></ruby>がないときは、<ruby>英語版<rt>えいごばん</rt></ruby>を <ruby>表示<rt>ひょうじ</rt></ruby>します。PDFはRASC（<ruby>多文化医療<rt>たぶんかいりょう</rt></ruby>サービス<ruby>研究会<rt>けんきゅうかい</rt></ruby>）のファイルです。",
+    "listLabel": "<ruby>分割<rt>ぶんかつ</rt></ruby>PDF<ruby>一覧<rt>いちらん</rt></ruby>",
+    "bulkTitle": "<ruby>全部<rt>ぜんぶ</rt></ruby>のページを<ruby>見<rt>み</rt></ruby>る",
+    "splitTitle": "<ruby>各<rt>かく</rt></ruby>ページを<ruby>見<rt>み</rt></ruby>る",
+    "pdfTitles": {
+      "bulk": "<ruby>ママ<rt>まま</rt></ruby>と あかちゃんの サポートガイド",
+      "split": [
+        "1．<ruby>産婦人科<rt>さんふじんか</rt></ruby>で <ruby>聞<rt>き</rt></ruby>かれること",
+        "2．<ruby>病院<rt>びょういん</rt></ruby>に <ruby>連絡<rt>れんらく</rt></ruby>するとき",
+        "3．<ruby>日本<rt>にほん</rt></ruby>の <ruby>出産<rt>しゅっさん</rt></ruby>について",
+        "4．<ruby>妊娠高血圧症候群<rt>にんしんこうけつあつしょうこうぐん</rt></ruby>",
+        "5．<ruby>妊娠糖尿病<rt>にんしんとうにょうびょう</rt></ruby>",
+        "6．<ruby>切迫流産<rt>せっぱくりゅうざん</rt></ruby>・<ruby>切迫早産<rt>せっぱくそうざん</rt></ruby>",
+        "7．B<ruby>群溶血性<rt>ぐんようけつせい</rt></ruby>レンサ<ruby>球菌<rt>きゅうきん</rt></ruby>",
+        "8．<ruby>陣痛促進剤<rt>じんつうそくしんざい</rt></ruby>",
+        "9．バースプラン",
+        "10．<ruby>出産<rt>しゅっさん</rt></ruby>のあとの <ruby>生活<rt>せいかつ</rt></ruby>",
+        "11．<ruby>授乳<rt>じゅにゅう</rt></ruby>",
+        "12．あかちゃんについて",
+        "13．<ruby>社会資源<rt>しゃかいしげん</rt></ruby>について",
+        "14．<ruby>予防接種<rt>よぼうせっしゅ</rt></ruby>",
+        "15．よく <ruby>使<rt>つか</rt></ruby>う <ruby>出産<rt>しゅっさん</rt></ruby>に <ruby>関<rt>かん</rt></ruby>することば",
+        "コラム　<ruby>日本<rt>にほん</rt></ruby>で <ruby>出産<rt>しゅっさん</rt></ruby>した いろいろな <ruby>国<rt>くに</rt></ruby>の ママからの アドバイス"
+      ]
+    }
   }
 }
