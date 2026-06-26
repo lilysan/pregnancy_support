@@ -17,7 +17,7 @@ $(function () {
                     label: "マイデータ",
                     type: "subgroup",
                     items: [
-                        {label: "マイページ設定", path: "mypage"},
+                        {label: "プロフィール登録", path: "mypage"},
                         {label: "ワクチン接種", path: "vaccination"},
                         {label: "バースプラン", path: "birthplan"},
                         {label: "体重", path: "weight"},

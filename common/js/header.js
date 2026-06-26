@@ -47,7 +47,7 @@ $(function () {
                     i18n: "subgroupTitle.mydata",
                     type: "subgroup",
                     items: [
-                        { label: "マイページ設定", path: "mypage", i18n: "title.mypage" },
+                        { label: "プロフィール登録", path: "mypage", i18n: "title.mypage" },
                         { label: "ワクチン接種", path: "vaccination", i18n: "title.vaccination" },
                         { label: "バースプラン", path: "birthplan", i18n: "title.birthplan" },
                         { label: "体重", path: "weight", i18n: "title.weight" },
