@@ -626,12 +626,12 @@
       "week": {
         "8": {
           "weightGuide": "約1～7g",
-          "weightImage": "小さな豆1粒",
+          "weightImage": "豆1粒",
           "development": "心臓が動き始め、手足のもとができます"
         },
         "9": {
           "weightGuide": "約2〜８g",
-          "weightImage": "小さな豆2粒",
+          "weightImage": "豆2粒",
           "development": "体の形が少しずつわかれてきます"
         },
         "10": {
@@ -646,12 +646,12 @@
         },
         "12": {
           "weightGuide": "約20g",
-          "weightImage": "いちご1個",
+          "weightImage": "いちご（中）1個",
           "development": "体の基本がほぼできあがります"
         },
         "13": {
           "weightGuide": "約25g",
-          "weightImage": "大きめいちご",
+          "weightImage": "いちご（大）1個",
           "development": "羊水を飲む練習を始めます"
         },
         "14": {
@@ -661,32 +661,32 @@
         },
         "15": {
           "weightGuide": "約70g",
-          "weightImage": "小さめみかん",
+          "weightImage": "キウイ1個",
           "development": "口を動かす様子が見られます"
         },
         "16": {
           "weightGuide": "約100g",
-          "weightImage": "りんご半分",
+          "weightImage": "みかん1個",
           "development": "顔がはっきりしてきます"
         },
         "17": {
           "weightGuide": "約150g",
-          "weightImage": "りんご1個",
+          "weightImage": "バナナ1本",
           "development": "少しずつふっくらしてきます"
         },
         "18": {
           "weightGuide": "約200g",
-          "weightImage": "大きめりんご",
+          "weightImage": "にんじん1本",
           "development": "音に反応し始めます"
         },
         "19": {
           "weightGuide": "約250g",
-          "weightImage": "バナナ1本",
+          "weightImage": "りんご1個",
           "development": "皮膚を守るものがつきます"
         },
         "20": {
           "weightGuide": "約300g",
-          "weightImage": "グレープフルーツ半分",
+          "weightImage": "レタス1個",
           "development": "胎動を感じ始めます"
         },
         "21": {
@@ -696,32 +696,32 @@
         },
         "22": {
           "weightGuide": "約450g",
-          "weightImage": "小さめナス2本",
+          "weightImage": "梨（大）1個",
           "development": "体の働きが育っています"
         },
         "23": {
           "weightGuide": "約500g",
-          "weightImage": "キャベツ1/4玉",
+          "weightImage": "りんご2個",
           "development": "呼吸のような動きをします"
         },
         "24": {
           "weightGuide": "約600g",
-          "weightImage": "小さめメロン",
+          "weightImage": "キャベツ1/2個",
           "development": "肺が育ち始めます"
         },
         "25": {
           "weightGuide": "約700g",
-          "weightImage": "とうもろこし3本",
+          "weightImage": "とうもろこし2本",
           "development": "刺激に反応します"
         },
         "26": {
           "weightGuide": "約800g",
-          "weightImage": "かぼちゃ1/4",
+          "weightImage": "グレープフルーツ2個",
           "development": "目を開け始めます"
         },
         "27": {
           "weightGuide": "約900g",
-          "weightImage": "かぼちゃ1/3",
+          "weightImage": "梨（大）2個",
           "development": "動きがしっかりしてきます"
         },
         "28": {
@@ -731,62 +731,62 @@
         },
         "29": {
           "weightGuide": "約1200g",
-          "weightImage": "パイナップル小",
+          "weightImage": "きゃべつ1個",
           "development": "脂肪が増えます"
         },
         "30": {
           "weightGuide": "約1300g",
-          "weightImage": "白菜1/4",
+          "weightImage": "かぼちゃ1個",
           "development": "力強く動くようになります"
         },
         "31": {
           "weightGuide": "約1500g",
-          "weightImage": "メロン1個",
+          "weightImage": "メロン（中）1個",
           "development": "眠る・起きるリズムが出てきます"
         },
         "32": {
           "weightGuide": "約1800g",
-          "weightImage": "パイナップル1個",
+          "weightImage": "パイナップル（大）1個",
           "development": "頭を下に向けることが多くなります"
         },
         "33": {
           "weightGuide": "約2000g",
-          "weightImage": "大きめパイナップル",
+          "weightImage": "小玉すいか1個",
           "development": "生まれる準備が進みます"
         },
         "34": {
           "weightGuide": "約2200g",
-          "weightImage": "小玉すいか",
+          "weightImage": "メロン（大）1個",
           "development": "おっぱいを飲む準備ができます"
         },
         "35": {
           "weightGuide": "約2400g",
-          "weightImage": "中くらいすいか",
+          "weightImage": "キャベツ2個",
           "development": "体が丸くなってきます"
         },
         "36": {
           "weightGuide": "約2500g",
-          "weightImage": "新生児サイズ",
+          "weightImage": "白菜1個",
           "development": "体の機能が整います"
         },
         "37": {
           "weightGuide": "約2700g",
-          "weightImage": "新生児やや大きめ",
+          "weightImage": "かぼちゃ2個",
           "development": "いつ生まれてもよい時期です"
         },
         "38": {
           "weightGuide": "約2900g",
-          "weightImage": "新生児平均",
+          "weightImage": "メロン（中）2個",
           "development": "ほぼ完成しています"
         },
         "39": {
           "weightGuide": "約3000g",
-          "weightImage": "新生児平均",
+          "weightImage": "スイカ1個",
           "development": "出産準備が整います"
         },
         "40": {
           "weightGuide": "約3000〜3500g",
-          "weightImage": "新生児（標準）",
+          "weightImage": "パイナップル（大）2個",
           "development": "赤ちゃんが生まれる時期です"
         }
       }
@@ -941,7 +941,8 @@
     },
     "error": {
       "load": "メモの読み込みに失敗しました。"
-    }
+    },
+    "privateInfo": "このメモは病院には共有されません。自分用の記録として保存されます。"
   },
   "guidebook": {
     "desc": "表示言語に対応する「ママとあかちゃんのサポートシリーズ」のPDFを表示します。",
@@ -970,5 +971,10 @@
         "コラム　日本で出産したいろいろな国のママからのアドバイス"
       ]
     }
+  },
+  "sharedData": {
+    "badge": "病院共有対象",
+    "infoButtonLabel": "病院共有対象について",
+    "description": "保存した内容は、連携している病院のスタッフが確認できます。"
   }
 }

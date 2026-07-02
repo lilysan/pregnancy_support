@@ -584,42 +584,42 @@
         },
         "33": {
           "weightGuide": "약 2000g",
-          "weightImage": "큰 파인애플",
+          "weightImage": "작은 수박 1개",
           "development": "태어날 준비가 진행됩니다."
         },
         "34": {
           "weightGuide": "약 2200g",
-          "weightImage": "복수박",
+          "weightImage": "큰 멜론 1개",
           "development": "젖을 먹을 준비가 됩니다."
         },
         "35": {
           "weightGuide": "약 2400g",
-          "weightImage": "중간 크기 수박",
+          "weightImage": "양배추 2개",
           "development": "몸이 둥글게 변합니다."
         },
         "36": {
           "weightGuide": "약 2500g",
-          "weightImage": "신생아 크기",
+          "weightImage": "배추 1포기",
           "development": "신체 기능이 완성됩니다."
         },
         "37": {
           "weightGuide": "약 2700g",
-          "weightImage": "약간 큰 신생아",
+          "weightImage": "호박 2개",
           "development": "언제 태어나도 좋은 시기입니다."
         },
         "38": {
           "weightGuide": "약 2900g",
-          "weightImage": "평균 신생아",
+          "weightImage": "중간 크기 멜론 2개",
           "development": "거의 완성되었습니다."
         },
         "39": {
           "weightGuide": "약 3000g",
-          "weightImage": "평균 신생아",
+          "weightImage": "수박 1개",
           "development": "출산 준비가 완료됩니다."
         },
         "40": {
           "weightGuide": "약 3000~3500g",
-          "weightImage": "신생아(표준)",
+          "weightImage": "큰 파인애플 2개",
           "development": "아기가 태어나는 시기입니다."
         }
       }
@@ -812,7 +812,8 @@
     },
     "error": {
       "load": "메모를 불러오지 못했습니다."
-    }
+    },
+    "privateInfo": "이 메모는 병원과 공유되지 않습니다. 본인용 기록으로 저장됩니다."
   },
   "guidebook": {
     "desc": "표시 언어에 맞는 「엄마와 아기를 위한 지원 시리즈」 PDF를 표시합니다.",
@@ -841,5 +842,10 @@
         "칼럼. 일본에서 출산을 한 다양한 나라의 엄마들의 어드바이스"
       ]
     }
+  },
+  "sharedData": {
+    "badge": "병원 공유 대상",
+    "infoButtonLabel": "병원 공유 대상 안내",
+    "description": "저장한 내용은 연계된 병원 직원이 확인할 수 있습니다."
   }
 }

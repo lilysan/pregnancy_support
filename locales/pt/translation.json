@@ -584,42 +584,42 @@
         },
         "33": {
           "weightGuide": "Cerca de 2000g",
-          "weightImage": "Ananás grande",
+          "weightImage": "1 melancia pequena",
           "development": "Os preparativos para o nascimento avançam."
         },
         "34": {
           "weightGuide": "Cerca de 2200g",
-          "weightImage": "Melancia pequena",
+          "weightImage": "1 melão grande",
           "development": "Pronto para praticar a amamentação."
         },
         "35": {
           "weightGuide": "Cerca de 2400g",
-          "weightImage": "Melancia média",
+          "weightImage": "2 repolhos",
           "development": "O corpo torna-se mais arredondado."
         },
         "36": {
           "weightGuide": "Cerca de 2500g",
-          "weightImage": "Tamanho de recém-nascido",
+          "weightImage": "1 acelga chinesa",
           "development": "As funções do corpo estão totalmente desenvolvidas."
         },
         "37": {
           "weightGuide": "Cerca de 2700g",
-          "weightImage": "Recém-nascido ligeiramente grande",
+          "weightImage": "2 abóboras",
           "development": "Considerado a termo; pronto para nascer a qualquer momento."
         },
         "38": {
           "weightGuide": "Cerca de 2900g",
-          "weightImage": "Recém-nascido médio",
+          "weightImage": "2 melões médios",
           "development": "Quase totalmente desenvolvido."
         },
         "39": {
           "weightGuide": "Cerca de 3000g",
-          "weightImage": "Recém-nascido médio",
+          "weightImage": "1 melancia",
           "development": "Os preparativos para o nascimento estão completos."
         },
         "40": {
           "weightGuide": "Cerca de 3000 a 3500g",
-          "weightImage": "Recém-nascido (padrão)",
+          "weightImage": "2 abacaxis grandes",
           "development": "O momento para o bebé nascer."
         }
       }
@@ -812,7 +812,8 @@
     },
     "error": {
       "load": "Falha ao carregar os memos."
-    }
+    },
+    "privateInfo": "Estas notas não são compartilhadas com hospitais. Elas são salvas como anotações privadas."
   },
   "guidebook": {
     "desc": "Os PDFs da série Mom and Baby Support Series são exibidos de acordo com o idioma de exibição.",
@@ -841,5 +842,10 @@
         "Coluna. Conselhos de mães de outros países que tiveram o parto no Japão"
       ]
     }
+  },
+  "sharedData": {
+    "badge": "Compartilhado com o hospital",
+    "infoButtonLabel": "Sobre o compartilhamento com o hospital",
+    "description": "As informações salvas podem ser vistas pela equipe dos hospitais vinculados."
   }
 }

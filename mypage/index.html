@@ -177,6 +177,13 @@
         <section>
             <h2 data-i18n="[html]link.section.user"></h2>
             <p class="desc" data-i18n="[html]link.userDesc"></p>
+            <span class="shared-data-badge">
+                <iconify-icon icon="material-symbols:share-rounded" width="16" height="16" aria-hidden="true"></iconify-icon>
+                <span data-i18n="[html]sharedData.badge"></span>
+                <button type="button" class="shared-data-info-btn" data-i18n="[aria-label]sharedData.infoButtonLabel">
+                    <iconify-icon icon="material-symbols:info-outline-rounded" width="16" height="16" aria-hidden="true"></iconify-icon>
+                </button>
+            </span>
 
             <form id="userForm" class="card user-form">
                 <label>
@@ -249,6 +256,13 @@
 
         <section>
             <h2 data-i18n="[html]link.section.hospitals"></h2>
+            <span class="shared-data-badge">
+                <iconify-icon icon="material-symbols:share-rounded" width="16" height="16" aria-hidden="true"></iconify-icon>
+                <span data-i18n="[html]sharedData.badge"></span>
+                <button type="button" class="shared-data-info-btn" data-i18n="[aria-label]sharedData.infoButtonLabel">
+                    <iconify-icon icon="material-symbols:info-outline-rounded" width="16" height="16" aria-hidden="true"></iconify-icon>
+                </button>
+            </span>
             <div class="row-list">
                 <div class="card card-info">
                     <div class="state-card-inner">
@@ -615,6 +629,7 @@
         $("#scanHospitalBtn").on("click", handleScanHospital);
         $("#addContactFormBtn").on("click", addContactDraftForm);
         $("#saveUserBtn").on("click", handleSaveUser);
+        initSharedDataInfoModal();
         $("#resetUserBtn").on("click", handleResetUser);
         $("#submitHospitalRegistrationBtn").on("click", handleSubmitHospitalRegistration);
         $("#closeHospitalRegistrationBtn, #cancelHospitalRegistrationBtn").on("click", closeHospitalRegistrationModal);

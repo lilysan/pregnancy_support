@@ -584,42 +584,42 @@
         },
         "33": {
           "weightGuide": "Humigit-kumulang 2000g",
-          "weightImage": "Malaking pinya",
+          "weightImage": "1 maliit na pakwan",
           "development": "Nagpapatuloy ang paghahanda para sa kapanganakan."
         },
         "34": {
           "weightGuide": "Humigit-kumulang 2200g",
-          "weightImage": "Maliit na pakwan",
+          "weightImage": "1 malaking melon",
           "development": "Handa nang magsanay sa pagpapasuso."
         },
         "35": {
           "weightGuide": "Humigit-kumulang 2400g",
-          "weightImage": "Katamtamang pakwan",
+          "weightImage": "2 repolyo",
           "development": "Nagiging mas bilugan ang katawan."
         },
         "36": {
           "weightGuide": "Humigit-kumulang 2500g",
-          "weightImage": "Laki ng bagong silang",
+          "weightImage": "1 Chinese cabbage",
           "development": "Kumpleto na ang mga tungkulin ng katawan."
         },
         "37": {
           "weightGuide": "Humigit-kumulang 2700g",
-          "weightImage": "Medyo malaking bagong silang",
+          "weightImage": "2 kalabasa",
           "development": "Kahit anong oras ay maaari nang isilang."
         },
         "38": {
           "weightGuide": "Humigit-kumulang 2900g",
-          "weightImage": "Average na bagong silang",
+          "weightImage": "2 katamtamang melon",
           "development": "Halos ganap nang nabuo."
         },
         "39": {
           "weightGuide": "Humigit-kumulang 3000g",
-          "weightImage": "Average na bagong silang",
+          "weightImage": "1 pakwan",
           "development": "Handa na ang lahat para sa panganganak."
         },
         "40": {
           "weightGuide": "Humigit-kumulang 3000–3500g",
-          "weightImage": "Bagong silang (standard)",
+          "weightImage": "2 malalaking pinya",
           "development": "Oras na para isilang ang sanggol."
         }
       }
@@ -812,7 +812,8 @@
     },
     "error": {
       "load": "Hindi na-load ang mga memo."
-    }
+    },
+    "privateInfo": "Hindi ibinabahagi sa ospital ang mga memo na ito. Naka-save ang mga ito bilang sarili mong tala."
   },
   "guidebook": {
     "desc": "Ipinapakita ang mga PDF mula sa Mom and Baby Support Series ayon sa iyong display language.",
@@ -841,5 +842,10 @@
         "Mga payo mula sa nanay ng ibat-ibang bansa"
       ]
     }
+  },
+  "sharedData": {
+    "badge": "Ibinabahagi sa ospital",
+    "infoButtonLabel": "Tungkol sa pagbabahagi sa ospital",
+    "description": "Makikita ng staff ng naka-link na ospital ang naka-save na impormasyon."
   }
 }

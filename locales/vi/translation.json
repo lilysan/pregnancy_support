@@ -584,42 +584,42 @@
         },
         "33": {
           "weightGuide": "Khoảng 2000g",
-          "weightImage": "Quả dứa lớn",
+          "weightImage": "1 quả dưa hấu nhỏ",
           "development": "Các khâu chuẩn bị cho sự chào đời đang tiến triển."
         },
         "34": {
           "weightGuide": "Khoảng 2200g",
-          "weightImage": "Quả dưa hấu nhỏ",
+          "weightImage": "1 quả dưa lưới lớn",
           "development": "Sẵn sàng để thực hành bú mẹ."
         },
         "35": {
           "weightGuide": "Khoảng 2400g",
-          "weightImage": "Quả dưa hấu vừa",
+          "weightImage": "2 bắp cải",
           "development": "Cơ thể trở nên tròn trịa hơn."
         },
         "36": {
           "weightGuide": "Khoảng 2500g",
-          "weightImage": "Kích thước trẻ sơ sinh",
+          "weightImage": "1 cây cải thảo",
           "development": "Các chức năng cơ thể đã hoàn thiện."
         },
         "37": {
           "weightGuide": "Khoảng 2700g",
-          "weightImage": "Trẻ sơ sinh hơi lớn",
+          "weightImage": "2 quả bí đỏ",
           "development": "Đã đủ tháng, sẵn sàng chào đời bất cứ lúc nào."
         },
         "38": {
           "weightGuide": "Khoảng 2900g",
-          "weightImage": "Trẻ sơ sinh trung bình",
+          "weightImage": "2 quả dưa lưới vừa",
           "development": "Gần như đã phát triển hoàn thiện."
         },
         "39": {
           "weightGuide": "Khoảng 3000g",
-          "weightImage": "Trẻ sơ sinh trung bình",
+          "weightImage": "1 quả dưa hấu",
           "development": "Công tác chuẩn bị cho sự chào đời đã hoàn tất."
         },
         "40": {
           "weightGuide": "Khoảng 3000–3500g",
-          "weightImage": "Trẻ sơ sinh (tiêu chuẩn)",
+          "weightImage": "2 quả dứa lớn",
           "development": "Thời điểm em bé chào đời."
         }
       }
@@ -812,7 +812,8 @@
     },
     "error": {
       "load": "Không tải được ghi chú."
-    }
+    },
+    "privateInfo": "Các ghi chú này không được chia sẻ với bệnh viện. Chúng được lưu làm ghi chú riêng của bạn."
   },
   "guidebook": {
     "desc": "Các PDF từ Mom and Baby Support Series được hiển thị theo ngôn ngữ hiển thị của bạn.",
@@ -841,5 +842,10 @@
         "Chuyên mục. Lời khuyên từ các bà mẹ người nước ngoài khác"
       ]
     }
+  },
+  "sharedData": {
+    "badge": "Chia sẻ với bệnh viện",
+    "infoButtonLabel": "Về việc chia sẻ với bệnh viện",
+    "description": "Thông tin đã lưu có thể được nhân viên bệnh viện liên kết xem."
   }
 }

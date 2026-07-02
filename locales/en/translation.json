@@ -778,42 +778,42 @@
         },
         "33": {
           "weightGuide": "Approx. 2000g",
-          "weightImage": "Large pineapple",
+          "weightImage": "1 small watermelon",
           "development": "Preparations for birth progress."
         },
         "34": {
           "weightGuide": "Approx. 2200g",
-          "weightImage": "Small watermelon",
+          "weightImage": "1 large melon",
           "development": "Ready to practice breastfeeding."
         },
         "35": {
           "weightGuide": "Approx. 2400g",
-          "weightImage": "Medium watermelon",
+          "weightImage": "2 cabbages",
           "development": "The body becomes more rounded."
         },
         "36": {
           "weightGuide": "Approx. 2500g",
-          "weightImage": "Newborn size",
+          "weightImage": "1 Chinese cabbage",
           "development": "Body functions are fully developed."
         },
         "37": {
           "weightGuide": "Approx. 2700g",
-          "weightImage": "Slightly large newborn",
+          "weightImage": "2 pumpkins",
           "development": "Considered full-term; ready to be born at any time."
         },
         "38": {
           "weightGuide": "Approx. 2900g",
-          "weightImage": "Average newborn",
+          "weightImage": "2 medium melons",
           "development": "Almost fully developed."
         },
         "39": {
           "weightGuide": "Approx. 3000g",
-          "weightImage": "Average newborn",
+          "weightImage": "1 watermelon",
           "development": "Preparations for birth are complete."
         },
         "40": {
           "weightGuide": "Approx. 3000–3500g",
-          "weightImage": "Newborn (standard)",
+          "weightImage": "2 large pineapples",
           "development": "The time for the baby to be born."
         }
       }
@@ -968,7 +968,8 @@
     },
     "error": {
       "load": "Failed to load memos."
-    }
+    },
+    "privateInfo": "These memos are not shared with hospitals. They are saved as your private notes."
   },
   "guidebook": {
     "desc": "PDFs from the Mom and Baby Support Series are shown for your display language.",
@@ -997,5 +998,10 @@
         "Column. Advices from non-Japanese moms who gave birth in Japan"
       ]
     }
+  },
+  "sharedData": {
+    "badge": "Shared with hospital",
+    "infoButtonLabel": "About hospital sharing",
+    "description": "Saved information can be viewed by staff at linked hospitals."
   }
 }

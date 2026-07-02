@@ -14,6 +14,7 @@
     <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="../common/js/config.js"></script>
+    <script src="../common/js/modal.js"></script>
     <script src="../common/js/toast.js"></script>
     <link rel="stylesheet" href="../style.css"/>
     <style>
@@ -251,6 +252,13 @@
 <main>
     <article class="main-container">
         <h1 data-i18n="[html]title.birthplan"></h1>
+        <span class="shared-data-badge">
+            <iconify-icon icon="material-symbols:share-rounded" width="16" height="16" aria-hidden="true"></iconify-icon>
+            <span data-i18n="[html]sharedData.badge"></span>
+            <button type="button" class="shared-data-info-btn" data-i18n="[aria-label]sharedData.infoButtonLabel">
+                <iconify-icon icon="material-symbols:info-outline-rounded" width="16" height="16" aria-hidden="true"></iconify-icon>
+            </button>
+        </span>
         <p class="desc" data-i18n="[html]bp.desc"></p>
         <div class="row-list">
             <button type="button" class="btn standard-btn">
@@ -347,6 +355,7 @@
         $(".standard-btn").on("click", function(){
             window.location.href = `https://liff.line.me/${LIFF_ID}/aruaru/`;
         })
+        initSharedDataInfoModal();
     });
 
     async function main(idToken) {

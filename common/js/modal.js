@@ -177,4 +177,37 @@
     }
 
     window.createModalManager = createModalManager;
+
+    function initSharedDataInfoModal() {
+        const manager = window.sharedDataInfoModalManager || createModalManager({
+            rootSelector: '#sharedDataInfoModalOverlay',
+            dialogSelector: '#sharedDataInfoModalDialog',
+            titleSelector: '#sharedDataInfoModalTitle',
+            messageSelector: '#sharedDataInfoModalMessage',
+            closeSelector: '#sharedDataInfoModalCloseBtn',
+            negativeSelector: '#sharedDataInfoModalNegativeBtn',
+            positiveSelector: '#sharedDataInfoModalPositiveBtn'
+        });
+        window.sharedDataInfoModalManager = manager;
+
+        $(document)
+            .off('click.sharedDataInfo', '.shared-data-info-btn')
+            .on('click.sharedDataInfo', '.shared-data-info-btn', function () {
+                manager.show({
+                    title: getSharedDataText('sharedData.badge', '病院共有対象', true),
+                    messageHtml: getSharedDataText('sharedData.description', '保存した内容は、連携している病院のスタッフが確認できます。'),
+                    positiveText: getSharedDataText('button.ok', 'OK', true),
+                    closeLabel: getSharedDataText('button.close', '閉じる', true)
+                });
+            });
+    }
+
+    function getSharedDataText(key, fallback, stripHtml) {
+        const text = window.i18next && i18next.isInitialized
+            ? i18next.t(key, {defaultValue: fallback})
+            : fallback;
+        return stripHtml ? $('<span>').html(text).text() : text;
+    }
+
+    window.initSharedDataInfoModal = initSharedDataInfoModal;
 }(window, window.jQuery));

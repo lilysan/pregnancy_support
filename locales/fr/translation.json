@@ -584,42 +584,42 @@
         },
         "33": {
           "weightGuide": "Environ 2000 g",
-          "weightImage": "Gros ananas",
+          "weightImage": "1 petite pastèque",
           "development": "Les préparatifs de la naissance progressent."
         },
         "34": {
           "weightGuide": "Environ 2200 g",
-          "weightImage": "Petite pastèque",
+          "weightImage": "1 gros melon",
           "development": "Prêt à s'entraîner à l'allaitement."
         },
         "35": {
           "weightGuide": "Environ 2400 g",
-          "weightImage": "Pastèque moyenne",
+          "weightImage": "2 choux",
           "development": "Le corps devient plus rond."
         },
         "36": {
           "weightGuide": "Environ 2500 g",
-          "weightImage": "Taille nouveau-né",
+          "weightImage": "1 chou chinois",
           "development": "Les fonctions corporelles sont complètement développées."
         },
         "37": {
           "weightGuide": "Environ 2700 g",
-          "weightImage": "Nouveau-né un peu grand",
+          "weightImage": "2 potirons",
           "development": "À terme ; prêt à naître à tout moment."
         },
         "38": {
           "weightGuide": "Environ 2900 g",
-          "weightImage": "Nouveau-né moyen",
+          "weightImage": "2 melons moyens",
           "development": "Presque complètement développé."
         },
         "39": {
           "weightGuide": "Environ 3000 g",
-          "weightImage": "Nouveau-né moyen",
+          "weightImage": "1 pastèque",
           "development": "Les préparatifs de l'accouchement sont terminés."
         },
         "40": {
           "weightGuide": "Environ 3000–3500 g",
-          "weightImage": "Nouveau-né (standard)",
+          "weightImage": "2 gros ananas",
           "development": "Le moment de la naissance du bébé."
         }
       }
@@ -812,7 +812,8 @@
     },
     "error": {
       "load": "Échec du chargement des mémos."
-    }
+    },
+    "privateInfo": "Ces notes ne sont pas partagées avec les hôpitaux. Elles sont enregistrées comme notes personnelles."
   },
   "guidebook": {
     "desc": "Les PDF de la série « Mom and Baby Support Series » sont affichés selon votre langue d’affichage.",
@@ -841,5 +842,10 @@
         "Chronique. Les conseils des mamans étrangeres qui ont accouché au Japon"
       ]
     }
+  },
+  "sharedData": {
+    "badge": "Partagé avec l’hôpital",
+    "infoButtonLabel": "À propos du partage avec l’hôpital",
+    "description": "Les informations enregistrées peuvent être consultées par le personnel des hôpitaux liés."
   }
 }

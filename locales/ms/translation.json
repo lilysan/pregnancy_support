@@ -584,42 +584,42 @@
         },
         "33": {
           "weightGuide": "Kira-kira 2000g",
-          "weightImage": "Nanas besar",
+          "weightImage": "1 tembikai kecil",
           "development": "Persediaan untuk kelahiran diteruskan."
         },
         "34": {
           "weightGuide": "Kira-kira 2200g",
-          "weightImage": "Tembikai kecil",
+          "weightImage": "1 tembikai susu besar",
           "development": "Sedia untuk berlatih menyusu."
         },
         "35": {
           "weightGuide": "Kira-kira 2400g",
-          "weightImage": "Tembikai sederhana",
+          "weightImage": "2 kubis",
           "development": "Badan menjadi lebih bulat."
         },
         "36": {
           "weightGuide": "Kira-kira 2500g",
-          "weightImage": "Saiz bayi baru lahir",
+          "weightImage": "1 kubis Cina",
           "development": "Fungsi badan lengkap sepenuhnya."
         },
         "37": {
           "weightGuide": "Kira-kira 2700g",
-          "weightImage": "Bayi baru lahir agak besar",
+          "weightImage": "2 labu",
           "development": "Cukup bulan, sedia untuk dilahirkan pada bila-bila masa."
         },
         "38": {
           "weightGuide": "Kira-kira 2900g",
-          "weightImage": "Rata-rata bayi baru lahir",
+          "weightImage": "2 tembikai susu sederhana",
           "development": "Hampir berkembang sepenuhnya."
         },
         "39": {
           "weightGuide": "Kira-kira 3000g",
-          "weightImage": "Rata-rata bayi baru lahir",
+          "weightImage": "1 tembikai",
           "development": "Persediaan kelahiran selesai."
         },
         "40": {
           "weightGuide": "Kira-kira 3000–3500g",
-          "weightImage": "Bayi baru lahir (standard)",
+          "weightImage": "2 nanas besar",
           "development": "Masa untuk bayi dilahirkan."
         }
       }
@@ -812,7 +812,8 @@
     },
     "error": {
       "load": "Gagal memuatkan memo."
-    }
+    },
+    "privateInfo": "Memo ini tidak dikongsi dengan hospital. Memo ini disimpan sebagai nota peribadi anda."
   },
   "guidebook": {
     "desc": "PDF daripada Mom and Baby Support Series dipaparkan mengikut bahasa paparan anda.",
@@ -841,5 +842,10 @@
         "Saranan dari ibu-ibu yang bersalin di Jepun"
       ]
     }
+  },
+  "sharedData": {
+    "badge": "Dikongsi dengan hospital",
+    "infoButtonLabel": "Tentang perkongsian dengan hospital",
+    "description": "Maklumat yang disimpan boleh dilihat oleh kakitangan hospital yang dipautkan."
   }
 }

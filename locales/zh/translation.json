@@ -584,42 +584,42 @@
         },
         "33": {
           "weightGuide": "约2000克",
-          "weightImage": "大菠萝",
+          "weightImage": "1个小西瓜",
           "development": "为分娩做准备。"
         },
         "34": {
           "weightGuide": "约2200克",
-          "weightImage": "小西瓜",
+          "weightImage": "1个大甜瓜",
           "development": "准备好练习母乳喂养。"
         },
         "35": {
           "weightGuide": "约2400克",
-          "weightImage": "中等西瓜",
+          "weightImage": "2个卷心菜",
           "development": "身体变得更圆润。"
         },
         "36": {
           "weightGuide": "约2500克",
-          "weightImage": "新生儿大小",
+          "weightImage": "1颗大白菜",
           "development": "身体机能完全发育。"
         },
         "37": {
           "weightGuide": "约2700克",
-          "weightImage": "稍大的新生儿",
+          "weightImage": "2个南瓜",
           "development": "足月，随时可以出生。"
         },
         "38": {
           "weightGuide": "约2900克",
-          "weightImage": "平均新生儿",
+          "weightImage": "2个中等甜瓜",
           "development": "几乎完全发育。"
         },
         "39": {
           "weightGuide": "约3000克",
-          "weightImage": "平均新生儿",
+          "weightImage": "1个西瓜",
           "development": "分娩准备完成。"
         },
         "40": {
           "weightGuide": "约3000-3500克",
-          "weightImage": "新生儿（标准）",
+          "weightImage": "2个大菠萝",
           "development": "宝宝出生的时候。"
         }
       }
@@ -812,7 +812,8 @@
     },
     "error": {
       "load": "备忘录加载失败。"
-    }
+    },
+    "privateInfo": "这些备忘录不会与医院共享。它们会作为您自己的记录保存。"
   },
   "guidebook": {
     "desc": "根据当前显示语言显示《妈妈和宝宝支持系列》的 PDF。",
@@ -841,5 +842,10 @@
         "专栏 在日本生过宝宝的外国妈妈们的建议"
       ]
     }
+  },
+  "sharedData": {
+    "badge": "医院共享对象",
+    "infoButtonLabel": "关于医院共享对象",
+    "description": "已保存的内容可由已关联医院的工作人员查看。"
   }
 }

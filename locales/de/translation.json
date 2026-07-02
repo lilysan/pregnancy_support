@@ -584,42 +584,42 @@
         },
         "33": {
           "weightGuide": "Ca. 2000g",
-          "weightImage": "Große Ananas",
+          "weightImage": "1 kleine Wassermelone",
           "development": "Geburtsvorbereitungen schreiten voran."
         },
         "34": {
           "weightGuide": "Ca. 2200g",
-          "weightImage": "Kleine Wassermelone",
+          "weightImage": "1 große Melone",
           "development": "Bereit zum Üben des Stillens."
         },
         "35": {
           "weightGuide": "Ca. 2400g",
-          "weightImage": "Mittlere Wassermelone",
+          "weightImage": "2 Kohlköpfe",
           "development": "Der Körper wird runder."
         },
         "36": {
           "weightGuide": "Ca. 2500g",
-          "weightImage": "Neugeborenengröße",
+          "weightImage": "1 Chinakohl",
           "development": "Körperfunktionen sind voll entwickelt."
         },
         "37": {
           "weightGuide": "Ca. 2700g",
-          "weightImage": "Etwas größeres Neugeborenes",
+          "weightImage": "2 Kürbisse",
           "development": "Bereit für die Geburt; jederzeit möglich."
         },
         "38": {
           "weightGuide": "Ca. 2900g",
-          "weightImage": "Durchschnittliches Neugeborenes",
+          "weightImage": "2 mittelgroße Melonen",
           "development": "Fast vollständig entwickelt."
         },
         "39": {
           "weightGuide": "Ca. 3000g",
-          "weightImage": "Durchschnittliches Neugeborenes",
+          "weightImage": "1 Wassermelone",
           "development": "Geburtsvorbereitungen abgeschlossen."
         },
         "40": {
           "weightGuide": "Ca. 3000–3500g",
-          "weightImage": "Neugeborenes (Standard)",
+          "weightImage": "2 große Ananas",
           "development": "Zeitpunkt der Geburt."
         }
       }
@@ -812,7 +812,8 @@
     },
     "error": {
       "load": "Notizen konnten nicht geladen werden."
-    }
+    },
+    "privateInfo": "Diese Notizen werden nicht mit Krankenhäusern geteilt. Sie werden als private Notizen gespeichert."
   },
   "guidebook": {
     "desc": "PDFs der Reihe „Mom and Baby Support Series“ werden passend zu Ihrer Anzeigesprache angezeigt.",
@@ -841,5 +842,10 @@
         "Kolumne: Tipps von der Mütter, die in Japan entbunden haben"
       ]
     }
+  },
+  "sharedData": {
+    "badge": "Mit Krankenhaus geteilt",
+    "infoButtonLabel": "Über die Freigabe an das Krankenhaus",
+    "description": "Gespeicherte Informationen können von Mitarbeitenden verknüpfter Krankenhäuser eingesehen werden."
   }
 }

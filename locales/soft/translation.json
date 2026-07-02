@@ -778,42 +778,42 @@
         },
         "33": {
           "weightGuide": "やく2000g",
-          "weightImage": "おおきめパイナップル",
+          "weightImage": "<ruby>小玉<rt>こだま</rt></ruby>すいか1こ",
           "development": "うまれる<ruby>準備<rt>じゅんび</rt></ruby>がすすみます"
         },
         "34": {
           "weightGuide": "やく2200g",
-          "weightImage": "<ruby>小玉<rt>こだま</rt></ruby>すいか",
+          "weightImage": "メロン（<ruby>大<rt>だい</rt></ruby>）1こ",
           "development": "おっぱいをのむ<ruby>準備<rt>じゅんび</rt></ruby>ができます"
         },
         "35": {
           "weightGuide": "やく2400g",
-          "weightImage": "<ruby>中<rt>なか</rt></ruby>くらいすいか",
+          "weightImage": "キャベツ2こ",
           "development": "<ruby>体<rt>からだ</rt></ruby>がまるくなってきます"
         },
         "36": {
           "weightGuide": "やく2500g",
-          "weightImage": "<ruby>新生児<rt>しんせいじ</rt></ruby>サイズ",
+          "weightImage": "<ruby>白菜<rt>はくさい</rt></ruby>1こ",
           "development": "<ruby>体<rt>からだ</rt></ruby>の<ruby>機能<rt>きのう</rt></ruby>が<ruby>整<rt>ととの</rt></ruby>います"
         },
         "37": {
           "weightGuide": "やく2700g",
-          "weightImage": "<ruby>新生児<rt>しんせいじ</rt></ruby>やや<ruby>大<rt>おお</rt></ruby>きめ",
+          "weightImage": "かぼちゃ2こ",
           "development": "いつうまれてもよい<ruby>時期<rt>じき</rt></ruby>です"
         },
         "38": {
           "weightGuide": "やく2900g",
-          "weightImage": "<ruby>新生児平均<rt>しんせいじへいきん</rt></ruby>",
+          "weightImage": "メロン（<ruby>中<rt>ちゅう</rt></ruby>）2こ",
           "development": "ほぼ<ruby>完成<rt>かんせい</rt></ruby>しています"
         },
         "39": {
           "weightGuide": "やく3000g",
-          "weightImage": "<ruby>新生児平均<rt>しんせいじへいきん</rt></ruby>",
+          "weightImage": "すいか1こ",
           "development": "<ruby>出産準備<rt>しゅっさんじゅんび</rt></ruby>が<ruby>整<rt>ととの</rt></ruby>います"
         },
         "40": {
           "weightGuide": "やく3000〜3500g",
-          "weightImage": "<ruby>新生児<rt>しんせいじ</rt></ruby>（<ruby>標準<rt>ひょうじゅん</rt></ruby>）",
+          "weightImage": "パイナップル（<ruby>大<rt>だい</rt></ruby>）2こ",
           "development": "<ruby>赤<rt>あか</rt></ruby>ちゃんがうまれる<ruby>時期<rt>じき</rt></ruby>です"
         }
       }
@@ -968,7 +968,8 @@
     },
     "error": {
       "load": "メモの 読み込みに 失敗しました。"
-    }
+    },
+    "privateInfo": "このメモは <ruby>病院<rt>びょういん</rt></ruby>には <ruby>共有<rt>きょうゆう</rt></ruby>されません。<ruby>自分用<rt>じぶんよう</rt></ruby>の<ruby>記録<rt>きろく</rt></ruby>として <ruby>保存<rt>ほぞん</rt></ruby>されます。"
   },
   "guidebook": {
     "desc": "<ruby>表示言語<rt>ひょうじげんご</rt></ruby>に あわせた「ママとあかちゃんのサポートシリーズ」のPDFを <ruby>表示<rt>ひょうじ</rt></ruby>します。",
@@ -997,5 +998,10 @@
         "コラム　<ruby>日本<rt>にほん</rt></ruby>で <ruby>出産<rt>しゅっさん</rt></ruby>した いろいろな <ruby>国<rt>くに</rt></ruby>の ママからの アドバイス"
       ]
     }
+  },
+  "sharedData": {
+    "badge": "<ruby>病院<rt>びょういん</rt></ruby><ruby>共有<rt>きょうゆう</rt></ruby><ruby>対象<rt>たいしょう</rt></ruby>",
+    "infoButtonLabel": "<ruby>病院共有対象<rt>びょういんきょうゆうたいしょう</rt></ruby>について",
+    "description": "<ruby>保存<rt>ほぞん</rt></ruby>した<ruby>内容<rt>ないよう</rt></ruby>は、<ruby>連携<rt>れんけい</rt></ruby>している<ruby>病院<rt>びょういん</rt></ruby>のスタッフが<ruby>確認<rt>かくにん</rt></ruby>できます。"
   }
 }

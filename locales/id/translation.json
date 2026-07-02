@@ -584,42 +584,42 @@
         },
         "33": {
           "weightGuide": "Sekitar 2000g",
-          "weightImage": "Nanas besar",
+          "weightImage": "1 semangka kecil",
           "development": "Persiapan kelahiran berlanjut."
         },
         "34": {
           "weightGuide": "Sekitar 2200g",
-          "weightImage": "Semangka kecil",
+          "weightImage": "1 melon besar",
           "development": "Siap untuk berlatih menyusu."
         },
         "35": {
           "weightGuide": "Sekitar 2400g",
-          "weightImage": "Semangka sedang",
+          "weightImage": "2 kubis",
           "development": "Tubuh menjadi lebih bulat."
         },
         "36": {
           "weightGuide": "Sekitar 2500g",
-          "weightImage": "Ukuran bayi baru lahir",
+          "weightImage": "1 sawi putih",
           "development": "Fungsi tubuh lengkap."
         },
         "37": {
           "weightGuide": "Sekitar 2700g",
-          "weightImage": "Bayi baru lahir agak besar",
+          "weightImage": "2 labu kuning",
           "development": "Sudah cukup bulan, siap lahir kapan saja."
         },
         "38": {
           "weightGuide": "Sekitar 2900g",
-          "weightImage": "Rata-rata bayi baru lahir",
+          "weightImage": "2 melon sedang",
           "development": "Hampir sepenuhnya berkembang."
         },
         "39": {
           "weightGuide": "Sekitar 3000g",
-          "weightImage": "Rata-rata bayi baru lahir",
+          "weightImage": "1 semangka",
           "development": "Persiapan persalinan selesai."
         },
         "40": {
           "weightGuide": "Sekitar 3000–3500g",
-          "weightImage": "Bayi baru lahir (standar)",
+          "weightImage": "2 nanas besar",
           "development": "Waktunya bayi dilahirkan."
         }
       }
@@ -812,7 +812,8 @@
     },
     "error": {
       "load": "Gagal memuat memo."
-    }
+    },
+    "privateInfo": "Catatan ini tidak dibagikan dengan rumah sakit. Catatan disimpan sebagai catatan pribadi Anda."
   },
   "guidebook": {
     "desc": "PDF dari Mom and Baby Support Series ditampilkan sesuai bahasa tampilan Anda.",
@@ -841,5 +842,10 @@
         "Kolom.Saran dari Ibu dari Berbagai Negara yang telah Melahirkan di Jepang"
       ]
     }
+  },
+  "sharedData": {
+    "badge": "Dibagikan dengan rumah sakit",
+    "infoButtonLabel": "Tentang berbagi dengan rumah sakit",
+    "description": "Informasi yang disimpan dapat dilihat oleh staf rumah sakit yang terhubung."
   }
 }
