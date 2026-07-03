@@ -1,0 +1,120 @@
+{
+  "page_title": "Karaniwang Pamantayan sa Panganganak sa Japan",
+  "page_lead": "Buod ng karaniwang daloy at mga tuntunin sa ospital kapag manganganak sa Japan.",
+  "settings": "Setting ng Wika",
+  "language": "Wika",
+  "close": "Isara",
+  "keyword_search": "Paghahanap ng salita",
+  "keyword_placeholder": "Maghanap ng tanong o sagot",
+  "tag_search": "Panahon",
+  "period_kicker": "Panahon",
+  "period_pregnancy": "Pagbubuntis",
+  "period_childbirth": "Panganganak",
+  "period_postpartum_hospital": "Pagkatapos manganak (nasa ospital)",
+  "period_postpartum_home": "Pagkatapos manganak (pagkauwi)",
+  "all_tags": "Lahat",
+  "result_count": "{{count}} resulta",
+  "no_result": "Walang nahanap na tugma.",
+  "items": {
+    "item_01": {
+      "title": "Kaugalian ng belly band sa Araw ng Aso",
+      "detail": "Kaugalian ng belly band sa Araw ng Aso: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_02": {
+      "title": "Karaniwang bilang ng prenatal checkup",
+      "detail": "Karaniwang bilang ng prenatal checkup: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_03": {
+      "title": "Tulong na makukuha gamit ang coupon",
+      "detail": "Tulong na makukuha gamit ang coupon: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_04": {
+      "title": "Paghahanda sa pagpapaospital: mga dadalhin",
+      "detail": "Paghahanda sa pagpapaospital: mga dadalhin: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_05": {
+      "title": "Karaniwang paraan ng panganganak sa Japan",
+      "detail": "Karaniwang paraan ng panganganak sa Japan: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_06": {
+      "title": "Mga dapat kumpirmahin kung gusto ng epidural",
+      "detail": "Mga dapat kumpirmahin kung gusto ng epidural: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_07": {
+      "title": "Sino ang puwedeng dumalo sa panganganak at mga limitasyon",
+      "detail": "Sino ang puwedeng dumalo sa panganganak at mga limitasyon: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_08": {
+      "title": "Paano pumunta sa ospital kapag may labor pain",
+      "detail": "Paano pumunta sa ospital kapag may labor pain: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_09": {
+      "title": "Pagkuha ng larawan habang nanganganak",
+      "detail": "Pagkuha ng larawan habang nanganganak: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_10": {
+      "title": "Karaniwang haba ng pananatili sa ospital",
+      "detail": "Karaniwang haba ng pananatili sa ospital: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_11": {
+      "title": "Pagpili ng kuwarto at asal sa ospital",
+      "detail": "Pagpili ng kuwarto at asal sa ospital: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_12": {
+      "title": "Karaniwang gabay habang nasa ospital",
+      "detail": "Karaniwang gabay habang nasa ospital: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_13": {
+      "title": "Tungkulin ng nurse",
+      "detail": "Tungkulin ng nurse: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_14": {
+      "title": "Oras at bilang ng bisita",
+      "detail": "Oras at bilang ng bisita: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_15": {
+      "title": "Kulturang pag-uwi ng pusod",
+      "detail": "Kulturang pag-uwi ng pusod: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_16": {
+      "title": "Pagsasaalang-alang sa relihiyon at pagkain",
+      "detail": "Pagsasaalang-alang sa relihiyon at pagkain: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_17": {
+      "title": "Pagsusuri at pagtatanong pagkatapos manganak",
+      "detail": "Pagsusuri at pagtatanong pagkatapos manganak: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_18": {
+      "title": "Saan ipapasa ang birth registration",
+      "detail": "Saan ipapasa ang birth registration: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_19": {
+      "title": "Paggamit ng personal seal sa admission",
+      "detail": "Paggamit ng personal seal sa admission: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_20": {
+      "title": "Pagbisita sa bagong silang na sanggol",
+      "detail": "Pagbisita sa bagong silang na sanggol: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_21": {
+      "title": "Tungkol sa omiyamairi",
+      "detail": "Tungkol sa omiyamairi: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_22": {
+      "title": "Tungkol sa okuizome",
+      "detail": "Tungkol sa okuizome: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_23": {
+      "title": "Postpartum checkup at checkup ng sanggol",
+      "detail": "Postpartum checkup at checkup ng sanggol: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_24": {
+      "title": "Patakaran sa pagsakay ng sanggol sa kotse",
+      "detail": "Patakaran sa pagsakay ng sanggol sa kotse: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    },
+    "item_25": {
+      "title": "Pagdiriwang ng unang kaarawan ng sanggol",
+      "detail": "Pagdiriwang ng unang kaarawan ng sanggol: ipinapaliwanag nito ang karaniwang ginagawa sa Japan, mga patakaran ng ospital, at mga dapat kumpirmahin nang maaga. Maaaring mag-iba ang detalye depende sa ospital o munisipyo."
+    }
+  }
+}

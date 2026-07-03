@@ -1,0 +1,120 @@
+{
+  "page_title": "Những điều thường gặp khi sinh con ở Nhật",
+  "page_lead": "Trang này tóm tắt quy trình thường gặp và cách làm chung của bệnh viện khi sinh con ở Nhật.",
+  "settings": "Cài đặt ngôn ngữ",
+  "language": "Ngôn ngữ",
+  "close": "Đóng",
+  "keyword_search": "Tìm kiếm từ khóa",
+  "keyword_placeholder": "Tìm câu hỏi hoặc câu trả lời",
+  "tag_search": "Thời kỳ",
+  "period_kicker": "Thời kỳ",
+  "period_pregnancy": "Thai kỳ",
+  "period_childbirth": "Sinh con",
+  "period_postpartum_hospital": "Sau sinh (đang nằm viện)",
+  "period_postpartum_home": "Sau sinh (sau khi xuất viện)",
+  "all_tags": "Tất cả",
+  "result_count": "{{count}} mục",
+  "no_result": "Không có mục phù hợp.",
+  "items": {
+    "item_01": {
+      "title": "Tập tục đeo đai bụng vào ngày Tuất",
+      "detail": "Tập tục đeo đai bụng vào ngày Tuất: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_02": {
+      "title": "Số lần khám thai tham khảo",
+      "detail": "Số lần khám thai tham khảo: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_03": {
+      "title": "Hỗ trợ nhận được bằng phiếu trợ cấp",
+      "detail": "Hỗ trợ nhận được bằng phiếu trợ cấp: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_04": {
+      "title": "Chuẩn bị nhập viện: đồ cần mang",
+      "detail": "Chuẩn bị nhập viện: đồ cần mang: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_05": {
+      "title": "Các phương pháp sinh thường gặp ở Nhật",
+      "detail": "Các phương pháp sinh thường gặp ở Nhật: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_06": {
+      "title": "Điểm cần xác nhận khi muốn sinh không đau",
+      "detail": "Điểm cần xác nhận khi muốn sinh không đau: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_07": {
+      "title": "Người được vào phòng sinh và các giới hạn",
+      "detail": "Người được vào phòng sinh và các giới hạn: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_08": {
+      "title": "Cách đến bệnh viện khi chuyển dạ",
+      "detail": "Cách đến bệnh viện khi chuyển dạ: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_09": {
+      "title": "Chụp ảnh khi sinh",
+      "detail": "Chụp ảnh khi sinh: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_10": {
+      "title": "Thời gian nằm viện tham khảo",
+      "detail": "Thời gian nằm viện tham khảo: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_11": {
+      "title": "Chọn phòng và phép lịch sự khi nằm viện",
+      "detail": "Chọn phòng và phép lịch sự khi nằm viện: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_12": {
+      "title": "Hướng dẫn thường nhận khi nằm viện",
+      "detail": "Hướng dẫn thường nhận khi nằm viện: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_13": {
+      "title": "Vai trò của y tá",
+      "detail": "Vai trò của y tá: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_14": {
+      "title": "Giờ thăm và giới hạn số người thăm",
+      "detail": "Giờ thăm và giới hạn số người thăm: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_15": {
+      "title": "Văn hóa mang dây rốn về nhà",
+      "detail": "Văn hóa mang dây rốn về nhà: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_16": {
+      "title": "Hỗ trợ tôn giáo và bữa ăn",
+      "detail": "Hỗ trợ tôn giáo và bữa ăn: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_17": {
+      "title": "Khám và hỏi tình trạng sau sinh khi nằm viện",
+      "detail": "Khám và hỏi tình trạng sau sinh khi nằm viện: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_18": {
+      "title": "Nơi nộp giấy khai sinh",
+      "detail": "Nơi nộp giấy khai sinh: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_19": {
+      "title": "Việc dùng con dấu khi nhập viện",
+      "detail": "Việc dùng con dấu khi nhập viện: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_20": {
+      "title": "Thăm trẻ sơ sinh tại nhà",
+      "detail": "Thăm trẻ sơ sinh tại nhà: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_21": {
+      "title": "Về lễ omiyamairi",
+      "detail": "Về lễ omiyamairi: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_22": {
+      "title": "Về lễ okuizome",
+      "detail": "Về lễ okuizome: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_23": {
+      "title": "Khám sau sinh và khám trẻ sơ sinh",
+      "detail": "Khám sau sinh và khám trẻ sơ sinh: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_24": {
+      "title": "Quy tắc khi cho em bé đi ô tô",
+      "detail": "Quy tắc khi cho em bé đi ô tô: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    },
+    "item_25": {
+      "title": "Lễ mừng em bé 1 tuổi",
+      "detail": "Lễ mừng em bé 1 tuổi: phần này giải thích cách làm thường gặp ở Nhật, quy định của bệnh viện và những điểm cần xác nhận trước. Chi tiết có thể khác nhau tùy bệnh viện hoặc địa phương."
+    }
+  }
+}

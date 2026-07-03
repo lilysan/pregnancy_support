@@ -1,0 +1,120 @@
+{
+  "page_title": "Padrões do parto no Japão",
+  "page_lead": "Resumo dos procedimentos comuns e das práticas hospitalares gerais ao dar à luz no Japão.",
+  "settings": "Configuração de idioma",
+  "language": "Idioma",
+  "close": "Fechar",
+  "keyword_search": "Busca por palavra-chave",
+  "keyword_placeholder": "Pesquisar perguntas ou respostas",
+  "tag_search": "Período",
+  "period_kicker": "Período",
+  "period_pregnancy": "Gravidez",
+  "period_childbirth": "Parto",
+  "period_postpartum_hospital": "Pós-parto (internada)",
+  "period_postpartum_home": "Pós-parto (após alta)",
+  "all_tags": "Todos",
+  "result_count": "{{count}} resultados",
+  "no_result": "Nenhum item encontrado.",
+  "items": {
+    "item_01": {
+      "title": "Costume da faixa abdominal no Dia do Cão",
+      "detail": "Costume da faixa abdominal no Dia do Cão: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_02": {
+      "title": "Número aproximado de consultas pré-natais",
+      "detail": "Número aproximado de consultas pré-natais: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_03": {
+      "title": "Subsídios disponíveis com cupons",
+      "detail": "Subsídios disponíveis com cupons: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_04": {
+      "title": "Preparação para internação: o que levar",
+      "detail": "Preparação para internação: o que levar: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_05": {
+      "title": "Métodos de parto comuns no Japão",
+      "detail": "Métodos de parto comuns no Japão: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_06": {
+      "title": "O que confirmar ao desejar parto sem dor",
+      "detail": "O que confirmar ao desejar parto sem dor: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_07": {
+      "title": "Quem pode acompanhar o parto e restrições",
+      "detail": "Quem pode acompanhar o parto e restrições: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_08": {
+      "title": "Como ir ao hospital durante as contrações",
+      "detail": "Como ir ao hospital durante as contrações: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_09": {
+      "title": "Fotos durante o parto",
+      "detail": "Fotos durante o parto: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_10": {
+      "title": "Tempo aproximado de internação",
+      "detail": "Tempo aproximado de internação: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_11": {
+      "title": "Escolha do quarto e boas maneiras",
+      "detail": "Escolha do quarto e boas maneiras: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_12": {
+      "title": "Orientações comuns durante a internação",
+      "detail": "Orientações comuns durante a internação: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_13": {
+      "title": "Papel dos enfermeiros",
+      "detail": "Papel dos enfermeiros: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_14": {
+      "title": "Horário e número de visitantes",
+      "detail": "Horário e número de visitantes: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_15": {
+      "title": "Cultura de levar o cordão umbilical para casa",
+      "detail": "Cultura de levar o cordão umbilical para casa: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_16": {
+      "title": "Considerações religiosas e refeições",
+      "detail": "Considerações religiosas e refeições: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_17": {
+      "title": "Exames e perguntas após o parto na internação",
+      "detail": "Exames e perguntas após o parto na internação: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_18": {
+      "title": "Onde entregar o registro de nascimento",
+      "detail": "Onde entregar o registro de nascimento: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_19": {
+      "title": "Uso do carimbo na internação",
+      "detail": "Uso do carimbo na internação: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_20": {
+      "title": "Visita ao recém-nascido",
+      "detail": "Visita ao recém-nascido: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_21": {
+      "title": "Sobre o omiyamairi",
+      "detail": "Sobre o omiyamairi: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_22": {
+      "title": "Sobre o okuizome",
+      "detail": "Sobre o okuizome: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_23": {
+      "title": "Consulta pós-parto e consulta do bebê",
+      "detail": "Consulta pós-parto e consulta do bebê: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_24": {
+      "title": "Regras para levar o bebê de carro",
+      "detail": "Regras para levar o bebê de carro: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    },
+    "item_25": {
+      "title": "Comemoração de 1 ano do bebê",
+      "detail": "Comemoração de 1 ano do bebê: explica práticas comuns no Japão, possíveis regras do hospital e pontos que devem ser confirmados com antecedência. Os detalhes podem variar conforme o hospital ou município."
+    }
+  }
+}
