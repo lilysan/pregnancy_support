@@ -526,6 +526,7 @@
       }
 
       function renderLanguageButtons() {
+        syncHeaderLanguageLabel();
         const list = document.getElementById("languageOptionList");
         list.innerHTML = "";
         languageOptions.forEach((lang) => {
@@ -564,6 +565,36 @@
           });
           list.appendChild(btn);
         });
+      }
+
+      function syncHeaderLanguageLabel() {
+        const currentLanguageLabel = document.getElementById("currentLanguage");
+        if (!currentLanguageLabel) return;
+        const shortLabels = {
+          ja: "やさしい",
+          "en-US": "English",
+          zh: "中文",
+          fr: "Français",
+          ko: "한국어",
+          pr: "Português",
+          tl: "Tagalog",
+          ve: "Tiếng Việt",
+          th: "ภาษาไทย",
+          de: "Deutsch",
+          id: "Indonesia",
+          ru: "Русский",
+          ne: "नेपाली",
+          lo: "ລາວ",
+          uk: "Українська",
+          "fa-AF": "دری",
+          si: "සිංහල",
+          ms: "Melayu",
+          my: "မြန်မာ",
+          bn: "বাংলা",
+          ur: "اردو",
+        };
+        currentLanguageLabel.textContent =
+          shortLabels[selectedLanguage] || "Language";
       }
 
       function applyI18n() {

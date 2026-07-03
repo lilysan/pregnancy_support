@@ -69,17 +69,24 @@ $(function () {
     const currentPagePath = typeof currentPage !== "undefined" && currentPage ? currentPage : getCurrentPagePath(appRootUrl);
 
     $(".site-title-logo").attr("src", new URL("common/assets/logo.svg", appRootUrl).href);
-    $("#langBtn, #languageDropdown").remove();
-    $(".divider-v").remove();
+    $("#languageDropdown").remove();
+    $("#currentLanguage").text(getPageLanguageLabel());
 
     const $menuOverlay = $("#menuOverlay");
     const $menuDropdown = $("#menuDropdown");
+    const $langBtn = $("#langBtn");
     const $menuBtn = $("#menuBtn");
     const $menuCloseBtn = $("#menuCloseBtn");
     const $body = $("body");
 
     renderMenu();
 
+    $langBtn.on("click", () => {
+        const languageButton = document.getElementById("languageSettingBtn");
+        if (languageButton) {
+            languageButton.click();
+        }
+    });
     $menuBtn.on("click", () => {
         $menuOverlay.addClass("is-open");
         $body.addClass("no-scroll");
@@ -109,6 +116,40 @@ $(function () {
                 }
             });
         });
+    }
+
+    function getPageLanguageLabel() {
+        const savedKeys = [
+            "aruaruSelectedLanguage",
+            "aboutsexSelectedLanguage",
+            "receptionSelectedLanguage",
+            "selectedLanguage",
+        ];
+        const labels = {
+            ja: "やさしい",
+            "en-US": "English",
+            zh: "中文",
+            fr: "Français",
+            ko: "한국어",
+            pr: "Português",
+            tl: "Tagalog",
+            ve: "Tiếng Việt",
+            th: "ภาษาไทย",
+            de: "Deutsch",
+            id: "Indonesia",
+            ru: "Русский",
+            ne: "नेपाली",
+            lo: "ລາວ",
+            uk: "Українська",
+            "fa-AF": "دری",
+            si: "සිංහල",
+            ms: "Melayu",
+            my: "မြန်မာ",
+            bn: "বাংলা",
+            ur: "اردو",
+        };
+        const saved = savedKeys.map((key) => localStorage.getItem(key)).find(Boolean);
+        return labels[saved] || "Language";
     }
 
     function createMenuItem(item) {
