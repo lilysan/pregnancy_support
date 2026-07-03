@@ -5,12 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>制度・システム</title>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"></script>
     <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
     <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <script src="../common/js/config.js"></script>
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
+    <div id="header-container" class="header-wrapper"></div>
+
     <header class="app-header">
         <h1 id="pageTitle">制度・システム</h1>
         <p id="pageLead">妊娠期から育児期までに関わる制度を、時期ごとに確認できます。</p>
@@ -27,6 +36,13 @@
     </div>
 
     <main class="main">
+        <section class="intro-card" aria-labelledby="introTitle">
+            <div>
+                <p id="introTitle" class="intro-title">妊娠期・分娩期・育児期の主要制度一覧</p>
+                <p id="introCopy" class="intro-copy">妊娠期から育児期までに利用しやすい主な制度を、期間と申請先で探せます。</p>
+            </div>
+            <p id="sourceNote" class="source-note">参考資料: 妊娠期・分娩期・育児期の主要制度一覧（2026年4月14日）</p>
+        </section>
 
         <section class="search-panel" aria-label="条件検索">
             <div class="tag-search">
@@ -131,11 +147,13 @@
         ];
 
         const STORAGE_KEY = 'systeminformationSelectedLanguage';
+        const currentPage = 'systeminformation';
         let selectedLanguage = 'en-US';
         let selectedPeriodTag = 'all';
         let selectedOfficeTag = 'all';
 
         const qaItems = [{
+            id: 'maternal_child_handbook',
             tags: ['妊娠期', '市区町村（保健センター等）'],
             period: '妊娠期',
             office: '市区町村（保健センター等）',
@@ -158,6 +176,7 @@
                 basis: '《母子保健法》第16条'
             }
         }, {
+            id: 'prenatal_checkup_subsidy',
             tags: ['妊娠期', '医療機関'],
             period: '妊娠期',
             office: '医療機関',
@@ -180,10 +199,11 @@
                 basis: '《母子保健法》第13条'
             }
         }, {
+            id: 'maternal_health_leave',
             tags: ['妊娠期', '勤務先'],
             period: '妊娠期',
             office: '勤務先',
-            jaQ: '妊婦のための休暇／母性健康管理措置',
+            jaQ: '妊婦のための休暇（母性健康管理措置）',
             enQ: 'Leave for Pregnant Women / Maternal Health Management Measures',
             zhQ: '孕妇休假／母性健康管理措施',
             jaA: {
@@ -202,6 +222,7 @@
                 basis: '《男女雇用机会均等法》第12条、第13条'
             }
         }, {
+            id: 'maternity_leave',
             tags: ['分娩期', '勤務先'],
             period: '分娩期',
             office: '勤務先',
@@ -224,6 +245,7 @@
                 basis: '《劳动基准法》第65条'
             }
         }, {
+            id: 'childbirth_lump_sum',
             tags: ['分娩期', '健康保険組合等'],
             period: '分娩期',
             office: '健康保険組合等',
@@ -232,20 +254,21 @@
             zhQ: '生育育儿一次性补助金',
             jaA: {
                 target: '被保険者',
-                overview: '出産費用として原則50万円が支給。',
+                overview: '出産費用として原則50万円（2023年4月〜）が支給。',
                 basis: '健康保険法第101条'
             },
             enA: {
                 target: 'Insured persons',
-                overview: 'In principle, 500,000 yen is paid to cover childbirth costs.',
+                overview: 'In principle, 500,000 yen is paid to cover childbirth costs from April 2023.',
                 basis: 'Health Insurance Act, Article 101'
             },
             zhA: {
                 target: '参保人',
-                overview: '原则上发放50万日元，用于分娩费用。',
+                overview: '原则上发放50万日元（2023年4月起），用于分娩费用。',
                 basis: '《健康保险法》第101条'
             }
         }, {
+            id: 'maternity_allowance',
             tags: ['分娩期', '健康保険組合等'],
             period: '分娩期',
             office: '健康保険組合等',
@@ -254,12 +277,12 @@
             zhQ: '生育津贴',
             jaA: {
                 target: '社会保険加入者',
-                overview: '出産前後の休業中の所得補償。給与の支払いがない場合に、日給の約2/3が支給。',
+                overview: '出産前後の休業中の所得補償。産休中の給与の支払いがない場合に支給（日給の約2/3）。',
                 basis: '健康保険法第102条'
             },
             enA: {
                 target: 'Persons enrolled in social insurance',
-                overview: 'Income support during leave before and after childbirth. If no salary is paid, about two-thirds of the daily wage is provided.',
+                overview: 'Income support during leave before and after childbirth. If no salary is paid during maternity leave, about two-thirds of the daily wage is provided.',
                 basis: 'Health Insurance Act, Article 102'
             },
             zhA: {
@@ -268,6 +291,7 @@
                 basis: '《健康保险法》第102条'
             }
         }, {
+            id: 'postpartum_care',
             tags: ['分娩期', '市区町村（保健センター等）'],
             period: '分娩期',
             office: '市区町村（保健センター等）',
@@ -290,6 +314,7 @@
                 basis: '《母子保健法》第17条之2'
             }
         }, {
+            id: 'newborn_home_visit',
             tags: ['分娩期', '市区町村（保健センター等）'],
             period: '分娩期',
             office: '市区町村（保健センター等）',
@@ -312,6 +337,7 @@
                 basis: '《母子保健法》第11条'
             }
         }, {
+            id: 'postnatal_paternity_leave',
             tags: ['分娩期', '勤務先'],
             period: '分娩期',
             office: '勤務先',
@@ -320,12 +346,12 @@
             zhQ: '产后爸爸育儿假',
             jaA: {
                 target: '働く男性',
-                overview: '子の出生後8週以内に最大4週間、2回に分けて取得可能。',
+                overview: '子の出生後8週以内に最大4週間（2回分割可）取得可能。',
                 basis: '産後パパ育休制度'
             },
             enA: {
                 target: 'Working men',
-                overview: 'Can be taken within 8 weeks after birth for up to 4 weeks, split into two periods.',
+                overview: 'Can be taken within 8 weeks after birth for up to 4 weeks, and may be split into two periods.',
                 basis: 'Postnatal Paternity Leave System'
             },
             zhA: {
@@ -334,6 +360,7 @@
                 basis: '产后爸爸育儿假制度'
             }
         }, {
+            id: 'childcare_leave',
             tags: ['育児期', '勤務先'],
             period: '育児期',
             office: '勤務先',
@@ -342,7 +369,7 @@
             zhQ: '育儿休假',
             jaA: {
                 target: '働く男女',
-                overview: '原則として子が1歳に達するまで、最長2歳まで取得可能。',
+                overview: '原則として子が1歳に達するまで（最長2歳）取得可能。',
                 basis: '育児・介護休業法第5条'
             },
             enA: {
@@ -356,6 +383,7 @@
                 basis: '《育儿・护理休业法》第5条'
             }
         }, {
+            id: 'childcare_leave_benefit',
             tags: ['育児期', 'ハローワーク'],
             period: '育児期',
             office: 'ハローワーク',
@@ -364,12 +392,12 @@
             zhQ: '育儿休假补贴',
             jaA: {
                 target: '雇用保険加入者',
-                overview: '育休中の生活を支援するため、雇用保険から支給。休業中の所得補償。',
+                overview: '育休中の生活を支援するため、雇用保険から支給。休業中の所得補償（約67％→50％）。',
                 basis: '雇用保険法第61条の4'
             },
             enA: {
                 target: 'Employment insurance beneficiaries',
-                overview: 'Paid from employment insurance to support living expenses during childcare leave and compensate for lost income.',
+                overview: 'Paid from employment insurance to support living expenses during childcare leave and compensate for lost income. The benefit rate is about 67%, then 50%.',
                 basis: 'Employment Insurance Act, Article 61-4'
             },
             zhA: {
@@ -378,6 +406,7 @@
                 basis: '《雇用保险法》第61条之4'
             }
         }, {
+            id: 'social_insurance_exemption',
             tags: ['育児期', '年金事務所等'],
             period: '育児期',
             office: '年金事務所等',
@@ -400,6 +429,7 @@
                 basis: '《健康保险法》第159条、第160条，《厚生年金保险法》第81条之2'
             }
         }, {
+            id: 'child_allowance',
             tags: ['育児期', '市区町村'],
             period: '育児期',
             office: '市区町村',
@@ -422,6 +452,7 @@
                 basis: '《儿童津贴法》'
             }
         }, {
+            id: 'infant_medical_subsidy',
             tags: ['育児期', '区市町村'],
             period: '育児期',
             office: '区市町村',
@@ -444,6 +475,7 @@
                 basis: '各地方政府制度'
             }
         }, {
+            id: 'nursery_certified_center',
             tags: ['育児期', '市区町村'],
             period: '育児期',
             office: '市区町村',
@@ -466,6 +498,7 @@
                 basis: '《儿童与育儿支援法》'
             }
         }, {
+            id: 'child_nursing_leave',
             tags: ['育児期', '勤務先'],
             period: '育児期',
             office: '勤務先',
@@ -474,8 +507,8 @@
             zhQ: '照顾子女休假',
             jaA: {
                 target: '小学校3年生までの子を養育する働く男女',
-                overview: '子の病気や予防接種のために、年5日、2人以上なら10日取得可。',
-                basis: '育児・介護休業法第16条の2'
+                overview: '子の病気や予防接種のために、年5日（2人以上なら10日）取得可。',
+                basis: '育児・介護休業法 第16条の2'
             },
             enA: {
                 target: 'Working parents raising children up to the third grade of elementary school',
@@ -509,6 +542,7 @@
         window.addEventListener('load', init);
 
         async function init() {
+            loadCommonHeader();
             document.getElementById('languageSettingBtn').addEventListener('click', () => {
                 document.getElementById('languageDialog').style.display = 'block';
             });
@@ -521,6 +555,19 @@
             applyI18n();
             renderTagFilters();
             renderSystems();
+        }
+
+        function loadCommonHeader() {
+            if (!window.jQuery) return;
+            $('#header-container').load('../common/header.html', function (_responseText, status) {
+                if (status === 'error') {
+                    console.error('Failed to load header.html');
+                    return;
+                }
+                $.getScript('../common/js/header2.js').fail(function () {
+                    console.error('Failed to load header2.js');
+                });
+            });
         }
 
         function loadInitialLanguage() {
@@ -555,8 +602,8 @@
         }
 
         function getI18nLanguage(langCode) {
-            if (langCode === 'zh') return 'zh';
-            if (langCode === 'ja') return 'ja';
+            const supported = new Set(languageOptions.map((lang) => lang.code));
+            if (supported.has(langCode)) return langCode;
             return 'en-US';
         }
 
@@ -611,16 +658,20 @@
             document.getElementById('languageDialogTitle').textContent = tr('settings', '設定');
             document.getElementById('languageSectionTitle').textContent = tr('language', '言語設定');
             document.getElementById('closeLanguageBtn').textContent = tr('close', '閉じる');
+            document.getElementById('introTitle').textContent = tr('intro_title', '妊娠期・分娩期・育児期の主要制度一覧');
+            document.getElementById('introCopy').textContent = tr('intro_copy', '妊娠期から育児期までに利用しやすい主な制度を、期間と申請先で探せます。');
+            document.getElementById('sourceNote').textContent = tr('source_note', '参考資料: 妊娠期・分娩期・育児期の主要制度一覧（2026年4月14日）');
             document.getElementById('periodFilterLabel').textContent = tr('period_filter', '期間');
             document.getElementById('officeFilterLabel').textContent = tr('office_filter', '届出・申請先');
         }
 
         function createInfoRow(labelKey, fallbackLabel, jaValue, translatedValue) {
+            const primaryValue = selectedLanguage === 'ja' ? (translatedValue || jaValue) : jaValue;
             return `
                 <div class="system-row">
                     <dt class="system-term">${tr(labelKey, fallbackLabel)}</dt>
                     <dd class="system-description">
-                        <span class="system-description-ja">${escapeHtml(jaValue)}</span>
+                        <span class="system-description-ja">${escapeHtml(primaryValue)}</span>
                         ${renderTranslatedLine(translatedValue)}
                     </dd>
                 </div>
@@ -633,17 +684,19 @@
         }
 
         function getTranslatedQuestion(item) {
-            if (selectedLanguage === 'zh') return item.zhQ || item.enQ || '';
-            if (selectedLanguage === 'ja') return '';
-            return item.enQ || '';
+            if (selectedLanguage === 'ja') return tr(`systems.${item.id}.title`, item.jaQ || '');
+            const fallback = selectedLanguage === 'zh' ? (item.zhQ || item.enQ || '') : (item.enQ || '');
+            return tr(`systems.${item.id}.title`, fallback);
         }
 
         function getTranslatedAnswer(item, field) {
-            if (selectedLanguage === 'zh') {
-                return item.zhA && item.zhA[field] ? item.zhA[field] : ((item.enA && item.enA[field]) || '');
+            if (selectedLanguage === 'ja') {
+                return tr(`systems.${item.id}.${field}`, (item.jaA && item.jaA[field]) || '');
             }
-            if (selectedLanguage === 'ja') return '';
-            return item.enA && item.enA[field] ? item.enA[field] : '';
+            const fallback = selectedLanguage === 'zh'
+                ? ((item.zhA && item.zhA[field]) || (item.enA && item.enA[field]) || '')
+                : ((item.enA && item.enA[field]) || '');
+            return tr(`systems.${item.id}.${field}`, fallback);
         }
 
         function translateTag(tag) {
@@ -652,7 +705,8 @@
         }
 
         function renderBilingualChip(jaText, trText) {
-            if (selectedLanguage === 'ja' || !trText || trText === jaText) return escapeHtml(jaText);
+            if (selectedLanguage === 'ja') return escapeHtml(trText || jaText);
+            if (!trText || trText === jaText) return escapeHtml(jaText);
             return `<span class="chip-ja">${escapeHtml(jaText)}</span><span class="chip-tr">${escapeHtml(trText)}</span>`;
         }
 
@@ -720,10 +774,11 @@
 
                 const section = document.createElement('section');
                 section.className = 'period-section';
+                const periodTitle = selectedLanguage === 'ja' ? translateTag(period) : period;
                 section.innerHTML = `
                     <div class="period-header">
                         <p class="period-kicker">${tr('period_kicker', 'Period')}</p>
-                        <h2 class="period-title">${escapeHtml(period)}${selectedLanguage === 'ja' ? '' : `<span class="period-title-sub">${escapeHtml(translateTag(period))}</span>`}</h2>
+                        <h2 class="period-title">${escapeHtml(periodTitle)}${selectedLanguage === 'ja' ? '' : `<span class="period-title-sub">${escapeHtml(translateTag(period))}</span>`}</h2>
                     </div>
                     <div class="period-cards"></div>
                 `;
@@ -733,10 +788,11 @@
                     const details = document.createElement('details');
                     details.className = 'system-card';
                     details.open = false;
+                    const primaryTitle = selectedLanguage === 'ja' ? getTranslatedQuestion(item) : item.jaQ;
                     details.innerHTML = `
                         <summary class="system-summary">
                             <div class="system-head">
-                                <p class="system-name">${escapeHtml(item.jaQ)}</p>
+                                <p class="system-name">${escapeHtml(primaryTitle)}</p>
                                 ${selectedLanguage === 'ja' ? '' : `<p class="system-name-tr">${escapeHtml(getTranslatedQuestion(item))}</p>`}
                                 <div class="system-tags">
                                     ${(item.tags || []).map((tag) => `<span class="system-tag">${renderBilingualChip(tag, translateTag(tag))}</span>`).join('')}

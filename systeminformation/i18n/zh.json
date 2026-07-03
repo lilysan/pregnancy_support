@@ -5,13 +5,14 @@
   "language": "语言设置",
   "close": "关闭",
   "intro_title": "妊娠期、分娩期、育儿期主要制度一览",
-  "intro_copy": "以制度名作为标题，并将“期间”和“申报／申请处”作为标签显示。展开卡片后可以查看对象、概要及依据。",
+  "intro_copy": "可按时期和申请处查找从妊娠期到育儿期常用的主要制度。展开卡片后可以查看对象、概要和依据。",
+  "source_note": "参考资料：妊娠期、分娩期、育儿期主要制度一览（2026年4月14日）",
   "period_filter": "期间",
   "office_filter": "申报／申请处",
   "all_tags": "全部",
   "result_count": "显示 {{count}} 项",
   "no_result": "没有符合条件的制度。",
-  "period_kicker": "Period",
+  "period_kicker": "期间",
   "apply_to": "申报／申请处",
   "target": "对象",
   "overview": "概要",
@@ -26,5 +27,103 @@
   "office_hellowork": "Hello Work",
   "office_pension": "年金事务所等",
   "office_municipality": "市区町村",
-  "office_ward_municipality": "区市町村"
+  "office_ward_municipality": "区市町村",
+  "systems": {
+    "maternal_child_handbook": {
+      "title": "发放母子健康手册",
+      "target": "孕妇",
+      "overview": "提交妊娠申报后发放。用于记录产检和预防接种，也用于记录和支持妊娠、分娩与育儿。",
+      "basis": "《母子保健法》第16条"
+    },
+    "prenatal_checkup_subsidy": {
+      "title": "孕妇产检的公共补助",
+      "target": "孕妇",
+      "overview": "地方政府承担部分孕妇产检费用。",
+      "basis": "《母子保健法》第13条"
+    },
+    "maternal_health_leave": {
+      "title": "孕妇休假／母性健康管理措施",
+      "target": "在职孕产妇",
+      "overview": "可根据医生指示请假就诊或休养，也可申请错峰上班、缩短工时、确保休息等措施。",
+      "basis": "《男女雇用机会均等法》第12条、第13条"
+    },
+    "maternity_leave": {
+      "title": "产前产后休假",
+      "target": "在职女性",
+      "overview": "可休产前6周（多胎为14周）至产后8周。",
+      "basis": "《劳动基准法》第65条"
+    },
+    "childbirth_lump_sum": {
+      "title": "生育育儿一次性补助金",
+      "target": "参保人",
+      "overview": "原则上发放50万日元（2023年4月起），用于分娩费用。",
+      "basis": "《健康保险法》第101条"
+    },
+    "maternity_allowance": {
+      "title": "生育津贴",
+      "target": "参加社会保险者",
+      "overview": "用于补偿分娩前后休业期间的收入。如单位不发工资，可领取约日工资三分之二。",
+      "basis": "《健康保险法》第102条"
+    },
+    "postpartum_care": {
+      "title": "产后护理支援服务",
+      "target": "产后的母婴",
+      "overview": "通过住宿、日间服务和上门访问等方式提供母婴支持。",
+      "basis": "《母子保健法》第17条之2"
+    },
+    "newborn_home_visit": {
+      "title": "新生儿入户指导",
+      "target": "新生儿及产妇",
+      "overview": "由保健师等专业人员进行家庭访问。",
+      "basis": "《母子保健法》第11条"
+    },
+    "postnatal_paternity_leave": {
+      "title": "产后爸爸育儿假",
+      "target": "在职男性",
+      "overview": "可在孩子出生后8周内分两次取得，合计最长4周。",
+      "basis": "产后爸爸育儿假制度"
+    },
+    "childcare_leave": {
+      "title": "育儿休假",
+      "target": "在职男女",
+      "overview": "原则上可休至孩子满1岁，最长可延长至2岁。",
+      "basis": "《育儿・护理休业法》第5条"
+    },
+    "childcare_leave_benefit": {
+      "title": "育儿休假补贴",
+      "target": "参加雇用保险者",
+      "overview": "由雇用保险发放，用于支持育儿假期间的生活并补偿停工收入。",
+      "basis": "《雇用保险法》第61条之4"
+    },
+    "social_insurance_exemption": {
+      "title": "社会保险费免除",
+      "target": "领取产假或育儿假者",
+      "overview": "休假期间可免缴健康保险费和厚生年金保险费。",
+      "basis": "《健康保险法》第159条、第160条，《厚生年金保险法》第81条之2"
+    },
+    "child_allowance": {
+      "title": "儿童津贴",
+      "target": "抚养子女者",
+      "overview": "发放给抚养孩子至初中毕业阶段的家庭。",
+      "basis": "《儿童津贴法》"
+    },
+    "infant_medical_subsidy": {
+      "title": "婴幼儿医疗费补助",
+      "target": "婴幼儿",
+      "overview": "减轻医疗费用个人负担。",
+      "basis": "各地方政府制度"
+    },
+    "nursery_certified_center": {
+      "title": "保育园与认定儿童园",
+      "target": "双职工家庭等",
+      "overview": "提供托育服务。",
+      "basis": "《儿童与育儿支援法》"
+    },
+    "child_nursing_leave": {
+      "title": "照顾子女休假",
+      "target": "抚养小学三年级及以下子女的在职男女",
+      "overview": "因子女生病或接种疫苗，每年可休5天；有两个及以上孩子时可休10天。",
+      "basis": "《育儿・护理休业法》第16条之2"
+    }
+  }
 }
