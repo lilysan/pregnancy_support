@@ -4,12 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>妊娠中の性交渉について〜妊婦さんとパートナーの方へ〜</title>
-    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
-    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <script
+      src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"
+      defer
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+      defer
+    ></script>
+    <script src="https://unpkg.com/i18next@23/i18next.min.js" defer></script>
+    <script
+      src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"
+      defer
+    ></script>
+    <script src="../common/js/config.js" defer></script>
+    <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="./style.css" />
   </head>
 
   <body>
+    <div id="header-container" class="header-wrapper"></div>
+
     <header class="app-header">
       <h1 id="pageTitle">
         妊娠中の性交渉について〜妊婦さんとパートナーの方へ〜
@@ -148,6 +165,7 @@
       ];
 
       const STORAGE_KEY = "aboutsexSelectedLanguage";
+      const currentPage = "aboutsex";
       const tagTranslationKeys = {
         基本: "theme_basic",
         控える: "theme_avoid",
@@ -533,6 +551,7 @@
       window.addEventListener("load", init);
 
       async function init() {
+        loadCommonHeader();
         document
           .getElementById("languageSettingBtn")
           .addEventListener("click", openLanguageDialog);
@@ -558,6 +577,22 @@
         renderDialogText();
         renderTagFilters();
         renderQaList();
+      }
+
+      function loadCommonHeader() {
+        if (!window.jQuery) return;
+        $("#header-container").load(
+          "../common/header.html",
+          function (_responseText, status) {
+            if (status === "error") {
+              console.error("Failed to load header.html");
+              return;
+            }
+            $.getScript("../common/js/header2.js").fail(function () {
+              console.error("Failed to load header2.js");
+            });
+          },
+        );
       }
 
       function openLanguageDialog() {
