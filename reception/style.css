@@ -1,27 +1,32 @@
 :root {
-    --bg: #fffaf5;
-    --card: #ffffff;
-    --ink: #342e2b;
-    --sub: #6e6460;
-    --accent: #e46f47;
-    --accent-soft: #ffe5db;
-    --line: #eadccf;
-    --tab: #f4ece5;
-    --ok: #fff0b8;
-    --ok-line: #ecbf45;
-    --shadow: 0 8px 20px rgba(129, 84, 56, 0.14);
+    --bg: var(--surface);
+    --card: var(--background);
+    --ink: var(--text);
+    --sub: var(--sub-text);
+    --accent: var(--primary);
+    --accent-soft: var(--primary-light);
+    --line: var(--border);
+    --tab: var(--surface);
+    --ok: var(--labor-light);
+    --ok-line: var(--labor-dark);
+    --shadow: 0 2px 4px rgba(44, 62, 80, 0.1);
 }
 
 body {
     min-height: 100vh;
+    padding-bottom: 92px;
 }
 
         .app-header {
-            padding: 18px 14px 8px;
-            padding-right: 120px;
+            max-width: 600px;
+            padding: 18px 24px 8px;
+            margin: 0 auto;
         }
 
         .app-header h1 {
+            color: var(--text);
+            font-size: 1.35rem;
+            font-weight: 800;
         }
 
         .app-header p {
@@ -30,11 +35,13 @@ body {
         }
 
         .app-switcher {
-            margin: 4px 12px 10px;
+            width: calc(100% - 48px);
+            max-width: 552px;
+            margin: 4px auto 10px;
             padding: 8px;
-            border: 1px solid var(--line);
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: var(--background);
             box-shadow: var(--shadow);
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -44,9 +51,9 @@ body {
         .app-switch-link {
             min-height: 48px;
             border-radius: 12px;
-            border: 2px solid var(--line);
-            background: #fff;
-            color: var(--ink);
+            border: 2px solid var(--border);
+            background: var(--background);
+            color: var(--text);
             font-size: 0.95rem;
             font-weight: 800;
             text-decoration: none;
@@ -55,21 +62,22 @@ body {
         }
 
         .app-switch-link.is-current {
-            background: var(--accent-soft);
-            border-color: var(--accent);
+            background: var(--primary-light);
+            border-color: var(--primary-border);
+            color: var(--primary-dark);
         }
 
         .language-setting-btn {
             position: fixed;
-            top: 10px;
+            top: 74px;
             right: 12px;
             z-index: 60;
             min-height: 44px;
             padding: 8px 12px;
-            border: 2px solid var(--line);
+            border: 2px solid var(--primary-border);
             border-radius: 12px;
-            background: #fff5ed;
-            color: var(--ink);
+            background: var(--primary-light);
+            color: var(--primary-dark);
             font-size: 0.9rem;
             font-weight: 800;
         }
@@ -87,9 +95,10 @@ body {
             max-width: 560px;
             max-height: 80%;
             overflow-y: auto;
-            border-radius: 14px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
             padding: 14px;
-            background: #fff;
+            background: var(--background);
             box-shadow: var(--shadow);
         }
 
@@ -109,10 +118,10 @@ body {
         .language-option-btn {
             width: 100%;
             min-height: 48px;
-            border: 2px solid var(--line);
+            border: 2px solid var(--border);
             border-radius: 12px;
-            background: #fff;
-            color: var(--ink);
+            background: var(--background);
+            color: var(--primary-dark);
             font-size: 0.95rem;
             font-weight: 700;
             text-align: left;
@@ -120,8 +129,8 @@ body {
         }
 
         .language-option-btn.active {
-            background: var(--accent-soft);
-            border-color: var(--accent);
+            background: var(--primary-light);
+            border-color: var(--primary-border);
         }
 
         #closeLanguageBtn {
@@ -141,14 +150,14 @@ body {
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 8px;
             padding: 10px 12px;
-            background: linear-gradient(to bottom, rgba(255, 250, 245, 0.97), rgba(255, 250, 245, 0.9));
+            background: linear-gradient(to bottom, rgba(243, 248, 250, 0.97), rgba(243, 248, 250, 0.9));
         }
 
         .language-btn {
-            border: 2px solid var(--line);
+            border: 2px solid var(--border);
             border-radius: 14px;
-            background: #fff;
-            color: var(--ink);
+            background: var(--background);
+            color: var(--text);
             font-size: 0.88rem;
             min-height: 54px;
             padding: 8px;
@@ -157,8 +166,8 @@ body {
         }
 
         .language-btn.active {
-            background: var(--accent-soft);
-            border-color: var(--accent);
+            background: var(--primary-light);
+            border-color: var(--primary-border);
         }
 
         .main {
@@ -173,7 +182,7 @@ body {
             display: flex;
             gap: 8px;
             overflow-x: auto;
-            background: rgba(255, 250, 245, 0.94);
+            background: rgba(243, 248, 250, 0.94);
             padding: 10px 0;
         }
 
@@ -182,7 +191,7 @@ body {
             border: none;
             border-radius: 999px;
             background: var(--tab);
-            color: var(--ink);
+            color: var(--text);
             min-height: 58px;
             padding: 10px 14px;
             font-size: 0.94rem;
@@ -191,7 +200,7 @@ body {
         }
 
         .tab-btn.active {
-            background: var(--accent);
+            background: var(--primary);
             color: #fff;
         }
 
@@ -217,7 +226,7 @@ body {
         }
 
         .talk-card {
-            border: 1px solid var(--line);
+            border: 1px solid var(--border);
             border-radius: 16px;
             background: var(--card);
             overflow: hidden;
@@ -266,17 +275,17 @@ body {
             width: 52px;
             min-width: 52px;
             min-height: 52px;
-            border: 2px solid #ffc2ae;
+            border: 2px solid var(--primary-border);
             border-radius: 14px;
-            background: var(--accent-soft);
-            color: var(--ink);
+            background: var(--primary-light);
+            color: var(--primary-dark);
             font-size: 1.05rem;
             font-weight: 800;
         }
 
         .talk-panel {
-            border-top: 1px solid var(--line);
-            background: #fffdfb;
+            border-top: 1px solid var(--border);
+            background: var(--background);
             padding: 12px;
         }
 
@@ -289,10 +298,10 @@ body {
         .large-btn {
             width: 100%;
             min-height: 72px;
-            border: 2px solid var(--line);
+            border: 2px solid var(--border);
             border-radius: 14px;
-            background: #fff;
-            color: var(--ink);
+            background: var(--background);
+            color: var(--text);
             padding: 10px;
             text-align: left;
             font-size: 1rem;
@@ -301,8 +310,8 @@ body {
 
         .speak-btn {
             text-align: center;
-            background: var(--accent-soft);
-            border-color: #ffc2ae;
+            background: var(--primary-light);
+            border-color: var(--primary-border);
         }
 
         .option-btn.selected {
@@ -344,11 +353,11 @@ body {
             padding: 10px 14px;
             border: none;
             border-radius: 999px;
-            background: #3f7f6f;
+            background: var(--primary);
             color: #fff;
             font-size: 0.95rem;
             font-weight: 700;
-            box-shadow: 0 8px 18px rgba(30, 66, 57, 0.25);
+            box-shadow: 0 8px 18px rgba(47, 111, 206, 0.18);
         }
 
         .translation-app-dialog {
@@ -358,7 +367,7 @@ body {
             display: none;
             align-items: flex-end;
             justify-content: center;
-            background: rgba(28, 38, 35, 0.32);
+            background: rgba(0, 0, 0, 0.38);
             padding: 12px;
         }
 
@@ -369,8 +378,8 @@ body {
         .translation-app-panel {
             width: 100%;
             max-width: 520px;
-            background: #fffdf9;
-            border: 1px solid var(--line);
+            background: var(--background);
+            border: 1px solid var(--border);
             border-radius: 16px;
             box-shadow: var(--shadow);
             padding: 14px;
@@ -389,9 +398,9 @@ body {
         }
 
         .translation-app-close {
-            border: 1px solid var(--line);
-            background: #fff;
-            color: var(--ink);
+            border: 1px solid var(--border);
+            background: var(--background);
+            color: var(--text);
             border-radius: 999px;
             min-height: 36px;
             padding: 0 12px;
@@ -412,16 +421,16 @@ body {
 
         .translation-app-option {
             min-height: 56px;
-            border: 1px solid var(--line);
+            border: 1px solid var(--border);
             border-radius: 14px;
-            background: #fff;
-            color: var(--ink);
+            background: var(--background);
+            color: var(--text);
             font-size: 1rem;
             font-weight: 700;
         }
 
         .translation-app-option:hover {
-            background: var(--accent-soft);
+            background: var(--primary-light);
         }
 
         .scroll-top-btn {
@@ -432,11 +441,11 @@ body {
             height: 56px;
             border: none;
             border-radius: 999px;
-            background: var(--accent);
+            background: var(--primary);
             color: #fff;
             font-size: 20px;
             font-weight: 700;
-            box-shadow: 0 8px 18px rgba(82, 42, 20, 0.28);
+            box-shadow: 0 8px 18px rgba(47, 111, 206, 0.18);
             opacity: 0;
             pointer-events: none;
             transform: translateY(10px);
