@@ -1,182 +1,221 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>妊娠中の性交渉について〜妊婦さんとパートナーの方へ〜</title>
+    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>妊娠中の性交渉について</title>
-  <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
-  <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
-  <link rel="stylesheet" href="./style.css">
-</head>
+  <body>
+    <header class="app-header">
+      <h1 id="pageTitle">
+        妊娠中の性交渉について〜妊婦さんとパートナーの方へ〜
+      </h1>
+      <p id="pageLead">
+        妊婦さんとパートナーが、安全と安心を大切にしながら確認できる情報をまとめています。
+      </p>
+    </header>
 
-<body>
-  <header class="app-header">
-    <h1 id="pageTitle">妊娠中の性交渉について</h1>
-    <p id="pageLead">妊婦さんとパートナーが、安全と安心を大切にしながら確認できる情報をまとめています。</p>
-  </header>
-
-  <button type="button" id="languageSettingBtn" class="language-setting-btn">言語設定</button>
-  <div id="languageDialog" class="is-hidden">
-    <div id="languageDialogPanel">
-      <div class="settings-header">
-        <h2 id="languageDialogTitle">設定</h2>
-        <button type="button" id="closeLanguageBtn">閉じる</button>
+    <button type="button" id="languageSettingBtn" class="language-setting-btn">
+      言語設定
+    </button>
+    <div id="languageDialog" class="is-hidden">
+      <div id="languageDialogPanel">
+        <div class="settings-header">
+          <h2 id="languageDialogTitle">設定</h2>
+          <button type="button" id="closeLanguageBtn">閉じる</button>
+        </div>
+        <p id="languageSectionTitle" class="settings-label">言語設定</p>
+        <div id="languageOptionList" class="language-option-list"></div>
       </div>
-      <p id="languageSectionTitle" class="settings-label">言語設定</p>
-      <div id="languageOptionList" class="language-option-list"></div>
     </div>
-  </div>
 
-  <main class="main">
-    <section class="search-panel" aria-label="検索">
-      <div class="search-field">
-        <label for="keywordSearch" id="keywordSearchLabel" class="search-label">フリーワード検索</label>
-        <input id="keywordSearch" class="search-input" type="search" placeholder="質問や答えを入力" autocomplete="off">
-      </div>
-      <div class="tag-search">
-        <p id="tagSearchLabel" class="search-label">タグ検索</p>
-        <div id="tagFilterList" class="tag-filter-list"></div>
-      </div>
-      <p id="searchResultMeta" class="search-result-meta"></p>
-    </section>
-    <section id="qaList" class="qa-list" aria-live="polite"></section>
-  </main>
+    <main class="main">
+      <section class="search-panel" aria-label="検索">
+        <div class="search-field">
+          <label
+            for="keywordSearch"
+            id="keywordSearchLabel"
+            class="search-label"
+            >フリーワード検索</label
+          >
+          <input
+            id="keywordSearch"
+            class="search-input"
+            type="search"
+            placeholder="質問や答えを入力"
+            autocomplete="off"
+          />
+        </div>
+        <div class="tag-search">
+          <p id="tagSearchLabel" class="search-label">タグ検索</p>
+          <div id="tagFilterList" class="tag-filter-list"></div>
+        </div>
+        <p id="searchResultMeta" class="search-result-meta"></p>
+      </section>
+      <section id="qaList" class="qa-list" aria-live="polite"></section>
+    </main>
 
-  <script>
-    const languageOptions = [{
-      code: 'ja',
-      label: 'やさしい日本語'
-    }, {
-      code: 'en-US',
-      label: '英語編(English)'
-    }, {
-      code: 'zh',
-      label: '中国語編(中文版)'
-    }, {
-      code: 'fr',
-      label: 'フランス語編(French)'
-    }, {
-      code: 'ko',
-      label: '韓国語編(Korean)'
-    }, {
-      code: 'pr',
-      label: 'ポルトガル語編(Portugues)'
-    }, {
-      code: 'tl',
-      label: 'タガログ語編(TAGALOG)'
-    }, {
-      code: 've',
-      label: 'ベトナム語編(Vietnam)'
-    }, {
-      code: 'th',
-      label: 'タイ語編(Thai)'
-    }, {
-      code: 'de',
-      label: 'ドイツ語編(German)'
-    }, {
-      code: 'id',
-      label: 'インドネシア語(Indonesia)'
-    }, {
-      code: 'ru',
-      label: 'ロシア語(Russian)'
-    }, {
-      code: 'ne',
-      label: 'ネパール語(Nepali)'
-    }, {
-      code: 'lo',
-      label: 'ラオス語(Laotian)'
-    }, {
-      code: 'uk',
-      label: 'ウクライナ語(Ukrainian)'
-    }, {
-      code: 'fa-AF',
-      label: 'ダリ語(Dari)'
-    }, {
-      code: 'si',
-      label: 'シンハラ語(Sinhala)'
-    }, {
-      code: 'ms',
-      label: 'マレー語(Malay)'
-    }, {
-      code: 'my',
-      label: 'ミャンマー語(Myanmar)'
-    }, {
-      code: 'bn',
-      label: 'ベンガル語(Bengali)'
-    }, {
-      code: 'ur',
-      label: 'ウルドゥー語(Urdu)'
-    }];
+    <script>
+      const languageOptions = [
+        {
+          code: "ja",
+          label: "やさしい日本語",
+        },
+        {
+          code: "en-US",
+          label: "英語編(English)",
+        },
+        {
+          code: "zh",
+          label: "中国語編(中文版)",
+        },
+        {
+          code: "fr",
+          label: "フランス語編(French)",
+        },
+        {
+          code: "ko",
+          label: "韓国語編(Korean)",
+        },
+        {
+          code: "pr",
+          label: "ポルトガル語編(Portugues)",
+        },
+        {
+          code: "tl",
+          label: "タガログ語編(TAGALOG)",
+        },
+        {
+          code: "ve",
+          label: "ベトナム語編(Vietnam)",
+        },
+        {
+          code: "th",
+          label: "タイ語編(Thai)",
+        },
+        {
+          code: "de",
+          label: "ドイツ語編(German)",
+        },
+        {
+          code: "id",
+          label: "インドネシア語(Indonesia)",
+        },
+        {
+          code: "ru",
+          label: "ロシア語(Russian)",
+        },
+        {
+          code: "ne",
+          label: "ネパール語(Nepali)",
+        },
+        {
+          code: "lo",
+          label: "ラオス語(Laotian)",
+        },
+        {
+          code: "uk",
+          label: "ウクライナ語(Ukrainian)",
+        },
+        {
+          code: "fa-AF",
+          label: "ダリ語(Dari)",
+        },
+        {
+          code: "si",
+          label: "シンハラ語(Sinhala)",
+        },
+        {
+          code: "ms",
+          label: "マレー語(Malay)",
+        },
+        {
+          code: "my",
+          label: "ミャンマー語(Myanmar)",
+        },
+        {
+          code: "bn",
+          label: "ベンガル語(Bengali)",
+        },
+        {
+          code: "ur",
+          label: "ウルドゥー語(Urdu)",
+        },
+      ];
 
-    const STORAGE_KEY = 'aboutsexSelectedLanguage';
-    const tagTranslationKeys = {
-      '基本': 'theme_basic',
-      '控える': 'theme_avoid',
-      '体と心の変化': 'theme_changes',
-      '気をつけるポイント': 'theme_positions',
-      '時期ごとの注意': 'theme_by_phase',
-      '安全': 'theme_safety',
-      '大切なこと': 'theme_important',
-      '全期間': 'phase_all',
-      '妊娠初期': 'phase_early',
-      '妊娠中期': 'phase_middle',
-      '妊娠後期': 'phase_late'
-    };
-    const DIALOG_TEXT = {
-      ja: {
-        settings: '言語設定',
-        language: '言語設定',
-        close: '閉じる',
-        lead: '妊婦さんとパートナーが、安全と安心を大切にしながら確認できる情報をまとめています。',
-        keyword: 'フリーワード検索',
-        keywordPlaceholder: '質問や答えを入力',
-        tag: 'タグ検索',
-        allTags: 'すべて',
-        result: '件表示',
-        noResult: '該当するQ&Aはありません。'
-      },
-      'en-US': {
-        settings: 'Language',
-        language: 'Language',
-        close: 'Close',
-        lead: 'This page summarizes information that pregnant women and their partners can review while prioritizing safety and reassurance.',
-        keyword: 'Keyword Search',
-        keywordPlaceholder: 'Search questions or answers',
-        tag: 'Tag Search',
-        allTags: 'All',
-        result: 'results',
-        noResult: 'No matching Q&A found.'
-      },
-      zh: {
-        settings: '语言设置',
-        language: '语言设置',
-        close: '关闭',
-        lead: '本页汇总了孕妇及其伴侣可以在重视安全和安心的前提下查看的信息。',
-        keyword: '关键词搜索',
-        keywordPlaceholder: '输入问题或回答',
-        tag: '标签搜索',
-        allTags: '全部',
-        result: '条显示',
-        noResult: '没有符合条件的Q&A。'
-      }
-    };
+      const STORAGE_KEY = "aboutsexSelectedLanguage";
+      const tagTranslationKeys = {
+        基本: "theme_basic",
+        控える: "theme_avoid",
+        体と心の変化: "theme_changes",
+        気をつけるポイント: "theme_positions",
+        時期ごとの注意: "theme_by_phase",
+        安全: "theme_safety",
+        大切なこと: "theme_important",
+        全期間: "phase_all",
+        妊娠初期: "phase_early",
+        妊娠中期: "phase_middle",
+        妊娠後期: "phase_late",
+      };
+      const DIALOG_TEXT = {
+        ja: {
+          settings: "言語設定",
+          language: "言語設定",
+          close: "閉じる",
+          lead: "妊婦さんとパートナーが、安全と安心を大切にしながら確認できる情報をまとめています。",
+          keyword: "フリーワード検索",
+          keywordPlaceholder: "質問や答えを入力",
+          tag: "タグ検索",
+          allTags: "すべて",
+          result: "件表示",
+          noResult: "該当するQ&Aはありません。",
+        },
+        "en-US": {
+          settings: "Language",
+          language: "Language",
+          close: "Close",
+          lead: "This page summarizes information that pregnant women and their partners can review while prioritizing safety and reassurance.",
+          keyword: "Keyword Search",
+          keywordPlaceholder: "Search questions or answers",
+          tag: "Tag Search",
+          allTags: "All",
+          result: "results",
+          noResult: "No matching Q&A found.",
+        },
+        zh: {
+          settings: "语言设置",
+          language: "语言设置",
+          close: "关闭",
+          lead: "本页汇总了孕妇及其伴侣可以在重视安全和安心的前提下查看的信息。",
+          keyword: "关键词搜索",
+          keywordPlaceholder: "输入问题或回答",
+          tag: "标签搜索",
+          allTags: "全部",
+          result: "条显示",
+          noResult: "没有符合条件的Q&A。",
+        },
+      };
 
-    const qaItems = [{
-        tags: ['基本', '全期間'],
-        jaQ: '1．妊娠中に性交渉をしてもいいの？',
-        enQ: '',
-        jaA: `妊娠の経過が順調であれば、コンドームを使用し、お腹に負担をかけない形での性交渉は基本的に可能です。
+      const qaItems = [
+        {
+          tags: ["基本", "全期間"],
+          jaQ: "1．妊娠中に性交渉をしてもいいの？",
+          enQ: "",
+          jaA: `妊娠の経過が順調であれば、コンドームを使用し、お腹に負担をかけない形での性交渉は基本的に可能です。
 性交渉そのものが、直接流産や早産の原因になることは多くありません。
 ただし、妊娠中の体調や赤ちゃんの状態によっては、控えた方がよい場合があります。
 「いつでも誰でも安全」というわけではないため、不安があるときは医師や助産師に相談しましょう。`,
-        enA: ''
-      },
-      {
-        tags: ['控える', '全期間'],
-        jaQ: '2．性交渉を控えた方がよい場合',
-        enQ: '',
-        jaA: `次のようなときは、性交渉を控え、医療者へ相談してください。
+          enA: "",
+        },
+        {
+          tags: ["控える", "全期間"],
+          jaQ: "2．性交渉を控えた方がよい場合",
+          enQ: "",
+          jaA: `次のようなときは、性交渉を控え、医療者へ相談してください。
 ・お腹の張りや下腹部痛がある
 ・「切迫流産」「切迫早産」と言われている
 ・性器から出血がある
@@ -186,45 +225,16 @@
 ・子宮頸管無力症がある
 ・双子などの多胎妊娠でリスクが高い
 ・医師から安静の指示が出ている`,
-        enA: ''
-      },
-      {
-        tags: ['体と心の変化', '全期間'],
-        jaQ: '3．妊娠中の体と心の変化',
-        enQ: '',
-        answerBlocks: [{
-            type: 'text',
-            body: `妊娠中は、体や気持ちが大きく変化します。
-そのため、性交渉の感じ方も変わることがあります。
-
-① お腹・子宮の変化
-子宮は筋肉でできているため、妊娠中は軽く張ることがあります。
-また、精液に含まれる成分や乳首への刺激で、子宮が収縮しやすくなることがあります。
-
-② 腟（ちつ）や外陰部の変化
-・血流が増えて敏感になる
-・おりものが増える
-そのため、普段より刺激を強く感じることがあります。
-
-③ 乳房の変化
-乳首への刺激で、「オキシトシン」というホルモンが出て、お腹が張ることがあります。
-
-④ 気持ちの変化
-妊娠中は、以下のような変化があることがありますが、これは人によってさまざまです。
-どのような感じ方も自然なことです。
-・性欲が強くなる
-・性欲が弱くなる
-・触れられたくないと感じる
-
-イラスト　ChatGPT作成`
-          },
-          {
-            type: 'image',
-            src: './images/3.png',
-            alt: '妊娠中の体と心の変化のイラスト'
-          }
-        ],
-        jaA: `妊娠中は、体や気持ちが大きく変化します。
+          enA: "",
+        },
+        {
+          tags: ["体と心の変化", "全期間"],
+          jaQ: "3．妊娠中の体と心の変化",
+          enQ: "",
+          answerBlocks: [
+            {
+              type: "text",
+              body: `妊娠中は、体や気持ちが大きく変化します。
 そのため、性交渉の感じ方も変わることがあります。
 
 ① お腹・子宮の変化
@@ -247,15 +257,46 @@
 ・触れられたくないと感じる
 
 イラスト　ChatGPT作成`,
-        enA: ''
-      },
-      {
-        tags: ['気をつけるポイント', '全期間'],
-        jaQ: '4．妊娠中に気をつけるポイント',
-        enQ: '',
-        answerBlocks: [{
-            type: 'text',
-            body: `① お腹を圧迫しない姿勢を選ぶ
+            },
+            {
+              type: "image",
+              src: "./images/3.png",
+              alt: "妊娠中の体と心の変化のイラスト",
+            },
+          ],
+          jaA: `妊娠中は、体や気持ちが大きく変化します。
+そのため、性交渉の感じ方も変わることがあります。
+
+① お腹・子宮の変化
+子宮は筋肉でできているため、妊娠中は軽く張ることがあります。
+また、精液に含まれる成分や乳首への刺激で、子宮が収縮しやすくなることがあります。
+
+② 腟（ちつ）や外陰部の変化
+・血流が増えて敏感になる
+・おりものが増える
+そのため、普段より刺激を強く感じることがあります。
+
+③ 乳房の変化
+乳首への刺激で、「オキシトシン」というホルモンが出て、お腹が張ることがあります。
+
+④ 気持ちの変化
+妊娠中は、以下のような変化があることがありますが、これは人によってさまざまです。
+どのような感じ方も自然なことです。
+・性欲が強くなる
+・性欲が弱くなる
+・触れられたくないと感じる
+
+イラスト　ChatGPT作成`,
+          enA: "",
+        },
+        {
+          tags: ["気をつけるポイント", "全期間"],
+          jaQ: "4．妊娠中に気をつけるポイント",
+          enQ: "",
+          answerBlocks: [
+            {
+              type: "text",
+              body: `① お腹を圧迫しない姿勢を選ぶ
 お腹に体重がかからない姿勢が安心です。
 特に妊娠中期以降は、長時間の仰向けを避けることも大切です。
 
@@ -266,16 +307,16 @@
 ・お腹を圧迫しない
 ・体への負担が少ない
 ・妊娠後期でも比較的楽
-「寝ている姿勢に近い」ので、リラックスしやすい体位です。`
-          },
-          {
-            type: 'image',
-            src: './images/4-1.png',
-            alt: '横向きの姿勢のイラスト'
-          },
-          {
-            type: 'text',
-            body: `
+「寝ている姿勢に近い」ので、リラックスしやすい体位です。`,
+            },
+            {
+              type: "image",
+              src: "./images/4-1.png",
+              alt: "横向きの姿勢のイラスト",
+            },
+            {
+              type: "text",
+              body: `
 
 イラスト　ChatGPT作成
 〇 後背位（後ろから支える姿勢）
@@ -283,16 +324,16 @@
 特徴
 ・お腹を圧迫しにくい
 ・深さを調整しやすい
-クッションを使うと、腰やお腹が楽になります。`
-          },
-          {
-            type: 'image',
-            src: './images/4-2.png',
-            alt: '後背位の姿勢のイラスト'
-          },
-          {
-            type: 'text',
-            body: `
+クッションを使うと、腰やお腹が楽になります。`,
+            },
+            {
+              type: "image",
+              src: "./images/4-2.png",
+              alt: "後背位の姿勢のイラスト",
+            },
+            {
+              type: "text",
+              body: `
 
 イラスト　ChatGPT作成
 〇女性が上になる姿勢
@@ -300,16 +341,16 @@
 特徴
 ・自分で動きや深さを調整できる
 ・痛みや不快感を感じたら止めやすい
-「自分のペースでできる」安心感があります。`
-          },
-          {
-            type: 'image',
-            src: './images/4-3.png',
-            alt: '女性が上になる姿勢のイラスト'
-          },
-          {
-            type: 'text',
-            body: `
+「自分のペースでできる」安心感があります。`,
+            },
+            {
+              type: "image",
+              src: "./images/4-3.png",
+              alt: "女性が上になる姿勢のイラスト",
+            },
+            {
+              type: "text",
+              body: `
 
 イラスト　ChatGPT作成
 ✖ 避けたい姿勢
@@ -318,16 +359,16 @@
 妊娠中期以降は、大きくなった子宮が血管を圧迫し、以下のようなことが起こることがあります。
 ・めまい
 ・気分不良
-・血圧低下`
-          },
-          {
-            type: 'image',
-            src: './images/4-4.png',
-            alt: '避けたい姿勢のイラスト'
-          },
-          {
-            type: 'text',
-            body: `
+・血圧低下`,
+            },
+            {
+              type: "image",
+              src: "./images/4-4.png",
+              alt: "避けたい姿勢のイラスト",
+            },
+            {
+              type: "text",
+              body: `
 
 イラスト　ChatGPT作成
 ③ 無理をしない
@@ -347,10 +388,10 @@
 ・出血
 ・強い腹痛
 ・規則的なお腹の張り
-・水っぽいものが出る（破水かもしれない）`
-          }
-        ],
-        jaA: `① お腹を圧迫しない姿勢を選ぶ
+・水っぽいものが出る（破水かもしれない）`,
+            },
+          ],
+          jaA: `① お腹を圧迫しない姿勢を選ぶ
 お腹に体重がかからない姿勢が安心です。
 特に妊娠中期以降は、長時間の仰向けを避けることも大切です。
 
@@ -407,13 +448,13 @@
 ・強い腹痛
 ・規則的なお腹の張り
 ・水っぽいものが出る（破水かもしれない）`,
-        enA: ''
-      },
-      {
-        tags: ['時期ごとの注意', '妊娠初期', '妊娠中期', '妊娠後期'],
-        jaQ: '5．時期ごとの注意',
-        enQ: '',
-        jaA: `〇妊娠初期（〜15週ごろ）
+          enA: "",
+        },
+        {
+          tags: ["時期ごとの注意", "妊娠初期", "妊娠中期", "妊娠後期"],
+          jaQ: "5．時期ごとの注意",
+          enQ: "",
+          jaA: `〇妊娠初期（〜15週ごろ）
 流産が多い時期です。
 つわりや体調不良もあるため、無理は禁物です。
 出血や腹痛がある場合は控えましょう。
@@ -428,46 +469,27 @@
 ・破水
 ・感染
 ・陣痛`,
-        enA: ''
-      },
-      {
-        tags: ['安全', '全期間'],
-        jaQ: '6．安全のためのポイント',
-        enQ: '',
-        jaA: `・コンドームを使用する
+          enA: "",
+        },
+        {
+          tags: ["安全", "全期間"],
+          jaQ: "6．安全のためのポイント",
+          enQ: "",
+          jaA: `・コンドームを使用する
 ・激しい動きを避ける
 ・乳首への強い刺激を控える
 ・お腹を圧迫しない
 ・無理をしない`,
-        enA: ''
-      },
-      {
-        tags: ['大切なこと', '全期間'],
-        jaQ: '7．いちばん大切なこと',
-        enQ: '',
-        answerBlocks: [{
-            type: 'text',
-            body: `妊娠中の性交渉で大切なのは、以下のようなことです。
-・「お腹に負担をかけない」
-・「自分が安心できる」
-・「無理をしない」
-少しでも不安や痛みがあれば、やめて大丈夫です。「無理をしないこと」が、いちばん大切です。
-
-また、性交渉は「性行為」だけではなく、パートナーとの大切なコミュニケーションのひとつでもあります。
-妊娠中は体調や気持ちが変化しやすいため、無理に性交渉をする必要はありません。
-「手をつなぐ」「抱きしめる」「一緒に過ごす」など、安心できる触れ合いも大切です。
-お互いの気持ちを伝え合いながら、妊婦さんの体調を第一に過ごしましょう。
-
-イラスト　ChatGPT作成
-産婦人科医師　監修`
-          },
-          {
-            type: 'image',
-            src: './images/7.png',
-            alt: 'いちばん大切なことのイラスト'
-          }
-        ],
-        jaA: `妊娠中の性交渉で大切なのは、以下のようなことです。
+          enA: "",
+        },
+        {
+          tags: ["大切なこと", "全期間"],
+          jaQ: "7．いちばん大切なこと",
+          enQ: "",
+          answerBlocks: [
+            {
+              type: "text",
+              body: `妊娠中の性交渉で大切なのは、以下のようなことです。
 ・「お腹に負担をかけない」
 ・「自分が安心できる」
 ・「無理をしない」
@@ -480,282 +502,353 @@
 
 イラスト　ChatGPT作成
 産婦人科医師　監修`,
-        enA: ''
-      }
-    ];
+            },
+            {
+              type: "image",
+              src: "./images/7.png",
+              alt: "いちばん大切なことのイラスト",
+            },
+          ],
+          jaA: `妊娠中の性交渉で大切なのは、以下のようなことです。
+・「お腹に負担をかけない」
+・「自分が安心できる」
+・「無理をしない」
+少しでも不安や痛みがあれば、やめて大丈夫です。「無理をしないこと」が、いちばん大切です。
 
-    let selectedLanguage = 'en-US';
-    let selectedTag = 'all';
-    let keyword = '';
+また、性交渉は「性行為」だけではなく、パートナーとの大切なコミュニケーションのひとつでもあります。
+妊娠中は体調や気持ちが変化しやすいため、無理に性交渉をする必要はありません。
+「手をつなぐ」「抱きしめる」「一緒に過ごす」など、安心できる触れ合いも大切です。
+お互いの気持ちを伝え合いながら、妊婦さんの体調を第一に過ごしましょう。
 
-    window.addEventListener('load', init);
+イラスト　ChatGPT作成
+産婦人科医師　監修`,
+          enA: "",
+        },
+      ];
 
-    async function init() {
-      document.getElementById('languageSettingBtn').addEventListener('click', openLanguageDialog);
-      document.getElementById('closeLanguageBtn').addEventListener('click', closeLanguageDialog);
-      document.getElementById('languageDialog').addEventListener('click', (event) => {
-        if (event.target.id === 'languageDialog') closeLanguageDialog();
-      });
-      document.getElementById('keywordSearch').addEventListener('input', (event) => {
-        keyword = String(event.target.value || '').trim().toLowerCase();
+      let selectedLanguage = "en-US";
+      let selectedTag = "all";
+      let keyword = "";
+
+      window.addEventListener("load", init);
+
+      async function init() {
+        document
+          .getElementById("languageSettingBtn")
+          .addEventListener("click", openLanguageDialog);
+        document
+          .getElementById("closeLanguageBtn")
+          .addEventListener("click", closeLanguageDialog);
+        document
+          .getElementById("languageDialog")
+          .addEventListener("click", (event) => {
+            if (event.target.id === "languageDialog") closeLanguageDialog();
+          });
+        document
+          .getElementById("keywordSearch")
+          .addEventListener("input", (event) => {
+            keyword = String(event.target.value || "")
+              .trim()
+              .toLowerCase();
+            renderQaList();
+          });
+        selectedLanguage = loadInitialLanguage();
+        await initI18n(selectedLanguage);
+        renderLanguageButtons();
+        renderDialogText();
+        renderTagFilters();
         renderQaList();
-      });
-      selectedLanguage = loadInitialLanguage();
-      await initI18n(selectedLanguage);
-      renderLanguageButtons();
-      renderDialogText();
-      renderTagFilters();
-      renderQaList();
-    }
-
-    function openLanguageDialog() {
-      const dialog = document.getElementById('languageDialog');
-      dialog.classList.remove('is-hidden');
-      dialog.style.display = 'block';
-    }
-
-    function closeLanguageDialog() {
-      const dialog = document.getElementById('languageDialog');
-      dialog.classList.add('is-hidden');
-      dialog.style.display = 'none';
-    }
-
-    function loadInitialLanguage() {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved && languageOptions.some((lang) => lang.code === saved)) return saved;
-      return detectInitialLanguage();
-    }
-
-    function detectInitialLanguage() {
-      const raw = String(navigator.language || 'en-US').toLowerCase();
-      if (raw.startsWith('ja')) return 'ja';
-      if (raw.startsWith('zh')) return 'zh';
-      if (raw.startsWith('fr')) return 'fr';
-      if (raw.startsWith('ko')) return 'ko';
-      if (raw.startsWith('pt')) return 'pr';
-      if (raw.startsWith('tl') || raw.startsWith('fil')) return 'tl';
-      if (raw.startsWith('vi')) return 've';
-      if (raw.startsWith('th')) return 'th';
-      if (raw.startsWith('de')) return 'de';
-      if (raw.startsWith('id')) return 'id';
-      if (raw.startsWith('ru')) return 'ru';
-      if (raw.startsWith('ne')) return 'ne';
-      if (raw.startsWith('lo')) return 'lo';
-      if (raw.startsWith('uk')) return 'uk';
-      if (raw.startsWith('fa')) return 'fa-AF';
-      if (raw.startsWith('si')) return 'si';
-      if (raw.startsWith('ms')) return 'ms';
-      if (raw.startsWith('my')) return 'my';
-      if (raw.startsWith('bn')) return 'bn';
-      if (raw.startsWith('ur')) return 'ur';
-      return 'en-US';
-    }
-
-    function getI18nLanguage(langCode) {
-      if (langCode === 'zh') return 'zh';
-      if (langCode === 'ja') return 'ja';
-      return 'en-US';
-    }
-
-    async function initI18n(langCode) {
-      if (!window.i18next) return;
-      const target = getI18nLanguage(langCode);
-      if (!i18next.isInitialized) {
-        await i18next.use(i18nextHttpBackend).init({
-          lng: target,
-          fallbackLng: 'en-US',
-          backend: {
-            loadPath: './i18n/{{lng}}.json'
-          }
-        });
-        return;
       }
-      await i18next.changeLanguage(target);
-    }
 
-    function tr(key, fallback, options) {
-      if (!window.i18next || !i18next.isInitialized) return fallback || '';
-      const value = i18next.t(key, options || {});
-      return value === key ? (fallback || '') : value;
-    }
+      function openLanguageDialog() {
+        const dialog = document.getElementById("languageDialog");
+        dialog.classList.remove("is-hidden");
+        dialog.style.display = "block";
+      }
 
-    function renderLanguageButtons() {
-      const list = document.getElementById('languageOptionList');
-      list.innerHTML = '';
-      languageOptions.forEach((lang) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'language-option-btn' + (selectedLanguage === lang.code ? ' active' : '');
-        btn.textContent = lang.label;
-        btn.addEventListener('click', async () => {
-          selectedLanguage = lang.code;
-          localStorage.setItem(STORAGE_KEY, selectedLanguage);
-          await initI18n(selectedLanguage);
-          closeLanguageDialog();
-          renderLanguageButtons();
-          renderDialogText();
-          renderTagFilters();
-          renderQaList();
+      function closeLanguageDialog() {
+        const dialog = document.getElementById("languageDialog");
+        dialog.classList.add("is-hidden");
+        dialog.style.display = "none";
+      }
+
+      function loadInitialLanguage() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved && languageOptions.some((lang) => lang.code === saved))
+          return saved;
+        return detectInitialLanguage();
+      }
+
+      function detectInitialLanguage() {
+        const raw = String(navigator.language || "en-US").toLowerCase();
+        if (raw.startsWith("ja")) return "ja";
+        if (raw.startsWith("zh")) return "zh";
+        if (raw.startsWith("fr")) return "fr";
+        if (raw.startsWith("ko")) return "ko";
+        if (raw.startsWith("pt")) return "pr";
+        if (raw.startsWith("tl") || raw.startsWith("fil")) return "tl";
+        if (raw.startsWith("vi")) return "ve";
+        if (raw.startsWith("th")) return "th";
+        if (raw.startsWith("de")) return "de";
+        if (raw.startsWith("id")) return "id";
+        if (raw.startsWith("ru")) return "ru";
+        if (raw.startsWith("ne")) return "ne";
+        if (raw.startsWith("lo")) return "lo";
+        if (raw.startsWith("uk")) return "uk";
+        if (raw.startsWith("fa")) return "fa-AF";
+        if (raw.startsWith("si")) return "si";
+        if (raw.startsWith("ms")) return "ms";
+        if (raw.startsWith("my")) return "my";
+        if (raw.startsWith("bn")) return "bn";
+        if (raw.startsWith("ur")) return "ur";
+        return "en-US";
+      }
+
+      function getI18nLanguage(langCode) {
+        const supported = new Set(languageOptions.map((lang) => lang.code));
+        return supported.has(langCode) ? langCode : "en-US";
+      }
+
+      async function initI18n(langCode) {
+        if (!window.i18next) return;
+        const target = getI18nLanguage(langCode);
+        if (!i18next.isInitialized) {
+          await i18next.use(i18nextHttpBackend).init({
+            lng: target,
+            fallbackLng: "en-US",
+            backend: {
+              loadPath: "./i18n/{{lng}}.json",
+            },
+          });
+          return;
+        }
+        await i18next.changeLanguage(target);
+      }
+
+      function tr(key, fallback, options) {
+        if (!window.i18next || !i18next.isInitialized) return fallback || "";
+        const value = i18next.t(key, options || {});
+        return value === key ? fallback || "" : value;
+      }
+
+      function renderLanguageButtons() {
+        const list = document.getElementById("languageOptionList");
+        list.innerHTML = "";
+        languageOptions.forEach((lang) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className =
+            "language-option-btn" +
+            (selectedLanguage === lang.code ? " active" : "");
+          btn.textContent = lang.label;
+          btn.addEventListener("click", async () => {
+            selectedLanguage = lang.code;
+            localStorage.setItem(STORAGE_KEY, selectedLanguage);
+            await initI18n(selectedLanguage);
+            closeLanguageDialog();
+            renderLanguageButtons();
+            renderDialogText();
+            renderTagFilters();
+            renderQaList();
+          });
+          list.appendChild(btn);
         });
-        list.appendChild(btn);
-      });
-    }
+      }
 
-    function renderDialogText() {
-      const text = DIALOG_TEXT[selectedLanguage] || DIALOG_TEXT['en-US'];
-      document.getElementById('languageSettingBtn').textContent = text.settings;
-      document.getElementById('languageDialogTitle').textContent = text.settings;
-      document.getElementById('languageSectionTitle').textContent = text.language;
-      document.getElementById('closeLanguageBtn').textContent = text.close;
-      document.getElementById('pageLead').textContent = text.lead || DIALOG_TEXT['en-US'].lead;
-      document.getElementById('keywordSearchLabel').textContent = text.keyword;
-      document.getElementById('keywordSearch').placeholder = text.keywordPlaceholder;
-      document.getElementById('tagSearchLabel').textContent = text.tag;
-      renderTagFilters();
-    }
+      function renderDialogText() {
+        document.getElementById("languageSettingBtn").textContent =
+          tr("settings", "言語設定");
+        document.getElementById("languageDialogTitle").textContent =
+          tr("settings", "設定");
+        document.getElementById("languageSectionTitle").textContent =
+          tr("language", "言語設定");
+        document.getElementById("closeLanguageBtn").textContent = tr(
+          "close",
+          "閉じる",
+        );
+        document.getElementById("pageTitle").textContent = tr(
+          "page_title",
+          "妊娠中の性交渉について",
+        );
+        document.getElementById("pageLead").textContent =
+          tr(
+            "page_lead",
+            "妊婦さんとパートナーが、安全と安心を大切にしながら確認できる情報をまとめています。",
+          );
+        document.getElementById("keywordSearchLabel").textContent =
+          tr("keyword_search", "フリーワード検索");
+        document.getElementById("keywordSearch").placeholder =
+          tr("keyword_placeholder", "質問や答えを入力");
+        document.getElementById("tagSearchLabel").textContent = tr(
+          "tag_search",
+          "タグ検索",
+        );
+        renderTagFilters();
+      }
 
-    function renderTagFilters() {
-      const text = DIALOG_TEXT[selectedLanguage] || DIALOG_TEXT['en-US'];
-      const container = document.getElementById('tagFilterList');
-      const tags = Array.from(new Set(qaItems.flatMap((item) => item.tags || [])));
-      const filters = [{
-        id: 'all',
-        label: text.allTags
-      }, ...tags.map((tag) => ({
-        id: tag,
-        label: tag
-      }))];
-      container.innerHTML = '';
-      filters.forEach((tag) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'tag-filter-btn' + (selectedTag === tag.id ? ' active' : '');
-        btn.innerHTML = tag.id === 'all' ? escapeHtml(tag.label) : renderBilingualText(tag.label, translateTag(tag.label));
-        btn.addEventListener('click', () => {
-          selectedTag = tag.id;
-          renderTagFilters();
-          renderQaList();
+      function renderTagFilters() {
+        const container = document.getElementById("tagFilterList");
+        const tags = Array.from(
+          new Set(qaItems.flatMap((item) => item.tags || [])),
+        );
+        const filters = [
+          {
+            id: "all",
+            label: tr("all_tags", "すべて"),
+          },
+          ...tags.map((tag) => ({
+            id: tag,
+            label: tag,
+          })),
+        ];
+        container.innerHTML = "";
+        filters.forEach((tag) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className =
+            "tag-filter-btn" + (selectedTag === tag.id ? " active" : "");
+          btn.innerHTML = escapeHtml(
+            tag.id === "all" ? tag.label : translateTag(tag.label),
+          );
+          btn.addEventListener("click", () => {
+            selectedTag = tag.id;
+            renderTagFilters();
+            renderQaList();
+          });
+          container.appendChild(btn);
         });
-        container.appendChild(btn);
-      });
-    }
+      }
 
-    function renderQaList() {
-      const list = document.getElementById('qaList');
-      list.innerHTML = '';
-      const text = DIALOG_TEXT[selectedLanguage] || DIALOG_TEXT['en-US'];
-      const filteredItems = qaItems.filter(matchesFilter);
-      document.getElementById('searchResultMeta').textContent = filteredItems.length ?
-        `${filteredItems.length}${selectedLanguage === 'zh' ? '' : ' '}${text.result}` : text.noResult;
+      function renderQaList() {
+        const list = document.getElementById("qaList");
+        list.innerHTML = "";
+        const filteredItems = qaItems.filter(matchesFilter);
+        document.getElementById("searchResultMeta").textContent =
+          filteredItems.length
+            ? tr("result_count", `${filteredItems.length} 件表示`, {
+                count: filteredItems.length,
+              })
+            : tr("no_result", "該当する項目はありません。");
 
-      filteredItems.forEach((item, index) => {
-        const details = document.createElement('details');
-        details.className = 'qa-card';
-        if (index === 0) details.open = true;
-        const translatedQuestion = getTranslatedQuestion(item);
+        filteredItems.forEach((item, index) => {
+          const details = document.createElement("details");
+          details.className = "qa-card";
+          if (index === 0) details.open = true;
+          const primaryQuestion = getPrimaryQuestion(item);
 
-        const summary = document.createElement('summary');
-        summary.className = 'qa-summary';
-        summary.innerHTML = `
-          <p class="qa-ja">${escapeHtml(item.jaQ)}</p>
-          <p class="qa-tr${selectedLanguage === 'ja' || !translatedQuestion ? ' is-hidden' : ''}">${escapeHtml(translatedQuestion)}</p>
+          const summary = document.createElement("summary");
+          summary.className = "qa-summary";
+          summary.innerHTML = `
+          <p class="qa-ja">${escapeHtml(primaryQuestion)}</p>
         `;
 
-        const panel = document.createElement('div');
-        panel.className = 'qa-panel';
-        panel.appendChild(buildAnswerBlock(item));
+          const panel = document.createElement("div");
+          panel.className = "qa-panel";
+          panel.appendChild(buildAnswerBlock(item));
 
-        details.appendChild(summary);
-        details.appendChild(panel);
-        list.appendChild(details);
-      });
-    }
-
-    function matchesFilter(item) {
-      const tagMatch = selectedTag === 'all' || (item.tags || []).includes(selectedTag);
-      if (!tagMatch) return false;
-      if (!keyword) return true;
-      const haystack = [item.jaQ, item.enQ, item.jaA, item.enA, ...(item.tags || [])].join(' ').toLowerCase();
-      return haystack.includes(keyword);
-    }
-
-    function getTranslatedQuestion(item) {
-      if (selectedLanguage === 'ja') return '';
-      const index = Number(String(item.jaQ || '').match(/^(\d+)/)?.[1] || 0);
-      return tr(`item_${index}_title`, item.enQ || '');
-    }
-
-    function getTranslatedAnswer(item) {
-      if (selectedLanguage === 'ja') return '';
-      const index = Number(String(item.jaQ || '').match(/^(\d+)/)?.[1] || 0);
-      return tr(`item_${index}_detail`, item.enA || '');
-    }
-
-    function translateTag(tag) {
-      const key = tagTranslationKeys[tag];
-      return key ? tr(key, tag) : tag;
-    }
-
-    function renderBilingualText(jaText, translatedText) {
-      if (selectedLanguage === 'ja' || !translatedText || translatedText === jaText) {
-        return escapeHtml(jaText);
-      }
-      return `<span class="chip-ja">${escapeHtml(jaText)}</span><span class="chip-tr">${escapeHtml(translatedText)}</span>`;
-    }
-
-    function buildAnswerBlock(item) {
-      const block = document.createElement('div');
-      block.className = 'answer-block';
-
-      const label = document.createElement('p');
-      label.className = 'answer-label';
-      label.textContent = 'A';
-      block.appendChild(label);
-
-      if (Array.isArray(item.answerBlocks) && item.answerBlocks.length) {
-        item.answerBlocks.forEach((part) => {
-          if (part.type === 'text') {
-            const p = document.createElement('p');
-            p.className = 'answer-ja answer-preline';
-            p.textContent = part.body || '';
-            block.appendChild(p);
-            return;
-          }
-          if (part.type === 'image') {
-            const img = document.createElement('img');
-            img.className = 'answer-image';
-            img.src = part.src;
-            img.alt = part.alt || '';
-            block.appendChild(img);
-          }
+          details.appendChild(summary);
+          details.appendChild(panel);
+          list.appendChild(details);
         });
-      } else {
-        const p = document.createElement('p');
-        p.className = 'answer-ja answer-preline';
-        p.textContent = item.jaA || '';
+      }
+
+      function matchesFilter(item) {
+        const tagMatch =
+          selectedTag === "all" || (item.tags || []).includes(selectedTag);
+        if (!tagMatch) return false;
+        if (!keyword) return true;
+        const haystack = [
+          item.jaQ,
+          item.enQ,
+          item.jaA,
+          item.enA,
+          getPrimaryQuestion(item),
+          getPrimaryAnswer(item),
+          ...(item.tags || []),
+        ]
+          .join(" ")
+          .toLowerCase();
+        return haystack.includes(keyword);
+      }
+
+      function getItemIndex(item) {
+        const index = Number(String(item.jaQ || "").match(/^(\d+)/)?.[1] || 0);
+        return index;
+      }
+
+      function getPrimaryQuestion(item) {
+        const index = getItemIndex(item);
+        return tr(`item_${index}_title`, item.jaQ || "");
+      }
+
+      function getPrimaryAnswer(item) {
+        const index = getItemIndex(item);
+        return tr(`item_${index}_detail`, item.jaA || "");
+      }
+
+      function translateTag(tag) {
+        const key = tagTranslationKeys[tag];
+        return key ? tr(key, tag) : tag;
+      }
+
+      function renderBilingualText(jaText, translatedText) {
+        if (
+          selectedLanguage === "ja" ||
+          !translatedText ||
+          translatedText === jaText
+        ) {
+          return escapeHtml(jaText);
+        }
+        return `<span class="chip-ja">${escapeHtml(jaText)}</span><span class="chip-tr">${escapeHtml(translatedText)}</span>`;
+      }
+
+      function buildAnswerBlock(item) {
+        const block = document.createElement("div");
+        block.className = "answer-block";
+
+        const label = document.createElement("p");
+        label.className = "answer-label";
+        label.textContent = "A";
+        block.appendChild(label);
+
+        const p = document.createElement("p");
+        p.className = "answer-ja answer-preline";
+        p.textContent = getPrimaryAnswer(item);
         block.appendChild(p);
+
+        if (Array.isArray(item.answerBlocks) && item.answerBlocks.length) {
+          item.answerBlocks.forEach((part) => {
+            if (part.type === "text") {
+              return;
+            }
+            if (part.type === "image") {
+              const figure = document.createElement("figure");
+              figure.className = "answer-image-frame";
+              const img = document.createElement("img");
+              img.className = "answer-image";
+              img.src = part.src;
+              img.alt = part.alt || "";
+              const caption = document.createElement("figcaption");
+              caption.className = "answer-image-credit";
+              caption.textContent = "Created by ChatGPT";
+              figure.appendChild(img);
+              figure.appendChild(caption);
+              block.appendChild(figure);
+            }
+          });
+        }
+
+        return block;
       }
 
-      const translated = getTranslatedAnswer(item);
-      if (translated) {
-        const tr = document.createElement('p');
-        tr.className = 'answer-tr answer-preline' + (selectedLanguage === 'ja' ? ' is-hidden' : '');
-        tr.textContent = translated;
-        block.appendChild(tr);
+      function escapeHtml(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
       }
-
-      return block;
-    }
-
-    function escapeHtml(value) {
-      return String(value || '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>
