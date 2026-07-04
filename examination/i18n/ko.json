@@ -1,34 +1,100 @@
 {
-  "page_title": "Examination Communication Board",
-  "page_lead": "For each category, we support only the necessary conversations with text and audio.",
-  "switch_exam": "Examination Board",
-  "switch_reception": "Go to Reception Board",
-  "settings": "Settings",
-  "language": "Language",
-  "close": "Close",
-  "category_aria": "Category",
-  "free_translate_btn": "Free Input / Translate",
-  "free_translate_panel_aria": "Free translation panel",
-  "free_translate_title": "Free Input Translation",
-  "free_translate_close_aria": "Close",
-  "free_translate_direction_aria": "Translation direction",
-  "free_translate_run": "Translate",
-  "scroll_top_aria": "Back to top",
-  "loading_data": "Loading data...",
-  "loading_empty": "There are no items to display in this category.",
-  "enter_japanese": "Please enter Japanese text.",
-  "enter_selected_language": "Please enter text in the selected language.",
-  "translating": "Translating...",
-  "translate_empty": "(No translation result)",
-  "translate_failed": "Translation failed. Please check your connection.",
-  "speech_not_supported": "This browser does not support speech synthesis.",
-  "input_label": "Input: {{label}}",
-  "output_label": "Result: {{label}}",
-  "input_placeholder": "Enter {{label}}",
-  "direction_ja_to": "Japanese → {{label}}",
-  "direction_to_ja": "{{label}} → Japanese",
-  "selected_language": "Selected language",
+  "page_title": "진찰 커뮤니케이션 보드",
+  "page_lead": "카테고리별로 필요한 소통을 문자와 음성으로 돕습니다.",
+  "switch_exam": "진찰 보드",
+  "switch_reception": "접수 보드로",
+  "settings": "설정",
+  "language": "언어 설정",
+  "close": "닫기",
+  "category_aria": "카테고리",
+  "translation_app_btn": "번역 앱",
+  "translation_app_dialog_aria": "번역 앱 선택",
+  "translation_app_title": "번역 앱",
+  "translation_app_lead": "사용할 앱을 선택해 주세요.",
+  "translation_app_google": "Google 번역",
+  "translation_app_deepl": "DeepL",
+  "epds_section_title": "EPDS 체크",
+  "epds_lead": "지난 7일간의 기분에 가장 가까운 답을 선택해 주세요.",
+  "epds_lead_en": "지난 7일간의 기분에 가장 가까운 답을 선택해 주세요.",
+  "epds_question_prefix": "질문",
+  "epds_score_label": "총점",
+  "epds_result_note": "10개 항목을 모두 선택하면 제출할 수 있습니다.",
+  "epds_ready_note": "답변을 확인하고 등록할 수 있습니다.",
+  "epds_alert_q10": "마지막 질문에 해당하면 의료진에게 빨리 알려 주세요.",
+  "epds_submit": "결과 저장",
+  "epds_submitting": "저장 중...",
+  "epds_reset": "답변 초기화",
+  "epds_incomplete": "아직 답하지 않은 항목이 있습니다.",
+  "epds_saved": "EPDS 결과를 저장했습니다.",
+  "epds_save_failed": "저장에 실패했습니다. 통신 상태를 확인해 주세요.",
+  "scroll_top_aria": "페이지 위로 돌아가기",
+  "loading_data": "데이터를 불러오는 중...",
+  "loading_empty": "이 카테고리에 표시할 내용이 없습니다.",
+  "enter_japanese": "일본어를 입력해 주세요.",
+  "enter_selected_language": "선택한 언어로 입력해 주세요.",
+  "translating": "번역 중...",
+  "translate_empty": "(번역 결과 없음)",
+  "translate_failed": "번역에 실패했습니다. 연결을 확인해 주세요.",
+  "speech_not_supported": "이 브라우저는 음성 합성을 지원하지 않습니다.",
+  "input_label": "입력: {{label}}",
+  "output_label": "결과: {{label}}",
+  "input_placeholder": "{{label}} 입력",
+  "direction_ja_to": "일본어 → {{label}}",
+  "direction_to_ja": "{{label}} → 일본어",
+  "selected_language": "선택한 언어",
   "boardData": [
+    {
+      "type": "설명",
+      "type2": "지원 쿠폰",
+      "category": "오늘은 모자수첩의 지원 쿠폰을 사용합니다",
+      "data1": "자궁경부암 검사",
+      "data2": "혈액 검사",
+      "data3": "초음파 검사",
+      "data4": "진료",
+      "data5": "건강 지도",
+      "data6": "기타",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "문진",
+      "type2": "건강 상태",
+      "category": "몸 상태는 어떠세요?",
+      "data1": "변화 없음",
+      "data2": "두통이 있습니다",
+      "data3": "메스꺼움이 있습니다",
+      "data4": "잠을 잘 수 없습니다",
+      "data5": "부종이 있습니다",
+      "data6": "피곤합니다",
+      "data7": "변비입니다",
+      "data8": "가렵습니다",
+      "data9": "기타",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
     {
       "type": "문진",
       "type2": "건강 상태",
@@ -56,12 +122,142 @@
       "data21": ""
     },
     {
-      "type": "문진",
-      "type2": "건강 상태",
+      "type": "약국",
+      "type2": "연고",
       "category": "언제부터인가요?",
-      "data1": "counter_kara",
+      "data1": "방금 전",
+      "data2": "3시간 전",
+      "data3": "6시간 전",
+      "data4": "9시간 전",
+      "data5": "반나절 전",
+      "data6": "어제",
+      "data7": "그저께",
+      "data8": "더 전부터",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "문진 (조산사)",
+      "type2": "문진 (건강 상태)",
+      "category": "식사는 잘 하고 있나요?",
+      "data1": "세 끼를 먹고 있다",
+      "data2": "두 끼를 먹고 있다",
+      "data3": "한 끼를 먹고 있다",
+      "data4": "먹지 못하고 있다",
+      "data5": "수분을 섭취하고 있다",
+      "data6": "간식을 먹고 있다",
+      "data7": "기타",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "문진 (조산사)",
+      "type2": "문진 (건강 상태)",
+      "category": "잘 자고 있나요?",
+      "data1": "네",
+      "data2": "가끔 깨요",
+      "data3": "자주 깨요",
+      "data4": "거의 못 잡니다",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "문진 (조산사)",
+      "type2": "설명 (지도)",
+      "category": "필요한 설명입니다. 책자를 읽어 주세요.",
+      "data1": "임신성 고혈압(엄마와 아기 지원 시리즈로)||https://rasc.jp/wp-content/uploads/korean04.pdf",
+      "data2": "임신성 당뇨(엄마와 아기 지원 시리즈로)||https://rasc.jp/wp-content/uploads/korean05.pdf",
+      "data3": "절박 유산(엄마와 아기 지원 시리즈로)||https://rasc.jp/wp-content/uploads/korean06.pdf",
+      "data4": "절박 조산(엄마와 아기 지원 시리즈로)||https://rasc.jp/wp-content/uploads/korean06.pdf",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "문진 (조산사)",
+      "type2": "설명 (출산 계획)",
+      "category": "출산 시 희망하는 사항이 있으면 생각해 보세요",
+      "data1": "출산 계획(엄마와 아기 지원 시리즈로)||https://rasc.jp/wp-content/uploads/korean09.pdf",
       "data2": "",
       "data3": "",
+      "data4": "",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "문진 (조산사)",
+      "type2": "설명 (출산)",
+      "category": "출산에 대한 설명입니다. 책자를 읽어 주세요.",
+      "data1": "입원 준비물(엄마와 아기 지원 시리즈로)||https://rasc.jp/wp-content/uploads/korean02.pdf",
+      "data2": "제왕절개(엄마와 아기 지원 시리즈로)||https://rasc.jp/wp-content/uploads/korean03.pdf",
+      "data3": "진통 촉진제(엄마와 아기 지원 시리즈로)||https://rasc.jp/wp-content/uploads/korean08.pdf",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -264,15 +460,41 @@
       "data21": ""
     },
     {
-      "type": "설명",
-      "type2": "지원 쿠폰",
-      "category": "오늘은 모자수첩의 지원 쿠폰을 사용합니다",
-      "data1": "자궁경부암 검사",
-      "data2": "혈액 검사",
-      "data3": "초음파 검사",
-      "data4": "진료",
-      "data5": "건강 지도",
-      "data6": "기타",
+      "type": "문진",
+      "type2": "처방",
+      "category": "경구 약을 처방합니다",
+      "data1": "혈압을 낮추는 약",
+      "data2": "배 뭉침을 완화하는 약",
+      "data3": "철분을 보충하는 약",
+      "data4": "변비를 치료하는 약",
+      "data5": "위장 증상을 완화하는 약",
+      "data6": "감기를 치료하는 약",
+      "data7": "염증을 치료하는 약",
+      "data8": "기타",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "문진",
+      "type2": "예약",
+      "category": "다음 진료 예약에 대해",
+      "data1": "next_kenshin",
+      "data2": "",
+      "data3": "",
+      "data4": "",
+      "data5": "",
+      "data6": "",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -290,17 +512,121 @@
       "data21": ""
     },
     {
-      "type": "문진",
-      "type2": "처방",
-      "category": "경구 약을 처방합니다",
-      "data1": "혈압을 낮추는 약",
-      "data2": "배 뭉침을 완화하는 약",
-      "data3": "철분을 보충하는 약",
-      "data4": "변비를 치료하는 약",
-      "data5": "위장 증상을 완화하는 약",
-      "data6": "감기를 치료하는 약",
-      "data7": "염증을 치료하는 약",
-      "data8": "기타",
+      "type": "약국",
+      "type2": "경구 약",
+      "category": "경구 약",
+      "data1": "가루약",
+      "data2": "정제",
+      "data3": "액체",
+      "data4": "연고",
+      "data5": "질정",
+      "data6": "좌약",
+      "data7": "가글약",
+      "data8": "연고",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "薬",
+      "type2": "内服薬",
+      "category": "薬を使うとき",
+      "data1": "朝",
+      "data2": "昼",
+      "data3": "夜",
+      "data4": "寝る前",
+      "data5": "食前",
+      "data6": "食中",
+      "data7": "食後",
+      "data8": "痛い時",
+      "data9": "痒い時",
+      "data10": "おりものが多い時",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "약국",
+      "type2": "경구 약",
+      "category": "복용 횟수(상한)",
+      "data1": "4시간 간격",
+      "data2": "6시간 간격",
+      "data3": "하루 최대 2정",
+      "data4": "하루 최대 3정",
+      "data5": "하루 최대 4정",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "약국",
+      "type2": "연고",
+      "category": "바르는 부위",
+      "data1": "얼굴",
+      "data2": "다리",
+      "data3": "배",
+      "data4": "등",
+      "data5": "엉덩이",
+      "data6": "질",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "検査・診察",
+      "type2": "補助券",
+      "category": "今日は母子手帳の補助券を使います",
+      "data1": "子宮頸がんの検査",
+      "data2": "血液検査",
+      "data3": "超音波検査",
+      "data4": "診察",
+      "data5": "保健指導",
+      "data6": "その他",
+      "data7": "",
+      "data8": "",
       "data9": "",
       "data10": "",
       "data11": "",
@@ -472,35 +798,6 @@
       "data21": ""
     },
     {
-      "type": "문진",
-      "type2": "예약",
-      "category": "다음 진료 예약에 대해",
-      "data1": "next_kenshin",
-      "data2": "",
-      "data3": "",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": "",
-      "null": [
-        ""
-      ]
-    },
-    {
       "type": "검사 & 진찰",
       "type2": "내진 후",
       "category": "진료가 끝났습니다. 의자가 내려갑니다.",
@@ -605,246 +902,12 @@
       "data21": ""
     },
     {
-      "type": "약국",
-      "type2": "경구 약",
-      "category": "경구 약",
-      "data1": "가루약",
-      "data2": "정제",
-      "data3": "액체",
-      "data4": "연고",
-      "data5": "질정",
-      "data6": "좌약",
-      "data7": "가글약",
-      "data8": "연고",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "약국",
-      "type2": "경구 약",
-      "category": "복용 횟수",
-      "data1": "아침",
-      "data2": "점심",
-      "data3": "저녁",
-      "data4": "식전",
-      "data5": "식중",
-      "data6": "식후",
-      "data7": "아플 때",
-      "data8": "가려울 때",
-      "data9": "분비물이 많을 때",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "약국",
-      "type2": "경구 약",
-      "category": "복용 횟수(상한)",
-      "data1": "4시간 간격",
-      "data2": "6시간 간격",
-      "data3": "하루 최대 2정",
-      "data4": "하루 최대 3정",
-      "data5": "하루 최대 4정",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "약국",
-      "type2": "연고",
-      "category": "바르는 부위",
-      "data1": "얼굴",
-      "data2": "다리",
-      "data3": "배",
-      "data4": "등",
-      "data5": "엉덩이",
-      "data6": "질",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "약국",
-      "type2": "연고",
-      "category": "언제부터인가요?",
-      "data1": "방금 전",
-      "data2": "3시간 전",
-      "data3": "6시간 전",
-      "data4": "9시간 전",
-      "data5": "반나절 전",
-      "data6": "어제",
-      "data7": "그저께",
-      "data8": "더 전부터",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "문진 (조산사)",
-      "type2": "문진 (건강 상태)",
-      "category": "식사는 잘 하고 있나요?",
-      "data1": "세 끼를 먹고 있다",
-      "data2": "두 끼를 먹고 있다",
-      "data3": "한 끼를 먹고 있다",
-      "data4": "먹지 못하고 있다",
-      "data5": "수분을 섭취하고 있다",
-      "data6": "간식을 먹고 있다",
-      "data7": "기타",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "문진 (조산사)",
-      "type2": "문진 (건강 상태)",
-      "category": "잘 자고 있나요?",
-      "data1": "네",
-      "data2": "가끔 깨요",
-      "data3": "자주 깨요",
-      "data4": "거의 못 잡니다",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "문진 (조산사)",
-      "type2": "설명 (지도)",
-      "category": "필요한 설명입니다. 책자를 읽어 주세요.",
-      "data1": "임신성 고혈압(엄마와 아기 지원 시리즈로)||https://rasc.jp/wp-content/uploads/korean04.pdf",
-      "data2": "임신성 당뇨(엄마와 아기 지원 시리즈로)||https://rasc.jp/wp-content/uploads/korean05.pdf",
-      "data3": "절박 유산(엄마와 아기 지원 시리즈로)||https://rasc.jp/wp-content/uploads/korean06.pdf",
-      "data4": "절박 조산(엄마와 아기 지원 시리즈로)||https://rasc.jp/wp-content/uploads/korean06.pdf",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "문진 (조산사)",
-      "type2": "설명 (출산 계획)",
-      "category": "출산 시 희망하는 사항이 있으면 생각해 보세요",
-      "data1": "출산 계획(엄마와 아기 지원 시리즈로)||https://rasc.jp/wp-content/uploads/korean09.pdf",
+      "type": "EPDS",
+      "type2": "에든버러 산후우울 척도",
+      "category": "해당하는 항목에 체크해 주세요.",
+      "data1": "",
       "data2": "",
       "data3": "",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "문진 (조산사)",
-      "type2": "설명 (출산)",
-      "category": "출산에 대한 설명입니다. 책자를 읽어 주세요.",
-      "data1": "입원 준비물(엄마와 아기 지원 시리즈로)||https://rasc.jp/wp-content/uploads/korean02.pdf",
-      "data2": "제왕절개(엄마와 아기 지원 시리즈로)||https://rasc.jp/wp-content/uploads/korean03.pdf",
-      "data3": "진통 촉진제(엄마와 아기 지원 시리즈로)||https://rasc.jp/wp-content/uploads/korean08.pdf",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -891,12 +954,12 @@
       "data21": "담당자 목록||https://rasc.jp/wp-content/uploads/korean99.pdf"
     },
     {
-      "type": "Health Guidance",
-      "type2": "Diet and Nutrition",
-      "category": "Please try to eat three meals a day",
-      "data1": "Please eat three meals a day",
-      "data2": "Even if you eat two meals, please eat small amounts",
-      "data3": "Please eat whatever you can in small amounts",
+      "type": "보건지도",
+      "type2": "식사・영양",
+      "category": "하루 세 끼를 의식합시다",
+      "data1": "세 끼를 먹읍시다",
+      "data2": "두 끼라도 조금씩 먹읍시다",
+      "data3": "먹을 수 있는 것을 조금씩 먹읍시다",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -917,15 +980,15 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Diet and Nutrition",
-      "category": "Please pay attention to hydration and balanced nutrition",
-      "data1": "Please drink enough fluids",
-      "data2": "Please avoid sugary drinks",
-      "data3": "Please avoid too much caffeine",
-      "data4": "Please eat vegetables",
-      "data5": "Please eat enough protein",
-      "data6": "Please reduce salt intake",
+      "type": "보건지도",
+      "type2": "식사・영양",
+      "category": "수분과 영양 균형에 주의합시다",
+      "data1": "수분을 충분히 섭취해 주세요",
+      "data2": "단 음료는 줄입시다",
+      "data3": "카페인은 너무 많이 섭취하지 맙시다",
+      "data4": "채소를 먹읍시다",
+      "data5": "단백질을 섭취합시다",
+      "data6": "소금을 줄입시다",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -943,14 +1006,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Weight Management",
-      "category": "We will explain weight management",
-      "data1": "Your weight gain is on track",
-      "data2": "Your weight gain is low",
-      "data3": "Your weight gain is high",
-      "data4": "Please measure at the same time every day",
-      "data5": "Please contact us if your weight increases suddenly",
+      "type": "보건지도",
+      "type2": "체중 관리",
+      "category": "체중 관리에 대해 설명합니다",
+      "data1": "체중 증가는 순조롭습니다",
+      "data2": "체중 증가가 적습니다",
+      "data3": "체중 증가가 많습니다",
+      "data4": "매일 같은 시간에 재세요",
+      "data5": "갑자기 늘면 상담해 주세요",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -969,14 +1032,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Blood Pressure and Swelling",
-      "category": "We will explain blood pressure and swelling",
-      "data1": "Your blood pressure is stable",
-      "data2": "Your blood pressure is a little high",
-      "data3": "Please measure your blood pressure at home too",
-      "data4": "Please reduce salt intake",
-      "data5": "Please contact us if you have swelling or headaches",
+      "type": "보건지도",
+      "type2": "혈압・부종",
+      "category": "혈압과 부종에 대해 설명합니다",
+      "data1": "혈압은 안정적입니다",
+      "data2": "혈압이 조금 높습니다",
+      "data3": "집에서도 혈압을 재세요",
+      "data4": "소금을 줄입시다",
+      "data5": "부종이나 두통이 있으면 연락해 주세요",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -995,15 +1058,15 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Blood Sugar Management",
-      "category": "We will explain blood sugar management",
-      "data1": "Your blood sugar is stable",
-      "data2": "Your blood sugar is a little high",
-      "data3": "Please pay attention to your meals",
-      "data4": "Please avoid sweets",
-      "data5": "Please divide meals into smaller portions",
-      "data6": "Please record your blood sugar",
+      "type": "보건지도",
+      "type2": "혈당 관리",
+      "category": "혈당에 대해 설명합니다",
+      "data1": "혈당은 안정적입니다",
+      "data2": "혈당이 조금 높습니다",
+      "data3": "식사에 주의합시다",
+      "data4": "단 것은 줄입시다",
+      "data5": "나누어 먹읍시다",
+      "data6": "혈당을 기록합시다",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -1021,14 +1084,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Anemia",
-      "category": "We will explain anemia",
-      "data1": "You do not have anemia",
-      "data2": "You have anemia",
-      "data3": "Please take more iron",
-      "data4": "Please take your iron medicine",
-      "data5": "We will check again with the next blood test",
+      "type": "보건지도",
+      "type2": "빈혈",
+      "category": "빈혈에 대해 설명합니다",
+      "data1": "빈혈은 없습니다",
+      "data2": "빈혈이 있습니다",
+      "data3": "철분을 많이 섭취합시다",
+      "data4": "철분제를 복용해 주세요",
+      "data5": "다음 채혈에서 확인합니다",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -1047,14 +1110,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Medicine and Supplements",
-      "category": "We will explain medicines and supplements",
-      "data1": "Please take them as instructed",
-      "data2": "Please do not stop on your own",
-      "data3": "Please ask us if you forget a dose",
-      "data4": "Please ask before taking over-the-counter medicine",
-      "data5": "Please ask about supplements",
+      "type": "보건지도",
+      "type2": "복약・보충제",
+      "category": "약과 보충제에 대해 설명합니다",
+      "data1": "지시대로 복용해 주세요",
+      "data2": "스스로 판단하여 중단하지 마세요",
+      "data3": "복용을 잊으면 상담해 주세요",
+      "data4": "일반약은 먹기 전에 상담해 주세요",
+      "data5": "보충제는 상담해 주세요",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -1073,16 +1136,16 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "When to Contact the Hospital",
-      "category": "Please contact the hospital in these situations",
-      "data1": "If you have bleeding",
-      "data2": "If you have strong abdominal pain",
-      "data3": "If abdominal tightening increases",
-      "data4": "If watery fluid comes out",
-      "data5": "If you have a severe headache",
-      "data6": "If the baby moves less than usual",
-      "data7": "If you feel unwell",
+      "type": "보건지도",
+      "type2": "진료 기준",
+      "category": "이럴 때는 병원에 연락해 주세요",
+      "data1": "출혈이 있을 때",
+      "data2": "배가 심하게 아플 때",
+      "data3": "배 뭉침이 늘었을 때",
+      "data4": "물 같은 것이 나올 때",
+      "data5": "두통이 심할 때",
+      "data6": "아기 움직임이 적을 때",
+      "data7": "몸이 좋지 않을 때",
       "data8": "",
       "data9": "",
       "data10": "",
@@ -1099,15 +1162,15 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Abdominal Tightening, Bleeding, and Fluid Leakage",
-      "category": "We will explain abdominal tightening, bleeding, and possible rupture of membranes",
-      "data1": "Please rest if abdominal tightening increases",
-      "data2": "Please contact us if tightening continues",
-      "data3": "Please contact us if you have pain",
-      "data4": "Please contact us if you have bleeding",
-      "data5": "Please contact us if watery fluid comes out",
-      "data6": "Please use a pad and observe the situation",
+      "type": "보건지도",
+      "type2": "배 뭉침・출혈・양수 파수",
+      "category": "배 뭉침, 출혈, 양수 파수에 대해 설명합니다",
+      "data1": "뭉침이 늘면 쉬어 주세요",
+      "data2": "뭉침이 계속되면 연락해 주세요",
+      "data3": "통증이 있으면 연락해 주세요",
+      "data4": "출혈이 있으면 연락해 주세요",
+      "data5": "물 같은 것이 나오면 연락해 주세요",
+      "data6": "생리대를 하고 지켜봐 주세요",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -1125,12 +1188,12 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Fetal Movement",
-      "category": "We will explain fetal movement",
-      "data1": "The baby is moving well",
-      "data2": "Please monitor the baby's movement",
-      "data3": "Please contact us if movement is less than usual",
+      "type": "보건지도",
+      "type2": "태동",
+      "category": "아기 움직임에 대해 설명합니다",
+      "data1": "아기는 잘 움직이고 있습니다",
+      "data2": "아기 움직임을 봐 주세요",
+      "data3": "평소보다 적으면 연락해 주세요",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -1151,13 +1214,13 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Birth Preparation",
-      "category": "Please prepare for childbirth",
-      "data1": "Please prepare for hospitalization",
-      "data2": "Please check what to bring",
-      "data3": "Please confirm how to contact the hospital",
-      "data4": "Please think about your birth plan",
+      "type": "보건지도",
+      "type2": "출산 준비",
+      "category": "출산을 준비합시다",
+      "data1": "입원 준비를 합시다",
+      "data2": "준비물을 확인해 주세요",
+      "data3": "병원에 연락하는 방법을 확인합시다",
+      "data4": "출산 계획을 생각해 주세요",
       "data5": "",
       "data6": "",
       "data7": "",
@@ -1175,6 +1238,693 @@
       "data19": "",
       "data20": "",
       "data21": ""
+    }
+  ],
+  "epdsData": {
+    "questions": [
+      {
+        "ja": "웃거나 일의 재미있는 면을 느낄 수 있었나요?",
+        "tr": "웃거나 일의 재미있는 면을 느낄 수 있었나요?",
+        "options": [
+          {
+            "ja": "예전처럼 할 수 있었다",
+            "tr": "예전처럼 할 수 있었다",
+            "score": 0
+          },
+          {
+            "ja": "예전보다 조금 덜했다",
+            "tr": "예전보다 조금 덜했다",
+            "score": 1
+          },
+          {
+            "ja": "확실히 줄었다",
+            "tr": "확실히 줄었다",
+            "score": 2
+          },
+          {
+            "ja": "전혀 할 수 없었다",
+            "tr": "전혀 할 수 없었다",
+            "score": 3
+          }
+        ]
+      },
+      {
+        "ja": "즐거운 마음으로 기대할 수 있었나요?",
+        "tr": "즐거운 마음으로 기대할 수 있었나요?",
+        "options": [
+          {
+            "ja": "예전처럼 그랬다",
+            "tr": "예전처럼 그랬다",
+            "score": 0
+          },
+          {
+            "ja": "예전보다 조금 적었다",
+            "tr": "예전보다 조금 적었다",
+            "score": 1
+          },
+          {
+            "ja": "확실히 적었다",
+            "tr": "확실히 적었다",
+            "score": 2
+          },
+          {
+            "ja": "거의 없었다",
+            "tr": "거의 없었다",
+            "score": 3
+          }
+        ]
+      },
+      {
+        "ja": "일이 잘못되었을 때 필요 이상으로 자신을 탓했나요?",
+        "tr": "일이 잘못되었을 때 필요 이상으로 자신을 탓했나요?",
+        "options": [
+          {
+            "ja": "네, 대부분 그랬다",
+            "tr": "네, 대부분 그랬다",
+            "score": 3
+          },
+          {
+            "ja": "네, 가끔 그랬다",
+            "tr": "네, 가끔 그랬다",
+            "score": 2
+          },
+          {
+            "ja": "별로 그렇지 않았다",
+            "tr": "별로 그렇지 않았다",
+            "score": 1
+          },
+          {
+            "ja": "전혀 그렇지 않았다",
+            "tr": "전혀 그렇지 않았다",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "뚜렷한 이유 없이 불안하거나 걱정했나요?",
+        "tr": "뚜렷한 이유 없이 불안하거나 걱정했나요?",
+        "options": [
+          {
+            "ja": "아니요, 전혀 없었다",
+            "tr": "아니요, 전혀 없었다",
+            "score": 0
+          },
+          {
+            "ja": "거의 없었다",
+            "tr": "거의 없었다",
+            "score": 1
+          },
+          {
+            "ja": "네, 가끔 있었다",
+            "tr": "네, 가끔 있었다",
+            "score": 2
+          },
+          {
+            "ja": "네, 자주 있었다",
+            "tr": "네, 자주 있었다",
+            "score": 3
+          }
+        ]
+      },
+      {
+        "ja": "뚜렷한 이유 없이 무섭거나 당황했나요?",
+        "tr": "뚜렷한 이유 없이 무섭거나 당황했나요?",
+        "options": [
+          {
+            "ja": "네, 꽤 많았다",
+            "tr": "네, 꽤 많았다",
+            "score": 3
+          },
+          {
+            "ja": "네, 가끔 있었다",
+            "tr": "네, 가끔 있었다",
+            "score": 2
+          },
+          {
+            "ja": "아니요, 많지 않았다",
+            "tr": "아니요, 많지 않았다",
+            "score": 1
+          },
+          {
+            "ja": "아니요, 전혀 없었다",
+            "tr": "아니요, 전혀 없었다",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "해야 할 일이 너무 많아 감당하기 어렵다고 느꼈나요?",
+        "tr": "해야 할 일이 너무 많아 감당하기 어렵다고 느꼈나요?",
+        "options": [
+          {
+            "ja": "네, 대부분 감당하지 못했다",
+            "tr": "네, 대부분 감당하지 못했다",
+            "score": 3
+          },
+          {
+            "ja": "네, 가끔 평소만큼 감당하지 못했다",
+            "tr": "네, 가끔 평소만큼 감당하지 못했다",
+            "score": 2
+          },
+          {
+            "ja": "아니요, 대부분 잘 감당했다",
+            "tr": "아니요, 대부분 잘 감당했다",
+            "score": 1
+          },
+          {
+            "ja": "아니요, 평소처럼 감당했다",
+            "tr": "아니요, 평소처럼 감당했다",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "불행해서 잠들기 어려웠던 적이 있나요?",
+        "tr": "불행해서 잠들기 어려웠던 적이 있나요?",
+        "options": [
+          {
+            "ja": "네, 대부분 그랬다",
+            "tr": "네, 대부분 그랬다",
+            "score": 3
+          },
+          {
+            "ja": "네, 가끔 그랬다",
+            "tr": "네, 가끔 그랬다",
+            "score": 2
+          },
+          {
+            "ja": "별로 없었다",
+            "tr": "별로 없었다",
+            "score": 1
+          },
+          {
+            "ja": "전혀 없었다",
+            "tr": "전혀 없었다",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "슬프거나 괴로운 기분이 들었나요?",
+        "tr": "슬프거나 괴로운 기분이 들었나요?",
+        "options": [
+          {
+            "ja": "네, 대부분 그랬다",
+            "tr": "네, 대부분 그랬다",
+            "score": 3
+          },
+          {
+            "ja": "네, 꽤 자주 그랬다",
+            "tr": "네, 꽤 자주 그랬다",
+            "score": 2
+          },
+          {
+            "ja": "별로 없었다",
+            "tr": "별로 없었다",
+            "score": 1
+          },
+          {
+            "ja": "전혀 없었다",
+            "tr": "전혀 없었다",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "불행해서 울었던 적이 있나요?",
+        "tr": "불행해서 울었던 적이 있나요?",
+        "options": [
+          {
+            "ja": "네, 대부분 그랬다",
+            "tr": "네, 대부분 그랬다",
+            "score": 3
+          },
+          {
+            "ja": "네, 꽤 자주 그랬다",
+            "tr": "네, 꽤 자주 그랬다",
+            "score": 2
+          },
+          {
+            "ja": "가끔 있었다",
+            "tr": "가끔 있었다",
+            "score": 1
+          },
+          {
+            "ja": "전혀 없었다",
+            "tr": "전혀 없었다",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "자신을 해치고 싶다고 생각한 적이 있나요?",
+        "tr": "자신을 해치고 싶다고 생각한 적이 있나요?",
+        "options": [
+          {
+            "ja": "네, 꽤 자주 있었다",
+            "tr": "네, 꽤 자주 있었다",
+            "score": 3
+          },
+          {
+            "ja": "가끔 있었다",
+            "tr": "가끔 있었다",
+            "score": 2
+          },
+          {
+            "ja": "거의 없었다",
+            "tr": "거의 없었다",
+            "score": 1
+          },
+          {
+            "ja": "전혀 없었다",
+            "tr": "전혀 없었다",
+            "score": 0
+          }
+        ]
+      }
+    ]
+  },
+  "specialItems": {
+    "counter_kara": {
+      "titleJa": "いつからですか",
+      "titleTr": "언제부터인가요?",
+      "options": [
+        {
+          "ja": "__時間前",
+          "tr": "__시간 전"
+        },
+        {
+          "ja": "__日前",
+          "tr": "__일 전"
+        },
+        {
+          "ja": "__週間前",
+          "tr": "__주 전"
+        }
+      ]
+    },
+    "counter_kai": {
+      "titleJa": "1日に何回張りますか",
+      "titleTr": "하루에 몇 번인가요?",
+      "options": [
+        {
+          "ja": "1〜2回",
+          "tr": "1-2회"
+        },
+        {
+          "ja": "3〜5回",
+          "tr": "3-5회"
+        },
+        {
+          "ja": "6〜10回",
+          "tr": "6-10회"
+        },
+        {
+          "ja": "11回以上",
+          "tr": "11회 이상"
+        }
+      ]
+    },
+    "kusurikaisuu": {
+      "titleJa": "1日の使用回数",
+      "titleTr": "하루 사용 횟수는?",
+      "options": [
+        {
+          "ja": "1日につき__回",
+          "tr": "하루 __회"
+        },
+        {
+          "ja": "__時間おき",
+          "tr": "__시간마다"
+        },
+        {
+          "mode": "quantity_unit",
+          "ja": "1回の量",
+          "tr": "1회 사용량",
+          "units": [
+            {
+              "ja": "錠",
+              "tr": "정"
+            },
+            {
+              "ja": "滴",
+              "tr": "방울"
+            },
+            {
+              "ja": "パック",
+              "tr": "팩"
+            },
+            {
+              "ja": "単位",
+              "tr": "단위"
+            }
+          ]
+        }
+      ]
+    },
+    "next_kenshin": {
+      "titleJa": "次回の予約(検診)について",
+      "titleTr": "다음 진료 예약에 대해",
+      "options": [
+        {
+          "mode": "appointment_after",
+          "ja": "次は__ヶ月後 __週間後です",
+          "tr": "다음은 __개월 후 __주 후입니다"
+        },
+        {
+          "mode": "appointment_time",
+          "ja": "__時__分はどうですか",
+          "tr": "__시 __분은 어떠세요"
+        },
+        {
+          "mode": "appointment_weekday",
+          "ja": "がよい日です",
+          "tr": "좋은 요일입니다",
+          "days": [
+            {
+              "ja": "月曜日",
+              "tr": "월요일"
+            },
+            {
+              "ja": "火曜日",
+              "tr": "화요일"
+            },
+            {
+              "ja": "水曜日",
+              "tr": "수요일"
+            },
+            {
+              "ja": "木曜日",
+              "tr": "목요일"
+            },
+            {
+              "ja": "金曜日",
+              "tr": "금요일"
+            },
+            {
+              "ja": "土曜日",
+              "tr": "토요일"
+            },
+            {
+              "ja": "日曜日",
+              "tr": "일요일"
+            }
+          ]
+        },
+        {
+          "mode": "appointment_checklist",
+          "ja": "下の項目を確認してください",
+          "tr": "아래 항목을 확인해 주세요",
+          "items": [
+            {
+              "ja": "薬の処方箋を受け取ってください",
+              "tr": "약 처방전을 받아 주세요"
+            },
+            {
+              "ja": "朝ごはんを食べないできてください",
+              "tr": "아침을 먹지 말고 와 주세요"
+            },
+            {
+              "ja": "クーポンを使うので持ってきてください",
+              "tr": "쿠폰을 사용할 예정이니 가져와 주세요"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "drugTypeTree": [
+    {
+      "ja": "内服",
+      "tr": "内服",
+      "items": [
+        {
+          "ja": "錠剤",
+          "tr": "錠剤"
+        },
+        {
+          "ja": "カプセル剤",
+          "tr": "カプセル剤"
+        },
+        {
+          "ja": "散剤（粉薬）",
+          "tr": "散剤（粉薬）"
+        },
+        {
+          "ja": "液剤",
+          "tr": "液剤"
+        },
+        {
+          "ja": "ゼリー・ゲル",
+          "tr": "ゼリー・ゲル"
+        },
+        {
+          "ja": "トローチ",
+          "tr": "トローチ"
+        },
+        {
+          "ja": "舌下錠",
+          "tr": "舌下錠"
+        },
+        {
+          "ja": "うがい薬",
+          "tr": "うがい薬"
+        }
+      ]
+    },
+    {
+      "ja": "外用剤",
+      "tr": "外用剤",
+      "items": [
+        {
+          "ja": "軟膏",
+          "tr": "軟膏"
+        },
+        {
+          "ja": "クリーム",
+          "tr": "クリーム"
+        },
+        {
+          "ja": "ローション",
+          "tr": "ローション"
+        },
+        {
+          "ja": "ゲル",
+          "tr": "ゲル"
+        },
+        {
+          "ja": "液剤",
+          "tr": "液剤"
+        },
+        {
+          "ja": "スプレー",
+          "tr": "スプレー"
+        },
+        {
+          "ja": "湿布",
+          "tr": "湿布"
+        },
+        {
+          "ja": "消毒",
+          "tr": "消毒"
+        }
+      ]
+    },
+    {
+      "ja": "吸入剤",
+      "tr": "吸入剤",
+      "items": [
+        {
+          "ja": "吸入液",
+          "tr": "吸入液"
+        }
+      ]
+    },
+    {
+      "ja": "点鼻剤",
+      "tr": "点鼻剤",
+      "items": [
+        {
+          "ja": "点鼻液",
+          "tr": "点鼻液"
+        },
+        {
+          "ja": "点鼻スプレー",
+          "tr": "点鼻スプレー"
+        }
+      ]
+    },
+    {
+      "ja": "点眼",
+      "tr": "点眼",
+      "items": [
+        {
+          "ja": "点眼液",
+          "tr": "点眼液"
+        }
+      ]
+    },
+    {
+      "ja": "直腸・腟など",
+      "tr": "直腸・腟など",
+      "items": [
+        {
+          "ja": "坐薬",
+          "tr": "坐薬"
+        },
+        {
+          "ja": "注腸剤",
+          "tr": "注腸剤"
+        },
+        {
+          "ja": "腟錠",
+          "tr": "腟錠"
+        },
+        {
+          "ja": "腟用クリーム",
+          "tr": "腟用クリーム"
+        },
+        {
+          "ja": "腟用ゲル",
+          "tr": "腟用ゲル"
+        }
+      ]
+    },
+    {
+      "ja": "口腔・咽頭",
+      "tr": "口腔・咽頭",
+      "items": [
+        {
+          "ja": "トローチ",
+          "tr": "トローチ"
+        },
+        {
+          "ja": "含嗽剤",
+          "tr": "含嗽剤"
+        },
+        {
+          "ja": "口腔内フィルム",
+          "tr": "口腔内フィルム"
+        }
+      ]
+    },
+    {
+      "ja": "その他",
+      "tr": "その他",
+      "items": [
+        {
+          "ja": "その他",
+          "tr": "その他"
+        }
+      ]
+    },
+    {
+      "ja": "薬の作用",
+      "tr": "薬の作用",
+      "items": [
+        {
+          "ja": "解熱鎮痛薬",
+          "tr": "解熱鎮痛薬"
+        },
+        {
+          "ja": "抗炎症薬",
+          "tr": "抗炎症薬"
+        },
+        {
+          "ja": "抗菌薬",
+          "tr": "抗菌薬"
+        },
+        {
+          "ja": "抗生剤",
+          "tr": "抗生剤"
+        },
+        {
+          "ja": "抗ウイルス薬",
+          "tr": "抗ウイルス薬"
+        },
+        {
+          "ja": "アレルギー薬（抗ヒスタミン薬など）",
+          "tr": "アレルギー薬（抗ヒスタミン薬など）"
+        },
+        {
+          "ja": "ビタミン剤",
+          "tr": "ビタミン剤"
+        },
+        {
+          "ja": "鉄剤",
+          "tr": "鉄剤"
+        },
+        {
+          "ja": "子宮収縮抑制剤",
+          "tr": "子宮収縮抑制剤"
+        },
+        {
+          "ja": "葉酸",
+          "tr": "葉酸"
+        },
+        {
+          "ja": "漢方薬",
+          "tr": "漢方薬"
+        },
+        {
+          "ja": "制吐剤",
+          "tr": "制吐剤"
+        },
+        {
+          "ja": "下剤・整腸剤",
+          "tr": "下剤・整腸剤"
+        },
+        {
+          "ja": "降圧剤",
+          "tr": "降圧剤"
+        },
+        {
+          "ja": "呼吸器薬（気管支拡張薬、吸入ステロイドなど）",
+          "tr": "呼吸器薬（気管支拡張薬、吸入ステロイドなど）"
+        },
+        {
+          "ja": "抗血栓薬（抗凝固薬、抗血小板薬など）",
+          "tr": "抗血栓薬（抗凝固薬、抗血小板薬など）"
+        },
+        {
+          "ja": "インスリン注射薬",
+          "tr": "インスリン注射薬"
+        },
+        {
+          "ja": "ホルモン薬（甲状腺、性ホルモン、副腎皮質など）",
+          "tr": "ホルモン薬（甲状腺、性ホルモン、副腎皮質など）"
+        },
+        {
+          "ja": "睡眠剤",
+          "tr": "睡眠剤"
+        },
+        {
+          "ja": "抗てんかん薬",
+          "tr": "抗てんかん薬"
+        },
+        {
+          "ja": "ステロイド",
+          "tr": "ステロイド"
+        },
+        {
+          "ja": "抗リウマチ薬",
+          "tr": "抗リウマチ薬"
+        },
+        {
+          "ja": "膠原病薬",
+          "tr": "膠原病薬"
+        }
+      ]
+    },
+    {
+      "ja": "その他",
+      "tr": "その他",
+      "items": [
+        {
+          "ja": "その他",
+          "tr": "その他"
+        }
+      ]
     }
   ]
 }

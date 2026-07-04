@@ -5,14 +5,23 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"></script>
     <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
     <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../template/style.css" />
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="../common/js/config.js"></script>
+    <link rel="stylesheet" type="text/css" href="../style.css" />
     <link rel="stylesheet" type="text/css" href="style.css" />
     <title>しんさつコミュニケーションボード</title>
 </head>
 
 <body>
+    <div id="header-container" class="header-wrapper"></div>
+
     <header class="app-header">
         <h1 id="pageTitle" class="h3-sample">しんさつコミュニケーションボード</h1>
         <p id="pageLead" class="small-sample">カテゴリごとに、必要なやり取りだけテキストと音でお手伝いします。</p>
@@ -284,10 +293,14 @@
         };
 
         const LANGUAGE_STORAGE_KEY = "examinationSelectedLanguage";
+        const currentPage = "examination";
         const EPDS_API_URL =
             "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
         let localData = [];
         let translatedByLanguage = {};
+        let epdsDataByLanguage = {};
+        let specialItemsByLanguage = {};
+        let drugTypeTreeByLanguage = {};
         let selectedLanguage = "en-US";
         let keepIndexes = [];
         let selectedType = "";
@@ -296,10 +309,12 @@
         const answerSelections = new Set();
         const epdsSelections = new Map();
         const epdsSubmissionState = new Map();
+        let liffInitPromise = null;
 
         window.addEventListener("load", init);
 
         async function init() {
+            loadCommonHeader();
             setupScrollTopButton();
             setupTranslationAppDialog();
             document.getElementById("languageSettingBtn").addEventListener("click", () => {
@@ -320,6 +335,19 @@
             const types = [...new Set(localData.map(item => item.type || "その他"))];
             selectedType = types[0] || "";
             renderAll();
+        }
+
+        function loadCommonHeader() {
+            if (!window.jQuery) return;
+            $("#header-container").load("../common/header.html", function (_responseText, status) {
+                if (status === "error") {
+                    console.error("Failed to load header.html");
+                    return;
+                }
+                $.getScript("../common/js/header2.js").fail(function () {
+                    console.error("Failed to load header2.js");
+                });
+            });
         }
 
         function loadInitialLanguage() {
@@ -606,6 +634,15 @@
                 const response = await fetch(lang.i18nFile);
                 if (!response.ok) throw new Error(`Failed to fetch ${lang.i18nFile}`);
                 const bundle = await response.json();
+                if (bundle && bundle.epdsData) {
+                    epdsDataByLanguage[lang.code] = bundle.epdsData;
+                }
+                if (bundle && bundle.specialItems) {
+                    specialItemsByLanguage[lang.code] = bundle.specialItems;
+                }
+                if (bundle && bundle.drugTypeTree) {
+                    drugTypeTreeByLanguage[lang.code] = bundle.drugTypeTree;
+                }
                 const rows = Array.isArray(bundle && bundle.boardData) ? bundle.boardData : [];
                 if (!Array.isArray(rows)) return [];
                 return rows.map(normalizeDataRow).filter(row => row.category || row.data.some(v => v));
@@ -616,6 +653,7 @@
         }
 
         function renderLanguagePicker() {
+            syncHeaderLanguageLabel();
             const picker = document.getElementById("languageOptionList");
             picker.innerHTML = "";
 
@@ -636,6 +674,35 @@
                 picker.appendChild(btn);
             });
             renderLanguageDialogText();
+        }
+
+        function syncHeaderLanguageLabel() {
+            const currentLanguageLabel = document.getElementById("currentLanguage");
+            if (!currentLanguageLabel) return;
+            const shortLabels = {
+                ja: "やさしい",
+                "en-US": "English",
+                zh: "中文",
+                fr: "Français",
+                ko: "한국어",
+                pr: "Português",
+                tl: "Tagalog",
+                ve: "Tiếng Việt",
+                th: "ภาษาไทย",
+                de: "Deutsch",
+                id: "Indonesia",
+                ru: "Русский",
+                ne: "नेपाली",
+                lo: "ລາວ",
+                uk: "Українська",
+                "fa-AF": "دری",
+                si: "සිංහල",
+                ms: "Melayu",
+                my: "မြန်မာ",
+                bn: "বাংলা",
+                ur: "اردو",
+            };
+            currentLanguageLabel.textContent = shortLabels[selectedLanguage] || "Language";
         }
 
         function renderLanguageDialogText() {
@@ -713,7 +780,7 @@
 
                 const details = document.createElement("details");
                 details.className = "talk-card";
-                if (isSupportSeriesCategory) {
+                if (isSupportSeriesCategory || isEpdsCategory) {
                     details.open = true;
                 }
 
@@ -1137,74 +1204,7 @@
         }
 
         function buildDrugTypeTree(langCode) {
-            const jaTree = [{
-                    ja: "内服",
-                    items: ["錠剤", "カプセル剤", "散剤（粉薬）", "液剤", "ゼリー・ゲル", "トローチ", "舌下錠", "うがい薬"]
-                },
-                {
-                    ja: "外用剤",
-                    items: ["軟膏", "クリーム", "ローション", "ゲル", "液剤", "スプレー", "湿布", "消毒"]
-                },
-                {
-                    ja: "吸入剤",
-                    items: ["吸入液"]
-                },
-                {
-                    ja: "点鼻剤",
-                    items: ["点鼻液", "点鼻スプレー"]
-                },
-                {
-                    ja: "点眼",
-                    items: ["点眼液"]
-                },
-                {
-                    ja: "直腸・腟など",
-                    items: ["坐薬", "注腸剤", "腟錠", "腟用クリーム", "腟用ゲル"]
-                },
-                {
-                    ja: "口腔・咽頭",
-                    items: ["トローチ", "含嗽剤", "口腔内フィルム"]
-                },
-                {
-                    ja: "その他",
-                    items: ["その他"]
-                },
-                {
-                    ja: "薬の作用",
-                    items: ["解熱鎮痛薬", "抗炎症薬", "抗菌薬", "抗生剤", "抗ウイルス薬", "アレルギー薬（抗ヒスタミン薬など）", "ビタミン剤", "鉄剤",
-                        "子宮収縮抑制剤", "葉酸", "漢方薬", "制吐剤", "下剤・整腸剤", "降圧剤", "呼吸器薬（気管支拡張薬、吸入ステロイドなど）",
-                        "抗血栓薬（抗凝固薬、抗血小板薬など）",
-                        "インスリン注射薬", "ホルモン薬（甲状腺、性ホルモン、副腎皮質など）", "睡眠剤", "抗てんかん薬", "ステロイド", "抗リウマチ薬", "膠原病薬"
-                    ]
-                },
-                {
-                    ja: "その他",
-                    items: ["その他"]
-                }
-            ];
-
-            const trMap = {
-                "en-US": {
-                    "内服": "Oral medicines",
-                    "外用剤": "Topical medicines",
-                    "吸入剤": "Inhalants",
-                    "点鼻剤": "Nasal medicines",
-                    "点眼": "Eye drops",
-                    "直腸・腟など": "Rectal/Vaginal forms",
-                    "口腔・咽頭": "Oral/Throat",
-                    "その他": "Other",
-                    "薬の作用": "Pharmacological action"
-                }
-            };
-            const m = trMap[langCode] || {};
-            return jaTree.map((g) => ({
-                ja: g.ja,
-                tr: m[g.ja] || "",
-                items: g.items.map((i) => ({
-                    ja: i,
-                    tr: ""
-                }))
-            }));
+            return drugTypeTreeByLanguage[langCode] || drugTypeTreeByLanguage["en-US"] || drugTypeTreeByLanguage.ja || [];
         }
 
         function renderAll() {
@@ -1256,7 +1256,7 @@
             const localized = getTokenLocalizedOptions(selectedLanguage);
             if (localized[token]) return localized[token];
             if (token === "kusurinokaisuu" && localized.kusurikaisuu) return localized.kusurikaisuu;
-            if (token === "onakagaharukaisuu" && localized.kusurikaisuu) return localized.kusurikaisuu;
+            if (token === "onakagaharukaisuu" && localized.counter_kai) return localized.counter_kai;
             return null;
         }
 
@@ -1306,256 +1306,7 @@
         }
 
         function getTokenLocalizedOptions(langCode) {
-            const base = {
-                counter_kara: {
-                    titleJa: "いつからですか",
-                    optionsJa: ["__時間前", "__日前", "__週間前"]
-                },
-                counter_kai: {
-                    titleJa: "1日に何回張りますか",
-                    optionsJa: ["1〜2回", "3〜5回", "6〜10回", "11回以上"]
-                },
-                kusurikaisuu: {
-                    titleJa: "1日の使用回数",
-                    optionsJa: ["1日につき__回", "__時間おき", {
-                        mode: "quantity_unit",
-                        tr: "Amount per dose",
-                        units: [{
-                                ja: "錠",
-                                tr: "tablet(s)"
-                            },
-                            {
-                                ja: "滴",
-                                tr: "drop(s)"
-                            },
-                            {
-                                ja: "パック",
-                                tr: "pack(s)"
-                            },
-                            {
-                                ja: "単位",
-                                tr: "unit(s)"
-                            }
-                        ]
-                    }]
-                },
-                next_kenshin: {
-                    titleJa: "次回の予約(検診)について",
-                    optionsJa: [{
-                        mode: "appointment_after",
-                        tr: "The next visit is after __ months and __ weeks"
-                    }, {
-                        mode: "appointment_time",
-                        tr: "How about __:__?"
-                    }, {
-                        mode: "appointment_weekday",
-                        tr: "is a good day",
-                        days: [{
-                            ja: "月曜日",
-                            tr: "Monday"
-                        }, {
-                            ja: "火曜日",
-                            tr: "Tuesday"
-                        }, {
-                            ja: "水曜日",
-                            tr: "Wednesday"
-                        }, {
-                            ja: "木曜日",
-                            tr: "Thursday"
-                        }, {
-                            ja: "金曜日",
-                            tr: "Friday"
-                        }, {
-                            ja: "土曜日",
-                            tr: "Saturday"
-                        }, {
-                            ja: "日曜日",
-                            tr: "Sunday"
-                        }]
-                    }, {
-                        mode: "appointment_checklist",
-                        tr: "Please check the items below",
-                        items: [{
-                            ja: "薬の処方箋を受け取ってください",
-                            tr: "Please receive your prescription"
-                        }, {
-                            ja: "朝ごはんを食べないできてください",
-                            tr: "Please come without eating breakfast"
-                        }, {
-                            ja: "クーポンを使うので持ってきてください",
-                            tr: "Please bring your coupon"
-                        }]
-                    }]
-                },
-
-
-            };
-
-            const trByLang = {
-                "en-US": {
-                    counter_kara: {
-                        titleTr: "Since when?",
-                        optionsTr: ["__ hours ago", "__ days ago", "__ weeks ago"]
-                    },
-                    counter_kai: {
-                        titleTr: "How many times a day?",
-                        optionsTr: ["1-2 times", "3-5 times", "6-10 times", "11+ times"]
-                    },
-                    kusurikaisuu: {
-                        titleTr: "How many times per day?",
-                        optionsTr: ["__ times per day", "every __ hours", "Amount per dose"]
-                    },
-                    next_kenshin: {
-                        titleTr: "About the next appointment",
-                        optionsTr: [
-                            "The next visit is after __ months and __ weeks",
-                            "How about __:__?",
-                            "is a good day",
-                            "Please check the items below"
-                        ]
-                    }
-                },
-                "zh": {
-                    counter_kara: {
-                        titleTr: "从什么时候开始？",
-                        optionsTr: ["__小时前", "__天前", "__周前"]
-                    },
-                    counter_kai: {
-                        titleTr: "一天几次？",
-                        optionsTr: ["1-2次", "3-5次", "6-10次", "11次以上"]
-                    },
-                    kusurikaisuu: {
-                        titleTr: "每天使用几次？",
-                        optionsTr: ["每天__次", "每__小时一次", "每次用量"]
-                    },
-                    next_kenshin: {
-                        titleTr: "关于下次预约",
-                        optionsTr: [
-                            "下次是在__个月后和__周后",
-                            "__点__分怎么样",
-                            "是合适的日子",
-                            "请勾选以下项目"
-                        ]
-                    }
-                },
-                "de": {
-                    counter_kara: {
-                        titleTr: "Seit wann?",
-                        optionsTr: ["vor __ Stunden", "vor __ Tagen", "vor __ Wochen"]
-                    },
-                    counter_kai: {
-                        titleTr: "Wie oft pro Tag?",
-                        optionsTr: ["1-2 Mal", "3-5 Mal", "6-10 Mal", "11 Mal oder mehr"]
-                    },
-                    kusurikaisuu: {
-                        titleTr: "Wie oft pro Tag anwenden?",
-                        optionsTr: ["__ Mal pro Tag", "alle __ Stunden", "Menge pro Einnahme"]
-                    },
-                    next_kenshin: {
-                        titleTr: "Zum naechsten Termin",
-                        optionsTr: [
-                            "Der naechste Termin ist in __ Monaten und __ Wochen",
-                            "Wie waere es um __ Uhr __?",
-                            "ist ein guter Tag",
-                            "Bitte kreuzen Sie die folgenden Punkte an"
-                        ]
-                    }
-                },
-                "ve": {
-                    counter_kara: {
-                        titleTr: "Từ khi nào?",
-                        optionsTr: ["__ giờ trước", "__ ngày trước", "__ tuần trước"]
-                    },
-                    counter_kai: {
-                        titleTr: "Mỗi ngày bao nhiêu lần?",
-                        optionsTr: ["1-2 lần", "3-5 lần", "6-10 lần", "Từ 11 lần trở lên"]
-                    },
-                    kusurikaisuu: {
-                        titleTr: "Số lần dùng trong ngày?",
-                        optionsTr: ["__ lần mỗi ngày", "mỗi __ giờ", "Lượng dùng mỗi lần"]
-                    },
-                    next_kenshin: {
-                        titleTr: "Ve lich hen tiep theo",
-                        optionsTr: [
-                            "Lan tiep theo la sau __ thang va __ tuan",
-                            "__ gio __ phut duoc khong",
-                            "la ngay phu hop",
-                            "Hay chon cac muc ben duoi"
-                        ]
-                    }
-                },
-                "pr": {
-                    counter_kara: {
-                        titleTr: "Desde quando?",
-                        optionsTr: ["há __ horas", "há __ dias", "há __ semanas"]
-                    },
-                    counter_kai: {
-                        titleTr: "Quantas vezes por dia?",
-                        optionsTr: ["1-2 vezes", "3-5 vezes", "6-10 vezes", "11 vezes ou mais"]
-                    },
-                    kusurikaisuu: {
-                        titleTr: "Quantas vezes por dia usar?",
-                        optionsTr: ["__ vezes por dia", "a cada __ horas", "Quantidade por dose"]
-                    },
-                    next_kenshin: {
-                        titleTr: "Sobre a proxima consulta",
-                        optionsTr: [
-                            "A proxima consulta sera em __ meses e __ semanas",
-                            "Que tal __ horas e __ minutos?",
-                            "e um bom dia",
-                            "Marque os itens abaixo"
-                        ]
-                    }
-                },
-                "ko": {
-                    counter_kara: {
-                        titleTr: "언제부터인가요?",
-                        optionsTr: ["__시간 전", "__일 전", "__주 전"]
-                    },
-                    counter_kai: {
-                        titleTr: "하루에 몇 번인가요?",
-                        optionsTr: ["1-2회", "3-5회", "6-10회", "11회 이상"]
-                    },
-                    kusurikaisuu: {
-                        titleTr: "하루 사용 횟수는?",
-                        optionsTr: ["하루 __회", "__시간마다", "1회 사용량"]
-                    },
-                    next_kenshin: {
-                        titleTr: "다음 진료 예약에 대해",
-                        optionsTr: [
-                            "다음은 __개월 후 __주 후입니다",
-                            "__시 __분은 어떠세요",
-                            "좋은 요일입니다",
-                            "아래 항목을 확인해 주세요"
-                        ]
-                    }
-                }
-            };
-
-            const fallback = trByLang["en-US"];
-            const tr = trByLang[langCode] || fallback;
-            const out = {};
-
-            Object.keys(base).forEach(key => {
-                out[key] = {
-                    titleJa: base[key].titleJa,
-                    titleTr: tr[key].titleTr,
-                    options: base[key].optionsJa.map((ja, idx) => {
-                        if (ja && typeof ja === "object") {
-                            return {
-                                ...ja,
-                                tr: tr[key].optionsTr[idx] || ja.tr || ""
-                            };
-                        }
-                        return {
-                            ja,
-                            tr: tr[key].optionsTr[idx]
-                        };
-                    })
-                };
-            });
-
-            return out;
+            return specialItemsByLanguage[langCode] || specialItemsByLanguage["en-US"] || specialItemsByLanguage.ja || {};
         }
 
         function renderEpdsPanel(panel, rowIndex, row, tRow) {
@@ -1620,8 +1371,6 @@
             footer.className = "epds-footer";
             footer.innerHTML = `
                 <div class="epds-score-box">
-                    <p class="epds-score-label">${escapeHtml(tr("epds_score_label", "合計点"))}</p>
-                    <p class="epds-score-value"><span class="epds-score-current">0</span><span class="epds-score-total"> / 30</span></p>
                     <p class="epds-score-note">${escapeHtml(tr("epds_result_note", "10項目すべて選ぶと送信できます。"))}</p>
                 </div>
                 <div class="epds-actions">
@@ -1674,14 +1423,11 @@
                 });
             });
 
-            const current = state.answers.reduce((sum, value) => sum + (Number.isFinite(value) ? value : 0), 0);
             const answered = state.answers.filter(value => Number.isFinite(value)).length;
-            const scoreCurrent = wrap.querySelector(".epds-score-current");
             const scoreNote = wrap.querySelector(".epds-score-note");
             const status = wrap.querySelector(".epds-status");
             const submitBtn = wrap.querySelector(".epds-submit-btn");
 
-            if (scoreCurrent) scoreCurrent.textContent = String(current);
             if (scoreNote) {
                 if (answered < definition.questions.length) {
                     scoreNote.textContent = tr("epds_result_note", "10項目すべて選ぶと送信できます。");
@@ -1716,23 +1462,7 @@
             epdsSubmissionState.set(rowIndex, "submitting");
             updateEpdsSelection(rowIndex, wrap);
 
-            const totalScore = state.answers.reduce((sum, value) => sum + (Number.isFinite(value) ? value : 0), 0);
-            const payload = {
-                type: "EPDS",
-                language: selectedLanguage,
-                submittedAt: formatEpdsTimestamp(new Date()),
-                score: totalScore,
-                q1: state.answers[0],
-                q2: state.answers[1],
-                q3: state.answers[2],
-                q4: state.answers[3],
-                q5: state.answers[4],
-                q6: state.answers[5],
-                q7: state.answers[6],
-                q8: state.answers[7],
-                q9: state.answers[8],
-                q10: state.answers[9]
-            };
+            const payload = buildEpdsPostData(state, definition);
 
             try {
                 await postEpdsResult(payload);
@@ -1746,16 +1476,52 @@
             updateEpdsSelection(rowIndex, wrap);
         }
 
+        function buildEpdsPostData(state, definition) {
+            return definition.questions.reduce((postData, question, questionIndex) => {
+                const selectedScore = state.answers[questionIndex];
+                const optionIndex = question.options.findIndex(option => option.score === selectedScore);
+                postData[`Lq${questionIndex + 1}`] = optionIndex >= 0 ? `o${optionIndex + 1}` : "";
+                return postData;
+            }, {});
+        }
+
+        async function getEpdsIdToken() {
+            if (!window.liff || typeof LIFF_ID === "undefined") {
+                throw new Error("LIFF is not available");
+            }
+            if (!liffInitPromise) {
+                liffInitPromise = liff.init({
+                    liffId: LIFF_ID,
+                    withLoginOnExternalBrowser: true
+                });
+            }
+            await liffInitPromise;
+
+            if (typeof liff.isLoggedIn === "function" && !liff.isLoggedIn()) {
+                if (typeof liff.login === "function") {
+                    liff.login();
+                }
+                throw new Error("LIFF login is required");
+            }
+
+            const idToken = typeof liff.getIDToken === "function" ? liff.getIDToken() : "";
+            if (!idToken) {
+                throw new Error("LIFF ID token is empty");
+            }
+            return idToken;
+        }
+
         async function postEpdsResult(postData) {
+            const idToken = await getEpdsIdToken();
             const response = await fetch(EPDS_API_URL, {
                 method: "POST",
                 headers: {
                     "Content-Type": "text/plain;charset=UTF-8"
                 },
                 body: JSON.stringify({
-                    path: "epds",
+                    path: "myEpds",
                     method: "post",
-                    idToken: "",
+                    idToken,
                     postData
                 })
             });
@@ -1763,224 +1529,24 @@
                 throw new Error(`HTTP ${response.status}`);
             }
             const result = await response.json();
-            if (!result || result.statusCode !== 200) {
+            if (!result || result.statusCode !== 200 || result.data !== 0) {
                 throw new Error((result && result.message) || "EPDS API error");
             }
             return result;
         }
 
-        function formatEpdsTimestamp(date) {
-            const pad = value => String(value).padStart(2, "0");
-            return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
-        }
-
         function buildEpdsDefinition(langCode) {
-            const localized = {
-                "ja": {
-                    questions: [{
-                        ja: "笑ったり、物事のおもしろさを感じたりできましたか",
-                        tr: "Have you been able to laugh and see the funny side of things?",
-                        options: [{
-                            ja: "いつもどおりできた",
-                            tr: "As much as I always could",
-                            score: 0
-                        }, {
-                            ja: "いつもより少しできなかった",
-                            tr: "Not quite so much now",
-                            score: 1
-                        }, {
-                            ja: "はっきり少なくなった",
-                            tr: "Definitely not so much now",
-                            score: 2
-                        }, {
-                            ja: "まったくできなかった",
-                            tr: "Not at all",
-                            score: 3
-                        }]
-                    }, {
-                        ja: "楽しみにして待つ気持ちがありましたか",
-                        tr: "Have you looked forward with enjoyment to things?",
-                        options: [{
-                            ja: "いつもどおりあった",
-                            tr: "As much as I ever did",
-                            score: 0
-                        }, {
-                            ja: "少し少なかった",
-                            tr: "Rather less than I used to",
-                            score: 1
-                        }, {
-                            ja: "かなり少なかった",
-                            tr: "Definitely less than I used to",
-                            score: 2
-                        }, {
-                            ja: "ほとんどなかった",
-                            tr: "Hardly at all",
-                            score: 3
-                        }]
-                    }, {
-                        ja: "うまくいかないときに、自分を必要以上に責めましたか",
-                        tr: "Have you blamed yourself unnecessarily when things went wrong?",
-                        options: [{
-                            ja: "はい、たいていそうだった",
-                            tr: "Yes, most of the time",
-                            score: 3
-                        }, {
-                            ja: "はい、ときどきそうだった",
-                            tr: "Yes, some of the time",
-                            score: 2
-                        }, {
-                            ja: "あまりそうではなかった",
-                            tr: "Not very often",
-                            score: 1
-                        }, {
-                            ja: "まったくそうではなかった",
-                            tr: "No, never",
-                            score: 0
-                        }]
-                    }, {
-                        ja: "理由がなくても不安になったり心配になったりしましたか",
-                        tr: "Have you been anxious or worried for no good reason?",
-                        options: [{
-                            ja: "いいえ、まったくなかった",
-                            tr: "No, not at all",
-                            score: 0
-                        }, {
-                            ja: "ほとんどなかった",
-                            tr: "Hardly ever",
-                            score: 1
-                        }, {
-                            ja: "ときどきあった",
-                            tr: "Yes, sometimes",
-                            score: 2
-                        }, {
-                            ja: "はい、よくあった",
-                            tr: "Yes, very often",
-                            score: 3
-                        }]
-                    }, {
-                        ja: "はっきりした理由がなくても、こわい気持ちになったり取り乱したりしましたか",
-                        tr: "Have you felt scared or panicky for no very good reason?",
-                        options: [{
-                            ja: "はい、かなりあった",
-                            tr: "Yes, quite a lot",
-                            score: 3
-                        }, {
-                            ja: "はい、ときどきあった",
-                            tr: "Yes, sometimes",
-                            score: 2
-                        }, {
-                            ja: "いいえ、あまりなかった",
-                            tr: "No, not much",
-                            score: 1
-                        }, {
-                            ja: "いいえ、まったくなかった",
-                            tr: "No, not at all",
-                            score: 0
-                        }]
-                    }, {
-                        ja: "することが多すぎて対処できないと感じましたか",
-                        tr: "Have things been getting on top of you?",
-                        options: [{
-                            ja: "はい、ほとんど対処できなかった",
-                            tr: "Yes, most of the time I have not been able to cope",
-                            score: 3
-                        }, {
-                            ja: "はい、ときどきいつもほど対処できなかった",
-                            tr: "Yes, sometimes I have not been coping as well as usual",
-                            score: 2
-                        }, {
-                            ja: "いいえ、たいていは対処できた",
-                            tr: "No, most of the time I have coped quite well",
-                            score: 1
-                        }, {
-                            ja: "いいえ、いつもどおり対処できた",
-                            tr: "No, I have been coping as well as ever",
-                            score: 0
-                        }]
-                    }, {
-                        ja: "不幸せで、眠りにくいことがありましたか",
-                        tr: "Have you been so unhappy that you have had difficulty sleeping?",
-                        options: [{
-                            ja: "はい、たいていあった",
-                            tr: "Yes, most of the time",
-                            score: 3
-                        }, {
-                            ja: "はい、ときどきあった",
-                            tr: "Yes, sometimes",
-                            score: 2
-                        }, {
-                            ja: "あまりなかった",
-                            tr: "Not very often",
-                            score: 1
-                        }, {
-                            ja: "まったくなかった",
-                            tr: "No, never",
-                            score: 0
-                        }]
-                    }, {
-                        ja: "悲しかったり、つらい気持ちになったりしましたか",
-                        tr: "Have you felt sad or miserable?",
-                        options: [{
-                            ja: "はい、たいていそうだった",
-                            tr: "Yes, most of the time",
-                            score: 3
-                        }, {
-                            ja: "はい、かなりよくあった",
-                            tr: "Yes, quite often",
-                            score: 2
-                        }, {
-                            ja: "あまりなかった",
-                            tr: "Not very often",
-                            score: 1
-                        }, {
-                            ja: "まったくなかった",
-                            tr: "No, not at all",
-                            score: 0
-                        }]
-                    }, {
-                        ja: "不幸せで泣いてしまうことがありましたか",
-                        tr: "Have you been so unhappy that you have been crying?",
-                        options: [{
-                            ja: "はい、たいていそうだった",
-                            tr: "Yes, most of the time",
-                            score: 3
-                        }, {
-                            ja: "はい、かなりよくあった",
-                            tr: "Yes, quite often",
-                            score: 2
-                        }, {
-                            ja: "ときどきあった",
-                            tr: "Only occasionally",
-                            score: 1
-                        }, {
-                            ja: "まったくなかった",
-                            tr: "No, never",
-                            score: 0
-                        }]
-                    }, {
-                        ja: "自分を傷つけてしまいたいと思うことがありましたか",
-                        tr: "Have you thought of harming yourself?",
-                        options: [{
-                            ja: "はい、かなりあった",
-                            tr: "Yes, quite often",
-                            score: 3
-                        }, {
-                            ja: "ときどきあった",
-                            tr: "Sometimes",
-                            score: 2
-                        }, {
-                            ja: "ほとんどなかった",
-                            tr: "Hardly ever",
-                            score: 1
-                        }, {
-                            ja: "まったくなかった",
-                            tr: "Never",
-                            score: 0
-                        }]
-                    }]
-                }
+            const selectedDefinition = epdsDataByLanguage[langCode];
+            if (selectedDefinition && Array.isArray(selectedDefinition.questions)) {
+                return selectedDefinition;
+            }
+            const fallbackDefinition = epdsDataByLanguage.ja;
+            if (fallbackDefinition && Array.isArray(fallbackDefinition.questions)) {
+                return fallbackDefinition;
+            }
+            return {
+                questions: []
             };
-            return localized[langCode] || localized.ja;
         }
 
         function composeCounterKaraText(template, value) {

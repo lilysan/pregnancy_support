@@ -1,34 +1,100 @@
 {
-  "page_title": "Examination Communication Board",
-  "page_lead": "For each category, we support only the necessary conversations with text and audio.",
-  "switch_exam": "Examination Board",
-  "switch_reception": "Go to Reception Board",
-  "settings": "Settings",
-  "language": "Language",
-  "close": "Close",
-  "category_aria": "Category",
-  "free_translate_btn": "Free Input / Translate",
-  "free_translate_panel_aria": "Free translation panel",
-  "free_translate_title": "Free Input Translation",
-  "free_translate_close_aria": "Close",
-  "free_translate_direction_aria": "Translation direction",
-  "free_translate_run": "Translate",
-  "scroll_top_aria": "Back to top",
-  "loading_data": "Loading data...",
-  "loading_empty": "There are no items to display in this category.",
-  "enter_japanese": "Please enter Japanese text.",
-  "enter_selected_language": "Please enter text in the selected language.",
-  "translating": "Translating...",
-  "translate_empty": "(No translation result)",
-  "translate_failed": "Translation failed. Please check your connection.",
-  "speech_not_supported": "This browser does not support speech synthesis.",
-  "input_label": "Input: {{label}}",
-  "output_label": "Result: {{label}}",
-  "input_placeholder": "Enter {{label}}",
+  "page_title": "Board ng komunikasyon sa pagsusuri",
+  "page_lead": "Tumutulong sa kailangang pag-uusap ayon sa kategorya gamit ang teksto at audio.",
+  "switch_exam": "Board ng pagsusuri",
+  "switch_reception": "Pumunta sa reception board",
+  "settings": "Mga setting",
+  "language": "Wika",
+  "close": "Isara",
+  "category_aria": "Kategorya",
+  "translation_app_btn": "App sa pagsasalin",
+  "translation_app_dialog_aria": "Pagpili ng app sa pagsasalin",
+  "translation_app_title": "App sa pagsasalin",
+  "translation_app_lead": "Piliin ang app na gagamitin.",
+  "translation_app_google": "Google Translate",
+  "translation_app_deepl": "DeepL",
+  "epds_section_title": "Pagsusuri ng EPDS",
+  "epds_lead": "Piliin ang sagot na pinakaangkop sa naramdaman mo nitong nakaraang 7 araw.",
+  "epds_lead_en": "Piliin ang sagot na pinakaangkop sa naramdaman mo nitong nakaraang 7 araw.",
+  "epds_question_prefix": "Tanong",
+  "epds_score_label": "Kabuuang puntos",
+  "epds_result_note": "Maaari mong isumite matapos sagutan ang lahat ng 10 item.",
+  "epds_ready_note": "Suriin ang mga sagot at isumite.",
+  "epds_alert_q10": "Kung naaangkop ang huling tanong, sabihin agad sa medical staff.",
+  "epds_submit": "I-save ang resulta",
+  "epds_submitting": "Sine-save...",
+  "epds_reset": "I-reset ang sagot",
+  "epds_incomplete": "May mga hindi pa nasasagutan.",
+  "epds_saved": "Na-save ang resulta ng EPDS.",
+  "epds_save_failed": "Hindi na-save. Pakisuri ang koneksyon.",
+  "scroll_top_aria": "Bumalik sa itaas",
+  "loading_data": "Naglo-load ng datos...",
+  "loading_empty": "Walang maipapakitang pag-uusap sa kategoryang ito.",
+  "enter_japanese": "Maglagay ng tekstong Japanese.",
+  "enter_selected_language": "Maglagay ng teksto sa napiling wika.",
+  "translating": "Isinasalin...",
+  "translate_empty": "(Walang resulta ng salin)",
+  "translate_failed": "Nabigo ang pagsasalin. Pakisuri ang koneksyon.",
+  "speech_not_supported": "Hindi sinusuportahan ng browser na ito ang speech synthesis.",
+  "input_label": "Ilagay: {{label}}",
+  "output_label": "Resulta: {{label}}",
+  "input_placeholder": "Ilagay ang {{label}}",
   "direction_ja_to": "Japanese → {{label}}",
   "direction_to_ja": "{{label}} → Japanese",
-  "selected_language": "Selected language",
+  "selected_language": "Napiling wika",
   "boardData": [
+    {
+      "type": "Paliwanag",
+      "type2": "Suporta",
+      "category": "Hayaan mong gamitin natin ang voucher mula sa maternal book ngayong araw",
+      "data1": "Pagsusuri sa cervical cancer",
+      "data2": "Pagsusuri ng dugo",
+      "data3": "Ultrasound",
+      "data4": "Check-up",
+      "data5": "Edukasyong pangkalusugan",
+      "data6": "Iba pa",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pagsusuri",
+      "type2": "Kondisyon",
+      "category": "Kumusta ang pakiramdam mo?",
+      "data1": "Walang pagbabago",
+      "data2": "May sakit ng ulo",
+      "data3": "Nasusuka",
+      "data4": "Hindi makatulog",
+      "data5": "Namamaga",
+      "data6": "Pagod",
+      "data7": "Tinitibi",
+      "data8": "Makati",
+      "data9": "Iba pa",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
     {
       "type": "Pagsusuri",
       "type2": "Kondisyon ng katawan",
@@ -56,12 +122,142 @@
       "data21": ""
     },
     {
-      "type": "Pagsusuri",
-      "type2": "Kondisyon ng katawan",
+      "type": "Botika",
+      "type2": "Pampahid na gamot",
       "category": "Kailan ito nagsimula?",
-      "data1": "counter_kara",
+      "data1": "Ngayon lang",
+      "data2": "3 oras na ang nakalipas",
+      "data3": "6 oras na ang nakalipas",
+      "data4": "9 oras na ang nakalipas",
+      "data5": "Kalahating araw na ang nakalipas",
+      "data6": "Kahapon",
+      "data7": "Noong isang araw",
+      "data8": "Mas matagal pa",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pagsusuri (Midwife)",
+      "type2": "Pagsusuri (Kondisyon ng katawan)",
+      "category": "Nakakakain ka ba nang maayos?",
+      "data1": "Nakakakain ng 3 beses sa isang araw",
+      "data2": "Nakakakain ng 2 beses sa isang araw",
+      "data3": "Nakakakain ng isang beses sa isang araw",
+      "data4": "Hindi nakakakain",
+      "data5": "Nakakainom ng sapat na tubig",
+      "data6": "Nakakakain ng meryenda",
+      "data7": "Iba pa",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pagsusuri (Midwife)",
+      "type2": "Pagsusuri (Kondisyon ng katawan)",
+      "category": "Nakakatulog ka ba nang maayos?",
+      "data1": "Oo",
+      "data2": "Minsan nagigising ako",
+      "data3": "Madalas akong nagigising",
+      "data4": "Halos hindi ako makatulog",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pagsusuri (Midwife)",
+      "type2": "Paliwanag (Gabay)",
+      "category": "Ito ang impormasyong kailangan mo. Pakibasa ang booklet.",
+      "data1": "Hypertension sa pagbubuntis(papunta sa Serye ng Suporta para kay Nanay at Sanggol)||https://rasc.jp/wp-content/uploads/tagalog04.pdf",
+      "data2": "Gestational diabetes(papunta sa Serye ng Suporta para kay Nanay at Sanggol)||https://rasc.jp/wp-content/uploads/tagalog05.pdf",
+      "data3": "Nanganganib na pagkalaglag(papunta sa Serye ng Suporta para kay Nanay at Sanggol)||https://rasc.jp/wp-content/uploads/tagalog06.pdf",
+      "data4": "Nanganganib na preterm labor(papunta sa Serye ng Suporta para kay Nanay at Sanggol)||https://rasc.jp/wp-content/uploads/tagalog06.pdf",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pagsusuri (Midwife)",
+      "type2": "Paliwanag (Plano sa panganganak)",
+      "category": "Isipin kung may nais kang gawin sa panahon ng panganganak",
+      "data1": "Plano sa panganganak(papunta sa Serye ng Suporta para kay Nanay at Sanggol)||https://rasc.jp/wp-content/uploads/tagalog09.pdf",
       "data2": "",
       "data3": "",
+      "data4": "",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pagsusuri (Midwife)",
+      "type2": "Paliwanag (Panganganak)",
+      "category": "Paliwanag tungkol sa panganganak. Pakibasa ang booklet.",
+      "data1": "Paghahanda ng gamit sa ospital(papunta sa Serye ng Suporta para kay Nanay at Sanggol)||https://rasc.jp/wp-content/uploads/tagalog02.pdf",
+      "data2": "Caesarean section(papunta sa Serye ng Suporta para kay Nanay at Sanggol)||https://rasc.jp/wp-content/uploads/tagalog03.pdf",
+      "data3": "Pampabilis ng labor(papunta sa Serye ng Suporta para kay Nanay at Sanggol)||https://rasc.jp/wp-content/uploads/tagalog08.pdf",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -264,15 +460,41 @@
       "data21": ""
     },
     {
-      "type": "Paliwanag",
-      "type2": "Suporta",
-      "category": "Hayaan mong gamitin natin ang voucher mula sa maternal book ngayong araw",
-      "data1": "Pagsusuri sa cervical cancer",
-      "data2": "Pagsusuri ng dugo",
-      "data3": "Ultrasound",
-      "data4": "Check-up",
-      "data5": "Edukasyong pangkalusugan",
-      "data6": "Iba pa",
+      "type": "Pagsusuri",
+      "type2": "Reseta bibigyan ka ng gamot",
+      "category": "Bibigyan ka ng gamot",
+      "data1": "Bibigyan ka ng gamot para pababain ang presyon ng dugo",
+      "data2": "Bibigyan ka ng gamot para pahintuin ang paninigas ng tiyan",
+      "data3": "Bibigyan ka ng gamot para sa iron deficiency",
+      "data4": "Bibigyan ka ng gamot para sa tibi",
+      "data5": "Bibigyan ka ng gamot para sa sakit sa tiyan",
+      "data6": "Bibigyan ka ng gamot para sa sipon",
+      "data7": "Bibigyan ka ng gamot para sa pamamaga",
+      "data8": "Iba pa",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pagtatanong",
+      "type2": "Reserbasyon",
+      "category": "Tungkol sa susunod na checkup",
+      "data1": "next_kenshin",
+      "data2": "",
+      "data3": "",
+      "data4": "",
+      "data5": "",
+      "data6": "",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -290,17 +512,121 @@
       "data21": ""
     },
     {
-      "type": "Pagsusuri",
-      "type2": "Reseta bibigyan ka ng gamot",
-      "category": "Bibigyan ka ng gamot",
-      "data1": "Bibigyan ka ng gamot para pababain ang presyon ng dugo",
-      "data2": "Bibigyan ka ng gamot para pahintuin ang paninigas ng tiyan",
-      "data3": "Bibigyan ka ng gamot para sa iron deficiency",
-      "data4": "Bibigyan ka ng gamot para sa tibi",
-      "data5": "Bibigyan ka ng gamot para sa sakit sa tiyan",
-      "data6": "Bibigyan ka ng gamot para sa sipon",
-      "data7": "Bibigyan ka ng gamot para sa pamamaga",
-      "data8": "Iba pa",
+      "type": "Botika",
+      "type2": "Gamot na iniinom",
+      "category": "Gamot na iniinom",
+      "data1": "Pulbos",
+      "data2": "Tableta",
+      "data3": "Likido",
+      "data4": "Pampahid na gamot",
+      "data5": "Panloob na gamot (pampasok sa ari)",
+      "data6": "Tabletang ipapasok sa puwit",
+      "data7": "Panlinis ng bibig",
+      "data8": "Pampahid na gamot",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "薬",
+      "type2": "内服薬",
+      "category": "薬を使うとき",
+      "data1": "朝",
+      "data2": "昼",
+      "data3": "夜",
+      "data4": "寝る前",
+      "data5": "食前",
+      "data6": "食中",
+      "data7": "食後",
+      "data8": "痛い時",
+      "data9": "痒い時",
+      "data10": "おりものが多い時",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Botika",
+      "type2": "Gamot na iniinom",
+      "category": "Bilang ng pag-inom (limitasyon)",
+      "data1": "Maghintay ng 4 oras",
+      "data2": "Maghintay ng 6 oras",
+      "data3": "Hanggang 2 tableta bawat araw",
+      "data4": "Hanggang 3 tableta bawat araw",
+      "data5": "Hanggang 4 tableta bawat araw",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Botika",
+      "type2": "Pampahid na gamot",
+      "category": "Saan ipapahid?",
+      "data1": "Mukha",
+      "data2": "Binti",
+      "data3": "Tiyan",
+      "data4": "Likod",
+      "data5": "Puwit",
+      "data6": "Puwerta",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "検査・診察",
+      "type2": "補助券",
+      "category": "今日は母子手帳の補助券を使います",
+      "data1": "子宮頸がんの検査",
+      "data2": "血液検査",
+      "data3": "超音波検査",
+      "data4": "診察",
+      "data5": "保健指導",
+      "data6": "その他",
+      "data7": "",
+      "data8": "",
       "data9": "",
       "data10": "",
       "data11": "",
@@ -472,35 +798,6 @@
       "data21": ""
     },
     {
-      "type": "Pagtatanong",
-      "type2": "Reserbasyon",
-      "category": "Tungkol sa susunod na checkup",
-      "data1": "next_kenshin",
-      "data2": "",
-      "data3": "",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": "",
-      "null": [
-        ""
-      ]
-    },
-    {
       "type": "Eksaminasyon",
       "type2": "Matapos ang internal exam",
       "category": "Tapos na ang eksaminasyon. Bababa ang upuan.",
@@ -605,246 +902,12 @@
       "data21": ""
     },
     {
-      "type": "Botika",
-      "type2": "Gamot na iniinom",
-      "category": "Gamot na iniinom",
-      "data1": "Pulbos",
-      "data2": "Tableta",
-      "data3": "Likido",
-      "data4": "Pampahid na gamot",
-      "data5": "Panloob na gamot (pampasok sa ari)",
-      "data6": "Tabletang ipapasok sa puwit",
-      "data7": "Panlinis ng bibig",
-      "data8": "Pampahid na gamot",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Botika",
-      "type2": "Gamot na iniinom",
-      "category": "Bilang ng pag-inom",
-      "data1": "Umaga",
-      "data2": "Tanghali",
-      "data3": "Gabi",
-      "data4": "Bago kumain",
-      "data5": "Habang kumakain",
-      "data6": "Pagkatapos kumain",
-      "data7": "Kapag masakit",
-      "data8": "Kapag makati",
-      "data9": "Kapag maraming discharge",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Botika",
-      "type2": "Gamot na iniinom",
-      "category": "Bilang ng pag-inom (limitasyon)",
-      "data1": "Maghintay ng 4 oras",
-      "data2": "Maghintay ng 6 oras",
-      "data3": "Hanggang 2 tableta bawat araw",
-      "data4": "Hanggang 3 tableta bawat araw",
-      "data5": "Hanggang 4 tableta bawat araw",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Botika",
-      "type2": "Pampahid na gamot",
-      "category": "Saan ipapahid?",
-      "data1": "Mukha",
-      "data2": "Binti",
-      "data3": "Tiyan",
-      "data4": "Likod",
-      "data5": "Puwit",
-      "data6": "Puwerta",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Botika",
-      "type2": "Pampahid na gamot",
-      "category": "Kailan ito nagsimula?",
-      "data1": "Ngayon lang",
-      "data2": "3 oras na ang nakalipas",
-      "data3": "6 oras na ang nakalipas",
-      "data4": "9 oras na ang nakalipas",
-      "data5": "Kalahating araw na ang nakalipas",
-      "data6": "Kahapon",
-      "data7": "Noong isang araw",
-      "data8": "Mas matagal pa",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Pagsusuri (Midwife)",
-      "type2": "Pagsusuri (Kondisyon ng katawan)",
-      "category": "Nakakakain ka ba nang maayos?",
-      "data1": "Nakakakain ng 3 beses sa isang araw",
-      "data2": "Nakakakain ng 2 beses sa isang araw",
-      "data3": "Nakakakain ng isang beses sa isang araw",
-      "data4": "Hindi nakakakain",
-      "data5": "Nakakainom ng sapat na tubig",
-      "data6": "Nakakakain ng meryenda",
-      "data7": "Iba pa",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Pagsusuri (Midwife)",
-      "type2": "Pagsusuri (Kondisyon ng katawan)",
-      "category": "Nakakatulog ka ba nang maayos?",
-      "data1": "Oo",
-      "data2": "Minsan nagigising ako",
-      "data3": "Madalas akong nagigising",
-      "data4": "Halos hindi ako makatulog",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Pagsusuri (Midwife)",
-      "type2": "Paliwanag (Gabay)",
-      "category": "Ito ang impormasyong kailangan mo. Pakibasa ang booklet.",
-      "data1": "Hypertension sa pagbubuntis(papunta sa Serye ng Suporta para kay Nanay at Sanggol)||https://rasc.jp/wp-content/uploads/tagalog04.pdf",
-      "data2": "Gestational diabetes(papunta sa Serye ng Suporta para kay Nanay at Sanggol)||https://rasc.jp/wp-content/uploads/tagalog05.pdf",
-      "data3": "Nanganganib na pagkalaglag(papunta sa Serye ng Suporta para kay Nanay at Sanggol)||https://rasc.jp/wp-content/uploads/tagalog06.pdf",
-      "data4": "Nanganganib na preterm labor(papunta sa Serye ng Suporta para kay Nanay at Sanggol)||https://rasc.jp/wp-content/uploads/tagalog06.pdf",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Pagsusuri (Midwife)",
-      "type2": "Paliwanag (Plano sa panganganak)",
-      "category": "Isipin kung may nais kang gawin sa panahon ng panganganak",
-      "data1": "Plano sa panganganak(papunta sa Serye ng Suporta para kay Nanay at Sanggol)||https://rasc.jp/wp-content/uploads/tagalog09.pdf",
+      "type": "EPDS",
+      "type2": "Edinburgh Postnatal Depression Scale",
+      "category": "Lagyan ng tsek ang naaangkop na item.",
+      "data1": "",
       "data2": "",
       "data3": "",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Pagsusuri (Midwife)",
-      "type2": "Paliwanag (Panganganak)",
-      "category": "Paliwanag tungkol sa panganganak. Pakibasa ang booklet.",
-      "data1": "Paghahanda ng gamit sa ospital(papunta sa Serye ng Suporta para kay Nanay at Sanggol)||https://rasc.jp/wp-content/uploads/tagalog02.pdf",
-      "data2": "Caesarean section(papunta sa Serye ng Suporta para kay Nanay at Sanggol)||https://rasc.jp/wp-content/uploads/tagalog03.pdf",
-      "data3": "Pampabilis ng labor(papunta sa Serye ng Suporta para kay Nanay at Sanggol)||https://rasc.jp/wp-content/uploads/tagalog08.pdf",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -891,12 +954,12 @@
       "data21": "Listahan ng mga tagapangasiwa||https://rasc.jp/wp-content/uploads/tagalog99.pdf"
     },
     {
-      "type": "Health Guidance",
-      "type2": "Diet and Nutrition",
-      "category": "Please try to eat three meals a day",
-      "data1": "Please eat three meals a day",
-      "data2": "Even if you eat two meals, please eat small amounts",
-      "data3": "Please eat whatever you can in small amounts",
+      "type": "Gabay sa kalusugan",
+      "type2": "Pagkain at nutrisyon",
+      "category": "Sikaping kumain ng 3 beses sa isang araw",
+      "data1": "Kumain ng 3 beses",
+      "data2": "Kahit 2 beses, kumain nang paunti-unti",
+      "data3": "Kumain nang paunti-unti ng kaya mong kainin",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -917,15 +980,15 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Diet and Nutrition",
-      "category": "Please pay attention to hydration and balanced nutrition",
-      "data1": "Please drink enough fluids",
-      "data2": "Please avoid sugary drinks",
-      "data3": "Please avoid too much caffeine",
-      "data4": "Please eat vegetables",
-      "data5": "Please eat enough protein",
-      "data6": "Please reduce salt intake",
+      "type": "Gabay sa kalusugan",
+      "type2": "Pagkain at nutrisyon",
+      "category": "Bigyang-pansin ang tubig at balanseng nutrisyon",
+      "data1": "Uminom ng sapat na tubig",
+      "data2": "Iwasan ang matatamis na inumin",
+      "data3": "Huwag masyadong uminom ng caffeine",
+      "data4": "Kumain ng gulay",
+      "data5": "Kumain ng protina",
+      "data6": "Bawasan ang asin",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -943,14 +1006,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Weight Management",
-      "category": "We will explain weight management",
-      "data1": "Your weight gain is on track",
-      "data2": "Your weight gain is low",
-      "data3": "Your weight gain is high",
-      "data4": "Please measure at the same time every day",
-      "data5": "Please contact us if your weight increases suddenly",
+      "type": "Gabay sa kalusugan",
+      "type2": "Pamamahala ng timbang",
+      "category": "Ipapaliwanag namin ang pamamahala ng timbang",
+      "data1": "Maayos ang pagdagdag ng timbang",
+      "data2": "Kaunti ang pagdagdag ng timbang",
+      "data3": "Marami ang pagdagdag ng timbang",
+      "data4": "Magtimbang araw-araw sa parehong oras",
+      "data5": "Kumonsulta kung biglang tumaas ang timbang",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -969,14 +1032,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Blood Pressure and Swelling",
-      "category": "We will explain blood pressure and swelling",
-      "data1": "Your blood pressure is stable",
-      "data2": "Your blood pressure is a little high",
-      "data3": "Please measure your blood pressure at home too",
-      "data4": "Please reduce salt intake",
-      "data5": "Please contact us if you have swelling or headaches",
+      "type": "Gabay sa kalusugan",
+      "type2": "Presyon ng dugo at pamamaga",
+      "category": "Ipapaliwanag namin ang presyon ng dugo at pamamaga",
+      "data1": "Maayos ang presyon ng dugo",
+      "data2": "Medyo mataas ang presyon ng dugo",
+      "data3": "Sukatin din ang presyon sa bahay",
+      "data4": "Bawasan ang asin",
+      "data5": "Makipag-ugnayan kung may pamamaga o sakit ng ulo",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -995,15 +1058,15 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Blood Sugar Management",
-      "category": "We will explain blood sugar management",
-      "data1": "Your blood sugar is stable",
-      "data2": "Your blood sugar is a little high",
-      "data3": "Please pay attention to your meals",
-      "data4": "Please avoid sweets",
-      "data5": "Please divide meals into smaller portions",
-      "data6": "Please record your blood sugar",
+      "type": "Gabay sa kalusugan",
+      "type2": "Pamamahala ng blood sugar",
+      "category": "Ipapaliwanag namin ang blood sugar",
+      "data1": "Maayos ang blood sugar",
+      "data2": "Medyo mataas ang blood sugar",
+      "data3": "Mag-ingat sa pagkain",
+      "data4": "Iwasan ang matatamis",
+      "data5": "Kumain sa mas maliliit na bahagi",
+      "data6": "Itala ang blood sugar",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -1021,14 +1084,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
+      "type": "Gabay sa kalusugan",
       "type2": "Anemia",
-      "category": "We will explain anemia",
-      "data1": "You do not have anemia",
-      "data2": "You have anemia",
-      "data3": "Please take more iron",
-      "data4": "Please take your iron medicine",
-      "data5": "We will check again with the next blood test",
+      "category": "Ipapaliwanag namin ang anemia",
+      "data1": "Walang anemia",
+      "data2": "May anemia",
+      "data3": "Kumain ng mas maraming iron",
+      "data4": "Inumin ang gamot na iron",
+      "data5": "Titingnan muli sa susunod na blood test",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -1047,14 +1110,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Medicine and Supplements",
-      "category": "We will explain medicines and supplements",
-      "data1": "Please take them as instructed",
-      "data2": "Please do not stop on your own",
-      "data3": "Please ask us if you forget a dose",
-      "data4": "Please ask before taking over-the-counter medicine",
-      "data5": "Please ask about supplements",
+      "type": "Gabay sa kalusugan",
+      "type2": "Gamot at supplement",
+      "category": "Ipapaliwanag namin ang gamot at supplement",
+      "data1": "Inumin ayon sa tagubilin",
+      "data2": "Huwag ihinto sa sariling pasya",
+      "data3": "Magtanong kung nakalimutang uminom",
+      "data4": "Magtanong bago uminom ng over-the-counter na gamot",
+      "data5": "Magtanong tungkol sa supplement",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -1073,16 +1136,16 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "When to Contact the Hospital",
-      "category": "Please contact the hospital in these situations",
-      "data1": "If you have bleeding",
-      "data2": "If you have strong abdominal pain",
-      "data3": "If abdominal tightening increases",
-      "data4": "If watery fluid comes out",
-      "data5": "If you have a severe headache",
-      "data6": "If the baby moves less than usual",
-      "data7": "If you feel unwell",
+      "type": "Gabay sa kalusugan",
+      "type2": "Kailan tatawag sa ospital",
+      "category": "Makipag-ugnayan sa ospital sa ganitong mga sitwasyon",
+      "data1": "Kapag may pagdurugo",
+      "data2": "Kapag matindi ang sakit ng tiyan",
+      "data3": "Kapag dumami ang paninigas ng tiyan",
+      "data4": "Kapag may lumabas na parang tubig",
+      "data5": "Kapag matindi ang sakit ng ulo",
+      "data6": "Kapag kaunti ang galaw ng sanggol",
+      "data7": "Kapag masama ang pakiramdam",
       "data8": "",
       "data9": "",
       "data10": "",
@@ -1099,15 +1162,15 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Abdominal Tightening, Bleeding, and Fluid Leakage",
-      "category": "We will explain abdominal tightening, bleeding, and possible rupture of membranes",
-      "data1": "Please rest if abdominal tightening increases",
-      "data2": "Please contact us if tightening continues",
-      "data3": "Please contact us if you have pain",
-      "data4": "Please contact us if you have bleeding",
-      "data5": "Please contact us if watery fluid comes out",
-      "data6": "Please use a pad and observe the situation",
+      "type": "Gabay sa kalusugan",
+      "type2": "Paninigas ng tiyan, pagdurugo, at pagputok ng panubigan",
+      "category": "Ipapaliwanag namin ang paninigas ng tiyan, pagdurugo, at pagputok ng panubigan",
+      "data1": "Magpahinga kung dumami ang paninigas",
+      "data2": "Makipag-ugnayan kung nagpapatuloy",
+      "data3": "Makipag-ugnayan kung may sakit",
+      "data4": "Makipag-ugnayan kung may pagdurugo",
+      "data5": "Makipag-ugnayan kung may lumabas na parang tubig",
+      "data6": "Gumamit ng pad at obserbahan",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -1125,12 +1188,12 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Fetal Movement",
-      "category": "We will explain fetal movement",
-      "data1": "The baby is moving well",
-      "data2": "Please monitor the baby's movement",
-      "data3": "Please contact us if movement is less than usual",
+      "type": "Gabay sa kalusugan",
+      "type2": "Galaw ng sanggol",
+      "category": "Ipapaliwanag namin ang galaw ng sanggol",
+      "data1": "Maayos ang galaw ng sanggol",
+      "data2": "Obserbahan ang galaw ng sanggol",
+      "data3": "Makipag-ugnayan kung mas kaunti kaysa dati",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -1151,13 +1214,13 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Birth Preparation",
-      "category": "Please prepare for childbirth",
-      "data1": "Please prepare for hospitalization",
-      "data2": "Please check what to bring",
-      "data3": "Please confirm how to contact the hospital",
-      "data4": "Please think about your birth plan",
+      "type": "Gabay sa kalusugan",
+      "type2": "Paghahanda sa panganganak",
+      "category": "Maghanda para sa panganganak",
+      "data1": "Maghanda para sa pagpapa-ospital",
+      "data2": "Suriin ang mga dadalhin",
+      "data3": "Alamin kung paano tatawag sa ospital",
+      "data4": "Pag-isipan ang birth plan",
       "data5": "",
       "data6": "",
       "data7": "",
@@ -1175,6 +1238,693 @@
       "data19": "",
       "data20": "",
       "data21": ""
+    }
+  ],
+  "epdsData": {
+    "questions": [
+      {
+        "ja": "Nakakatawa ka ba at nakikita mo ba ang nakakatawang bahagi ng mga bagay?",
+        "tr": "Nakakatawa ka ba at nakikita mo ba ang nakakatawang bahagi ng mga bagay?",
+        "options": [
+          {
+            "ja": "Tulad ng dati",
+            "tr": "Tulad ng dati",
+            "score": 0
+          },
+          {
+            "ja": "Medyo mas kaunti ngayon",
+            "tr": "Medyo mas kaunti ngayon",
+            "score": 1
+          },
+          {
+            "ja": "Talagang mas kaunti ngayon",
+            "tr": "Talagang mas kaunti ngayon",
+            "score": 2
+          },
+          {
+            "ja": "Hindi talaga",
+            "tr": "Hindi talaga",
+            "score": 3
+          }
+        ]
+      },
+      {
+        "ja": "May inaabangan ka ba nang may saya?",
+        "tr": "May inaabangan ka ba nang may saya?",
+        "options": [
+          {
+            "ja": "Tulad ng dati",
+            "tr": "Tulad ng dati",
+            "score": 0
+          },
+          {
+            "ja": "Mas kaunti kaysa dati",
+            "tr": "Mas kaunti kaysa dati",
+            "score": 1
+          },
+          {
+            "ja": "Talagang mas kaunti kaysa dati",
+            "tr": "Talagang mas kaunti kaysa dati",
+            "score": 2
+          },
+          {
+            "ja": "Halos wala",
+            "tr": "Halos wala",
+            "score": 3
+          }
+        ]
+      },
+      {
+        "ja": "Sinisi mo ba ang sarili mo nang hindi kailangan kapag may hindi naging maayos?",
+        "tr": "Sinisi mo ba ang sarili mo nang hindi kailangan kapag may hindi naging maayos?",
+        "options": [
+          {
+            "ja": "Oo, kadalasan",
+            "tr": "Oo, kadalasan",
+            "score": 3
+          },
+          {
+            "ja": "Oo, minsan",
+            "tr": "Oo, minsan",
+            "score": 2
+          },
+          {
+            "ja": "Hindi madalas",
+            "tr": "Hindi madalas",
+            "score": 1
+          },
+          {
+            "ja": "Hindi, kailanman",
+            "tr": "Hindi, kailanman",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Nabahala o nag-alala ka ba nang walang malinaw na dahilan?",
+        "tr": "Nabahala o nag-alala ka ba nang walang malinaw na dahilan?",
+        "options": [
+          {
+            "ja": "Hindi, wala talaga",
+            "tr": "Hindi, wala talaga",
+            "score": 0
+          },
+          {
+            "ja": "Halos hindi",
+            "tr": "Halos hindi",
+            "score": 1
+          },
+          {
+            "ja": "Oo, minsan",
+            "tr": "Oo, minsan",
+            "score": 2
+          },
+          {
+            "ja": "Oo, madalas",
+            "tr": "Oo, madalas",
+            "score": 3
+          }
+        ]
+      },
+      {
+        "ja": "Nakaramdam ka ba ng takot o panic nang walang malinaw na dahilan?",
+        "tr": "Nakaramdam ka ba ng takot o panic nang walang malinaw na dahilan?",
+        "options": [
+          {
+            "ja": "Oo, marami",
+            "tr": "Oo, marami",
+            "score": 3
+          },
+          {
+            "ja": "Oo, minsan",
+            "tr": "Oo, minsan",
+            "score": 2
+          },
+          {
+            "ja": "Hindi gaano",
+            "tr": "Hindi gaano",
+            "score": 1
+          },
+          {
+            "ja": "Hindi, wala talaga",
+            "tr": "Hindi, wala talaga",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Pakiramdam mo ba ay napakarami ng mga bagay at hindi mo kaya?",
+        "tr": "Pakiramdam mo ba ay napakarami ng mga bagay at hindi mo kaya?",
+        "options": [
+          {
+            "ja": "Oo, kadalasan hindi ko kaya",
+            "tr": "Oo, kadalasan hindi ko kaya",
+            "score": 3
+          },
+          {
+            "ja": "Oo, minsan hindi ko kaya tulad ng dati",
+            "tr": "Oo, minsan hindi ko kaya tulad ng dati",
+            "score": 2
+          },
+          {
+            "ja": "Hindi, kadalasan kaya ko naman",
+            "tr": "Hindi, kadalasan kaya ko naman",
+            "score": 1
+          },
+          {
+            "ja": "Hindi, kaya ko tulad ng dati",
+            "tr": "Hindi, kaya ko tulad ng dati",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Nalungkot ka ba nang sobra kaya nahirapan kang matulog?",
+        "tr": "Nalungkot ka ba nang sobra kaya nahirapan kang matulog?",
+        "options": [
+          {
+            "ja": "Oo, kadalasan",
+            "tr": "Oo, kadalasan",
+            "score": 3
+          },
+          {
+            "ja": "Oo, minsan",
+            "tr": "Oo, minsan",
+            "score": 2
+          },
+          {
+            "ja": "Hindi madalas",
+            "tr": "Hindi madalas",
+            "score": 1
+          },
+          {
+            "ja": "Hindi, kailanman",
+            "tr": "Hindi, kailanman",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Nakaramdam ka ba ng lungkot o hirap?",
+        "tr": "Nakaramdam ka ba ng lungkot o hirap?",
+        "options": [
+          {
+            "ja": "Oo, kadalasan",
+            "tr": "Oo, kadalasan",
+            "score": 3
+          },
+          {
+            "ja": "Oo, madalas",
+            "tr": "Oo, madalas",
+            "score": 2
+          },
+          {
+            "ja": "Hindi madalas",
+            "tr": "Hindi madalas",
+            "score": 1
+          },
+          {
+            "ja": "Hindi, wala talaga",
+            "tr": "Hindi, wala talaga",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Nalungkot ka ba nang sobra kaya umiyak ka?",
+        "tr": "Nalungkot ka ba nang sobra kaya umiyak ka?",
+        "options": [
+          {
+            "ja": "Oo, kadalasan",
+            "tr": "Oo, kadalasan",
+            "score": 3
+          },
+          {
+            "ja": "Oo, madalas",
+            "tr": "Oo, madalas",
+            "score": 2
+          },
+          {
+            "ja": "Paminsan-minsan lang",
+            "tr": "Paminsan-minsan lang",
+            "score": 1
+          },
+          {
+            "ja": "Hindi, kailanman",
+            "tr": "Hindi, kailanman",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Naisip mo bang saktan ang sarili mo?",
+        "tr": "Naisip mo bang saktan ang sarili mo?",
+        "options": [
+          {
+            "ja": "Oo, madalas",
+            "tr": "Oo, madalas",
+            "score": 3
+          },
+          {
+            "ja": "Minsan",
+            "tr": "Minsan",
+            "score": 2
+          },
+          {
+            "ja": "Halos hindi",
+            "tr": "Halos hindi",
+            "score": 1
+          },
+          {
+            "ja": "Hindi kailanman",
+            "tr": "Hindi kailanman",
+            "score": 0
+          }
+        ]
+      }
+    ]
+  },
+  "specialItems": {
+    "counter_kara": {
+      "titleJa": "いつからですか",
+      "titleTr": "いつからですか",
+      "options": [
+        {
+          "ja": "__時間前",
+          "tr": "__時間前"
+        },
+        {
+          "ja": "__日前",
+          "tr": "__日前"
+        },
+        {
+          "ja": "__週間前",
+          "tr": "__週間前"
+        }
+      ]
+    },
+    "counter_kai": {
+      "titleJa": "1日に何回張りますか",
+      "titleTr": "1日に何回張りますか",
+      "options": [
+        {
+          "ja": "1〜2回",
+          "tr": "1〜2回"
+        },
+        {
+          "ja": "3〜5回",
+          "tr": "3〜5回"
+        },
+        {
+          "ja": "6〜10回",
+          "tr": "6〜10回"
+        },
+        {
+          "ja": "11回以上",
+          "tr": "11回以上"
+        }
+      ]
+    },
+    "kusurikaisuu": {
+      "titleJa": "1日の使用回数",
+      "titleTr": "1日の使用回数",
+      "options": [
+        {
+          "ja": "1日につき__回",
+          "tr": "1日につき__回"
+        },
+        {
+          "ja": "__時間おき",
+          "tr": "__時間おき"
+        },
+        {
+          "mode": "quantity_unit",
+          "ja": "1回の量",
+          "tr": "1回の量",
+          "units": [
+            {
+              "ja": "錠",
+              "tr": "錠"
+            },
+            {
+              "ja": "滴",
+              "tr": "滴"
+            },
+            {
+              "ja": "パック",
+              "tr": "パック"
+            },
+            {
+              "ja": "単位",
+              "tr": "単位"
+            }
+          ]
+        }
+      ]
+    },
+    "next_kenshin": {
+      "titleJa": "次回の予約(検診)について",
+      "titleTr": "次回の予約(検診)について",
+      "options": [
+        {
+          "mode": "appointment_after",
+          "ja": "次は__ヶ月後 __週間後です",
+          "tr": "次は__ヶ月後 __週間後です"
+        },
+        {
+          "mode": "appointment_time",
+          "ja": "__時__分はどうですか",
+          "tr": "__時__分はどうですか"
+        },
+        {
+          "mode": "appointment_weekday",
+          "ja": "がよい日です",
+          "tr": "がよい日です",
+          "days": [
+            {
+              "ja": "月曜日",
+              "tr": "月曜日"
+            },
+            {
+              "ja": "火曜日",
+              "tr": "火曜日"
+            },
+            {
+              "ja": "水曜日",
+              "tr": "水曜日"
+            },
+            {
+              "ja": "木曜日",
+              "tr": "木曜日"
+            },
+            {
+              "ja": "金曜日",
+              "tr": "金曜日"
+            },
+            {
+              "ja": "土曜日",
+              "tr": "土曜日"
+            },
+            {
+              "ja": "日曜日",
+              "tr": "日曜日"
+            }
+          ]
+        },
+        {
+          "mode": "appointment_checklist",
+          "ja": "下の項目を確認してください",
+          "tr": "下の項目を確認してください",
+          "items": [
+            {
+              "ja": "薬の処方箋を受け取ってください",
+              "tr": "薬の処方箋を受け取ってください"
+            },
+            {
+              "ja": "朝ごはんを食べないできてください",
+              "tr": "朝ごはんを食べないできてください"
+            },
+            {
+              "ja": "クーポンを使うので持ってきてください",
+              "tr": "クーポンを使うので持ってきてください"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "drugTypeTree": [
+    {
+      "ja": "内服",
+      "tr": "内服",
+      "items": [
+        {
+          "ja": "錠剤",
+          "tr": "錠剤"
+        },
+        {
+          "ja": "カプセル剤",
+          "tr": "カプセル剤"
+        },
+        {
+          "ja": "散剤（粉薬）",
+          "tr": "散剤（粉薬）"
+        },
+        {
+          "ja": "液剤",
+          "tr": "液剤"
+        },
+        {
+          "ja": "ゼリー・ゲル",
+          "tr": "ゼリー・ゲル"
+        },
+        {
+          "ja": "トローチ",
+          "tr": "トローチ"
+        },
+        {
+          "ja": "舌下錠",
+          "tr": "舌下錠"
+        },
+        {
+          "ja": "うがい薬",
+          "tr": "うがい薬"
+        }
+      ]
+    },
+    {
+      "ja": "外用剤",
+      "tr": "外用剤",
+      "items": [
+        {
+          "ja": "軟膏",
+          "tr": "軟膏"
+        },
+        {
+          "ja": "クリーム",
+          "tr": "クリーム"
+        },
+        {
+          "ja": "ローション",
+          "tr": "ローション"
+        },
+        {
+          "ja": "ゲル",
+          "tr": "ゲル"
+        },
+        {
+          "ja": "液剤",
+          "tr": "液剤"
+        },
+        {
+          "ja": "スプレー",
+          "tr": "スプレー"
+        },
+        {
+          "ja": "湿布",
+          "tr": "湿布"
+        },
+        {
+          "ja": "消毒",
+          "tr": "消毒"
+        }
+      ]
+    },
+    {
+      "ja": "吸入剤",
+      "tr": "吸入剤",
+      "items": [
+        {
+          "ja": "吸入液",
+          "tr": "吸入液"
+        }
+      ]
+    },
+    {
+      "ja": "点鼻剤",
+      "tr": "点鼻剤",
+      "items": [
+        {
+          "ja": "点鼻液",
+          "tr": "点鼻液"
+        },
+        {
+          "ja": "点鼻スプレー",
+          "tr": "点鼻スプレー"
+        }
+      ]
+    },
+    {
+      "ja": "点眼",
+      "tr": "点眼",
+      "items": [
+        {
+          "ja": "点眼液",
+          "tr": "点眼液"
+        }
+      ]
+    },
+    {
+      "ja": "直腸・腟など",
+      "tr": "直腸・腟など",
+      "items": [
+        {
+          "ja": "坐薬",
+          "tr": "坐薬"
+        },
+        {
+          "ja": "注腸剤",
+          "tr": "注腸剤"
+        },
+        {
+          "ja": "腟錠",
+          "tr": "腟錠"
+        },
+        {
+          "ja": "腟用クリーム",
+          "tr": "腟用クリーム"
+        },
+        {
+          "ja": "腟用ゲル",
+          "tr": "腟用ゲル"
+        }
+      ]
+    },
+    {
+      "ja": "口腔・咽頭",
+      "tr": "口腔・咽頭",
+      "items": [
+        {
+          "ja": "トローチ",
+          "tr": "トローチ"
+        },
+        {
+          "ja": "含嗽剤",
+          "tr": "含嗽剤"
+        },
+        {
+          "ja": "口腔内フィルム",
+          "tr": "口腔内フィルム"
+        }
+      ]
+    },
+    {
+      "ja": "その他",
+      "tr": "その他",
+      "items": [
+        {
+          "ja": "その他",
+          "tr": "その他"
+        }
+      ]
+    },
+    {
+      "ja": "薬の作用",
+      "tr": "薬の作用",
+      "items": [
+        {
+          "ja": "解熱鎮痛薬",
+          "tr": "解熱鎮痛薬"
+        },
+        {
+          "ja": "抗炎症薬",
+          "tr": "抗炎症薬"
+        },
+        {
+          "ja": "抗菌薬",
+          "tr": "抗菌薬"
+        },
+        {
+          "ja": "抗生剤",
+          "tr": "抗生剤"
+        },
+        {
+          "ja": "抗ウイルス薬",
+          "tr": "抗ウイルス薬"
+        },
+        {
+          "ja": "アレルギー薬（抗ヒスタミン薬など）",
+          "tr": "アレルギー薬（抗ヒスタミン薬など）"
+        },
+        {
+          "ja": "ビタミン剤",
+          "tr": "ビタミン剤"
+        },
+        {
+          "ja": "鉄剤",
+          "tr": "鉄剤"
+        },
+        {
+          "ja": "子宮収縮抑制剤",
+          "tr": "子宮収縮抑制剤"
+        },
+        {
+          "ja": "葉酸",
+          "tr": "葉酸"
+        },
+        {
+          "ja": "漢方薬",
+          "tr": "漢方薬"
+        },
+        {
+          "ja": "制吐剤",
+          "tr": "制吐剤"
+        },
+        {
+          "ja": "下剤・整腸剤",
+          "tr": "下剤・整腸剤"
+        },
+        {
+          "ja": "降圧剤",
+          "tr": "降圧剤"
+        },
+        {
+          "ja": "呼吸器薬（気管支拡張薬、吸入ステロイドなど）",
+          "tr": "呼吸器薬（気管支拡張薬、吸入ステロイドなど）"
+        },
+        {
+          "ja": "抗血栓薬（抗凝固薬、抗血小板薬など）",
+          "tr": "抗血栓薬（抗凝固薬、抗血小板薬など）"
+        },
+        {
+          "ja": "インスリン注射薬",
+          "tr": "インスリン注射薬"
+        },
+        {
+          "ja": "ホルモン薬（甲状腺、性ホルモン、副腎皮質など）",
+          "tr": "ホルモン薬（甲状腺、性ホルモン、副腎皮質など）"
+        },
+        {
+          "ja": "睡眠剤",
+          "tr": "睡眠剤"
+        },
+        {
+          "ja": "抗てんかん薬",
+          "tr": "抗てんかん薬"
+        },
+        {
+          "ja": "ステロイド",
+          "tr": "ステロイド"
+        },
+        {
+          "ja": "抗リウマチ薬",
+          "tr": "抗リウマチ薬"
+        },
+        {
+          "ja": "膠原病薬",
+          "tr": "膠原病薬"
+        }
+      ]
+    },
+    {
+      "ja": "その他",
+      "tr": "その他",
+      "items": [
+        {
+          "ja": "その他",
+          "tr": "その他"
+        }
+      ]
     }
   ]
 }

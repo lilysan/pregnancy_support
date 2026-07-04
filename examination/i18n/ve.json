@@ -1,34 +1,100 @@
 {
-  "page_title": "Examination Communication Board",
-  "page_lead": "For each category, we support only the necessary conversations with text and audio.",
-  "switch_exam": "Examination Board",
-  "switch_reception": "Go to Reception Board",
-  "settings": "Settings",
-  "language": "Language",
-  "close": "Close",
-  "category_aria": "Category",
-  "free_translate_btn": "Free Input / Translate",
-  "free_translate_panel_aria": "Free translation panel",
-  "free_translate_title": "Free Input Translation",
-  "free_translate_close_aria": "Close",
-  "free_translate_direction_aria": "Translation direction",
-  "free_translate_run": "Translate",
-  "scroll_top_aria": "Back to top",
-  "loading_data": "Loading data...",
-  "loading_empty": "There are no items to display in this category.",
-  "enter_japanese": "Please enter Japanese text.",
-  "enter_selected_language": "Please enter text in the selected language.",
-  "translating": "Translating...",
-  "translate_empty": "(No translation result)",
-  "translate_failed": "Translation failed. Please check your connection.",
-  "speech_not_supported": "This browser does not support speech synthesis.",
-  "input_label": "Input: {{label}}",
-  "output_label": "Result: {{label}}",
-  "input_placeholder": "Enter {{label}}",
-  "direction_ja_to": "Japanese → {{label}}",
-  "direction_to_ja": "{{label}} → Japanese",
-  "selected_language": "Selected language",
+  "page_title": "Bảng giao tiếp khi khám",
+  "page_lead": "Hỗ trợ giao tiếp cần thiết theo từng mục bằng chữ và âm thanh.",
+  "switch_exam": "Bảng khám",
+  "switch_reception": "Đến bảng tiếp tân",
+  "settings": "Cài đặt",
+  "language": "Ngôn ngữ",
+  "close": "Đóng",
+  "category_aria": "Danh mục",
+  "translation_app_btn": "Ứng dụng dịch",
+  "translation_app_dialog_aria": "Chọn ứng dụng dịch",
+  "translation_app_title": "Ứng dụng dịch",
+  "translation_app_lead": "Hãy chọn ứng dụng muốn dùng.",
+  "translation_app_google": "Google Dịch",
+  "translation_app_deepl": "DeepL",
+  "epds_section_title": "Kiểm tra EPDS",
+  "epds_lead": "Hãy chọn câu trả lời phù hợp nhất với cảm xúc của bạn trong 7 ngày qua.",
+  "epds_lead_en": "Hãy chọn câu trả lời phù hợp nhất với cảm xúc của bạn trong 7 ngày qua.",
+  "epds_question_prefix": "Câu hỏi",
+  "epds_score_label": "Tổng điểm",
+  "epds_result_note": "Bạn có thể gửi sau khi trả lời đủ 10 mục.",
+  "epds_ready_note": "Hãy kiểm tra câu trả lời rồi gửi.",
+  "epds_alert_q10": "Nếu câu hỏi cuối phù hợp với bạn, hãy báo sớm cho nhân viên y tế.",
+  "epds_submit": "Lưu kết quả",
+  "epds_submitting": "Đang lưu...",
+  "epds_reset": "Đặt lại câu trả lời",
+  "epds_incomplete": "Còn mục chưa trả lời.",
+  "epds_saved": "Đã lưu kết quả EPDS.",
+  "epds_save_failed": "Lưu thất bại. Vui lòng kiểm tra kết nối.",
+  "scroll_top_aria": "Quay lại đầu trang",
+  "loading_data": "Đang tải dữ liệu...",
+  "loading_empty": "Không có nội dung để hiển thị trong danh mục này.",
+  "enter_japanese": "Hãy nhập tiếng Nhật.",
+  "enter_selected_language": "Hãy nhập bằng ngôn ngữ đã chọn.",
+  "translating": "Đang dịch...",
+  "translate_empty": "(Không có kết quả dịch)",
+  "translate_failed": "Dịch thất bại. Vui lòng kiểm tra kết nối.",
+  "speech_not_supported": "Trình duyệt này không hỗ trợ tổng hợp giọng nói.",
+  "input_label": "Nhập: {{label}}",
+  "output_label": "Kết quả: {{label}}",
+  "input_placeholder": "Nhập {{label}}",
+  "direction_ja_to": "Tiếng Nhật → {{label}}",
+  "direction_to_ja": "{{label}} → Tiếng Nhật",
+  "selected_language": "Ngôn ngữ đã chọn",
   "boardData": [
+    {
+      "type": "Giải thích",
+      "type2": "Phiếu hỗ trợ",
+      "category": "Hôm nay bạn sẽ sử dụng phiếu hỗ trợ trong sổ mẹ và bé",
+      "data1": "Xét nghiệm ung thư cổ tử cung",
+      "data2": "Xét nghiệm máu",
+      "data3": "Siêu âm",
+      "data4": "Khám bệnh",
+      "data5": "Hướng dẫn bảo vệ sức khỏe",
+      "data6": "Khác",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Hỏi bệnh",
+      "type2": "Tình trạng sức khỏe",
+      "category": "Tình trạng sức khỏe thế nào?",
+      "data1": "Không có thay đổi",
+      "data2": "Đau đầu",
+      "data3": "Buồn nôn",
+      "data4": "Không ngủ được",
+      "data5": "Bị phù",
+      "data6": "Mệt mỏi",
+      "data7": "Táo bón",
+      "data8": "Ngứa",
+      "data9": "Khác",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
     {
       "type": "Hỏi bệnh",
       "type2": "Tình trạng sức khỏe",
@@ -56,12 +122,142 @@
       "data21": ""
     },
     {
-      "type": "Hỏi bệnh",
-      "type2": "Tình trạng sức khỏe",
+      "type": "Nhà thuốc",
+      "type2": "Thuốc bôi",
       "category": "Từ khi nào?",
-      "data1": "counter_kara",
+      "data1": "Vừa xong",
+      "data2": "3 giờ trước",
+      "data3": "6 giờ trước",
+      "data4": "9 giờ trước",
+      "data5": "Nửa ngày trước",
+      "data6": "Hôm qua",
+      "data7": "Hôm kia",
+      "data8": "Lâu hơn nữa",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Hỏi bệnh (Hộ sinh)",
+      "type2": "Hỏi bệnh (Tình trạng sức khỏe)",
+      "category": "Bạn có ăn uống đầy đủ không?",
+      "data1": "Tôi ăn đủ 3 bữa",
+      "data2": "Tôi ăn 2 bữa",
+      "data3": "Tôi ăn 1 bữa",
+      "data4": "Tôi không thể ăn",
+      "data5": "Tôi uống đủ nước",
+      "data6": "Tôi ăn vặt",
+      "data7": "Khác",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Hỏi bệnh (Hộ sinh)",
+      "type2": "Hỏi bệnh (Tình trạng sức khỏe)",
+      "category": "Bạn có ngủ ngon không?",
+      "data1": "Có",
+      "data2": "Thỉnh thoảng tỉnh giấc",
+      "data3": "Thức dậy nhiều lần",
+      "data4": "Không thể ngủ được",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Hỏi bệnh (Hộ sinh)",
+      "type2": "Giải thích (Hướng dẫn)",
+      "category": "Đây là thông tin bạn cần. Hãy đọc tài liệu.",
+      "data1": "Tăng huyết áp thai kỳ(đến Chuỗi hỗ trợ cho mẹ và bé)||https://rasc.jp/wp-content/uploads/vietnamese04.pdf",
+      "data2": "Đái tháo đường thai kỳ(đến Chuỗi hỗ trợ cho mẹ và bé)||https://rasc.jp/wp-content/uploads/vietnamese05.pdf",
+      "data3": "Dọa sảy thai(đến Chuỗi hỗ trợ cho mẹ và bé)||https://rasc.jp/wp-content/uploads/vietnamese06.pdf",
+      "data4": "Dọa sinh non(đến Chuỗi hỗ trợ cho mẹ và bé)||https://rasc.jp/wp-content/uploads/vietnamese06.pdf",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Hỏi bệnh (Hộ sinh)",
+      "type2": "Giải thích (Kế hoạch sinh)",
+      "category": "Hãy suy nghĩ về mong muốn của bạn trong khi sinh",
+      "data1": "Kế hoạch sinh(đến Chuỗi hỗ trợ cho mẹ và bé)||https://rasc.jp/wp-content/uploads/vietnamese09.pdf",
       "data2": "",
       "data3": "",
+      "data4": "",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Hỏi bệnh (Hộ sinh)",
+      "type2": "Giải thích (Sinh con)",
+      "category": "Đây là thông tin về sinh con. Hãy đọc tài liệu.",
+      "data1": "Chuẩn bị đồ nhập viện(đến Chuỗi hỗ trợ cho mẹ và bé)||https://rasc.jp/wp-content/uploads/vietnamese02.pdf",
+      "data2": "Sinh mổ(đến Chuỗi hỗ trợ cho mẹ và bé)||https://rasc.jp/wp-content/uploads/vietnamese03.pdf",
+      "data3": "Thuốc kích thích chuyển dạ(đến Chuỗi hỗ trợ cho mẹ và bé)||https://rasc.jp/wp-content/uploads/vietnamese08.pdf",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -264,15 +460,41 @@
       "data21": ""
     },
     {
-      "type": "Giải thích",
-      "type2": "Phiếu hỗ trợ",
-      "category": "Hôm nay bạn sẽ sử dụng phiếu hỗ trợ trong sổ mẹ và bé",
-      "data1": "Xét nghiệm ung thư cổ tử cung",
-      "data2": "Xét nghiệm máu",
-      "data3": "Siêu âm",
-      "data4": "Khám bệnh",
-      "data5": "Hướng dẫn bảo vệ sức khỏe",
-      "data6": "Khác",
+      "type": "Hỏi bệnh",
+      "type2": "Kê đơn thuốc",
+      "category": "Bạn sẽ được kê đơn thuốc",
+      "data1": "Uống để hạ huyết áp",
+      "data2": "Uống để giảm căng cứng bụng",
+      "data3": "Uống để bổ sung sắt",
+      "data4": "Uống để trị táo bón",
+      "data5": "Uống để trị triệu chứng dạ dày",
+      "data6": "Uống để trị cảm cúm",
+      "data7": "Uống để trị viêm nhiễm",
+      "data8": "Khác",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Kham hoi",
+      "type2": "Dat lich",
+      "category": "Ve lan hen kham tiep theo",
+      "data1": "next_kenshin",
+      "data2": "",
+      "data3": "",
+      "data4": "",
+      "data5": "",
+      "data6": "",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -290,17 +512,121 @@
       "data21": ""
     },
     {
-      "type": "Hỏi bệnh",
-      "type2": "Kê đơn thuốc",
-      "category": "Bạn sẽ được kê đơn thuốc",
-      "data1": "Uống để hạ huyết áp",
-      "data2": "Uống để giảm căng cứng bụng",
-      "data3": "Uống để bổ sung sắt",
-      "data4": "Uống để trị táo bón",
-      "data5": "Uống để trị triệu chứng dạ dày",
-      "data6": "Uống để trị cảm cúm",
-      "data7": "Uống để trị viêm nhiễm",
-      "data8": "Khác",
+      "type": "Nhà thuốc",
+      "type2": "Thuốc uống",
+      "category": "Thuốc uống",
+      "data1": "Bột",
+      "data2": "Viên nén",
+      "data3": "Dạng lỏng",
+      "data4": "Thuốc bôi",
+      "data5": "Viên đặt âm đạo",
+      "data6": "Thuốc đặt hậu môn",
+      "data7": "Nước súc miệng",
+      "data8": "Thuốc bôi",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "薬",
+      "type2": "内服薬",
+      "category": "薬を使うとき",
+      "data1": "朝",
+      "data2": "昼",
+      "data3": "夜",
+      "data4": "寝る前",
+      "data5": "食前",
+      "data6": "食中",
+      "data7": "食後",
+      "data8": "痛い時",
+      "data9": "痒い時",
+      "data10": "おりものが多い時",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Nhà thuốc",
+      "type2": "Thuốc uống",
+      "category": "Số lần uống (tối đa)",
+      "data1": "Cách 4 giờ",
+      "data2": "Cách 6 giờ",
+      "data3": "Tối đa 2 viên mỗi ngày",
+      "data4": "Tối đa 3 viên mỗi ngày",
+      "data5": "Tối đa 4 viên mỗi ngày",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Nhà thuốc",
+      "type2": "Thuốc bôi",
+      "category": "Vị trí bôi",
+      "data1": "Mặt",
+      "data2": "Chân",
+      "data3": "Bụng",
+      "data4": "Lưng",
+      "data5": "Mông",
+      "data6": "Âm đạo",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "検査・診察",
+      "type2": "補助券",
+      "category": "今日は母子手帳の補助券を使います",
+      "data1": "子宮頸がんの検査",
+      "data2": "血液検査",
+      "data3": "超音波検査",
+      "data4": "診察",
+      "data5": "保健指導",
+      "data6": "その他",
+      "data7": "",
+      "data8": "",
       "data9": "",
       "data10": "",
       "data11": "",
@@ -472,35 +798,6 @@
       "data21": ""
     },
     {
-      "type": "Kham hoi",
-      "type2": "Dat lich",
-      "category": "Ve lan hen kham tiep theo",
-      "data1": "next_kenshin",
-      "data2": "",
-      "data3": "",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": "",
-      "null": [
-        ""
-      ]
-    },
-    {
       "type": "Khám & Chẩn đoán",
       "type2": "Sau khi khám nội",
       "category": "Khám xong rồi. Ghế sẽ hạ xuống.",
@@ -605,246 +902,12 @@
       "data21": ""
     },
     {
-      "type": "Nhà thuốc",
-      "type2": "Thuốc uống",
-      "category": "Thuốc uống",
-      "data1": "Bột",
-      "data2": "Viên nén",
-      "data3": "Dạng lỏng",
-      "data4": "Thuốc bôi",
-      "data5": "Viên đặt âm đạo",
-      "data6": "Thuốc đặt hậu môn",
-      "data7": "Nước súc miệng",
-      "data8": "Thuốc bôi",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Nhà thuốc",
-      "type2": "Thuốc uống",
-      "category": "Số lần uống",
-      "data1": "Sáng",
-      "data2": "Trưa",
-      "data3": "Tối",
-      "data4": "Trước ăn",
-      "data5": "Trong bữa ăn",
-      "data6": "Sau ăn",
-      "data7": "Khi đau",
-      "data8": "Khi ngứa",
-      "data9": "Khi ra nhiều khí hư",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Nhà thuốc",
-      "type2": "Thuốc uống",
-      "category": "Số lần uống (tối đa)",
-      "data1": "Cách 4 giờ",
-      "data2": "Cách 6 giờ",
-      "data3": "Tối đa 2 viên mỗi ngày",
-      "data4": "Tối đa 3 viên mỗi ngày",
-      "data5": "Tối đa 4 viên mỗi ngày",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Nhà thuốc",
-      "type2": "Thuốc bôi",
-      "category": "Vị trí bôi",
-      "data1": "Mặt",
-      "data2": "Chân",
-      "data3": "Bụng",
-      "data4": "Lưng",
-      "data5": "Mông",
-      "data6": "Âm đạo",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Nhà thuốc",
-      "type2": "Thuốc bôi",
-      "category": "Từ khi nào?",
-      "data1": "Vừa xong",
-      "data2": "3 giờ trước",
-      "data3": "6 giờ trước",
-      "data4": "9 giờ trước",
-      "data5": "Nửa ngày trước",
-      "data6": "Hôm qua",
-      "data7": "Hôm kia",
-      "data8": "Lâu hơn nữa",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Hỏi bệnh (Hộ sinh)",
-      "type2": "Hỏi bệnh (Tình trạng sức khỏe)",
-      "category": "Bạn có ăn uống đầy đủ không?",
-      "data1": "Tôi ăn đủ 3 bữa",
-      "data2": "Tôi ăn 2 bữa",
-      "data3": "Tôi ăn 1 bữa",
-      "data4": "Tôi không thể ăn",
-      "data5": "Tôi uống đủ nước",
-      "data6": "Tôi ăn vặt",
-      "data7": "Khác",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Hỏi bệnh (Hộ sinh)",
-      "type2": "Hỏi bệnh (Tình trạng sức khỏe)",
-      "category": "Bạn có ngủ ngon không?",
-      "data1": "Có",
-      "data2": "Thỉnh thoảng tỉnh giấc",
-      "data3": "Thức dậy nhiều lần",
-      "data4": "Không thể ngủ được",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Hỏi bệnh (Hộ sinh)",
-      "type2": "Giải thích (Hướng dẫn)",
-      "category": "Đây là thông tin bạn cần. Hãy đọc tài liệu.",
-      "data1": "Tăng huyết áp thai kỳ(đến Chuỗi hỗ trợ cho mẹ và bé)||https://rasc.jp/wp-content/uploads/vietnamese04.pdf",
-      "data2": "Đái tháo đường thai kỳ(đến Chuỗi hỗ trợ cho mẹ và bé)||https://rasc.jp/wp-content/uploads/vietnamese05.pdf",
-      "data3": "Dọa sảy thai(đến Chuỗi hỗ trợ cho mẹ và bé)||https://rasc.jp/wp-content/uploads/vietnamese06.pdf",
-      "data4": "Dọa sinh non(đến Chuỗi hỗ trợ cho mẹ và bé)||https://rasc.jp/wp-content/uploads/vietnamese06.pdf",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Hỏi bệnh (Hộ sinh)",
-      "type2": "Giải thích (Kế hoạch sinh)",
-      "category": "Hãy suy nghĩ về mong muốn của bạn trong khi sinh",
-      "data1": "Kế hoạch sinh(đến Chuỗi hỗ trợ cho mẹ và bé)||https://rasc.jp/wp-content/uploads/vietnamese09.pdf",
+      "type": "EPDS",
+      "type2": "Thang đo trầm cảm sau sinh Edinburgh",
+      "category": "Hãy đánh dấu vào mục phù hợp.",
+      "data1": "",
       "data2": "",
       "data3": "",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Hỏi bệnh (Hộ sinh)",
-      "type2": "Giải thích (Sinh con)",
-      "category": "Đây là thông tin về sinh con. Hãy đọc tài liệu.",
-      "data1": "Chuẩn bị đồ nhập viện(đến Chuỗi hỗ trợ cho mẹ và bé)||https://rasc.jp/wp-content/uploads/vietnamese02.pdf",
-      "data2": "Sinh mổ(đến Chuỗi hỗ trợ cho mẹ và bé)||https://rasc.jp/wp-content/uploads/vietnamese03.pdf",
-      "data3": "Thuốc kích thích chuyển dạ(đến Chuỗi hỗ trợ cho mẹ và bé)||https://rasc.jp/wp-content/uploads/vietnamese08.pdf",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -891,12 +954,12 @@
       "data21": "Danh sách người phụ trách||https://rasc.jp/wp-content/uploads/vietnamese99.pdf"
     },
     {
-      "type": "Health Guidance",
-      "type2": "Diet and Nutrition",
-      "category": "Please try to eat three meals a day",
-      "data1": "Please eat three meals a day",
-      "data2": "Even if you eat two meals, please eat small amounts",
-      "data3": "Please eat whatever you can in small amounts",
+      "type": "Hướng dẫn sức khỏe",
+      "type2": "Ăn uống・dinh dưỡng",
+      "category": "Hãy cố gắng ăn 3 bữa mỗi ngày",
+      "data1": "Hãy ăn 3 bữa",
+      "data2": "Dù chỉ ăn 2 bữa, hãy ăn ít một",
+      "data3": "Hãy ăn từng chút những món có thể ăn",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -917,15 +980,15 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Diet and Nutrition",
-      "category": "Please pay attention to hydration and balanced nutrition",
-      "data1": "Please drink enough fluids",
-      "data2": "Please avoid sugary drinks",
-      "data3": "Please avoid too much caffeine",
-      "data4": "Please eat vegetables",
-      "data5": "Please eat enough protein",
-      "data6": "Please reduce salt intake",
+      "type": "Hướng dẫn sức khỏe",
+      "type2": "Ăn uống・dinh dưỡng",
+      "category": "Hãy chú ý uống nước và cân bằng dinh dưỡng",
+      "data1": "Hãy uống đủ nước",
+      "data2": "Hạn chế đồ uống ngọt",
+      "data3": "Không dùng quá nhiều caffeine",
+      "data4": "Hãy ăn rau",
+      "data5": "Hãy ăn chất đạm",
+      "data6": "Hạn chế muối",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -943,14 +1006,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Weight Management",
-      "category": "We will explain weight management",
-      "data1": "Your weight gain is on track",
-      "data2": "Your weight gain is low",
-      "data3": "Your weight gain is high",
-      "data4": "Please measure at the same time every day",
-      "data5": "Please contact us if your weight increases suddenly",
+      "type": "Hướng dẫn sức khỏe",
+      "type2": "Quản lý cân nặng",
+      "category": "Chúng tôi sẽ giải thích về quản lý cân nặng",
+      "data1": "Tăng cân ổn định",
+      "data2": "Tăng cân ít",
+      "data3": "Tăng cân nhiều",
+      "data4": "Hãy cân mỗi ngày cùng một giờ",
+      "data5": "Hãy hỏi nếu cân nặng tăng đột ngột",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -969,14 +1032,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Blood Pressure and Swelling",
-      "category": "We will explain blood pressure and swelling",
-      "data1": "Your blood pressure is stable",
-      "data2": "Your blood pressure is a little high",
-      "data3": "Please measure your blood pressure at home too",
-      "data4": "Please reduce salt intake",
-      "data5": "Please contact us if you have swelling or headaches",
+      "type": "Hướng dẫn sức khỏe",
+      "type2": "Huyết áp・phù",
+      "category": "Chúng tôi sẽ giải thích về huyết áp và phù",
+      "data1": "Huyết áp ổn định",
+      "data2": "Huyết áp hơi cao",
+      "data3": "Hãy đo huyết áp ở nhà",
+      "data4": "Hạn chế muối",
+      "data5": "Hãy liên hệ nếu bị phù hoặc đau đầu",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -995,15 +1058,15 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Blood Sugar Management",
-      "category": "We will explain blood sugar management",
-      "data1": "Your blood sugar is stable",
-      "data2": "Your blood sugar is a little high",
-      "data3": "Please pay attention to your meals",
-      "data4": "Please avoid sweets",
-      "data5": "Please divide meals into smaller portions",
-      "data6": "Please record your blood sugar",
+      "type": "Hướng dẫn sức khỏe",
+      "type2": "Quản lý đường huyết",
+      "category": "Chúng tôi sẽ giải thích về đường huyết",
+      "data1": "Đường huyết ổn định",
+      "data2": "Đường huyết hơi cao",
+      "data3": "Hãy chú ý bữa ăn",
+      "data4": "Hạn chế đồ ngọt",
+      "data5": "Hãy chia nhỏ bữa ăn",
+      "data6": "Hãy ghi lại đường huyết",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -1021,14 +1084,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Anemia",
-      "category": "We will explain anemia",
-      "data1": "You do not have anemia",
-      "data2": "You have anemia",
-      "data3": "Please take more iron",
-      "data4": "Please take your iron medicine",
-      "data5": "We will check again with the next blood test",
+      "type": "Hướng dẫn sức khỏe",
+      "type2": "Thiếu máu",
+      "category": "Chúng tôi sẽ giải thích về thiếu máu",
+      "data1": "Không có thiếu máu",
+      "data2": "Có thiếu máu",
+      "data3": "Hãy bổ sung nhiều sắt",
+      "data4": "Hãy uống thuốc sắt",
+      "data5": "Lần sau sẽ kiểm tra bằng xét nghiệm máu",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -1047,14 +1110,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Medicine and Supplements",
-      "category": "We will explain medicines and supplements",
-      "data1": "Please take them as instructed",
-      "data2": "Please do not stop on your own",
-      "data3": "Please ask us if you forget a dose",
-      "data4": "Please ask before taking over-the-counter medicine",
-      "data5": "Please ask about supplements",
+      "type": "Hướng dẫn sức khỏe",
+      "type2": "Thuốc・thực phẩm bổ sung",
+      "category": "Chúng tôi sẽ giải thích về thuốc và thực phẩm bổ sung",
+      "data1": "Hãy uống theo chỉ dẫn",
+      "data2": "Không tự ý ngừng thuốc",
+      "data3": "Hãy hỏi nếu quên uống",
+      "data4": "Hỏi trước khi dùng thuốc mua ngoài",
+      "data5": "Hãy hỏi về thực phẩm bổ sung",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -1073,16 +1136,16 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "When to Contact the Hospital",
-      "category": "Please contact the hospital in these situations",
-      "data1": "If you have bleeding",
-      "data2": "If you have strong abdominal pain",
-      "data3": "If abdominal tightening increases",
-      "data4": "If watery fluid comes out",
-      "data5": "If you have a severe headache",
-      "data6": "If the baby moves less than usual",
-      "data7": "If you feel unwell",
+      "type": "Hướng dẫn sức khỏe",
+      "type2": "Khi nào cần khám",
+      "category": "Hãy liên hệ bệnh viện trong các trường hợp này",
+      "data1": "Khi có ra máu",
+      "data2": "Khi đau bụng mạnh",
+      "data3": "Khi bụng căng nhiều hơn",
+      "data4": "Khi có dịch như nước chảy ra",
+      "data5": "Khi đau đầu nhiều",
+      "data6": "Khi em bé cử động ít",
+      "data7": "Khi thấy không khỏe",
       "data8": "",
       "data9": "",
       "data10": "",
@@ -1099,15 +1162,15 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Abdominal Tightening, Bleeding, and Fluid Leakage",
-      "category": "We will explain abdominal tightening, bleeding, and possible rupture of membranes",
-      "data1": "Please rest if abdominal tightening increases",
-      "data2": "Please contact us if tightening continues",
-      "data3": "Please contact us if you have pain",
-      "data4": "Please contact us if you have bleeding",
-      "data5": "Please contact us if watery fluid comes out",
-      "data6": "Please use a pad and observe the situation",
+      "type": "Hướng dẫn sức khỏe",
+      "type2": "Bụng căng・ra máu・vỡ ối",
+      "category": "Chúng tôi sẽ giải thích về bụng căng, ra máu và vỡ ối",
+      "data1": "Hãy nghỉ nếu bụng căng tăng",
+      "data2": "Hãy liên hệ nếu căng kéo dài",
+      "data3": "Hãy liên hệ nếu đau",
+      "data4": "Hãy liên hệ nếu ra máu",
+      "data5": "Hãy liên hệ nếu có dịch như nước",
+      "data6": "Dùng băng vệ sinh và theo dõi",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -1125,12 +1188,12 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Fetal Movement",
-      "category": "We will explain fetal movement",
-      "data1": "The baby is moving well",
-      "data2": "Please monitor the baby's movement",
-      "data3": "Please contact us if movement is less than usual",
+      "type": "Hướng dẫn sức khỏe",
+      "type2": "Thai máy",
+      "category": "Chúng tôi sẽ giải thích về cử động của em bé",
+      "data1": "Em bé cử động tốt",
+      "data2": "Hãy theo dõi cử động của em bé",
+      "data3": "Hãy liên hệ nếu ít hơn bình thường",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -1151,13 +1214,13 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Birth Preparation",
-      "category": "Please prepare for childbirth",
-      "data1": "Please prepare for hospitalization",
-      "data2": "Please check what to bring",
-      "data3": "Please confirm how to contact the hospital",
-      "data4": "Please think about your birth plan",
+      "type": "Hướng dẫn sức khỏe",
+      "type2": "Chuẩn bị sinh",
+      "category": "Hãy chuẩn bị cho việc sinh",
+      "data1": "Hãy chuẩn bị nhập viện",
+      "data2": "Kiểm tra đồ mang theo",
+      "data3": "Xác nhận cách liên hệ bệnh viện",
+      "data4": "Hãy nghĩ về kế hoạch sinh",
       "data5": "",
       "data6": "",
       "data7": "",
@@ -1175,6 +1238,693 @@
       "data19": "",
       "data20": "",
       "data21": ""
+    }
+  ],
+  "epdsData": {
+    "questions": [
+      {
+        "ja": "Bạn có thể cười và thấy mặt vui của sự việc không?",
+        "tr": "Bạn có thể cười và thấy mặt vui của sự việc không?",
+        "options": [
+          {
+            "ja": "Như mọi khi",
+            "tr": "Như mọi khi",
+            "score": 0
+          },
+          {
+            "ja": "Ít hơn một chút",
+            "tr": "Ít hơn một chút",
+            "score": 1
+          },
+          {
+            "ja": "Ít hơn rõ rệt",
+            "tr": "Ít hơn rõ rệt",
+            "score": 2
+          },
+          {
+            "ja": "Hoàn toàn không",
+            "tr": "Hoàn toàn không",
+            "score": 3
+          }
+        ]
+      },
+      {
+        "ja": "Bạn có mong chờ điều gì với niềm vui không?",
+        "tr": "Bạn có mong chờ điều gì với niềm vui không?",
+        "options": [
+          {
+            "ja": "Như trước đây",
+            "tr": "Như trước đây",
+            "score": 0
+          },
+          {
+            "ja": "Ít hơn trước một chút",
+            "tr": "Ít hơn trước một chút",
+            "score": 1
+          },
+          {
+            "ja": "Ít hơn trước rõ rệt",
+            "tr": "Ít hơn trước rõ rệt",
+            "score": 2
+          },
+          {
+            "ja": "Hầu như không",
+            "tr": "Hầu như không",
+            "score": 3
+          }
+        ]
+      },
+      {
+        "ja": "Khi việc không suôn sẻ, bạn có tự trách mình quá mức không?",
+        "tr": "Khi việc không suôn sẻ, bạn có tự trách mình quá mức không?",
+        "options": [
+          {
+            "ja": "Có, hầu hết thời gian",
+            "tr": "Có, hầu hết thời gian",
+            "score": 3
+          },
+          {
+            "ja": "Có, đôi khi",
+            "tr": "Có, đôi khi",
+            "score": 2
+          },
+          {
+            "ja": "Không thường xuyên lắm",
+            "tr": "Không thường xuyên lắm",
+            "score": 1
+          },
+          {
+            "ja": "Không, không bao giờ",
+            "tr": "Không, không bao giờ",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Bạn có lo lắng hoặc bất an không có lý do rõ ràng không?",
+        "tr": "Bạn có lo lắng hoặc bất an không có lý do rõ ràng không?",
+        "options": [
+          {
+            "ja": "Không, hoàn toàn không",
+            "tr": "Không, hoàn toàn không",
+            "score": 0
+          },
+          {
+            "ja": "Hầu như không",
+            "tr": "Hầu như không",
+            "score": 1
+          },
+          {
+            "ja": "Có, đôi khi",
+            "tr": "Có, đôi khi",
+            "score": 2
+          },
+          {
+            "ja": "Có, rất thường xuyên",
+            "tr": "Có, rất thường xuyên",
+            "score": 3
+          }
+        ]
+      },
+      {
+        "ja": "Bạn có sợ hãi hoặc hoảng loạn không có lý do rõ ràng không?",
+        "tr": "Bạn có sợ hãi hoặc hoảng loạn không có lý do rõ ràng không?",
+        "options": [
+          {
+            "ja": "Có, khá nhiều",
+            "tr": "Có, khá nhiều",
+            "score": 3
+          },
+          {
+            "ja": "Có, đôi khi",
+            "tr": "Có, đôi khi",
+            "score": 2
+          },
+          {
+            "ja": "Không nhiều",
+            "tr": "Không nhiều",
+            "score": 1
+          },
+          {
+            "ja": "Không, hoàn toàn không",
+            "tr": "Không, hoàn toàn không",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Bạn có cảm thấy mọi việc quá sức không?",
+        "tr": "Bạn có cảm thấy mọi việc quá sức không?",
+        "options": [
+          {
+            "ja": "Có, hầu hết thời gian không đối phó được",
+            "tr": "Có, hầu hết thời gian không đối phó được",
+            "score": 3
+          },
+          {
+            "ja": "Có, đôi khi không đối phó tốt như thường lệ",
+            "tr": "Có, đôi khi không đối phó tốt như thường lệ",
+            "score": 2
+          },
+          {
+            "ja": "Không, hầu hết thời gian đối phó khá tốt",
+            "tr": "Không, hầu hết thời gian đối phó khá tốt",
+            "score": 1
+          },
+          {
+            "ja": "Không, vẫn đối phó như mọi khi",
+            "tr": "Không, vẫn đối phó như mọi khi",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Bạn có buồn đến mức khó ngủ không?",
+        "tr": "Bạn có buồn đến mức khó ngủ không?",
+        "options": [
+          {
+            "ja": "Có, hầu hết thời gian",
+            "tr": "Có, hầu hết thời gian",
+            "score": 3
+          },
+          {
+            "ja": "Có, đôi khi",
+            "tr": "Có, đôi khi",
+            "score": 2
+          },
+          {
+            "ja": "Không thường xuyên lắm",
+            "tr": "Không thường xuyên lắm",
+            "score": 1
+          },
+          {
+            "ja": "Không, không bao giờ",
+            "tr": "Không, không bao giờ",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Bạn có cảm thấy buồn hoặc khổ sở không?",
+        "tr": "Bạn có cảm thấy buồn hoặc khổ sở không?",
+        "options": [
+          {
+            "ja": "Có, hầu hết thời gian",
+            "tr": "Có, hầu hết thời gian",
+            "score": 3
+          },
+          {
+            "ja": "Có, khá thường xuyên",
+            "tr": "Có, khá thường xuyên",
+            "score": 2
+          },
+          {
+            "ja": "Không thường xuyên lắm",
+            "tr": "Không thường xuyên lắm",
+            "score": 1
+          },
+          {
+            "ja": "Không, hoàn toàn không",
+            "tr": "Không, hoàn toàn không",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Bạn có buồn đến mức khóc không?",
+        "tr": "Bạn có buồn đến mức khóc không?",
+        "options": [
+          {
+            "ja": "Có, hầu hết thời gian",
+            "tr": "Có, hầu hết thời gian",
+            "score": 3
+          },
+          {
+            "ja": "Có, khá thường xuyên",
+            "tr": "Có, khá thường xuyên",
+            "score": 2
+          },
+          {
+            "ja": "Chỉ thỉnh thoảng",
+            "tr": "Chỉ thỉnh thoảng",
+            "score": 1
+          },
+          {
+            "ja": "Không, không bao giờ",
+            "tr": "Không, không bao giờ",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Bạn có nghĩ đến việc làm tổn thương bản thân không?",
+        "tr": "Bạn có nghĩ đến việc làm tổn thương bản thân không?",
+        "options": [
+          {
+            "ja": "Có, khá thường xuyên",
+            "tr": "Có, khá thường xuyên",
+            "score": 3
+          },
+          {
+            "ja": "Đôi khi",
+            "tr": "Đôi khi",
+            "score": 2
+          },
+          {
+            "ja": "Hầu như không",
+            "tr": "Hầu như không",
+            "score": 1
+          },
+          {
+            "ja": "Không bao giờ",
+            "tr": "Không bao giờ",
+            "score": 0
+          }
+        ]
+      }
+    ]
+  },
+  "specialItems": {
+    "counter_kara": {
+      "titleJa": "いつからですか",
+      "titleTr": "Từ khi nào?",
+      "options": [
+        {
+          "ja": "__時間前",
+          "tr": "__ giờ trước"
+        },
+        {
+          "ja": "__日前",
+          "tr": "__ ngày trước"
+        },
+        {
+          "ja": "__週間前",
+          "tr": "__ tuần trước"
+        }
+      ]
+    },
+    "counter_kai": {
+      "titleJa": "1日に何回張りますか",
+      "titleTr": "Mỗi ngày bao nhiêu lần?",
+      "options": [
+        {
+          "ja": "1〜2回",
+          "tr": "1-2 lần"
+        },
+        {
+          "ja": "3〜5回",
+          "tr": "3-5 lần"
+        },
+        {
+          "ja": "6〜10回",
+          "tr": "6-10 lần"
+        },
+        {
+          "ja": "11回以上",
+          "tr": "Từ 11 lần trở lên"
+        }
+      ]
+    },
+    "kusurikaisuu": {
+      "titleJa": "1日の使用回数",
+      "titleTr": "Số lần dùng trong ngày?",
+      "options": [
+        {
+          "ja": "1日につき__回",
+          "tr": "__ lần mỗi ngày"
+        },
+        {
+          "ja": "__時間おき",
+          "tr": "mỗi __ giờ"
+        },
+        {
+          "mode": "quantity_unit",
+          "ja": "1回の量",
+          "tr": "Lượng dùng mỗi lần",
+          "units": [
+            {
+              "ja": "錠",
+              "tr": "viên"
+            },
+            {
+              "ja": "滴",
+              "tr": "giọt"
+            },
+            {
+              "ja": "パック",
+              "tr": "gói"
+            },
+            {
+              "ja": "単位",
+              "tr": "đơn vị"
+            }
+          ]
+        }
+      ]
+    },
+    "next_kenshin": {
+      "titleJa": "次回の予約(検診)について",
+      "titleTr": "Về lịch hẹn tiếp theo",
+      "options": [
+        {
+          "mode": "appointment_after",
+          "ja": "次は__ヶ月後 __週間後です",
+          "tr": "Lần tiếp theo là sau __ tháng và __ tuần"
+        },
+        {
+          "mode": "appointment_time",
+          "ja": "__時__分はどうですか",
+          "tr": "__ giờ __ phút được không"
+        },
+        {
+          "mode": "appointment_weekday",
+          "ja": "がよい日です",
+          "tr": "là ngày phù hợp",
+          "days": [
+            {
+              "ja": "月曜日",
+              "tr": "Thứ Hai"
+            },
+            {
+              "ja": "火曜日",
+              "tr": "Thứ Ba"
+            },
+            {
+              "ja": "水曜日",
+              "tr": "Thứ Tư"
+            },
+            {
+              "ja": "木曜日",
+              "tr": "Thứ Năm"
+            },
+            {
+              "ja": "金曜日",
+              "tr": "Thứ Sáu"
+            },
+            {
+              "ja": "土曜日",
+              "tr": "Thứ Bảy"
+            },
+            {
+              "ja": "日曜日",
+              "tr": "Chủ Nhật"
+            }
+          ]
+        },
+        {
+          "mode": "appointment_checklist",
+          "ja": "下の項目を確認してください",
+          "tr": "Hãy chọn các mục bên dưới",
+          "items": [
+            {
+              "ja": "薬の処方箋を受け取ってください",
+              "tr": "Hãy nhận đơn thuốc"
+            },
+            {
+              "ja": "朝ごはんを食べないできてください",
+              "tr": "Hãy đến mà không ăn sáng"
+            },
+            {
+              "ja": "クーポンを使うので持ってきてください",
+              "tr": "Hãy mang phiếu giảm giá"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "drugTypeTree": [
+    {
+      "ja": "内服",
+      "tr": "内服",
+      "items": [
+        {
+          "ja": "錠剤",
+          "tr": "錠剤"
+        },
+        {
+          "ja": "カプセル剤",
+          "tr": "カプセル剤"
+        },
+        {
+          "ja": "散剤（粉薬）",
+          "tr": "散剤（粉薬）"
+        },
+        {
+          "ja": "液剤",
+          "tr": "液剤"
+        },
+        {
+          "ja": "ゼリー・ゲル",
+          "tr": "ゼリー・ゲル"
+        },
+        {
+          "ja": "トローチ",
+          "tr": "トローチ"
+        },
+        {
+          "ja": "舌下錠",
+          "tr": "舌下錠"
+        },
+        {
+          "ja": "うがい薬",
+          "tr": "うがい薬"
+        }
+      ]
+    },
+    {
+      "ja": "外用剤",
+      "tr": "外用剤",
+      "items": [
+        {
+          "ja": "軟膏",
+          "tr": "軟膏"
+        },
+        {
+          "ja": "クリーム",
+          "tr": "クリーム"
+        },
+        {
+          "ja": "ローション",
+          "tr": "ローション"
+        },
+        {
+          "ja": "ゲル",
+          "tr": "ゲル"
+        },
+        {
+          "ja": "液剤",
+          "tr": "液剤"
+        },
+        {
+          "ja": "スプレー",
+          "tr": "スプレー"
+        },
+        {
+          "ja": "湿布",
+          "tr": "湿布"
+        },
+        {
+          "ja": "消毒",
+          "tr": "消毒"
+        }
+      ]
+    },
+    {
+      "ja": "吸入剤",
+      "tr": "吸入剤",
+      "items": [
+        {
+          "ja": "吸入液",
+          "tr": "吸入液"
+        }
+      ]
+    },
+    {
+      "ja": "点鼻剤",
+      "tr": "点鼻剤",
+      "items": [
+        {
+          "ja": "点鼻液",
+          "tr": "点鼻液"
+        },
+        {
+          "ja": "点鼻スプレー",
+          "tr": "点鼻スプレー"
+        }
+      ]
+    },
+    {
+      "ja": "点眼",
+      "tr": "点眼",
+      "items": [
+        {
+          "ja": "点眼液",
+          "tr": "点眼液"
+        }
+      ]
+    },
+    {
+      "ja": "直腸・腟など",
+      "tr": "直腸・腟など",
+      "items": [
+        {
+          "ja": "坐薬",
+          "tr": "坐薬"
+        },
+        {
+          "ja": "注腸剤",
+          "tr": "注腸剤"
+        },
+        {
+          "ja": "腟錠",
+          "tr": "腟錠"
+        },
+        {
+          "ja": "腟用クリーム",
+          "tr": "腟用クリーム"
+        },
+        {
+          "ja": "腟用ゲル",
+          "tr": "腟用ゲル"
+        }
+      ]
+    },
+    {
+      "ja": "口腔・咽頭",
+      "tr": "口腔・咽頭",
+      "items": [
+        {
+          "ja": "トローチ",
+          "tr": "トローチ"
+        },
+        {
+          "ja": "含嗽剤",
+          "tr": "含嗽剤"
+        },
+        {
+          "ja": "口腔内フィルム",
+          "tr": "口腔内フィルム"
+        }
+      ]
+    },
+    {
+      "ja": "その他",
+      "tr": "その他",
+      "items": [
+        {
+          "ja": "その他",
+          "tr": "その他"
+        }
+      ]
+    },
+    {
+      "ja": "薬の作用",
+      "tr": "薬の作用",
+      "items": [
+        {
+          "ja": "解熱鎮痛薬",
+          "tr": "解熱鎮痛薬"
+        },
+        {
+          "ja": "抗炎症薬",
+          "tr": "抗炎症薬"
+        },
+        {
+          "ja": "抗菌薬",
+          "tr": "抗菌薬"
+        },
+        {
+          "ja": "抗生剤",
+          "tr": "抗生剤"
+        },
+        {
+          "ja": "抗ウイルス薬",
+          "tr": "抗ウイルス薬"
+        },
+        {
+          "ja": "アレルギー薬（抗ヒスタミン薬など）",
+          "tr": "アレルギー薬（抗ヒスタミン薬など）"
+        },
+        {
+          "ja": "ビタミン剤",
+          "tr": "ビタミン剤"
+        },
+        {
+          "ja": "鉄剤",
+          "tr": "鉄剤"
+        },
+        {
+          "ja": "子宮収縮抑制剤",
+          "tr": "子宮収縮抑制剤"
+        },
+        {
+          "ja": "葉酸",
+          "tr": "葉酸"
+        },
+        {
+          "ja": "漢方薬",
+          "tr": "漢方薬"
+        },
+        {
+          "ja": "制吐剤",
+          "tr": "制吐剤"
+        },
+        {
+          "ja": "下剤・整腸剤",
+          "tr": "下剤・整腸剤"
+        },
+        {
+          "ja": "降圧剤",
+          "tr": "降圧剤"
+        },
+        {
+          "ja": "呼吸器薬（気管支拡張薬、吸入ステロイドなど）",
+          "tr": "呼吸器薬（気管支拡張薬、吸入ステロイドなど）"
+        },
+        {
+          "ja": "抗血栓薬（抗凝固薬、抗血小板薬など）",
+          "tr": "抗血栓薬（抗凝固薬、抗血小板薬など）"
+        },
+        {
+          "ja": "インスリン注射薬",
+          "tr": "インスリン注射薬"
+        },
+        {
+          "ja": "ホルモン薬（甲状腺、性ホルモン、副腎皮質など）",
+          "tr": "ホルモン薬（甲状腺、性ホルモン、副腎皮質など）"
+        },
+        {
+          "ja": "睡眠剤",
+          "tr": "睡眠剤"
+        },
+        {
+          "ja": "抗てんかん薬",
+          "tr": "抗てんかん薬"
+        },
+        {
+          "ja": "ステロイド",
+          "tr": "ステロイド"
+        },
+        {
+          "ja": "抗リウマチ薬",
+          "tr": "抗リウマチ薬"
+        },
+        {
+          "ja": "膠原病薬",
+          "tr": "膠原病薬"
+        }
+      ]
+    },
+    {
+      "ja": "その他",
+      "tr": "その他",
+      "items": [
+        {
+          "ja": "その他",
+          "tr": "その他"
+        }
+      ]
     }
   ]
 }
