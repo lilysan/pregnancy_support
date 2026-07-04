@@ -123,6 +123,7 @@ $(function () {
             "aruaruSelectedLanguage",
             "aboutsexSelectedLanguage",
             "receptionSelectedLanguage",
+            "examinationSelectedLanguage",
             "selectedLanguage",
         ];
         const labels = {
