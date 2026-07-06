@@ -1,0 +1,120 @@
+{
+  "page_title": "Standar Persalinan di Jepang",
+  "page_lead": "Halaman ini merangkum alur umum dan kebiasaan rumah sakit saat melahirkan di Jepang.",
+  "settings": "Pengaturan bahasa",
+  "language": "Bahasa",
+  "close": "Tutup",
+  "keyword_search": "Cari kata kunci",
+  "keyword_placeholder": "Cari pertanyaan atau jawaban",
+  "tag_search": "Periode",
+  "period_kicker": "Periode",
+  "period_pregnancy": "Masa kehamilan",
+  "period_childbirth": "Persalinan",
+  "period_postpartum_hospital": "Setelah melahirkan (di rumah sakit)",
+  "period_postpartum_home": "Setelah melahirkan (setelah pulang)",
+  "all_tags": "Semua",
+  "result_count": "{{count}} hasil",
+  "no_result": "Tidak ada item yang cocok.",
+  "items": {
+    "item_01": {
+      "title": "Kebiasaan sabuk perut pada Hari Anjing",
+      "detail": "Kebiasaan sabuk perut pada Hari Anjing: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_02": {
+      "title": "Perkiraan jumlah pemeriksaan kehamilan",
+      "detail": "Perkiraan jumlah pemeriksaan kehamilan: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_03": {
+      "title": "Bantuan yang dapat diterima dengan kupon",
+      "detail": "Bantuan yang dapat diterima dengan kupon: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_04": {
+      "title": "Persiapan rawat inap: barang yang dibawa",
+      "detail": "Persiapan rawat inap: barang yang dibawa: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_05": {
+      "title": "Metode persalinan umum di Jepang",
+      "detail": "Metode persalinan umum di Jepang: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_06": {
+      "title": "Hal yang perlu dipastikan jika ingin persalinan tanpa nyeri",
+      "detail": "Hal yang perlu dipastikan jika ingin persalinan tanpa nyeri: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_07": {
+      "title": "Pendamping persalinan dan batasannya",
+      "detail": "Pendamping persalinan dan batasannya: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_08": {
+      "title": "Cara pergi ke rumah sakit saat kontraksi",
+      "detail": "Cara pergi ke rumah sakit saat kontraksi: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_09": {
+      "title": "Pengambilan foto saat persalinan",
+      "detail": "Pengambilan foto saat persalinan: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_10": {
+      "title": "Perkiraan lama rawat inap",
+      "detail": "Perkiraan lama rawat inap: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_11": {
+      "title": "Pilihan kamar dan etika selama rawat inap",
+      "detail": "Pilihan kamar dan etika selama rawat inap: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_12": {
+      "title": "Bimbingan yang sering diterima saat rawat inap",
+      "detail": "Bimbingan yang sering diterima saat rawat inap: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_13": {
+      "title": "Peran perawat",
+      "detail": "Peran perawat: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_14": {
+      "title": "Jam kunjungan dan batas jumlah pengunjung",
+      "detail": "Jam kunjungan dan batas jumlah pengunjung: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_15": {
+      "title": "Budaya membawa pulang tali pusar",
+      "detail": "Budaya membawa pulang tali pusar: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_16": {
+      "title": "Pertimbangan agama dan makanan",
+      "detail": "Pertimbangan agama dan makanan: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_17": {
+      "title": "Pemeriksaan dan wawancara setelah melahirkan",
+      "detail": "Pemeriksaan dan wawancara setelah melahirkan: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_18": {
+      "title": "Tempat menyerahkan laporan kelahiran",
+      "detail": "Tempat menyerahkan laporan kelahiran: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_19": {
+      "title": "Penggunaan stempel saat masuk rumah sakit",
+      "detail": "Penggunaan stempel saat masuk rumah sakit: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_20": {
+      "title": "Kunjungan bayi baru lahir",
+      "detail": "Kunjungan bayi baru lahir: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_21": {
+      "title": "Tentang omiyamairi",
+      "detail": "Tentang omiyamairi: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_22": {
+      "title": "Tentang okuizome",
+      "detail": "Tentang okuizome: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_23": {
+      "title": "Pemeriksaan pascapersalinan dan bayi",
+      "detail": "Pemeriksaan pascapersalinan dan bayi: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_24": {
+      "title": "Aturan membawa bayi dengan mobil",
+      "detail": "Aturan membawa bayi dengan mobil: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    },
+    "item_25": {
+      "title": "Perayaan bayi usia 1 tahun",
+      "detail": "Perayaan bayi usia 1 tahun: bagian ini menjelaskan praktik umum di Jepang, aturan rumah sakit, dan hal yang perlu dipastikan sebelumnya. Detail dapat berbeda tergantung rumah sakit atau pemerintah daerah."
+    }
+  }
+}

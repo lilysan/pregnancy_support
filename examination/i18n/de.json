@@ -1,34 +1,100 @@
 {
-  "page_title": "Examination Communication Board",
-  "page_lead": "For each category, we support only the necessary conversations with text and audio.",
-  "switch_exam": "Examination Board",
-  "switch_reception": "Go to Reception Board",
-  "settings": "Settings",
-  "language": "Language",
-  "close": "Close",
-  "category_aria": "Category",
-  "free_translate_btn": "Free Input / Translate",
-  "free_translate_panel_aria": "Free translation panel",
-  "free_translate_title": "Free Input Translation",
-  "free_translate_close_aria": "Close",
-  "free_translate_direction_aria": "Translation direction",
-  "free_translate_run": "Translate",
-  "scroll_top_aria": "Back to top",
-  "loading_data": "Loading data...",
-  "loading_empty": "There are no items to display in this category.",
-  "enter_japanese": "Please enter Japanese text.",
-  "enter_selected_language": "Please enter text in the selected language.",
-  "translating": "Translating...",
-  "translate_empty": "(No translation result)",
-  "translate_failed": "Translation failed. Please check your connection.",
-  "speech_not_supported": "This browser does not support speech synthesis.",
-  "input_label": "Input: {{label}}",
-  "output_label": "Result: {{label}}",
-  "input_placeholder": "Enter {{label}}",
-  "direction_ja_to": "Japanese → {{label}}",
-  "direction_to_ja": "{{label}} → Japanese",
-  "selected_language": "Selected language",
+  "page_title": "Kommunikationstafel für die Untersuchung",
+  "page_lead": "Wir unterstützen die nötige Kommunikation je Kategorie mit Text und Ton.",
+  "switch_exam": "Untersuchungstafel",
+  "switch_reception": "Zur Empfangstafel",
+  "settings": "Einstellungen",
+  "language": "Sprache",
+  "close": "Schließen",
+  "category_aria": "Kategorie",
+  "translation_app_btn": "Übersetzungs-App",
+  "translation_app_dialog_aria": "Übersetzungs-App auswählen",
+  "translation_app_title": "Übersetzungs-App",
+  "translation_app_lead": "Wählen Sie die App aus.",
+  "translation_app_google": "Google Übersetzer",
+  "translation_app_deepl": "DeepL",
+  "epds_section_title": "EPDS-Check",
+  "epds_lead": "Wählen Sie die Antwort, die am besten zu Ihrem Gefühl in den letzten 7 Tagen passt.",
+  "epds_lead_en": "Wählen Sie die Antwort, die am besten zu Ihrem Gefühl in den letzten 7 Tagen passt.",
+  "epds_question_prefix": "Frage",
+  "epds_score_label": "Gesamtpunktzahl",
+  "epds_result_note": "Sie können senden, nachdem alle 10 Punkte beantwortet sind.",
+  "epds_ready_note": "Prüfen Sie die Antworten und senden Sie sie.",
+  "epds_alert_q10": "Wenn die letzte Frage zutrifft, informieren Sie bitte rasch das medizinische Personal.",
+  "epds_submit": "Ergebnis speichern",
+  "epds_submitting": "Speichern...",
+  "epds_reset": "Antworten zurücksetzen",
+  "epds_incomplete": "Es gibt unbeantwortete Punkte.",
+  "epds_saved": "EPDS-Ergebnis wurde gespeichert.",
+  "epds_save_failed": "Speichern fehlgeschlagen. Bitte Verbindung prüfen.",
+  "scroll_top_aria": "Zurück nach oben",
+  "loading_data": "Daten werden geladen...",
+  "loading_empty": "In dieser Kategorie gibt es keine anzuzeigenden Gespräche.",
+  "enter_japanese": "Bitte geben Sie japanischen Text ein.",
+  "enter_selected_language": "Bitte geben Sie Text in der ausgewählten Sprache ein.",
+  "translating": "Übersetzen...",
+  "translate_empty": "(Kein Übersetzungsergebnis)",
+  "translate_failed": "Übersetzung fehlgeschlagen. Bitte Verbindung prüfen.",
+  "speech_not_supported": "Dieser Browser unterstützt keine Sprachsynthese.",
+  "input_label": "Eingabe: {{label}}",
+  "output_label": "Ergebnis: {{label}}",
+  "input_placeholder": "{{label}} eingeben",
+  "direction_ja_to": "Japanisch → {{label}}",
+  "direction_to_ja": "{{label}} → Japanisch",
+  "selected_language": "Ausgewählte Sprache",
   "boardData": [
+    {
+      "type": "Gutscheine",
+      "type2": "",
+      "category": "Heute verwenden wir den Gutschein aus dem Mutter-Kind-Pass",
+      "data1": "Gebärmutterhalskrebsuntersuchung",
+      "data2": "Bluttest",
+      "data3": "Ultraschalluntersuchung",
+      "data4": "Untersuchung",
+      "data5": "Gesundheitsberatung",
+      "data6": "Sonstiges",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Anamnese",
+      "type2": "Befinden",
+      "category": "Wie fühlen Sie sich?",
+      "data1": "Keine Veränderung",
+      "data2": "Ich habe Kopfschmerzen",
+      "data3": "Mir ist übel",
+      "data4": "Ich kann nicht schlafen",
+      "data5": "Ich habe Schwellungen",
+      "data6": "Ich bin müde",
+      "data7": "Ich habe Verstopfung",
+      "data8": "Es juckt",
+      "data9": "Sonstiges",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
     {
       "type": "Anamnese (Zustand)",
       "type2": "",
@@ -56,12 +122,142 @@
       "data21": ""
     },
     {
-      "type": "Anamnese (Zustand)",
+      "type": "Apotheke (Salben)",
       "type2": "",
       "category": "Seit wann?",
-      "data1": "counter_kara",
+      "data1": "Gerade eben",
+      "data2": "Vor 3 Stunden",
+      "data3": "Vor 6 Stunden",
+      "data4": "Vor 9 Stunden",
+      "data5": "Vor einem halben Tag",
+      "data6": "Seit gestern",
+      "data7": "Seit vorgestern",
+      "data8": "Schon länger",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Hebammeninterview",
+      "type2": "Zustand",
+      "category": "Können Sie essen?",
+      "data1": "Ich esse 3 Mahlzeiten",
+      "data2": "Ich esse 2 Mahlzeiten",
+      "data3": "Ich esse 1 Mahlzeit",
+      "data4": "Ich kann nicht essen",
+      "data5": "Ich trinke Flüssigkeit",
+      "data6": "Ich esse Zwischenmahlzeiten",
+      "data7": "Sonstiges",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Hebammeninterview",
+      "type2": "Zustand",
+      "category": "Können Sie gut schlafen?",
+      "data1": "Ja",
+      "data2": "Ich wache manchmal auf",
+      "data3": "Ich wache häufig auf",
+      "data4": "Ich kann kaum schlafen",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Hebammeninterview",
+      "type2": "Erklärung (Anleitung)",
+      "category": "Dies ist eine wichtige Erklärung für Sie. Bitte lesen Sie das Heft.",
+      "data1": "Schwangerschaftshypertonie(zur Unterstützungsreihe für Mutter und Baby)||https://rasc.jp/wp-content/uploads/german04.pdf",
+      "data2": "Schwangerschaftsdiabetes(zur Unterstützungsreihe für Mutter und Baby)||https://rasc.jp/wp-content/uploads/german05.pdf",
+      "data3": "Drohende Fehlgeburt(zur Unterstützungsreihe für Mutter und Baby)||https://rasc.jp/wp-content/uploads/german06.pdf",
+      "data4": "Drohende Frühgeburt(zur Unterstützungsreihe für Mutter und Baby)||https://rasc.jp/wp-content/uploads/german06.pdf",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Hebammeninterview",
+      "type2": "Erklärung (Geburtsplan)",
+      "category": "Wenn Sie Wünsche für die Geburt haben, überlegen Sie diese bitte.",
+      "data1": "Geburtsplan(zur Unterstützungsreihe für Mutter und Baby)||https://rasc.jp/wp-content/uploads/german09.pdf",
       "data2": "",
       "data3": "",
+      "data4": "",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Hebammeninterview",
+      "type2": "Erklärung (Geburt)",
+      "category": "Dies ist eine Erklärung zur Geburt. Bitte lesen Sie das Heft.",
+      "data1": "Vorbereitung der Aufnahmeartikel(zur Unterstützungsreihe für Mutter und Baby)||https://rasc.jp/wp-content/uploads/german02.pdf",
+      "data2": "Kaiserschnitt(zur Unterstützungsreihe für Mutter und Baby)||https://rasc.jp/wp-content/uploads/german03.pdf",
+      "data3": "Wehenförderndes Medikament(zur Unterstützungsreihe für Mutter und Baby)||https://rasc.jp/wp-content/uploads/german08.pdf",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -264,15 +460,41 @@
       "data21": ""
     },
     {
-      "type": "Gutscheine",
+      "type": "Rezept",
       "type2": "",
-      "category": "Heute verwenden wir den Gutschein aus dem Mutter-Kind-Pass",
-      "data1": "Gebärmutterhalskrebsuntersuchung",
-      "data2": "Bluttest",
-      "data3": "Ultraschalluntersuchung",
-      "data4": "Untersuchung",
-      "data5": "Gesundheitsberatung",
-      "data6": "Sonstiges",
+      "category": "Wir verschreiben ein orales Medikament",
+      "data1": "Zur Senkung des Blutdrucks",
+      "data2": "Zur Linderung von Wehen",
+      "data3": "Zur Erhöhung des Eisenspiegels",
+      "data4": "Zur Behandlung von Verstopfung",
+      "data5": "Zur Behandlung von Magensymptomen",
+      "data6": "Zur Behandlung von Erkältungen",
+      "data7": "Zur Behandlung von Entzündungen",
+      "data8": "Sonstiges",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Anamnese",
+      "type2": "Termin",
+      "category": "Zum naechsten Untersuchungstermin",
+      "data1": "next_kenshin",
+      "data2": "",
+      "data3": "",
+      "data4": "",
+      "data5": "",
+      "data6": "",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -290,17 +512,121 @@
       "data21": ""
     },
     {
-      "type": "Rezept",
+      "type": "Apotheke (orale Medikamente)",
       "type2": "",
-      "category": "Wir verschreiben ein orales Medikament",
-      "data1": "Zur Senkung des Blutdrucks",
-      "data2": "Zur Linderung von Wehen",
-      "data3": "Zur Erhöhung des Eisenspiegels",
-      "data4": "Zur Behandlung von Verstopfung",
-      "data5": "Zur Behandlung von Magensymptomen",
-      "data6": "Zur Behandlung von Erkältungen",
-      "data7": "Zur Behandlung von Entzündungen",
-      "data8": "Sonstiges",
+      "category": "Orale Medikamente",
+      "data1": "Pulver",
+      "data2": "Tabletten",
+      "data3": "Flüssigkeit",
+      "data4": "Salbe",
+      "data5": "Vaginaltablette",
+      "data6": "Zäpfchen",
+      "data7": "Gurgellösung",
+      "data8": "Salbe",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "薬",
+      "type2": "内服薬",
+      "category": "薬を使うとき",
+      "data1": "朝",
+      "data2": "昼",
+      "data3": "夜",
+      "data4": "寝る前",
+      "data5": "食前",
+      "data6": "食中",
+      "data7": "食後",
+      "data8": "痛い時",
+      "data9": "痒い時",
+      "data10": "おりものが多い時",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Apotheke (orale Medikamente)",
+      "type2": "",
+      "category": "Einnahmehäufigkeit (Maximum)",
+      "data1": "Abstand von 4 Stunden",
+      "data2": "Abstand von 6 Stunden",
+      "data3": "Max. 2 Tabletten pro Tag",
+      "data4": "Max. 3 Tabletten pro Tag",
+      "data5": "Max. 4 Tabletten pro Tag",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Apotheke (Salben)",
+      "type2": "",
+      "category": "Anwendungsbereich",
+      "data1": "Gesicht",
+      "data2": "Beine",
+      "data3": "Bauch",
+      "data4": "Rücken",
+      "data5": "Gesäß",
+      "data6": "Vagina",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "検査・診察",
+      "type2": "補助券",
+      "category": "今日は母子手帳の補助券を使います",
+      "data1": "子宮頸がんの検査",
+      "data2": "血液検査",
+      "data3": "超音波検査",
+      "data4": "診察",
+      "data5": "保健指導",
+      "data6": "その他",
+      "data7": "",
+      "data8": "",
       "data9": "",
       "data10": "",
       "data11": "",
@@ -472,35 +798,6 @@
       "data21": ""
     },
     {
-      "type": "Anamnese",
-      "type2": "Termin",
-      "category": "Zum naechsten Untersuchungstermin",
-      "data1": "next_kenshin",
-      "data2": "",
-      "data3": "",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": "",
-      "null": [
-        ""
-      ]
-    },
-    {
       "type": "Nach der inneren Untersuchung",
       "type2": "",
       "category": "Die Untersuchung ist beendet. Der Stuhl fährt herunter.",
@@ -605,246 +902,12 @@
       "data21": ""
     },
     {
-      "type": "Apotheke (orale Medikamente)",
-      "type2": "",
-      "category": "Orale Medikamente",
-      "data1": "Pulver",
-      "data2": "Tabletten",
-      "data3": "Flüssigkeit",
-      "data4": "Salbe",
-      "data5": "Vaginaltablette",
-      "data6": "Zäpfchen",
-      "data7": "Gurgellösung",
-      "data8": "Salbe",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Apotheke (orale Medikamente)",
-      "type2": "",
-      "category": "Einnahmehäufigkeit",
-      "data1": "Morgens",
-      "data2": "Mittags",
-      "data3": "Abends",
-      "data4": "Vor dem Essen",
-      "data5": "Während des Essens",
-      "data6": "Nach dem Essen",
-      "data7": "Bei Schmerzen",
-      "data8": "Bei Juckreiz",
-      "data9": "Bei vermehrtem Ausfluss",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Apotheke (orale Medikamente)",
-      "type2": "",
-      "category": "Einnahmehäufigkeit (Maximum)",
-      "data1": "Abstand von 4 Stunden",
-      "data2": "Abstand von 6 Stunden",
-      "data3": "Max. 2 Tabletten pro Tag",
-      "data4": "Max. 3 Tabletten pro Tag",
-      "data5": "Max. 4 Tabletten pro Tag",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Apotheke (Salben)",
-      "type2": "",
-      "category": "Anwendungsbereich",
-      "data1": "Gesicht",
-      "data2": "Beine",
-      "data3": "Bauch",
-      "data4": "Rücken",
-      "data5": "Gesäß",
-      "data6": "Vagina",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Apotheke (Salben)",
-      "type2": "",
-      "category": "Seit wann?",
-      "data1": "Gerade eben",
-      "data2": "Vor 3 Stunden",
-      "data3": "Vor 6 Stunden",
-      "data4": "Vor 9 Stunden",
-      "data5": "Vor einem halben Tag",
-      "data6": "Seit gestern",
-      "data7": "Seit vorgestern",
-      "data8": "Schon länger",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Hebammeninterview",
-      "type2": "Zustand",
-      "category": "Können Sie essen?",
-      "data1": "Ich esse 3 Mahlzeiten",
-      "data2": "Ich esse 2 Mahlzeiten",
-      "data3": "Ich esse 1 Mahlzeit",
-      "data4": "Ich kann nicht essen",
-      "data5": "Ich trinke Flüssigkeit",
-      "data6": "Ich esse Zwischenmahlzeiten",
-      "data7": "Sonstiges",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Hebammeninterview",
-      "type2": "Zustand",
-      "category": "Können Sie gut schlafen?",
-      "data1": "Ja",
-      "data2": "Ich wache manchmal auf",
-      "data3": "Ich wache häufig auf",
-      "data4": "Ich kann kaum schlafen",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Hebammeninterview",
-      "type2": "Erklärung (Anleitung)",
-      "category": "Dies ist eine wichtige Erklärung für Sie. Bitte lesen Sie das Heft.",
-      "data1": "Schwangerschaftshypertonie(zur Unterstützungsreihe für Mutter und Baby)||https://rasc.jp/wp-content/uploads/german04.pdf",
-      "data2": "Schwangerschaftsdiabetes(zur Unterstützungsreihe für Mutter und Baby)||https://rasc.jp/wp-content/uploads/german05.pdf",
-      "data3": "Drohende Fehlgeburt(zur Unterstützungsreihe für Mutter und Baby)||https://rasc.jp/wp-content/uploads/german06.pdf",
-      "data4": "Drohende Frühgeburt(zur Unterstützungsreihe für Mutter und Baby)||https://rasc.jp/wp-content/uploads/german06.pdf",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Hebammeninterview",
-      "type2": "Erklärung (Geburtsplan)",
-      "category": "Wenn Sie Wünsche für die Geburt haben, überlegen Sie diese bitte.",
-      "data1": "Geburtsplan(zur Unterstützungsreihe für Mutter und Baby)||https://rasc.jp/wp-content/uploads/german09.pdf",
+      "type": "EPDS",
+      "type2": "Edinburgh-Postnatal-Depressionsskala",
+      "category": "Bitte markieren Sie die zutreffenden Punkte.",
+      "data1": "",
       "data2": "",
       "data3": "",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Hebammeninterview",
-      "type2": "Erklärung (Geburt)",
-      "category": "Dies ist eine Erklärung zur Geburt. Bitte lesen Sie das Heft.",
-      "data1": "Vorbereitung der Aufnahmeartikel(zur Unterstützungsreihe für Mutter und Baby)||https://rasc.jp/wp-content/uploads/german02.pdf",
-      "data2": "Kaiserschnitt(zur Unterstützungsreihe für Mutter und Baby)||https://rasc.jp/wp-content/uploads/german03.pdf",
-      "data3": "Wehenförderndes Medikament(zur Unterstützungsreihe für Mutter und Baby)||https://rasc.jp/wp-content/uploads/german08.pdf",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -891,12 +954,12 @@
       "data21": "Liste der Verantwortlichen||https://rasc.jp/wp-content/uploads/german99.pdf"
     },
     {
-      "type": "Health Guidance",
-      "type2": "Diet and Nutrition",
-      "category": "Please try to eat three meals a day",
-      "data1": "Please eat three meals a day",
-      "data2": "Even if you eat two meals, please eat small amounts",
-      "data3": "Please eat whatever you can in small amounts",
+      "type": "Gesundheitsberatung",
+      "type2": "Ernährung",
+      "category": "Achten Sie auf drei Mahlzeiten am Tag",
+      "data1": "Essen Sie drei Mahlzeiten",
+      "data2": "Auch bei zwei Mahlzeiten essen Sie kleine Mengen",
+      "data3": "Essen Sie nach und nach, was Sie essen können",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -917,15 +980,15 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Diet and Nutrition",
-      "category": "Please pay attention to hydration and balanced nutrition",
-      "data1": "Please drink enough fluids",
-      "data2": "Please avoid sugary drinks",
-      "data3": "Please avoid too much caffeine",
-      "data4": "Please eat vegetables",
-      "data5": "Please eat enough protein",
-      "data6": "Please reduce salt intake",
+      "type": "Gesundheitsberatung",
+      "type2": "Ernährung",
+      "category": "Achten Sie auf Flüssigkeit und ausgewogene Ernährung",
+      "data1": "Trinken Sie ausreichend",
+      "data2": "Vermeiden Sie süße Getränke",
+      "data3": "Nehmen Sie nicht zu viel Koffein zu sich",
+      "data4": "Essen Sie Gemüse",
+      "data5": "Nehmen Sie Eiweiß zu sich",
+      "data6": "Reduzieren Sie Salz",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -943,14 +1006,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Weight Management",
-      "category": "We will explain weight management",
-      "data1": "Your weight gain is on track",
-      "data2": "Your weight gain is low",
-      "data3": "Your weight gain is high",
-      "data4": "Please measure at the same time every day",
-      "data5": "Please contact us if your weight increases suddenly",
+      "type": "Gesundheitsberatung",
+      "type2": "Gewichtskontrolle",
+      "category": "Wir erklären die Gewichtskontrolle",
+      "data1": "Die Gewichtszunahme ist gut",
+      "data2": "Die Gewichtszunahme ist gering",
+      "data3": "Die Gewichtszunahme ist hoch",
+      "data4": "Messen Sie täglich zur gleichen Zeit",
+      "data5": "Bitte melden Sie sich bei plötzlicher Zunahme",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -969,14 +1032,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Blood Pressure and Swelling",
-      "category": "We will explain blood pressure and swelling",
-      "data1": "Your blood pressure is stable",
-      "data2": "Your blood pressure is a little high",
-      "data3": "Please measure your blood pressure at home too",
-      "data4": "Please reduce salt intake",
-      "data5": "Please contact us if you have swelling or headaches",
+      "type": "Gesundheitsberatung",
+      "type2": "Blutdruck und Schwellung",
+      "category": "Wir erklären Blutdruck und Schwellung",
+      "data1": "Der Blutdruck ist stabil",
+      "data2": "Der Blutdruck ist etwas hoch",
+      "data3": "Messen Sie den Blutdruck auch zu Hause",
+      "data4": "Reduzieren Sie Salz",
+      "data5": "Melden Sie sich bei Schwellung oder Kopfschmerzen",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -995,15 +1058,15 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Blood Sugar Management",
-      "category": "We will explain blood sugar management",
-      "data1": "Your blood sugar is stable",
-      "data2": "Your blood sugar is a little high",
-      "data3": "Please pay attention to your meals",
-      "data4": "Please avoid sweets",
-      "data5": "Please divide meals into smaller portions",
-      "data6": "Please record your blood sugar",
+      "type": "Gesundheitsberatung",
+      "type2": "Blutzuckerkontrolle",
+      "category": "Wir erklären den Blutzucker",
+      "data1": "Der Blutzucker ist stabil",
+      "data2": "Der Blutzucker ist etwas hoch",
+      "data3": "Achten Sie auf die Mahlzeiten",
+      "data4": "Vermeiden Sie Süßes",
+      "data5": "Essen Sie in kleineren Portionen",
+      "data6": "Notieren Sie den Blutzucker",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -1021,14 +1084,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Anemia",
-      "category": "We will explain anemia",
-      "data1": "You do not have anemia",
-      "data2": "You have anemia",
-      "data3": "Please take more iron",
-      "data4": "Please take your iron medicine",
-      "data5": "We will check again with the next blood test",
+      "type": "Gesundheitsberatung",
+      "type2": "Anämie",
+      "category": "Wir erklären Anämie",
+      "data1": "Es liegt keine Anämie vor",
+      "data2": "Es liegt Anämie vor",
+      "data3": "Nehmen Sie mehr Eisen zu sich",
+      "data4": "Nehmen Sie das Eisenpräparat",
+      "data5": "Wir prüfen es beim nächsten Bluttest",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -1047,14 +1110,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Medicine and Supplements",
-      "category": "We will explain medicines and supplements",
-      "data1": "Please take them as instructed",
-      "data2": "Please do not stop on your own",
-      "data3": "Please ask us if you forget a dose",
-      "data4": "Please ask before taking over-the-counter medicine",
-      "data5": "Please ask about supplements",
+      "type": "Gesundheitsberatung",
+      "type2": "Medikamente und Nahrungsergänzung",
+      "category": "Wir erklären Medikamente und Nahrungsergänzung",
+      "data1": "Nehmen Sie es wie angewiesen ein",
+      "data2": "Setzen Sie es nicht selbst ab",
+      "data3": "Fragen Sie, wenn Sie eine Einnahme vergessen",
+      "data4": "Fragen Sie vor rezeptfreien Medikamenten",
+      "data5": "Fragen Sie wegen Nahrungsergänzung",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -1073,16 +1136,16 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "When to Contact the Hospital",
-      "category": "Please contact the hospital in these situations",
-      "data1": "If you have bleeding",
-      "data2": "If you have strong abdominal pain",
-      "data3": "If abdominal tightening increases",
-      "data4": "If watery fluid comes out",
-      "data5": "If you have a severe headache",
-      "data6": "If the baby moves less than usual",
-      "data7": "If you feel unwell",
+      "type": "Gesundheitsberatung",
+      "type2": "Wann Sie das Krankenhaus kontaktieren sollen",
+      "category": "Kontaktieren Sie das Krankenhaus in diesen Situationen",
+      "data1": "Bei Blutung",
+      "data2": "Bei starken Bauchschmerzen",
+      "data3": "Wenn der Bauch häufiger hart wird",
+      "data4": "Wenn wässrige Flüssigkeit austritt",
+      "data5": "Bei starken Kopfschmerzen",
+      "data6": "Wenn sich das Baby weniger bewegt",
+      "data7": "Wenn Sie sich unwohl fühlen",
       "data8": "",
       "data9": "",
       "data10": "",
@@ -1099,15 +1162,15 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Abdominal Tightening, Bleeding, and Fluid Leakage",
-      "category": "We will explain abdominal tightening, bleeding, and possible rupture of membranes",
-      "data1": "Please rest if abdominal tightening increases",
-      "data2": "Please contact us if tightening continues",
-      "data3": "Please contact us if you have pain",
-      "data4": "Please contact us if you have bleeding",
-      "data5": "Please contact us if watery fluid comes out",
-      "data6": "Please use a pad and observe the situation",
+      "type": "Gesundheitsberatung",
+      "type2": "Harter Bauch, Blutung und Blasensprung",
+      "category": "Wir erklären harten Bauch, Blutung und Blasensprung",
+      "data1": "Ruhen Sie sich aus, wenn es zunimmt",
+      "data2": "Melden Sie sich, wenn es anhält",
+      "data3": "Melden Sie sich bei Schmerzen",
+      "data4": "Melden Sie sich bei Blutung",
+      "data5": "Melden Sie sich, wenn wässrige Flüssigkeit austritt",
+      "data6": "Benutzen Sie eine Binde und beobachten Sie",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -1125,12 +1188,12 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Fetal Movement",
-      "category": "We will explain fetal movement",
-      "data1": "The baby is moving well",
-      "data2": "Please monitor the baby's movement",
-      "data3": "Please contact us if movement is less than usual",
+      "type": "Gesundheitsberatung",
+      "type2": "Kindsbewegungen",
+      "category": "Wir erklären die Bewegungen des Babys",
+      "data1": "Das Baby bewegt sich gut",
+      "data2": "Beobachten Sie die Bewegungen des Babys",
+      "data3": "Melden Sie sich, wenn es weniger als sonst ist",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -1151,13 +1214,13 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Birth Preparation",
-      "category": "Please prepare for childbirth",
-      "data1": "Please prepare for hospitalization",
-      "data2": "Please check what to bring",
-      "data3": "Please confirm how to contact the hospital",
-      "data4": "Please think about your birth plan",
+      "type": "Gesundheitsberatung",
+      "type2": "Geburtsvorbereitung",
+      "category": "Bereiten wir die Geburt vor",
+      "data1": "Bereiten Sie den Krankenhausaufenthalt vor",
+      "data2": "Prüfen Sie Ihre Sachen",
+      "data3": "Prüfen Sie, wie Sie das Krankenhaus kontaktieren",
+      "data4": "Denken Sie über den Geburtsplan nach",
       "data5": "",
       "data6": "",
       "data7": "",
@@ -1175,6 +1238,693 @@
       "data19": "",
       "data20": "",
       "data21": ""
+    }
+  ],
+  "epdsData": {
+    "questions": [
+      {
+        "ja": "Konnten Sie lachen und die lustige Seite der Dinge sehen?",
+        "tr": "Konnten Sie lachen und die lustige Seite der Dinge sehen?",
+        "options": [
+          {
+            "ja": "So wie immer",
+            "tr": "So wie immer",
+            "score": 0
+          },
+          {
+            "ja": "Etwas weniger als früher",
+            "tr": "Etwas weniger als früher",
+            "score": 1
+          },
+          {
+            "ja": "Deutlich weniger als früher",
+            "tr": "Deutlich weniger als früher",
+            "score": 2
+          },
+          {
+            "ja": "Überhaupt nicht",
+            "tr": "Überhaupt nicht",
+            "score": 3
+          }
+        ]
+      },
+      {
+        "ja": "Haben Sie sich mit Freude auf Dinge gefreut?",
+        "tr": "Haben Sie sich mit Freude auf Dinge gefreut?",
+        "options": [
+          {
+            "ja": "So wie immer",
+            "tr": "So wie immer",
+            "score": 0
+          },
+          {
+            "ja": "Etwas weniger als früher",
+            "tr": "Etwas weniger als früher",
+            "score": 1
+          },
+          {
+            "ja": "Deutlich weniger als früher",
+            "tr": "Deutlich weniger als früher",
+            "score": 2
+          },
+          {
+            "ja": "Kaum",
+            "tr": "Kaum",
+            "score": 3
+          }
+        ]
+      },
+      {
+        "ja": "Haben Sie sich unnötig die Schuld gegeben, wenn etwas schiefging?",
+        "tr": "Haben Sie sich unnötig die Schuld gegeben, wenn etwas schiefging?",
+        "options": [
+          {
+            "ja": "Ja, meistens",
+            "tr": "Ja, meistens",
+            "score": 3
+          },
+          {
+            "ja": "Ja, manchmal",
+            "tr": "Ja, manchmal",
+            "score": 2
+          },
+          {
+            "ja": "Nicht sehr oft",
+            "tr": "Nicht sehr oft",
+            "score": 1
+          },
+          {
+            "ja": "Nein, nie",
+            "tr": "Nein, nie",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Waren Sie ohne guten Grund ängstlich oder besorgt?",
+        "tr": "Waren Sie ohne guten Grund ängstlich oder besorgt?",
+        "options": [
+          {
+            "ja": "Nein, gar nicht",
+            "tr": "Nein, gar nicht",
+            "score": 0
+          },
+          {
+            "ja": "Kaum",
+            "tr": "Kaum",
+            "score": 1
+          },
+          {
+            "ja": "Ja, manchmal",
+            "tr": "Ja, manchmal",
+            "score": 2
+          },
+          {
+            "ja": "Ja, sehr oft",
+            "tr": "Ja, sehr oft",
+            "score": 3
+          }
+        ]
+      },
+      {
+        "ja": "Hatten Sie ohne guten Grund Angst oder Panik?",
+        "tr": "Hatten Sie ohne guten Grund Angst oder Panik?",
+        "options": [
+          {
+            "ja": "Ja, ziemlich oft",
+            "tr": "Ja, ziemlich oft",
+            "score": 3
+          },
+          {
+            "ja": "Ja, manchmal",
+            "tr": "Ja, manchmal",
+            "score": 2
+          },
+          {
+            "ja": "Nein, nicht sehr",
+            "tr": "Nein, nicht sehr",
+            "score": 1
+          },
+          {
+            "ja": "Nein, gar nicht",
+            "tr": "Nein, gar nicht",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Wurden Ihnen die Dinge zu viel?",
+        "tr": "Wurden Ihnen die Dinge zu viel?",
+        "options": [
+          {
+            "ja": "Ja, meistens konnte ich nicht damit umgehen",
+            "tr": "Ja, meistens konnte ich nicht damit umgehen",
+            "score": 3
+          },
+          {
+            "ja": "Ja, manchmal kam ich schlechter zurecht als sonst",
+            "tr": "Ja, manchmal kam ich schlechter zurecht als sonst",
+            "score": 2
+          },
+          {
+            "ja": "Nein, meistens kam ich gut zurecht",
+            "tr": "Nein, meistens kam ich gut zurecht",
+            "score": 1
+          },
+          {
+            "ja": "Nein, ich kam so gut zurecht wie immer",
+            "tr": "Nein, ich kam so gut zurecht wie immer",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Waren Sie so unglücklich, dass Sie schlecht schlafen konnten?",
+        "tr": "Waren Sie so unglücklich, dass Sie schlecht schlafen konnten?",
+        "options": [
+          {
+            "ja": "Ja, meistens",
+            "tr": "Ja, meistens",
+            "score": 3
+          },
+          {
+            "ja": "Ja, manchmal",
+            "tr": "Ja, manchmal",
+            "score": 2
+          },
+          {
+            "ja": "Nicht sehr oft",
+            "tr": "Nicht sehr oft",
+            "score": 1
+          },
+          {
+            "ja": "Nein, nie",
+            "tr": "Nein, nie",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Fühlten Sie sich traurig oder elend?",
+        "tr": "Fühlten Sie sich traurig oder elend?",
+        "options": [
+          {
+            "ja": "Ja, meistens",
+            "tr": "Ja, meistens",
+            "score": 3
+          },
+          {
+            "ja": "Ja, ziemlich oft",
+            "tr": "Ja, ziemlich oft",
+            "score": 2
+          },
+          {
+            "ja": "Nicht sehr oft",
+            "tr": "Nicht sehr oft",
+            "score": 1
+          },
+          {
+            "ja": "Nein, gar nicht",
+            "tr": "Nein, gar nicht",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Waren Sie so unglücklich, dass Sie geweint haben?",
+        "tr": "Waren Sie so unglücklich, dass Sie geweint haben?",
+        "options": [
+          {
+            "ja": "Ja, meistens",
+            "tr": "Ja, meistens",
+            "score": 3
+          },
+          {
+            "ja": "Ja, ziemlich oft",
+            "tr": "Ja, ziemlich oft",
+            "score": 2
+          },
+          {
+            "ja": "Nur gelegentlich",
+            "tr": "Nur gelegentlich",
+            "score": 1
+          },
+          {
+            "ja": "Nein, nie",
+            "tr": "Nein, nie",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Haben Sie daran gedacht, sich selbst zu verletzen?",
+        "tr": "Haben Sie daran gedacht, sich selbst zu verletzen?",
+        "options": [
+          {
+            "ja": "Ja, ziemlich oft",
+            "tr": "Ja, ziemlich oft",
+            "score": 3
+          },
+          {
+            "ja": "Manchmal",
+            "tr": "Manchmal",
+            "score": 2
+          },
+          {
+            "ja": "Kaum",
+            "tr": "Kaum",
+            "score": 1
+          },
+          {
+            "ja": "Nie",
+            "tr": "Nie",
+            "score": 0
+          }
+        ]
+      }
+    ]
+  },
+  "specialItems": {
+    "counter_kara": {
+      "titleJa": "いつからですか",
+      "titleTr": "Seit wann?",
+      "options": [
+        {
+          "ja": "__時間前",
+          "tr": "vor __ Stunden"
+        },
+        {
+          "ja": "__日前",
+          "tr": "vor __ Tagen"
+        },
+        {
+          "ja": "__週間前",
+          "tr": "vor __ Wochen"
+        }
+      ]
+    },
+    "counter_kai": {
+      "titleJa": "1日に何回張りますか",
+      "titleTr": "Wie oft pro Tag?",
+      "options": [
+        {
+          "ja": "1〜2回",
+          "tr": "1-2 Mal"
+        },
+        {
+          "ja": "3〜5回",
+          "tr": "3-5 Mal"
+        },
+        {
+          "ja": "6〜10回",
+          "tr": "6-10 Mal"
+        },
+        {
+          "ja": "11回以上",
+          "tr": "11 Mal oder mehr"
+        }
+      ]
+    },
+    "kusurikaisuu": {
+      "titleJa": "1日の使用回数",
+      "titleTr": "Wie oft pro Tag anwenden?",
+      "options": [
+        {
+          "ja": "1日につき__回",
+          "tr": "__ Mal pro Tag"
+        },
+        {
+          "ja": "__時間おき",
+          "tr": "alle __ Stunden"
+        },
+        {
+          "mode": "quantity_unit",
+          "ja": "1回の量",
+          "tr": "Menge pro Einnahme",
+          "units": [
+            {
+              "ja": "錠",
+              "tr": "Tablette(n)"
+            },
+            {
+              "ja": "滴",
+              "tr": "Tropfen"
+            },
+            {
+              "ja": "パック",
+              "tr": "Packung(en)"
+            },
+            {
+              "ja": "単位",
+              "tr": "Einheit(en)"
+            }
+          ]
+        }
+      ]
+    },
+    "next_kenshin": {
+      "titleJa": "次回の予約(検診)について",
+      "titleTr": "Zum naechsten Termin",
+      "options": [
+        {
+          "mode": "appointment_after",
+          "ja": "次は__ヶ月後 __週間後です",
+          "tr": "Der naechste Termin ist in __ Monaten und __ Wochen"
+        },
+        {
+          "mode": "appointment_time",
+          "ja": "__時__分はどうですか",
+          "tr": "Wie waere es um __ Uhr __?"
+        },
+        {
+          "mode": "appointment_weekday",
+          "ja": "がよい日です",
+          "tr": "ist ein guter Tag",
+          "days": [
+            {
+              "ja": "月曜日",
+              "tr": "Montag"
+            },
+            {
+              "ja": "火曜日",
+              "tr": "Dienstag"
+            },
+            {
+              "ja": "水曜日",
+              "tr": "Mittwoch"
+            },
+            {
+              "ja": "木曜日",
+              "tr": "Donnerstag"
+            },
+            {
+              "ja": "金曜日",
+              "tr": "Freitag"
+            },
+            {
+              "ja": "土曜日",
+              "tr": "Samstag"
+            },
+            {
+              "ja": "日曜日",
+              "tr": "Sonntag"
+            }
+          ]
+        },
+        {
+          "mode": "appointment_checklist",
+          "ja": "下の項目を確認してください",
+          "tr": "Bitte kreuzen Sie die folgenden Punkte an",
+          "items": [
+            {
+              "ja": "薬の処方箋を受け取ってください",
+              "tr": "Bitte holen Sie Ihr Rezept ab"
+            },
+            {
+              "ja": "朝ごはんを食べないできてください",
+              "tr": "Bitte kommen Sie ohne Frühstück"
+            },
+            {
+              "ja": "クーポンを使うので持ってきてください",
+              "tr": "Bitte bringen Sie Ihren Coupon mit"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "drugTypeTree": [
+    {
+      "ja": "内服",
+      "tr": "内服",
+      "items": [
+        {
+          "ja": "錠剤",
+          "tr": "錠剤"
+        },
+        {
+          "ja": "カプセル剤",
+          "tr": "カプセル剤"
+        },
+        {
+          "ja": "散剤（粉薬）",
+          "tr": "散剤（粉薬）"
+        },
+        {
+          "ja": "液剤",
+          "tr": "液剤"
+        },
+        {
+          "ja": "ゼリー・ゲル",
+          "tr": "ゼリー・ゲル"
+        },
+        {
+          "ja": "トローチ",
+          "tr": "トローチ"
+        },
+        {
+          "ja": "舌下錠",
+          "tr": "舌下錠"
+        },
+        {
+          "ja": "うがい薬",
+          "tr": "うがい薬"
+        }
+      ]
+    },
+    {
+      "ja": "外用剤",
+      "tr": "外用剤",
+      "items": [
+        {
+          "ja": "軟膏",
+          "tr": "軟膏"
+        },
+        {
+          "ja": "クリーム",
+          "tr": "クリーム"
+        },
+        {
+          "ja": "ローション",
+          "tr": "ローション"
+        },
+        {
+          "ja": "ゲル",
+          "tr": "ゲル"
+        },
+        {
+          "ja": "液剤",
+          "tr": "液剤"
+        },
+        {
+          "ja": "スプレー",
+          "tr": "スプレー"
+        },
+        {
+          "ja": "湿布",
+          "tr": "湿布"
+        },
+        {
+          "ja": "消毒",
+          "tr": "消毒"
+        }
+      ]
+    },
+    {
+      "ja": "吸入剤",
+      "tr": "吸入剤",
+      "items": [
+        {
+          "ja": "吸入液",
+          "tr": "吸入液"
+        }
+      ]
+    },
+    {
+      "ja": "点鼻剤",
+      "tr": "点鼻剤",
+      "items": [
+        {
+          "ja": "点鼻液",
+          "tr": "点鼻液"
+        },
+        {
+          "ja": "点鼻スプレー",
+          "tr": "点鼻スプレー"
+        }
+      ]
+    },
+    {
+      "ja": "点眼",
+      "tr": "点眼",
+      "items": [
+        {
+          "ja": "点眼液",
+          "tr": "点眼液"
+        }
+      ]
+    },
+    {
+      "ja": "直腸・腟など",
+      "tr": "直腸・腟など",
+      "items": [
+        {
+          "ja": "坐薬",
+          "tr": "坐薬"
+        },
+        {
+          "ja": "注腸剤",
+          "tr": "注腸剤"
+        },
+        {
+          "ja": "腟錠",
+          "tr": "腟錠"
+        },
+        {
+          "ja": "腟用クリーム",
+          "tr": "腟用クリーム"
+        },
+        {
+          "ja": "腟用ゲル",
+          "tr": "腟用ゲル"
+        }
+      ]
+    },
+    {
+      "ja": "口腔・咽頭",
+      "tr": "口腔・咽頭",
+      "items": [
+        {
+          "ja": "トローチ",
+          "tr": "トローチ"
+        },
+        {
+          "ja": "含嗽剤",
+          "tr": "含嗽剤"
+        },
+        {
+          "ja": "口腔内フィルム",
+          "tr": "口腔内フィルム"
+        }
+      ]
+    },
+    {
+      "ja": "その他",
+      "tr": "その他",
+      "items": [
+        {
+          "ja": "その他",
+          "tr": "その他"
+        }
+      ]
+    },
+    {
+      "ja": "薬の作用",
+      "tr": "薬の作用",
+      "items": [
+        {
+          "ja": "解熱鎮痛薬",
+          "tr": "解熱鎮痛薬"
+        },
+        {
+          "ja": "抗炎症薬",
+          "tr": "抗炎症薬"
+        },
+        {
+          "ja": "抗菌薬",
+          "tr": "抗菌薬"
+        },
+        {
+          "ja": "抗生剤",
+          "tr": "抗生剤"
+        },
+        {
+          "ja": "抗ウイルス薬",
+          "tr": "抗ウイルス薬"
+        },
+        {
+          "ja": "アレルギー薬（抗ヒスタミン薬など）",
+          "tr": "アレルギー薬（抗ヒスタミン薬など）"
+        },
+        {
+          "ja": "ビタミン剤",
+          "tr": "ビタミン剤"
+        },
+        {
+          "ja": "鉄剤",
+          "tr": "鉄剤"
+        },
+        {
+          "ja": "子宮収縮抑制剤",
+          "tr": "子宮収縮抑制剤"
+        },
+        {
+          "ja": "葉酸",
+          "tr": "葉酸"
+        },
+        {
+          "ja": "漢方薬",
+          "tr": "漢方薬"
+        },
+        {
+          "ja": "制吐剤",
+          "tr": "制吐剤"
+        },
+        {
+          "ja": "下剤・整腸剤",
+          "tr": "下剤・整腸剤"
+        },
+        {
+          "ja": "降圧剤",
+          "tr": "降圧剤"
+        },
+        {
+          "ja": "呼吸器薬（気管支拡張薬、吸入ステロイドなど）",
+          "tr": "呼吸器薬（気管支拡張薬、吸入ステロイドなど）"
+        },
+        {
+          "ja": "抗血栓薬（抗凝固薬、抗血小板薬など）",
+          "tr": "抗血栓薬（抗凝固薬、抗血小板薬など）"
+        },
+        {
+          "ja": "インスリン注射薬",
+          "tr": "インスリン注射薬"
+        },
+        {
+          "ja": "ホルモン薬（甲状腺、性ホルモン、副腎皮質など）",
+          "tr": "ホルモン薬（甲状腺、性ホルモン、副腎皮質など）"
+        },
+        {
+          "ja": "睡眠剤",
+          "tr": "睡眠剤"
+        },
+        {
+          "ja": "抗てんかん薬",
+          "tr": "抗てんかん薬"
+        },
+        {
+          "ja": "ステロイド",
+          "tr": "ステロイド"
+        },
+        {
+          "ja": "抗リウマチ薬",
+          "tr": "抗リウマチ薬"
+        },
+        {
+          "ja": "膠原病薬",
+          "tr": "膠原病薬"
+        }
+      ]
+    },
+    {
+      "ja": "その他",
+      "tr": "その他",
+      "items": [
+        {
+          "ja": "その他",
+          "tr": "その他"
+        }
+      ]
     }
   ]
 }

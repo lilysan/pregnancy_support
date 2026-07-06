@@ -5,15 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>受付コミュニケーションボード</title>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"></script>
     <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
     <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <script src="../common/js/config.js"></script>
     <script src="language.js"></script>
-    <link rel="stylesheet" href="../template/style.css">
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="./style.css">
 
 </head>
 
 <body>
+    <div id="header-container" class="header-wrapper"></div>
+
     <header class="app-header">
         <h1 id="pageTitle" class="h3-sample">受付コミュニケーションボード</h1>
         <p id="pageLead" class="small-sample">受付〜会計までの説明を、言語切替と音声で案内します。</p>
@@ -512,10 +520,12 @@
         let selectedLanguage = "en-US";
         let selectedSection = sections[0].id;
         const selectedOptions = new Set();
+        const currentPage = "reception";
 
         window.addEventListener("load", init);
 
         async function init() {
+            loadCommonHeader();
             setupScrollTopButton();
             setupTranslationAppDialog();
             document.getElementById("languageSettingBtn").addEventListener("click", () => {
@@ -530,6 +540,19 @@
             renderLanguageButtons();
             renderSectionTabs();
             renderCards();
+        }
+
+        function loadCommonHeader() {
+            if (!window.jQuery) return;
+            $("#header-container").load("../common/header.html", function (_responseText, status) {
+                if (status === "error") {
+                    console.error("Failed to load header.html");
+                    return;
+                }
+                $.getScript("../common/js/header2.js").fail(function () {
+                    console.error("Failed to load header2.js");
+                });
+            });
         }
 
         function loadInitialLanguage() {
@@ -560,8 +583,9 @@
         }
 
         function getI18nLanguage(langCode) {
-            if (langCode === "zh") return "zh";
-            if (langCode === "ja" || langCode === "ja-JP") return "ja";
+            const supported = new Set(languageOptions.map(item => item.code));
+            if (langCode === "ja-JP") return "ja";
+            if (supported.has(langCode)) return langCode;
             return "en-US";
         }
 
@@ -654,6 +678,7 @@
         }
 
         function renderLanguageButtons() {
+            syncHeaderLanguageLabel();
             const picker = document.getElementById("languageOptionList");
             picker.innerHTML = "";
             languageOptions.forEach(lang => {
@@ -674,6 +699,35 @@
                 picker.appendChild(btn);
             });
             renderLanguageDialogText();
+        }
+
+        function syncHeaderLanguageLabel() {
+            const currentLanguageLabel = document.getElementById("currentLanguage");
+            if (!currentLanguageLabel) return;
+            const shortLabels = {
+                ja: "やさしい",
+                "en-US": "English",
+                zh: "中文",
+                fr: "Français",
+                ko: "한국어",
+                pr: "Português",
+                tl: "Tagalog",
+                ve: "Tiếng Việt",
+                th: "ภาษาไทย",
+                de: "Deutsch",
+                id: "Indonesia",
+                ru: "Русский",
+                ne: "नेपाली",
+                lo: "ລາວ",
+                uk: "Українська",
+                "fa-AF": "دری",
+                si: "සිංහල",
+                ms: "Melayu",
+                my: "မြန်မာ",
+                bn: "বাংলা",
+                ur: "اردو",
+            };
+            currentLanguageLabel.textContent = shortLabels[selectedLanguage] || "Language";
         }
 
         function renderLanguageDialogText() {

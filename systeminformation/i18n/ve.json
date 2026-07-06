@@ -1,0 +1,129 @@
+{
+  "page_title": "Chế độ và hỗ trợ",
+  "page_lead": "Có thể xem các chế độ liên quan đến thai kỳ, sinh nở và nuôi con theo từng giai đoạn.",
+  "settings": "Cài đặt",
+  "language": "Ngôn ngữ",
+  "close": "Đóng",
+  "intro_title": "Các chế độ chính trong thai kỳ, sinh nở và nuôi con",
+  "intro_copy": "Tìm các chế độ chính theo giai đoạn và nơi nộp đơn. Mở thẻ để xem đối tượng, tóm tắt và căn cứ pháp lý.",
+  "source_note": "Tài liệu tham khảo: Danh sách chế độ chính trong thai kỳ, sinh nở và nuôi con (14/04/2026)",
+  "period_filter": "Giai đoạn",
+  "office_filter": "Nơi nộp đơn",
+  "all_tags": "Tất cả",
+  "result_count": "Hiển thị {{count}} mục",
+  "no_result": "Không có chế độ phù hợp.",
+  "period_kicker": "Giai đoạn",
+  "apply_to": "Nơi nộp đơn",
+  "target": "Đối tượng",
+  "overview": "Tóm tắt",
+  "basis": "Căn cứ / nguồn",
+  "period_pregnancy": "Thai kỳ",
+  "period_childbirth": "Sinh nở",
+  "period_childcare": "Nuôi con",
+  "office_municipal_health": "Chính quyền địa phương (trung tâm y tế, v.v.)",
+  "office_medical": "Cơ sở y tế",
+  "office_workplace": "Nơi làm việc",
+  "office_insurance": "Hiệp hội bảo hiểm y tế, v.v.",
+  "office_hellowork": "Hello Work",
+  "office_pension": "Văn phòng lương hưu, v.v.",
+  "office_municipality": "Chính quyền địa phương",
+  "office_ward_municipality": "Quận / thành phố / thị trấn",
+  "systems": {
+    "maternal_child_handbook": {
+      "title": "Issuance of the Maternal and Child Health Handbook",
+      "target": "Pregnant women",
+      "overview": "Issued when pregnancy is reported. Used to record checkups and vaccinations, and to support pregnancy, childbirth, and child-rearing.",
+      "basis": "Maternal and Child Health Act, Article 16"
+    },
+    "prenatal_checkup_subsidy": {
+      "title": "Public Subsidy for Prenatal Checkups",
+      "target": "Pregnant women",
+      "overview": "Local governments cover part of the cost of prenatal checkups.",
+      "basis": "Maternal and Child Health Act, Article 13"
+    },
+    "maternal_health_leave": {
+      "title": "Leave for Pregnant Women / Maternal Health Management Measures",
+      "target": "Working pregnant and postpartum women",
+      "overview": "Leave for medical visits and rest based on a doctor's instructions. Workers may request staggered hours, shorter hours, and rest periods.",
+      "basis": "Equal Employment Opportunity Act, Articles 12 and 13"
+    },
+    "maternity_leave": {
+      "title": "Prenatal and Postnatal Leave",
+      "target": "Working women",
+      "overview": "Leave from 6 weeks before childbirth (14 weeks for multiple pregnancy) to 8 weeks after childbirth.",
+      "basis": "Labor Standards Act, Article 65"
+    },
+    "childbirth_lump_sum": {
+      "title": "Lump-Sum Childbirth and Childcare Allowance",
+      "target": "Insured persons",
+      "overview": "In principle, 500,000 yen is paid to cover childbirth costs from April 2023.",
+      "basis": "Health Insurance Act, Article 101"
+    },
+    "maternity_allowance": {
+      "title": "Maternity Allowance",
+      "target": "Persons enrolled in social insurance",
+      "overview": "Income support during leave before and after childbirth. If no salary is paid during maternity leave, about two-thirds of the daily wage is provided.",
+      "basis": "Health Insurance Act, Article 102"
+    },
+    "postpartum_care": {
+      "title": "Postpartum Care Services",
+      "target": "Mothers and babies after childbirth",
+      "overview": "Support for mothers and babies through overnight stays, day visits, and home visits.",
+      "basis": "Maternal and Child Health Act, Article 17-2"
+    },
+    "newborn_home_visit": {
+      "title": "Newborn Home Visit Guidance",
+      "target": "Newborns and postpartum mothers",
+      "overview": "Home visits by public health nurses and other professionals.",
+      "basis": "Maternal and Child Health Act, Article 11"
+    },
+    "postnatal_paternity_leave": {
+      "title": "Postnatal Paternity Leave",
+      "target": "Working men",
+      "overview": "Can be taken within 8 weeks after birth for up to 4 weeks, and may be split into two periods.",
+      "basis": "Postnatal Paternity Leave System"
+    },
+    "childcare_leave": {
+      "title": "Childcare Leave",
+      "target": "Working men and women",
+      "overview": "In principle, available until the child turns 1 year old, and in some cases up to 2 years old.",
+      "basis": "Child Care and Family Care Leave Act, Article 5"
+    },
+    "childcare_leave_benefit": {
+      "title": "Childcare Leave Benefit",
+      "target": "Employment insurance beneficiaries",
+      "overview": "Paid from employment insurance to support living expenses during childcare leave and compensate for lost income. The benefit rate is about 67%, then 50%.",
+      "basis": "Employment Insurance Act, Article 61-4"
+    },
+    "social_insurance_exemption": {
+      "title": "Exemption from Social Insurance Premiums",
+      "target": "People taking maternity or childcare leave",
+      "overview": "Health insurance and pension insurance premiums are exempt during the leave period.",
+      "basis": "Health Insurance Act Articles 159 and 160, Employees’ Pension Insurance Act Article 81-2"
+    },
+    "child_allowance": {
+      "title": "Child Allowance",
+      "target": "People raising children",
+      "overview": "Paid to households raising children through completion of junior high school.",
+      "basis": "Child Allowance Act"
+    },
+    "infant_medical_subsidy": {
+      "title": "Medical Expense Subsidy for Infants and Young Children",
+      "target": "Infants and young children",
+      "overview": "Reduces out-of-pocket medical expenses.",
+      "basis": "Municipal systems"
+    },
+    "nursery_certified_center": {
+      "title": "Nursery Schools and Certified Childcare Centers",
+      "target": "Working households and others",
+      "overview": "Provides childcare services.",
+      "basis": "Child and Childcare Support Act"
+    },
+    "child_nursing_leave": {
+      "title": "Child Nursing Leave",
+      "target": "Working parents raising children up to the third grade of elementary school",
+      "overview": "Up to 5 days per year, or 10 days for two or more children, for a child's illness or vaccination.",
+      "basis": "Child Care and Family Care Leave Act, Article 16-2"
+    }
+  }
+}

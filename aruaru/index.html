@@ -1,432 +1,798 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>日本の出産スタンダード</title>
+    <script
+      src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"
+      defer
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+      defer
+    ></script>
+    <script src="https://unpkg.com/i18next@23/i18next.min.js" defer></script>
+    <script
+      src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"
+      defer
+    ></script>
+    <script src="../common/js/config.js" defer></script>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>日本の出産スタンダード</title>
-  <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
-  <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
-  <link rel="stylesheet" href="./style.css">
-</head>
+  <body>
+    <div id="header-container" class="header-wrapper"></div>
 
-<body>
-  <header class="app-header">
-    <h1 id="pageTitle">日本の出産スタンダード</h1>
-    <p id="pageLead">日本で出産するときによくある流れや、病院での一般的な考え方を、見出しと詳細でまとめています。</p>
-  </header>
+    <header class="app-header">
+      <h1 id="pageTitle">日本の出産スタンダード</h1>
+      <p id="pageLead">
+        日本で出産するときによくある流れや、病院での一般的な考え方を、見出しと詳細でまとめています。
+      </p>
+    </header>
 
-  <button type="button" id="languageSettingBtn" class="language-setting-btn">言語設定</button>
-  <div id="languageDialog" class="is-hidden">
-    <div id="languageDialogPanel">
-      <div class="settings-header">
-        <h2 id="languageDialogTitle">設定</h2>
-        <button type="button" id="closeLanguageBtn">閉じる</button>
+    <button type="button" id="languageSettingBtn" class="language-setting-btn">
+      言語設定
+    </button>
+    <div id="languageDialog" class="is-hidden">
+      <div id="languageDialogPanel">
+        <div class="settings-header">
+          <h2 id="languageDialogTitle">設定</h2>
+          <button type="button" id="closeLanguageBtn">閉じる</button>
+        </div>
+        <p id="languageSectionTitle" class="settings-label">言語設定</p>
+        <div id="languageOptionList" class="language-option-list"></div>
       </div>
-      <p id="languageSectionTitle" class="settings-label">言語設定</p>
-      <div id="languageOptionList" class="language-option-list"></div>
     </div>
-  </div>
 
-  <main class="main">
-    <section class="search-panel" aria-label="検索">
-      <div class="search-field">
-        <label for="keywordSearch" id="keywordSearchLabel" class="search-label">フリーワード検索</label>
-        <input id="keywordSearch" class="search-input" type="search" placeholder="質問や答えを入力" autocomplete="off">
-      </div>
-      <div class="tag-search">
-        <p id="tagSearchLabel" class="search-label">タグ検索</p>
-        <div id="tagFilterList" class="tag-filter-list"></div>
-      </div>
-      <p id="searchResultMeta" class="search-result-meta"></p>
-    </section>
-    <section id="qaList" class="qa-list" aria-live="polite"></section>
-  </main>
+    <main class="main">
+      <section class="search-panel" aria-label="検索">
+        <div class="search-field">
+          <label
+            for="keywordSearch"
+            id="keywordSearchLabel"
+            class="search-label"
+            >フリーワード検索</label
+          >
+          <input
+            id="keywordSearch"
+            class="search-input"
+            type="search"
+            placeholder="質問や答えを入力"
+            autocomplete="off"
+          />
+        </div>
+        <div class="tag-search">
+          <p id="tagSearchLabel" class="search-label">時期</p>
+          <div id="tagFilterList" class="tag-filter-list"></div>
+        </div>
+        <p id="searchResultMeta" class="search-result-meta"></p>
+      </section>
+      <section id="qaList" class="qa-list" aria-live="polite"></section>
+    </main>
 
-  <script>
-    const languageOptions = [{ code: 'ja', label: 'やさしい日本語' }, { code: 'en-US', label: '英語編(English)' }, { code: 'zh', label: '中国語編(中文版)' }, { code: 'fr', label: 'フランス語編(French)' }, { code: 'ko', label: '韓国語編(Korean)' }, { code: 'pr', label: 'ポルトガル語編(Portugues)' }, { code: 'tl', label: 'タガログ語編(TAGALOG)' }, { code: 've', label: 'ベトナム語編(Vietnam)' }, { code: 'th', label: 'タイ語編(Thai)' }, { code: 'de', label: 'ドイツ語編(German)' }, { code: 'id', label: 'インドネシア語(Indonesia)' }, { code: 'ru', label: 'ロシア語(Russian)' }, { code: 'ne', label: 'ネパール語(Nepali)' }, { code: 'lo', label: 'ラオス語(Laotian)' }, { code: 'uk', label: 'ウクライナ語(Ukrainian)' }, { code: 'fa-AF', label: 'ダリ語(Dari)' }, { code: 'si', label: 'シンハラ語(Sinhala)' }, { code: 'ms', label: 'マレー語(Malay)' }, { code: 'my', label: 'ミャンマー語(Myanmar)' }, { code: 'bn', label: 'ベンガル語(Bengali)' }, { code: 'ur', label: 'ウルドゥー語(Urdu)' }];
+    <script>
+      const languageOptions = [
+        { code: "ja", label: "やさしい日本語" },
+        { code: "en-US", label: "英語編(English)" },
+        { code: "zh", label: "中国語編(中文版)" },
+        { code: "fr", label: "フランス語編(French)" },
+        { code: "ko", label: "韓国語編(Korean)" },
+        { code: "pr", label: "ポルトガル語編(Portugues)" },
+        { code: "tl", label: "タガログ語編(TAGALOG)" },
+        { code: "ve", label: "ベトナム語編(Vietnam)" },
+        { code: "th", label: "タイ語編(Thai)" },
+        { code: "de", label: "ドイツ語編(German)" },
+        { code: "id", label: "インドネシア語(Indonesia)" },
+        { code: "ru", label: "ロシア語(Russian)" },
+        { code: "ne", label: "ネパール語(Nepali)" },
+        { code: "lo", label: "ラオス語(Laotian)" },
+        { code: "uk", label: "ウクライナ語(Ukrainian)" },
+        { code: "fa-AF", label: "ダリ語(Dari)" },
+        { code: "si", label: "シンハラ語(Sinhala)" },
+        { code: "ms", label: "マレー語(Malay)" },
+        { code: "my", label: "ミャンマー語(Myanmar)" },
+        { code: "bn", label: "ベンガル語(Bengali)" },
+        { code: "ur", label: "ウルドゥー語(Urdu)" },
+      ];
 
-    const STORAGE_KEY = 'aruaruSelectedLanguage';
+      const STORAGE_KEY = "aruaruSelectedLanguage";
+      const currentPage = "aruaru";
 
-    const qaItems = [{
-        tags: ['出産方法'],
-        jaQ: '日本で一般的な分娩方法',
-        enQ: '',
-        jaA: '日本では、経腟分娩がもっとも一般的です。帝王切開や無痛分娩もありますが、病院によって対応のしかたが異なります。',
-        enA: ''
-      }, {
-        tags: ['出産方法', '予約'],
-        jaQ: '無痛分娩を希望するときの確認ポイント',
-        enQ: '',
-        jaA: '無痛分娩を扱っている病院は限られます。また、無痛分娩は事前予約が必要なことが一般的です。希望がある場合は、妊娠初期のうちから病院に確認しましょう。',
-        enA: ''
-      }, {
-        tags: ['健診', '助成'],
-        jaQ: '妊婦健診の回数の目安',
-        enQ: '',
-        jaA: '妊娠がわかったら、できるだけ早めに病院を受診するのが一般的です。妊婦健診は、標準的な受診間隔で考えると妊娠中におおよそ14回受けることが多いですが、妊娠経過や病院の方針によって増減します。',
-        enA: ''
-      }, {
-        tags: ['健診', '助成'],
-        jaQ: 'クーポンで受けられる助成',
-        enQ: '',
-        jaA: '多くの自治体では、妊婦健診の受診票やクーポンがあり、それを使うことで健診費用の一部助成を受けられます。使い方や助成内容は自治体によって異なります。',
-        enA: ''
-      }, {
-        tags: ['病院のルール', '家族'],
-        jaQ: '立ち会い出産の対象者と制限',
-        enQ: '',
-        jaA: '病院によって、立ち会いできる人に制限がかかることがあります。夫・パートナー・家族など、だれが入れるかは病院ごとに異なるため、事前に確認が必要です。',
-        enA: ''
-      }, {
-        tags: ['入院'],
-        jaQ: '入院日数の目安',
-        enQ: '',
-        jaA: '経腟分娩では、初産婦で5日前後、経産婦で3日から5日前後を案内する病院が多いです。ただし、体調や赤ちゃんの状態、病院の方針によって変わります。',
-        enA: ''
-      }, {
-        tags: ['入院', '指導'],
-        jaQ: '入院中に受けることが多い指導',
-        enQ: '',
-        jaA: '入院中には、授乳指導や沐浴指導が行われることが多いです。病院によって内容や回数は異なりますが、退院後の生活に向けた説明を受けるのが一般的です。',
-        enA: ''
-      }, {
-        tags: ['病院のルール'],
-        jaQ: '看護師の役割',
-        enQ: '',
-        jaA: '看護師は、医療や看護を行う専門職です。身の回りのことをすべて代わりにする人ではありません。困ったことは相談できますが、どこまで対応できるかは病院の体制によります。',
-        enA: ''
-      }, {
-        tags: ['病院のルール', '面会'],
-        jaQ: '面会時間と面会人数の制限',
-        enQ: '',
-        jaA: '病院によっては、面会時間や面会できる人数に制限があります。感染対策や病棟の運営方針によって変わるため、事前確認が大切です。',
-        enA: ''
-      }, {
-        tags: ['病院のルール', '写真'],
-        jaQ: '出産時の写真撮影について',
-        enQ: '',
-        jaA: '写真撮影は、看護師が善意で手伝うことはあっても、病院に専属カメラマンがいつもいるとは限りません。撮影の希望がある場合は、病院のルールや立ち会い条件を事前に確認しましょう。',
-        enA: ''
-      }, {
-        tags: ['文化'],
-        jaQ: '臍の緒を持ち帰る文化',
-        enQ: '',
-        jaA: '日本では、赤ちゃんの臍の緒を記念として持ち帰る文化があります。病院から小さな箱に入れて渡されることもありますが、対応は病院ごとに異なります。',
-        enA: ''
-      }, {
-        tags: ['宗教', '食事'],
-        jaQ: '宗教的配慮と食事対応',
-        enQ: '',
-        jaA: '宗教的な配慮や宗教に基づく食事対応は、病院によって対応が分かれます。アレルギー除去食がある病院は多い一方で、宗教上の食事制限まで対応できる病院は限られることがあります。希望がある場合は必ず事前に相談してください。',
-        enA: ''
-      }, {
-        tags: ['入院', '健診'],
-        jaQ: '出産後の入院中の診察と問診',
-        enQ: '',
-        jaA: '出産後は、入院中に毎日回診や診察があることが多いです。そのほか、医師や看護師が問診で体調を確認することがあります。',
-        enA: ''
-      }, {
-        tags: ['文化'],
-        jaQ: '戌の日の腹帯の習慣',
-        enQ: '',
-        jaA: '日本には、安産を願って妊娠5か月ごろの「戌の日」に腹帯を巻く習慣があります。必ずしなければならないものではありませんが、家族行事として大切にする人もいます。',
-        enA: ''
-      }, {
-        tags: ['手続き'],
-        jaQ: '出生届の提出先',
-        enQ: '',
-        jaA: '出生届は、赤ちゃんが生まれた日から14日以内に、市役所・区役所・町村役場へ提出します。病院の中に役所の出張所があるとは限らないため、別に役場へ行く準備をしておきましょう。',
-        enA: ''
-      }, {
-        tags: ['移動'],
-        jaQ: '陣痛時の病院への移動方法',
-        enQ: '',
-        jaA: '病院によっては、陣痛時に自家用車で来ることを勧めない場合があります。陣痛タクシーなどのサービスがある地域もあるため、事前に交通手段を調べておくと安心です。',
-        enA: ''
-      }, {
-        tags: ['入院', '手続き'],
-        jaQ: '入院時の印鑑の扱い',
-        enQ: '',
-        jaA: '入院手続きの際に、印鑑が必要になる病院があります。最近は不要な場合もありますが、持ち物案内を必ず確認しましょう。',
-        enA: ''
-      }, {
-        tags: ['文化'],
-        jaQ: 'お食い初めについて',
-        enQ: '',
-        jaA: 'お食い初めは、生後100日ごろに「一生食べることに困らないように」と願って行うお祝いです。病院で行うものではなく、家庭で行うことが多い行事です。',
-        enA: ''
-      }, {
-        tags: ['産後支援'],
-        jaQ: '新生児訪問',
-        enQ: '',
-        jaA: '新生児訪問とは、赤ちゃんが生まれたあとに、自治体の保健師などが自宅を訪問する仕組みです。赤ちゃんの様子や育児の相談ができます。',
-        enA: ''
-      }, {
-        tags: ['産後支援', '健診'],
-        jaQ: '産後健診と乳児健診',
-        enQ: '',
-        jaA: '産後には、母体の1か月健診のほか、自治体で乳児健診が案内されることがあります。たとえば3〜4か月児健診などが一般的ですが、時期や回数は自治体によって異なります。',
-        enA: ''
-      }, {
-        tags: ['車', '法律'],
-        jaQ: '赤ちゃんを車に乗せるときのルール',
-        enQ: '',
-        jaA: '赤ちゃんを車に乗せるときは、年齢や体格に合ったチャイルドシートを使う必要があります。日本では、6歳未満の子どもにチャイルドシートを使用させることが法律で義務づけられています。',
-        enA: ''
-      }];
+      const qaItems = [
+        {
+          id: "item_01",
+          period: "妊娠期",
+          tags: ["妊娠期"],
+          jaQ: "戌の日の腹帯の習慣",
+          enQ: "",
+          jaA: "日本には、安産祈願に神社でお祈りをしてもらう風習があります。\n妊娠5か月ごろの「戌（いぬ）の日」や、その他の日に神社に行きます。\nまた、「戌（いぬ）」にちなんで腹帯（はらおび）をつける文化があります。犬はたくさん赤ちゃんを産み、お産が軽いと考えられているため、\n「赤ちゃんが元気に生まれますように」「安産になりますように」と願って行います。神社で、犬のマークが入った腹帯をもらう人もいます。\n腹帯は、おなかを支えるために使う人もいます。\n必ずしなければならないものではありませんが、日本の文化として大切にする人もいます。",
+          enA: "",
+          image: {
+            src: "./images/illustration-01.png",
+            alt: "戌の日の腹帯の習慣のイラスト",
+            credit: "Created by AI",
+          },
+        },
+        {
+          id: "item_02",
+          period: "妊娠期",
+          tags: ["妊娠期"],
+          jaQ: "妊婦健診の回数の目安",
+          enQ: "",
+          jaA: "妊娠がわかったら、できるだけ早めに病院やクリニックを受診しましょう。\n病院では、妊娠しているか、赤ちゃんが子宮の中で育っているかなどを確認します。\n妊娠中は、「妊婦健診」を定期的に受けます。妊婦健診は、お母さんと赤ちゃんの健康を確認するための大切な診察です。\n\n日本では、出産までに14回くらい病院へ行くことが多いです。\n病院へ行く回数\n・妊娠23週まで：4週間に1回\n・妊娠24〜35週：2週間に1回\n・妊娠36週から出産まで：1週間に1回\nただし、お母さんや赤ちゃんの体の様子によって、病院へ行く回数が増えることもあります。\n\n妊婦健診では、\n・体重\n・血圧\n・尿の検査\n・赤ちゃんの大きさや元気などを確認します。\n心配なことや、わからないことがあれば、医師や助産師に相談できます。",
+          enA: "",
+        },
+        {
+          id: "item_03",
+          period: "妊娠期",
+          tags: ["妊娠期"],
+          jaQ: "クーポンで受けられる助成",
+          enQ: "",
+          jaA: "多くの自治体では、妊婦健診に使える受診票（クーポン）がもらえます。受診票を使うと、健診のお金の一部をサポートしてもらえます。\nもらえる回数や金額、使い方は、住んでいる地域によって違います。\nくわしくは、市区町村の窓口や病院で確認しましょう。",
+          enA: "",
+        },
+        {
+          id: "item_04",
+          period: "妊娠期",
+          tags: ["妊娠期"],
+          jaQ: "入院のための準備（もちもの）",
+          enQ: "",
+          jaA: "母子健康手帳、保険証、診察券、着がえ、退院のときの赤ちゃんの服などが必要です。\n病院によって必要なものが違います。産後に女性が着る服（パジャマなど）は、病院から借りることできる場合と持参の必要な場合があります。\n病院からもらう持ち物リストを確認しましょう。",
+          enA: "",
+        },
+        {
+          id: "item_05",
+          period: "分娩期",
+          tags: ["分娩期"],
+          jaQ: "日本で一般的な分娩方法",
+          enQ: "",
+          jaA: "日本では、妊婦さんや赤ちゃんの状態、妊娠経過、希望などに応じて、いくつかの分娩方法があります。\n\n1．経腟分娩（けいちつぶんべん）\n赤ちゃんが産道を通って生まれる方法で、日本で最も一般的な分娩方法です。\n・自然分娩：陣痛の流れに合わせて、できるだけ医療的介入を少なくして出産する方法です。\n・無痛分娩：麻酔を使用して陣痛の痛みをやわらげながら出産する方法です。完全に痛みがなくなるとは限りませんが、痛みを軽減できます。日本では対応している施設が限られ、多くの場合は事前予約が必要です。\n・誘発分娩・計画分娩：陣痛誘発あるいは促進剤などを使用し、医学的に陣痛を起こして出産する方法です。母体や赤ちゃんの安全のために行われることがあります。\n\n2．帝王切開（ていおうせっかい）\n手術して赤ちゃんが生まれる方法です。日本では医学的に帝王切開が必要なときに選択されます。本人の希望での帝王切開はできません。\n・予定帝王切開：逆子、双子以上の妊娠、前回が帝王切開のときなど、事前に必要性が分かっている場合に計画して行います。\n・緊急帝王切開：分娩中に母体や赤ちゃんに危険があると判断された場合に行います。\n\n3．その他の分娩方法\n・吸引分娩・鉗子分娩：赤ちゃんが出にくい場合に、器具を使用して出産を助ける方法です。母体や赤ちゃんの安全のために必要時に行われます。\n・水中分娩：水の中で出産する方法です。対応する施設は限られています。\n・フリースタイル分娩：分娩台だけでなく、床に引いたマットの上などで四つんばい、座位などの自由な姿勢で出産する方法です。",
+          enA: "",
+        },
+        {
+          id: "item_06",
+          period: "分娩期",
+          tags: ["分娩期"],
+          jaQ: "無痛分娩を希望するときの確認ポイント",
+          enQ: "",
+          jaA: "無痛分娩を行っている病院は限られており、多くの場合、事前予約が必要です。希望する場合は、妊娠初期から医療スタッフに相談しておきましょう。\nまた、無痛分娩に対応している施設でも、実施日時は病院によって異なります。麻酔医の勤務状況などにより、24時間対応ではなく、夜間や週末は対応できない場合もあるため、事前に確認しておくことが大切です。",
+          enA: "",
+        },
+        {
+          id: "item_07",
+          period: "分娩期",
+          tags: ["分娩期"],
+          jaQ: "立ち会い出産の対象者と制限",
+          enQ: "",
+          jaA: "立ち会い出産とは、出産のときに家族などがそばで一緒に過ごすことです。\n立ち会いできる人は、病院によって違います。\n多くは、パートナーや家族などです。\nしかし、子どもは入れない、人数が決まっている、時間が決まっているなどのルールがある病院もあります。\n\nまた、感染対策などのために、立ち会いができないこともあります。病院によってルールが違うため、事前に確認しておきましょう。",
+          enA: "",
+        },
+        {
+          id: "item_08",
+          period: "分娩期",
+          tags: ["分娩期"],
+          jaQ: "陣痛時の病院への移動方法",
+          enQ: "",
+          jaA: "病院によっては、陣痛が始まったときに、妊婦さんが自分で車を運転して来ないようお願いしていることがあります。\n陣痛が強くなると、痛みで安全に運転できなくなることがあるためです。\n地域によっては、「陣痛タクシー」というサービスもあります。安心して病院へ行けるように、前もって行き方を確認しておきましょう。\nまた、出産の進行は予測がつかないため、公共交通機関の利用は控えるようにしましょう。",
+          enA: "",
+        },
+        {
+          id: "item_09",
+          period: "分娩期",
+          tags: ["分娩期"],
+          jaQ: "出産時の写真撮影について",
+          enQ: "",
+          jaA: "出産のときの写真は、看護師が手伝って撮ってくれることもあります。\n写真や動画の撮影は禁止されている施設もあります。\n希望がある場合は、病院のルールや立ち会い条件を事前に確認しましょう。",
+          enA: "",
+        },
+        {
+          id: "item_10",
+          period: "産後（入院中）",
+          tags: ["産後（入院中）"],
+          jaQ: "入院日数の目安",
+          enQ: "",
+          jaA: "経腟分娩では、初産婦で5日前後、経産婦で3日から5日前後を案内する病院が多いです。帝王切開後の入院期間は平均して 7〜10日程度 が一般的で、経腟分娩より少し長めです。ただし、体調や赤ちゃんの状態、病院の方針によって変わります。、",
+          enA: "",
+        },
+        {
+          id: "item_11",
+          period: "産後（入院中）",
+          tags: ["産後（入院中）"],
+          jaQ: "入院中の部屋の選択とマナー",
+          enQ: "",
+          jaA: "入院中は、大部屋または個室を選ぶことができます。個室は追加料金がかかることがあります。また、希望しても利用できない場合があります。\n日本の病院では、みんながゆっくり休めるように、静かに過ごすことが大切です。大部屋では、小さな声で話しましょう。テレビや動画を見るときはイヤホンを使いましょう。電話で話しをするとき、面会の人が多いときや長く話すときは、面会コーナーを使いましょうう。",
+          enA: "",
+        },
+        {
+          id: "item_12",
+          period: "産後（入院中）",
+          tags: ["産後（入院中）"],
+          jaQ: "入院中に受けることが多い指導",
+          enQ: "",
+          jaA: "入院中は、赤ちゃんへの授乳のしかたや、おふろ（沐浴）の入れ方を教えてもらうことが多いです。\n病院によって内容や回数は違いますが、退院したあと安心して育児ができるように、生活について説明を受けることが一般的です。",
+          enA: "",
+        },
+        {
+          id: "item_13",
+          period: "産後（入院中）",
+          tags: ["産後（入院中）"],
+          jaQ: "看護師の役割",
+          enQ: "",
+          jaA: "看護師は、医療や看護を行う専門職です。身の回りのことをすべて代わりにする人ではありません。困ったことは相談できますが、どこまで対応できるかは病院の体制によります。",
+          enA: "",
+        },
+        {
+          id: "item_14",
+          period: "産後（入院中）",
+          tags: ["産後（入院中）"],
+          jaQ: "面会時間と面会人数の制限",
+          enQ: "",
+          jaA: "病院によって、面会できる時間や人数のルールがあります。\n感染予防などのため、子どもなどの面会は制限がある場合もあります。ルールは病院ごとに違うので、事前に確認しておくことが大切です。",
+          enA: "",
+        },
+        {
+          id: "item_15",
+          period: "産後（入院中）",
+          tags: ["産後（入院中）"],
+          jaQ: "臍の緒を持ち帰る文化",
+          enQ: "",
+          jaA: "日本では、赤ちゃんのへその緒を記念に持ち帰る文化があります。\n病院によっては、小さな箱に入れて渡してくれることもあります。ただし、対応は病院によって違います。",
+          enA: "",
+        },
+        {
+          id: "item_16",
+          period: "産後（入院中）",
+          tags: ["産後（入院中）"],
+          jaQ: "宗教的配慮と食事対応",
+          enQ: "",
+          jaA: "宗教上の理由で食べられないものがある場合、病院によって対応できる内容が違います。\nアレルギー対応の食事を出している病院は多いですが、宗教に合わせた食事には対応できない場合もあります。希望があるときは、事前に病院へ相談しておきましょう。",
+          enA: "",
+        },
+        {
+          id: "item_17",
+          period: "産後（入院中）",
+          tags: ["産後（入院中）"],
+          jaQ: "出産後の入院中の診察と問診",
+          enQ: "",
+          jaA: "出産後は、入院中に毎日回診や診察があることが多いです。そのほか、医師や看護師が問診で体調を確認することがあります。",
+          enA: "",
+        },
+        {
+          id: "item_18",
+          period: "産後（入院中）",
+          tags: ["産後（入院中）"],
+          jaQ: "出生届の提出先",
+          enQ: "",
+          jaA: "出生届は、赤ちゃんが生まれてから14日以内に、市役所や区役所などへ出します。\n病院の中に役所の窓口はありません。そのため、役所へ行く準備をしておきましょう。\n原則として赤ちゃんの父親または母親が出す必要があります。",
+          enA: "",
+        },
+        {
+          id: "item_19",
+          period: "産後（入院中）",
+          tags: ["産後（入院中）"],
+          jaQ: "入院時の印鑑の扱い",
+          enQ: "",
+          jaA: "病院によっては、入院の手続きで印鑑（はんこ）が必要なことがあります。\n最近は、はんこを使用しない病院もあります。\nでも、病院からの持ち物の案内をよく確認しておきましょう。",
+          enA: "",
+        },
+        {
+          id: "item_20",
+          period: "産後（退院後）",
+          tags: ["産後（退院後）"],
+          jaQ: "新生児訪問",
+          enQ: "",
+          jaA: "新生児訪問とは、赤ちゃんが生まれたあとに、自治体の保健師などが家にきてくれるサービスです。\n赤ちゃんの成長や体の様子を確認したり、育児について相談したりできます。",
+          enA: "",
+        },
+        {
+          id: "item_21",
+          period: "産後（退院後）",
+          tags: ["産後（退院後）"],
+          jaQ: "お宮まいりについて",
+          enQ: "",
+          jaA: "赤ちゃんが生まれたことを神社でお祝いする、日本の伝統的な行事です。赤ちゃんが元気に育つように願って、家族で神社へ行きます。\n一般的には、男の子は生後31日ごろ、女の子は生後33日ごろに行うことが多いですが、時期は家庭によって違います。\nお母さんと赤ちゃんの体調を優先して、少し遅れて行く人もいます。\n当日は、赤ちゃんにきれいな服を着せたり、家族で写真をとったりすることがあります。\n神社で「ご祈祷（ごきとう）：赤ちゃんが元気に育つようにお願いするためのおいのり」を受ける家庭もあります。\n必ず行わなければならないものではありません。日本の文化の一つとして行う家庭が多いです。",
+          enA: "",
+          image: {
+            src: "./images/illustration-02.png",
+            alt: "お宮まいりについてのイラスト",
+            credit: "Created by AI",
+          },
+        },
+        {
+          id: "item_22",
+          period: "産後（退院後）",
+          tags: ["産後（退院後）"],
+          jaQ: "お食い初めについて",
+          enQ: "",
+          jaA: "お食い初めは、赤ちゃんが生まれて100日ごろにする、日本の伝統的なお祝いです。\n「これから食べることに困りませんように」という願いをこめて、特別な食事を用意します。\n赤ちゃんは、実際にはまだ食べません。食べるふり（まね）だけをします。病院ではなく、家やレストランなどで行うことが多いです。",
+          enA: "",
+          image: {
+            src: "./images/illustration-03.png",
+            alt: "お食い初めについてのイラスト",
+            credit: "Created by AI",
+          },
+        },
+        {
+          id: "item_23",
+          period: "産後（退院後）",
+          tags: ["産後（退院後）"],
+          jaQ: "産後健診と乳児健診",
+          enQ: "",
+          jaA: "産後は、お母さんの1か月健診があります。病院によっては2週間健診があることもあります。また、赤ちゃんの健診（乳児健診）について、自治体から案内が来ることがあります。\n乳児健診は、成長や健康を確認するために行われます。一般的には、1か月ごろ（病院）、それ以降、3〜4か月ごろ、6〜10か月ごろ、1歳ごろなどに、自治体で行われることが多いです。\nただし、健診の回数や時期は、住んでいる地域によって違います。",
+          enA: "",
+        },
+        {
+          id: "item_24",
+          period: "産後（退院後）",
+          tags: ["産後（退院後）"],
+          jaQ: "赤ちゃんを車に乗せるときのルール",
+          enQ: "",
+          jaA: "赤ちゃんを車に乗せるときは、赤ちゃんの年齢や体の大きさに合ったチャイルドシートを使います。\n日本では、6歳になるまで、チャイルドシートを使うことが法律で決められています。",
+          enA: "",
+        },
+        {
+          id: "item_25",
+          period: "産後（退院後）",
+          tags: ["産後（退院後）"],
+          jaQ: "1歳の赤ちゃんのお祝い事",
+          enQ: "",
+          jaA: "日本では、赤ちゃんが1歳になると「1歳のお祝い」をすることがあります。\n一升餅（いっしょうもち）という、約2kgのおもちを背負います。\n「一生（いっしょう）食べ物に困らないように」という願いが込められています。日本の伝統的な習慣ですが、必ず行うものではありません。家庭によって方法は異なります。",
+          enA: "",
+          image: {
+            src: "./images/illustration-04.jpg",
+            alt: "1歳の赤ちゃんのお祝い事のイラスト",
+            credit: "Created by AI",
+          },
+        },
+      ];
 
-    qaItems.forEach((item, index) => {
-      item.translationIndex = index + 1;
-    });
-
-    const tagTranslationKeys = {
-      '出産方法': 'tag_delivery_method',
-      '予約': 'tag_reservation',
-      '健診': 'tag_checkup',
-      '助成': 'tag_subsidy',
-      '病院のルール': 'tag_hospital_rules',
-      '家族': 'tag_family',
-      '入院': 'tag_hospital_stay',
-      '指導': 'tag_guidance',
-      '面会': 'tag_visits',
-      '写真': 'tag_photos',
-      '文化': 'tag_culture',
-      '宗教': 'tag_religion',
-      '食事': 'tag_food',
-      '手続き': 'tag_procedures',
-      '移動': 'tag_transport',
-      '産後支援': 'tag_postpartum_support',
-      '車': 'tag_car',
-      '法律': 'tag_law'
-    };
-
-    let selectedLanguage = 'en-US';
-    let selectedTag = 'all';
-    let keyword = '';
-
-    window.addEventListener('load', init);
-
-    async function init() {
-      document.getElementById('languageSettingBtn').addEventListener('click', openLanguageDialog);
-      document.getElementById('closeLanguageBtn').addEventListener('click', closeLanguageDialog);
-      document.getElementById('languageDialog').addEventListener('click', (event) => {
-        if (event.target.id === 'languageDialog') closeLanguageDialog();
+      qaItems.forEach((item, index) => {
+        item.translationIndex = index + 1;
       });
-      document.getElementById('keywordSearch').addEventListener('input', (event) => {
-        keyword = String(event.target.value || '').trim().toLowerCase();
+
+      const periodOrder = [
+        "妊娠期",
+        "分娩期",
+        "産後（入院中）",
+        "産後（退院後）",
+      ];
+      const tagTranslationKeys = {
+        妊娠期: "period_pregnancy",
+        分娩期: "period_childbirth",
+        "産後（入院中）": "period_postpartum_hospital",
+        "産後（退院後）": "period_postpartum_home",
+      };
+
+      let selectedLanguage = "en-US";
+      let selectedTag = "all";
+      let keyword = "";
+      let languageChangeToken = 0;
+      let i18nWarmStarted = false;
+
+      window.addEventListener("DOMContentLoaded", init);
+
+      async function init() {
+        loadCommonHeader();
+        document
+          .getElementById("languageSettingBtn")
+          .addEventListener("click", openLanguageDialog);
+        document
+          .getElementById("closeLanguageBtn")
+          .addEventListener("click", closeLanguageDialog);
+        document
+          .getElementById("languageDialog")
+          .addEventListener("click", (event) => {
+            if (event.target.id === "languageDialog") closeLanguageDialog();
+          });
+        document
+          .getElementById("keywordSearch")
+          .addEventListener("input", (event) => {
+            keyword = String(event.target.value || "")
+              .trim()
+              .toLowerCase();
+            renderQaList();
+          });
+        selectedLanguage = loadInitialLanguage();
+        renderLanguageButtons();
+        applyI18n();
+        renderTagFilters();
         renderQaList();
-      });
-      selectedLanguage = loadInitialLanguage();
-      await initI18n(selectedLanguage);
-      renderLanguageButtons();
-      applyI18n();
-      renderTagFilters();
-      renderQaList();
-    }
-
-    function openLanguageDialog() {
-      const dialog = document.getElementById('languageDialog');
-      dialog.classList.remove('is-hidden');
-      dialog.style.display = 'block';
-    }
-
-    function closeLanguageDialog() {
-      const dialog = document.getElementById('languageDialog');
-      dialog.classList.add('is-hidden');
-      dialog.style.display = 'none';
-    }
-
-    function loadInitialLanguage() {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved && languageOptions.some((lang) => lang.code === saved)) return saved;
-      return detectInitialLanguage();
-    }
-
-    function detectInitialLanguage() {
-      const raw = String(navigator.language || 'en-US').toLowerCase();
-      if (raw.startsWith('ja')) return 'ja';
-      if (raw.startsWith('zh')) return 'zh';
-      if (raw.startsWith('fr')) return 'fr';
-      if (raw.startsWith('ko')) return 'ko';
-      if (raw.startsWith('pt')) return 'pr';
-      if (raw.startsWith('tl') || raw.startsWith('fil')) return 'tl';
-      if (raw.startsWith('vi')) return 've';
-      if (raw.startsWith('th')) return 'th';
-      if (raw.startsWith('de')) return 'de';
-      if (raw.startsWith('id')) return 'id';
-      if (raw.startsWith('ru')) return 'ru';
-      if (raw.startsWith('ne')) return 'ne';
-      if (raw.startsWith('lo')) return 'lo';
-      if (raw.startsWith('uk')) return 'uk';
-      if (raw.startsWith('fa')) return 'fa-AF';
-      if (raw.startsWith('si')) return 'si';
-      if (raw.startsWith('ms')) return 'ms';
-      if (raw.startsWith('my')) return 'my';
-      if (raw.startsWith('bn')) return 'bn';
-      if (raw.startsWith('ur')) return 'ur';
-      return 'en-US';
-    }
-
-    function getI18nLanguage(langCode) {
-      if (langCode === 'zh') return 'zh';
-      if (langCode === 'ja') return 'ja';
-      return 'en-US';
-    }
-
-    async function initI18n(langCode) {
-      if (!window.i18next) return;
-      const target = getI18nLanguage(langCode);
-      if (!i18next.isInitialized) {
-        await i18next.use(i18nextHttpBackend).init({
-          lng: target,
-          fallbackLng: 'en-US',
-          backend: {
-            loadPath: './i18n/{{lng}}.json'
+        window.requestAnimationFrame(async () => {
+          try {
+            await initI18n(selectedLanguage);
+            renderLanguageButtons();
+            applyI18n();
+            renderTagFilters();
+            renderQaList();
+            warmI18nLanguages();
+          } catch (error) {
+            console.error("Failed to initialize aruaru i18n", error);
           }
         });
-        return;
       }
-      await i18next.changeLanguage(target);
-    }
 
-    function tr(key, fallback, options) {
-      if (!window.i18next || !i18next.isInitialized) return fallback || '';
-      const value = i18next.t(key, options || {});
-      return value === key ? (fallback || '') : value;
-    }
+      function loadCommonHeader() {
+        if (!window.jQuery) return;
+        $("#header-container").load(
+          "../common/header.html",
+          function (_responseText, status) {
+            if (status === "error") {
+              console.error("Failed to load header.html");
+              return;
+            }
+            $.getScript("../common/js/header2.js").fail(function () {
+              console.error("Failed to load header2.js");
+            });
+          },
+        );
+      }
 
-    function renderLanguageButtons() {
-      const list = document.getElementById('languageOptionList');
-      list.innerHTML = '';
-      languageOptions.forEach((lang) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'language-option-btn' + (selectedLanguage === lang.code ? ' active' : '');
-        btn.textContent = lang.label;
-        btn.addEventListener('click', async () => {
-          selectedLanguage = lang.code;
-          localStorage.setItem(STORAGE_KEY, selectedLanguage);
-          await initI18n(selectedLanguage);
-          closeLanguageDialog();
-          renderLanguageButtons();
-          applyI18n();
-          renderTagFilters();
-          renderQaList();
+      function openLanguageDialog() {
+        const dialog = document.getElementById("languageDialog");
+        dialog.classList.remove("is-hidden");
+        dialog.style.display = "block";
+      }
+
+      function closeLanguageDialog() {
+        const dialog = document.getElementById("languageDialog");
+        dialog.classList.add("is-hidden");
+        dialog.style.display = "none";
+      }
+
+      function loadInitialLanguage() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved && languageOptions.some((lang) => lang.code === saved))
+          return saved;
+        return detectInitialLanguage();
+      }
+
+      function detectInitialLanguage() {
+        const raw = String(navigator.language || "en-US").toLowerCase();
+        if (raw.startsWith("ja")) return "ja";
+        if (raw.startsWith("zh")) return "zh";
+        if (raw.startsWith("fr")) return "fr";
+        if (raw.startsWith("ko")) return "ko";
+        if (raw.startsWith("pt")) return "pr";
+        if (raw.startsWith("tl") || raw.startsWith("fil")) return "tl";
+        if (raw.startsWith("vi")) return "ve";
+        if (raw.startsWith("th")) return "th";
+        if (raw.startsWith("de")) return "de";
+        if (raw.startsWith("id")) return "id";
+        if (raw.startsWith("ru")) return "ru";
+        if (raw.startsWith("ne")) return "ne";
+        if (raw.startsWith("lo")) return "lo";
+        if (raw.startsWith("uk")) return "uk";
+        if (raw.startsWith("fa")) return "fa-AF";
+        if (raw.startsWith("si")) return "si";
+        if (raw.startsWith("ms")) return "ms";
+        if (raw.startsWith("my")) return "my";
+        if (raw.startsWith("bn")) return "bn";
+        if (raw.startsWith("ur")) return "ur";
+        return "en-US";
+      }
+
+      function getI18nLanguage(langCode) {
+        const supported = new Set(languageOptions.map((lang) => lang.code));
+        return supported.has(langCode) ? langCode : "en-US";
+      }
+
+      async function initI18n(langCode) {
+        if (!window.i18next) return;
+        const target = getI18nLanguage(langCode);
+        if (!i18next.isInitialized) {
+          await i18next.use(i18nextHttpBackend).init({
+            lng: target,
+            fallbackLng: "en-US",
+            backend: {
+              loadPath: "./i18n/{{lng}}.json",
+            },
+          });
+          return;
+        }
+        await i18next.changeLanguage(target);
+      }
+
+      function warmI18nLanguages() {
+        if (
+          i18nWarmStarted ||
+          !window.i18next ||
+          !i18next.isInitialized ||
+          typeof i18next.loadLanguages !== "function"
+        ) {
+          return;
+        }
+        i18nWarmStarted = true;
+        const languages = languageOptions.map((lang) => lang.code);
+        const preload = () => {
+          i18next.loadLanguages(languages).catch((error) => {
+            console.error("Failed to preload aruaru i18n files", error);
+          });
+        };
+        if (typeof window.requestIdleCallback === "function") {
+          window.requestIdleCallback(preload, { timeout: 1500 });
+          return;
+        }
+        window.setTimeout(preload, 300);
+      }
+
+      function tr(key, fallback, options) {
+        if (!window.i18next || !i18next.isInitialized) return fallback || "";
+        const value = i18next.t(key, options || {});
+        return value === key ? fallback || "" : value;
+      }
+
+      function renderLanguageButtons() {
+        syncHeaderLanguageLabel();
+        const list = document.getElementById("languageOptionList");
+        list.innerHTML = "";
+        languageOptions.forEach((lang) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className =
+            "language-option-btn" +
+            (selectedLanguage === lang.code ? " active" : "");
+          btn.textContent = lang.label;
+          btn.addEventListener("click", () => {
+            const nextLanguage = lang.code;
+            if (nextLanguage === selectedLanguage) {
+              closeLanguageDialog();
+              return;
+            }
+            const token = ++languageChangeToken;
+            selectedLanguage = nextLanguage;
+            localStorage.setItem(STORAGE_KEY, selectedLanguage);
+            renderLanguageButtons();
+            closeLanguageDialog();
+            window.requestAnimationFrame(async () => {
+              try {
+                await initI18n(nextLanguage);
+                if (token !== languageChangeToken) return;
+                selectedLanguage = nextLanguage;
+                localStorage.setItem(STORAGE_KEY, selectedLanguage);
+                renderLanguageButtons();
+                applyI18n();
+                renderTagFilters();
+                renderQaList();
+                warmI18nLanguages();
+              } catch (error) {
+                console.error("Failed to change aruaru language", error);
+              }
+            });
+          });
+          list.appendChild(btn);
         });
-        list.appendChild(btn);
-      });
-    }
+      }
 
-    function applyI18n() {
-      document.getElementById('pageTitle').textContent = tr('page_title', '日本の出産スタンダード');
-      document.getElementById('pageLead').textContent = tr('page_lead', '日本で出産するときによくある流れや、病院での一般的な考え方を、見出しと詳細でまとめています。');
-      document.getElementById('languageSettingBtn').textContent = tr('settings', '言語設定');
-      document.getElementById('languageDialogTitle').textContent = tr('settings', '設定');
-      document.getElementById('languageSectionTitle').textContent = tr('language', '言語設定');
-      document.getElementById('closeLanguageBtn').textContent = tr('close', '閉じる');
-      document.getElementById('keywordSearchLabel').textContent = tr('keyword_search', 'フリーワード検索');
-      document.getElementById('keywordSearch').placeholder = tr('keyword_placeholder', '質問や答えを入力');
-      document.getElementById('tagSearchLabel').textContent = tr('tag_search', 'タグ検索');
-    }
+      function syncHeaderLanguageLabel() {
+        const currentLanguageLabel = document.getElementById("currentLanguage");
+        if (!currentLanguageLabel) return;
+        const shortLabels = {
+          ja: "やさしい",
+          "en-US": "English",
+          zh: "中文",
+          fr: "Français",
+          ko: "한국어",
+          pr: "Português",
+          tl: "Tagalog",
+          ve: "Tiếng Việt",
+          th: "ภาษาไทย",
+          de: "Deutsch",
+          id: "Indonesia",
+          ru: "Русский",
+          ne: "नेपाली",
+          lo: "ລາວ",
+          uk: "Українська",
+          "fa-AF": "دری",
+          si: "සිංහල",
+          ms: "Melayu",
+          my: "မြန်မာ",
+          bn: "বাংলা",
+          ur: "اردو",
+        };
+        currentLanguageLabel.textContent =
+          shortLabels[selectedLanguage] || "Language";
+      }
 
-    function renderTagFilters() {
-      const container = document.getElementById('tagFilterList');
-      const tags = Array.from(new Set(qaItems.flatMap((item) => item.tags || [])));
-      const filters = [{ id: 'all', label: tr('all_tags', 'すべて') }, ...tags.map((tag) => ({ id: tag, label: tag }))];
-      container.innerHTML = '';
-      filters.forEach((tag) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'tag-filter-btn' + (selectedTag === tag.id ? ' active' : '');
-        btn.innerHTML = tag.id === 'all'
-          ? escapeHtml(tag.label)
-          : renderBilingualText(tag.label, translateTag(tag.label));
-        btn.addEventListener('click', () => {
-          selectedTag = tag.id;
-          renderTagFilters();
-          renderQaList();
+      function applyI18n() {
+        document.getElementById("pageTitle").textContent = tr(
+          "page_title",
+          "日本の出産スタンダード",
+        );
+        document.getElementById("pageLead").textContent = tr(
+          "page_lead",
+          "日本で出産するときによくある流れや、病院での一般的な考え方を、見出しと詳細でまとめています。",
+        );
+        document.getElementById("languageSettingBtn").textContent = tr(
+          "settings",
+          "言語設定",
+        );
+        document.getElementById("languageDialogTitle").textContent = tr(
+          "settings",
+          "設定",
+        );
+        document.getElementById("languageSectionTitle").textContent = tr(
+          "language",
+          "言語設定",
+        );
+        document.getElementById("closeLanguageBtn").textContent = tr(
+          "close",
+          "閉じる",
+        );
+        document.getElementById("keywordSearchLabel").textContent = tr(
+          "keyword_search",
+          "フリーワード検索",
+        );
+        document.getElementById("keywordSearch").placeholder = tr(
+          "keyword_placeholder",
+          "質問や答えを入力",
+        );
+        document.getElementById("tagSearchLabel").textContent = tr(
+          "tag_search",
+          "タグ検索",
+        );
+      }
+
+      function renderTagFilters() {
+        const container = document.getElementById("tagFilterList");
+        const periods = periodOrder.filter((period) =>
+          qaItems.some((item) => item.period === period),
+        );
+        const filters = [
+          { id: "all", label: tr("all_tags", "すべて") },
+          ...periods.map((period) => ({ id: period, label: period })),
+        ];
+        container.innerHTML = "";
+        filters.forEach((tag) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className =
+            "tag-filter-btn" + (selectedTag === tag.id ? " active" : "");
+          btn.innerHTML = escapeHtml(
+            tag.id === "all" ? tag.label : translateTag(tag.label),
+          );
+          btn.addEventListener("click", () => {
+            selectedTag = tag.id;
+            renderTagFilters();
+            renderQaList();
+          });
+          container.appendChild(btn);
         });
-        container.appendChild(btn);
-      });
-    }
+      }
 
-    function renderQaList() {
-      const list = document.getElementById('qaList');
-      list.innerHTML = '';
-      const filteredItems = qaItems.filter(matchesFilter);
-      document.getElementById('searchResultMeta').textContent = filteredItems.length ? tr('result_count', `${filteredItems.length}件表示`, {
-        count: filteredItems.length
-      }) : tr('no_result', '該当する項目はありません。');
+      function renderQaList() {
+        const list = document.getElementById("qaList");
+        list.innerHTML = "";
+        const filteredItems = qaItems.filter(matchesFilter);
+        document.getElementById("searchResultMeta").textContent =
+          filteredItems.length
+            ? tr("result_count", `${filteredItems.length}件表示`, {
+                count: filteredItems.length,
+              })
+            : tr("no_result", "該当する項目はありません。");
 
-      filteredItems.forEach((item, index) => {
-        const details = document.createElement('details');
-        details.className = 'qa-card';
-        if (index === 0) details.open = true;
-        const translatedQuestion = getTranslatedQuestion(item);
-        const translatedAnswer = getTranslatedAnswer(item);
+        periodOrder.forEach((period) => {
+          const periodItems = filteredItems.filter(
+            (item) => item.period === period,
+          );
+          if (!periodItems.length) return;
 
-        const summary = document.createElement('summary');
-        summary.className = 'qa-summary';
-        summary.innerHTML = `
-          <p class="qa-ja">${escapeHtml(item.jaQ)}</p>
-          <p class="qa-tr${selectedLanguage === 'ja' || !translatedQuestion ? ' is-hidden' : ''}">${escapeHtml(translatedQuestion)}</p>
-        `;
-
-        const panel = document.createElement('div');
-        panel.className = 'qa-panel';
-        panel.innerHTML = `
-          <div class="answer-block">
-            <p class="answer-ja answer-preline">${escapeHtml(item.jaA)}</p>
-            <p class="answer-tr answer-preline${selectedLanguage === 'ja' || !translatedAnswer ? ' is-hidden' : ''}">${escapeHtml(translatedAnswer)}</p>
+          const section = document.createElement("section");
+          section.className = "period-section";
+          const periodTitle = translateTag(period);
+          section.innerHTML = `
+          <div class="period-header">
+            <p class="period-kicker">${tr("period_kicker", "時期")}</p>
+            <h2 class="period-title">${escapeHtml(periodTitle)}</h2>
           </div>
+          <div class="period-cards"></div>
         `;
+          const cards = section.querySelector(".period-cards");
 
-        details.appendChild(summary);
-        details.appendChild(panel);
-        list.appendChild(details);
-      });
-    }
+          periodItems.forEach((item, index) => {
+            const details = document.createElement("details");
+            details.className = "qa-card";
+            const primaryQuestion = getPrimaryQuestion(item);
+            const primaryAnswer = getPrimaryAnswer(item);
+            const illustration = renderIllustration(item);
 
-    function matchesFilter(item) {
-      const tagMatch = selectedTag === 'all' || (item.tags || []).includes(selectedTag);
-      if (!tagMatch) return false;
-      if (!keyword) return true;
-      const haystack = [item.jaQ, item.enQ, item.jaA, item.enA, ...(item.tags || [])].join(' ').toLowerCase();
-      return haystack.includes(keyword);
-    }
+            const summary = document.createElement("summary");
+            summary.className = "qa-summary";
+            summary.innerHTML = `
+            <p class="qa-ja">${escapeHtml(primaryQuestion)}</p>
+          `;
 
-    function getTranslatedQuestion(item) {
-      if (selectedLanguage === 'ja') return '';
-      return tr(`item_${item.translationIndex}_title`, item.enQ || '');
-    }
+            const panel = document.createElement("div");
+            panel.className = "qa-panel";
+            panel.innerHTML = `
+            <div class="answer-block">
+              <p class="answer-ja answer-preline">${escapeHtml(primaryAnswer)}</p>
+              ${illustration}
+            </div>
+          `;
 
-    function getTranslatedAnswer(item) {
-      if (selectedLanguage === 'ja') return '';
-      return tr(`item_${item.translationIndex}_detail`, item.enA || '');
-    }
-
-    function translateTag(tag) {
-      const key = tagTranslationKeys[tag];
-      return key ? tr(key, tag) : tag;
-    }
-
-    function renderBilingualText(jaText, translatedText) {
-      if (selectedLanguage === 'ja' || !translatedText || translatedText === jaText) {
-        return escapeHtml(jaText);
+            details.appendChild(summary);
+            details.appendChild(panel);
+            cards.appendChild(details);
+          });
+          list.appendChild(section);
+        });
       }
-      return `<span class="chip-ja">${escapeHtml(jaText)}</span><span class="chip-tr">${escapeHtml(translatedText)}</span>`;
-    }
 
-    function escapeHtml(value) {
-      return String(value || '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-  </script>
-</body>
+      function matchesFilter(item) {
+        const tagMatch = selectedTag === "all" || item.period === selectedTag;
+        if (!tagMatch) return false;
+        if (!keyword) return true;
+        const haystack = [
+          item.period,
+          item.jaQ,
+          item.jaA,
+          getPrimaryQuestion(item),
+          getPrimaryAnswer(item),
+          getTranslatedQuestion(item),
+          getTranslatedAnswer(item),
+        ]
+          .join(" ")
+          .toLowerCase();
+        return haystack.includes(keyword);
+      }
 
+      function getPrimaryQuestion(item) {
+        return tr(`items.${item.id}.title`, item.jaQ);
+      }
+
+      function getPrimaryAnswer(item) {
+        return tr(`items.${item.id}.detail`, item.jaA);
+      }
+
+      function getTranslatedQuestion(item) {
+        if (selectedLanguage === "ja") return "";
+        return tr(`items.${item.id}.title`, item.enQ || "");
+      }
+
+      function getTranslatedAnswer(item) {
+        if (selectedLanguage === "ja") return "";
+        return tr(`items.${item.id}.detail`, item.enA || "");
+      }
+
+      function translateTag(tag) {
+        const key = tagTranslationKeys[tag];
+        return key ? tr(key, tag) : tag;
+      }
+
+      function renderIllustration(item) {
+        if (!item.image || !item.image.src) return "";
+        const altText = getPrimaryQuestion(item);
+        return `
+        <figure class="qa-illustration">
+          <img src="${escapeHtml(item.image.src)}" alt="${escapeHtml(altText)}" loading="lazy">
+          <figcaption>${escapeHtml(item.image.credit || "Created by AI")}</figcaption>
+        </figure>
+      `;
+      }
+
+      function renderBilingualText(jaText, translatedText) {
+        if (
+          selectedLanguage === "ja" ||
+          !translatedText ||
+          translatedText === jaText
+        ) {
+          return escapeHtml(jaText);
+        }
+        return `<span class="chip-ja">${escapeHtml(jaText)}</span><span class="chip-tr">${escapeHtml(translatedText)}</span>`;
+      }
+
+      function escapeHtml(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+    </script>
+  </body>
 </html>

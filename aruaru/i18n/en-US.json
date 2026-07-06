@@ -1,73 +1,120 @@
 {
   "page_title": "Japanese Childbirth Standards",
   "page_lead": "This page summarizes common childbirth practices and typical hospital expectations in Japan using titles and details.",
-  "settings": "Language",
-  "language": "Language",
+  "settings": "Language Settings",
+  "language": "Language Settings",
   "close": "Close",
   "keyword_search": "Keyword Search",
-  "keyword_placeholder": "Search titles or details",
-  "tag_search": "Tag Search",
+  "keyword_placeholder": "Search questions or answers",
+  "tag_search": "Period",
+  "period_kicker": "Period",
+  "period_pregnancy": "Pregnancy",
+  "period_childbirth": "Childbirth",
+  "period_postpartum_hospital": "Postpartum (in hospital)",
+  "period_postpartum_home": "Postpartum (after discharge)",
   "all_tags": "All",
   "result_count": "{{count}} results",
   "no_result": "No matching items found.",
-  "tag_delivery_method": "Delivery Method",
-  "tag_reservation": "Reservation",
-  "tag_checkup": "Checkup",
-  "tag_subsidy": "Subsidy",
-  "tag_hospital_rules": "Hospital Rules",
-  "tag_family": "Family",
-  "tag_hospital_stay": "Hospital Stay",
-  "tag_guidance": "Guidance",
-  "tag_visits": "Visits",
-  "tag_photos": "Photos",
-  "tag_culture": "Culture",
-  "tag_religion": "Religion",
-  "tag_food": "Food",
-  "tag_procedures": "Procedures",
-  "tag_transport": "Transportation",
-  "tag_postpartum_support": "Postpartum Support",
-  "tag_car": "Car",
-  "tag_law": "Law",
-  "item_1_title": "Common delivery methods in Japan",
-  "item_1_detail": "In Japan, vaginal delivery is the most common method. Cesarean section and epidural delivery are also available, but the way they are handled differs depending on the hospital.",
-  "item_2_title": "What to confirm if you hope for epidural delivery",
-  "item_2_detail": "Hospitals that offer epidural delivery are limited. In many cases, advance booking is required. If you are interested, it is best to confirm with the hospital early in pregnancy.",
-  "item_3_title": "Typical number of prenatal checkups",
-  "item_3_detail": "Once pregnancy is confirmed, it is common to visit a hospital as early as possible. With a standard schedule, many people have about 14 prenatal checkups during pregnancy, but the number may vary depending on the course of the pregnancy and the hospital's policy.",
-  "item_4_title": "Subsidies available through coupons",
-  "item_4_detail": "Many municipalities provide prenatal checkup tickets or coupons. Using them can reduce part of the cost of checkups. The way they are used and the amount covered differ by municipality.",
-  "item_5_title": "Who can attend the birth and possible restrictions",
-  "item_5_detail": "Some hospitals restrict who may be present during childbirth. Whether a husband, partner, or other family member may attend depends on the hospital, so advance confirmation is necessary.",
-  "item_6_title": "Typical length of hospital stay",
-  "item_6_detail": "For vaginal delivery, many hospitals guide first-time mothers to stay about 5 days and mothers who have given birth before to stay about 3 to 5 days. This may change depending on the mother's condition, the baby's condition, and hospital policy.",
-  "item_7_title": "Common guidance received during hospitalization",
-  "item_7_detail": "During hospitalization, breastfeeding guidance and baby bathing guidance are often provided. The exact content and number of sessions vary by hospital, but it is common to receive explanations to prepare for life after discharge.",
-  "item_8_title": "The role of nurses",
-  "item_8_detail": "Nurses are medical and nursing professionals. They are not people who do every personal task in place of the patient. You can ask for help when needed, but the extent of support depends on the hospital system.",
-  "item_9_title": "Restrictions on visiting hours and number of visitors",
-  "item_9_detail": "Some hospitals limit visiting hours and the number of visitors. These rules vary depending on infection control measures and ward management policies, so it is important to check in advance.",
-  "item_10_title": "Photography during childbirth",
-  "item_10_detail": "Nurses may sometimes help with taking photos as a kind gesture, but hospitals do not always have a dedicated photographer. If you want photos, check the hospital rules and attendance conditions in advance.",
-  "item_11_title": "The custom of taking the umbilical cord home",
-  "item_11_detail": "In Japan, there is a custom of taking the baby's umbilical cord home as a keepsake. Some hospitals give it to the family in a small box, but this depends on the hospital.",
-  "item_12_title": "Religious considerations and meal support",
-  "item_12_detail": "Religious considerations and religion-based meal support differ by hospital. Many hospitals can provide allergy-friendly meals, but hospitals that can also respond to religious dietary restrictions may be limited. If you have requests, please consult the hospital in advance.",
-  "item_13_title": "Rounds and interviews during postpartum hospitalization",
-  "item_13_detail": "After childbirth, it is common to have daily rounds or examinations during hospitalization. In addition, doctors and nurses may ask about your condition through interviews.",
-  "item_14_title": "The custom of the belly band on the Day of the Dog",
-  "item_14_detail": "In Japan, there is a custom of wearing a belly band around the fifth month of pregnancy on an auspicious Day of the Dog to pray for a safe birth. It is not mandatory, but some people value it as a family event.",
-  "item_15_title": "Where to submit the birth registration",
-  "item_15_detail": "The birth registration must be submitted to the city, ward, town, or village office within 14 days of the baby's birth. Hospitals do not always have a government branch office inside, so it is good to prepare for a separate visit to the municipal office.",
-  "item_16_title": "How to travel to the hospital when labor begins",
-  "item_16_detail": "Some hospitals do not recommend coming by private car when labor begins. In some areas, labor taxi services are available, so it is reassuring to check transportation options in advance.",
-  "item_17_title": "Use of a personal seal at admission",
-  "item_17_detail": "Some hospitals require a personal seal for admission procedures. Recently, some hospitals no longer require one, but you should always check the admission instructions.",
-  "item_18_title": "About okuizome",
-  "item_18_detail": "Okuizome is a celebration held around the baby's 100th day, with the wish that the child will never have difficulty finding food. It is usually a family event and not something done at the hospital.",
-  "item_19_title": "Newborn home visit",
-  "item_19_detail": "A newborn home visit is a system in which a municipal public health nurse or similar professional visits your home after the baby is born. You can ask about the baby's condition and child-rearing concerns.",
-  "item_20_title": "Postpartum checkups and infant checkups",
-  "item_20_detail": "After childbirth, there is often a one-month checkup for the mother, and municipalities may also provide guidance for infant checkups. For example, a 3-to-4-month infant checkup is common, but the timing and number of visits vary by municipality.",
-  "item_21_title": "Rules for riding in a car with a baby",
-  "item_21_detail": "When placing a baby in a car, you must use a child seat that matches the child's age and body size. In Japan, the use of child seats is required by law for children under six years old."
+  "items": {
+    "item_01": {
+      "title": "The belly band custom on the Day of the Dog",
+      "detail": "In Japan, some families visit a shrine to pray for a safe birth. Around the fifth month of pregnancy, they may go on an auspicious “Day of the Dog” or on another convenient day. Some people also wear a belly band, called haraobi, because dogs are associated with many births and relatively easy delivery. This is done with wishes such as “May the baby be born healthy” and “May the birth be safe.” Some shrines give belly bands with a dog mark. A belly band may also be used to support the abdomen. It is not required, but some people value it as part of Japanese culture."
+    },
+    "item_02": {
+      "title": "Typical number of prenatal checkups",
+      "detail": "Once you know you are pregnant, visit a hospital or clinic as early as possible. The hospital checks whether you are pregnant and whether the baby is growing inside the uterus. During pregnancy, regular prenatal checkups are important for checking the health of the mother and baby. In Japan, many people visit the hospital about 14 times before birth. A common schedule is once every 4 weeks until 23 weeks, once every 2 weeks from 24 to 35 weeks, and once a week from 36 weeks until birth. The number of visits may increase depending on the mother’s or baby’s condition. At prenatal checkups, staff check weight, blood pressure, urine, the baby’s size, and the baby’s condition. You can ask doctors or midwives about any worries or questions."
+    },
+    "item_03": {
+      "title": "Subsidies available through coupons",
+      "detail": "Many municipalities give prenatal checkup tickets or coupons. By using them, part of the checkup cost can be supported. The number of tickets, amount of support, and how to use them differ by municipality. Please ask your municipal office or hospital for details."
+    },
+    "item_04": {
+      "title": "Preparing for hospitalization: what to bring",
+      "detail": "You will need items such as the Maternal and Child Health Handbook, health insurance card, patient registration card, changes of clothes, and clothes for the baby to wear when leaving the hospital. Required items differ by hospital. Clothes worn by the mother after birth, such as pajamas, may be rented from the hospital or may need to be brought from home. Check the packing list provided by the hospital."
+    },
+    "item_05": {
+      "title": "Common delivery methods in Japan",
+      "detail": "In Japan, several delivery methods may be used depending on the mother’s and baby’s condition, the course of pregnancy, and the mother’s wishes. Vaginal delivery is the most common method, where the baby is born through the birth canal. Natural delivery aims to keep medical intervention as low as possible while following the progress of labor. Epidural delivery uses anesthesia to reduce labor pain, although pain may not disappear completely. Facilities that provide epidural delivery are limited in Japan and often require advance reservation. Induced or planned delivery uses medicine to start or strengthen labor when medically needed for safety. Cesarean section is surgery to deliver the baby. In Japan it is chosen when medically necessary, and elective cesarean by personal request is generally not available. Planned cesarean may be used for breech position, multiple pregnancy, or previous cesarean birth. Emergency cesarean is used when the mother or baby is judged to be in danger during labor. Other methods include vacuum or forceps delivery when help is needed, water birth at limited facilities, and free-style birth in positions such as hands-and-knees or sitting."
+    },
+    "item_06": {
+      "title": "What to confirm if you want epidural delivery",
+      "detail": "Hospitals that provide epidural delivery are limited, and advance reservation is often needed. If you want this option, consult medical staff from early pregnancy. Even at facilities that offer epidural delivery, available days and times differ. Because of anesthesiologist schedules and other staffing issues, some hospitals cannot provide it 24 hours a day, at night, or on weekends. Confirm the details in advance."
+    },
+    "item_07": {
+      "title": "Who can attend the birth and possible restrictions",
+      "detail": "Birth attendance means that family members or others stay near the mother during childbirth. Who can attend depends on the hospital. Often it is a partner or family member, but some hospitals do not allow children, limit the number of people, or set time restrictions. Attendance may also be unavailable because of infection control or other rules. Check the hospital’s policy in advance."
+    },
+    "item_08": {
+      "title": "How to travel to the hospital when labor begins",
+      "detail": "Some hospitals ask pregnant people not to drive themselves when labor begins because stronger contractions can make safe driving difficult. In some areas, labor taxi services are available. Check your route to the hospital in advance so that you can travel safely. Because the progress of birth is unpredictable, avoid using public transportation when possible."
+    },
+    "item_09": {
+      "title": "Photography during childbirth",
+      "detail": "Nurses may sometimes help take photos during childbirth. However, some facilities prohibit photos or videos. If you have requests, check the hospital rules and birth attendance conditions in advance."
+    },
+    "item_10": {
+      "title": "Typical length of hospital stay",
+      "detail": "For vaginal delivery, many hospitals guide first-time mothers to stay around 5 days and mothers who have given birth before to stay around 3 to 5 days. After cesarean section, the hospital stay is generally about 7 to 10 days on average, which is a little longer than vaginal delivery. The length may change depending on the mother’s condition, the baby’s condition, and hospital policy."
+    },
+    "item_11": {
+      "title": "Room choices and manners during hospitalization",
+      "detail": "During hospitalization, you may be able to choose a shared room or a private room. A private room may cost extra, and it may not always be available even if requested. In Japanese hospitals, it is important to stay quiet so everyone can rest. In shared rooms, speak softly. Use earphones when watching television or videos. Use the visiting area when talking on the phone, when there are many visitors, or when conversations will be long."
+    },
+    "item_12": {
+      "title": "Guidance often received during hospitalization",
+      "detail": "During the hospital stay, many people receive guidance on breastfeeding and how to bathe the baby. The content and number of sessions differ by hospital, but explanations are commonly provided so that families can care for the baby with more confidence after discharge."
+    },
+    "item_13": {
+      "title": "The role of nurses",
+      "detail": "Nurses are professionals who provide medical care and nursing care. They are not people who do every personal task instead of the patient. You can consult them if you have trouble, but what they can do depends on the hospital system."
+    },
+    "item_14": {
+      "title": "Restrictions on visiting hours and number of visitors",
+      "detail": "Hospitals have rules about visiting hours and the number of visitors. For infection prevention and other reasons, visits by children may be restricted. Rules differ by hospital, so it is important to check in advance."
+    },
+    "item_15": {
+      "title": "The custom of taking the umbilical cord home",
+      "detail": "In Japan, there is a custom of taking the baby’s umbilical cord home as a keepsake. Some hospitals give it in a small box. How this is handled differs by hospital."
+    },
+    "item_16": {
+      "title": "Religious considerations and meal support",
+      "detail": "If there are foods you cannot eat for religious reasons, the support available differs by hospital. Many hospitals can provide meals for allergies, but some cannot provide meals that match religious dietary rules. If you have requests, consult the hospital in advance."
+    },
+    "item_17": {
+      "title": "Examinations and interviews after childbirth during hospitalization",
+      "detail": "After childbirth, daily rounds or examinations are common during hospitalization. Doctors or nurses may also ask questions to check your physical condition."
+    },
+    "item_18": {
+      "title": "Where to submit the birth registration",
+      "detail": "The birth registration must be submitted to the city, ward, town, or village office within 14 days after the baby is born. There is no municipal office counter inside the hospital, so prepare to go to the municipal office. In principle, the baby’s father or mother must submit it."
+    },
+    "item_19": {
+      "title": "Use of a personal seal at admission",
+      "detail": "Some hospitals require a personal seal, or hanko, for admission procedures. Recently, some hospitals do not use personal seals. Still, check the hospital’s list of things to bring carefully."
+    },
+    "item_20": {
+      "title": "Newborn home visit",
+      "detail": "A newborn home visit is a service where a municipal public health nurse or similar professional comes to your home after the baby is born. They can check the baby’s growth and condition and you can consult them about childcare."
+    },
+    "item_21": {
+      "title": "About omiyamairi",
+      "detail": "Omiyamairi is a traditional Japanese event to celebrate the baby’s birth at a shrine. Families visit a shrine and pray for the baby to grow well. It is often done around 31 days after birth for boys and around 33 days for girls, but the timing differs by family. Some families go later, prioritizing the mother’s and baby’s condition. On the day, the baby may wear special clothes and the family may take photos. Some families receive a shrine prayer, called gokito, asking for the baby’s healthy growth. It is not required, but many families do it as one part of Japanese culture."
+    },
+    "item_22": {
+      "title": "About okuizome",
+      "detail": "Okuizome is a traditional Japanese celebration held around 100 days after the baby is born. A special meal is prepared with the wish that the child will never have trouble finding food. The baby does not actually eat the meal yet and only pretends to eat. It is often held at home or at a restaurant, not at the hospital."
+    },
+    "item_23": {
+      "title": "Postpartum checkups and infant checkups",
+      "detail": "After birth, the mother usually has a one-month postpartum checkup. Some hospitals also have a two-week checkup. Municipalities may send information about infant checkups. Infant checkups are done to check growth and health. Common timing includes around one month at the hospital, and later around 3 to 4 months, 6 to 10 months, and around one year at the municipality. The number and timing differ by area."
+    },
+    "item_24": {
+      "title": "Rules for riding in a car with a baby",
+      "detail": "When putting a baby in a car, use a child seat that matches the baby’s age and body size. In Japan, children must use a child seat by law until they turn 6 years old."
+    },
+    "item_25": {
+      "title": "Celebrations for a baby’s first birthday",
+      "detail": "In Japan, some families celebrate when a baby turns 1 year old. One custom is issho-mochi, where the child carries about 2 kilograms of rice cake. It expresses the wish that the child will never have trouble with food throughout life. This is a traditional Japanese custom, but it is not required. Each family may do it differently."
+    }
+  }
 }

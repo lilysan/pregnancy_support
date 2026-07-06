@@ -1,39 +1,105 @@
 {
-  "page_title": "Examination Communication Board",
-  "page_lead": "For each category, we support only the necessary conversations with text and audio.",
-  "switch_exam": "Examination Board",
-  "switch_reception": "Go to Reception Board",
-  "settings": "Settings",
-  "language": "Language",
-  "close": "Close",
-  "category_aria": "Category",
-  "free_translate_btn": "Free Input / Translate",
-  "free_translate_panel_aria": "Free translation panel",
-  "free_translate_title": "Free Input Translation",
-  "free_translate_close_aria": "Close",
-  "free_translate_direction_aria": "Translation direction",
-  "free_translate_run": "Translate",
-  "scroll_top_aria": "Back to top",
-  "loading_data": "Loading data...",
-  "loading_empty": "There are no items to display in this category.",
-  "enter_japanese": "Please enter Japanese text.",
-  "enter_selected_language": "Please enter text in the selected language.",
-  "translating": "Translating...",
-  "translate_empty": "(No translation result)",
-  "translate_failed": "Translation failed. Please check your connection.",
-  "speech_not_supported": "This browser does not support speech synthesis.",
-  "input_label": "Input: {{label}}",
-  "output_label": "Result: {{label}}",
-  "input_placeholder": "Enter {{label}}",
-  "direction_ja_to": "Japanese → {{label}}",
-  "direction_to_ja": "{{label}} → Japanese",
-  "selected_language": "Selected language",
+  "page_title": "Papan Komunikasi Pemeriksaan",
+  "page_lead": "Kami membantu komunikasi yang diperlukan per kategori dengan teks dan suara.",
+  "switch_exam": "Papan pemeriksaan",
+  "switch_reception": "Ke papan resepsionis",
+  "settings": "Pengaturan",
+  "language": "Bahasa",
+  "close": "Tutup",
+  "category_aria": "Kategori",
+  "translation_app_btn": "Aplikasi terjemahan",
+  "translation_app_dialog_aria": "Pilihan aplikasi terjemahan",
+  "translation_app_title": "Aplikasi terjemahan",
+  "translation_app_lead": "Pilih aplikasi yang akan digunakan.",
+  "translation_app_google": "Google Terjemahan",
+  "translation_app_deepl": "DeepL",
+  "epds_section_title": "Pemeriksaan EPDS",
+  "epds_lead": "Pilih jawaban yang paling sesuai dengan perasaan Anda selama 7 hari terakhir.",
+  "epds_lead_en": "Pilih jawaban yang paling sesuai dengan perasaan Anda selama 7 hari terakhir.",
+  "epds_question_prefix": "Pertanyaan",
+  "epds_score_label": "Skor total",
+  "epds_result_note": "Anda dapat mengirim setelah menjawab semua 10 item.",
+  "epds_ready_note": "Periksa jawaban lalu kirim.",
+  "epds_alert_q10": "Jika pertanyaan terakhir sesuai, segera sampaikan kepada tenaga medis.",
+  "epds_submit": "Simpan hasil",
+  "epds_submitting": "Menyimpan...",
+  "epds_reset": "Atur ulang jawaban",
+  "epds_incomplete": "Ada item yang belum dijawab.",
+  "epds_saved": "Hasil EPDS telah disimpan.",
+  "epds_save_failed": "Gagal menyimpan. Periksa koneksi.",
+  "scroll_top_aria": "Kembali ke atas",
+  "loading_data": "Memuat data...",
+  "loading_empty": "Tidak ada percakapan yang dapat ditampilkan dalam kategori ini.",
+  "enter_japanese": "Masukkan teks bahasa Jepang.",
+  "enter_selected_language": "Masukkan teks dalam bahasa yang dipilih.",
+  "translating": "Menerjemahkan...",
+  "translate_empty": "(Tidak ada hasil terjemahan)",
+  "translate_failed": "Terjemahan gagal. Periksa koneksi.",
+  "speech_not_supported": "Browser ini tidak mendukung sintesis suara.",
+  "input_label": "Masukan: {{label}}",
+  "output_label": "Hasil: {{label}}",
+  "input_placeholder": "Masukkan {{label}}",
+  "direction_ja_to": "Jepang → {{label}}",
+  "direction_to_ja": "{{label}} → Jepang",
+  "selected_language": "Bahasa yang dipilih",
   "boardData": [
     {
-      "type": "Interview",
-      "type2": "Condition",
-      "category": "Any changes since your last visit?",
-      "data1": "No changes",
+      "type": "Penjelasan",
+      "type2": "Kupon",
+      "category": "Hari ini kita akan menggunakan kupon dari Buku Kesehatan Ibu dan Anak",
+      "data1": "Pemeriksaan kanker serviks",
+      "data2": "Tes darah",
+      "data3": "USG",
+      "data4": "Pemeriksaan",
+      "data5": "Bimbingan kesehatan",
+      "data6": "Lainnya",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Wawancara",
+      "type2": "Kondisi",
+      "category": "Bagaimana kondisi Anda?",
+      "data1": "Tidak ada perubahan",
+      "data2": "Sakit kepala",
+      "data3": "Mual",
+      "data4": "Tidak bisa tidur",
+      "data5": "Bengkak",
+      "data6": "Lelah",
+      "data7": "Sembelit",
+      "data8": "Gatal",
+      "data9": "Lainnya",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Wawancara",
+      "type2": "Kondisi",
+      "category": "Apakah ada perubahan sejak kunjungan terakhir?",
+      "data1": "Tidak ada perubahan",
       "data2": "Headache",
       "data3": "Nausea",
       "data4": "Can't sleep",
@@ -56,662 +122,9 @@
       "data21": ""
     },
     {
-      "type": "Interview",
-      "type2": "Condition",
-      "category": "Since when?",
-      "data1": "counter_kara",
-      "data2": "",
-      "data3": "",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Interview",
-      "type2": "Uterine Contractions & Fetus",
-      "category": "When does your abdomen tighten?",
-      "data1": "After walking",
-      "data2": "After standing for a long time",
-      "data3": "After carrying heavy objects",
-      "data4": "Suddenly without movement",
-      "data5": "Today",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Examination",
-      "type2": "Before Examination",
-      "category": "Move to the examination room",
-      "data1": "Remove your underwear and sit on the examination chair",
-      "data2": "Remove your shoes",
-      "data3": "",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Interview",
-      "type2": "Uterine Contractions & Fetus",
-      "category": "Do you feel abdominal tightness?",
-      "data1": "Yes",
-      "data2": "No",
-      "data3": "",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Interview",
-      "type2": "Uterine Contractions & Fetus",
-      "category": "How many times a day does it tighten?",
-      "data1": "1 time",
-      "data2": "About 5 times",
-      "data3": "About 10 times",
-      "data4": "Many times",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Interview",
-      "type2": "Uterine Contractions & Fetus",
-      "category": "Does it hurt when it tightens?",
-      "data1": "Yes",
-      "data2": "No",
-      "data3": "",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Interview",
-      "type2": "Uterine Contractions & Fetus",
-      "category": "Is the baby moving?",
-      "data1": "Yes",
-      "data2": "No",
-      "data3": "",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Interview",
-      "type2": "Uterine Contractions & Fetus",
-      "category": "Is there bleeding?",
-      "data1": "Yes",
-      "data2": "No",
-      "data3": "",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Explanation",
-      "type2": "Coupon",
-      "category": "Today we will use a coupon from the mother-child handbook",
-      "data1": "Cervical cancer screening",
-      "data2": "Blood test",
-      "data3": "Ultrasound",
-      "data4": "Examination",
-      "data5": "Health guidance",
-      "data6": "Others",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Interview",
-      "type2": "Prescription",
-      "category": "We will prescribe oral medication",
-      "data1": "Lower blood pressure",
-      "data2": "Stop abdominal tightening",
-      "data3": "Increase iron",
-      "data4": "Cure constipation",
-      "data5": "Treat stomach symptoms",
-      "data6": "Treat colds",
-      "data7": "Treat inflammation",
-      "data8": "Others",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Examination",
-      "type2": "Consultation Room",
-      "category": "Explain the results of the examination",
-      "data1": "Let’s monitor for now",
-      "data2": "All is well",
-      "data3": "Next appointment date",
-      "data4": "1–12 months (select number)",
-      "data5": "1–31 days (select number)",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Examination",
-      "type2": "Consultation Room",
-      "category": "When to contact us explained",
-      "data1": "Bleeding from the vagina",
-      "data2": "Watery discharge from the vagina",
-      "data3": "Abdominal pain occurring more than once every 10 minutes",
-      "data4": "Feel that the baby’s movements have decreased",
-      "data5": "",
-      "data6": "",
-      "data7": "https://rasc.jp/wp-content/uploads/english02.pdf",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Examination",
-      "type2": "Ultrasound (Abdominal)",
-      "category": "Let’s check the baby’s condition with an abdominal ultrasound",
-      "data1": "Lie on the bed and expose your abdomen",
-      "data2": "",
-      "data3": "",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Examination",
-      "type2": "Internal Examination",
-      "category": "We will conduct an examination",
-      "data1": "Check the condition of the cervix",
-      "data2": "An instrument will be inserted into the vagina",
-      "data3": "Check the baby’s condition with an ultrasound",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Examination",
-      "type2": "Ultrasound (Vaginal/Abdominal)",
-      "category": "Explanation on screen",
-      "data1": "Baby",
-      "data2": "Heart",
-      "data3": "Face",
-      "data4": "Feet",
-      "data5": "Cross-section of the abdomen",
-      "data6": "The baby’s weight is fine",
-      "data7": "The baby is doing well",
-      "data8": "No issues",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Examination",
-      "type2": "Internal Examination",
-      "category": "We will conduct a test",
-      "data1": "Screening for cervical cancer",
-      "data2": "Testing for infectious viruses that may affect the baby",
-      "data3": "It may hurt slightly",
-      "data4": "It's done",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Interview",
-      "type2": "Reservation",
-      "category": "About the next appointment",
-      "data1": "next_kenshin",
-      "data2": "",
-      "data3": "",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": "",
-      "null": [
-        ""
-      ]
-    },
-    {
-      "type": "Examination",
-      "type2": "After Internal Examination",
-      "category": "The examination is complete; the chair will lower",
-      "data1": "Put on your underwear",
-      "data2": "Once ready, please go to the room discussed earlier",
-      "data3": "We’ll call you, please wait outside the room",
-      "data4": "",
-      "data5": "",
-      "data6": "There might be bleeding",
-      "data7": "If you have a pad, please use it",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Examination",
-      "type2": "NST",
-      "category": "We will attach devices to your abdomen to check abdominal tightness and the baby’s condition",
-      "data1": "It takes about 20 minutes",
-      "data2": "It takes about 40 minutes",
-      "data3": "It takes about 50 minutes",
-      "data4": "It takes about 60 minutes",
-      "data5": "Sit on a chair",
-      "data6": "Lie on the bed",
-      "data7": "Attach two belts",
-      "data8": "Attach two devices",
-      "data9": "Notify us via nurse call if you feel unwell",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Examination",
-      "type2": "Blood Test",
-      "category": "We will conduct a blood test",
-      "data1": "Testing for infectious viruses that may affect the baby",
-      "data2": "Check if the blood type is problematic",
-      "data3": "Check for anemia",
-      "data4": "Check blood sugar levels",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Examination",
-      "type2": "Blood Sugar Test",
-      "category": "After the blood sugar test, drink juice first",
-      "data1": "Blood will be drawn an hour later",
-      "data2": "",
-      "data3": "",
-      "data4": "",
-      "data5": "",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
       "type": "Pharmacy",
       "type2": "Pharmacy",
-      "category": "Oral medication",
-      "data1": "Powder",
-      "data2": "Tablets",
-      "data3": "Liquid",
-      "data4": "Ointment",
-      "data5": "Vaginal tablet",
-      "data6": "Suppository",
-      "data7": "Gargle",
-      "data8": "Ointment",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Pharmacy",
-      "type2": "Pharmacy",
-      "category": "Number of doses",
-      "data1": "Morning",
-      "data2": "Noon",
-      "data3": "Evening",
-      "data4": "Before meals",
-      "data5": "During meals",
-      "data6": "After meals",
-      "data7": "When in pain",
-      "data8": "When itchy",
-      "data9": "When discharge is heavy",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Pharmacy",
-      "type2": "Pharmacy",
-      "category": "Number of doses (maximum)",
-      "data1": "Leave 4 hours between doses",
-      "data2": "Leave 6 hours between doses",
-      "data3": "Up to 2 tablets per day",
-      "data4": "Up to 3 tablets per day",
-      "data5": "Up to 4 tablets per day",
-      "data6": "",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Pharmacy",
-      "type2": "Pharmacy",
-      "category": "Where to apply it",
-      "data1": "Face",
-      "data2": "Legs",
-      "data3": "Abdomen",
-      "data4": "Back",
-      "data5": "Buttocks",
-      "data6": "Vagina",
-      "data7": "",
-      "data8": "",
-      "data9": "",
-      "data10": "",
-      "data11": "",
-      "data12": "",
-      "data13": "",
-      "data14": "",
-      "data15": "",
-      "data16": "",
-      "data17": "",
-      "data18": "",
-      "data19": "",
-      "data20": "",
-      "data21": ""
-    },
-    {
-      "type": "Pharmacy",
-      "type2": "Pharmacy",
-      "category": "Since when?",
+      "category": "Sejak kapan?",
       "data1": "Just now",
       "data2": "3 hours ago",
       "data3": "6 hours ago",
@@ -736,8 +149,8 @@
     },
     {
       "type": "Midwife Interview",
-      "type2": "Condition",
-      "category": "Are you eating well?",
+      "type2": "Kondisi",
+      "category": "Apakah Anda makan dengan baik?",
       "data1": "3 meals a day",
       "data2": "2 meals a day",
       "data3": "1 meal a day",
@@ -762,9 +175,9 @@
     },
     {
       "type": "Midwife Interview",
-      "type2": "Condition",
-      "category": "Are you sleeping well?",
-      "data1": "Yes",
+      "type2": "Kondisi",
+      "category": "Apakah Anda tidur dengan baik?",
+      "data1": "Ya",
       "data2": "Occasionally waking up",
       "data3": "Frequently waking up",
       "data4": "Hardly sleeping",
@@ -814,7 +227,7 @@
     },
     {
       "type": "Midwife Interview",
-      "type2": "Birth Plan",
+      "type2": "Rencana persalinan",
       "category": "If you have any preferences for delivery, please consider them",
       "data1": "Birth plan(to Mom and Baby Support Series)||https://rasc.jp/wp-content/uploads/english09.pdf",
       "data2": "",
@@ -865,12 +278,662 @@
       "data21": ""
     },
     {
-      "type": "Mom and Baby Support Series",
+      "type": "Wawancara",
+      "type2": "Uterine Contractions & Fetus",
+      "category": "Kapan perut Anda terasa kencang?",
+      "data1": "Setelah berjalan",
+      "data2": "Setelah berdiri lama",
+      "data3": "After carrying heavy objects",
+      "data4": "Suddenly without movement",
+      "data5": "Hari ini",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pemeriksaan",
+      "type2": "Before Examination",
+      "category": "Move to the examination room",
+      "data1": "Remove your underwear and sit on the examination chair",
+      "data2": "Remove your shoes",
+      "data3": "",
+      "data4": "",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Wawancara",
+      "type2": "Uterine Contractions & Fetus",
+      "category": "Do you feel abdominal tightness?",
+      "data1": "Ya",
+      "data2": "Tidak",
+      "data3": "",
+      "data4": "",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Wawancara",
+      "type2": "Uterine Contractions & Fetus",
+      "category": "Berapa kali sehari perut terasa kencang?",
+      "data1": "1 time",
+      "data2": "About 5 times",
+      "data3": "About 10 times",
+      "data4": "Many times",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Wawancara",
+      "type2": "Uterine Contractions & Fetus",
+      "category": "Does it hurt when it tightens?",
+      "data1": "Ya",
+      "data2": "Tidak",
+      "data3": "",
+      "data4": "",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Wawancara",
+      "type2": "Uterine Contractions & Fetus",
+      "category": "Apakah bayi bergerak?",
+      "data1": "Ya",
+      "data2": "Tidak",
+      "data3": "",
+      "data4": "",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Wawancara",
+      "type2": "Uterine Contractions & Fetus",
+      "category": "Is there bleeding?",
+      "data1": "Ya",
+      "data2": "Tidak",
+      "data3": "",
+      "data4": "",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Wawancara",
+      "type2": "Resep",
+      "category": "We will prescribe oral medication",
+      "data1": "Lower blood pressure",
+      "data2": "Stop abdominal tightening",
+      "data3": "Increase iron",
+      "data4": "Cure constipation",
+      "data5": "Treat stomach symptoms",
+      "data6": "Treat colds",
+      "data7": "Treat inflammation",
+      "data8": "Others",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Wawancara",
+      "type2": "Reservation",
+      "category": "Tentang janji berikutnya",
+      "data1": "next_kenshin",
+      "data2": "",
+      "data3": "",
+      "data4": "",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pharmacy",
+      "type2": "Pharmacy",
+      "category": "Oral medication",
+      "data1": "Powder",
+      "data2": "Tablet",
+      "data3": "Liquid",
+      "data4": "Salep",
+      "data5": "Vaginal tablet",
+      "data6": "Suppository",
+      "data7": "Gargle",
+      "data8": "Salep",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "薬",
+      "type2": "内服薬",
+      "category": "薬を使うとき",
+      "data1": "朝",
+      "data2": "昼",
+      "data3": "夜",
+      "data4": "寝る前",
+      "data5": "食前",
+      "data6": "食中",
+      "data7": "食後",
+      "data8": "痛い時",
+      "data9": "痒い時",
+      "data10": "おりものが多い時",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pharmacy",
+      "type2": "Pharmacy",
+      "category": "Number of doses (maximum)",
+      "data1": "Leave 4 hours between doses",
+      "data2": "Leave 6 hours between doses",
+      "data3": "Up to 2 tablets per day",
+      "data4": "Up to 3 tablets per day",
+      "data5": "Up to 4 tablets per day",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pharmacy",
+      "type2": "Pharmacy",
+      "category": "Where to apply it",
+      "data1": "Face",
+      "data2": "Kaki",
+      "data3": "Perut",
+      "data4": "Punggung",
+      "data5": "Bokong",
+      "data6": "Vagina",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "検査・診察",
+      "type2": "補助券",
+      "category": "今日は母子手帳の補助券を使います",
+      "data1": "子宮頸がんの検査",
+      "data2": "血液検査",
+      "data3": "超音波検査",
+      "data4": "診察",
+      "data5": "保健指導",
+      "data6": "その他",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pemeriksaan",
+      "type2": "Consultation Room",
+      "category": "Explain the results of the examination",
+      "data1": "Let’s monitor for now",
+      "data2": "All is well",
+      "data3": "Next appointment date",
+      "data4": "1–12 months (select number)",
+      "data5": "1–31 days (select number)",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pemeriksaan",
+      "type2": "Consultation Room",
+      "category": "When to contact us explained",
+      "data1": "Bleeding from the vagina",
+      "data2": "Watery discharge from the vagina",
+      "data3": "Abdominal pain occurring more than once every 10 minutes",
+      "data4": "Feel that the baby’s movements have decreased",
+      "data5": "",
+      "data6": "",
+      "data7": "https://rasc.jp/wp-content/uploads/english02.pdf",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pemeriksaan",
+      "type2": "Ultrasound (Abdominal)",
+      "category": "Let’s check the baby’s condition with an abdominal ultrasound",
+      "data1": "Lie on the bed and expose your abdomen",
+      "data2": "",
+      "data3": "",
+      "data4": "",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pemeriksaan",
+      "type2": "Internal Examination",
+      "category": "We will conduct an examination",
+      "data1": "Check the condition of the cervix",
+      "data2": "An instrument will be inserted into the vagina",
+      "data3": "Check the baby’s condition with an ultrasound",
+      "data4": "",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pemeriksaan",
+      "type2": "Ultrasound (Vaginal/Abdominal)",
+      "category": "Explanation on screen",
+      "data1": "Baby",
+      "data2": "Heart",
+      "data3": "Face",
+      "data4": "Feet",
+      "data5": "Cross-section of the abdomen",
+      "data6": "The baby’s weight is fine",
+      "data7": "The baby is doing well",
+      "data8": "No issues",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pemeriksaan",
+      "type2": "Internal Examination",
+      "category": "We will conduct a test",
+      "data1": "Screening for cervical cancer",
+      "data2": "Testing for infectious viruses that may affect the baby",
+      "data3": "It may hurt slightly",
+      "data4": "It's done",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pemeriksaan",
+      "type2": "After Internal Examination",
+      "category": "The examination is complete; the chair will lower",
+      "data1": "Put on your underwear",
+      "data2": "Once ready, please go to the room discussed earlier",
+      "data3": "We’ll call you, please wait outside the room",
+      "data4": "",
+      "data5": "",
+      "data6": "There might be bleeding",
+      "data7": "If you have a pad, please use it",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pemeriksaan",
+      "type2": "NST",
+      "category": "We will attach devices to your abdomen to check abdominal tightness and the baby’s condition",
+      "data1": "It takes about 20 minutes",
+      "data2": "It takes about 40 minutes",
+      "data3": "It takes about 50 minutes",
+      "data4": "It takes about 60 minutes",
+      "data5": "Sit on a chair",
+      "data6": "Lie on the bed",
+      "data7": "Attach two belts",
+      "data8": "Attach two devices",
+      "data9": "Notify us via nurse call if you feel unwell",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pemeriksaan",
+      "type2": "Blood Test",
+      "category": "We will conduct a blood test",
+      "data1": "Testing for infectious viruses that may affect the baby",
+      "data2": "Check if the blood type is problematic",
+      "data3": "Check for anemia",
+      "data4": "Check blood sugar levels",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Pemeriksaan",
+      "type2": "Blood Sugar Test",
+      "category": "After the blood sugar test, drink juice first",
+      "data1": "Blood will be drawn an hour later",
+      "data2": "",
+      "data3": "",
+      "data4": "",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "EPDS",
+      "type2": "Skala Depresi Pascanatal Edinburgh",
+      "category": "Centang item yang sesuai.",
+      "data1": "",
+      "data2": "",
+      "data3": "",
+      "data4": "",
+      "data5": "",
+      "data6": "",
+      "data7": "",
+      "data8": "",
+      "data9": "",
+      "data10": "",
+      "data11": "",
+      "data12": "",
+      "data13": "",
+      "data14": "",
+      "data15": "",
+      "data16": "",
+      "data17": "",
+      "data18": "",
+      "data19": "",
+      "data20": "",
+      "data21": ""
+    },
+    {
+      "type": "Seri Dukungan Ibu dan Bayi",
       "type2": "冊子リンク",
       "category": "Click an item to open the PDF.",
       "data1": "Cover (Color)||https://rasc.jp/wp-content/uploads/english00-0.pdf",
       "data2": "Cover (White)||https://rasc.jp/wp-content/uploads/english00-0W.pdf",
-      "data3": "Introduction||https://rasc.jp/wp-content/uploads/english00-1.pdf",
+      "data3": "Pendahuluan",
       "data4": "Table of Contents||https://rasc.jp/wp-content/uploads/english00-2.pdf",
       "data5": "Questions Asked by Obstetrics and Gynecology (OB-GYN)||https://rasc.jp/wp-content/uploads/english01.pdf",
       "data6": "When You Need to Contact Hospital||https://rasc.jp/wp-content/uploads/english02.pdf",
@@ -880,23 +943,23 @@
       "data10": "Threatened Miscarriage ・Preterm Labor||https://rasc.jp/wp-content/uploads/english06.pdf",
       "data11": "Group B Streptococci||https://rasc.jp/wp-content/uploads/english07.pdf",
       "data12": "Labor Induction Medications||https://rasc.jp/wp-content/uploads/english08.pdf",
-      "data13": "Birth Plan||https://rasc.jp/wp-content/uploads/english09.pdf",
+      "data13": "Rencana persalinan||https://rasc.jp/wp-content/uploads/english09.pdf",
       "data14": "The Postpartum Life||https://rasc.jp/wp-content/uploads/english10.pdf",
       "data15": "Breastfeeding||https://rasc.jp/wp-content/uploads/english11.pdf",
       "data16": "About Baby||https://rasc.jp/wp-content/uploads/english12.pdf",
       "data17": "Social Resources||https://rasc.jp/wp-content/uploads/english13.pdf",
       "data18": "Vaccinations||https://rasc.jp/wp-content/uploads/english14.pdf",
       "data19": "Words Frequently Used about Childbirth||https://rasc.jp/wp-content/uploads/english15.pdf",
-      "data20": "Column. Advices from non-Japanese moms who gave birth in Japan||https://rasc.jp/wp-content/uploads/english98.pdf",
-      "data21": "Contributors||https://rasc.jp/wp-content/uploads/english99.pdf"
+      "data20": "Kolom.Saran dari Ibu dari Berbagai Negara yang telah Melahirkan di Jepang||https://rasc.jp/wp-content/uploads/english98.pdf",
+      "data21": "Kontributor"
     },
     {
-      "type": "Health Guidance",
-      "type2": "Diet and Nutrition",
-      "category": "Please try to eat three meals a day",
-      "data1": "Please eat three meals a day",
-      "data2": "Even if you eat two meals, please eat small amounts",
-      "data3": "Please eat whatever you can in small amounts",
+      "type": "Bimbingan kesehatan",
+      "type2": "Makanan dan gizi",
+      "category": "Usahakan makan tiga kali sehari",
+      "data1": "Makan tiga kali",
+      "data2": "Jika dua kali makan, makan sedikit-sedikit",
+      "data3": "Makan sedikit demi sedikit makanan yang bisa dimakan",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -917,15 +980,15 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Diet and Nutrition",
-      "category": "Please pay attention to hydration and balanced nutrition",
-      "data1": "Please drink enough fluids",
-      "data2": "Please avoid sugary drinks",
-      "data3": "Please avoid too much caffeine",
-      "data4": "Please eat vegetables",
-      "data5": "Please eat enough protein",
-      "data6": "Please reduce salt intake",
+      "type": "Bimbingan kesehatan",
+      "type2": "Makanan dan gizi",
+      "category": "Perhatikan cairan dan keseimbangan gizi",
+      "data1": "Minum cukup cairan",
+      "data2": "Kurangi minuman manis",
+      "data3": "Jangan terlalu banyak kafein",
+      "data4": "Makan sayuran",
+      "data5": "Makan protein",
+      "data6": "Kurangi garam",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -943,14 +1006,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Weight Management",
-      "category": "We will explain weight management",
-      "data1": "Your weight gain is on track",
-      "data2": "Your weight gain is low",
-      "data3": "Your weight gain is high",
-      "data4": "Please measure at the same time every day",
-      "data5": "Please contact us if your weight increases suddenly",
+      "type": "Bimbingan kesehatan",
+      "type2": "Pengelolaan berat badan",
+      "category": "Kami akan menjelaskan pengelolaan berat badan",
+      "data1": "Kenaikan berat badan baik",
+      "data2": "Kenaikan berat badan kurang",
+      "data3": "Kenaikan berat badan banyak",
+      "data4": "Timbang pada waktu yang sama setiap hari",
+      "data5": "Konsultasikan jika naik tiba-tiba",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -969,14 +1032,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Blood Pressure and Swelling",
-      "category": "We will explain blood pressure and swelling",
-      "data1": "Your blood pressure is stable",
-      "data2": "Your blood pressure is a little high",
-      "data3": "Please measure your blood pressure at home too",
-      "data4": "Please reduce salt intake",
-      "data5": "Please contact us if you have swelling or headaches",
+      "type": "Bimbingan kesehatan",
+      "type2": "Tekanan darah dan bengkak",
+      "category": "Kami akan menjelaskan tekanan darah dan bengkak",
+      "data1": "Tekanan darah baik",
+      "data2": "Tekanan darah agak tinggi",
+      "data3": "Ukur tekanan darah di rumah juga",
+      "data4": "Kurangi garam",
+      "data5": "Hubungi jika ada bengkak atau sakit kepala",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -995,15 +1058,15 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Blood Sugar Management",
-      "category": "We will explain blood sugar management",
-      "data1": "Your blood sugar is stable",
-      "data2": "Your blood sugar is a little high",
-      "data3": "Please pay attention to your meals",
-      "data4": "Please avoid sweets",
-      "data5": "Please divide meals into smaller portions",
-      "data6": "Please record your blood sugar",
+      "type": "Bimbingan kesehatan",
+      "type2": "Pengelolaan gula darah",
+      "category": "Kami akan menjelaskan gula darah",
+      "data1": "Gula darah baik",
+      "data2": "Gula darah agak tinggi",
+      "data3": "Perhatikan makanan",
+      "data4": "Kurangi makanan manis",
+      "data5": "Makan dalam porsi terbagi",
+      "data6": "Catat gula darah",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -1021,14 +1084,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
+      "type": "Bimbingan kesehatan",
       "type2": "Anemia",
-      "category": "We will explain anemia",
-      "data1": "You do not have anemia",
-      "data2": "You have anemia",
-      "data3": "Please take more iron",
-      "data4": "Please take your iron medicine",
-      "data5": "We will check again with the next blood test",
+      "category": "Kami akan menjelaskan anemia",
+      "data1": "Tidak ada anemia",
+      "data2": "Ada anemia",
+      "data3": "Konsumsi lebih banyak zat besi",
+      "data4": "Minum obat zat besi",
+      "data5": "Akan dicek dengan tes darah berikutnya",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -1047,14 +1110,14 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Medicine and Supplements",
-      "category": "We will explain medicines and supplements",
-      "data1": "Please take them as instructed",
-      "data2": "Please do not stop on your own",
-      "data3": "Please ask us if you forget a dose",
-      "data4": "Please ask before taking over-the-counter medicine",
-      "data5": "Please ask about supplements",
+      "type": "Bimbingan kesehatan",
+      "type2": "Obat dan suplemen",
+      "category": "Kami akan menjelaskan obat dan suplemen",
+      "data1": "Minum sesuai instruksi",
+      "data2": "Jangan berhenti sendiri",
+      "data3": "Konsultasikan jika lupa minum",
+      "data4": "Konsultasikan sebelum minum obat bebas",
+      "data5": "Konsultasikan tentang suplemen",
       "data6": "",
       "data7": "",
       "data8": "",
@@ -1073,16 +1136,16 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "When to Contact the Hospital",
-      "category": "Please contact the hospital in these situations",
-      "data1": "If you have bleeding",
-      "data2": "If you have strong abdominal pain",
-      "data3": "If abdominal tightening increases",
-      "data4": "If watery fluid comes out",
-      "data5": "If you have a severe headache",
-      "data6": "If the baby moves less than usual",
-      "data7": "If you feel unwell",
+      "type": "Bimbingan kesehatan",
+      "type2": "Kapan menghubungi rumah sakit",
+      "category": "Hubungi rumah sakit dalam keadaan ini",
+      "data1": "Jika ada perdarahan",
+      "data2": "Jika perut sangat sakit",
+      "data3": "Jika perut makin sering kencang",
+      "data4": "Jika keluar cairan seperti air",
+      "data5": "Jika sakit kepala kuat",
+      "data6": "Jika gerakan bayi berkurang",
+      "data7": "Jika merasa tidak enak",
       "data8": "",
       "data9": "",
       "data10": "",
@@ -1099,15 +1162,15 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Abdominal Tightening, Bleeding, and Fluid Leakage",
-      "category": "We will explain abdominal tightening, bleeding, and possible rupture of membranes",
-      "data1": "Please rest if abdominal tightening increases",
-      "data2": "Please contact us if tightening continues",
-      "data3": "Please contact us if you have pain",
-      "data4": "Please contact us if you have bleeding",
-      "data5": "Please contact us if watery fluid comes out",
-      "data6": "Please use a pad and observe the situation",
+      "type": "Bimbingan kesehatan",
+      "type2": "Perut kencang, perdarahan, ketuban pecah",
+      "category": "Kami akan menjelaskan perut kencang, perdarahan, dan ketuban pecah",
+      "data1": "Istirahat jika kencang bertambah",
+      "data2": "Hubungi jika kencang berlanjut",
+      "data3": "Hubungi jika ada nyeri",
+      "data4": "Hubungi jika ada perdarahan",
+      "data5": "Hubungi jika keluar cairan seperti air",
+      "data6": "Pakai pembalut dan amati",
       "data7": "",
       "data8": "",
       "data9": "",
@@ -1125,12 +1188,12 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Fetal Movement",
-      "category": "We will explain fetal movement",
-      "data1": "The baby is moving well",
-      "data2": "Please monitor the baby's movement",
-      "data3": "Please contact us if movement is less than usual",
+      "type": "Bimbingan kesehatan",
+      "type2": "Gerakan bayi",
+      "category": "Kami akan menjelaskan gerakan bayi",
+      "data1": "Bayi bergerak dengan baik",
+      "data2": "Perhatikan gerakan bayi",
+      "data3": "Hubungi jika lebih sedikit dari biasanya",
       "data4": "",
       "data5": "",
       "data6": "",
@@ -1151,13 +1214,13 @@
       "data21": ""
     },
     {
-      "type": "Health Guidance",
-      "type2": "Birth Preparation",
-      "category": "Please prepare for childbirth",
-      "data1": "Please prepare for hospitalization",
-      "data2": "Please check what to bring",
-      "data3": "Please confirm how to contact the hospital",
-      "data4": "Please think about your birth plan",
+      "type": "Bimbingan kesehatan",
+      "type2": "Persiapan melahirkan",
+      "category": "Mari bersiap untuk melahirkan",
+      "data1": "Siapkan kebutuhan rawat inap",
+      "data2": "Periksa barang bawaan",
+      "data3": "Pastikan cara menghubungi rumah sakit",
+      "data4": "Pikirkan rencana persalinan",
       "data5": "",
       "data6": "",
       "data7": "",
@@ -1175,6 +1238,693 @@
       "data19": "",
       "data20": "",
       "data21": ""
+    }
+  ],
+  "epdsData": {
+    "questions": [
+      {
+        "ja": "Apakah Anda bisa tertawa dan melihat sisi lucu dari sesuatu?",
+        "tr": "Apakah Anda bisa tertawa dan melihat sisi lucu dari sesuatu?",
+        "options": [
+          {
+            "ja": "Seperti biasanya",
+            "tr": "Seperti biasanya",
+            "score": 0
+          },
+          {
+            "ja": "Sedikit berkurang sekarang",
+            "tr": "Sedikit berkurang sekarang",
+            "score": 1
+          },
+          {
+            "ja": "Jelas berkurang sekarang",
+            "tr": "Jelas berkurang sekarang",
+            "score": 2
+          },
+          {
+            "ja": "Tidak sama sekali",
+            "tr": "Tidak sama sekali",
+            "score": 3
+          }
+        ]
+      },
+      {
+        "ja": "Apakah Anda menantikan sesuatu dengan rasa senang?",
+        "tr": "Apakah Anda menantikan sesuatu dengan rasa senang?",
+        "options": [
+          {
+            "ja": "Seperti biasanya",
+            "tr": "Seperti biasanya",
+            "score": 0
+          },
+          {
+            "ja": "Agak berkurang dari dulu",
+            "tr": "Agak berkurang dari dulu",
+            "score": 1
+          },
+          {
+            "ja": "Jelas berkurang dari dulu",
+            "tr": "Jelas berkurang dari dulu",
+            "score": 2
+          },
+          {
+            "ja": "Hampir tidak sama sekali",
+            "tr": "Hampir tidak sama sekali",
+            "score": 3
+          }
+        ]
+      },
+      {
+        "ja": "Apakah Anda menyalahkan diri sendiri secara berlebihan ketika sesuatu tidak berjalan baik?",
+        "tr": "Apakah Anda menyalahkan diri sendiri secara berlebihan ketika sesuatu tidak berjalan baik?",
+        "options": [
+          {
+            "ja": "Ya, hampir sepanjang waktu",
+            "tr": "Ya, hampir sepanjang waktu",
+            "score": 3
+          },
+          {
+            "ja": "Ya, kadang-kadang",
+            "tr": "Ya, kadang-kadang",
+            "score": 2
+          },
+          {
+            "ja": "Tidak terlalu sering",
+            "tr": "Tidak terlalu sering",
+            "score": 1
+          },
+          {
+            "ja": "Tidak, tidak pernah",
+            "tr": "Tidak, tidak pernah",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Apakah Anda merasa cemas atau khawatir tanpa alasan jelas?",
+        "tr": "Apakah Anda merasa cemas atau khawatir tanpa alasan jelas?",
+        "options": [
+          {
+            "ja": "Tidak, sama sekali tidak",
+            "tr": "Tidak, sama sekali tidak",
+            "score": 0
+          },
+          {
+            "ja": "Hampir tidak pernah",
+            "tr": "Hampir tidak pernah",
+            "score": 1
+          },
+          {
+            "ja": "Ya, kadang-kadang",
+            "tr": "Ya, kadang-kadang",
+            "score": 2
+          },
+          {
+            "ja": "Ya, sangat sering",
+            "tr": "Ya, sangat sering",
+            "score": 3
+          }
+        ]
+      },
+      {
+        "ja": "Apakah Anda merasa takut atau panik tanpa alasan jelas?",
+        "tr": "Apakah Anda merasa takut atau panik tanpa alasan jelas?",
+        "options": [
+          {
+            "ja": "Ya, cukup sering",
+            "tr": "Ya, cukup sering",
+            "score": 3
+          },
+          {
+            "ja": "Ya, kadang-kadang",
+            "tr": "Ya, kadang-kadang",
+            "score": 2
+          },
+          {
+            "ja": "Tidak banyak",
+            "tr": "Tidak banyak",
+            "score": 1
+          },
+          {
+            "ja": "Tidak, sama sekali tidak",
+            "tr": "Tidak, sama sekali tidak",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Apakah Anda merasa semuanya terlalu berat untuk dihadapi?",
+        "tr": "Apakah Anda merasa semuanya terlalu berat untuk dihadapi?",
+        "options": [
+          {
+            "ja": "Ya, hampir sepanjang waktu tidak mampu mengatasi",
+            "tr": "Ya, hampir sepanjang waktu tidak mampu mengatasi",
+            "score": 3
+          },
+          {
+            "ja": "Ya, kadang tidak sebaik biasanya",
+            "tr": "Ya, kadang tidak sebaik biasanya",
+            "score": 2
+          },
+          {
+            "ja": "Tidak, biasanya cukup mampu mengatasi",
+            "tr": "Tidak, biasanya cukup mampu mengatasi",
+            "score": 1
+          },
+          {
+            "ja": "Tidak, mampu seperti biasa",
+            "tr": "Tidak, mampu seperti biasa",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Apakah Anda sangat tidak bahagia sampai sulit tidur?",
+        "tr": "Apakah Anda sangat tidak bahagia sampai sulit tidur?",
+        "options": [
+          {
+            "ja": "Ya, hampir sepanjang waktu",
+            "tr": "Ya, hampir sepanjang waktu",
+            "score": 3
+          },
+          {
+            "ja": "Ya, kadang-kadang",
+            "tr": "Ya, kadang-kadang",
+            "score": 2
+          },
+          {
+            "ja": "Tidak terlalu sering",
+            "tr": "Tidak terlalu sering",
+            "score": 1
+          },
+          {
+            "ja": "Tidak, tidak pernah",
+            "tr": "Tidak, tidak pernah",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Apakah Anda merasa sedih atau menderita?",
+        "tr": "Apakah Anda merasa sedih atau menderita?",
+        "options": [
+          {
+            "ja": "Ya, hampir sepanjang waktu",
+            "tr": "Ya, hampir sepanjang waktu",
+            "score": 3
+          },
+          {
+            "ja": "Ya, cukup sering",
+            "tr": "Ya, cukup sering",
+            "score": 2
+          },
+          {
+            "ja": "Tidak terlalu sering",
+            "tr": "Tidak terlalu sering",
+            "score": 1
+          },
+          {
+            "ja": "Tidak, sama sekali tidak",
+            "tr": "Tidak, sama sekali tidak",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Apakah Anda sangat tidak bahagia sampai menangis?",
+        "tr": "Apakah Anda sangat tidak bahagia sampai menangis?",
+        "options": [
+          {
+            "ja": "Ya, hampir sepanjang waktu",
+            "tr": "Ya, hampir sepanjang waktu",
+            "score": 3
+          },
+          {
+            "ja": "Ya, cukup sering",
+            "tr": "Ya, cukup sering",
+            "score": 2
+          },
+          {
+            "ja": "Hanya sesekali",
+            "tr": "Hanya sesekali",
+            "score": 1
+          },
+          {
+            "ja": "Tidak, tidak pernah",
+            "tr": "Tidak, tidak pernah",
+            "score": 0
+          }
+        ]
+      },
+      {
+        "ja": "Apakah Anda pernah berpikir untuk menyakiti diri sendiri?",
+        "tr": "Apakah Anda pernah berpikir untuk menyakiti diri sendiri?",
+        "options": [
+          {
+            "ja": "Ya, cukup sering",
+            "tr": "Ya, cukup sering",
+            "score": 3
+          },
+          {
+            "ja": "Kadang-kadang",
+            "tr": "Kadang-kadang",
+            "score": 2
+          },
+          {
+            "ja": "Hampir tidak pernah",
+            "tr": "Hampir tidak pernah",
+            "score": 1
+          },
+          {
+            "ja": "Tidak pernah",
+            "tr": "Tidak pernah",
+            "score": 0
+          }
+        ]
+      }
+    ]
+  },
+  "specialItems": {
+    "counter_kara": {
+      "titleJa": "いつからですか",
+      "titleTr": "いつからですか",
+      "options": [
+        {
+          "ja": "__時間前",
+          "tr": "__時間前"
+        },
+        {
+          "ja": "__日前",
+          "tr": "__日前"
+        },
+        {
+          "ja": "__週間前",
+          "tr": "__週間前"
+        }
+      ]
+    },
+    "counter_kai": {
+      "titleJa": "1日に何回張りますか",
+      "titleTr": "1日に何回張りますか",
+      "options": [
+        {
+          "ja": "1〜2回",
+          "tr": "1〜2回"
+        },
+        {
+          "ja": "3〜5回",
+          "tr": "3〜5回"
+        },
+        {
+          "ja": "6〜10回",
+          "tr": "6〜10回"
+        },
+        {
+          "ja": "11回以上",
+          "tr": "11回以上"
+        }
+      ]
+    },
+    "kusurikaisuu": {
+      "titleJa": "1日の使用回数",
+      "titleTr": "1日の使用回数",
+      "options": [
+        {
+          "ja": "1日につき__回",
+          "tr": "1日につき__回"
+        },
+        {
+          "ja": "__時間おき",
+          "tr": "__時間おき"
+        },
+        {
+          "mode": "quantity_unit",
+          "ja": "1回の量",
+          "tr": "1回の量",
+          "units": [
+            {
+              "ja": "錠",
+              "tr": "錠"
+            },
+            {
+              "ja": "滴",
+              "tr": "滴"
+            },
+            {
+              "ja": "パック",
+              "tr": "パック"
+            },
+            {
+              "ja": "単位",
+              "tr": "単位"
+            }
+          ]
+        }
+      ]
+    },
+    "next_kenshin": {
+      "titleJa": "次回の予約(検診)について",
+      "titleTr": "次回の予約(検診)について",
+      "options": [
+        {
+          "mode": "appointment_after",
+          "ja": "次は__ヶ月後 __週間後です",
+          "tr": "次は__ヶ月後 __週間後です"
+        },
+        {
+          "mode": "appointment_time",
+          "ja": "__時__分はどうですか",
+          "tr": "__時__分はどうですか"
+        },
+        {
+          "mode": "appointment_weekday",
+          "ja": "がよい日です",
+          "tr": "がよい日です",
+          "days": [
+            {
+              "ja": "月曜日",
+              "tr": "月曜日"
+            },
+            {
+              "ja": "火曜日",
+              "tr": "火曜日"
+            },
+            {
+              "ja": "水曜日",
+              "tr": "水曜日"
+            },
+            {
+              "ja": "木曜日",
+              "tr": "木曜日"
+            },
+            {
+              "ja": "金曜日",
+              "tr": "金曜日"
+            },
+            {
+              "ja": "土曜日",
+              "tr": "土曜日"
+            },
+            {
+              "ja": "日曜日",
+              "tr": "日曜日"
+            }
+          ]
+        },
+        {
+          "mode": "appointment_checklist",
+          "ja": "下の項目を確認してください",
+          "tr": "下の項目を確認してください",
+          "items": [
+            {
+              "ja": "薬の処方箋を受け取ってください",
+              "tr": "薬の処方箋を受け取ってください"
+            },
+            {
+              "ja": "朝ごはんを食べないできてください",
+              "tr": "朝ごはんを食べないできてください"
+            },
+            {
+              "ja": "クーポンを使うので持ってきてください",
+              "tr": "クーポンを使うので持ってきてください"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "drugTypeTree": [
+    {
+      "ja": "内服",
+      "tr": "内服",
+      "items": [
+        {
+          "ja": "錠剤",
+          "tr": "錠剤"
+        },
+        {
+          "ja": "カプセル剤",
+          "tr": "カプセル剤"
+        },
+        {
+          "ja": "散剤（粉薬）",
+          "tr": "散剤（粉薬）"
+        },
+        {
+          "ja": "液剤",
+          "tr": "液剤"
+        },
+        {
+          "ja": "ゼリー・ゲル",
+          "tr": "ゼリー・ゲル"
+        },
+        {
+          "ja": "トローチ",
+          "tr": "トローチ"
+        },
+        {
+          "ja": "舌下錠",
+          "tr": "舌下錠"
+        },
+        {
+          "ja": "うがい薬",
+          "tr": "うがい薬"
+        }
+      ]
+    },
+    {
+      "ja": "外用剤",
+      "tr": "外用剤",
+      "items": [
+        {
+          "ja": "軟膏",
+          "tr": "軟膏"
+        },
+        {
+          "ja": "クリーム",
+          "tr": "クリーム"
+        },
+        {
+          "ja": "ローション",
+          "tr": "ローション"
+        },
+        {
+          "ja": "ゲル",
+          "tr": "ゲル"
+        },
+        {
+          "ja": "液剤",
+          "tr": "液剤"
+        },
+        {
+          "ja": "スプレー",
+          "tr": "スプレー"
+        },
+        {
+          "ja": "湿布",
+          "tr": "湿布"
+        },
+        {
+          "ja": "消毒",
+          "tr": "消毒"
+        }
+      ]
+    },
+    {
+      "ja": "吸入剤",
+      "tr": "吸入剤",
+      "items": [
+        {
+          "ja": "吸入液",
+          "tr": "吸入液"
+        }
+      ]
+    },
+    {
+      "ja": "点鼻剤",
+      "tr": "点鼻剤",
+      "items": [
+        {
+          "ja": "点鼻液",
+          "tr": "点鼻液"
+        },
+        {
+          "ja": "点鼻スプレー",
+          "tr": "点鼻スプレー"
+        }
+      ]
+    },
+    {
+      "ja": "点眼",
+      "tr": "点眼",
+      "items": [
+        {
+          "ja": "点眼液",
+          "tr": "点眼液"
+        }
+      ]
+    },
+    {
+      "ja": "直腸・腟など",
+      "tr": "直腸・腟など",
+      "items": [
+        {
+          "ja": "坐薬",
+          "tr": "坐薬"
+        },
+        {
+          "ja": "注腸剤",
+          "tr": "注腸剤"
+        },
+        {
+          "ja": "腟錠",
+          "tr": "腟錠"
+        },
+        {
+          "ja": "腟用クリーム",
+          "tr": "腟用クリーム"
+        },
+        {
+          "ja": "腟用ゲル",
+          "tr": "腟用ゲル"
+        }
+      ]
+    },
+    {
+      "ja": "口腔・咽頭",
+      "tr": "口腔・咽頭",
+      "items": [
+        {
+          "ja": "トローチ",
+          "tr": "トローチ"
+        },
+        {
+          "ja": "含嗽剤",
+          "tr": "含嗽剤"
+        },
+        {
+          "ja": "口腔内フィルム",
+          "tr": "口腔内フィルム"
+        }
+      ]
+    },
+    {
+      "ja": "その他",
+      "tr": "その他",
+      "items": [
+        {
+          "ja": "その他",
+          "tr": "その他"
+        }
+      ]
+    },
+    {
+      "ja": "薬の作用",
+      "tr": "薬の作用",
+      "items": [
+        {
+          "ja": "解熱鎮痛薬",
+          "tr": "解熱鎮痛薬"
+        },
+        {
+          "ja": "抗炎症薬",
+          "tr": "抗炎症薬"
+        },
+        {
+          "ja": "抗菌薬",
+          "tr": "抗菌薬"
+        },
+        {
+          "ja": "抗生剤",
+          "tr": "抗生剤"
+        },
+        {
+          "ja": "抗ウイルス薬",
+          "tr": "抗ウイルス薬"
+        },
+        {
+          "ja": "アレルギー薬（抗ヒスタミン薬など）",
+          "tr": "アレルギー薬（抗ヒスタミン薬など）"
+        },
+        {
+          "ja": "ビタミン剤",
+          "tr": "ビタミン剤"
+        },
+        {
+          "ja": "鉄剤",
+          "tr": "鉄剤"
+        },
+        {
+          "ja": "子宮収縮抑制剤",
+          "tr": "子宮収縮抑制剤"
+        },
+        {
+          "ja": "葉酸",
+          "tr": "葉酸"
+        },
+        {
+          "ja": "漢方薬",
+          "tr": "漢方薬"
+        },
+        {
+          "ja": "制吐剤",
+          "tr": "制吐剤"
+        },
+        {
+          "ja": "下剤・整腸剤",
+          "tr": "下剤・整腸剤"
+        },
+        {
+          "ja": "降圧剤",
+          "tr": "降圧剤"
+        },
+        {
+          "ja": "呼吸器薬（気管支拡張薬、吸入ステロイドなど）",
+          "tr": "呼吸器薬（気管支拡張薬、吸入ステロイドなど）"
+        },
+        {
+          "ja": "抗血栓薬（抗凝固薬、抗血小板薬など）",
+          "tr": "抗血栓薬（抗凝固薬、抗血小板薬など）"
+        },
+        {
+          "ja": "インスリン注射薬",
+          "tr": "インスリン注射薬"
+        },
+        {
+          "ja": "ホルモン薬（甲状腺、性ホルモン、副腎皮質など）",
+          "tr": "ホルモン薬（甲状腺、性ホルモン、副腎皮質など）"
+        },
+        {
+          "ja": "睡眠剤",
+          "tr": "睡眠剤"
+        },
+        {
+          "ja": "抗てんかん薬",
+          "tr": "抗てんかん薬"
+        },
+        {
+          "ja": "ステロイド",
+          "tr": "ステロイド"
+        },
+        {
+          "ja": "抗リウマチ薬",
+          "tr": "抗リウマチ薬"
+        },
+        {
+          "ja": "膠原病薬",
+          "tr": "膠原病薬"
+        }
+      ]
+    },
+    {
+      "ja": "その他",
+      "tr": "その他",
+      "items": [
+        {
+          "ja": "その他",
+          "tr": "その他"
+        }
+      ]
     }
   ]
 }
