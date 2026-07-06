@@ -39,9 +39,8 @@ $(function () {
             type: "group",
             children: [
                 {label: "ガイドブック", path: "guidebook"},
-                {label: "周産期制度・システム", path: "systeminformation"},
+                {label: "出産・育児にかかわる制度", path: "systeminformation"},
                 {label: "日本の出産スタンダード", path: "aruaru"},
-                {label: "妊娠中の性交渉について", path: "aboutsex"},
                 {label: "よくある質問", path: "qanda"},
                 {label: "使い方", path: "usage"},
             ]

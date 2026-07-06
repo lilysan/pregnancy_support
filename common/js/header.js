@@ -71,10 +71,9 @@ $(function () {
             type: "group",
             children: [
                 { label: "ガイドブック", path: "guidebook", i18n: "title.guidebook" },
-                { label: "周産期制度・システム", path: "systeminformation", i18n: "title.systemInformation" },
+                { label: "出産・育児にかかわる制度", path: "systeminformation", i18n: "title.systemInformation" },
                 { label: "日本の出産スタンダード", path: "aruaru", i18n: "title.standard" },
-                { label: "妊娠中の性交渉について", path: "aboutsex", i18n: "title.sex" },
-                { label: "", path: "qanda", i18n: "title.faq" },
+                { label: "よくある質問", path: "qanda", i18n: "title.faq" },
                 { label: "使い方", path: "usage", i18n: "title.usage" },
             ]
         },
