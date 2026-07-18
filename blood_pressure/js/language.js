@@ -123,6 +123,42 @@ const UI_TEXT = {
     yAxis: "血圧 (mmHg)",
     xAxis: "日付と時間帯",
   },
+  soft: {
+    title: "けつあつの きろく",
+    settings: "せってい",
+    settingsTitle: "せってい",
+    language: "ことばを えらぶ",
+    guide: "ガイドを みせる",
+    on: "みせています",
+    off: "みせていません",
+    date: "ひづけ",
+    period: "じかん",
+    periodCol: "じかんたい",
+    morning: "あさ",
+    noon: "ひる",
+    night: "よる",
+    high: "うえの けつあつ",
+    low: "したの けつあつ",
+    medicine: "のみぐすり",
+    medicineNone: "なし",
+    medicineYes: "あり",
+    add: "データを いれる",
+    older: "まえの きろくを みる",
+    noMore: "これより まえの きろくは ありません",
+    loading: "よみこんでいます...",
+    register: "とうろく",
+    chart: "グラフ",
+    table: "ひょう",
+    edit: "なおす",
+    save: "ほぞん",
+    cancel: "やめる",
+    del: "けす",
+    fillAll: "ぜんぶ いれてください。",
+    systolic: "うえの けつあつ (mmHg)",
+    diastolic: "したの けつあつ (mmHg)",
+    yAxis: "けつあつ (mmHg)",
+    xAxis: "ひづけと じかんたい",
+  },
   "en-US": {
     title: "Blood Pressure Tracker",
     settings: "Settings",
@@ -175,7 +211,13 @@ const UI_TEXT = {
     night: "晚上",
     high: "收缩压",
     low: "舒张压",
+    medicine: "服药",
+    medicineNone: "无",
+    medicineYes: "有",
     add: "添加数据",
+    older: "查看更早信息",
+    noMore: "没有更多数据",
+    loading: "加载中...",
     chart: "图表",
     table: "表格",
     edit: "编辑",
@@ -204,7 +246,13 @@ const UI_TEXT = {
     night: "Abend",
     high: "Systolisch",
     low: "Diastolisch",
+    medicine: "Medikamente",
+    medicineNone: "Keine",
+    medicineYes: "Ja",
     add: "Daten hinzufuegen",
+    older: "Ältere Daten anzeigen",
+    noMore: "Keine weiteren Daten",
+    loading: "Wird geladen...",
     chart: "Diagramm",
     table: "Tabelle",
     edit: "Bearbeiten",
@@ -233,7 +281,13 @@ const UI_TEXT = {
     night: "Toi",
     high: "Huyet ap toi da",
     low: "Huyet ap toi thieu",
+    medicine: "Thuốc uống",
+    medicineNone: "Không",
+    medicineYes: "Có",
     add: "Them du lieu",
+    older: "Xem dữ liệu cũ hơn",
+    noMore: "Không còn dữ liệu",
+    loading: "Đang tải...",
     chart: "Bieu do",
     table: "Bang",
     edit: "Chinh sua",
@@ -262,7 +316,13 @@ const UI_TEXT = {
     night: "Noite",
     high: "Sistolica",
     low: "Diastolica",
+    medicine: "Medicação",
+    medicineNone: "Nenhuma",
+    medicineYes: "Sim",
     add: "Adicionar dados",
+    older: "Ver dados anteriores",
+    noMore: "Não há mais dados",
+    loading: "Carregando...",
     chart: "Grafico",
     table: "Tabela",
     edit: "Editar",
@@ -291,7 +351,13 @@ const UI_TEXT = {
     night: "저녁",
     high: "최고 혈압",
     low: "최저 혈압",
+    medicine: "복약",
+    medicineNone: "없음",
+    medicineYes: "있음",
     add: "데이터 추가",
+    older: "이전 정보 보기",
+    noMore: "더 이상 데이터가 없습니다",
+    loading: "불러오는 중...",
     chart: "그래프",
     table: "테이블",
     edit: "편집",
@@ -320,7 +386,13 @@ const UI_TEXT = {
     night: "Soir",
     high: "Systolique",
     low: "Diastolique",
+    medicine: "Médicaments",
+    medicineNone: "Aucun",
+    medicineYes: "Oui",
     add: "Ajouter",
+    older: "Voir les données précédentes",
+    noMore: "Aucune autre donnée",
+    loading: "Chargement...",
     chart: "Graphique",
     table: "Tableau",
     edit: "Modifier",
@@ -349,7 +421,13 @@ const UI_TEXT = {
     night: "Gabi",
     high: "Systolic",
     low: "Diastolic",
+    medicine: "Gamot",
+    medicineNone: "Wala",
+    medicineYes: "Meron",
     add: "Magdagdag ng datos",
+    older: "Tingnan ang mas lumang datos",
+    noMore: "Wala nang ibang datos",
+    loading: "Naglo-load...",
     chart: "Grap",
     table: "Talahanayan",
     edit: "I-edit",
@@ -378,7 +456,13 @@ const UI_TEXT = {
     night: "เย็น",
     high: "ความดันตัวบน",
     low: "ความดันตัวล่าง",
+    medicine: "ยารับประทาน",
+    medicineNone: "ไม่มี",
+    medicineYes: "มี",
     add: "เพิ่มข้อมูล",
+    older: "ดูข้อมูลก่อนหน้า",
+    noMore: "ไม่มีข้อมูลเพิ่มเติม",
+    loading: "กำลังโหลด...",
     chart: "กราฟ",
     table: "ตาราง",
     edit: "แก้ไข",
@@ -407,7 +491,13 @@ const UI_TEXT = {
     night: "Malam",
     high: "Sistolik",
     low: "Diastolik",
+    medicine: "Obat",
+    medicineNone: "Tidak ada",
+    medicineYes: "Ada",
     add: "Tambah data",
+    older: "Lihat data sebelumnya",
+    noMore: "Tidak ada data lagi",
+    loading: "Memuat...",
     chart: "Grafik",
     table: "Tabel",
     edit: "Edit",
@@ -436,7 +526,13 @@ const UI_TEXT = {
     night: "Вечер",
     high: "Систолическое",
     low: "Диастолическое",
+    medicine: "Лекарства",
+    medicineNone: "Нет",
+    medicineYes: "Да",
     add: "Добавить данные",
+    older: "Посмотреть предыдущие данные",
+    noMore: "Больше данных нет",
+    loading: "Загрузка...",
     chart: "График",
     table: "Таблица",
     edit: "Редактировать",
@@ -465,7 +561,13 @@ const UI_TEXT = {
     night: "साँझ",
     high: "सिस्टोलिक",
     low: "डायस्टोलिक",
+    medicine: "औषधि",
+    medicineNone: "छैन",
+    medicineYes: "छ",
     add: "डाटा थप्नुहोस्",
+    older: "पुरानो जानकारी हेर्नुहोस्",
+    noMore: "थप जानकारी छैन",
+    loading: "लोड हुँदैछ...",
     chart: "ग्राफ",
     table: "तालिका",
     edit: "सम्पादन",
@@ -494,7 +596,13 @@ const UI_TEXT = {
     night: "ແລງ",
     high: "ຄວາມດັນເທິງ",
     low: "ຄວາມດັນລຸ່ມ",
+    medicine: "ຢາກິນ",
+    medicineNone: "ບໍ່ມີ",
+    medicineYes: "ມີ",
     add: "ເພີ່ມຂໍ້ມູນ",
+    older: "ເບິ່ງຂໍ້ມູນກ່ອນໜ້າ",
+    noMore: "ບໍ່ມີຂໍ້ມູນເພີ່ມແລ້ວ",
+    loading: "ກຳລັງໂຫຼດ...",
     chart: "ກຣາບ",
     table: "ຕາຕະລາງ",
     edit: "ແກ້ໄຂ",
@@ -523,7 +631,13 @@ const UI_TEXT = {
     night: "Вечір",
     high: "Систолічний",
     low: "Діастолічний",
+    medicine: "Ліки",
+    medicineNone: "Немає",
+    medicineYes: "Є",
     add: "Додати дані",
+    older: "Переглянути попередні дані",
+    noMore: "Більше даних немає",
+    loading: "Завантаження...",
     chart: "Графік",
     table: "Таблиця",
     edit: "Редагувати",
@@ -552,7 +666,13 @@ const UI_TEXT = {
     night: "شب",
     high: "فشار سیستولیک",
     low: "فشار دیاستولیک",
+    medicine: "دوا",
+    medicineNone: "ندارد",
+    medicineYes: "دارد",
     add: "افزودن داده",
+    older: "دیدن معلومات قبلی",
+    noMore: "معلومات بیشتری وجود ندارد",
+    loading: "در حال بارگذاری...",
     chart: "نمودار",
     table: "جدول",
     edit: "ویرایش",
@@ -581,7 +701,13 @@ const UI_TEXT = {
     night: "සවස",
     high: "උපරිම පීඩනය",
     low: "අවම පීඩනය",
+    medicine: "ඖෂධ",
+    medicineNone: "නැත",
+    medicineYes: "ඇත",
     add: "දත්ත එක් කරන්න",
+    older: "පෙර තොරතුරු බලන්න",
+    noMore: "තවත් දත්ත නොමැත",
+    loading: "පූරණය වෙමින්...",
     chart: "ප්‍රස්තාරය",
     table: "වගුව",
     edit: "සංස්කරණය",
@@ -610,7 +736,13 @@ const UI_TEXT = {
     night: "Malam",
     high: "Sistolik",
     low: "Diastolik",
+    medicine: "Ubat",
+    medicineNone: "Tiada",
+    medicineYes: "Ada",
     add: "Tambah data",
+    older: "Lihat data terdahulu",
+    noMore: "Tiada lagi data",
+    loading: "Memuatkan...",
     chart: "Graf",
     table: "Jadual",
     edit: "Sunting",
@@ -639,7 +771,13 @@ const UI_TEXT = {
     night: "ည",
     high: "အပေါ်သွေးပေါင်",
     low: "အောက်သွေးပေါင်",
+    medicine: "သောက်ဆေး",
+    medicineNone: "မရှိ",
+    medicineYes: "ရှိ",
     add: "ဒေတာထည့်ရန်",
+    older: "ယခင်အချက်အလက်ကို ကြည့်ရန်",
+    noMore: "နောက်ထပ်အချက်အလက် မရှိပါ",
+    loading: "ဖွင့်နေသည်...",
     chart: "ဂရပ်",
     table: "ဇယား",
     edit: "ပြင်ဆင်ရန်",
@@ -668,7 +806,13 @@ const UI_TEXT = {
     night: "রাত",
     high: "সিস্টোলিক",
     low: "ডায়াস্টোলিক",
+    medicine: "ওষুধ",
+    medicineNone: "নেই",
+    medicineYes: "আছে",
     add: "ডাটা যোগ করুন",
+    older: "আগের তথ্য দেখুন",
+    noMore: "আর কোনো তথ্য নেই",
+    loading: "লোড হচ্ছে...",
     chart: "গ্রাফ",
     table: "টেবিল",
     edit: "সম্পাদনা",
@@ -697,7 +841,13 @@ const UI_TEXT = {
     night: "رات",
     high: "سسٹولک",
     low: "ڈایاسٹولک",
+    medicine: "دوا",
+    medicineNone: "نہیں",
+    medicineYes: "ہاں",
     add: "ڈیٹا شامل کریں",
+    older: "پچھلی معلومات دیکھیں",
+    noMore: "مزید معلومات نہیں ہیں",
+    loading: "لوڈ ہو رہا ہے...",
     chart: "گراف",
     table: "ٹیبل",
     edit: "ترمیم",
@@ -869,8 +1019,36 @@ function updateChartRangeTitle() {
 
 function isSupportedLang(code) {
   return (
-    code === "ja" || LANGUAGE_OPTIONS.some((item) => item.code === code)
+    code === "ja" ||
+    code === "soft" ||
+    LANGUAGE_OPTIONS.some((item) => item.code === code)
   );
+}
+
+function normalizeLangToUi(lang) {
+  const raw = String(lang || "ja").toLowerCase();
+  if (raw === "soft") return "soft";
+  if (raw.startsWith("ja")) return "ja";
+  if (raw.startsWith("zh")) return "zh";
+  if (raw.startsWith("fr")) return "fr";
+  if (raw.startsWith("ko")) return "ko";
+  if (raw.startsWith("pt") || raw === "pr") return "pr";
+  if (raw.startsWith("tl")) return "tl";
+  if (raw.startsWith("vi") || raw === "ve") return "ve";
+  if (raw.startsWith("th")) return "th";
+  if (raw.startsWith("de")) return "de";
+  if (raw.startsWith("id")) return "id";
+  if (raw.startsWith("ru")) return "ru";
+  if (raw.startsWith("ne")) return "ne";
+  if (raw.startsWith("lo")) return "lo";
+  if (raw.startsWith("uk")) return "uk";
+  if (raw.startsWith("fa") || raw.startsWith("prs")) return "fa-AF";
+  if (raw.startsWith("si")) return "si";
+  if (raw.startsWith("ms")) return "ms";
+  if (raw.startsWith("my")) return "my";
+  if (raw.startsWith("bn")) return "bn";
+  if (raw.startsWith("ur")) return "ur";
+  return "en-US";
 }
 
 function renderLanguageOptions() {
@@ -1004,10 +1182,12 @@ function applyI18n() {
   setText("medicineYesLabel", "medicineYes");
   setText("adddata", "register");
   setText("closeAddFormBtn", "cancel");
+  setText("thDate", "date");
   setText("thPeriod", "periodCol");
   setText("thHigh", "high");
   setText("thLow", "low");
   setText("thMedicine", "medicine");
+  setText("ethDate", "date");
   setText("ethPeriod", "periodCol");
   setText("ethHigh", "high");
   setText("ethLow", "low");
@@ -1033,10 +1213,12 @@ function applyI18n() {
   setText("editPeriodNoon", "noon");
   setText("editPeriodNight", "night");
   dataArray = ["", periodLabel(1), periodLabel(2), periodLabel(3)];
-  bloodPressureChart.data.datasets[0].label = bt("systolic");
-  bloodPressureChart.data.datasets[1].label = bt("diastolic");
-  bloodPressureChart.options.scales.y.title.text = bt("yAxis");
-  bloodPressureChart.options.scales.x.title.text = bt("xAxis");
+  if (typeof bloodPressureChart !== "undefined" && bloodPressureChart) {
+    bloodPressureChart.data.datasets[0].label = bt("systolic");
+    bloodPressureChart.data.datasets[1].label = bt("diastolic");
+    bloodPressureChart.options.scales.y.title.text = bt("yAxis");
+    bloodPressureChart.options.scales.x.title.text = bt("xAxis");
+  }
   applySettingsUi();
   syncOlderButtons();
   updateChartRangeTitle();
@@ -1054,3 +1236,15 @@ async function setLanguage(langCode) {
 
 showGuideOverlay = localStorage.getItem(GUIDE_VISIBLE_KEY) !== "0";
 renderLanguageOptions();
+
+document.addEventListener("i18n-initialized", () => {
+  setLanguage(normalizeLangToUi(window.normalizedLanguageCode));
+});
+
+window.addEventListener("load", () => {
+  const currentLanguage =
+    window.normalizedLanguageCode ||
+    localStorage.getItem("i18nextLng") ||
+    navigator.language;
+  setLanguage(normalizeLangToUi(currentLanguage));
+});

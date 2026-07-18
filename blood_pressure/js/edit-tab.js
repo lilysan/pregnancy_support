@@ -209,7 +209,10 @@ function setallData() {
   if (currentRow1) currentRow1.remove();
 }
 document.addEventListener("language-changed", function (event) {
-  setLanguage(window.normalizedLanguageCode || "");
+  const headerLanguage =
+    window.normalizedLanguageCode ||
+    (event && event.detail ? event.detail.langId : "");
+  setLanguage(normalizeLangToUi(headerLanguage));
 });
 $(function () {
   applyI18n();
