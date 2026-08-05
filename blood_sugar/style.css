@@ -313,6 +313,7 @@ body[dir="rtl"] #headerMenuGroup .dropdown.language {
   left: 0;
 }
 
+#chart-container-all,
 .chart-container,
 .table-container,
 .edit-container {
