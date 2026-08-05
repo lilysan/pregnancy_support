@@ -1195,6 +1195,12 @@ function applyI18n() {
     }
   };
   setText("titleBp", "title");
+  setText("settingsBtn", "settings");
+  setText("settingsDialogTitle", "settingsTitle");
+  setText("guideToggleLabel", "guide");
+  setText("languageSectionTitle", "language");
+  setText("closeSettingsBtnTop", "cancel");
+  setText("closeSettingsBtn", "cancel");
   setText("openAddFormBtn", "add");
   setText("labelDate", "date");
   setText("labelPeriod", "period");
