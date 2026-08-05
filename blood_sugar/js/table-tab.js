@@ -27,6 +27,9 @@ function switchTab(contentId, event) {
     if (chartContainer) chartContainer.classList.add("active-content");
     if (bloodSugarChart) {
       updateChartRangeTitle();
+      if (typeof updateChart === "function") {
+        updateChart(allData);
+      }
       bloodSugarChart.resize();
     }
   }
