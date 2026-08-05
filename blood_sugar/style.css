@@ -320,7 +320,7 @@ body[dir="rtl"] #headerMenuGroup .dropdown.language {
 }
 
 .active-content { display: block; }
-#chart-container { height: 400px; }
+#chart-container { height: 430px; }
 .chart-range-title { margin: 0 0 8px; color: #2b4263; }
 #bloodSugarChart,
 .older-chart-card canvas {
