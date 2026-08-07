@@ -2077,7 +2077,7 @@
         const isDev =
           location.hostname === "localhost" ||
           location.hostname === "127.0.0.1";
-        console.log("aaa" + LIFF_ID);
+
         liff
           .init({
             liffId: LIFF_ID,
@@ -2094,6 +2094,8 @@
           })
           .then((resolvedUserId) => {
             if (resolvedUserId === null) return null;
+            console.log("labor userId:", state.userId);
+            console.log("labor idToken exists:", Boolean(state.idToken));
             loadLocalRecords();
             bindEvents();
             applyLaborLanguage(
