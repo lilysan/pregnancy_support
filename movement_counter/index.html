@@ -856,7 +856,9 @@
           console.warn("movement_counter API skipped: missing userId");
           return Promise.resolve(null);
         }
-        const requestPostData = Object.assign({}, postData || {});
+        const requestPostData = Object.assign({}, postData || {}, {
+          userId: state.userId || "",
+        });
         if (!silent) showAppBusy();
         return $.ajax({
           url: API_URL,
