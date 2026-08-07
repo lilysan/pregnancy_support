@@ -1,0 +1,1091 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>胎動カウンター</title>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
+    <script
+      charset="utf-8"
+      src="https://static.line-scdn.net/liff/edge/2/sdk.js"
+    ></script>
+    <script src="../common/js/config.js"></script>
+    <script src="../common/js/toast.js"></script>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <div id="header-container" class="header-wrapper"></div>
+    <div class="loader is-hidden" id="loadingOverlay" aria-hidden="true">
+      <div class="spinner"></div>
+    </div>
+
+    <main>
+      <article class="main-container movement-counter-app">
+        <h1 class="page-title" id="pageTitle">胎動カウンター</h1>
+        <p class="page-lead" id="pageLead">
+          「開始」を押して、赤ちゃんが動いたら「ポコッ」を押してください。10回動くまでの時間を記録します。
+        </p>
+
+        <section class="timer-panel" aria-live="polite">
+          <div class="timer-label" id="timerStateLabel">待機中</div>
+          <div class="timer-value" id="activeTimer">00:00</div>
+          <div class="movement-count" id="movementCountText">0 / 10</div>
+          <div class="timer-sub" id="timerSubText">10回動くまで測ります</div>
+          <div class="movement-dots" id="movementDots" aria-hidden="true"></div>
+          <div class="counter-actions">
+            <button
+              type="button"
+              id="startMeasurementBtn"
+              class="main-action start"
+            >
+              開始
+            </button>
+            <button
+              type="button"
+              id="movementBtn"
+              class="main-action movement"
+              disabled
+            >
+              ポコッ
+            </button>
+            <button
+              type="button"
+              id="endMeasurementBtn"
+              class="main-action stop"
+              disabled
+            >
+              終了
+            </button>
+          </div>
+        </section>
+
+        <section class="records-section">
+          <div class="records-header">
+            <h2 id="recordsTitle">記録</h2>
+            <div class="record-actions">
+              <button
+                type="button"
+                id="deleteSelectedBtn"
+                class="icon-action-btn"
+                aria-label="選択した記録を削除"
+              >
+                <iconify-icon
+                  icon="material-symbols:delete-outline-rounded"
+                  width="20"
+                  height="20"
+                ></iconify-icon>
+              </button>
+            </div>
+          </div>
+          <p id="emptyText" class="empty-text">まだ記録はありません。</p>
+          <div id="timelineList" class="timeline-list"></div>
+        </section>
+      </article>
+    </main>
+
+    <script>
+      const currentPage = "movement_counter";
+      const liff = window.liff;
+      const STORAGE_KEY = "movement_counter_records_v1";
+      const TARGET_MOVEMENTS = 10;
+
+      const state = {
+        idToken: "",
+        activeRecord: null,
+        timerId: null,
+        records: [],
+        lang: "ja",
+      };
+
+      const MOVEMENT_TEXT = {
+        ja: {
+          pageTitle: "胎動カウンター",
+          pageLead:
+            "「開始」を押して、赤ちゃんが動いたら「ポコッ」を押してください。10回動くまでの時間を記録します。",
+          waiting: "待機中",
+          measuring: "測定中",
+          complete: "10回になりました",
+          start: "開始",
+          movement: "ポコッ",
+          end: "終了",
+          countText: "{count} / 10",
+          goalText: "10回動くまで測ります",
+          activeText: "あと{remaining}回です",
+          completedText: "10回まで {duration}",
+          records: "記録",
+          empty: "まだ記録はありません。",
+          deleteSelected: "選択した記録を削除",
+          activeBadge: "測定中",
+          activeEnd: "測定中",
+          selectRecord: "{time}からの記録を選択",
+          sessionLine: "胎動 {count}回 / {duration}",
+          movementCount: "胎動回数",
+          timeToTen: "10回まで",
+          startedAt: "開始",
+          endedAt: "終了",
+          movementTime: "{index}回目",
+          sec: "{value}秒",
+          minSec: "{min}分{sec}秒",
+          dateLabel: "{year}年{month}月{day}日",
+          endEarlyConfirm: "10回未満です。このまま終了しますか？",
+          selectDelete: "削除する記録を選択してください。",
+          liffInitFailed: "LIFF init failed.",
+        },
+        soft: {
+          pageTitle: "たいどうカウンター",
+          pageLead:
+            "「はじめる」を おして、赤ちゃんが うごいたら「ポコッ」を おします。10かい うごくまでの じかんを きろくします。",
+          waiting: "まっています",
+          measuring: "はかっています",
+          complete: "10かいに なりました",
+          start: "はじめる",
+          movement: "ポコッ",
+          end: "おわる",
+          countText: "{count} / 10",
+          goalText: "10かい うごくまで はかります",
+          activeText: "あと{remaining}回です",
+          completedText: "10かいまで {duration}",
+          records: "きろく",
+          empty: "まだ きろくは ありません。",
+          deleteSelected: "えらんだ きろくを けす",
+          activeBadge: "はかっています",
+          activeEnd: "はかっています",
+          selectRecord: "{time}からの きろくを えらぶ",
+          sessionLine: "たいどう {count}回 / {duration}",
+          movementCount: "うごいた回数",
+          timeToTen: "10かいまで",
+          startedAt: "はじめ",
+          endedAt: "おわり",
+          movementTime: "{index}かいめ",
+          sec: "{value}びょう",
+          minSec: "{min}ふん{sec}びょう",
+          dateLabel: "{year}ねん{month}がつ{day}にち",
+          endEarlyConfirm: "まだ10かいでは ありません。このまま おわりますか？",
+          selectDelete: "けす きろくを えらんでください。",
+          liffInitFailed: "LIFFの じゅんびに しっぱいしました。",
+        },
+        "en-US": {
+          pageTitle: "Baby Movement Counter",
+          pageLead:
+            "Tap “Start”, then tap “Kick” each time your baby moves. This records how long it takes to reach 10 movements.",
+          waiting: "Waiting",
+          measuring: "Counting",
+          complete: "Reached 10 movements",
+          start: "Start",
+          movement: "Kick",
+          end: "End",
+          countText: "{count} / 10",
+          goalText: "Counting until 10 movements",
+          activeText: "{remaining} more to go",
+          completedText: "10 movements in {duration}",
+          records: "Records",
+          empty: "No records yet.",
+          deleteSelected: "Delete selected records",
+          activeBadge: "Counting",
+          activeEnd: "Counting",
+          selectRecord: "Select record from {time}",
+          sessionLine: "{count} movements / {duration}",
+          movementCount: "Movements",
+          timeToTen: "Time to 10",
+          startedAt: "Start",
+          endedAt: "End",
+          movementTime: "Movement {index}",
+          sec: "{value}s",
+          minSec: "{min}m {sec}s",
+          dateLabel: "{year}/{month}/{day}",
+          endEarlyConfirm: "Fewer than 10 movements. End this record?",
+          selectDelete: "Please select records to delete.",
+          liffInitFailed: "LIFF initialization failed.",
+        },
+      };
+
+      Object.assign(MOVEMENT_TEXT, {
+        zh: {
+          ...MOVEMENT_TEXT["en-US"],
+          pageTitle: "胎动计数器",
+          pageLead:
+            "点击“开始”，宝宝动一次就点击“动了”。记录达到10次胎动需要多长时间。",
+          waiting: "待机中",
+          measuring: "计数中",
+          complete: "已达到10次胎动",
+          start: "开始",
+          movement: "动了",
+          end: "结束",
+          goalText: "测量到10次胎动为止",
+          activeText: "还差{remaining}次",
+          completedText: "10次用时 {duration}",
+          records: "记录",
+          empty: "还没有记录。",
+          activeBadge: "计数中",
+          activeEnd: "计数中",
+          sessionLine: "胎动 {count}次 / {duration}",
+          movementCount: "胎动次数",
+          timeToTen: "到10次",
+          startedAt: "开始",
+          endedAt: "结束",
+          movementTime: "第{index}次",
+          sec: "{value}秒",
+          minSec: "{min}分{sec}秒",
+          dateLabel: "{year}年{month}月{day}日",
+          endEarlyConfirm: "还不到10次。要结束这条记录吗？",
+          selectDelete: "请选择要删除的记录。",
+        },
+        fr: {
+          ...MOVEMENT_TEXT["en-US"],
+          pageTitle: "Compteur de mouvements du bébé",
+          pageLead:
+            "Appuyez sur « Démarrer », puis sur « Bougé » à chaque mouvement du bébé. Le temps jusqu’à 10 mouvements est enregistré.",
+          waiting: "En attente",
+          measuring: "Comptage",
+          complete: "10 mouvements atteints",
+          start: "Démarrer",
+          movement: "Bougé",
+          end: "Terminer",
+          goalText: "Comptage jusqu’à 10 mouvements",
+          activeText: "Encore {remaining}",
+          completedText: "10 mouvements en {duration}",
+          records: "Enregistrements",
+          empty: "Aucun enregistrement.",
+          activeBadge: "Comptage",
+          activeEnd: "Comptage",
+          sessionLine: "{count} mouvements / {duration}",
+          movementCount: "Mouvements",
+          timeToTen: "Temps jusqu’à 10",
+          startedAt: "Début",
+          endedAt: "Fin",
+          movementTime: "Mouvement {index}",
+          sec: "{value} s",
+          minSec: "{min} min {sec} s",
+          dateLabel: "{day}/{month}/{year}",
+          endEarlyConfirm:
+            "Moins de 10 mouvements. Terminer cet enregistrement ?",
+          selectDelete: "Sélectionnez les enregistrements à supprimer.",
+        },
+        ko: {
+          ...MOVEMENT_TEXT["en-US"],
+          pageTitle: "태동 카운터",
+          pageLead:
+            "‘시작’을 누른 뒤 아기가 움직일 때마다 ‘꼬물’을 눌러 주세요. 10번 움직일 때까지 걸린 시간을 기록합니다.",
+          waiting: "대기 중",
+          measuring: "세는 중",
+          complete: "10회가 되었습니다",
+          start: "시작",
+          movement: "꼬물",
+          end: "종료",
+          goalText: "10회 움직일 때까지 측정합니다",
+          activeText: "앞으로 {remaining}회",
+          completedText: "10회까지 {duration}",
+          records: "기록",
+          empty: "아직 기록이 없습니다.",
+          activeBadge: "측정 중",
+          activeEnd: "측정 중",
+          selectRecord: "{time}부터의 기록 선택",
+          sessionLine: "태동 {count}회 / {duration}",
+          movementCount: "태동 횟수",
+          timeToTen: "10회까지",
+          startedAt: "시작",
+          endedAt: "종료",
+          movementTime: "{index}회째",
+          sec: "{value}초",
+          minSec: "{min}분 {sec}초",
+          dateLabel: "{year}년 {month}월 {day}일",
+          endEarlyConfirm: "아직 10회 미만입니다. 이대로 종료할까요?",
+          selectDelete: "삭제할 기록을 선택해 주세요.",
+        },
+      });
+
+      const sharedMovementNames = {
+        pr: [
+          "Contador de movimentos do bebê",
+          "Toque em “Iniciar” e, a cada movimento do bebê, toque em “Mexeu”. O tempo até 10 movimentos será registrado.",
+          "Aguardando",
+          "Contando",
+          "Chegou a 10 movimentos",
+          "Iniciar",
+          "Mexeu",
+          "Encerrar",
+          "Faltam {remaining}",
+          "10 movimentos em {duration}",
+          "Registros",
+          "Ainda não há registros.",
+          "Movimentos",
+          "Tempo até 10",
+          "{day}/{month}/{year}",
+        ],
+        tl: [
+          "Tagabilang ng galaw ng sanggol",
+          "Pindutin ang “Simulan”, at kapag gumalaw ang sanggol, pindutin ang “Gumalaw”. Itatala ang oras hanggang 10 galaw.",
+          "Naghihintay",
+          "Binibilang",
+          "Umabot na sa 10 galaw",
+          "Simulan",
+          "Gumalaw",
+          "Tapusin",
+          "{remaining} pa",
+          "10 galaw sa {duration}",
+          "Mga tala",
+          "Wala pang tala.",
+          "Galaw",
+          "Oras hanggang 10",
+          "{month}/{day}/{year}",
+        ],
+        ve: [
+          "Bộ đếm thai máy",
+          "Nhấn “Bắt đầu”, rồi mỗi lần bé cử động hãy nhấn “Bé máy”. Ghi lại thời gian đến 10 lần cử động.",
+          "Đang chờ",
+          "Đang đếm",
+          "Đã đủ 10 lần",
+          "Bắt đầu",
+          "Bé máy",
+          "Kết thúc",
+          "Còn {remaining} lần",
+          "10 lần trong {duration}",
+          "Ghi chép",
+          "Chưa có ghi chép.",
+          "Số lần máy",
+          "Thời gian đến 10",
+          "{day}/{month}/{year}",
+        ],
+        th: [
+          "ตัวนับลูกดิ้น",
+          "กด “เริ่ม” แล้วเมื่อลูกดิ้นให้กด “ดิ้น” บันทึกเวลาจนถึง 10 ครั้ง",
+          "รอ",
+          "กำลังนับ",
+          "ครบ 10 ครั้งแล้ว",
+          "เริ่ม",
+          "ดิ้น",
+          "สิ้นสุด",
+          "เหลือ {remaining} ครั้ง",
+          "10 ครั้งใน {duration}",
+          "บันทึก",
+          "ยังไม่มีบันทึก",
+          "จำนวนลูกดิ้น",
+          "เวลาถึง 10 ครั้ง",
+          "{day}/{month}/{year}",
+        ],
+        de: [
+          "Kindsbewegungszähler",
+          "Tippen Sie auf „Start“ und bei jeder Bewegung auf „Bewegt“. Die Zeit bis zu 10 Bewegungen wird gespeichert.",
+          "Warten",
+          "Zählen",
+          "10 Bewegungen erreicht",
+          "Start",
+          "Bewegt",
+          "Beenden",
+          "Noch {remaining}",
+          "10 Bewegungen in {duration}",
+          "Aufzeichnungen",
+          "Noch keine Aufzeichnungen.",
+          "Bewegungen",
+          "Zeit bis 10",
+          "{day}.{month}.{year}",
+        ],
+        id: [
+          "Penghitung gerak bayi",
+          "Ketuk “Mulai”, lalu ketuk “Bergerak” setiap kali bayi bergerak. Waktu sampai 10 gerakan akan dicatat.",
+          "Menunggu",
+          "Menghitung",
+          "Sudah 10 gerakan",
+          "Mulai",
+          "Bergerak",
+          "Selesai",
+          "Sisa {remaining}",
+          "10 gerakan dalam {duration}",
+          "Catatan",
+          "Belum ada catatan.",
+          "Gerakan",
+          "Waktu sampai 10",
+          "{day}/{month}/{year}",
+        ],
+        ru: [
+          "Счетчик движений малыша",
+          "Нажмите «Старт», затем при каждом движении малыша нажимайте «Шевеление». Будет записано время до 10 движений.",
+          "Ожидание",
+          "Подсчет",
+          "Достигнуто 10 движений",
+          "Старт",
+          "Шевеление",
+          "Завершить",
+          "Осталось {remaining}",
+          "10 движений за {duration}",
+          "Записи",
+          "Записей пока нет.",
+          "Движения",
+          "Время до 10",
+          "{day}.{month}.{year}",
+        ],
+        ne: [
+          "बच्चाको चाल काउन्टर",
+          "“सुरु” थिच्नुहोस्, बच्चा चलेपछि “चल्‍यो” थिच्नुहोस्। 10 पटक चल्दासम्म लागेको समय रेकर्ड हुन्छ।",
+          "प्रतीक्षा",
+          "गन्दै",
+          "10 पटक पुग्यो",
+          "सुरु",
+          "चल्‍यो",
+          "अन्त्य",
+          "अब {remaining} पटक",
+          "10 पटकसम्म {duration}",
+          "रेकर्ड",
+          "अझै रेकर्ड छैन।",
+          "चाल संख्या",
+          "10 पटकसम्मको समय",
+          "{year} साल {month} महिना {day} गते",
+        ],
+        lo: [
+          "ຕົວນັບລູກດິ້ນ",
+          "ກົດ “ເລີ່ມ”, ເມື່ອລູກດິ້ນໃຫ້ກົດ “ດິ້ນ”. ບັນທຶກເວລາຈົນຄົບ 10 ຄັ້ງ.",
+          "ລໍຖ້າ",
+          "ກຳລັງນັບ",
+          "ຄົບ 10 ຄັ້ງແລ້ວ",
+          "ເລີ່ມ",
+          "ດິ້ນ",
+          "ສິ້ນສຸດ",
+          "ເຫຼືອ {remaining} ຄັ້ງ",
+          "10 ຄັ້ງໃນ {duration}",
+          "ບັນທຶກ",
+          "ຍັງບໍ່ມີບັນທຶກ.",
+          "ຈຳນວນດິ້ນ",
+          "ເວລາຮອດ 10",
+          "{day}/{month}/{year}",
+        ],
+        uk: [
+          "Лічильник рухів малюка",
+          "Натисніть «Почати», а при кожному русі малюка натискайте «Рух». Записується час до 10 рухів.",
+          "Очікування",
+          "Підрахунок",
+          "Досягнуто 10 рухів",
+          "Почати",
+          "Рух",
+          "Завершити",
+          "Залишилось {remaining}",
+          "10 рухів за {duration}",
+          "Записи",
+          "Записів ще немає.",
+          "Рухи",
+          "Час до 10",
+          "{day}.{month}.{year}",
+        ],
+        "fa-AF": [
+          "شمارنده حرکت کودک",
+          "«شروع» را بزنید و هر بار که کودک حرکت کرد «حرکت» را بزنید. زمان تا 10 حرکت ثبت می‌شود.",
+          "در انتظار",
+          "در حال شمارش",
+          "به 10 حرکت رسید",
+          "شروع",
+          "حرکت",
+          "پایان",
+          "{remaining} بار باقی مانده",
+          "10 حرکت در {duration}",
+          "ثبت‌ها",
+          "هنوز ثبتی نیست.",
+          "حرکت‌ها",
+          "زمان تا 10",
+          "{day}/{month}/{year}",
+        ],
+        si: [
+          "බබාගේ චලන කවුන්ටරය",
+          "“ආරම්භ” ඔබන්න. බබා චලනය වූ සෑම වරක්ම “චලනය” ඔබන්න. චලන 10ක් දක්වා ගතවන කාලය සටහන් වේ.",
+          "රැඳී සිටී",
+          "ගණන් කරයි",
+          "චලන 10 සම්පූර්ණයි",
+          "ආරම්භ",
+          "චලනය",
+          "අවසන්",
+          "තව {remaining}",
+          "චලන 10ට {duration}",
+          "සටහන්",
+          "තවම සටහන් නැත.",
+          "චලන ගණන",
+          "10 දක්වා කාලය",
+          "{year}/{month}/{day}",
+        ],
+        ms: [
+          "Pengira gerakan bayi",
+          "Tekan “Mula”, kemudian tekan “Bergerak” setiap kali bayi bergerak. Masa hingga 10 gerakan direkodkan.",
+          "Menunggu",
+          "Mengira",
+          "Sudah capai 10 gerakan",
+          "Mula",
+          "Bergerak",
+          "Tamat",
+          "Baki {remaining}",
+          "10 gerakan dalam {duration}",
+          "Rekod",
+          "Belum ada rekod.",
+          "Gerakan",
+          "Masa hingga 10",
+          "{day}/{month}/{year}",
+        ],
+        my: [
+          "ကလေးလှုပ်ရှားမှု ကောင်တာ",
+          "“စတင်” ကိုနှိပ်ပြီး ကလေးလှုပ်တိုင်း “လှုပ်သည်” ကိုနှိပ်ပါ။ 10 ကြိမ်ပြည့်ရန် ကြာချိန်ကို မှတ်တမ်းတင်သည်။",
+          "စောင့်နေသည်",
+          "ရေတွက်နေသည်",
+          "10 ကြိမ်ပြည့်ပြီ",
+          "စတင်",
+          "လှုပ်သည်",
+          "ပြီးဆုံး",
+          "{remaining} ကြိမ် ကျန်",
+          "10 ကြိမ်အတွက် {duration}",
+          "မှတ်တမ်း",
+          "မှတ်တမ်းမရှိသေးပါ။",
+          "လှုပ်ရှားမှု",
+          "10 ကြိမ်အထိ ကြာချိန်",
+          "{year}/{month}/{day}",
+        ],
+        bn: [
+          "শিশুর নড়াচড়া কাউন্টার",
+          "“শুরু” চাপুন, শিশুটি নড়লে প্রতিবার “নড়েছে” চাপুন। 10 বার নড়তে কত সময় লাগে তা রেকর্ড হবে।",
+          "অপেক্ষা",
+          "গোনা হচ্ছে",
+          "10 বার হয়েছে",
+          "শুরু",
+          "নড়েছে",
+          "শেষ",
+          "আর {remaining} বার",
+          "10 বার পর্যন্ত {duration}",
+          "রেকর্ড",
+          "এখনও রেকর্ড নেই।",
+          "নড়াচড়ার সংখ্যা",
+          "10 বার পর্যন্ত সময়",
+          "{day}/{month}/{year}",
+        ],
+        ur: [
+          "بچے کی حرکت کاؤنٹر",
+          "“شروع” دبائیں، پھر بچہ جب بھی حرکت کرے “حرکت” دبائیں۔ 10 حرکتوں تک کا وقت ریکارڈ ہوگا۔",
+          "انتظار",
+          "گنتی جاری",
+          "10 حرکتیں مکمل",
+          "شروع",
+          "حرکت",
+          "ختم",
+          "{remaining} باقی",
+          "10 حرکتیں {duration} میں",
+          "ریکارڈ",
+          "ابھی کوئی ریکارڈ نہیں۔",
+          "حرکتوں کی تعداد",
+          "10 تک وقت",
+          "{day}/{month}/{year}",
+        ],
+      };
+
+      Object.entries(sharedMovementNames).forEach(([code, values]) => {
+        MOVEMENT_TEXT[code] = {
+          ...MOVEMENT_TEXT["en-US"],
+          pageTitle: values[0],
+          pageLead: values[1],
+          waiting: values[2],
+          measuring: values[3],
+          complete: values[4],
+          start: values[5],
+          movement: values[6],
+          end: values[7],
+          goalText:
+            values[3] === "Counting"
+              ? MOVEMENT_TEXT["en-US"].goalText
+              : values[1].split("。")[0],
+          activeText: values[8],
+          completedText: values[9],
+          records: values[10],
+          empty: values[11],
+          activeBadge: values[3],
+          activeEnd: values[3],
+          sessionLine: `${values[12]} {count} / {duration}`,
+          movementCount: values[12],
+          timeToTen: values[13],
+          startedAt: values[5],
+          endedAt: values[7],
+          movementTime: "{index}",
+          dateLabel: values[14],
+        };
+      });
+
+      function templateText(text, vars) {
+        return String(text || "").replace(/\{(\w+)\}/g, function (_, key) {
+          return vars && vars[key] != null ? String(vars[key]) : "";
+        });
+      }
+
+      function t(key, vars) {
+        const table = MOVEMENT_TEXT[state.lang] || MOVEMENT_TEXT["en-US"];
+        return templateText(
+          table[key] ||
+            MOVEMENT_TEXT["en-US"][key] ||
+            MOVEMENT_TEXT.ja[key] ||
+            key,
+          vars,
+        );
+      }
+
+      function normalizeMovementLang(lang) {
+        const raw = String(lang || "ja").toLowerCase();
+        if (
+          raw === "soft" ||
+          raw.startsWith("easy") ||
+          raw.startsWith("simple")
+        )
+          return "soft";
+        if (raw.startsWith("en")) return "en-US";
+        if (raw.startsWith("pt")) return "pr";
+        if (raw.startsWith("vi")) return "ve";
+        if (raw.startsWith("fa") || raw.startsWith("prs")) return "fa-AF";
+        if (raw.startsWith("zh")) return "zh";
+        if (raw.startsWith("fr")) return "fr";
+        if (raw.startsWith("ko")) return "ko";
+        if (raw.startsWith("tl")) return "tl";
+        if (raw.startsWith("th")) return "th";
+        if (raw.startsWith("de")) return "de";
+        if (raw.startsWith("id")) return "id";
+        if (raw.startsWith("ru")) return "ru";
+        if (raw.startsWith("ne")) return "ne";
+        if (raw.startsWith("lo")) return "lo";
+        if (raw.startsWith("uk")) return "uk";
+        if (raw.startsWith("si")) return "si";
+        if (raw.startsWith("ms")) return "ms";
+        if (raw.startsWith("my")) return "my";
+        if (raw.startsWith("bn")) return "bn";
+        if (raw.startsWith("ur")) return "ur";
+        return "ja";
+      }
+
+      function applyMovementLanguage(lang) {
+        state.lang = normalizeMovementLang(lang);
+        document.documentElement.lang =
+          state.lang === "en-US" ? "en" : state.lang;
+        document.title = t("pageTitle");
+        document.getElementById("pageTitle").textContent = t("pageTitle");
+        document.getElementById("pageLead").textContent = t("pageLead");
+        document.getElementById("startMeasurementBtn").textContent = t("start");
+        document.getElementById("movementBtn").textContent = t("movement");
+        document.getElementById("endMeasurementBtn").textContent = t("end");
+        document.getElementById("recordsTitle").textContent = t("records");
+        document.getElementById("emptyText").textContent = t("empty");
+        document
+          .getElementById("deleteSelectedBtn")
+          .setAttribute("aria-label", t("deleteSelected"));
+        setActiveUi();
+        render();
+      }
+
+      function showAppBusy() {
+        const loader = document.getElementById("loadingOverlay");
+        loader.classList.remove("is-hidden");
+        loader.style.display = "grid";
+        loader.setAttribute("aria-hidden", "false");
+      }
+
+      function hideAppBusy() {
+        const loader = document.getElementById("loadingOverlay");
+        loader.classList.add("is-hidden");
+        loader.style.display = "none";
+        loader.setAttribute("aria-hidden", "true");
+      }
+
+      function loadHeader() {
+        return new Promise((resolve, reject) => {
+          let finished = false;
+          const finish = () => {
+            if (finished) return;
+            finished = true;
+            resolve();
+          };
+          const fail = (error) => {
+            if (finished) return;
+            finished = true;
+            reject(error);
+          };
+          const timer = setTimeout(finish, 3000);
+          $("#header-container").load(
+            "../common/header.html",
+            function (_responseText, status) {
+              if (status === "error") {
+                clearTimeout(timer);
+                fail(new Error("Failed to load header.html"));
+                return;
+              }
+              document.addEventListener(
+                "i18n-initialized",
+                function () {
+                  clearTimeout(timer);
+                  finish();
+                },
+                { once: true },
+              );
+              $.getScript("../common/js/header.js").fail(function () {
+                clearTimeout(timer);
+                fail(new Error("Failed to load header.js"));
+              });
+            },
+          );
+        });
+      }
+
+      function pad(value) {
+        return String(value).padStart(2, "0");
+      }
+
+      function formatClock(dateString) {
+        const date = new Date(dateString);
+        if (Number.isNaN(date.getTime())) return "-";
+        return `${pad(date.getHours())}:${pad(date.getMinutes())}`;
+      }
+
+      function formatSeconds(seconds) {
+        if (!Number.isFinite(seconds) || seconds < 0) return "-";
+        const min = Math.floor(seconds / 60);
+        const sec = Math.floor(seconds % 60);
+        return `${pad(min)}:${pad(sec)}`;
+      }
+
+      function formatDuration(seconds) {
+        if (!Number.isFinite(seconds) || seconds < 0) return "-";
+        const min = Math.floor(seconds / 60);
+        const sec = Math.floor(seconds % 60);
+        if (min <= 0) return t("sec", { value: sec });
+        return t("minSec", { min: min, sec: pad(sec) });
+      }
+
+      function formatRecordDate(dateString) {
+        const date = new Date(dateString);
+        if (Number.isNaN(date.getTime())) return "";
+        return t("dateLabel", {
+          year: date.getFullYear(),
+          month: date.getMonth() + 1,
+          day: date.getDate(),
+        });
+      }
+
+      function createLocalId(prefix) {
+        return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      }
+
+      function normalizeRecord(item) {
+        const startedAt = item && item.startedAt ? item.startedAt : "";
+        const movements = Array.isArray(item && item.movements)
+          ? item.movements
+          : [];
+        const endedAt =
+          item && item.endedAt
+            ? item.endedAt
+            : movements[movements.length - 1] || startedAt;
+        return {
+          localId: (item && item.localId) || createLocalId("movement"),
+          startedAt: startedAt,
+          endedAt: endedAt,
+          durationSeconds: Number.isFinite(Number(item && item.durationSeconds))
+            ? Math.max(0, Number(item.durationSeconds))
+            : Math.max(
+                0,
+                Math.round(
+                  (new Date(endedAt).getTime() -
+                    new Date(startedAt).getTime()) /
+                    1000,
+                ),
+              ),
+          movements: movements.slice(0, TARGET_MOVEMENTS),
+          saved: Boolean(item && item.saved),
+        };
+      }
+
+      function loadLocalRecords() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          const parsed = raw ? JSON.parse(raw) : [];
+          state.records = (Array.isArray(parsed) ? parsed : []).map(
+            normalizeRecord,
+          );
+        } catch (error) {
+          state.records = [];
+        }
+      }
+
+      function saveLocalRecords() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.records));
+      }
+
+      function getActiveElapsedSeconds() {
+        if (!state.activeRecord) return 0;
+        return Math.max(
+          0,
+          Math.round(
+            (Date.now() - new Date(state.activeRecord.startedAt).getTime()) /
+              1000,
+          ),
+        );
+      }
+
+      function updateDots(count) {
+        const dots = document.getElementById("movementDots");
+        dots.innerHTML = "";
+        for (let index = 1; index <= TARGET_MOVEMENTS; index += 1) {
+          const dot = document.createElement("span");
+          dot.className = "movement-dot" + (index <= count ? " is-filled" : "");
+          dot.textContent = index;
+          dots.appendChild(dot);
+        }
+      }
+
+      function setActiveUi() {
+        const isActive = Boolean(state.activeRecord);
+        const count = isActive ? state.activeRecord.movements.length : 0;
+        const remaining = Math.max(0, TARGET_MOVEMENTS - count);
+        document
+          .querySelector(".counter-actions")
+          .classList.toggle("is-measuring", isActive);
+        document.getElementById("timerStateLabel").textContent = isActive
+          ? t("measuring")
+          : t("waiting");
+        document.getElementById("movementCountText").textContent = t(
+          "countText",
+          { count: count },
+        );
+        document.getElementById("timerSubText").textContent = isActive
+          ? t("activeText", { remaining: remaining })
+          : t("goalText");
+        document.getElementById("startMeasurementBtn").disabled = isActive;
+        document.getElementById("movementBtn").disabled =
+          !isActive || count >= TARGET_MOVEMENTS;
+        document.getElementById("endMeasurementBtn").disabled = !isActive;
+        updateDots(count);
+      }
+
+      function render() {
+        const list = document.getElementById("timelineList");
+        const empty = document.getElementById("emptyText");
+        list.innerHTML = "";
+
+        const visibleRecords = state.activeRecord
+          ? state.records.concat([
+              Object.assign({}, state.activeRecord, {
+                endedAt: "",
+                durationSeconds: getActiveElapsedSeconds(),
+                isActive: true,
+              }),
+            ])
+          : state.records;
+
+        let currentDateLabel = "";
+        visibleRecords
+          .slice()
+          .reverse()
+          .forEach((record) => {
+            const dateLabel = formatRecordDate(record.startedAt);
+            if (dateLabel && dateLabel !== currentDateLabel) {
+              currentDateLabel = dateLabel;
+              const heading = document.createElement("h3");
+              heading.className = "timeline-date";
+              heading.textContent = dateLabel;
+              list.appendChild(heading);
+            }
+
+            const count = Array.isArray(record.movements)
+              ? record.movements.length
+              : 0;
+            const item = document.createElement("div");
+            item.className =
+              "session-item" + (record.isActive ? " is-active" : "");
+            item.innerHTML = `
+            <div class="session-header">
+              <label class="timeline-check">
+                ${record.isActive ? `<span class="active-session-mark">${t("activeBadge")}</span>` : `<input type="checkbox" class="record-check" value="${record.localId}" aria-label="${t("selectRecord", { time: formatClock(record.startedAt) })}">`}
+              </label>
+              <div class="session-main">
+                <div class="timeline-time">${formatClock(record.startedAt)} - ${record.isActive ? t("activeEnd") : formatClock(record.endedAt)}</div>
+                <div class="timeline-duration">${t("sessionLine", { count: count, duration: formatDuration(record.durationSeconds) })}</div>
+              </div>
+            </div>
+            <dl class="session-summary">
+              <div>
+                <dt>${t("movementCount")}</dt>
+                <dd>${t("countText", { count: count })}</dd>
+              </div>
+              <div>
+                <dt>${t("timeToTen")}</dt>
+                <dd>${count >= TARGET_MOVEMENTS ? formatDuration(record.durationSeconds) : "-"}</dd>
+              </div>
+              <div>
+                <dt>${t("startedAt")}</dt>
+                <dd>${formatClock(record.startedAt)}</dd>
+              </div>
+              <div>
+                <dt>${t("endedAt")}</dt>
+                <dd>${record.isActive ? "-" : formatClock(record.endedAt)}</dd>
+              </div>
+            </dl>
+            <div class="movement-list">
+              ${(record.movements || [])
+                .map(
+                  (movementAt, index) => `
+                <div class="movement-row">
+                  <span class="movement-index">${index + 1}</span>
+                  <span class="movement-time">${formatClock(movementAt)}</span>
+                  <span class="movement-label">${t("movementTime", { index: index + 1 })}</span>
+                </div>
+              `,
+                )
+                .join("")}
+            </div>
+          `;
+            list.appendChild(item);
+          });
+
+        empty.style.display = visibleRecords.length ? "none" : "block";
+        list.style.display = visibleRecords.length ? "block" : "none";
+      }
+
+      function updateActiveTimer() {
+        document.getElementById("activeTimer").textContent = state.activeRecord
+          ? formatSeconds(getActiveElapsedSeconds())
+          : "00:00";
+        if (state.activeRecord) render();
+      }
+
+      function startMeasurement() {
+        const now = new Date();
+        state.activeRecord = {
+          localId: createLocalId("movement"),
+          startedAt: now.toISOString(),
+          endedAt: "",
+          durationSeconds: 0,
+          movements: [],
+          saved: false,
+        };
+        clearInterval(state.timerId);
+        state.timerId = setInterval(updateActiveTimer, 1000);
+        setActiveUi();
+        updateActiveTimer();
+        render();
+      }
+
+      function finishMeasurement() {
+        if (!state.activeRecord) return;
+        const endedAt = new Date();
+        state.activeRecord.endedAt = endedAt.toISOString();
+        state.activeRecord.durationSeconds = Math.max(
+          0,
+          Math.round(
+            (endedAt.getTime() -
+              new Date(state.activeRecord.startedAt).getTime()) /
+              1000,
+          ),
+        );
+        state.records.push(state.activeRecord);
+        state.activeRecord = null;
+        clearInterval(state.timerId);
+        state.timerId = null;
+        saveLocalRecords();
+        setActiveUi();
+        updateActiveTimer();
+        render();
+      }
+
+      function addMovement() {
+        if (
+          !state.activeRecord ||
+          state.activeRecord.movements.length >= TARGET_MOVEMENTS
+        )
+          return;
+        state.activeRecord.movements.push(new Date().toISOString());
+        if (state.activeRecord.movements.length >= TARGET_MOVEMENTS) {
+          document.getElementById("timerStateLabel").textContent =
+            t("complete");
+          finishMeasurement();
+          return;
+        }
+        setActiveUi();
+        render();
+      }
+
+      function endMeasurement() {
+        if (!state.activeRecord) return;
+        if (
+          state.activeRecord.movements.length < TARGET_MOVEMENTS &&
+          !confirm(t("endEarlyConfirm"))
+        )
+          return;
+        finishMeasurement();
+      }
+
+      function deleteSelectedRecords() {
+        const ids = Array.from(
+          document.querySelectorAll(".record-check:checked"),
+        ).map((checkbox) => checkbox.value);
+        if (!ids.length) {
+          alert(t("selectDelete"));
+          return;
+        }
+        state.records = state.records.filter(
+          (record) => !ids.includes(record.localId),
+        );
+        saveLocalRecords();
+        render();
+      }
+
+      function bindEvents() {
+        document
+          .getElementById("startMeasurementBtn")
+          .addEventListener("click", startMeasurement);
+        document
+          .getElementById("movementBtn")
+          .addEventListener("click", addMovement);
+        document
+          .getElementById("endMeasurementBtn")
+          .addEventListener("click", endMeasurement);
+        document
+          .getElementById("deleteSelectedBtn")
+          .addEventListener("click", deleteSelectedRecords);
+        document.addEventListener("language-changed", function (event) {
+          applyMovementLanguage(
+            event && event.detail ? event.detail.langId : "ja",
+          );
+        });
+      }
+
+      function bootMovementCounter() {
+        showAppBusy();
+        const isDev =
+          location.hostname === "localhost" ||
+          location.hostname === "127.0.0.1";
+        liff
+          .init({
+            liffId: LIFF_ID,
+            withLoginOnExternalBrowser: !isDev,
+          })
+          .then(() => {
+            state.idToken = liff.getIDToken();
+            loadLocalRecords();
+            bindEvents();
+            applyMovementLanguage(
+              window.normalizedLanguageCode ||
+                (typeof liff.getAppLanguage === "function"
+                  ? liff.getAppLanguage()
+                  : navigator.language),
+            );
+            return loadHeader();
+          })
+          .then(() => {
+            applyMovementLanguage(window.normalizedLanguageCode || state.lang);
+          })
+          .then(hideAppBusy)
+          .catch((error) => {
+            console.error("LIFF init failed:", error);
+            hideAppBusy();
+            alert(t("liffInitFailed"));
+          });
+      }
+
+      window.addEventListener("load", bootMovementCounter);
+    </script>
+  </body>
+</html>
