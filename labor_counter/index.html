@@ -988,6 +988,11 @@
             return seconds === null ? "" : seconds;
         }
 
+        function apiRequiredSeconds(value) {
+            const seconds = normalizeOptionalSeconds(value);
+            return seconds === null ? 0 : seconds;
+        }
+
         function formatRecordDate(dateString) {
             const date = new Date(dateString);
             if (Number.isNaN(date.getTime())) return "";
@@ -1288,9 +1293,7 @@
                 console.warn("labor_counter API skipped: missing userId");
                 return Promise.resolve(null);
             }
-            const requestPostData = Object.assign({}, postData || {}, {
-                userId: state.userId || ""
-            });
+            const requestPostData = Object.assign({}, postData || {});
             if (!silent) showAppBusy();
             return $.ajax({
                 url: API_URL,
@@ -1298,7 +1301,7 @@
                 dataType: "json",
                 timeout: 30000,
                 data: JSON.stringify({
-                    path: "labor",
+                    path: "myLabor",
                     method: method,
                     idToken: state.idToken,
                     userId: state.userId || "",
@@ -1312,7 +1315,10 @@
                     return null;
                 }
                 if (response.statusCode !== 200) {
-                    console.warn("labor_counter API rejected the request:", response.message || response);
+                    const message = response.message || "";
+                    if (!(silent && method === "get" && message === "Hospital account is not linked")) {
+                        console.warn("labor_counter API rejected the request:", message || response);
+                    }
                     if (!silent) alert(response.message || t("saveFailed"));
                     return null;
                 }
@@ -1334,13 +1340,12 @@
                 restSeconds: apiOptionalSeconds(record.restSeconds)
             }));
             return {
-                itemId: session.itemId || "",
                 startedAt: session.startedAt,
                 endedAt: session.endedAt,
-                sessionDurationSeconds: session.sessionDurationSeconds,
+                sessionDurationSeconds: apiRequiredSeconds(session.sessionDurationSeconds),
                 contractionCount: contractions.length,
-                averageRestSeconds: apiOptionalSeconds(average(contractions.map((record) => record.restSeconds))),
-                averageDurationSeconds: apiOptionalSeconds(average(contractions.map((record) => record.durationSeconds))),
+                averageRestSeconds: apiRequiredSeconds(average(contractions.map((record) => record.restSeconds))),
+                averageDurationSeconds: apiRequiredSeconds(average(contractions.map((record) => record.durationSeconds))),
                 contractionsJson: contractions
             };
         }

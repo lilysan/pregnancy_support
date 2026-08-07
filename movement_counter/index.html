@@ -856,9 +856,7 @@
           console.warn("movement_counter API skipped: missing userId");
           return Promise.resolve(null);
         }
-        const requestPostData = Object.assign({}, postData || {}, {
-          userId: state.userId || "",
-        });
+        const requestPostData = Object.assign({}, postData || {});
         if (!silent) showAppBusy();
         return $.ajax({
           url: API_URL,
@@ -866,7 +864,7 @@
           dataType: "json",
           timeout: 30000,
           data: JSON.stringify({
-            path: "movement",
+            path: "myMovement",
             method: method,
             idToken: state.idToken,
             userId: state.userId || "",
@@ -881,7 +879,10 @@
               return null;
             }
             if (response.statusCode !== 200) {
-              console.warn("movement API rejected the request:", response.message || response);
+              const message = response.message || "";
+              if (!(silent && method === "get" && message === "Hospital account is not linked")) {
+                console.warn("movement API rejected the request:", message || response);
+              }
               return null;
             }
             return response.data || {};
@@ -898,12 +899,13 @@
       function buildMovementPayload(record) {
         const movements = Array.isArray(record.movements) ? record.movements : [];
         return {
-          itemId: record.itemId || "",
           startedAt: record.startedAt,
           endedAt: record.endedAt,
-          durationSeconds: record.durationSeconds,
+          durationSeconds: Number.isFinite(Number(record.durationSeconds))
+            ? Math.max(0, Number(record.durationSeconds))
+            : 0,
           movementCount: movements.length,
-          isCompleted10: movements.length >= TARGET_MOVEMENTS,
+          isCompleted10: movements.length >= TARGET_MOVEMENTS ? 1 : 0,
           movementsJson: movements,
         };
       }
