@@ -107,6 +107,7 @@
         timerId: null,
         records: [],
         lang: "ja",
+        appLanguage: "",
       };
 
       const MOVEMENT_TEXT = {
@@ -806,6 +807,20 @@
           });
       }
 
+      function ensureLiffLogin(isDev) {
+        if (
+          !isDev &&
+          typeof liff.isLoggedIn === "function" &&
+          !liff.isLoggedIn()
+        ) {
+          liff.login({
+            redirectUri: window.location.href,
+          });
+          return false;
+        }
+        return true;
+      }
+
       function normalizeRecord(item) {
         const startedAt = item && item.startedAt ? item.startedAt : "";
         const sourceMovements = item && (item.movements || item.movementsJson);
@@ -1194,10 +1209,16 @@
             withLoginOnExternalBrowser: !isDev,
           })
           .then(() => {
+            if (!ensureLiffLogin(isDev)) return null;
             state.idToken = liff.getIDToken();
+            state.appLanguage =
+              typeof liff.getAppLanguage === "function"
+                ? liff.getAppLanguage()
+                : "";
             return resolveLiffUserId();
           })
-          .then(() => {
+          .then((resolvedUserId) => {
+            if (resolvedUserId === null) return null;
             loadLocalRecords();
             bindEvents();
             applyMovementLanguage(
@@ -1209,7 +1230,8 @@
             loadMovementRecordsFromApi();
             return loadHeader();
           })
-          .then(() => {
+          .then((result) => {
+            if (result === null) return;
             applyMovementLanguage(window.normalizedLanguageCode || state.lang);
           })
           .then(hideAppBusy)

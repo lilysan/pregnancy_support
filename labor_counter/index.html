@@ -113,6 +113,7 @@
         timerId: null,
         records: [],
         lang: "ja",
+        appLanguage: "",
       };
 
       const LABOR_TEXT = {
@@ -1444,6 +1445,20 @@
           });
       }
 
+      function ensureLiffLogin(isDev) {
+        if (
+          !isDev &&
+          typeof liff.isLoggedIn === "function" &&
+          !liff.isLoggedIn()
+        ) {
+          liff.login({
+            redirectUri: window.location.href,
+          });
+          return false;
+        }
+        return true;
+      }
+
       function normalizeStoredRecords(items) {
         return (Array.isArray(items) ? items : []).map((item) => {
           if (Array.isArray(item.contractionsJson)) {
@@ -2062,17 +2077,23 @@
         const isDev =
           location.hostname === "localhost" ||
           location.hostname === "127.0.0.1";
+        console.log("aaa" + LIFF_ID);
         liff
           .init({
             liffId: LIFF_ID,
             withLoginOnExternalBrowser: !isDev,
           })
           .then(() => {
+            if (!ensureLiffLogin(isDev)) return null;
             state.idToken = liff.getIDToken();
+            state.appLanguage =
+              typeof liff.getAppLanguage === "function"
+                ? liff.getAppLanguage()
+                : "";
             return resolveLiffUserId();
           })
-          .then(() => {
-            console.log("aaa" + LIFF_ID);
+          .then((resolvedUserId) => {
+            if (resolvedUserId === null) return null;
             loadLocalRecords();
             bindEvents();
             applyLaborLanguage(
@@ -2084,7 +2105,8 @@
             loadLaborRecordsFromApi();
             return loadHeader();
           })
-          .then(() => {
+          .then((result) => {
+            if (result === null) return;
             applyLaborLanguage(window.normalizedLanguageCode || state.lang);
           })
           .then(() => {
