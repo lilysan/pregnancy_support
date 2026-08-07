@@ -761,14 +761,39 @@
             $(".loader").addClass("is-hidden").css("display", "none").attr("aria-hidden", "true");
         }
 
+        function weightPayload(method, data) {
+            const value = data || {};
+            if (method === "get") {
+                return {
+                    unit: value.unit || value.Lunit || "month",
+                    limit: Number(value.limit || value.Llimit || 1),
+                    page: Number(value.page || value.Lpage || 1)
+                };
+            }
+            if (method === "delete") {
+                return {
+                    datetime: value.datetime || value.Ldatetime || ""
+                };
+            }
+            const mapped = {
+                datetime: value.datetime || value.Ldatetime || "",
+                weight: Number(value.weight != null ? value.weight : (value.Lweight != null ? value.Lweight : 0))
+            };
+            if (method === "put") {
+                mapped.itemId = value.itemId || value.LitemId || value.id || "";
+            }
+            return mapped;
+        }
+
         function requestWeightApi(method, postData) {
             showLoader();
+            const safePostData = weightPayload(method, postData);
             const access = getAccessObj({
                 path: "myWeight",
                 method: method,
                 idToken: token,
                 userId: userId,
-                postData: postData || {}
+                postData: safePostData
             });
             access.timeout = 12000;
             return $.ajax(access).then(function (response) {
@@ -1198,7 +1223,6 @@
             }
 
             const isExistingPeriod = currentPeriod && currentPeriod.periodId !== "";
-            const nextPage = isExistingPeriod ? weightPeriodPage : 1;
             const payload = {
                 type: "period",
                 startDate: startDate,
@@ -1219,12 +1243,6 @@
             loadMetaToForm();
             renderSummary();
             updateChart();
-            const result = await requestWeightApi("put", payload);
-            if (!result) {
-                alert(bt("promptPlanSavedLocal"));
-                return;
-            }
-            await fetchWeightPeriodPage(nextPage);
             alert(bt("promptPlanSaved"));
             switchTab("overviewTab", {
                 currentTarget: document.getElementById("tabOverview")
@@ -1303,7 +1321,8 @@
             if (!editingItemId) return;
             const result = await requestWeightApi("delete", {
                 type: "record",
-                itemId: editingItemId
+                itemId: editingItemId,
+                datetime: editingDatetime
             });
             if (!result) return;
             closeEditDialog();
