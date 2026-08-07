@@ -1016,6 +1016,19 @@
             }
         }
 
+        function resolveLiffUserId() {
+            const decoded = typeof liff.getDecodedIDToken === "function" ? liff.getDecodedIDToken() : null;
+            return Promise.resolve(typeof liff.getProfile === "function" ? liff.getProfile() : null)
+                .catch(() => null)
+                .then((profile) => {
+                    state.userId = profile && profile.userId
+                        ? profile.userId
+                        : (decoded && (decoded.sub || decoded.userId)) || decodeIdTokenUserId(state.idToken) || "";
+                    window.userId = state.userId;
+                    return state.userId;
+                });
+        }
+
         function normalizeStoredRecords(items) {
             return (Array.isArray(items) ? items : []).map((item) => {
                 if (Array.isArray(item.contractionsJson)) {
@@ -1271,6 +1284,10 @@
 
         function requestLaborApi(method, postData, options) {
             const silent = options && options.silent;
+            if (!state.userId) {
+                console.warn("labor_counter API skipped: missing userId");
+                return Promise.resolve(null);
+            }
             const requestPostData = Object.assign({}, postData || {}, {
                 userId: state.userId || ""
             });
@@ -1401,7 +1418,8 @@
                 withLoginOnExternalBrowser: !isDev
             }).then(() => {
                 state.idToken = liff.getIDToken();
-                state.userId = decodeIdTokenUserId(state.idToken);
+                return resolveLiffUserId();
+            }).then(() => {
                 loadLocalRecords();
                 bindEvents();
                 applyLaborLanguage(window.normalizedLanguageCode || (typeof liff.getAppLanguage === "function" ? liff.getAppLanguage() : navigator.language));

@@ -785,6 +785,27 @@
         }
       }
 
+      function resolveLiffUserId() {
+        const decoded =
+          typeof liff.getDecodedIDToken === "function"
+            ? liff.getDecodedIDToken()
+            : null;
+        return Promise.resolve(
+          typeof liff.getProfile === "function" ? liff.getProfile() : null,
+        )
+          .catch(() => null)
+          .then((profile) => {
+            state.userId =
+              profile && profile.userId
+                ? profile.userId
+                : (decoded && (decoded.sub || decoded.userId)) ||
+                  decodeIdTokenUserId(state.idToken) ||
+                  "";
+            window.userId = state.userId;
+            return state.userId;
+          });
+      }
+
       function normalizeRecord(item) {
         const startedAt = item && item.startedAt ? item.startedAt : "";
         const sourceMovements = item && (item.movements || item.movementsJson);
@@ -831,6 +852,10 @@
 
       function requestMovementApi(method, postData, options) {
         const silent = options && options.silent;
+        if (!state.userId) {
+          console.warn("movement_counter API skipped: missing userId");
+          return Promise.resolve(null);
+        }
         const requestPostData = Object.assign({}, postData || {}, {
           userId: state.userId || "",
         });
@@ -1166,7 +1191,9 @@
           })
           .then(() => {
             state.idToken = liff.getIDToken();
-            state.userId = decodeIdTokenUserId(state.idToken);
+            return resolveLiffUserId();
+          })
+          .then(() => {
             loadLocalRecords();
             bindEvents();
             applyMovementLanguage(
