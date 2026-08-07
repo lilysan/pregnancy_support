@@ -758,6 +758,16 @@
         return t("minSec", { min: min, sec: pad(sec) });
       }
 
+      function formatDateTimeForApi(value) {
+        const date = value instanceof Date ? value : new Date(value);
+        if (Number.isNaN(date.getTime())) return "";
+        return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
+          date.getDate(),
+        )} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(
+          date.getSeconds(),
+        )}`;
+      }
+
       function formatRecordDate(dateString) {
         const date = new Date(dateString);
         if (Number.isNaN(date.getTime())) return "";
@@ -916,14 +926,14 @@
       function buildMovementPayload(record) {
         const movements = Array.isArray(record.movements) ? record.movements : [];
         return {
-          startedAt: record.startedAt,
-          endedAt: record.endedAt,
+          startedAt: formatDateTimeForApi(record.startedAt),
+          endedAt: formatDateTimeForApi(record.endedAt),
           durationSeconds: Number.isFinite(Number(record.durationSeconds))
             ? Math.max(0, Number(record.durationSeconds))
             : 0,
           movementCount: movements.length,
           isCompleted10: movements.length >= TARGET_MOVEMENTS ? 1 : 0,
-          movementsJson: movements,
+          movementsJson: movements.map(formatDateTimeForApi),
         };
       }
 

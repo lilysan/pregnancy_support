@@ -1393,6 +1393,16 @@
         return seconds === null ? 0 : seconds;
       }
 
+      function formatDateTimeForApi(value) {
+        const date = value instanceof Date ? value : new Date(value);
+        if (Number.isNaN(date.getTime())) return "";
+        return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
+          date.getDate(),
+        )} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(
+          date.getSeconds(),
+        )}`;
+      }
+
       function formatRecordDate(dateString) {
         const date = new Date(dateString);
         if (Number.isNaN(date.getTime())) return "";
@@ -1947,15 +1957,15 @@
 
       function buildLaborPayload(session) {
         const contractions = (session.contractions || []).map((record) => ({
-          startedAt: record.startedAt,
-          endedAt: record.endedAt,
+          startedAt: formatDateTimeForApi(record.startedAt),
+          endedAt: formatDateTimeForApi(record.endedAt),
           durationSeconds: apiOptionalSeconds(record.durationSeconds),
           intervalSeconds: apiOptionalSeconds(record.intervalSeconds),
           restSeconds: apiOptionalSeconds(record.restSeconds),
         }));
         return {
-          startedAt: session.startedAt,
-          endedAt: session.endedAt,
+          startedAt: formatDateTimeForApi(session.startedAt),
+          endedAt: formatDateTimeForApi(session.endedAt),
           sessionDurationSeconds: apiRequiredSeconds(
             session.sessionDurationSeconds,
           ),
