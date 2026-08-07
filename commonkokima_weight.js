@@ -14,6 +14,10 @@
         loader.setAttribute("aria-hidden", "true");
     }      
 
+    function alertWeightMessage(key, fallback) {
+        alert(typeof bt === "function" ? bt(key) : fallback);
+    }
+
 // タブ切り替えの処理
       function switchTab(contentId, event) {
         // 先に表示切替を行い、後段処理でエラーが起きてもタブ表示は維持する
@@ -81,7 +85,7 @@
     }
 
     function loadData(idToken,type,postData,mergeMode) {
-        $(".loader").show();
+        showAppLoader();
         const safePostData = postData || {};
         const safeMergeMode = mergeMode || "replace";
         return $.ajax(
@@ -111,10 +115,10 @@
                 return items;
             }
         }, function () {
-            alert("Network error!loadData");
+            alertWeightMessage("networkError", "Network error!loadData");
             return [];
         }).always(function () {
-            $(".loader").hide();
+            hideAppLoader();
         });
     }
 
@@ -140,7 +144,7 @@
 
     function addData(data,type) {
 //function setWeight(data) {
-    $(".loader").show();
+    showAppLoader();
     return $.ajax(
         getAccessObj({
             path: type,
@@ -162,9 +166,9 @@
             createTablePage(); // テーブルを更新
         }
     }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-        alert("Network error!addData");
+        alertWeightMessage("networkError", "Network error!addData");
     }).always(function () {
-        $(".loader").hide();
+        hideAppLoader();
     });
     }
 
@@ -174,7 +178,7 @@
     }
 
     function putData(data,type) {
-        $(".loader").show();
+        showAppLoader();
         return $.ajax(
             getAccessObj({
                 path: type,
@@ -191,14 +195,14 @@
                 alert(response.message);
             }
         }).fail(function () {
-            alert("Network error!putData");
+            alertWeightMessage("networkError", "Network error!putData");
         }).always(function () {
-            $(".loader").hide();
+            hideAppLoader();
         });
     }
 
     function deleteData(_data,type) {
-        $(".loader").show();
+        showAppLoader();
         return $.ajax(
             getAccessObj({
                 path: type,
@@ -217,9 +221,9 @@
                 setallData()
             }
         }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("Network error!deleteData");
+            alertWeightMessage("networkError", "Network error!deleteData");
         }).always(function () {
-            $(".loader").hide();
+            hideAppLoader();
         });
     }
 

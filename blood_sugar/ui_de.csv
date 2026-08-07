@@ -1,0 +1,37 @@
+key,嗚呼嗚呼ああ
+title,Blood Sugar Tracker
+settings,Settings
+settingsTitle,Settings
+language,Language
+close,Close
+date,Date
+period,Time
+periodCol,Timing
+sugar,Blood Sugar
+add,Add Data
+older,Show Older Data
+noMore,No More Data
+loading,Loading...
+register,Register
+chart,Chart
+table,Table
+edit,Edit
+save,Save
+cancel,Cancel
+del,Delete
+fillAll,Please fill all fields.
+beforeBreakfast,Before Breakfast
+afterBreakfast,After Breakfast
+beforeLunch,Before Lunch
+afterLunch,After Lunch
+beforeDinner,Before Dinner
+afterDinner,After Dinner
+beforeSleep,Before Bed
+sugarLabel,Blood Sugar (mg/dL)
+yAxis,Blood Sugar (mg/dL)
+xAxis,Date / Timing
+targetNote,Target: before meals under 95 mg/dL, after meals under 140 mg/dL
+medication,Medication
+medicationNone,None
+medicationYes,Yes
+medicationUnit,Unit

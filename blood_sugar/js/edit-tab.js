@@ -242,6 +242,9 @@ $(function () {
     });
   bootSugarApp();
   document.addEventListener("language-changed", function (event) {
-    setLanguage(window.normalizedLanguageCode || normalizeLangToUi(event.detail && event.detail.langId));
+    const headerLanguage =
+      window.normalizedLanguageCode ||
+      (event && event.detail ? event.detail.langId : "");
+    setLanguage(normalizeLangToUi(headerLanguage));
   });
 });

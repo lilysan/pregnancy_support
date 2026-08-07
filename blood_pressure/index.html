@@ -49,9 +49,48 @@
       </div>
     </div>
 
+    <div id="settingsDialog" class="is-hidden">
+      <div id="settingsDialogPanel">
+        <div class="settings-header">
+          <h2 id="settingsDialogTitle">設定</h2>
+          <button
+            type="button"
+            id="closeSettingsBtnTop"
+            class="settings-close-top-btn"
+            onclick="closeSettingsDialog()"
+          >
+            閉じる
+          </button>
+        </div>
+        <div class="settings-block">
+          <p id="guideToggleLabel" class="settings-label">ガイド表示</p>
+          <button type="button" id="guideToggleBtn" class="guide-toggle-btn">
+            表示中
+          </button>
+        </div>
+        <p id="languageSectionTitle" class="settings-label">言語設定</p>
+        <div id="languageOptionList" class="language-option-list"></div>
+        <button
+          type="button"
+          id="closeSettingsBtn"
+          onclick="closeSettingsDialog()"
+        >
+          閉じる
+        </button>
+      </div>
+    </div>
+
     <main>
       <article class="main-container blood-pressure-main">
         <h1 class="title_bp" id="titleBp">血圧記録</h1>
+        <button
+          type="button"
+          id="settingsBtn"
+          class="settings-btn"
+          onclick="openSettingsDialog()"
+        >
+          設定
+        </button>
         <button
           type="button"
           id="openAddFormBtn"
@@ -60,7 +99,6 @@
         >
           データを追加
         </button>
-        <!-- データ追加フォーム -->
         <div id="addFormPanel" class="add-form-panel" aria-hidden="true">
           <form id="addDataForm">
             <label for="date" id="labelDate">日付</label>
@@ -121,20 +159,19 @@
             </button>
           </form>
         </div>
+
         <div id="chart-container-all">
           <div id="chart-container" class="chart-container active-content">
             <h2 id="chartRangeTitle" class="chart-range-title"></h2>
             <canvas id="bloodPressureChart"></canvas>
           </div>
-
           <div id="olderChartsContainer" class="older-charts-container"></div>
           <button type="button" id="loadOlderChartBtn" class="load-older-btn">
             以前の情報をみる
           </button>
         </div>
-        <div id="table-container" class="table-container content">
-          <!-- データ編集テーブル -->
 
+        <div id="table-container" class="table-container content">
           <table id="table">
             <thead>
               <tr>
@@ -155,7 +192,6 @@
         <div id="edit-container" class="edit-container content">
           <div id="edit_table">
             <div id="edit_table_container">
-              <!-- データ編集テーブル -->
               <table id="editTable">
                 <thead>
                   <tr>
@@ -176,7 +212,6 @@
           </button>
         </div>
 
-        <!-- ダイアログ -->
         <div id="editDialog" class="is-hidden">
           <form id="editForm">
             <label for="editDate" id="editDateLabel">日付</label>
@@ -228,7 +263,6 @@
           </form>
         </div>
 
-        <!-- 下部タブメニュー -->
         <div class="tab-bar">
           <button
             id="tabChart"
@@ -260,7 +294,7 @@
         <script src="https://cdn.jsdelivr.net/npm/date-fns@2.21.1/dist/date-fns.min.js"></script>
       </article>
     </main>
-    <script src="./js/language.js?v=20260709-1"></script>
+    <script src="./js/language.js?v=20260806-1"></script>
     <script src="./js/liff-api.js"></script>
     <script src="./js/canvas.js"></script>
     <script src="./js/table-tab.js"></script>

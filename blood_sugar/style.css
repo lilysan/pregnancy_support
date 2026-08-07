@@ -313,14 +313,16 @@ body[dir="rtl"] #headerMenuGroup .dropdown.language {
   left: 0;
 }
 
+#chart-container-all,
 .chart-container,
 .table-container,
 .edit-container {
   display: none;
 }
 
+#chart-container-all.active-content,
 .active-content { display: block; }
-#chart-container { height: 400px; }
+#chart-container { height: 430px; }
 .chart-range-title { margin: 0 0 8px; color: #2b4263; }
 #bloodSugarChart,
 .older-chart-card canvas {

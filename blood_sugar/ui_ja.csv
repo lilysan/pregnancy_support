@@ -1,0 +1,37 @@
+key,value
+title,血糖記録
+settings,設定
+settingsTitle,設定
+language,言語設定
+close,閉じる
+date,日付
+period,時間
+periodCol,時間帯
+sugar,血糖
+add,データを追加
+older,以前の情報をみる
+noMore,これ以上ありません
+loading,読み込み中...
+register,登録
+chart,グラフ
+table,テーブル
+edit,編集
+save,保存
+cancel,キャンセル
+del,削除
+fillAll,すべてのフィールドに値を入力してください。
+beforeBreakfast,朝食前
+afterBreakfast,朝食後
+beforeLunch,昼食前
+afterLunch,昼食後
+beforeDinner,夕食前
+afterDinner,夕食後
+beforeSleep,就寝前
+sugarLabel,血糖 (mg/dL)
+yAxis,血糖 (mg/dL)
+xAxis,日付と時間帯
+targetNote,目標: 食前 95mg/dL未満、食後 140mg/dL未満
+medication,投薬
+medicationNone,なし
+medicationYes,あり
+medicationUnit,単位
