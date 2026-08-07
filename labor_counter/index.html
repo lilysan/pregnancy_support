@@ -1003,6 +1003,12 @@
 
         function normalizeStoredRecords(items) {
             return (Array.isArray(items) ? items : []).map((item) => {
+                if (Array.isArray(item.contractionsJson)) {
+                    item = Object.assign({}, item, {
+                        contractions: item.contractionsJson,
+                        saved: true
+                    });
+                }
                 if (Array.isArray(item.contractions)) {
                     const normalized = Object.assign({
                         localId: createLocalId("session"),
@@ -1010,10 +1016,12 @@
                         saved: false
                     }, item);
                     normalized.contractions = normalized.contractions.map((record) => Object.assign({}, record, {
+                        localId: record.localId || createLocalId("contraction"),
                         durationSeconds: normalizeOptionalSeconds(record.durationSeconds),
                         intervalSeconds: normalizeOptionalSeconds(record.intervalSeconds),
                         restSeconds: normalizeOptionalSeconds(record.restSeconds)
                     }));
+                    normalized.contractionCount = normalized.contractions.length;
                     return normalized;
                 }
                 const startedAt = item.startedAt || "";
@@ -1233,7 +1241,8 @@
             if (lastContraction) {
                 lastContraction.restSeconds = Math.max(0, Math.round((endedAt.getTime() - new Date(lastContraction.endedAt).getTime()) / 1000));
             }
-            state.records.push(state.activeSession);
+            const completedSession = state.activeSession;
+            state.records.push(completedSession);
             state.activeSession = null;
             state.painStart = null;
             clearInterval(state.timerId);
@@ -1242,6 +1251,7 @@
             setActiveUi();
             updateActiveTimer();
             render();
+            saveLaborSessionToApi(completedSession);
         }
 
         function requestLaborApi(method, postData, options) {
@@ -1253,7 +1263,7 @@
                 dataType: "json",
                 timeout: silent ? 5000 : 12000,
                 data: JSON.stringify({
-                    path: "labor_counter",
+                    path: "labor",
                     method: method,
                     idToken: state.idToken,
                     postData: postData
@@ -1278,48 +1288,45 @@
             });
         }
 
-        function registerSession() {
-            if (state.activeSession) {
-                alert(t("needEndBeforeSave"));
-                return;
-            }
-            if (!state.records.length) {
-                alert(t("noRecordsToSave"));
-                return;
-            }
-            const sessions = state.records.map((session) => ({
+        function buildLaborPayload(session) {
+            const contractions = (session.contractions || []).map((record) => ({
+                startedAt: record.startedAt,
+                endedAt: record.endedAt,
+                durationSeconds: apiOptionalSeconds(record.durationSeconds),
+                intervalSeconds: apiOptionalSeconds(record.intervalSeconds),
+                restSeconds: apiOptionalSeconds(record.restSeconds)
+            }));
+            return {
                 itemId: session.itemId || "",
                 startedAt: session.startedAt,
                 endedAt: session.endedAt,
                 sessionDurationSeconds: session.sessionDurationSeconds,
-                contractions: (session.contractions || []).map((record) => ({
-                    startedAt: record.startedAt,
-                        endedAt: record.endedAt,
-                        durationSeconds: apiOptionalSeconds(record.durationSeconds),
-                        intervalSeconds: apiOptionalSeconds(record.intervalSeconds),
-                        restSeconds: apiOptionalSeconds(record.restSeconds)
-                    }))
-            }));
-            requestLaborApi("post", {
-                type: "session",
-                sessions: sessions,
-                items: sessions.flatMap((session) => session.contractions.map((record) => ({
-                    sessionStartedAt: session.startedAt,
-                    sessionEndedAt: session.endedAt,
-                    startedAt: record.startedAt,
-                    endedAt: record.endedAt,
-                    durationSeconds: apiOptionalSeconds(record.durationSeconds),
-                    intervalSeconds: apiOptionalSeconds(record.intervalSeconds),
-                    restSeconds: apiOptionalSeconds(record.restSeconds)
-                })))
-            }).then(function (data) {
-                if (!data) return;
-                state.records = state.records.map((record) => Object.assign({}, record, {
-                    saved: true
-                }));
+                contractionCount: contractions.length,
+                averageRestSeconds: apiOptionalSeconds(average(contractions.map((record) => record.restSeconds))),
+                averageDurationSeconds: apiOptionalSeconds(average(contractions.map((record) => record.durationSeconds))),
+                contractionsJson: contractions
+            };
+        }
+
+        function saveLaborSessionToApi(session) {
+            return requestLaborApi("post", buildLaborPayload(session), { silent: true }).then(function (data) {
+                if (!data || !data.itemId) return null;
+                session.itemId = data.itemId;
+                session.saved = true;
                 saveLocalRecords();
                 render();
-                alert(t("saved"));
+                return data;
+            });
+        }
+
+        function loadLaborRecordsFromApi() {
+            return requestLaborApi("get", { unit: "month", limit: 1, page: 1 }, { silent: true }).then(function (data) {
+                const apiItems = data && Array.isArray(data.items) ? normalizeStoredRecords(data.items) : null;
+                if (!apiItems) return;
+                const unsavedLocal = state.records.filter((record) => !record.saved && !record.itemId);
+                state.records = apiItems.concat(unsavedLocal);
+                saveLocalRecords();
+                render();
             });
         }
 
@@ -1335,13 +1342,22 @@
             render();
         }
 
-        function deleteSelectedRecords() {
+        async function deleteSelectedRecords() {
             const ids = Array.from(document.querySelectorAll(".record-check:checked")).map((checkbox) => checkbox.value);
             if (!ids.length) {
                 alert(t("selectDelete"));
                 return;
             }
-            state.records = state.records.filter((session) => !ids.includes(session.localId));
+            const selected = state.records.filter((session) => ids.includes(session.localId));
+            const deleteResults = await Promise.all(selected.map((session) => {
+                if (!session.itemId) return Promise.resolve({ session, ok: true });
+                return requestLaborApi("delete", { itemId: session.itemId }, { silent: true }).then((data) => ({
+                    session,
+                    ok: Boolean(data)
+                }));
+            }));
+            const deletableIds = deleteResults.filter((result) => result.ok).map((result) => result.session.localId);
+            state.records = state.records.filter((session) => !deletableIds.includes(session.localId));
             saveLocalRecords();
             render();
         }
@@ -1368,6 +1384,7 @@
                 loadLocalRecords();
                 bindEvents();
                 applyLaborLanguage(window.normalizedLanguageCode || (typeof liff.getAppLanguage === "function" ? liff.getAppLanguage() : navigator.language));
+                loadLaborRecordsFromApi();
                 return loadHeader();
             }).then(() => {
                 applyLaborLanguage(window.normalizedLanguageCode || state.lang);

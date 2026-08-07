@@ -772,15 +772,15 @@
 
       function normalizeRecord(item) {
         const startedAt = item && item.startedAt ? item.startedAt : "";
-        const movements = Array.isArray(item && item.movements)
-          ? item.movements
-          : [];
+        const sourceMovements = item && (item.movements || item.movementsJson);
+        const movements = Array.isArray(sourceMovements) ? sourceMovements : [];
         const endedAt =
           item && item.endedAt
             ? item.endedAt
             : movements[movements.length - 1] || startedAt;
         return {
           localId: (item && item.localId) || createLocalId("movement"),
+          itemId: (item && (item.itemId || item.LitemId || item.id)) || "",
           startedAt: startedAt,
           endedAt: endedAt,
           durationSeconds: Number.isFinite(Number(item && item.durationSeconds))
@@ -794,7 +794,7 @@
                 ),
               ),
           movements: movements.slice(0, TARGET_MOVEMENTS),
-          saved: Boolean(item && item.saved),
+          saved: Boolean((item && item.saved) || (item && (item.itemId || item.LitemId || item.id))),
         };
       }
 
@@ -812,6 +812,77 @@
 
       function saveLocalRecords() {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state.records));
+      }
+
+      function requestMovementApi(method, postData, options) {
+        const silent = options && options.silent;
+        if (!silent) showAppBusy();
+        return $.ajax({
+          url: API_URL,
+          type: "POST",
+          dataType: "json",
+          timeout: silent ? 5000 : 12000,
+          data: JSON.stringify({
+            path: "movement",
+            method: method,
+            idToken: state.idToken,
+            postData: postData || {},
+          }),
+        }).then(
+          function (response) {
+            if (response.statusCode === 401) {
+              liff.logout();
+              window.location.reload();
+              return null;
+            }
+            if (response.statusCode !== 200) {
+              console.warn("movement API rejected the request:", response.message || response);
+              return null;
+            }
+            return response.data || {};
+          },
+          function () {
+            console.warn("movement API is not ready or network failed.");
+            return null;
+          },
+        ).always(function () {
+          if (!silent) hideAppBusy();
+        });
+      }
+
+      function buildMovementPayload(record) {
+        const movements = Array.isArray(record.movements) ? record.movements : [];
+        return {
+          itemId: record.itemId || "",
+          startedAt: record.startedAt,
+          endedAt: record.endedAt,
+          durationSeconds: record.durationSeconds,
+          movementCount: movements.length,
+          isCompleted10: movements.length >= TARGET_MOVEMENTS,
+          movementsJson: movements,
+        };
+      }
+
+      function saveMovementRecordToApi(record) {
+        return requestMovementApi("post", buildMovementPayload(record), { silent: true }).then(function (data) {
+          if (!data || !data.itemId) return null;
+          record.itemId = data.itemId;
+          record.saved = true;
+          saveLocalRecords();
+          render();
+          return data;
+        });
+      }
+
+      function loadMovementRecordsFromApi() {
+        return requestMovementApi("get", { unit: "month", limit: 1, page: 1 }, { silent: true }).then(function (data) {
+          const apiItems = data && Array.isArray(data.items) ? data.items.map(normalizeRecord) : null;
+          if (!apiItems) return;
+          const unsavedLocal = state.records.filter((record) => !record.saved && !record.itemId);
+          state.records = apiItems.concat(unsavedLocal);
+          saveLocalRecords();
+          render();
+        });
       }
 
       function getActiveElapsedSeconds() {
@@ -978,9 +1049,10 @@
             (endedAt.getTime() -
               new Date(state.activeRecord.startedAt).getTime()) /
               1000,
-          ),
+            ),
         );
-        state.records.push(state.activeRecord);
+        const completedRecord = state.activeRecord;
+        state.records.push(completedRecord);
         state.activeRecord = null;
         clearInterval(state.timerId);
         state.timerId = null;
@@ -988,6 +1060,7 @@
         setActiveUi();
         updateActiveTimer();
         render();
+        saveMovementRecordToApi(completedRecord);
       }
 
       function addMovement() {
@@ -1017,7 +1090,7 @@
         finishMeasurement();
       }
 
-      function deleteSelectedRecords() {
+      async function deleteSelectedRecords() {
         const ids = Array.from(
           document.querySelectorAll(".record-check:checked"),
         ).map((checkbox) => checkbox.value);
@@ -1025,8 +1098,17 @@
           alert(t("selectDelete"));
           return;
         }
+        const selected = state.records.filter((record) => ids.includes(record.localId));
+        const deleteResults = await Promise.all(selected.map((record) => {
+          if (!record.itemId) return Promise.resolve({ record, ok: true });
+          return requestMovementApi("delete", { itemId: record.itemId }, { silent: true }).then((data) => ({
+            record,
+            ok: Boolean(data),
+          }));
+        }));
+        const deletableIds = deleteResults.filter((result) => result.ok).map((result) => result.record.localId);
         state.records = state.records.filter(
-          (record) => !ids.includes(record.localId),
+          (record) => !deletableIds.includes(record.localId),
         );
         saveLocalRecords();
         render();
@@ -1072,6 +1154,7 @@
                   ? liff.getAppLanguage()
                   : navigator.language),
             );
+            loadMovementRecordsFromApi();
             return loadHeader();
           })
           .then(() => {
