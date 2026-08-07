@@ -102,6 +102,7 @@
 
       const state = {
         idToken: "",
+        userId: "",
         activeRecord: null,
         timerId: null,
         records: [],
@@ -770,6 +771,20 @@
         return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
       }
 
+      function decodeIdTokenUserId(idToken) {
+        try {
+          const payload = String(idToken || "").split(".")[1];
+          if (!payload) return "";
+          const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
+          const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=");
+          const decoded = JSON.parse(decodeURIComponent(escape(atob(padded))));
+          return decoded.sub || decoded.userId || "";
+        } catch (error) {
+          console.warn("Failed to decode LIFF ID token:", error);
+          return "";
+        }
+      }
+
       function normalizeRecord(item) {
         const startedAt = item && item.startedAt ? item.startedAt : "";
         const sourceMovements = item && (item.movements || item.movementsJson);
@@ -816,17 +831,22 @@
 
       function requestMovementApi(method, postData, options) {
         const silent = options && options.silent;
+        const requestPostData = Object.assign({}, postData || {}, {
+          userId: state.userId || "",
+        });
         if (!silent) showAppBusy();
         return $.ajax({
           url: API_URL,
           type: "POST",
           dataType: "json",
-          timeout: silent ? 5000 : 12000,
+          timeout: 30000,
           data: JSON.stringify({
             path: "movement",
             method: method,
             idToken: state.idToken,
-            postData: postData || {},
+            userId: state.userId || "",
+            lang: window.normalizedLanguageCode || state.lang || "",
+            postData: requestPostData,
           }),
         }).then(
           function (response) {
@@ -841,8 +861,8 @@
             }
             return response.data || {};
           },
-          function () {
-            console.warn("movement API is not ready or network failed.");
+          function (_xhr, textStatus, errorThrown) {
+            console.warn("movement API is not ready or network failed.", textStatus, errorThrown);
             return null;
           },
         ).always(function () {
@@ -1146,6 +1166,7 @@
           })
           .then(() => {
             state.idToken = liff.getIDToken();
+            state.userId = decodeIdTokenUserId(state.idToken);
             loadLocalRecords();
             bindEvents();
             applyMovementLanguage(

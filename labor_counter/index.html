@@ -64,6 +64,7 @@
 
         const state = {
             idToken: "",
+            userId: "",
             activeSession: null,
             painStart: null,
             timerId: null,
@@ -1001,6 +1002,20 @@
             return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
         }
 
+        function decodeIdTokenUserId(idToken) {
+            try {
+                const payload = String(idToken || "").split(".")[1];
+                if (!payload) return "";
+                const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
+                const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=");
+                const decoded = JSON.parse(decodeURIComponent(escape(atob(padded))));
+                return decoded.sub || decoded.userId || "";
+            } catch (error) {
+                console.warn("Failed to decode LIFF ID token:", error);
+                return "";
+            }
+        }
+
         function normalizeStoredRecords(items) {
             return (Array.isArray(items) ? items : []).map((item) => {
                 if (Array.isArray(item.contractionsJson)) {
@@ -1256,17 +1271,22 @@
 
         function requestLaborApi(method, postData, options) {
             const silent = options && options.silent;
+            const requestPostData = Object.assign({}, postData || {}, {
+                userId: state.userId || ""
+            });
             if (!silent) showAppBusy();
             return $.ajax({
                 url: API_URL,
                 type: "POST",
                 dataType: "json",
-                timeout: silent ? 5000 : 12000,
+                timeout: 30000,
                 data: JSON.stringify({
                     path: "labor",
                     method: method,
                     idToken: state.idToken,
-                    postData: postData
+                    userId: state.userId || "",
+                    lang: window.normalizedLanguageCode || state.lang || "",
+                    postData: requestPostData
                 })
             }).then(function (response) {
                 if (response.statusCode === 401) {
@@ -1280,8 +1300,8 @@
                     return null;
                 }
                 return response.data || {};
-            }, function () {
-                console.warn("labor_counter API is not ready or network failed.");
+            }, function (_xhr, textStatus, errorThrown) {
+                console.warn("labor_counter API is not ready or network failed.", textStatus, errorThrown);
                 return null;
             }).always(function () {
                 if (!silent) hideAppBusy();
@@ -1381,6 +1401,7 @@
                 withLoginOnExternalBrowser: !isDev
             }).then(() => {
                 state.idToken = liff.getIDToken();
+                state.userId = decodeIdTokenUserId(state.idToken);
                 loadLocalRecords();
                 bindEvents();
                 applyLaborLanguage(window.normalizedLanguageCode || (typeof liff.getAppLanguage === "function" ? liff.getAppLanguage() : navigator.language));
