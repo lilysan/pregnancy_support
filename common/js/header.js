@@ -37,9 +37,9 @@ $(function () {
                     i18n: "subgroupTitle.board",
                     type: "subgroup",
                     items: [
-                        { label: "受付", path: "reception", i18n: "title.reception" },
-                        { label: "診察", path: "examination", i18n: "title.examination" },
-                        { label: "保健指導", path: "guidance", i18n: "title.guidance" },
+                        { label: "受付", path: "reception", i18n: "title.reception", external: true },
+                        { label: "診察", path: "examination", i18n: "title.examination", external: true },
+                        { label: "保健指導", path: "guidance", i18n: "title.guidance", external: true },
                     ]
                 },
                 {
@@ -205,8 +205,7 @@ $(function () {
         const isStaffOnly = item.path === 'data' || item.path === 'hospital';
         const $btn = $('<button>').attr('type', 'button').addClass("menu-option" + (isStaffOnly ? " staff-only" : ""));
 
-        // LIFF URLの生成
-        const href = item.path ? `https://liff.line.me/${LIFF_ID}/${item.path}/` : '#';
+        const href = getMenuItemHref(item);
 
         if (isDisabled) {
             $btn.addClass('is-disabled').attr('disabled', true);
@@ -226,7 +225,17 @@ $(function () {
         return $btn;
     }
 
+    function getMenuItemHref(item) {
+        if (!item.path) {
+            return '#';
+        }
 
+        if (item.external) {
+            return `https://lilysan.github.io/pregnancy_support/${item.path}/?openExternalBrowser=1`;
+        }
+
+        return `https://liff.line.me/${LIFF_ID}/${item.path}/`;
+    }
 
     function getAppRootUrl() {
         const scriptUrl = getCommonScriptUrl("config.js") || getCommonScriptUrl("header.js");

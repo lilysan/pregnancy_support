@@ -8,9 +8,9 @@ $(function () {
                     label: "コミュニケーションボード",
                     type: "subgroup",
                     items: [
-                        {label: "受付", path: "reception"},
-                        {label: "診察", path: "examination"},
-                        {label: "保健指導", path: "guidance"},
+                        {label: "受付", path: "reception", external: true},
+                        {label: "診察", path: "examination", external: true},
+                        {label: "保健指導", path: "guidance", external: true},
                     ]
                 },
                 {
@@ -166,12 +166,24 @@ $(function () {
 
         $btn.on("click", () => {
             if (!isCurrent) {
-                window.location.href = `https://liff.line.me/${LIFF_ID}/${item.path}/`;
+                window.location.href = getMenuItemHref(item);
             }
             closeMenus();
         });
 
         return $btn;
+    }
+
+    function getMenuItemHref(item) {
+        if (!item.path) {
+            return "#";
+        }
+
+        if (item.external) {
+            return `https://lilysan.github.io/pregnancy_support/${item.path}/?openExternalBrowser=1`;
+        }
+
+        return `https://liff.line.me/${LIFF_ID}/${item.path}/`;
     }
 
     function closeMenus() {
