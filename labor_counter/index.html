@@ -1,1148 +1,1647 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>陣痛カウンター</title>
     <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
     <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
     <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
     <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
     <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
-    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script
+      charset="utf-8"
+      src="https://static.line-scdn.net/liff/edge/2/sdk.js"
+    ></script>
     <script src="../common/js/config.js"></script>
     <script src="../common/js/toast.js"></script>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="./style.css">
-</head>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
 
-<body>
+  <body>
     <div id="header-container" class="header-wrapper"></div>
     <div class="loader is-hidden" id="loadingOverlay" aria-hidden="true">
-        <div class="spinner"></div>
+      <div class="spinner"></div>
     </div>
 
     <main>
-        <article class="main-container labor-counter-app">
-            <h1 class="page-title" id="pageTitle">陣痛カウンター</h1>
-            <p class="page-lead" id="pageLead">「測定開始」を押してから、痛みが始まったら「陣痛」、おさまったら「おさまった」を押してください。最後に「測定終了」で1つの記録になります。</p>
+      <article class="main-container labor-counter-app">
+        <h1 class="page-title" id="pageTitle">陣痛カウンター</h1>
+        <p class="page-lead" id="pageLead">
+          「測定開始」を押してから、痛みが始まったら「陣痛」、おさまったら「おさまった」を押してください。最後に「測定終了」で1つの記録になります。
+        </p>
 
-            <section class="timer-panel" aria-live="polite">
-                <div class="timer-label" id="timerStateLabel">待機中</div>
-                <div class="timer-value" id="activeTimer">00:00</div>
-                <div class="timer-sub" id="lastIntervalText">前回からの間隔: -</div>
-                <div class="counter-actions">
-                    <button type="button" id="startMeasurementBtn" class="main-action start">測定開始</button>
-                    <button type="button" id="contractionBtn" class="main-action pain" disabled>陣痛</button>
-                    <button type="button" id="settledBtn" class="main-action settled" disabled>おさまった</button>
-                    <button type="button" id="endMeasurementBtn" class="main-action stop" disabled>測定終了</button>
-                </div>
-            </section>
+        <section class="timer-panel" aria-live="polite">
+          <div class="timer-label" id="timerStateLabel">待機中</div>
+          <div class="timer-value" id="activeTimer">00:00</div>
+          <div class="timer-sub" id="lastIntervalText">前回からの間隔: -</div>
+          <div class="counter-actions">
+            <button
+              type="button"
+              id="startMeasurementBtn"
+              class="main-action start"
+            >
+              測定開始
+            </button>
+            <button
+              type="button"
+              id="contractionBtn"
+              class="main-action pain"
+              disabled
+            >
+              陣痛
+            </button>
+            <button
+              type="button"
+              id="settledBtn"
+              class="main-action settled"
+              disabled
+            >
+              おさまった
+            </button>
+            <button
+              type="button"
+              id="endMeasurementBtn"
+              class="main-action stop"
+              disabled
+            >
+              測定終了
+            </button>
+          </div>
+        </section>
 
-            <section class="records-section">
-                <div class="records-header">
-                    <h2 id="recordsTitle">記録</h2>
-                    <div class="record-actions">
-                        <button type="button" id="deleteSelectedBtn" class="icon-action-btn" aria-label="選択した記録を削除">
-                            <iconify-icon icon="material-symbols:delete-outline-rounded" width="20" height="20"></iconify-icon>
-                        </button>
-                    </div>
-                </div>
-                <p id="emptyText" class="empty-text">まだ記録はありません。</p>
-                <div id="timelineList" class="timeline-list"></div>
-            </section>
-        </article>
+        <section class="records-section">
+          <div class="records-header">
+            <h2 id="recordsTitle">記録</h2>
+            <div class="record-actions">
+              <button
+                type="button"
+                id="deleteSelectedBtn"
+                class="icon-action-btn"
+                aria-label="選択した記録を削除"
+              >
+                <iconify-icon
+                  icon="material-symbols:delete-outline-rounded"
+                  width="20"
+                  height="20"
+                ></iconify-icon>
+              </button>
+            </div>
+          </div>
+          <p id="emptyText" class="empty-text">まだ記録はありません。</p>
+          <div id="timelineList" class="timeline-list"></div>
+        </section>
+      </article>
     </main>
 
     <script>
-        const currentPage = "labor_counter";
-        const liff = window.liff;
-        const STORAGE_KEY = "labor_counter_records_v1";
+      const currentPage = "labor_counter";
+      const liff = window.liff;
+      const STORAGE_KEY = "labor_counter_records_v1";
 
-        const state = {
-            idToken: "",
-            userId: "",
-            activeSession: null,
-            painStart: null,
-            timerId: null,
-            records: [],
-            lang: "ja"
-        };
+      const state = {
+        idToken: "",
+        userId: "",
+        activeSession: null,
+        painStart: null,
+        timerId: null,
+        records: [],
+        lang: "ja",
+      };
 
-        const LABOR_TEXT = {
-            ja: {
-                pageTitle: "陣痛カウンター",
-                pageLead: "「測定開始」を押してから、痛みが始まったら「陣痛」、おさまったら「おさまった」を押してください。最後に「測定終了」で1つの記録になります。",
-                waiting: "待機中",
-                measuring: "測定中",
-                activePain: "陣痛中",
-                intervalMeasuring: "間隔計測中",
-                previousRest: "前回からの間隔: -",
-                currentRest: "おさまっている時間: {value}",
-                startMeasurement: "測定開始",
-                contraction: "陣痛",
-                settled: "おさまった",
-                endMeasurement: "測定終了",
-                records: "記録",
-                deleteSelected: "選択した記録を削除",
-                empty: "まだ記録はありません。",
-                activeBadge: "測定中",
-                activeEnd: "測定中",
-                selectRecord: "{time}からの測定記録を選択",
-                sessionLine: "測定 {duration} / 陣痛 {count}回",
-                summaryMeasurementCount: "測定回数",
-                summaryContractionCount: "陣痛回数",
-                summaryAverageRest: "平均おさまり",
-                summaryAverageDuration: "平均持続",
-                oneTime: "1回",
-                countTimes: "{count}回",
-                durationPrefix: "持続",
-                activePainPrefix: "陣痛中",
-                restPrefix: "おさまり",
-                sec: "{value}秒",
-                minSec: "{min}分{sec}秒",
-                dateLabel: "{year}年{month}月{day}日",
-                noContractionConfirm: "陣痛の記録がありません。この測定を終了しますか？",
-                saveFailed: "保存に失敗しました。",
-                needEndBeforeSave: "先に測定終了を押してください。",
-                noRecordsToSave: "登録する記録がありません。",
-                saved: "登録しました。",
-                cannotResetMeasuring: "測定中はリセットできません。",
-                resetConfirm: "記録をリセットしますか？",
-                selectDelete: "削除する記録を選択してください。",
-                liffInitFailed: "LIFF init failed."
+      const LABOR_TEXT = {
+        ja: {
+          pageTitle: "陣痛カウンター",
+          pageLead:
+            "「測定開始」を押してから、痛みが始まったら「陣痛」、おさまったら「おさまった」を押してください。最後に「測定終了」で1つの記録になります。",
+          waiting: "待機中",
+          measuring: "測定中",
+          activePain: "陣痛中",
+          intervalMeasuring: "間隔計測中",
+          previousRest: "前回からの間隔: -",
+          currentRest: "おさまっている時間: {value}",
+          startMeasurement: "測定開始",
+          contraction: "陣痛",
+          settled: "おさまった",
+          endMeasurement: "測定終了",
+          records: "記録",
+          deleteSelected: "選択した記録を削除",
+          empty: "まだ記録はありません。",
+          activeBadge: "測定中",
+          activeEnd: "測定中",
+          selectRecord: "{time}からの測定記録を選択",
+          sessionLine: "測定 {duration} / 陣痛 {count}回",
+          summaryMeasurementCount: "測定回数",
+          summaryContractionCount: "陣痛回数",
+          summaryAverageRest: "平均おさまり",
+          summaryAverageDuration: "平均持続",
+          oneTime: "1回",
+          countTimes: "{count}回",
+          durationPrefix: "持続",
+          activePainPrefix: "陣痛中",
+          restPrefix: "おさまり",
+          sec: "{value}秒",
+          minSec: "{min}分{sec}秒",
+          dateLabel: "{year}年{month}月{day}日",
+          noContractionConfirm:
+            "陣痛の記録がありません。この測定を終了しますか？",
+          saveFailed: "保存に失敗しました。",
+          needEndBeforeSave: "先に測定終了を押してください。",
+          noRecordsToSave: "登録する記録がありません。",
+          saved: "登録しました。",
+          cannotResetMeasuring: "測定中はリセットできません。",
+          resetConfirm: "記録をリセットしますか？",
+          selectDelete: "削除する記録を選択してください。",
+          liffInitFailed: "LIFF init failed.",
+        },
+        soft: {
+          pageTitle: "じんつうカウンター",
+          pageLead:
+            "はじめに「はかりはじめる」を おします。いたくなったら「じんつう」、おさまったら「おさまった」を おします。さいごに「はかりおわる」を おすと、1つの きろくになります。",
+          waiting: "まっています",
+          measuring: "はかっています",
+          activePain: "じんつう中",
+          intervalMeasuring: "おさまりを はかっています",
+          previousRest: "まえからの あいだ: -",
+          currentRest: "おさまっている時間: {value}",
+          startMeasurement: "はかりはじめる",
+          contraction: "じんつう",
+          settled: "おさまった",
+          endMeasurement: "はかりおわる",
+          records: "きろく",
+          deleteSelected: "えらんだ きろくを けす",
+          empty: "まだ きろくは ありません。",
+          activeBadge: "はかっています",
+          activeEnd: "はかっています",
+          selectRecord: "{time}からの きろくを えらぶ",
+          sessionLine: "はかった時間 {duration} / じんつう {count}回",
+          summaryMeasurementCount: "はかった回数",
+          summaryContractionCount: "じんつう回数",
+          summaryAverageRest: "へいきん おさまり",
+          summaryAverageDuration: "へいきん つづいた時間",
+          oneTime: "1回",
+          countTimes: "{count}回",
+          durationPrefix: "つづいた",
+          activePainPrefix: "じんつう中",
+          restPrefix: "おさまり",
+          sec: "{value}秒",
+          minSec: "{min}分{sec}秒",
+          dateLabel: "{year}年{month}月{day}日",
+          noContractionConfirm:
+            "じんつうの きろくが ありません。この きろくを おわりますか？",
+          saveFailed: "ほぞんできませんでした。",
+          needEndBeforeSave: "先に「はかりおわる」を おしてください。",
+          noRecordsToSave: "とうろくする きろくが ありません。",
+          saved: "とうろくしました。",
+          cannotResetMeasuring: "はかっている時は リセットできません。",
+          resetConfirm: "きろくを リセットしますか？",
+          selectDelete: "けす きろくを えらんでください。",
+          liffInitFailed: "LIFFの じゅんびに しっぱいしました。",
+        },
+        "en-US": {
+          pageTitle: "Contraction Counter",
+          pageLead:
+            "Tap “Start measurement”, then tap “Contraction” when pain starts and “Settled” when it stops. Tap “End measurement” to save one record.",
+          waiting: "Waiting",
+          measuring: "Measuring",
+          activePain: "Contraction",
+          intervalMeasuring: "Rest timing",
+          previousRest: "Time since previous: -",
+          currentRest: "Resting time: {value}",
+          startMeasurement: "Start measurement",
+          contraction: "Contraction",
+          settled: "Settled",
+          endMeasurement: "End measurement",
+          records: "Records",
+          deleteSelected: "Delete selected records",
+          empty: "No records yet.",
+          activeBadge: "Measuring",
+          activeEnd: "Measuring",
+          selectRecord: "Select record from {time}",
+          sessionLine: "Measured {duration} / contractions {count}",
+          summaryMeasurementCount: "Measurements",
+          summaryContractionCount: "Contractions",
+          summaryAverageRest: "Average rest",
+          summaryAverageDuration: "Average duration",
+          oneTime: "1 time",
+          countTimes: "{count} times",
+          durationPrefix: "Duration",
+          activePainPrefix: "Active",
+          restPrefix: "Rest",
+          sec: "{value}s",
+          minSec: "{min}m {sec}s",
+          dateLabel: "{year}/{month}/{day}",
+          noContractionConfirm:
+            "There are no contractions in this measurement. End it anyway?",
+          saveFailed: "Could not save.",
+          needEndBeforeSave: "Please tap End measurement first.",
+          noRecordsToSave: "There are no records to save.",
+          saved: "Saved.",
+          cannotResetMeasuring: "You cannot reset while measuring.",
+          resetConfirm: "Reset records?",
+          selectDelete: "Please select records to delete.",
+          liffInitFailed: "LIFF initialization failed.",
+        },
+      };
+
+      LABOR_TEXT.zh = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "阵痛计时器",
+        pageLead:
+          "请先点击“开始测量”。疼痛开始时点击“阵痛”，停止时点击“已缓解”。最后点击“结束测量”，保存为一条记录。",
+        waiting: "待机中",
+        measuring: "测量中",
+        activePain: "阵痛中",
+        intervalMeasuring: "缓解时间测量中",
+        startMeasurement: "开始测量",
+        contraction: "阵痛",
+        settled: "已缓解",
+        endMeasurement: "结束测量",
+        records: "记录",
+        empty: "还没有记录。",
+        activeBadge: "测量中",
+        activeEnd: "测量中",
+        sessionLine: "测量 {duration} / 阵痛 {count}次",
+        summaryMeasurementCount: "测量次数",
+        summaryContractionCount: "阵痛次数",
+        summaryAverageRest: "平均缓解时间",
+        summaryAverageDuration: "平均持续时间",
+        countTimes: "{count}次",
+        durationPrefix: "持续",
+        activePainPrefix: "阵痛中",
+        restPrefix: "缓解",
+        noContractionConfirm: "没有阵痛记录。要结束本次测量吗？",
+        needEndBeforeSave: "请先点击结束测量。",
+        noRecordsToSave: "没有可保存的记录。",
+        saved: "已保存。",
+        selectDelete: "请选择要删除的记录。",
+      };
+      LABOR_TEXT.fr = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "Compteur de contractions",
+        startMeasurement: "Démarrer",
+        contraction: "Contraction",
+        settled: "Calmée",
+        endMeasurement: "Terminer",
+        records: "Dossiers",
+        waiting: "En attente",
+        measuring: "Mesure",
+        activePain: "Contraction",
+        intervalMeasuring: "Repos en cours",
+        empty: "Aucun dossier.",
+        summaryContractionCount: "Contractions",
+        summaryAverageRest: "Repos moyen",
+        summaryAverageDuration: "Durée moyenne",
+        durationPrefix: "Durée",
+        restPrefix: "Repos",
+        saved: "Enregistré.",
+      };
+      LABOR_TEXT.ko = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "진통 카운터",
+        startMeasurement: "측정 시작",
+        contraction: "진통",
+        settled: "가라앉음",
+        endMeasurement: "측정 종료",
+        records: "기록",
+        waiting: "대기 중",
+        measuring: "측정 중",
+        activePain: "진통 중",
+        intervalMeasuring: "간격 측정 중",
+        empty: "아직 기록이 없습니다.",
+        summaryMeasurementCount: "측정 횟수",
+        summaryContractionCount: "진통 횟수",
+        summaryAverageRest: "평균 가라앉은 시간",
+        summaryAverageDuration: "평균 지속",
+        countTimes: "{count}회",
+        durationPrefix: "지속",
+        restPrefix: "가라앉음",
+        saved: "등록했습니다.",
+      };
+      LABOR_TEXT.pr = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "Contador de contrações",
+        startMeasurement: "Iniciar medição",
+        contraction: "Contração",
+        settled: "Acalmou",
+        endMeasurement: "Encerrar medição",
+        records: "Registros",
+        waiting: "Aguardando",
+        measuring: "Medindo",
+        activePain: "Contração",
+        intervalMeasuring: "Tempo de repouso",
+        empty: "Ainda não há registros.",
+        summaryAverageRest: "Repouso médio",
+        summaryAverageDuration: "Duração média",
+        durationPrefix: "Duração",
+        restPrefix: "Repouso",
+        saved: "Registrado.",
+      };
+      LABOR_TEXT.tl = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "Contraction counter",
+        startMeasurement: "Simulan",
+        contraction: "Contraction",
+        settled: "Humupa",
+        endMeasurement: "Tapusin",
+        records: "Mga record",
+        waiting: "Naghihintay",
+        measuring: "Sinusukat",
+        activePain: "May contraction",
+        intervalMeasuring: "Sukat ng pahinga",
+        empty: "Wala pang record.",
+        summaryAverageRest: "Average na pahinga",
+        durationPrefix: "Tagal",
+        restPrefix: "Pahinga",
+      };
+      LABOR_TEXT.ve = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "Bộ đếm cơn co",
+        startMeasurement: "Bắt đầu đo",
+        contraction: "Cơn co",
+        settled: "Đã dịu",
+        endMeasurement: "Kết thúc đo",
+        records: "Ghi chép",
+        waiting: "Đang chờ",
+        measuring: "Đang đo",
+        activePain: "Đang co",
+        intervalMeasuring: "Đo thời gian dịu",
+        empty: "Chưa có ghi chép.",
+        summaryAverageRest: "Thời gian dịu trung bình",
+        durationPrefix: "Kéo dài",
+        restPrefix: "Dịu",
+      };
+      LABOR_TEXT.th = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "ตัวจับเวลาการเจ็บครรภ์",
+        startMeasurement: "เริ่มวัด",
+        contraction: "เจ็บครรภ์",
+        settled: "สงบลง",
+        endMeasurement: "สิ้นสุด",
+        records: "บันทึก",
+        waiting: "รอ",
+        measuring: "กำลังวัด",
+        activePain: "กำลังเจ็บ",
+        intervalMeasuring: "วัดเวลาสงบ",
+        empty: "ยังไม่มีบันทึก",
+        summaryAverageRest: "เวลาสงบเฉลี่ย",
+        durationPrefix: "นาน",
+        restPrefix: "สงบ",
+      };
+      LABOR_TEXT.de = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "Wehenzähler",
+        startMeasurement: "Messung starten",
+        contraction: "Wehe",
+        settled: "Abgeklungen",
+        endMeasurement: "Messung beenden",
+        records: "Aufzeichnungen",
+        waiting: "Warten",
+        measuring: "Messung",
+        activePain: "Wehe",
+        intervalMeasuring: "Ruhezeit",
+        empty: "Noch keine Aufzeichnungen.",
+        summaryAverageRest: "Durchschn. Ruhe",
+        durationPrefix: "Dauer",
+        restPrefix: "Ruhe",
+      };
+      LABOR_TEXT.id = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "Penghitung kontraksi",
+        startMeasurement: "Mulai ukur",
+        contraction: "Kontraksi",
+        settled: "Mereda",
+        endMeasurement: "Akhiri ukur",
+        records: "Catatan",
+        waiting: "Menunggu",
+        measuring: "Mengukur",
+        activePain: "Kontraksi",
+        intervalMeasuring: "Mengukur jeda",
+        empty: "Belum ada catatan.",
+        summaryAverageRest: "Rata-rata jeda",
+        durationPrefix: "Durasi",
+        restPrefix: "Mereda",
+      };
+      LABOR_TEXT.ru = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "Счетчик схваток",
+        startMeasurement: "Начать измерение",
+        contraction: "Схватка",
+        settled: "Прошла",
+        endMeasurement: "Завершить",
+        records: "Записи",
+        waiting: "Ожидание",
+        measuring: "Измерение",
+        activePain: "Схватка",
+        intervalMeasuring: "Время покоя",
+        empty: "Записей пока нет.",
+        summaryAverageRest: "Средний покой",
+        durationPrefix: "Длится",
+        restPrefix: "Покой",
+      };
+      LABOR_TEXT.ne = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "प्रसव पीडा काउन्टर",
+        startMeasurement: "मापन सुरु",
+        contraction: "पीडा",
+        settled: "शान्त भयो",
+        endMeasurement: "मापन अन्त्य",
+        records: "रेकर्ड",
+        waiting: "प्रतीक्षा",
+        measuring: "मापन हुँदै",
+        activePain: "पीडा हुँदै",
+        intervalMeasuring: "शान्त समय",
+        empty: "अझै रेकर्ड छैन।",
+        summaryAverageRest: "औसत शान्त समय",
+        durationPrefix: "अवधि",
+        restPrefix: "शान्त",
+      };
+      LABOR_TEXT.lo = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "ຕົວນັບການເຈັບທ້ອງ",
+        startMeasurement: "ເລີ່ມວັດ",
+        contraction: "ເຈັບທ້ອງ",
+        settled: "ສະຫງົບ",
+        endMeasurement: "ສິ້ນສຸດ",
+        records: "ບັນທຶກ",
+        waiting: "ລໍຖ້າ",
+        measuring: "ກຳລັງວັດ",
+        activePain: "ກຳລັງເຈັບ",
+        intervalMeasuring: "ວັດເວລາສະຫງົບ",
+        empty: "ຍັງບໍ່ມີບັນທຶກ.",
+        durationPrefix: "ຕໍ່ເນື່ອງ",
+        restPrefix: "ສະຫງົບ",
+      };
+      LABOR_TEXT.uk = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "Лічильник переймів",
+        startMeasurement: "Почати вимір",
+        contraction: "Перейми",
+        settled: "Минуло",
+        endMeasurement: "Завершити",
+        records: "Записи",
+        waiting: "Очікування",
+        measuring: "Вимірювання",
+        activePain: "Перейми",
+        intervalMeasuring: "Час спокою",
+        empty: "Записів ще немає.",
+        summaryAverageRest: "Середній спокій",
+        durationPrefix: "Тривалість",
+        restPrefix: "Спокій",
+      };
+      LABOR_TEXT["fa-AF"] = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "شمارنده درد زایمان",
+        startMeasurement: "شروع اندازه‌گیری",
+        contraction: "درد",
+        settled: "آرام شد",
+        endMeasurement: "پایان اندازه‌گیری",
+        records: "ثبت‌ها",
+        waiting: "در انتظار",
+        measuring: "در حال اندازه‌گیری",
+        activePain: "درد فعال",
+        intervalMeasuring: "زمان آرامی",
+        empty: "هنوز ثبتی نیست.",
+        summaryAverageRest: "میانگین آرامی",
+        durationPrefix: "مدت",
+        restPrefix: "آرامی",
+      };
+      LABOR_TEXT.si = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "ප්‍රසව වේදනා කවුන්ටරය",
+        startMeasurement: "මැනීම අරඹන්න",
+        contraction: "වේදනාව",
+        settled: "අඩුවිය",
+        endMeasurement: "මැනීම අවසන්",
+        records: "සටහන්",
+        waiting: "රැඳී සිටී",
+        measuring: "මැනීම",
+        activePain: "වේදනාව",
+        intervalMeasuring: "අඩු වූ කාලය",
+        empty: "තවම සටහන් නැත.",
+        durationPrefix: "කාලය",
+        restPrefix: "අඩුවීම",
+      };
+      LABOR_TEXT.ms = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "Pengira kontraksi",
+        startMeasurement: "Mula ukur",
+        contraction: "Kontraksi",
+        settled: "Reda",
+        endMeasurement: "Tamat ukur",
+        records: "Rekod",
+        waiting: "Menunggu",
+        measuring: "Mengukur",
+        activePain: "Kontraksi",
+        intervalMeasuring: "Masa reda",
+        empty: "Belum ada rekod.",
+        summaryAverageRest: "Purata reda",
+        durationPrefix: "Tempoh",
+        restPrefix: "Reda",
+      };
+      LABOR_TEXT.my = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "ဗိုက်နာချိန် ကောင်တာ",
+        startMeasurement: "တိုင်းတာမှု စတင်",
+        contraction: "ဗိုက်နာ",
+        settled: "သက်သာ",
+        endMeasurement: "တိုင်းတာမှု ပြီးဆုံး",
+        records: "မှတ်တမ်း",
+        waiting: "စောင့်နေသည်",
+        measuring: "တိုင်းတာနေသည်",
+        activePain: "နာနေသည်",
+        intervalMeasuring: "သက်သာချိန်",
+        empty: "မှတ်တမ်းမရှိသေးပါ။",
+        durationPrefix: "ကြာချိန်",
+        restPrefix: "သက်သာ",
+      };
+      LABOR_TEXT.bn = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "প্রসব ব্যথা কাউন্টার",
+        startMeasurement: "মাপা শুরু",
+        contraction: "ব্যথা",
+        settled: "কমেছে",
+        endMeasurement: "মাপা শেষ",
+        records: "রেকর্ড",
+        waiting: "অপেক্ষা",
+        measuring: "মাপা হচ্ছে",
+        activePain: "ব্যথা চলছে",
+        intervalMeasuring: "কমার সময়",
+        empty: "এখনও রেকর্ড নেই।",
+        durationPrefix: "স্থায়ী",
+        restPrefix: "কমেছে",
+      };
+      LABOR_TEXT.ur = {
+        ...LABOR_TEXT["en-US"],
+        pageTitle: "درد زہ کاؤنٹر",
+        startMeasurement: "پیمائش شروع",
+        contraction: "درد",
+        settled: "کم ہوا",
+        endMeasurement: "پیمائش ختم",
+        records: "ریکارڈ",
+        waiting: "انتظار",
+        measuring: "پیمائش جاری",
+        activePain: "درد جاری",
+        intervalMeasuring: "آرام کا وقت",
+        empty: "ابھی کوئی ریکارڈ نہیں۔",
+        durationPrefix: "مدت",
+        restPrefix: "آرام",
+      };
+
+      Object.assign(LABOR_TEXT.zh, {
+        currentRest: "缓解中的时间: {value}",
+        deleteSelected: "删除已选择的记录",
+        selectRecord: "选择从 {time} 开始的测量记录",
+        oneTime: "1次",
+        sec: "{value}秒",
+        minSec: "{min}分{sec}秒",
+        dateLabel: "{year}年{month}月{day}日",
+        saveFailed: "保存失败。",
+        cannotResetMeasuring: "测量中不能重置。",
+        resetConfirm: "要重置记录吗？",
+      });
+      Object.assign(LABOR_TEXT.fr, {
+        pageLead:
+          "Appuyez sur « Démarrer ». Quand la douleur commence, appuyez sur « Contraction »; quand elle se calme, appuyez sur « Calmée ». À la fin, appuyez sur « Terminer » pour créer un enregistrement.",
+        currentRest: "Temps de repos: {value}",
+        deleteSelected: "Supprimer les enregistrements sélectionnés",
+        activeBadge: "Mesure",
+        activeEnd: "Mesure",
+        selectRecord: "Sélectionner l’enregistrement depuis {time}",
+        sessionLine: "Mesure {duration} / contractions {count}",
+        summaryMeasurementCount: "Mesures",
+        summaryContractionCount: "Contractions",
+        summaryAverageDuration: "Durée moyenne",
+        oneTime: "1 fois",
+        countTimes: "{count} fois",
+        activePainPrefix: "En cours",
+        sec: "{value} s",
+        minSec: "{min} min {sec} s",
+        dateLabel: "{day}/{month}/{year}",
+        noContractionConfirm:
+          "Aucune contraction n’a été enregistrée. Terminer cette mesure ?",
+        saveFailed: "Échec de l’enregistrement.",
+        needEndBeforeSave: "Veuillez d’abord appuyer sur Terminer.",
+        noRecordsToSave: "Aucun enregistrement à sauvegarder.",
+        cannotResetMeasuring: "Impossible de réinitialiser pendant la mesure.",
+        resetConfirm: "Réinitialiser les enregistrements ?",
+        selectDelete: "Veuillez sélectionner les enregistrements à supprimer.",
+        liffInitFailed: "Échec de l’initialisation LIFF.",
+      });
+      Object.assign(LABOR_TEXT.ko, {
+        pageLead:
+          "먼저 ‘측정 시작’을 누르세요. 통증이 시작되면 ‘진통’, 가라앉으면 ‘가라앉음’을 누릅니다. 마지막에 ‘측정 종료’를 누르면 하나의 기록이 됩니다.",
+        currentRest: "가라앉은 시간: {value}",
+        deleteSelected: "선택한 기록 삭제",
+        activeBadge: "측정 중",
+        activeEnd: "측정 중",
+        selectRecord: "{time}부터의 측정 기록 선택",
+        sessionLine: "측정 {duration} / 진통 {count}회",
+        oneTime: "1회",
+        activePainPrefix: "진통 중",
+        sec: "{value}초",
+        minSec: "{min}분 {sec}초",
+        dateLabel: "{year}년 {month}월 {day}일",
+        noContractionConfirm: "진통 기록이 없습니다. 이 측정을 종료할까요?",
+        saveFailed: "저장하지 못했습니다.",
+        needEndBeforeSave: "먼저 측정 종료를 눌러 주세요.",
+        noRecordsToSave: "저장할 기록이 없습니다.",
+        cannotResetMeasuring: "측정 중에는 초기화할 수 없습니다.",
+        resetConfirm: "기록을 초기화할까요?",
+        selectDelete: "삭제할 기록을 선택해 주세요.",
+        liffInitFailed: "LIFF 초기화에 실패했습니다.",
+      });
+      Object.assign(LABOR_TEXT.pr, {
+        pageLead:
+          "Toque em “Iniciar medição”. Quando a dor começar, toque em “Contração”; quando acalmar, toque em “Acalmou”. No fim, toque em “Encerrar medição” para criar um registro.",
+        currentRest: "Tempo em repouso: {value}",
+        deleteSelected: "Excluir registros selecionados",
+        activeBadge: "Medindo",
+        activeEnd: "Medindo",
+        selectRecord: "Selecionar registro desde {time}",
+        sessionLine: "Medição {duration} / contrações {count}",
+        summaryMeasurementCount: "Medições",
+        summaryContractionCount: "Contrações",
+        oneTime: "1 vez",
+        countTimes: "{count} vezes",
+        activePainPrefix: "Em contração",
+        sec: "{value}s",
+        minSec: "{min}min {sec}s",
+        dateLabel: "{day}/{month}/{year}",
+        noContractionConfirm:
+          "Não há registro de contração. Encerrar esta medição?",
+        saveFailed: "Não foi possível salvar.",
+        needEndBeforeSave: "Toque primeiro em Encerrar medição.",
+        noRecordsToSave: "Não há registros para salvar.",
+        cannotResetMeasuring: "Não é possível resetar durante a medição.",
+        resetConfirm: "Resetar registros?",
+        selectDelete: "Selecione os registros para excluir.",
+        liffInitFailed: "Falha ao iniciar LIFF.",
+      });
+      Object.assign(LABOR_TEXT.tl, {
+        pageTitle: "Bilang ng paghilab",
+        pageLead:
+          "Pindutin ang “Simulan”. Kapag nagsimula ang sakit, pindutin ang “Contraction”; kapag humupa, pindutin ang “Humupa”. Sa huli, pindutin ang “Tapusin” para maging isang record.",
+        currentRest: "Oras na humupa: {value}",
+        deleteSelected: "Burahin ang napiling record",
+        activeBadge: "Sinusukat",
+        activeEnd: "Sinusukat",
+        selectRecord: "Piliin ang record mula {time}",
+        sessionLine: "Sukat {duration} / contraction {count}",
+        summaryMeasurementCount: "Bilang ng sukat",
+        summaryContractionCount: "Bilang ng contraction",
+        summaryAverageDuration: "Average na tagal",
+        oneTime: "1 beses",
+        countTimes: "{count} beses",
+        activePainPrefix: "May contraction",
+        sec: "{value} seg",
+        minSec: "{min} min {sec} seg",
+        dateLabel: "{month}/{day}/{year}",
+        noContractionConfirm:
+          "Walang record ng contraction. Tapusin ang sukat na ito?",
+        saveFailed: "Hindi na-save.",
+        needEndBeforeSave: "Pindutin muna ang Tapusin.",
+        noRecordsToSave: "Walang record na ise-save.",
+        saved: "Na-save.",
+        cannotResetMeasuring: "Hindi puwedeng i-reset habang sumusukat.",
+        resetConfirm: "I-reset ang mga record?",
+        selectDelete: "Piliin ang record na buburahin.",
+        liffInitFailed: "Nabigo ang LIFF initialization.",
+      });
+      Object.assign(LABOR_TEXT.ve, {
+        pageLead:
+          "Nhấn “Bắt đầu đo”. Khi đau bắt đầu, nhấn “Cơn co”; khi dịu lại, nhấn “Đã dịu”. Cuối cùng nhấn “Kết thúc đo” để tạo một ghi chép.",
+        currentRest: "Thời gian dịu: {value}",
+        deleteSelected: "Xóa ghi chép đã chọn",
+        activeBadge: "Đang đo",
+        activeEnd: "Đang đo",
+        selectRecord: "Chọn ghi chép từ {time}",
+        sessionLine: "Đo {duration} / cơn co {count}",
+        summaryMeasurementCount: "Số lần đo",
+        summaryContractionCount: "Số cơn co",
+        summaryAverageDuration: "Thời gian kéo dài trung bình",
+        oneTime: "1 lần",
+        countTimes: "{count} lần",
+        activePainPrefix: "Đang co",
+        sec: "{value} giây",
+        minSec: "{min} phút {sec} giây",
+        dateLabel: "{day}/{month}/{year}",
+        noContractionConfirm: "Không có ghi chép cơn co. Kết thúc lần đo này?",
+        saveFailed: "Không lưu được.",
+        needEndBeforeSave: "Vui lòng nhấn Kết thúc đo trước.",
+        noRecordsToSave: "Không có ghi chép để lưu.",
+        saved: "Đã lưu.",
+        cannotResetMeasuring: "Không thể đặt lại khi đang đo.",
+        resetConfirm: "Đặt lại ghi chép?",
+        selectDelete: "Vui lòng chọn ghi chép để xóa.",
+        liffInitFailed: "Khởi tạo LIFF thất bại.",
+      });
+      Object.assign(LABOR_TEXT.th, {
+        pageLead:
+          "กด “เริ่มวัด” เมื่อเริ่มเจ็บให้กด “เจ็บครรภ์” เมื่อสงบลงให้กด “สงบลง” สุดท้ายกด “สิ้นสุด” เพื่อบันทึกเป็น 1 รายการ",
+        currentRest: "เวลาที่สงบอยู่: {value}",
+        deleteSelected: "ลบบันทึกที่เลือก",
+        activeBadge: "กำลังวัด",
+        activeEnd: "กำลังวัด",
+        selectRecord: "เลือกบันทึกตั้งแต่ {time}",
+        sessionLine: "วัด {duration} / เจ็บครรภ์ {count} ครั้ง",
+        summaryMeasurementCount: "จำนวนครั้งที่วัด",
+        summaryContractionCount: "จำนวนครั้งเจ็บครรภ์",
+        summaryAverageDuration: "ระยะเวลาเฉลี่ย",
+        oneTime: "1 ครั้ง",
+        countTimes: "{count} ครั้ง",
+        activePainPrefix: "กำลังเจ็บ",
+        sec: "{value} วินาที",
+        minSec: "{min} นาที {sec} วินาที",
+        dateLabel: "{day}/{month}/{year}",
+        noContractionConfirm:
+          "ไม่มีบันทึกการเจ็บครรภ์ ต้องการสิ้นสุดการวัดนี้หรือไม่?",
+        saveFailed: "บันทึกไม่สำเร็จ",
+        needEndBeforeSave: "กรุณากดสิ้นสุดก่อน",
+        noRecordsToSave: "ไม่มีบันทึกที่จะบันทึก",
+        saved: "บันทึกแล้ว",
+        cannotResetMeasuring: "ไม่สามารถรีเซ็ตขณะกำลังวัด",
+        resetConfirm: "รีเซ็ตบันทึกหรือไม่?",
+        selectDelete: "กรุณาเลือกบันทึกที่จะลบ",
+        liffInitFailed: "เริ่ม LIFF ไม่สำเร็จ",
+      });
+      Object.assign(LABOR_TEXT.de, {
+        pageLead:
+          "Tippen Sie auf „Messung starten“. Wenn der Schmerz beginnt, tippen Sie auf „Wehe“; wenn er abklingt, auf „Abgeklungen“. Am Ende tippen Sie auf „Messung beenden“.",
+        currentRest: "Ruhezeit: {value}",
+        deleteSelected: "Ausgewählte Aufzeichnungen löschen",
+        activeBadge: "Messung",
+        activeEnd: "Messung",
+        selectRecord: "Aufzeichnung ab {time} auswählen",
+        sessionLine: "Messung {duration} / Wehen {count}",
+        summaryMeasurementCount: "Messungen",
+        summaryContractionCount: "Wehen",
+        summaryAverageDuration: "Durchschn. Dauer",
+        oneTime: "1 Mal",
+        countTimes: "{count} Mal",
+        activePainPrefix: "Aktiv",
+        sec: "{value} Sek.",
+        minSec: "{min} Min. {sec} Sek.",
+        dateLabel: "{day}.{month}.{year}",
+        noContractionConfirm:
+          "Es gibt keine Wehenaufzeichnung. Diese Messung beenden?",
+        saveFailed: "Speichern fehlgeschlagen.",
+        needEndBeforeSave: "Bitte zuerst Messung beenden.",
+        noRecordsToSave: "Keine Aufzeichnungen zum Speichern.",
+        saved: "Gespeichert.",
+        cannotResetMeasuring:
+          "Während der Messung kann nicht zurückgesetzt werden.",
+        resetConfirm: "Aufzeichnungen zurücksetzen?",
+        selectDelete: "Bitte Aufzeichnungen zum Löschen auswählen.",
+        liffInitFailed: "LIFF-Initialisierung fehlgeschlagen.",
+      });
+      Object.assign(LABOR_TEXT.id, {
+        pageLead:
+          "Ketuk “Mulai ukur”. Saat nyeri mulai, ketuk “Kontraksi”; saat mereda, ketuk “Mereda”. Terakhir ketuk “Akhiri ukur” untuk membuat satu catatan.",
+        currentRest: "Waktu mereda: {value}",
+        deleteSelected: "Hapus catatan yang dipilih",
+        activeBadge: "Mengukur",
+        activeEnd: "Mengukur",
+        selectRecord: "Pilih catatan dari {time}",
+        sessionLine: "Ukur {duration} / kontraksi {count}",
+        summaryMeasurementCount: "Jumlah ukur",
+        summaryContractionCount: "Jumlah kontraksi",
+        summaryAverageDuration: "Rata-rata durasi",
+        oneTime: "1 kali",
+        countTimes: "{count} kali",
+        activePainPrefix: "Sedang kontraksi",
+        sec: "{value} detik",
+        minSec: "{min} menit {sec} detik",
+        dateLabel: "{day}/{month}/{year}",
+        noContractionConfirm:
+          "Tidak ada catatan kontraksi. Akhiri pengukuran ini?",
+        saveFailed: "Gagal menyimpan.",
+        needEndBeforeSave: "Ketuk Akhiri ukur terlebih dahulu.",
+        noRecordsToSave: "Tidak ada catatan untuk disimpan.",
+        saved: "Tersimpan.",
+        cannotResetMeasuring: "Tidak bisa reset saat mengukur.",
+        resetConfirm: "Reset catatan?",
+        selectDelete: "Pilih catatan yang akan dihapus.",
+        liffInitFailed: "Inisialisasi LIFF gagal.",
+      });
+      Object.assign(LABOR_TEXT.ru, {
+        pageLead:
+          "Нажмите «Начать измерение». Когда боль начнется, нажмите «Схватка»; когда пройдет, нажмите «Прошла». В конце нажмите «Завершить».",
+        currentRest: "Время покоя: {value}",
+        deleteSelected: "Удалить выбранные записи",
+        activeBadge: "Измерение",
+        activeEnd: "Измерение",
+        selectRecord: "Выбрать запись с {time}",
+        sessionLine: "Измерение {duration} / схватки {count}",
+        summaryMeasurementCount: "Измерения",
+        summaryContractionCount: "Схватки",
+        summaryAverageDuration: "Средняя длительность",
+        oneTime: "1 раз",
+        countTimes: "{count} раз",
+        activePainPrefix: "Идет",
+        sec: "{value} сек.",
+        minSec: "{min} мин {sec} сек.",
+        dateLabel: "{day}.{month}.{year}",
+        noContractionConfirm: "Нет записи о схватках. Завершить это измерение?",
+        saveFailed: "Не удалось сохранить.",
+        needEndBeforeSave: "Сначала нажмите Завершить.",
+        noRecordsToSave: "Нет записей для сохранения.",
+        saved: "Сохранено.",
+        cannotResetMeasuring: "Нельзя сбросить во время измерения.",
+        resetConfirm: "Сбросить записи?",
+        selectDelete: "Выберите записи для удаления.",
+        liffInitFailed: "Не удалось запустить LIFF.",
+      });
+      Object.assign(LABOR_TEXT.ne, {
+        pageLead:
+          "पहिले “मापन सुरु” थिच्नुहोस्। पीडा सुरु भए “पीडा” थिच्नुहोस्, शान्त भए “शान्त भयो” थिच्नुहोस्। अन्त्यमा “मापन अन्त्य” थिच्दा १ रेकर्ड बन्छ।",
+        currentRest: "शान्त भएको समय: {value}",
+        deleteSelected: "छानेका रेकर्ड मेटाउनुहोस्",
+        activeBadge: "मापन हुँदै",
+        activeEnd: "मापन हुँदै",
+        selectRecord: "{time} बाटको रेकर्ड छान्नुहोस्",
+        sessionLine: "मापन {duration} / पीडा {count} पटक",
+        summaryMeasurementCount: "मापन पटक",
+        summaryContractionCount: "पीडा पटक",
+        summaryAverageDuration: "औसत अवधि",
+        oneTime: "1 पटक",
+        countTimes: "{count} पटक",
+        activePainPrefix: "पीडा हुँदै",
+        sec: "{value} सेकेन्ड",
+        minSec: "{min} मिनेट {sec} सेकेन्ड",
+        dateLabel: "{year}/{month}/{day}",
+        noContractionConfirm: "पीडाको रेकर्ड छैन। यो मापन अन्त्य गर्ने?",
+        saveFailed: "सेभ गर्न सकिएन।",
+        needEndBeforeSave: "पहिले मापन अन्त्य थिच्नुहोस्।",
+        noRecordsToSave: "सेभ गर्ने रेकर्ड छैन।",
+        saved: "सेभ भयो।",
+        cannotResetMeasuring: "मापन हुँदै गर्दा रिसेट गर्न सकिँदैन।",
+        resetConfirm: "रेकर्ड रिसेट गर्ने?",
+        selectDelete: "मेटाउने रेकर्ड छान्नुहोस्।",
+        liffInitFailed: "LIFF सुरु गर्न सकिएन।",
+      });
+      Object.assign(LABOR_TEXT.lo, {
+        pageLead:
+          "ກົດ “ເລີ່ມວັດ”. ເມື່ອເຈັບໃຫ້ກົດ “ເຈັບທ້ອງ”, ເມື່ອສະຫງົບໃຫ້ກົດ “ສະຫງົບ”. ສຸດທ້າຍກົດ “ສິ້ນສຸດ”.",
+        currentRest: "ເວລາສະຫງົບ: {value}",
+        deleteSelected: "ລຶບບັນທຶກທີ່ເລືອກ",
+        activeBadge: "ກຳລັງວັດ",
+        activeEnd: "ກຳລັງວັດ",
+        selectRecord: "ເລືອກບັນທຶກຈາກ {time}",
+        sessionLine: "ວັດ {duration} / ເຈັບ {count} ຄັ້ງ",
+        summaryMeasurementCount: "ຈຳນວນວັດ",
+        summaryContractionCount: "ຈຳນວນເຈັບ",
+        summaryAverageRest: "ສະຫງົບສະເລ່ຍ",
+        summaryAverageDuration: "ໄລຍະສະເລ່ຍ",
+        oneTime: "1 ຄັ້ງ",
+        countTimes: "{count} ຄັ້ງ",
+        activePainPrefix: "ກຳລັງເຈັບ",
+        sec: "{value} ວິນາທີ",
+        minSec: "{min} ນາທີ {sec} ວິນາທີ",
+        dateLabel: "{day}/{month}/{year}",
+        noContractionConfirm: "ບໍ່ມີບັນທຶກການເຈັບ. ຈະສິ້ນສຸດບໍ?",
+        saveFailed: "ບັນທຶກບໍ່ສຳເລັດ.",
+        needEndBeforeSave: "ກະລຸນາກົດສິ້ນສຸດກ່ອນ.",
+        noRecordsToSave: "ບໍ່ມີບັນທຶກໃຫ້ເກັບ.",
+        saved: "ບັນທຶກແລ້ວ.",
+        cannotResetMeasuring: "ລີເຊັດບໍ່ໄດ້ຂະນະວັດ.",
+        resetConfirm: "ລີເຊັດບັນທຶກບໍ?",
+        selectDelete: "ເລືອກບັນທຶກທີ່ຈະລຶບ.",
+        liffInitFailed: "ເລີ່ມ LIFF ບໍ່ສຳເລັດ.",
+      });
+      Object.assign(LABOR_TEXT.uk, {
+        pageLead:
+          "Натисніть «Почати вимір». Коли біль почнеться, натисніть «Перейми»; коли мине, натисніть «Минуло». Наприкінці натисніть «Завершити».",
+        currentRest: "Час спокою: {value}",
+        deleteSelected: "Видалити вибрані записи",
+        activeBadge: "Вимірювання",
+        activeEnd: "Вимірювання",
+        selectRecord: "Вибрати запис від {time}",
+        sessionLine: "Вимір {duration} / перейми {count}",
+        summaryMeasurementCount: "Кількість вимірів",
+        summaryContractionCount: "Кількість переймів",
+        summaryAverageDuration: "Середня тривалість",
+        oneTime: "1 раз",
+        countTimes: "{count} раз(и)",
+        activePainPrefix: "Триває",
+        sec: "{value} сек.",
+        minSec: "{min} хв {sec} сек.",
+        dateLabel: "{day}.{month}.{year}",
+        noContractionConfirm: "Немає запису переймів. Завершити цей вимір?",
+        saveFailed: "Не вдалося зберегти.",
+        needEndBeforeSave: "Спочатку натисніть Завершити.",
+        noRecordsToSave: "Немає записів для збереження.",
+        saved: "Збережено.",
+        cannotResetMeasuring: "Не можна скинути під час вимірювання.",
+        resetConfirm: "Скинути записи?",
+        selectDelete: "Виберіть записи для видалення.",
+        liffInitFailed: "Не вдалося ініціалізувати LIFF.",
+      });
+      Object.assign(LABOR_TEXT["fa-AF"], {
+        pageLead:
+          "«شروع اندازه‌گیری» را بزنید. وقتی درد شروع شد «درد» را بزنید، وقتی آرام شد «آرام شد» را بزنید. در پایان «پایان اندازه‌گیری» را بزنید.",
+        currentRest: "زمان آرامی: {value}",
+        deleteSelected: "حذف ثبت‌های انتخاب‌شده",
+        activeBadge: "در حال اندازه‌گیری",
+        activeEnd: "در حال اندازه‌گیری",
+        selectRecord: "انتخاب ثبت از {time}",
+        sessionLine: "اندازه‌گیری {duration} / درد {count} بار",
+        summaryMeasurementCount: "تعداد اندازه‌گیری",
+        summaryContractionCount: "تعداد درد",
+        summaryAverageDuration: "میانگین مدت",
+        oneTime: "1 بار",
+        countTimes: "{count} بار",
+        activePainPrefix: "درد فعال",
+        sec: "{value} ثانیه",
+        minSec: "{min} دقیقه {sec} ثانیه",
+        dateLabel: "{year}/{month}/{day}",
+        noContractionConfirm: "ثبت درد وجود ندارد. این اندازه‌گیری پایان یابد؟",
+        saveFailed: "ذخیره نشد.",
+        needEndBeforeSave: "لطفاً اول پایان اندازه‌گیری را بزنید.",
+        noRecordsToSave: "ثبتی برای ذخیره نیست.",
+        saved: "ذخیره شد.",
+        cannotResetMeasuring: "هنگام اندازه‌گیری نمی‌توان بازنشانی کرد.",
+        resetConfirm: "ثبت‌ها بازنشانی شوند؟",
+        selectDelete: "ثبت‌هایی را برای حذف انتخاب کنید.",
+        liffInitFailed: "شروع LIFF ناموفق بود.",
+      });
+      Object.assign(LABOR_TEXT.si, {
+        pageLead:
+          "“මැනීම අරඹන්න” ඔබන්න. වේදනාව ආරම්භ වූ විට “වේදනාව” ඔබන්න, අඩු වූ විට “අඩුවිය” ඔබන්න. අවසානයේ “මැනීම අවසන්” ඔබන්න.",
+        currentRest: "අඩු වී ඇති කාලය: {value}",
+        deleteSelected: "තෝරාගත් සටහන් මකන්න",
+        activeBadge: "මැනීම",
+        activeEnd: "මැනීම",
+        selectRecord: "{time} සිට සටහන තෝරන්න",
+        sessionLine: "මැනීම {duration} / වේදනා {count}",
+        summaryMeasurementCount: "මැනීම් ගණන",
+        summaryContractionCount: "වේදනා ගණන",
+        summaryAverageRest: "සාමාන්‍ය අඩුවීම",
+        summaryAverageDuration: "සාමාන්‍ය කාලය",
+        oneTime: "1 වරක්",
+        countTimes: "{count} වරක්",
+        activePainPrefix: "වේදනාව",
+        sec: "තත්පර {value}",
+        minSec: "මිනිත්තු {min} තත්පර {sec}",
+        dateLabel: "{year}/{month}/{day}",
+        noContractionConfirm: "වේදනා සටහනක් නැත. මෙම මැනීම අවසන් කරන්නද?",
+        saveFailed: "සුරැකීමට නොහැකි විය.",
+        needEndBeforeSave: "පළමුව මැනීම අවසන් කරන්න.",
+        noRecordsToSave: "සුරැකීමට සටහන් නැත.",
+        saved: "සුරක්ෂිත විය.",
+        cannotResetMeasuring: "මැනීම අතරතුර නැවත සැකසිය නොහැක.",
+        resetConfirm: "සටහන් නැවත සකසන්නද?",
+        selectDelete: "මකන සටහන් තෝරන්න.",
+        liffInitFailed: "LIFF ආරම්භය අසාර්ථක විය.",
+      });
+      Object.assign(LABOR_TEXT.ms, {
+        pageLead:
+          "Tekan “Mula ukur”. Apabila sakit bermula, tekan “Kontraksi”; apabila reda, tekan “Reda”. Akhir sekali tekan “Tamat ukur” untuk menjadi satu rekod.",
+        currentRest: "Masa reda: {value}",
+        deleteSelected: "Padam rekod dipilih",
+        activeBadge: "Mengukur",
+        activeEnd: "Mengukur",
+        selectRecord: "Pilih rekod dari {time}",
+        sessionLine: "Ukur {duration} / kontraksi {count}",
+        summaryMeasurementCount: "Bilangan ukur",
+        summaryContractionCount: "Bilangan kontraksi",
+        summaryAverageDuration: "Purata tempoh",
+        oneTime: "1 kali",
+        countTimes: "{count} kali",
+        activePainPrefix: "Kontraksi",
+        sec: "{value} saat",
+        minSec: "{min} minit {sec} saat",
+        dateLabel: "{day}/{month}/{year}",
+        noContractionConfirm: "Tiada rekod kontraksi. Tamatkan ukuran ini?",
+        saveFailed: "Gagal menyimpan.",
+        needEndBeforeSave: "Sila tekan Tamat ukur dahulu.",
+        noRecordsToSave: "Tiada rekod untuk disimpan.",
+        saved: "Disimpan.",
+        cannotResetMeasuring: "Tidak boleh reset semasa mengukur.",
+        resetConfirm: "Reset rekod?",
+        selectDelete: "Sila pilih rekod untuk dipadam.",
+        liffInitFailed: "Gagal memulakan LIFF.",
+      });
+      Object.assign(LABOR_TEXT.my, {
+        pageLead:
+          "“တိုင်းတာမှု စတင်” ကို နှိပ်ပါ။ နာလာလျှင် “ဗိုက်နာ” ကို နှိပ်ပါ၊ သက်သာလျှင် “သက်သာ” ကို နှိပ်ပါ။ နောက်ဆုံး “တိုင်းတာမှု ပြီးဆုံး” ကို နှိပ်ပါ။",
+        currentRest: "သက်သာနေသော အချိန်: {value}",
+        deleteSelected: "ရွေးထားသော မှတ်တမ်းများ ဖျက်ရန်",
+        activeBadge: "တိုင်းတာနေသည်",
+        activeEnd: "တိုင်းတာနေသည်",
+        selectRecord: "{time} မှ မှတ်တမ်းကို ရွေးရန်",
+        sessionLine: "တိုင်းတာ {duration} / ဗိုက်နာ {count} ကြိမ်",
+        summaryMeasurementCount: "တိုင်းတာမှု အကြိမ်",
+        summaryContractionCount: "ဗိုက်နာ အကြိမ်",
+        summaryAverageRest: "ပျမ်းမျှ သက်သာချိန်",
+        summaryAverageDuration: "ပျမ်းမျှ ကြာချိန်",
+        oneTime: "1 ကြိမ်",
+        countTimes: "{count} ကြိမ်",
+        activePainPrefix: "နာနေသည်",
+        sec: "{value} စက္ကန့်",
+        minSec: "{min} မိနစ် {sec} စက္ကန့်",
+        dateLabel: "{year}/{month}/{day}",
+        noContractionConfirm:
+          "ဗိုက်နာမှတ်တမ်းမရှိပါ။ ဤတိုင်းတာမှုကို ပြီးဆုံးမလား?",
+        saveFailed: "မသိမ်းနိုင်ပါ။",
+        needEndBeforeSave: "ပထမဦးစွာ တိုင်းတာမှု ပြီးဆုံး ကို နှိပ်ပါ။",
+        noRecordsToSave: "သိမ်းရန် မှတ်တမ်းမရှိပါ။",
+        saved: "သိမ်းပြီးပါပြီ။",
+        cannotResetMeasuring: "တိုင်းတာနေစဉ် reset မလုပ်နိုင်ပါ။",
+        resetConfirm: "မှတ်တမ်းများ reset လုပ်မလား?",
+        selectDelete: "ဖျက်ရန် မှတ်တမ်းများ ရွေးပါ။",
+        liffInitFailed: "LIFF စတင်မှု မအောင်မြင်ပါ။",
+      });
+      Object.assign(LABOR_TEXT.bn, {
+        pageLead:
+          "“মাপা শুরু” চাপুন। ব্যথা শুরু হলে “ব্যথা” চাপুন, কমলে “কমেছে” চাপুন। শেষে “মাপা শেষ” চাপলে একটি রেকর্ড হবে।",
+        currentRest: "কমে থাকা সময়: {value}",
+        deleteSelected: "নির্বাচিত রেকর্ড মুছুন",
+        activeBadge: "মাপা হচ্ছে",
+        activeEnd: "মাপা হচ্ছে",
+        selectRecord: "{time} থেকে রেকর্ড নির্বাচন করুন",
+        sessionLine: "মাপা {duration} / ব্যথা {count} বার",
+        summaryMeasurementCount: "মাপার সংখ্যা",
+        summaryContractionCount: "ব্যথার সংখ্যা",
+        summaryAverageRest: "গড় কমার সময়",
+        summaryAverageDuration: "গড় স্থায়ী সময়",
+        oneTime: "1 বার",
+        countTimes: "{count} বার",
+        activePainPrefix: "ব্যথা চলছে",
+        sec: "{value} সেকেন্ড",
+        minSec: "{min} মিনিট {sec} সেকেন্ড",
+        dateLabel: "{year}/{month}/{day}",
+        noContractionConfirm: "ব্যথার রেকর্ড নেই। এই মাপা শেষ করবেন?",
+        saveFailed: "সংরক্ষণ করা যায়নি।",
+        needEndBeforeSave: "প্রথমে মাপা শেষ চাপুন।",
+        noRecordsToSave: "সংরক্ষণ করার রেকর্ড নেই।",
+        saved: "সংরক্ষিত হয়েছে।",
+        cannotResetMeasuring: "মাপার সময় রিসেট করা যাবে না।",
+        resetConfirm: "রেকর্ড রিসেট করবেন?",
+        selectDelete: "মুছতে রেকর্ড নির্বাচন করুন।",
+        liffInitFailed: "LIFF শুরু করা যায়নি।",
+      });
+      Object.assign(LABOR_TEXT.ur, {
+        pageLead:
+          "“پیمائش شروع” دبائیں۔ جب درد شروع ہو تو “درد” دبائیں، کم ہو تو “کم ہوا” دبائیں۔ آخر میں “پیمائش ختم” دبائیں۔",
+        currentRest: "آرام کا وقت: {value}",
+        deleteSelected: "منتخب ریکارڈ حذف کریں",
+        activeBadge: "پیمائش جاری",
+        activeEnd: "پیمائش جاری",
+        selectRecord: "{time} سے ریکارڈ منتخب کریں",
+        sessionLine: "پیمائش {duration} / درد {count} بار",
+        summaryMeasurementCount: "پیمائش کی تعداد",
+        summaryContractionCount: "درد کی تعداد",
+        summaryAverageRest: "اوسط آرام",
+        summaryAverageDuration: "اوسط مدت",
+        oneTime: "1 بار",
+        countTimes: "{count} بار",
+        activePainPrefix: "درد جاری",
+        sec: "{value} سیکنڈ",
+        minSec: "{min} منٹ {sec} سیکنڈ",
+        dateLabel: "{year}/{month}/{day}",
+        noContractionConfirm: "درد کا ریکارڈ نہیں ہے۔ کیا یہ پیمائش ختم کریں؟",
+        saveFailed: "محفوظ نہیں ہو سکا۔",
+        needEndBeforeSave: "پہلے پیمائش ختم دبائیں۔",
+        noRecordsToSave: "محفوظ کرنے کے لیے کوئی ریکارڈ نہیں۔",
+        saved: "محفوظ ہو گیا۔",
+        cannotResetMeasuring: "پیمائش کے دوران ری سیٹ نہیں کر سکتے۔",
+        resetConfirm: "ریکارڈ ری سیٹ کریں؟",
+        selectDelete: "حذف کرنے کے لیے ریکارڈ منتخب کریں۔",
+        liffInitFailed: "LIFF شروع نہیں ہو سکا۔",
+      });
+      Object.assign(LABOR_TEXT.zh, { previousRest: "上次以来的间隔: -" });
+      Object.assign(LABOR_TEXT.fr, {
+        previousRest: "Depuis la fois précédente: -",
+        pageLead:
+          "Appuyez sur « Démarrer ». Quand la douleur commence, appuyez sur « Douleur »; quand elle se calme, appuyez sur « Calmée ». À la fin, appuyez sur « Terminer » pour créer un enregistrement.",
+        activePain: "Douleur en cours",
+        contraction: "Douleur",
+        summaryContractionCount: "Nombre de douleurs",
+      });
+      Object.assign(LABOR_TEXT.ko, { previousRest: "이전부터의 간격: -" });
+      Object.assign(LABOR_TEXT.pr, {
+        previousRest: "Intervalo desde a vez anterior: -",
+        sec: "{value} seg",
+      });
+      Object.assign(LABOR_TEXT.tl, {
+        pageTitle: "Tagabilang ng hilab",
+        pageLead:
+          "Pindutin ang “Simulan”. Kapag nagsimula ang sakit, pindutin ang “Paghilab”; kapag humupa, pindutin ang “Humupa”. Sa huli, pindutin ang “Tapusin” para maging isang tala.",
+        previousRest: "Pagitan mula sa nauna: -",
+        activePain: "May paghilab",
+        contraction: "Paghilab",
+        records: "Mga tala",
+        deleteSelected: "Burahin ang napiling tala",
+        empty: "Wala pang tala.",
+        selectRecord: "Piliin ang tala mula {time}",
+        sessionLine: "Sukat {duration} / paghilab {count}",
+        summaryContractionCount: "Bilang ng paghilab",
+        summaryAverageRest: "Karaniwang pahinga",
+        summaryAverageDuration: "Karaniwang tagal",
+        activePainPrefix: "May paghilab",
+        noContractionConfirm:
+          "Walang tala ng paghilab. Tapusin ang sukat na ito?",
+        saveFailed: "Hindi naitala.",
+        noRecordsToSave: "Walang talang itatala.",
+        saved: "Naitala.",
+        cannotResetMeasuring: "Hindi maaaring burahin habang sumusukat.",
+        resetConfirm: "Burahin ang mga tala?",
+        selectDelete: "Piliin ang talang buburahin.",
+      });
+      Object.assign(LABOR_TEXT.ve, {
+        previousRest: "Khoảng cách từ lần trước: -",
+      });
+      Object.assign(LABOR_TEXT.th, { previousRest: "ช่วงห่างจากครั้งก่อน: -" });
+      Object.assign(LABOR_TEXT.de, {
+        previousRest: "Abstand seit der letzten Wehe: -",
+      });
+      Object.assign(LABOR_TEXT.id, {
+        previousRest: "Jeda sejak sebelumnya: -",
+        cannotResetMeasuring: "Tidak bisa mengatur ulang saat mengukur.",
+        resetConfirm: "Atur ulang catatan?",
+      });
+      Object.assign(LABOR_TEXT.ru, {
+        previousRest: "Интервал с предыдущего раза: -",
+      });
+      Object.assign(LABOR_TEXT.ne, {
+        previousRest: "अघिल्लोबाटको अन्तर: -",
+        dateLabel: "{year} साल {month} महिना {day} गते",
+      });
+      Object.assign(LABOR_TEXT.lo, { previousRest: "ໄລຍະຫ່າງຈາກຄັ້ງກ່ອນ: -" });
+      Object.assign(LABOR_TEXT.uk, {
+        previousRest: "Інтервал від попереднього разу: -",
+      });
+      Object.assign(LABOR_TEXT["fa-AF"], {
+        previousRest: "فاصله از دفعه قبلی: -",
+        dateLabel: "{day}/{month}/{year}",
+      });
+      Object.assign(LABOR_TEXT.si, {
+        previousRest: "පෙර වතාවේ සිට පරතරය: -",
+        dateLabel: "{year} වසර {month} මාසය {day} දින",
+      });
+      Object.assign(LABOR_TEXT.ms, {
+        previousRest: "Jarak sejak kali sebelumnya: -",
+        cannotResetMeasuring: "Tidak boleh tetapkan semula semasa mengukur.",
+        resetConfirm: "Tetapkan semula rekod?",
+      });
+      Object.assign(LABOR_TEXT.my, {
+        previousRest: "ယခင်အကြိမ်မှ ကြားချိန်: -",
+        cannotResetMeasuring: "တိုင်းတာနေစဉ် ပြန်သတ်မှတ်၍ မရပါ။",
+        resetConfirm: "မှတ်တမ်းများကို ပြန်သတ်မှတ်မလား?",
+        dateLabel: "{year} ခုနှစ် {month} လ {day} ရက်",
+      });
+      Object.assign(LABOR_TEXT.bn, {
+        previousRest: "আগের বার থেকে ব্যবধান: -",
+        dateLabel: "{day}/{month}/{year}",
+      });
+      Object.assign(LABOR_TEXT.ur, {
+        previousRest: "پچھلی بار سے وقفہ: -",
+        dateLabel: "{day}/{month}/{year}",
+      });
+
+      function templateText(text, vars) {
+        return String(text || "").replace(/\{(\w+)\}/g, function (_, key) {
+          return vars && vars[key] != null ? String(vars[key]) : "";
+        });
+      }
+
+      function t(key, vars) {
+        const table = LABOR_TEXT[state.lang] || LABOR_TEXT["en-US"];
+        return templateText(
+          table[key] || LABOR_TEXT["en-US"][key] || LABOR_TEXT.ja[key] || key,
+          vars,
+        );
+      }
+
+      function normalizeLaborLang(lang) {
+        const raw = String(lang || "ja").toLowerCase();
+        if (
+          raw === "soft" ||
+          raw.startsWith("easy") ||
+          raw.startsWith("simple")
+        )
+          return "soft";
+        if (raw.startsWith("en")) return "en-US";
+        if (raw.startsWith("pt")) return "pr";
+        if (raw.startsWith("vi")) return "ve";
+        if (raw.startsWith("fa") || raw.startsWith("prs")) return "fa-AF";
+        if (raw.startsWith("zh")) return "zh";
+        if (raw.startsWith("fr")) return "fr";
+        if (raw.startsWith("ko")) return "ko";
+        if (raw.startsWith("tl")) return "tl";
+        if (raw.startsWith("th")) return "th";
+        if (raw.startsWith("de")) return "de";
+        if (raw.startsWith("id")) return "id";
+        if (raw.startsWith("ru")) return "ru";
+        if (raw.startsWith("ne")) return "ne";
+        if (raw.startsWith("lo")) return "lo";
+        if (raw.startsWith("uk")) return "uk";
+        if (raw.startsWith("si")) return "si";
+        if (raw.startsWith("ms")) return "ms";
+        if (raw.startsWith("my")) return "my";
+        if (raw.startsWith("bn")) return "bn";
+        if (raw.startsWith("ur")) return "ur";
+        return "ja";
+      }
+
+      function applyLaborLanguage(lang) {
+        state.lang = normalizeLaborLang(lang);
+        document.documentElement.lang =
+          state.lang === "en-US" ? "en" : state.lang;
+        document.title = t("pageTitle");
+        document.getElementById("pageTitle").textContent = t("pageTitle");
+        document.getElementById("pageLead").textContent = t("pageLead");
+        document.getElementById("startMeasurementBtn").textContent =
+          t("startMeasurement");
+        document.getElementById("contractionBtn").textContent =
+          t("contraction");
+        document.getElementById("settledBtn").textContent = t("settled");
+        document.getElementById("endMeasurementBtn").textContent =
+          t("endMeasurement");
+        document.getElementById("recordsTitle").textContent = t("records");
+        document
+          .getElementById("deleteSelectedBtn")
+          .setAttribute("aria-label", t("deleteSelected"));
+        document.getElementById("emptyText").textContent = t("empty");
+        if (!state.activeSession && !state.records.length) {
+          document.getElementById("lastIntervalText").textContent =
+            t("previousRest");
+        }
+        setActiveUi();
+        render();
+      }
+
+      function showAppBusy() {
+        const loader = document.getElementById("loadingOverlay");
+        loader.classList.remove("is-hidden");
+        loader.style.display = "grid";
+        loader.setAttribute("aria-hidden", "false");
+      }
+
+      function hideAppBusy() {
+        const loader = document.getElementById("loadingOverlay");
+        loader.classList.add("is-hidden");
+        loader.style.display = "none";
+        loader.setAttribute("aria-hidden", "true");
+      }
+
+      function loadHeader() {
+        return new Promise((resolve, reject) => {
+          let settled = false;
+          const finish = () => {
+            if (settled) return;
+            settled = true;
+            resolve();
+          };
+          const fail = (error) => {
+            if (settled) return;
+            settled = true;
+            reject(error);
+          };
+          const timer = setTimeout(finish, 3000);
+          $("#header-container").load(
+            "../common/header.html",
+            function (_responseText, status) {
+              if (status === "error") {
+                clearTimeout(timer);
+                fail(new Error("Failed to load header.html"));
+                return;
+              }
+              document.addEventListener(
+                "i18n-initialized",
+                function () {
+                  clearTimeout(timer);
+                  finish();
+                },
+                {
+                  once: true,
+                },
+              );
+              $.getScript("../common/js/header.js").fail(function () {
+                clearTimeout(timer);
+                fail(new Error("Failed to load header.js"));
+              });
             },
-            soft: {
-                pageTitle: "じんつうカウンター",
-                pageLead: "はじめに「はかりはじめる」を おします。いたくなったら「じんつう」、おさまったら「おさまった」を おします。さいごに「はかりおわる」を おすと、1つの きろくになります。",
-                waiting: "まっています",
-                measuring: "はかっています",
-                activePain: "じんつう中",
-                intervalMeasuring: "おさまりを はかっています",
-                previousRest: "まえからの あいだ: -",
-                currentRest: "おさまっている時間: {value}",
-                startMeasurement: "はかりはじめる",
-                contraction: "じんつう",
-                settled: "おさまった",
-                endMeasurement: "はかりおわる",
-                records: "きろく",
-                deleteSelected: "えらんだ きろくを けす",
-                empty: "まだ きろくは ありません。",
-                activeBadge: "はかっています",
-                activeEnd: "はかっています",
-                selectRecord: "{time}からの きろくを えらぶ",
-                sessionLine: "はかった時間 {duration} / じんつう {count}回",
-                summaryMeasurementCount: "はかった回数",
-                summaryContractionCount: "じんつう回数",
-                summaryAverageRest: "へいきん おさまり",
-                summaryAverageDuration: "へいきん つづいた時間",
-                oneTime: "1回",
-                countTimes: "{count}回",
-                durationPrefix: "つづいた",
-                activePainPrefix: "じんつう中",
-                restPrefix: "おさまり",
-                sec: "{value}秒",
-                minSec: "{min}分{sec}秒",
-                dateLabel: "{year}年{month}月{day}日",
-                noContractionConfirm: "じんつうの きろくが ありません。この きろくを おわりますか？",
-                saveFailed: "ほぞんできませんでした。",
-                needEndBeforeSave: "先に「はかりおわる」を おしてください。",
-                noRecordsToSave: "とうろくする きろくが ありません。",
-                saved: "とうろくしました。",
-                cannotResetMeasuring: "はかっている時は リセットできません。",
-                resetConfirm: "きろくを リセットしますか？",
-                selectDelete: "けす きろくを えらんでください。",
-                liffInitFailed: "LIFFの じゅんびに しっぱいしました。"
-            },
-            "en-US": {
-                pageTitle: "Contraction Counter",
-                pageLead: "Tap “Start measurement”, then tap “Contraction” when pain starts and “Settled” when it stops. Tap “End measurement” to save one record.",
-                waiting: "Waiting",
-                measuring: "Measuring",
-                activePain: "Contraction",
-                intervalMeasuring: "Rest timing",
-                previousRest: "Time since previous: -",
-                currentRest: "Resting time: {value}",
-                startMeasurement: "Start measurement",
-                contraction: "Contraction",
-                settled: "Settled",
-                endMeasurement: "End measurement",
-                records: "Records",
-                deleteSelected: "Delete selected records",
-                empty: "No records yet.",
-                activeBadge: "Measuring",
-                activeEnd: "Measuring",
-                selectRecord: "Select record from {time}",
-                sessionLine: "Measured {duration} / contractions {count}",
-                summaryMeasurementCount: "Measurements",
-                summaryContractionCount: "Contractions",
-                summaryAverageRest: "Average rest",
-                summaryAverageDuration: "Average duration",
-                oneTime: "1 time",
-                countTimes: "{count} times",
-                durationPrefix: "Duration",
-                activePainPrefix: "Active",
-                restPrefix: "Rest",
-                sec: "{value}s",
-                minSec: "{min}m {sec}s",
-                dateLabel: "{year}/{month}/{day}",
-                noContractionConfirm: "There are no contractions in this measurement. End it anyway?",
-                saveFailed: "Could not save.",
-                needEndBeforeSave: "Please tap End measurement first.",
-                noRecordsToSave: "There are no records to save.",
-                saved: "Saved.",
-                cannotResetMeasuring: "You cannot reset while measuring.",
-                resetConfirm: "Reset records?",
-                selectDelete: "Please select records to delete.",
-                liffInitFailed: "LIFF initialization failed."
-            }
-        };
+          );
+        });
+      }
 
-        LABOR_TEXT.zh = {
-            ...LABOR_TEXT["en-US"],
-            pageTitle: "阵痛计时器",
-            pageLead: "请先点击“开始测量”。疼痛开始时点击“阵痛”，停止时点击“已缓解”。最后点击“结束测量”，保存为一条记录。",
-            waiting: "待机中",
-            measuring: "测量中",
-            activePain: "阵痛中",
-            intervalMeasuring: "缓解时间测量中",
-            startMeasurement: "开始测量",
-            contraction: "阵痛",
-            settled: "已缓解",
-            endMeasurement: "结束测量",
-            records: "记录",
-            empty: "还没有记录。",
-            activeBadge: "测量中",
-            activeEnd: "测量中",
-            sessionLine: "测量 {duration} / 阵痛 {count}次",
-            summaryMeasurementCount: "测量次数",
-            summaryContractionCount: "阵痛次数",
-            summaryAverageRest: "平均缓解时间",
-            summaryAverageDuration: "平均持续时间",
-            countTimes: "{count}次",
-            durationPrefix: "持续",
-            activePainPrefix: "阵痛中",
-            restPrefix: "缓解",
-            noContractionConfirm: "没有阵痛记录。要结束本次测量吗？",
-            needEndBeforeSave: "请先点击结束测量。",
-            noRecordsToSave: "没有可保存的记录。",
-            saved: "已保存。",
-            selectDelete: "请选择要删除的记录。"
-        };
-        LABOR_TEXT.fr = {
-            ...LABOR_TEXT["en-US"],
-            pageTitle: "Compteur de contractions",
-            startMeasurement: "Démarrer",
-            contraction: "Contraction",
-            settled: "Calmée",
-            endMeasurement: "Terminer",
-            records: "Dossiers",
-            waiting: "En attente",
-            measuring: "Mesure",
-            activePain: "Contraction",
-            intervalMeasuring: "Repos en cours",
-            empty: "Aucun dossier.",
-            summaryContractionCount: "Contractions",
-            summaryAverageRest: "Repos moyen",
-            summaryAverageDuration: "Durée moyenne",
-            durationPrefix: "Durée",
-            restPrefix: "Repos",
-            saved: "Enregistré."
-        };
-        LABOR_TEXT.ko = {
-            ...LABOR_TEXT["en-US"],
-            pageTitle: "진통 카운터",
-            startMeasurement: "측정 시작",
-            contraction: "진통",
-            settled: "가라앉음",
-            endMeasurement: "측정 종료",
-            records: "기록",
-            waiting: "대기 중",
-            measuring: "측정 중",
-            activePain: "진통 중",
-            intervalMeasuring: "간격 측정 중",
-            empty: "아직 기록이 없습니다.",
-            summaryMeasurementCount: "측정 횟수",
-            summaryContractionCount: "진통 횟수",
-            summaryAverageRest: "평균 가라앉은 시간",
-            summaryAverageDuration: "평균 지속",
-            countTimes: "{count}회",
-            durationPrefix: "지속",
-            restPrefix: "가라앉음",
-            saved: "등록했습니다."
-        };
-        LABOR_TEXT.pr = { ...LABOR_TEXT["en-US"], pageTitle: "Contador de contrações", startMeasurement: "Iniciar medição", contraction: "Contração", settled: "Acalmou", endMeasurement: "Encerrar medição", records: "Registros", waiting: "Aguardando", measuring: "Medindo", activePain: "Contração", intervalMeasuring: "Tempo de repouso", empty: "Ainda não há registros.", summaryAverageRest: "Repouso médio", summaryAverageDuration: "Duração média", durationPrefix: "Duração", restPrefix: "Repouso", saved: "Registrado." };
-        LABOR_TEXT.tl = { ...LABOR_TEXT["en-US"], pageTitle: "Contraction counter", startMeasurement: "Simulan", contraction: "Contraction", settled: "Humupa", endMeasurement: "Tapusin", records: "Mga record", waiting: "Naghihintay", measuring: "Sinusukat", activePain: "May contraction", intervalMeasuring: "Sukat ng pahinga", empty: "Wala pang record.", summaryAverageRest: "Average na pahinga", durationPrefix: "Tagal", restPrefix: "Pahinga" };
-        LABOR_TEXT.ve = { ...LABOR_TEXT["en-US"], pageTitle: "Bộ đếm cơn co", startMeasurement: "Bắt đầu đo", contraction: "Cơn co", settled: "Đã dịu", endMeasurement: "Kết thúc đo", records: "Ghi chép", waiting: "Đang chờ", measuring: "Đang đo", activePain: "Đang co", intervalMeasuring: "Đo thời gian dịu", empty: "Chưa có ghi chép.", summaryAverageRest: "Thời gian dịu trung bình", durationPrefix: "Kéo dài", restPrefix: "Dịu" };
-        LABOR_TEXT.th = { ...LABOR_TEXT["en-US"], pageTitle: "ตัวจับเวลาการเจ็บครรภ์", startMeasurement: "เริ่มวัด", contraction: "เจ็บครรภ์", settled: "สงบลง", endMeasurement: "สิ้นสุด", records: "บันทึก", waiting: "รอ", measuring: "กำลังวัด", activePain: "กำลังเจ็บ", intervalMeasuring: "วัดเวลาสงบ", empty: "ยังไม่มีบันทึก", summaryAverageRest: "เวลาสงบเฉลี่ย", durationPrefix: "นาน", restPrefix: "สงบ" };
-        LABOR_TEXT.de = { ...LABOR_TEXT["en-US"], pageTitle: "Wehenzähler", startMeasurement: "Messung starten", contraction: "Wehe", settled: "Abgeklungen", endMeasurement: "Messung beenden", records: "Aufzeichnungen", waiting: "Warten", measuring: "Messung", activePain: "Wehe", intervalMeasuring: "Ruhezeit", empty: "Noch keine Aufzeichnungen.", summaryAverageRest: "Durchschn. Ruhe", durationPrefix: "Dauer", restPrefix: "Ruhe" };
-        LABOR_TEXT.id = { ...LABOR_TEXT["en-US"], pageTitle: "Penghitung kontraksi", startMeasurement: "Mulai ukur", contraction: "Kontraksi", settled: "Mereda", endMeasurement: "Akhiri ukur", records: "Catatan", waiting: "Menunggu", measuring: "Mengukur", activePain: "Kontraksi", intervalMeasuring: "Mengukur jeda", empty: "Belum ada catatan.", summaryAverageRest: "Rata-rata jeda", durationPrefix: "Durasi", restPrefix: "Mereda" };
-        LABOR_TEXT.ru = { ...LABOR_TEXT["en-US"], pageTitle: "Счетчик схваток", startMeasurement: "Начать измерение", contraction: "Схватка", settled: "Прошла", endMeasurement: "Завершить", records: "Записи", waiting: "Ожидание", measuring: "Измерение", activePain: "Схватка", intervalMeasuring: "Время покоя", empty: "Записей пока нет.", summaryAverageRest: "Средний покой", durationPrefix: "Длится", restPrefix: "Покой" };
-        LABOR_TEXT.ne = { ...LABOR_TEXT["en-US"], pageTitle: "प्रसव पीडा काउन्टर", startMeasurement: "मापन सुरु", contraction: "पीडा", settled: "शान्त भयो", endMeasurement: "मापन अन्त्य", records: "रेकर्ड", waiting: "प्रतीक्षा", measuring: "मापन हुँदै", activePain: "पीडा हुँदै", intervalMeasuring: "शान्त समय", empty: "अझै रेकर्ड छैन।", summaryAverageRest: "औसत शान्त समय", durationPrefix: "अवधि", restPrefix: "शान्त" };
-        LABOR_TEXT.lo = { ...LABOR_TEXT["en-US"], pageTitle: "ຕົວນັບການເຈັບທ້ອງ", startMeasurement: "ເລີ່ມວັດ", contraction: "ເຈັບທ້ອງ", settled: "ສະຫງົບ", endMeasurement: "ສິ້ນສຸດ", records: "ບັນທຶກ", waiting: "ລໍຖ້າ", measuring: "ກຳລັງວັດ", activePain: "ກຳລັງເຈັບ", intervalMeasuring: "ວັດເວລາສະຫງົບ", empty: "ຍັງບໍ່ມີບັນທຶກ.", durationPrefix: "ຕໍ່ເນື່ອງ", restPrefix: "ສະຫງົບ" };
-        LABOR_TEXT.uk = { ...LABOR_TEXT["en-US"], pageTitle: "Лічильник переймів", startMeasurement: "Почати вимір", contraction: "Перейми", settled: "Минуло", endMeasurement: "Завершити", records: "Записи", waiting: "Очікування", measuring: "Вимірювання", activePain: "Перейми", intervalMeasuring: "Час спокою", empty: "Записів ще немає.", summaryAverageRest: "Середній спокій", durationPrefix: "Тривалість", restPrefix: "Спокій" };
-        LABOR_TEXT["fa-AF"] = { ...LABOR_TEXT["en-US"], pageTitle: "شمارنده درد زایمان", startMeasurement: "شروع اندازه‌گیری", contraction: "درد", settled: "آرام شد", endMeasurement: "پایان اندازه‌گیری", records: "ثبت‌ها", waiting: "در انتظار", measuring: "در حال اندازه‌گیری", activePain: "درد فعال", intervalMeasuring: "زمان آرامی", empty: "هنوز ثبتی نیست.", summaryAverageRest: "میانگین آرامی", durationPrefix: "مدت", restPrefix: "آرامی" };
-        LABOR_TEXT.si = { ...LABOR_TEXT["en-US"], pageTitle: "ප්‍රසව වේදනා කවුන්ටරය", startMeasurement: "මැනීම අරඹන්න", contraction: "වේදනාව", settled: "අඩුවිය", endMeasurement: "මැනීම අවසන්", records: "සටහන්", waiting: "රැඳී සිටී", measuring: "මැනීම", activePain: "වේදනාව", intervalMeasuring: "අඩු වූ කාලය", empty: "තවම සටහන් නැත.", durationPrefix: "කාලය", restPrefix: "අඩුවීම" };
-        LABOR_TEXT.ms = { ...LABOR_TEXT["en-US"], pageTitle: "Pengira kontraksi", startMeasurement: "Mula ukur", contraction: "Kontraksi", settled: "Reda", endMeasurement: "Tamat ukur", records: "Rekod", waiting: "Menunggu", measuring: "Mengukur", activePain: "Kontraksi", intervalMeasuring: "Masa reda", empty: "Belum ada rekod.", summaryAverageRest: "Purata reda", durationPrefix: "Tempoh", restPrefix: "Reda" };
-        LABOR_TEXT.my = { ...LABOR_TEXT["en-US"], pageTitle: "ဗိုက်နာချိန် ကောင်တာ", startMeasurement: "တိုင်းတာမှု စတင်", contraction: "ဗိုက်နာ", settled: "သက်သာ", endMeasurement: "တိုင်းတာမှု ပြီးဆုံး", records: "မှတ်တမ်း", waiting: "စောင့်နေသည်", measuring: "တိုင်းတာနေသည်", activePain: "နာနေသည်", intervalMeasuring: "သက်သာချိန်", empty: "မှတ်တမ်းမရှိသေးပါ။", durationPrefix: "ကြာချိန်", restPrefix: "သက်သာ" };
-        LABOR_TEXT.bn = { ...LABOR_TEXT["en-US"], pageTitle: "প্রসব ব্যথা কাউন্টার", startMeasurement: "মাপা শুরু", contraction: "ব্যথা", settled: "কমেছে", endMeasurement: "মাপা শেষ", records: "রেকর্ড", waiting: "অপেক্ষা", measuring: "মাপা হচ্ছে", activePain: "ব্যথা চলছে", intervalMeasuring: "কমার সময়", empty: "এখনও রেকর্ড নেই।", durationPrefix: "স্থায়ী", restPrefix: "কমেছে" };
-        LABOR_TEXT.ur = { ...LABOR_TEXT["en-US"], pageTitle: "درد زہ کاؤنٹر", startMeasurement: "پیمائش شروع", contraction: "درد", settled: "کم ہوا", endMeasurement: "پیمائش ختم", records: "ریکارڈ", waiting: "انتظار", measuring: "پیمائش جاری", activePain: "درد جاری", intervalMeasuring: "آرام کا وقت", empty: "ابھی کوئی ریکارڈ نہیں۔", durationPrefix: "مدت", restPrefix: "آرام" };
+      function loadLocalRecords() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          const parsed = raw ? JSON.parse(raw) : [];
+          state.records = normalizeStoredRecords(parsed);
+        } catch (error) {
+          state.records = [];
+        }
+      }
 
-        Object.assign(LABOR_TEXT.zh, {
-            currentRest: "缓解中的时间: {value}",
-            deleteSelected: "删除已选择的记录",
-            selectRecord: "选择从 {time} 开始的测量记录",
-            oneTime: "1次",
-            sec: "{value}秒",
-            minSec: "{min}分{sec}秒",
-            dateLabel: "{year}年{month}月{day}日",
-            saveFailed: "保存失败。",
-            cannotResetMeasuring: "测量中不能重置。",
-            resetConfirm: "要重置记录吗？"
-        });
-        Object.assign(LABOR_TEXT.fr, {
-            pageLead: "Appuyez sur « Démarrer ». Quand la douleur commence, appuyez sur « Contraction »; quand elle se calme, appuyez sur « Calmée ». À la fin, appuyez sur « Terminer » pour créer un enregistrement.",
-            currentRest: "Temps de repos: {value}",
-            deleteSelected: "Supprimer les enregistrements sélectionnés",
-            activeBadge: "Mesure",
-            activeEnd: "Mesure",
-            selectRecord: "Sélectionner l’enregistrement depuis {time}",
-            sessionLine: "Mesure {duration} / contractions {count}",
-            summaryMeasurementCount: "Mesures",
-            summaryContractionCount: "Contractions",
-            summaryAverageDuration: "Durée moyenne",
-            oneTime: "1 fois",
-            countTimes: "{count} fois",
-            activePainPrefix: "En cours",
-            sec: "{value} s",
-            minSec: "{min} min {sec} s",
-            dateLabel: "{day}/{month}/{year}",
-            noContractionConfirm: "Aucune contraction n’a été enregistrée. Terminer cette mesure ?",
-            saveFailed: "Échec de l’enregistrement.",
-            needEndBeforeSave: "Veuillez d’abord appuyer sur Terminer.",
-            noRecordsToSave: "Aucun enregistrement à sauvegarder.",
-            cannotResetMeasuring: "Impossible de réinitialiser pendant la mesure.",
-            resetConfirm: "Réinitialiser les enregistrements ?",
-            selectDelete: "Veuillez sélectionner les enregistrements à supprimer.",
-            liffInitFailed: "Échec de l’initialisation LIFF."
-        });
-        Object.assign(LABOR_TEXT.ko, {
-            pageLead: "먼저 ‘측정 시작’을 누르세요. 통증이 시작되면 ‘진통’, 가라앉으면 ‘가라앉음’을 누릅니다. 마지막에 ‘측정 종료’를 누르면 하나의 기록이 됩니다.",
-            currentRest: "가라앉은 시간: {value}",
-            deleteSelected: "선택한 기록 삭제",
-            activeBadge: "측정 중",
-            activeEnd: "측정 중",
-            selectRecord: "{time}부터의 측정 기록 선택",
-            sessionLine: "측정 {duration} / 진통 {count}회",
-            oneTime: "1회",
-            activePainPrefix: "진통 중",
-            sec: "{value}초",
-            minSec: "{min}분 {sec}초",
-            dateLabel: "{year}년 {month}월 {day}일",
-            noContractionConfirm: "진통 기록이 없습니다. 이 측정을 종료할까요?",
-            saveFailed: "저장하지 못했습니다.",
-            needEndBeforeSave: "먼저 측정 종료를 눌러 주세요.",
-            noRecordsToSave: "저장할 기록이 없습니다.",
-            cannotResetMeasuring: "측정 중에는 초기화할 수 없습니다.",
-            resetConfirm: "기록을 초기화할까요?",
-            selectDelete: "삭제할 기록을 선택해 주세요.",
-            liffInitFailed: "LIFF 초기화에 실패했습니다."
-        });
-        Object.assign(LABOR_TEXT.pr, {
-            pageLead: "Toque em “Iniciar medição”. Quando a dor começar, toque em “Contração”; quando acalmar, toque em “Acalmou”. No fim, toque em “Encerrar medição” para criar um registro.",
-            currentRest: "Tempo em repouso: {value}",
-            deleteSelected: "Excluir registros selecionados",
-            activeBadge: "Medindo",
-            activeEnd: "Medindo",
-            selectRecord: "Selecionar registro desde {time}",
-            sessionLine: "Medição {duration} / contrações {count}",
-            summaryMeasurementCount: "Medições",
-            summaryContractionCount: "Contrações",
-            oneTime: "1 vez",
-            countTimes: "{count} vezes",
-            activePainPrefix: "Em contração",
-            sec: "{value}s",
-            minSec: "{min}min {sec}s",
-            dateLabel: "{day}/{month}/{year}",
-            noContractionConfirm: "Não há registro de contração. Encerrar esta medição?",
-            saveFailed: "Não foi possível salvar.",
-            needEndBeforeSave: "Toque primeiro em Encerrar medição.",
-            noRecordsToSave: "Não há registros para salvar.",
-            cannotResetMeasuring: "Não é possível resetar durante a medição.",
-            resetConfirm: "Resetar registros?",
-            selectDelete: "Selecione os registros para excluir.",
-            liffInitFailed: "Falha ao iniciar LIFF."
-        });
-        Object.assign(LABOR_TEXT.tl, {
-            pageTitle: "Bilang ng paghilab",
-            pageLead: "Pindutin ang “Simulan”. Kapag nagsimula ang sakit, pindutin ang “Contraction”; kapag humupa, pindutin ang “Humupa”. Sa huli, pindutin ang “Tapusin” para maging isang record.",
-            currentRest: "Oras na humupa: {value}",
-            deleteSelected: "Burahin ang napiling record",
-            activeBadge: "Sinusukat",
-            activeEnd: "Sinusukat",
-            selectRecord: "Piliin ang record mula {time}",
-            sessionLine: "Sukat {duration} / contraction {count}",
-            summaryMeasurementCount: "Bilang ng sukat",
-            summaryContractionCount: "Bilang ng contraction",
-            summaryAverageDuration: "Average na tagal",
-            oneTime: "1 beses",
-            countTimes: "{count} beses",
-            activePainPrefix: "May contraction",
-            sec: "{value} seg",
-            minSec: "{min} min {sec} seg",
-            dateLabel: "{month}/{day}/{year}",
-            noContractionConfirm: "Walang record ng contraction. Tapusin ang sukat na ito?",
-            saveFailed: "Hindi na-save.",
-            needEndBeforeSave: "Pindutin muna ang Tapusin.",
-            noRecordsToSave: "Walang record na ise-save.",
-            saved: "Na-save.",
-            cannotResetMeasuring: "Hindi puwedeng i-reset habang sumusukat.",
-            resetConfirm: "I-reset ang mga record?",
-            selectDelete: "Piliin ang record na buburahin.",
-            liffInitFailed: "Nabigo ang LIFF initialization."
-        });
-        Object.assign(LABOR_TEXT.ve, {
-            pageLead: "Nhấn “Bắt đầu đo”. Khi đau bắt đầu, nhấn “Cơn co”; khi dịu lại, nhấn “Đã dịu”. Cuối cùng nhấn “Kết thúc đo” để tạo một ghi chép.",
-            currentRest: "Thời gian dịu: {value}",
-            deleteSelected: "Xóa ghi chép đã chọn",
-            activeBadge: "Đang đo",
-            activeEnd: "Đang đo",
-            selectRecord: "Chọn ghi chép từ {time}",
-            sessionLine: "Đo {duration} / cơn co {count}",
-            summaryMeasurementCount: "Số lần đo",
-            summaryContractionCount: "Số cơn co",
-            summaryAverageDuration: "Thời gian kéo dài trung bình",
-            oneTime: "1 lần",
-            countTimes: "{count} lần",
-            activePainPrefix: "Đang co",
-            sec: "{value} giây",
-            minSec: "{min} phút {sec} giây",
-            dateLabel: "{day}/{month}/{year}",
-            noContractionConfirm: "Không có ghi chép cơn co. Kết thúc lần đo này?",
-            saveFailed: "Không lưu được.",
-            needEndBeforeSave: "Vui lòng nhấn Kết thúc đo trước.",
-            noRecordsToSave: "Không có ghi chép để lưu.",
-            saved: "Đã lưu.",
-            cannotResetMeasuring: "Không thể đặt lại khi đang đo.",
-            resetConfirm: "Đặt lại ghi chép?",
-            selectDelete: "Vui lòng chọn ghi chép để xóa.",
-            liffInitFailed: "Khởi tạo LIFF thất bại."
-        });
-        Object.assign(LABOR_TEXT.th, {
-            pageLead: "กด “เริ่มวัด” เมื่อเริ่มเจ็บให้กด “เจ็บครรภ์” เมื่อสงบลงให้กด “สงบลง” สุดท้ายกด “สิ้นสุด” เพื่อบันทึกเป็น 1 รายการ",
-            currentRest: "เวลาที่สงบอยู่: {value}",
-            deleteSelected: "ลบบันทึกที่เลือก",
-            activeBadge: "กำลังวัด",
-            activeEnd: "กำลังวัด",
-            selectRecord: "เลือกบันทึกตั้งแต่ {time}",
-            sessionLine: "วัด {duration} / เจ็บครรภ์ {count} ครั้ง",
-            summaryMeasurementCount: "จำนวนครั้งที่วัด",
-            summaryContractionCount: "จำนวนครั้งเจ็บครรภ์",
-            summaryAverageDuration: "ระยะเวลาเฉลี่ย",
-            oneTime: "1 ครั้ง",
-            countTimes: "{count} ครั้ง",
-            activePainPrefix: "กำลังเจ็บ",
-            sec: "{value} วินาที",
-            minSec: "{min} นาที {sec} วินาที",
-            dateLabel: "{day}/{month}/{year}",
-            noContractionConfirm: "ไม่มีบันทึกการเจ็บครรภ์ ต้องการสิ้นสุดการวัดนี้หรือไม่?",
-            saveFailed: "บันทึกไม่สำเร็จ",
-            needEndBeforeSave: "กรุณากดสิ้นสุดก่อน",
-            noRecordsToSave: "ไม่มีบันทึกที่จะบันทึก",
-            saved: "บันทึกแล้ว",
-            cannotResetMeasuring: "ไม่สามารถรีเซ็ตขณะกำลังวัด",
-            resetConfirm: "รีเซ็ตบันทึกหรือไม่?",
-            selectDelete: "กรุณาเลือกบันทึกที่จะลบ",
-            liffInitFailed: "เริ่ม LIFF ไม่สำเร็จ"
-        });
-        Object.assign(LABOR_TEXT.de, {
-            pageLead: "Tippen Sie auf „Messung starten“. Wenn der Schmerz beginnt, tippen Sie auf „Wehe“; wenn er abklingt, auf „Abgeklungen“. Am Ende tippen Sie auf „Messung beenden“.",
-            currentRest: "Ruhezeit: {value}",
-            deleteSelected: "Ausgewählte Aufzeichnungen löschen",
-            activeBadge: "Messung",
-            activeEnd: "Messung",
-            selectRecord: "Aufzeichnung ab {time} auswählen",
-            sessionLine: "Messung {duration} / Wehen {count}",
-            summaryMeasurementCount: "Messungen",
-            summaryContractionCount: "Wehen",
-            summaryAverageDuration: "Durchschn. Dauer",
-            oneTime: "1 Mal",
-            countTimes: "{count} Mal",
-            activePainPrefix: "Aktiv",
-            sec: "{value} Sek.",
-            minSec: "{min} Min. {sec} Sek.",
-            dateLabel: "{day}.{month}.{year}",
-            noContractionConfirm: "Es gibt keine Wehenaufzeichnung. Diese Messung beenden?",
-            saveFailed: "Speichern fehlgeschlagen.",
-            needEndBeforeSave: "Bitte zuerst Messung beenden.",
-            noRecordsToSave: "Keine Aufzeichnungen zum Speichern.",
-            saved: "Gespeichert.",
-            cannotResetMeasuring: "Während der Messung kann nicht zurückgesetzt werden.",
-            resetConfirm: "Aufzeichnungen zurücksetzen?",
-            selectDelete: "Bitte Aufzeichnungen zum Löschen auswählen.",
-            liffInitFailed: "LIFF-Initialisierung fehlgeschlagen."
-        });
-        Object.assign(LABOR_TEXT.id, {
-            pageLead: "Ketuk “Mulai ukur”. Saat nyeri mulai, ketuk “Kontraksi”; saat mereda, ketuk “Mereda”. Terakhir ketuk “Akhiri ukur” untuk membuat satu catatan.",
-            currentRest: "Waktu mereda: {value}",
-            deleteSelected: "Hapus catatan yang dipilih",
-            activeBadge: "Mengukur",
-            activeEnd: "Mengukur",
-            selectRecord: "Pilih catatan dari {time}",
-            sessionLine: "Ukur {duration} / kontraksi {count}",
-            summaryMeasurementCount: "Jumlah ukur",
-            summaryContractionCount: "Jumlah kontraksi",
-            summaryAverageDuration: "Rata-rata durasi",
-            oneTime: "1 kali",
-            countTimes: "{count} kali",
-            activePainPrefix: "Sedang kontraksi",
-            sec: "{value} detik",
-            minSec: "{min} menit {sec} detik",
-            dateLabel: "{day}/{month}/{year}",
-            noContractionConfirm: "Tidak ada catatan kontraksi. Akhiri pengukuran ini?",
-            saveFailed: "Gagal menyimpan.",
-            needEndBeforeSave: "Ketuk Akhiri ukur terlebih dahulu.",
-            noRecordsToSave: "Tidak ada catatan untuk disimpan.",
-            saved: "Tersimpan.",
-            cannotResetMeasuring: "Tidak bisa reset saat mengukur.",
-            resetConfirm: "Reset catatan?",
-            selectDelete: "Pilih catatan yang akan dihapus.",
-            liffInitFailed: "Inisialisasi LIFF gagal."
-        });
-        Object.assign(LABOR_TEXT.ru, {
-            pageLead: "Нажмите «Начать измерение». Когда боль начнется, нажмите «Схватка»; когда пройдет, нажмите «Прошла». В конце нажмите «Завершить».",
-            currentRest: "Время покоя: {value}",
-            deleteSelected: "Удалить выбранные записи",
-            activeBadge: "Измерение",
-            activeEnd: "Измерение",
-            selectRecord: "Выбрать запись с {time}",
-            sessionLine: "Измерение {duration} / схватки {count}",
-            summaryMeasurementCount: "Измерения",
-            summaryContractionCount: "Схватки",
-            summaryAverageDuration: "Средняя длительность",
-            oneTime: "1 раз",
-            countTimes: "{count} раз",
-            activePainPrefix: "Идет",
-            sec: "{value} сек.",
-            minSec: "{min} мин {sec} сек.",
-            dateLabel: "{day}.{month}.{year}",
-            noContractionConfirm: "Нет записи о схватках. Завершить это измерение?",
-            saveFailed: "Не удалось сохранить.",
-            needEndBeforeSave: "Сначала нажмите Завершить.",
-            noRecordsToSave: "Нет записей для сохранения.",
-            saved: "Сохранено.",
-            cannotResetMeasuring: "Нельзя сбросить во время измерения.",
-            resetConfirm: "Сбросить записи?",
-            selectDelete: "Выберите записи для удаления.",
-            liffInitFailed: "Не удалось запустить LIFF."
-        });
-        Object.assign(LABOR_TEXT.ne, {
-            pageLead: "पहिले “मापन सुरु” थिच्नुहोस्। पीडा सुरु भए “पीडा” थिच्नुहोस्, शान्त भए “शान्त भयो” थिच्नुहोस्। अन्त्यमा “मापन अन्त्य” थिच्दा १ रेकर्ड बन्छ।",
-            currentRest: "शान्त भएको समय: {value}",
-            deleteSelected: "छानेका रेकर्ड मेटाउनुहोस्",
-            activeBadge: "मापन हुँदै",
-            activeEnd: "मापन हुँदै",
-            selectRecord: "{time} बाटको रेकर्ड छान्नुहोस्",
-            sessionLine: "मापन {duration} / पीडा {count} पटक",
-            summaryMeasurementCount: "मापन पटक",
-            summaryContractionCount: "पीडा पटक",
-            summaryAverageDuration: "औसत अवधि",
-            oneTime: "1 पटक",
-            countTimes: "{count} पटक",
-            activePainPrefix: "पीडा हुँदै",
-            sec: "{value} सेकेन्ड",
-            minSec: "{min} मिनेट {sec} सेकेन्ड",
-            dateLabel: "{year}/{month}/{day}",
-            noContractionConfirm: "पीडाको रेकर्ड छैन। यो मापन अन्त्य गर्ने?",
-            saveFailed: "सेभ गर्न सकिएन।",
-            needEndBeforeSave: "पहिले मापन अन्त्य थिच्नुहोस्।",
-            noRecordsToSave: "सेभ गर्ने रेकर्ड छैन।",
-            saved: "सेभ भयो।",
-            cannotResetMeasuring: "मापन हुँदै गर्दा रिसेट गर्न सकिँदैन।",
-            resetConfirm: "रेकर्ड रिसेट गर्ने?",
-            selectDelete: "मेटाउने रेकर्ड छान्नुहोस्।",
-            liffInitFailed: "LIFF सुरु गर्न सकिएन।"
-        });
-        Object.assign(LABOR_TEXT.lo, {
-            pageLead: "ກົດ “ເລີ່ມວັດ”. ເມື່ອເຈັບໃຫ້ກົດ “ເຈັບທ້ອງ”, ເມື່ອສະຫງົບໃຫ້ກົດ “ສະຫງົບ”. ສຸດທ້າຍກົດ “ສິ້ນສຸດ”.",
-            currentRest: "ເວລາສະຫງົບ: {value}",
-            deleteSelected: "ລຶບບັນທຶກທີ່ເລືອກ",
-            activeBadge: "ກຳລັງວັດ",
-            activeEnd: "ກຳລັງວັດ",
-            selectRecord: "ເລືອກບັນທຶກຈາກ {time}",
-            sessionLine: "ວັດ {duration} / ເຈັບ {count} ຄັ້ງ",
-            summaryMeasurementCount: "ຈຳນວນວັດ",
-            summaryContractionCount: "ຈຳນວນເຈັບ",
-            summaryAverageRest: "ສະຫງົບສະເລ່ຍ",
-            summaryAverageDuration: "ໄລຍະສະເລ່ຍ",
-            oneTime: "1 ຄັ້ງ",
-            countTimes: "{count} ຄັ້ງ",
-            activePainPrefix: "ກຳລັງເຈັບ",
-            sec: "{value} ວິນາທີ",
-            minSec: "{min} ນາທີ {sec} ວິນາທີ",
-            dateLabel: "{day}/{month}/{year}",
-            noContractionConfirm: "ບໍ່ມີບັນທຶກການເຈັບ. ຈະສິ້ນສຸດບໍ?",
-            saveFailed: "ບັນທຶກບໍ່ສຳເລັດ.",
-            needEndBeforeSave: "ກະລຸນາກົດສິ້ນສຸດກ່ອນ.",
-            noRecordsToSave: "ບໍ່ມີບັນທຶກໃຫ້ເກັບ.",
-            saved: "ບັນທຶກແລ້ວ.",
-            cannotResetMeasuring: "ລີເຊັດບໍ່ໄດ້ຂະນະວັດ.",
-            resetConfirm: "ລີເຊັດບັນທຶກບໍ?",
-            selectDelete: "ເລືອກບັນທຶກທີ່ຈະລຶບ.",
-            liffInitFailed: "ເລີ່ມ LIFF ບໍ່ສຳເລັດ."
-        });
-        Object.assign(LABOR_TEXT.uk, {
-            pageLead: "Натисніть «Почати вимір». Коли біль почнеться, натисніть «Перейми»; коли мине, натисніть «Минуло». Наприкінці натисніть «Завершити».",
-            currentRest: "Час спокою: {value}",
-            deleteSelected: "Видалити вибрані записи",
-            activeBadge: "Вимірювання",
-            activeEnd: "Вимірювання",
-            selectRecord: "Вибрати запис від {time}",
-            sessionLine: "Вимір {duration} / перейми {count}",
-            summaryMeasurementCount: "Кількість вимірів",
-            summaryContractionCount: "Кількість переймів",
-            summaryAverageDuration: "Середня тривалість",
-            oneTime: "1 раз",
-            countTimes: "{count} раз(и)",
-            activePainPrefix: "Триває",
-            sec: "{value} сек.",
-            minSec: "{min} хв {sec} сек.",
-            dateLabel: "{day}.{month}.{year}",
-            noContractionConfirm: "Немає запису переймів. Завершити цей вимір?",
-            saveFailed: "Не вдалося зберегти.",
-            needEndBeforeSave: "Спочатку натисніть Завершити.",
-            noRecordsToSave: "Немає записів для збереження.",
-            saved: "Збережено.",
-            cannotResetMeasuring: "Не можна скинути під час вимірювання.",
-            resetConfirm: "Скинути записи?",
-            selectDelete: "Виберіть записи для видалення.",
-            liffInitFailed: "Не вдалося ініціалізувати LIFF."
-        });
-        Object.assign(LABOR_TEXT["fa-AF"], {
-            pageLead: "«شروع اندازه‌گیری» را بزنید. وقتی درد شروع شد «درد» را بزنید، وقتی آرام شد «آرام شد» را بزنید. در پایان «پایان اندازه‌گیری» را بزنید.",
-            currentRest: "زمان آرامی: {value}",
-            deleteSelected: "حذف ثبت‌های انتخاب‌شده",
-            activeBadge: "در حال اندازه‌گیری",
-            activeEnd: "در حال اندازه‌گیری",
-            selectRecord: "انتخاب ثبت از {time}",
-            sessionLine: "اندازه‌گیری {duration} / درد {count} بار",
-            summaryMeasurementCount: "تعداد اندازه‌گیری",
-            summaryContractionCount: "تعداد درد",
-            summaryAverageDuration: "میانگین مدت",
-            oneTime: "1 بار",
-            countTimes: "{count} بار",
-            activePainPrefix: "درد فعال",
-            sec: "{value} ثانیه",
-            minSec: "{min} دقیقه {sec} ثانیه",
-            dateLabel: "{year}/{month}/{day}",
-            noContractionConfirm: "ثبت درد وجود ندارد. این اندازه‌گیری پایان یابد؟",
-            saveFailed: "ذخیره نشد.",
-            needEndBeforeSave: "لطفاً اول پایان اندازه‌گیری را بزنید.",
-            noRecordsToSave: "ثبتی برای ذخیره نیست.",
-            saved: "ذخیره شد.",
-            cannotResetMeasuring: "هنگام اندازه‌گیری نمی‌توان بازنشانی کرد.",
-            resetConfirm: "ثبت‌ها بازنشانی شوند؟",
-            selectDelete: "ثبت‌هایی را برای حذف انتخاب کنید.",
-            liffInitFailed: "شروع LIFF ناموفق بود."
-        });
-        Object.assign(LABOR_TEXT.si, {
-            pageLead: "“මැනීම අරඹන්න” ඔබන්න. වේදනාව ආරම්භ වූ විට “වේදනාව” ඔබන්න, අඩු වූ විට “අඩුවිය” ඔබන්න. අවසානයේ “මැනීම අවසන්” ඔබන්න.",
-            currentRest: "අඩු වී ඇති කාලය: {value}",
-            deleteSelected: "තෝරාගත් සටහන් මකන්න",
-            activeBadge: "මැනීම",
-            activeEnd: "මැනීම",
-            selectRecord: "{time} සිට සටහන තෝරන්න",
-            sessionLine: "මැනීම {duration} / වේදනා {count}",
-            summaryMeasurementCount: "මැනීම් ගණන",
-            summaryContractionCount: "වේදනා ගණන",
-            summaryAverageRest: "සාමාන්‍ය අඩුවීම",
-            summaryAverageDuration: "සාමාන්‍ය කාලය",
-            oneTime: "1 වරක්",
-            countTimes: "{count} වරක්",
-            activePainPrefix: "වේදනාව",
-            sec: "තත්පර {value}",
-            minSec: "මිනිත්තු {min} තත්පර {sec}",
-            dateLabel: "{year}/{month}/{day}",
-            noContractionConfirm: "වේදනා සටහනක් නැත. මෙම මැනීම අවසන් කරන්නද?",
-            saveFailed: "සුරැකීමට නොහැකි විය.",
-            needEndBeforeSave: "පළමුව මැනීම අවසන් කරන්න.",
-            noRecordsToSave: "සුරැකීමට සටහන් නැත.",
-            saved: "සුරක්ෂිත විය.",
-            cannotResetMeasuring: "මැනීම අතරතුර නැවත සැකසිය නොහැක.",
-            resetConfirm: "සටහන් නැවත සකසන්නද?",
-            selectDelete: "මකන සටහන් තෝරන්න.",
-            liffInitFailed: "LIFF ආරම්භය අසාර්ථක විය."
-        });
-        Object.assign(LABOR_TEXT.ms, {
-            pageLead: "Tekan “Mula ukur”. Apabila sakit bermula, tekan “Kontraksi”; apabila reda, tekan “Reda”. Akhir sekali tekan “Tamat ukur” untuk menjadi satu rekod.",
-            currentRest: "Masa reda: {value}",
-            deleteSelected: "Padam rekod dipilih",
-            activeBadge: "Mengukur",
-            activeEnd: "Mengukur",
-            selectRecord: "Pilih rekod dari {time}",
-            sessionLine: "Ukur {duration} / kontraksi {count}",
-            summaryMeasurementCount: "Bilangan ukur",
-            summaryContractionCount: "Bilangan kontraksi",
-            summaryAverageDuration: "Purata tempoh",
-            oneTime: "1 kali",
-            countTimes: "{count} kali",
-            activePainPrefix: "Kontraksi",
-            sec: "{value} saat",
-            minSec: "{min} minit {sec} saat",
-            dateLabel: "{day}/{month}/{year}",
-            noContractionConfirm: "Tiada rekod kontraksi. Tamatkan ukuran ini?",
-            saveFailed: "Gagal menyimpan.",
-            needEndBeforeSave: "Sila tekan Tamat ukur dahulu.",
-            noRecordsToSave: "Tiada rekod untuk disimpan.",
-            saved: "Disimpan.",
-            cannotResetMeasuring: "Tidak boleh reset semasa mengukur.",
-            resetConfirm: "Reset rekod?",
-            selectDelete: "Sila pilih rekod untuk dipadam.",
-            liffInitFailed: "Gagal memulakan LIFF."
-        });
-        Object.assign(LABOR_TEXT.my, {
-            pageLead: "“တိုင်းတာမှု စတင်” ကို နှိပ်ပါ။ နာလာလျှင် “ဗိုက်နာ” ကို နှိပ်ပါ၊ သက်သာလျှင် “သက်သာ” ကို နှိပ်ပါ။ နောက်ဆုံး “တိုင်းတာမှု ပြီးဆုံး” ကို နှိပ်ပါ။",
-            currentRest: "သက်သာနေသော အချိန်: {value}",
-            deleteSelected: "ရွေးထားသော မှတ်တမ်းများ ဖျက်ရန်",
-            activeBadge: "တိုင်းတာနေသည်",
-            activeEnd: "တိုင်းတာနေသည်",
-            selectRecord: "{time} မှ မှတ်တမ်းကို ရွေးရန်",
-            sessionLine: "တိုင်းတာ {duration} / ဗိုက်နာ {count} ကြိမ်",
-            summaryMeasurementCount: "တိုင်းတာမှု အကြိမ်",
-            summaryContractionCount: "ဗိုက်နာ အကြိမ်",
-            summaryAverageRest: "ပျမ်းမျှ သက်သာချိန်",
-            summaryAverageDuration: "ပျမ်းမျှ ကြာချိန်",
-            oneTime: "1 ကြိမ်",
-            countTimes: "{count} ကြိမ်",
-            activePainPrefix: "နာနေသည်",
-            sec: "{value} စက္ကန့်",
-            minSec: "{min} မိနစ် {sec} စက္ကန့်",
-            dateLabel: "{year}/{month}/{day}",
-            noContractionConfirm: "ဗိုက်နာမှတ်တမ်းမရှိပါ။ ဤတိုင်းတာမှုကို ပြီးဆုံးမလား?",
-            saveFailed: "မသိမ်းနိုင်ပါ။",
-            needEndBeforeSave: "ပထမဦးစွာ တိုင်းတာမှု ပြီးဆုံး ကို နှိပ်ပါ။",
-            noRecordsToSave: "သိမ်းရန် မှတ်တမ်းမရှိပါ။",
-            saved: "သိမ်းပြီးပါပြီ။",
-            cannotResetMeasuring: "တိုင်းတာနေစဉ် reset မလုပ်နိုင်ပါ။",
-            resetConfirm: "မှတ်တမ်းများ reset လုပ်မလား?",
-            selectDelete: "ဖျက်ရန် မှတ်တမ်းများ ရွေးပါ။",
-            liffInitFailed: "LIFF စတင်မှု မအောင်မြင်ပါ။"
-        });
-        Object.assign(LABOR_TEXT.bn, {
-            pageLead: "“মাপা শুরু” চাপুন। ব্যথা শুরু হলে “ব্যথা” চাপুন, কমলে “কমেছে” চাপুন। শেষে “মাপা শেষ” চাপলে একটি রেকর্ড হবে।",
-            currentRest: "কমে থাকা সময়: {value}",
-            deleteSelected: "নির্বাচিত রেকর্ড মুছুন",
-            activeBadge: "মাপা হচ্ছে",
-            activeEnd: "মাপা হচ্ছে",
-            selectRecord: "{time} থেকে রেকর্ড নির্বাচন করুন",
-            sessionLine: "মাপা {duration} / ব্যথা {count} বার",
-            summaryMeasurementCount: "মাপার সংখ্যা",
-            summaryContractionCount: "ব্যথার সংখ্যা",
-            summaryAverageRest: "গড় কমার সময়",
-            summaryAverageDuration: "গড় স্থায়ী সময়",
-            oneTime: "1 বার",
-            countTimes: "{count} বার",
-            activePainPrefix: "ব্যথা চলছে",
-            sec: "{value} সেকেন্ড",
-            minSec: "{min} মিনিট {sec} সেকেন্ড",
-            dateLabel: "{year}/{month}/{day}",
-            noContractionConfirm: "ব্যথার রেকর্ড নেই। এই মাপা শেষ করবেন?",
-            saveFailed: "সংরক্ষণ করা যায়নি।",
-            needEndBeforeSave: "প্রথমে মাপা শেষ চাপুন।",
-            noRecordsToSave: "সংরক্ষণ করার রেকর্ড নেই।",
-            saved: "সংরক্ষিত হয়েছে।",
-            cannotResetMeasuring: "মাপার সময় রিসেট করা যাবে না।",
-            resetConfirm: "রেকর্ড রিসেট করবেন?",
-            selectDelete: "মুছতে রেকর্ড নির্বাচন করুন।",
-            liffInitFailed: "LIFF শুরু করা যায়নি।"
-        });
-        Object.assign(LABOR_TEXT.ur, {
-            pageLead: "“پیمائش شروع” دبائیں۔ جب درد شروع ہو تو “درد” دبائیں، کم ہو تو “کم ہوا” دبائیں۔ آخر میں “پیمائش ختم” دبائیں۔",
-            currentRest: "آرام کا وقت: {value}",
-            deleteSelected: "منتخب ریکارڈ حذف کریں",
-            activeBadge: "پیمائش جاری",
-            activeEnd: "پیمائش جاری",
-            selectRecord: "{time} سے ریکارڈ منتخب کریں",
-            sessionLine: "پیمائش {duration} / درد {count} بار",
-            summaryMeasurementCount: "پیمائش کی تعداد",
-            summaryContractionCount: "درد کی تعداد",
-            summaryAverageRest: "اوسط آرام",
-            summaryAverageDuration: "اوسط مدت",
-            oneTime: "1 بار",
-            countTimes: "{count} بار",
-            activePainPrefix: "درد جاری",
-            sec: "{value} سیکنڈ",
-            minSec: "{min} منٹ {sec} سیکنڈ",
-            dateLabel: "{year}/{month}/{day}",
-            noContractionConfirm: "درد کا ریکارڈ نہیں ہے۔ کیا یہ پیمائش ختم کریں؟",
-            saveFailed: "محفوظ نہیں ہو سکا۔",
-            needEndBeforeSave: "پہلے پیمائش ختم دبائیں۔",
-            noRecordsToSave: "محفوظ کرنے کے لیے کوئی ریکارڈ نہیں۔",
-            saved: "محفوظ ہو گیا۔",
-            cannotResetMeasuring: "پیمائش کے دوران ری سیٹ نہیں کر سکتے۔",
-            resetConfirm: "ریکارڈ ری سیٹ کریں؟",
-            selectDelete: "حذف کرنے کے لیے ریکارڈ منتخب کریں۔",
-            liffInitFailed: "LIFF شروع نہیں ہو سکا۔"
-        });
-        Object.assign(LABOR_TEXT.zh, { previousRest: "上次以来的间隔: -" });
-        Object.assign(LABOR_TEXT.fr, { previousRest: "Depuis la fois précédente: -", pageLead: "Appuyez sur « Démarrer ». Quand la douleur commence, appuyez sur « Douleur »; quand elle se calme, appuyez sur « Calmée ». À la fin, appuyez sur « Terminer » pour créer un enregistrement.", activePain: "Douleur en cours", contraction: "Douleur", summaryContractionCount: "Nombre de douleurs" });
-        Object.assign(LABOR_TEXT.ko, { previousRest: "이전부터의 간격: -" });
-        Object.assign(LABOR_TEXT.pr, { previousRest: "Intervalo desde a vez anterior: -", sec: "{value} seg" });
-        Object.assign(LABOR_TEXT.tl, {
-            pageTitle: "Tagabilang ng hilab",
-            pageLead: "Pindutin ang “Simulan”. Kapag nagsimula ang sakit, pindutin ang “Paghilab”; kapag humupa, pindutin ang “Humupa”. Sa huli, pindutin ang “Tapusin” para maging isang tala.",
-            previousRest: "Pagitan mula sa nauna: -",
-            activePain: "May paghilab",
-            contraction: "Paghilab",
-            records: "Mga tala",
-            deleteSelected: "Burahin ang napiling tala",
-            empty: "Wala pang tala.",
-            selectRecord: "Piliin ang tala mula {time}",
-            sessionLine: "Sukat {duration} / paghilab {count}",
-            summaryContractionCount: "Bilang ng paghilab",
-            summaryAverageRest: "Karaniwang pahinga",
-            summaryAverageDuration: "Karaniwang tagal",
-            activePainPrefix: "May paghilab",
-            noContractionConfirm: "Walang tala ng paghilab. Tapusin ang sukat na ito?",
-            saveFailed: "Hindi naitala.",
-            noRecordsToSave: "Walang talang itatala.",
-            saved: "Naitala.",
-            cannotResetMeasuring: "Hindi maaaring burahin habang sumusukat.",
-            resetConfirm: "Burahin ang mga tala?",
-            selectDelete: "Piliin ang talang buburahin."
-        });
-        Object.assign(LABOR_TEXT.ve, { previousRest: "Khoảng cách từ lần trước: -" });
-        Object.assign(LABOR_TEXT.th, { previousRest: "ช่วงห่างจากครั้งก่อน: -" });
-        Object.assign(LABOR_TEXT.de, { previousRest: "Abstand seit der letzten Wehe: -" });
-        Object.assign(LABOR_TEXT.id, { previousRest: "Jeda sejak sebelumnya: -", cannotResetMeasuring: "Tidak bisa mengatur ulang saat mengukur.", resetConfirm: "Atur ulang catatan?" });
-        Object.assign(LABOR_TEXT.ru, { previousRest: "Интервал с предыдущего раза: -" });
-        Object.assign(LABOR_TEXT.ne, { previousRest: "अघिल्लोबाटको अन्तर: -", dateLabel: "{year} साल {month} महिना {day} गते" });
-        Object.assign(LABOR_TEXT.lo, { previousRest: "ໄລຍະຫ່າງຈາກຄັ້ງກ່ອນ: -" });
-        Object.assign(LABOR_TEXT.uk, { previousRest: "Інтервал від попереднього разу: -" });
-        Object.assign(LABOR_TEXT["fa-AF"], { previousRest: "فاصله از دفعه قبلی: -", dateLabel: "{day}/{month}/{year}" });
-        Object.assign(LABOR_TEXT.si, { previousRest: "පෙර වතාවේ සිට පරතරය: -", dateLabel: "{year} වසර {month} මාසය {day} දින" });
-        Object.assign(LABOR_TEXT.ms, { previousRest: "Jarak sejak kali sebelumnya: -", cannotResetMeasuring: "Tidak boleh tetapkan semula semasa mengukur.", resetConfirm: "Tetapkan semula rekod?" });
-        Object.assign(LABOR_TEXT.my, { previousRest: "ယခင်အကြိမ်မှ ကြားချိန်: -", cannotResetMeasuring: "တိုင်းတာနေစဉ် ပြန်သတ်မှတ်၍ မရပါ။", resetConfirm: "မှတ်တမ်းများကို ပြန်သတ်မှတ်မလား?", dateLabel: "{year} ခုနှစ် {month} လ {day} ရက်" });
-        Object.assign(LABOR_TEXT.bn, { previousRest: "আগের বার থেকে ব্যবধান: -", dateLabel: "{day}/{month}/{year}" });
-        Object.assign(LABOR_TEXT.ur, { previousRest: "پچھلی بار سے وقفہ: -", dateLabel: "{day}/{month}/{year}" });
+      function saveLocalRecords() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.records));
+      }
 
-        function templateText(text, vars) {
-            return String(text || "").replace(/\{(\w+)\}/g, function (_, key) {
-                return vars && vars[key] != null ? String(vars[key]) : "";
+      function pad(value) {
+        return String(value).padStart(2, "0");
+      }
+
+      function formatClock(dateString) {
+        const date = new Date(dateString);
+        if (Number.isNaN(date.getTime())) return "-";
+        return `${pad(date.getHours())}:${pad(date.getMinutes())}`;
+      }
+
+      function formatSeconds(seconds) {
+        if (!Number.isFinite(seconds) || seconds < 0) return "-";
+        const min = Math.floor(seconds / 60);
+        const sec = Math.floor(seconds % 60);
+        return `${pad(min)}:${pad(sec)}`;
+      }
+
+      function formatDurationJa(seconds) {
+        if (!Number.isFinite(seconds) || seconds < 0) return "-";
+        const min = Math.floor(seconds / 60);
+        const sec = Math.floor(seconds % 60);
+        if (min <= 0) return t("sec", { value: sec });
+        return t("minSec", { min: min, sec: pad(sec) });
+      }
+
+      function normalizeOptionalSeconds(value) {
+        const number = Number(value);
+        return Number.isFinite(number) && number >= 0 ? number : null;
+      }
+
+      function formatOptionalDurationJa(value) {
+        const seconds = normalizeOptionalSeconds(value);
+        return seconds === null ? "-" : formatDurationJa(seconds);
+      }
+
+      function apiOptionalSeconds(value) {
+        const seconds = normalizeOptionalSeconds(value);
+        return seconds === null ? "" : seconds;
+      }
+
+      function apiRequiredSeconds(value) {
+        const seconds = normalizeOptionalSeconds(value);
+        return seconds === null ? 0 : seconds;
+      }
+
+      function formatRecordDate(dateString) {
+        const date = new Date(dateString);
+        if (Number.isNaN(date.getTime())) return "";
+        return t("dateLabel", {
+          year: date.getFullYear(),
+          month: date.getMonth() + 1,
+          day: date.getDate(),
+        });
+      }
+
+      function createLocalId(prefix) {
+        return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      }
+
+      function decodeIdTokenUserId(idToken) {
+        try {
+          const payload = String(idToken || "").split(".")[1];
+          if (!payload) return "";
+          const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
+          const padded = normalized.padEnd(
+            Math.ceil(normalized.length / 4) * 4,
+            "=",
+          );
+          const decoded = JSON.parse(decodeURIComponent(escape(atob(padded))));
+          return decoded.sub || decoded.userId || "";
+        } catch (error) {
+          console.warn("Failed to decode LIFF ID token:", error);
+          return "";
+        }
+      }
+
+      function resolveLiffUserId() {
+        const decoded =
+          typeof liff.getDecodedIDToken === "function"
+            ? liff.getDecodedIDToken()
+            : null;
+        return Promise.resolve(
+          typeof liff.getProfile === "function" ? liff.getProfile() : null,
+        )
+          .catch(() => null)
+          .then((profile) => {
+            state.userId =
+              profile && profile.userId
+                ? profile.userId
+                : (decoded && (decoded.sub || decoded.userId)) ||
+                  decodeIdTokenUserId(state.idToken) ||
+                  "";
+            window.userId = state.userId;
+            return state.userId;
+          });
+      }
+
+      function normalizeStoredRecords(items) {
+        return (Array.isArray(items) ? items : []).map((item) => {
+          if (Array.isArray(item.contractionsJson)) {
+            item = Object.assign({}, item, {
+              contractions: item.contractionsJson,
+              saved: true,
             });
-        }
-
-        function t(key, vars) {
-            const table = LABOR_TEXT[state.lang] || LABOR_TEXT["en-US"];
-            return templateText(table[key] || LABOR_TEXT["en-US"][key] || LABOR_TEXT.ja[key] || key, vars);
-        }
-
-        function normalizeLaborLang(lang) {
-            const raw = String(lang || "ja").toLowerCase();
-            if (raw === "soft" || raw.startsWith("easy") || raw.startsWith("simple")) return "soft";
-            if (raw.startsWith("en")) return "en-US";
-            if (raw.startsWith("pt")) return "pr";
-            if (raw.startsWith("vi")) return "ve";
-            if (raw.startsWith("fa") || raw.startsWith("prs")) return "fa-AF";
-            if (raw.startsWith("zh")) return "zh";
-            if (raw.startsWith("fr")) return "fr";
-            if (raw.startsWith("ko")) return "ko";
-            if (raw.startsWith("tl")) return "tl";
-            if (raw.startsWith("th")) return "th";
-            if (raw.startsWith("de")) return "de";
-            if (raw.startsWith("id")) return "id";
-            if (raw.startsWith("ru")) return "ru";
-            if (raw.startsWith("ne")) return "ne";
-            if (raw.startsWith("lo")) return "lo";
-            if (raw.startsWith("uk")) return "uk";
-            if (raw.startsWith("si")) return "si";
-            if (raw.startsWith("ms")) return "ms";
-            if (raw.startsWith("my")) return "my";
-            if (raw.startsWith("bn")) return "bn";
-            if (raw.startsWith("ur")) return "ur";
-            return "ja";
-        }
-
-        function applyLaborLanguage(lang) {
-            state.lang = normalizeLaborLang(lang);
-            document.documentElement.lang = state.lang === "en-US" ? "en" : state.lang;
-            document.title = t("pageTitle");
-            document.getElementById("pageTitle").textContent = t("pageTitle");
-            document.getElementById("pageLead").textContent = t("pageLead");
-            document.getElementById("startMeasurementBtn").textContent = t("startMeasurement");
-            document.getElementById("contractionBtn").textContent = t("contraction");
-            document.getElementById("settledBtn").textContent = t("settled");
-            document.getElementById("endMeasurementBtn").textContent = t("endMeasurement");
-            document.getElementById("recordsTitle").textContent = t("records");
-            document.getElementById("deleteSelectedBtn").setAttribute("aria-label", t("deleteSelected"));
-            document.getElementById("emptyText").textContent = t("empty");
-            if (!state.activeSession && !state.records.length) {
-                document.getElementById("lastIntervalText").textContent = t("previousRest");
-            }
-            setActiveUi();
-            render();
-        }
-
-        function showAppBusy() {
-            const loader = document.getElementById("loadingOverlay");
-            loader.classList.remove("is-hidden");
-            loader.style.display = "grid";
-            loader.setAttribute("aria-hidden", "false");
-        }
-
-        function hideAppBusy() {
-            const loader = document.getElementById("loadingOverlay");
-            loader.classList.add("is-hidden");
-            loader.style.display = "none";
-            loader.setAttribute("aria-hidden", "true");
-        }
-
-        function loadHeader() {
-            return new Promise((resolve, reject) => {
-                let settled = false;
-                const finish = () => {
-                    if (settled) return;
-                    settled = true;
-                    resolve();
-                };
-                const fail = (error) => {
-                    if (settled) return;
-                    settled = true;
-                    reject(error);
-                };
-                const timer = setTimeout(finish, 3000);
-                $("#header-container").load("../common/header.html", function (_responseText, status) {
-                    if (status === "error") {
-                        clearTimeout(timer);
-                        fail(new Error("Failed to load header.html"));
-                        return;
-                    }
-                    document.addEventListener("i18n-initialized", function () {
-                        clearTimeout(timer);
-                        finish();
-                    }, {
-                        once: true
-                    });
-                    $.getScript("../common/js/header.js").fail(function () {
-                        clearTimeout(timer);
-                        fail(new Error("Failed to load header.js"));
-                    });
-                });
-            });
-        }
-
-        function loadLocalRecords() {
-            try {
-                const raw = localStorage.getItem(STORAGE_KEY);
-                const parsed = raw ? JSON.parse(raw) : [];
-                state.records = normalizeStoredRecords(parsed);
-            } catch (error) {
-                state.records = [];
-            }
-        }
-
-        function saveLocalRecords() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(state.records));
-        }
-
-        function pad(value) {
-            return String(value).padStart(2, "0");
-        }
-
-        function formatClock(dateString) {
-            const date = new Date(dateString);
-            if (Number.isNaN(date.getTime())) return "-";
-            return `${pad(date.getHours())}:${pad(date.getMinutes())}`;
-        }
-
-        function formatSeconds(seconds) {
-            if (!Number.isFinite(seconds) || seconds < 0) return "-";
-            const min = Math.floor(seconds / 60);
-            const sec = Math.floor(seconds % 60);
-            return `${pad(min)}:${pad(sec)}`;
-        }
-
-        function formatDurationJa(seconds) {
-            if (!Number.isFinite(seconds) || seconds < 0) return "-";
-            const min = Math.floor(seconds / 60);
-            const sec = Math.floor(seconds % 60);
-            if (min <= 0) return t("sec", { value: sec });
-            return t("minSec", { min: min, sec: pad(sec) });
-        }
-
-        function normalizeOptionalSeconds(value) {
-            const number = Number(value);
-            return Number.isFinite(number) && number >= 0 ? number : null;
-        }
-
-        function formatOptionalDurationJa(value) {
-            const seconds = normalizeOptionalSeconds(value);
-            return seconds === null ? "-" : formatDurationJa(seconds);
-        }
-
-        function apiOptionalSeconds(value) {
-            const seconds = normalizeOptionalSeconds(value);
-            return seconds === null ? "" : seconds;
-        }
-
-        function apiRequiredSeconds(value) {
-            const seconds = normalizeOptionalSeconds(value);
-            return seconds === null ? 0 : seconds;
-        }
-
-        function formatRecordDate(dateString) {
-            const date = new Date(dateString);
-            if (Number.isNaN(date.getTime())) return "";
-            return t("dateLabel", {
-                year: date.getFullYear(),
-                month: date.getMonth() + 1,
-                day: date.getDate()
-            });
-        }
-
-        function createLocalId(prefix) {
-            return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
-        }
-
-        function decodeIdTokenUserId(idToken) {
-            try {
-                const payload = String(idToken || "").split(".")[1];
-                if (!payload) return "";
-                const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
-                const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=");
-                const decoded = JSON.parse(decodeURIComponent(escape(atob(padded))));
-                return decoded.sub || decoded.userId || "";
-            } catch (error) {
-                console.warn("Failed to decode LIFF ID token:", error);
-                return "";
-            }
-        }
-
-        function resolveLiffUserId() {
-            const decoded = typeof liff.getDecodedIDToken === "function" ? liff.getDecodedIDToken() : null;
-            return Promise.resolve(typeof liff.getProfile === "function" ? liff.getProfile() : null)
-                .catch(() => null)
-                .then((profile) => {
-                    state.userId = profile && profile.userId
-                        ? profile.userId
-                        : (decoded && (decoded.sub || decoded.userId)) || decodeIdTokenUserId(state.idToken) || "";
-                    window.userId = state.userId;
-                    return state.userId;
-                });
-        }
-
-        function normalizeStoredRecords(items) {
-            return (Array.isArray(items) ? items : []).map((item) => {
-                if (Array.isArray(item.contractionsJson)) {
-                    item = Object.assign({}, item, {
-                        contractions: item.contractionsJson,
-                        saved: true
-                    });
-                }
-                if (Array.isArray(item.contractions)) {
-                    const normalized = Object.assign({
-                        localId: createLocalId("session"),
-                        contractions: [],
-                        saved: false
-                    }, item);
-                    normalized.contractions = normalized.contractions.map((record) => Object.assign({}, record, {
-                        localId: record.localId || createLocalId("contraction"),
-                        durationSeconds: normalizeOptionalSeconds(record.durationSeconds),
-                        intervalSeconds: normalizeOptionalSeconds(record.intervalSeconds),
-                        restSeconds: normalizeOptionalSeconds(record.restSeconds)
-                    }));
-                    normalized.contractionCount = normalized.contractions.length;
-                    return normalized;
-                }
-                const startedAt = item.startedAt || "";
-                const endedAt = item.endedAt || startedAt;
-                return {
-                    localId: item.localId || createLocalId("session"),
-                    itemId: item.itemId || "",
-                    startedAt: startedAt,
-                    endedAt: endedAt,
-                    sessionDurationSeconds: Math.max(0, Math.round((new Date(endedAt).getTime() - new Date(startedAt).getTime()) / 1000)),
-                    contractions: [{
-                        localId: createLocalId("contraction"),
-                        startedAt: startedAt,
-                        endedAt: endedAt,
-                        durationSeconds: normalizeOptionalSeconds(item.durationSeconds),
-                        intervalSeconds: normalizeOptionalSeconds(item.intervalSeconds),
-                        restSeconds: normalizeOptionalSeconds(item.restSeconds)
-                    }],
-                    saved: Boolean(item.saved)
-                };
-            });
-        }
-
-        function buildContraction(start, end, session) {
-            const previous = session.contractions[session.contractions.length - 1];
-            const durationSeconds = Math.max(0, Math.round((end.getTime() - start.getTime()) / 1000));
-            const intervalSeconds = previous ? Math.max(0, Math.round((start.getTime() - new Date(previous.startedAt).getTime()) / 1000)) : null;
-            const restSeconds = previous ? Math.max(0, Math.round((start.getTime() - new Date(previous.endedAt).getTime()) / 1000)) : null;
-            return {
+          }
+          if (Array.isArray(item.contractions)) {
+            const normalized = Object.assign(
+              {
+                localId: createLocalId("session"),
+                contractions: [],
+                saved: false,
+              },
+              item,
+            );
+            normalized.contractions = normalized.contractions.map((record) =>
+              Object.assign({}, record, {
+                localId: record.localId || createLocalId("contraction"),
+                durationSeconds: normalizeOptionalSeconds(
+                  record.durationSeconds,
+                ),
+                intervalSeconds: normalizeOptionalSeconds(
+                  record.intervalSeconds,
+                ),
+                restSeconds: normalizeOptionalSeconds(record.restSeconds),
+              }),
+            );
+            normalized.contractionCount = normalized.contractions.length;
+            return normalized;
+          }
+          const startedAt = item.startedAt || "";
+          const endedAt = item.endedAt || startedAt;
+          return {
+            localId: item.localId || createLocalId("session"),
+            itemId: item.itemId || "",
+            startedAt: startedAt,
+            endedAt: endedAt,
+            sessionDurationSeconds: Math.max(
+              0,
+              Math.round(
+                (new Date(endedAt).getTime() - new Date(startedAt).getTime()) /
+                  1000,
+              ),
+            ),
+            contractions: [
+              {
                 localId: createLocalId("contraction"),
-                startedAt: start.toISOString(),
-                endedAt: end.toISOString(),
-                durationSeconds: durationSeconds,
-                intervalSeconds: intervalSeconds,
-                restSeconds: restSeconds
-            };
-        }
+                startedAt: startedAt,
+                endedAt: endedAt,
+                durationSeconds: normalizeOptionalSeconds(item.durationSeconds),
+                intervalSeconds: normalizeOptionalSeconds(item.intervalSeconds),
+                restSeconds: normalizeOptionalSeconds(item.restSeconds),
+              },
+            ],
+            saved: Boolean(item.saved),
+          };
+        });
+      }
 
-        function average(values) {
-            const filtered = values.map(normalizeOptionalSeconds).filter((value) => Number.isFinite(value));
-            if (!filtered.length) return null;
-            return filtered.reduce((sum, value) => sum + value, 0) / filtered.length;
-        }
+      function buildContraction(start, end, session) {
+        const previous = session.contractions[session.contractions.length - 1];
+        const durationSeconds = Math.max(
+          0,
+          Math.round((end.getTime() - start.getTime()) / 1000),
+        );
+        const intervalSeconds = previous
+          ? Math.max(
+              0,
+              Math.round(
+                (start.getTime() - new Date(previous.startedAt).getTime()) /
+                  1000,
+              ),
+            )
+          : null;
+        const restSeconds = previous
+          ? Math.max(
+              0,
+              Math.round(
+                (start.getTime() - new Date(previous.endedAt).getTime()) / 1000,
+              ),
+            )
+          : null;
+        return {
+          localId: createLocalId("contraction"),
+          startedAt: start.toISOString(),
+          endedAt: end.toISOString(),
+          durationSeconds: durationSeconds,
+          intervalSeconds: intervalSeconds,
+          restSeconds: restSeconds,
+        };
+      }
 
-        function render() {
-            const list = document.getElementById("timelineList");
-            const empty = document.getElementById("emptyText");
-            list.innerHTML = "";
+      function average(values) {
+        const filtered = values
+          .map(normalizeOptionalSeconds)
+          .filter((value) => Number.isFinite(value));
+        if (!filtered.length) return null;
+        return (
+          filtered.reduce((sum, value) => sum + value, 0) / filtered.length
+        );
+      }
 
-            let currentDateLabel = "";
-            const visibleSessions = state.activeSession ? state.records.concat([Object.assign({}, state.activeSession, {
+      function render() {
+        const list = document.getElementById("timelineList");
+        const empty = document.getElementById("emptyText");
+        list.innerHTML = "";
+
+        let currentDateLabel = "";
+        const visibleSessions = state.activeSession
+          ? state.records.concat([
+              Object.assign({}, state.activeSession, {
                 endedAt: "",
                 isActive: true,
-                sessionDurationSeconds: Math.max(0, Math.round((Date.now() - new Date(state.activeSession.startedAt).getTime()) / 1000))
-            })]) : state.records;
-            visibleSessions.slice().reverse().forEach((session, index) => {
-                const contractions = Array.isArray(session.contractions) ? session.contractions : [];
-                const displayContractions = contractions.slice();
-                if (session.isActive && !state.painStart && displayContractions.length) {
-                    const lastIndex = displayContractions.length - 1;
-                    const lastRecord = displayContractions[lastIndex];
-                    displayContractions[lastIndex] = Object.assign({}, lastRecord, {
-                        currentRestSeconds: Math.max(0, Math.round((Date.now() - new Date(lastRecord.endedAt).getTime()) / 1000))
-                    });
-                }
-                if (session.isActive && state.painStart) {
-                    const previous = contractions[contractions.length - 1];
-                    displayContractions.push({
-                        localId: "active-pain",
-                        startedAt: state.painStart.toISOString(),
-                        endedAt: "",
-                        durationSeconds: Math.max(0, Math.round((Date.now() - state.painStart.getTime()) / 1000)),
-                        intervalSeconds: contractions.length ? Math.max(0, Math.round((state.painStart.getTime() - new Date(contractions[contractions.length - 1].startedAt).getTime()) / 1000)) : null,
-                        restSeconds: previous ? Math.max(0, Math.round((state.painStart.getTime() - new Date(previous.endedAt).getTime()) / 1000)) : null,
-                        isActive: true
-                    });
-                }
-                const dateLabel = formatRecordDate(session.startedAt);
-                if (dateLabel && dateLabel !== currentDateLabel) {
-                    currentDateLabel = dateLabel;
-                    const heading = document.createElement("h3");
-                    heading.className = "timeline-date";
-                    heading.textContent = dateLabel;
-                    list.appendChild(heading);
-                }
-                const item = document.createElement("div");
-                item.className = "session-item" + (session.isActive ? " is-active" : "");
-                item.innerHTML = `
+                sessionDurationSeconds: Math.max(
+                  0,
+                  Math.round(
+                    (Date.now() -
+                      new Date(state.activeSession.startedAt).getTime()) /
+                      1000,
+                  ),
+                ),
+              }),
+            ])
+          : state.records;
+        visibleSessions
+          .slice()
+          .reverse()
+          .forEach((session, index) => {
+            const contractions = Array.isArray(session.contractions)
+              ? session.contractions
+              : [];
+            const displayContractions = contractions.slice();
+            if (
+              session.isActive &&
+              !state.painStart &&
+              displayContractions.length
+            ) {
+              const lastIndex = displayContractions.length - 1;
+              const lastRecord = displayContractions[lastIndex];
+              displayContractions[lastIndex] = Object.assign({}, lastRecord, {
+                currentRestSeconds: Math.max(
+                  0,
+                  Math.round(
+                    (Date.now() - new Date(lastRecord.endedAt).getTime()) /
+                      1000,
+                  ),
+                ),
+              });
+            }
+            if (session.isActive && state.painStart) {
+              const previous = contractions[contractions.length - 1];
+              displayContractions.push({
+                localId: "active-pain",
+                startedAt: state.painStart.toISOString(),
+                endedAt: "",
+                durationSeconds: Math.max(
+                  0,
+                  Math.round((Date.now() - state.painStart.getTime()) / 1000),
+                ),
+                intervalSeconds: contractions.length
+                  ? Math.max(
+                      0,
+                      Math.round(
+                        (state.painStart.getTime() -
+                          new Date(
+                            contractions[contractions.length - 1].startedAt,
+                          ).getTime()) /
+                          1000,
+                      ),
+                    )
+                  : null,
+                restSeconds: previous
+                  ? Math.max(
+                      0,
+                      Math.round(
+                        (state.painStart.getTime() -
+                          new Date(previous.endedAt).getTime()) /
+                          1000,
+                      ),
+                    )
+                  : null,
+                isActive: true,
+              });
+            }
+            const dateLabel = formatRecordDate(session.startedAt);
+            if (dateLabel && dateLabel !== currentDateLabel) {
+              currentDateLabel = dateLabel;
+              const heading = document.createElement("h3");
+              heading.className = "timeline-date";
+              heading.textContent = dateLabel;
+              list.appendChild(heading);
+            }
+            const item = document.createElement("div");
+            item.className =
+              "session-item" + (session.isActive ? " is-active" : "");
+            item.innerHTML = `
                     <div class="session-header">
                         <label class="timeline-check">
                             ${session.isActive ? `<span class="active-session-mark">${t("activeBadge")}</span>` : `<input type="checkbox" class="record-check" value="${session.localId}" aria-label="${t("selectRecord", { time: formatClock(session.startedAt) })}">`}
@@ -1171,280 +1670,434 @@
                         </div>
                     </dl>
                     <div class="contraction-list">
-                        ${displayContractions.map((record, contractionIndex) => `
+                        ${displayContractions
+                          .map(
+                            (record, contractionIndex) => `
                             <div class="contraction-row${record.isActive ? " is-active" : ""}">
                                 <span class="contraction-index">${contractionIndex + 1}</span>
                                 <span class="contraction-time">${formatClock(record.startedAt)}</span>
                                 <span class="contraction-duration">${record.isActive ? t("activePainPrefix") : t("durationPrefix")} ${formatOptionalDurationJa(record.durationSeconds)}</span>
                                 <span class="contraction-interval ${index < 3 ? "is-recent" : ""}">${t("restPrefix")} ${formatOptionalDurationJa(record.currentRestSeconds ?? record.restSeconds)}</span>
                             </div>
-                        `).join("")}
+                        `,
+                          )
+                          .join("")}
                     </div>
                 `;
-                list.appendChild(item);
-            });
+            list.appendChild(item);
+          });
 
-            empty.style.display = visibleSessions.length ? "none" : "block";
-            list.style.display = visibleSessions.length ? "block" : "none";
-            const activeLast = state.activeSession && state.activeSession.contractions.length ? state.activeSession.contractions[state.activeSession.contractions.length - 1] : null;
-            const lastSession = state.records[state.records.length - 1];
-            const lastContractions = lastSession ? lastSession.contractions || [] : [];
-            const last = activeLast || lastContractions[lastContractions.length - 1];
-            const currentRest = state.activeSession && !state.painStart && activeLast ? Math.max(0, Math.round((Date.now() - new Date(activeLast.endedAt).getTime()) / 1000)) : null;
-            document.getElementById("lastIntervalText").textContent = t("currentRest", {
-                value: Number.isFinite(currentRest) ? formatSeconds(currentRest) : (last ? formatSeconds(last.restSeconds) : "-")
-            });
+        empty.style.display = visibleSessions.length ? "none" : "block";
+        list.style.display = visibleSessions.length ? "block" : "none";
+        const activeLast =
+          state.activeSession && state.activeSession.contractions.length
+            ? state.activeSession.contractions[
+                state.activeSession.contractions.length - 1
+              ]
+            : null;
+        const lastSession = state.records[state.records.length - 1];
+        const lastContractions = lastSession
+          ? lastSession.contractions || []
+          : [];
+        const last =
+          activeLast || lastContractions[lastContractions.length - 1];
+        const currentRest =
+          state.activeSession && !state.painStart && activeLast
+            ? Math.max(
+                0,
+                Math.round(
+                  (Date.now() - new Date(activeLast.endedAt).getTime()) / 1000,
+                ),
+              )
+            : null;
+        document.getElementById("lastIntervalText").textContent = t(
+          "currentRest",
+          {
+            value: Number.isFinite(currentRest)
+              ? formatSeconds(currentRest)
+              : last
+                ? formatSeconds(last.restSeconds)
+                : "-",
+          },
+        );
+      }
+
+      function updateActiveTimer() {
+        if (!state.activeSession) {
+          document.getElementById("activeTimer").textContent = "00:00";
+          return;
         }
-
-        function updateActiveTimer() {
-            if (!state.activeSession) {
-                document.getElementById("activeTimer").textContent = "00:00";
-                return;
-            }
-            const contractions = state.activeSession.contractions || [];
-            const lastContraction = contractions[contractions.length - 1];
-            const start = state.painStart || (lastContraction ? new Date(lastContraction.endedAt) : new Date(state.activeSession.startedAt));
-            const elapsed = Math.max(0, Math.round((Date.now() - start.getTime()) / 1000));
-            document.getElementById("activeTimer").textContent = formatSeconds(elapsed);
-            if (state.activeSession) {
-                render();
-            }
+        const contractions = state.activeSession.contractions || [];
+        const lastContraction = contractions[contractions.length - 1];
+        const start =
+          state.painStart ||
+          (lastContraction
+            ? new Date(lastContraction.endedAt)
+            : new Date(state.activeSession.startedAt));
+        const elapsed = Math.max(
+          0,
+          Math.round((Date.now() - start.getTime()) / 1000),
+        );
+        document.getElementById("activeTimer").textContent =
+          formatSeconds(elapsed);
+        if (state.activeSession) {
+          render();
         }
+      }
 
-        function setActiveUi() {
-            const hasSession = Boolean(state.activeSession);
-            const hasPain = Boolean(state.painStart);
-            const hasContractions = hasSession && state.activeSession.contractions.length > 0;
-            document.getElementById("timerStateLabel").textContent = !hasSession ? t("waiting") : (hasPain ? t("activePain") : (hasContractions ? t("intervalMeasuring") : t("measuring")));
-            document.querySelector(".counter-actions").classList.toggle("is-measuring", hasSession);
-            document.getElementById("startMeasurementBtn").disabled = hasSession;
-            document.getElementById("contractionBtn").disabled = !hasSession || hasPain;
-            document.getElementById("settledBtn").disabled = !hasPain;
-            document.getElementById("endMeasurementBtn").disabled = !hasSession;
+      function setActiveUi() {
+        const hasSession = Boolean(state.activeSession);
+        const hasPain = Boolean(state.painStart);
+        const hasContractions =
+          hasSession && state.activeSession.contractions.length > 0;
+        document.getElementById("timerStateLabel").textContent = !hasSession
+          ? t("waiting")
+          : hasPain
+            ? t("activePain")
+            : hasContractions
+              ? t("intervalMeasuring")
+              : t("measuring");
+        document
+          .querySelector(".counter-actions")
+          .classList.toggle("is-measuring", hasSession);
+        document.getElementById("startMeasurementBtn").disabled = hasSession;
+        document.getElementById("contractionBtn").disabled =
+          !hasSession || hasPain;
+        document.getElementById("settledBtn").disabled = !hasPain;
+        document.getElementById("endMeasurementBtn").disabled = !hasSession;
+      }
+
+      function startMeasurement() {
+        const now = new Date();
+        state.activeSession = {
+          localId: createLocalId("session"),
+          startedAt: now.toISOString(),
+          endedAt: "",
+          sessionDurationSeconds: 0,
+          contractions: [],
+          saved: false,
+        };
+        state.painStart = null;
+        setActiveUi();
+        updateActiveTimer();
+        state.timerId = setInterval(updateActiveTimer, 1000);
+      }
+
+      function startContraction() {
+        if (!state.activeSession || state.painStart) return;
+        state.painStart = new Date();
+        const previous =
+          state.activeSession.contractions[
+            state.activeSession.contractions.length - 1
+          ];
+        if (previous) {
+          previous.restSeconds = Math.max(
+            0,
+            Math.round(
+              (state.painStart.getTime() -
+                new Date(previous.endedAt).getTime()) /
+                1000,
+            ),
+          );
         }
+        setActiveUi();
+        updateActiveTimer();
+        render();
+      }
 
-        function startMeasurement() {
-            const now = new Date();
-            state.activeSession = {
-                localId: createLocalId("session"),
-                startedAt: now.toISOString(),
-                endedAt: "",
-                sessionDurationSeconds: 0,
-                contractions: [],
-                saved: false
-            };
-            state.painStart = null;
-            setActiveUi();
-            updateActiveTimer();
-            state.timerId = setInterval(updateActiveTimer, 1000);
+      function stopContraction() {
+        if (!state.activeSession || !state.painStart) return;
+        const record = buildContraction(
+          state.painStart,
+          new Date(),
+          state.activeSession,
+        );
+        state.painStart = null;
+        state.activeSession.contractions.push(record);
+        setActiveUi();
+        updateActiveTimer();
+        render();
+      }
+
+      function endMeasurement() {
+        if (!state.activeSession) return;
+        if (state.painStart) {
+          stopContraction();
         }
-
-        function startContraction() {
-            if (!state.activeSession || state.painStart) return;
-            state.painStart = new Date();
-            const previous = state.activeSession.contractions[state.activeSession.contractions.length - 1];
-            if (previous) {
-                previous.restSeconds = Math.max(0, Math.round((state.painStart.getTime() - new Date(previous.endedAt).getTime()) / 1000));
-            }
-            setActiveUi();
-            updateActiveTimer();
-            render();
+        if (
+          !state.activeSession.contractions.length &&
+          !confirm(t("noContractionConfirm"))
+        )
+          return;
+        const endedAt = new Date();
+        state.activeSession.endedAt = endedAt.toISOString();
+        state.activeSession.sessionDurationSeconds = Math.max(
+          0,
+          Math.round(
+            (endedAt.getTime() -
+              new Date(state.activeSession.startedAt).getTime()) /
+              1000,
+          ),
+        );
+        const lastContraction =
+          state.activeSession.contractions[
+            state.activeSession.contractions.length - 1
+          ];
+        if (lastContraction) {
+          lastContraction.restSeconds = Math.max(
+            0,
+            Math.round(
+              (endedAt.getTime() -
+                new Date(lastContraction.endedAt).getTime()) /
+                1000,
+            ),
+          );
         }
+        const completedSession = state.activeSession;
+        state.records.push(completedSession);
+        state.activeSession = null;
+        state.painStart = null;
+        clearInterval(state.timerId);
+        state.timerId = null;
+        saveLocalRecords();
+        setActiveUi();
+        updateActiveTimer();
+        render();
+        saveLaborSessionToApi(completedSession);
+      }
 
-        function stopContraction() {
-            if (!state.activeSession || !state.painStart) return;
-            const record = buildContraction(state.painStart, new Date(), state.activeSession);
-            state.painStart = null;
-            state.activeSession.contractions.push(record);
-            setActiveUi();
-            updateActiveTimer();
-            render();
+      function requestLaborApi(method, postData, options) {
+        const silent = options && options.silent;
+        if (!state.userId) {
+          console.warn("labor_counter API skipped: missing userId");
+          return Promise.resolve(null);
         }
-
-        function endMeasurement() {
-            if (!state.activeSession) return;
-            if (state.painStart) {
-                stopContraction();
-            }
-            if (!state.activeSession.contractions.length && !confirm(t("noContractionConfirm"))) return;
-            const endedAt = new Date();
-            state.activeSession.endedAt = endedAt.toISOString();
-            state.activeSession.sessionDurationSeconds = Math.max(0, Math.round((endedAt.getTime() - new Date(state.activeSession.startedAt).getTime()) / 1000));
-            const lastContraction = state.activeSession.contractions[state.activeSession.contractions.length - 1];
-            if (lastContraction) {
-                lastContraction.restSeconds = Math.max(0, Math.round((endedAt.getTime() - new Date(lastContraction.endedAt).getTime()) / 1000));
-            }
-            const completedSession = state.activeSession;
-            state.records.push(completedSession);
-            state.activeSession = null;
-            state.painStart = null;
-            clearInterval(state.timerId);
-            state.timerId = null;
-            saveLocalRecords();
-            setActiveUi();
-            updateActiveTimer();
-            render();
-            saveLaborSessionToApi(completedSession);
-        }
-
-        function requestLaborApi(method, postData, options) {
-            const silent = options && options.silent;
-            if (!state.userId) {
-                console.warn("labor_counter API skipped: missing userId");
-                return Promise.resolve(null);
-            }
-            const requestPostData = Object.assign({}, postData || {}, {
-                userId: state.userId || ""
-            });
-            if (!silent) showAppBusy();
-            return $.ajax({
-                url: API_URL,
-                type: "POST",
-                dataType: "json",
-                timeout: 30000,
-                data: JSON.stringify({
-                    path: "myLabor",
-                    method: method,
-                    idToken: state.idToken,
-                    userId: state.userId || "",
-                    lang: window.normalizedLanguageCode || state.lang || "",
-                    postData: requestPostData
-                })
-            }).then(function (response) {
-                if (response.statusCode === 401) {
-                    liff.logout();
-                    window.location.reload();
-                    return null;
-                }
-                if (response.statusCode !== 200) {
-                    const message = response.message || "";
-                    if (!(silent && method === "get" && message === "Hospital account is not linked")) {
-                        console.warn("labor_counter API rejected the request:", message || response);
-                    }
-                    if (!silent) alert(response.message || t("saveFailed"));
-                    return null;
-                }
-                return response.data || {};
-            }, function (_xhr, textStatus, errorThrown) {
-                console.warn("labor_counter API is not ready or network failed.", textStatus, errorThrown);
+        const requestPostData = Object.assign({}, postData || {}, {
+          userId: state.userId || "",
+        });
+        if (!silent) showAppBusy();
+        return $.ajax({
+          url: API_URL,
+          type: "POST",
+          dataType: "json",
+          timeout: 30000,
+          data: JSON.stringify({
+            path: "myLabor",
+            method: method,
+            idToken: state.idToken,
+            userId: state.userId || "",
+            lang: window.normalizedLanguageCode || state.lang || "",
+            postData: requestPostData,
+          }),
+        })
+          .then(
+            function (response) {
+              if (response.statusCode === 401) {
+                liff.logout();
+                window.location.reload();
                 return null;
-            }).always(function () {
-                if (!silent) hideAppBusy();
-            });
-        }
+              }
+              if (response.statusCode !== 200) {
+                const message = response.message || "";
+                if (
+                  !(
+                    silent &&
+                    method === "get" &&
+                    message === "Hospital account is not linked"
+                  )
+                ) {
+                  console.warn(
+                    "labor_counter API rejected the request:",
+                    message || response,
+                  );
+                }
+                if (!silent) alert(response.message || t("saveFailed"));
+                return null;
+              }
+              return response.data || {};
+            },
+            function (_xhr, textStatus, errorThrown) {
+              console.warn(
+                "labor_counter API is not ready or network failed.",
+                textStatus,
+                errorThrown,
+              );
+              return null;
+            },
+          )
+          .always(function () {
+            if (!silent) hideAppBusy();
+          });
+      }
 
-        function buildLaborPayload(session) {
-            const contractions = (session.contractions || []).map((record) => ({
-                startedAt: record.startedAt,
-                endedAt: record.endedAt,
-                durationSeconds: apiOptionalSeconds(record.durationSeconds),
-                intervalSeconds: apiOptionalSeconds(record.intervalSeconds),
-                restSeconds: apiOptionalSeconds(record.restSeconds)
+      function buildLaborPayload(session) {
+        const contractions = (session.contractions || []).map((record) => ({
+          startedAt: record.startedAt,
+          endedAt: record.endedAt,
+          durationSeconds: apiOptionalSeconds(record.durationSeconds),
+          intervalSeconds: apiOptionalSeconds(record.intervalSeconds),
+          restSeconds: apiOptionalSeconds(record.restSeconds),
+        }));
+        return {
+          startedAt: session.startedAt,
+          endedAt: session.endedAt,
+          sessionDurationSeconds: apiRequiredSeconds(
+            session.sessionDurationSeconds,
+          ),
+          contractionCount: contractions.length,
+          averageRestSeconds: apiRequiredSeconds(
+            average(contractions.map((record) => record.restSeconds)),
+          ),
+          averageDurationSeconds: apiRequiredSeconds(
+            average(contractions.map((record) => record.durationSeconds)),
+          ),
+          contractionsJson: contractions,
+        };
+      }
+
+      function saveLaborSessionToApi(session) {
+        return requestLaborApi("post", buildLaborPayload(session), {
+          silent: true,
+        }).then(function (data) {
+          if (!data || !data.itemId) return null;
+          session.itemId = data.itemId;
+          session.saved = true;
+          saveLocalRecords();
+          render();
+          return data;
+        });
+      }
+
+      function loadLaborRecordsFromApi() {
+        return requestLaborApi(
+          "get",
+          { unit: "month", limit: 1, page: 1 },
+          { silent: true },
+        ).then(function (data) {
+          const apiItems =
+            data && Array.isArray(data.items)
+              ? normalizeStoredRecords(data.items)
+              : null;
+          if (!apiItems) return;
+          const unsavedLocal = state.records.filter(
+            (record) => !record.saved && !record.itemId,
+          );
+          state.records = apiItems.concat(unsavedLocal);
+          saveLocalRecords();
+          render();
+        });
+      }
+
+      function clearRecords() {
+        if (state.activeSession) {
+          alert(t("cannotResetMeasuring"));
+          return;
+        }
+        if (!state.records.length) return;
+        if (!confirm(t("resetConfirm"))) return;
+        state.records = [];
+        saveLocalRecords();
+        render();
+      }
+
+      async function deleteSelectedRecords() {
+        const ids = Array.from(
+          document.querySelectorAll(".record-check:checked"),
+        ).map((checkbox) => checkbox.value);
+        if (!ids.length) {
+          alert(t("selectDelete"));
+          return;
+        }
+        const selected = state.records.filter((session) =>
+          ids.includes(session.localId),
+        );
+        const deleteResults = await Promise.all(
+          selected.map((session) => {
+            if (!session.itemId) return Promise.resolve({ session, ok: true });
+            return requestLaborApi(
+              "delete",
+              { itemId: session.itemId },
+              { silent: true },
+            ).then((data) => ({
+              session,
+              ok: Boolean(data),
             }));
-            return {
-                startedAt: session.startedAt,
-                endedAt: session.endedAt,
-                sessionDurationSeconds: apiRequiredSeconds(session.sessionDurationSeconds),
-                contractionCount: contractions.length,
-                averageRestSeconds: apiRequiredSeconds(average(contractions.map((record) => record.restSeconds))),
-                averageDurationSeconds: apiRequiredSeconds(average(contractions.map((record) => record.durationSeconds))),
-                contractionsJson: contractions
-            };
-        }
+          }),
+        );
+        const deletableIds = deleteResults
+          .filter((result) => result.ok)
+          .map((result) => result.session.localId);
+        state.records = state.records.filter(
+          (session) => !deletableIds.includes(session.localId),
+        );
+        saveLocalRecords();
+        render();
+      }
 
-        function saveLaborSessionToApi(session) {
-            return requestLaborApi("post", buildLaborPayload(session), { silent: true }).then(function (data) {
-                if (!data || !data.itemId) return null;
-                session.itemId = data.itemId;
-                session.saved = true;
-                saveLocalRecords();
-                render();
-                return data;
-            });
-        }
+      function bindEvents() {
+        document
+          .getElementById("startMeasurementBtn")
+          .addEventListener("click", startMeasurement);
+        document
+          .getElementById("contractionBtn")
+          .addEventListener("click", startContraction);
+        document
+          .getElementById("settledBtn")
+          .addEventListener("click", stopContraction);
+        document
+          .getElementById("endMeasurementBtn")
+          .addEventListener("click", endMeasurement);
+        document
+          .getElementById("deleteSelectedBtn")
+          .addEventListener("click", deleteSelectedRecords);
+        document.addEventListener("language-changed", function (event) {
+          applyLaborLanguage(
+            event && event.detail ? event.detail.langId : "ja",
+          );
+        });
+      }
 
-        function loadLaborRecordsFromApi() {
-            return requestLaborApi("get", { unit: "month", limit: 1, page: 1 }, { silent: true }).then(function (data) {
-                const apiItems = data && Array.isArray(data.items) ? normalizeStoredRecords(data.items) : null;
-                if (!apiItems) return;
-                const unsavedLocal = state.records.filter((record) => !record.saved && !record.itemId);
-                state.records = apiItems.concat(unsavedLocal);
-                saveLocalRecords();
-                render();
-            });
-        }
+      function bootLaborCounter() {
+        showAppBusy();
+        const isDev =
+          location.hostname === "localhost" ||
+          location.hostname === "127.0.0.1";
+        liff
+          .init({
+            liffId: LIFF_ID,
+            withLoginOnExternalBrowser: !isDev,
+          })
+          .then(() => {
+            state.idToken = liff.getIDToken();
+            return resolveLiffUserId();
+          })
+          .then(() => {
+            console.log("aaa" + LIFF_ID);
+            loadLocalRecords();
+            bindEvents();
+            applyLaborLanguage(
+              window.normalizedLanguageCode ||
+                (typeof liff.getAppLanguage === "function"
+                  ? liff.getAppLanguage()
+                  : navigator.language),
+            );
+            loadLaborRecordsFromApi();
+            return loadHeader();
+          })
+          .then(() => {
+            applyLaborLanguage(window.normalizedLanguageCode || state.lang);
+          })
+          .then(() => {
+            hideAppBusy();
+          })
+          .catch((error) => {
+            console.error("LIFF init failed:", error);
+            hideAppBusy();
+            alert(t("liffInitFailed"));
+          });
+      }
 
-        function clearRecords() {
-            if (state.activeSession) {
-                alert(t("cannotResetMeasuring"));
-                return;
-            }
-            if (!state.records.length) return;
-            if (!confirm(t("resetConfirm"))) return;
-            state.records = [];
-            saveLocalRecords();
-            render();
-        }
-
-        async function deleteSelectedRecords() {
-            const ids = Array.from(document.querySelectorAll(".record-check:checked")).map((checkbox) => checkbox.value);
-            if (!ids.length) {
-                alert(t("selectDelete"));
-                return;
-            }
-            const selected = state.records.filter((session) => ids.includes(session.localId));
-            const deleteResults = await Promise.all(selected.map((session) => {
-                if (!session.itemId) return Promise.resolve({ session, ok: true });
-                return requestLaborApi("delete", { itemId: session.itemId }, { silent: true }).then((data) => ({
-                    session,
-                    ok: Boolean(data)
-                }));
-            }));
-            const deletableIds = deleteResults.filter((result) => result.ok).map((result) => result.session.localId);
-            state.records = state.records.filter((session) => !deletableIds.includes(session.localId));
-            saveLocalRecords();
-            render();
-        }
-
-        function bindEvents() {
-            document.getElementById("startMeasurementBtn").addEventListener("click", startMeasurement);
-            document.getElementById("contractionBtn").addEventListener("click", startContraction);
-            document.getElementById("settledBtn").addEventListener("click", stopContraction);
-            document.getElementById("endMeasurementBtn").addEventListener("click", endMeasurement);
-            document.getElementById("deleteSelectedBtn").addEventListener("click", deleteSelectedRecords);
-            document.addEventListener("language-changed", function (event) {
-                applyLaborLanguage(event && event.detail ? event.detail.langId : "ja");
-            });
-        }
-
-        function bootLaborCounter() {
-            showAppBusy();
-            const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
-            liff.init({
-                liffId: LIFF_ID,
-                withLoginOnExternalBrowser: !isDev
-            }).then(() => {
-                state.idToken = liff.getIDToken();
-                return resolveLiffUserId();
-            }).then(() => {
-                loadLocalRecords();
-                bindEvents();
-                applyLaborLanguage(window.normalizedLanguageCode || (typeof liff.getAppLanguage === "function" ? liff.getAppLanguage() : navigator.language));
-                loadLaborRecordsFromApi();
-                return loadHeader();
-            }).then(() => {
-                applyLaborLanguage(window.normalizedLanguageCode || state.lang);
-            }).then(() => {
-                hideAppBusy();
-            }).catch((error) => {
-                console.error("LIFF init failed:", error);
-                hideAppBusy();
-                alert(t("liffInitFailed"));
-            });
-        }
-
-        window.addEventListener("load", bootLaborCounter);
+      window.addEventListener("load", bootLaborCounter);
     </script>
-</body>
-
+  </body>
 </html>
