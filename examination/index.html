@@ -727,6 +727,10 @@
                     <span class="tab-tr">${escapeHtml(translatedType)}</span>
                 `;
                 btn.addEventListener("click", () => {
+                    if (type === "性生活") {
+                        window.location.href = "../aboutsex/";
+                        return;
+                    }
                     selectedType = type;
                     renderAccordion();
                     renderCategoryTabs();
