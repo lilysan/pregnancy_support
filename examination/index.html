@@ -295,6 +295,7 @@
         const LANGUAGE_STORAGE_KEY = "examinationSelectedLanguage";
         const currentPage = "examination";
         const EPDS_API_URL =
+            typeof API_URL !== "undefined" ? API_URL :
             "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
         let localData = [];
         let translatedByLanguage = {};
@@ -310,6 +311,7 @@
         const epdsSelections = new Map();
         const epdsSubmissionState = new Map();
         let liffInitPromise = null;
+        let epdsUserId = "";
 
         window.addEventListener("load", init);
 
@@ -1484,50 +1486,83 @@
             return definition.questions.reduce((postData, question, questionIndex) => {
                 const selectedScore = state.answers[questionIndex];
                 const optionIndex = question.options.findIndex(option => option.score === selectedScore);
-                postData[`Lq${questionIndex + 1}`] = optionIndex >= 0 ? `o${optionIndex + 1}` : "";
+                postData[`q${questionIndex + 1}`] = optionIndex >= 0 ? `o${optionIndex + 1}` : "";
                 return postData;
             }, {});
         }
 
-        async function getEpdsIdToken() {
+        function decodeEpdsIdTokenUserId(idToken) {
+            try {
+                const payload = String(idToken || "").split(".")[1];
+                if (!payload) return "";
+                const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
+                const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=");
+                const decoded = JSON.parse(decodeURIComponent(escape(atob(padded))));
+                return decoded.sub || decoded.userId || "";
+            } catch (error) {
+                console.warn("Failed to decode EPDS LIFF ID token:", error);
+                return "";
+            }
+        }
+
+        async function getEpdsAuth() {
             if (!window.liff || typeof LIFF_ID === "undefined") {
                 throw new Error("LIFF is not available");
             }
             if (!liffInitPromise) {
-                liffInitPromise = liff.init({
+                liffInitPromise = window.liff.init({
                     liffId: LIFF_ID,
                     withLoginOnExternalBrowser: true
                 });
             }
             await liffInitPromise;
 
-            if (typeof liff.isLoggedIn === "function" && !liff.isLoggedIn()) {
-                if (typeof liff.login === "function") {
-                    liff.login();
+            if (typeof window.liff.isLoggedIn === "function" && !window.liff.isLoggedIn()) {
+                if (typeof window.liff.login === "function") {
+                    window.liff.login({
+                        redirectUri: window.location.href
+                    });
                 }
                 throw new Error("LIFF login is required");
             }
 
-            const idToken = typeof liff.getIDToken === "function" ? liff.getIDToken() : "";
+            const idToken = typeof window.liff.getIDToken === "function" ? window.liff.getIDToken() : "";
             if (!idToken) {
                 throw new Error("LIFF ID token is empty");
             }
-            return idToken;
+            const profile = await Promise.resolve(typeof window.liff.getProfile === "function" ? window.liff.getProfile() : null)
+                .catch(() => null);
+            const decoded = typeof window.liff.getDecodedIDToken === "function" ? window.liff.getDecodedIDToken() : null;
+            epdsUserId = profile && profile.userId ? profile.userId : ((decoded && (decoded.sub || decoded.userId)) || decodeEpdsIdTokenUserId(idToken) || "");
+            window.userId = epdsUserId;
+            console.log("epds userId:", epdsUserId);
+            console.log("epds idToken exists:", Boolean(idToken));
+            return {
+                idToken,
+                userId: epdsUserId
+            };
         }
 
         async function postEpdsResult(postData) {
-            const idToken = await getEpdsIdToken();
+            const auth = await getEpdsAuth();
+            const requestPostData = Object.assign({}, postData || {}, {
+                userId: auth.userId || ""
+            });
+            const requestPayload = {
+                path: "myEpds",
+                method: "post",
+                idToken: auth.idToken,
+                userId: auth.userId || "",
+                lang: selectedLanguage || "",
+                postData: requestPostData
+            };
+            console.log("epds request payload:", requestPayload);
             const response = await fetch(EPDS_API_URL, {
                 method: "POST",
                 headers: {
                     "Content-Type": "text/plain;charset=UTF-8"
                 },
-                body: JSON.stringify({
-                    path: "myEpds",
-                    method: "post",
-                    idToken,
-                    postData
-                })
+                body: JSON.stringify(requestPayload)
             });
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);

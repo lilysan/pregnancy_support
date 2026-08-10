@@ -1900,20 +1900,22 @@
         const requestPostData = Object.assign({}, postData || {}, {
           userId: state.userId || "",
         });
+        const requestPayload = {
+          path: "myLabor",
+          method: method,
+          idToken: state.idToken,
+          userId: state.userId || "",
+          lang: window.normalizedLanguageCode || state.lang || "",
+          postData: requestPostData,
+        };
+        console.log("labor_counter request payload:", requestPayload);
         if (!silent) showAppBusy();
         return $.ajax({
           url: API_URL,
           type: "POST",
           dataType: "json",
           timeout: 30000,
-          data: JSON.stringify({
-            path: "myLabor",
-            method: method,
-            idToken: state.idToken,
-            userId: state.userId || "",
-            lang: window.normalizedLanguageCode || state.lang || "",
-            postData: requestPostData,
-          }),
+          data: JSON.stringify(requestPayload),
         })
           .then(
             function (response) {

@@ -884,20 +884,22 @@
         const requestPostData = Object.assign({}, postData || {}, {
           userId: state.userId || "",
         });
+        const requestPayload = {
+          path: "myMovement",
+          method: method,
+          idToken: state.idToken,
+          userId: state.userId || "",
+          lang: window.normalizedLanguageCode || state.lang || "",
+          postData: requestPostData,
+        };
+        console.log("movement_counter request payload:", requestPayload);
         if (!silent) showAppBusy();
         return $.ajax({
           url: API_URL,
           type: "POST",
           dataType: "json",
           timeout: 30000,
-          data: JSON.stringify({
-            path: "myMovement",
-            method: method,
-            idToken: state.idToken,
-            userId: state.userId || "",
-            lang: window.normalizedLanguageCode || state.lang || "",
-            postData: requestPostData,
-          }),
+          data: JSON.stringify(requestPayload),
         }).then(
           function (response) {
             if (response.statusCode === 401) {
@@ -910,6 +912,7 @@
               if (!(silent && method === "get" && message === "Hospital account is not linked")) {
                 console.warn("movement API rejected the request:", message || response);
               }
+              if (!silent) alert(message || t("saveFailed"));
               return null;
             }
             return response.data || {};
@@ -1229,6 +1232,8 @@
           })
           .then((resolvedUserId) => {
             if (resolvedUserId === null) return null;
+            console.log("movement userId:", state.userId);
+            console.log("movement idToken exists:", Boolean(state.idToken));
             loadLocalRecords();
             bindEvents();
             applyMovementLanguage(
