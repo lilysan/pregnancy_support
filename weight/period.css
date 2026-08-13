@@ -29,6 +29,30 @@ body {
   display: none !important;
 }
 
+#headerMenuGroup .dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  display: none;
+  z-index: 90;
+}
+
+#headerMenuGroup .dropdown.is-open {
+  display: block;
+}
+
+#headerMenuGroup .dropdown.language {
+  right: 0;
+  left: auto;
+  width: min(320px, calc(100vw - 24px));
+  min-width: min(220px, calc(100vw - 24px));
+  max-width: calc(100vw - 24px);
+}
+
+body[dir="rtl"] #headerMenuGroup .dropdown.language {
+  right: auto;
+  left: 0;
+}
+
 .weight-app {
   display: grid;
   gap: 14px;
