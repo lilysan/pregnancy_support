@@ -618,7 +618,8 @@
   "today": {
     "baby": {
       "label": {
-        "pregnancyWeek": "妊娠週数",
+        "pregnancyWeek": "{{v1}}週{{v2}}日",
+        "left": "予定日まであと{{v1}}日",
         "weight": "推定体重の目安",
         "weightImage": "重さのイメージ",
         "content": "成長の様子"

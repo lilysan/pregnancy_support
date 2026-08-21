@@ -645,7 +645,8 @@
   "today": {
     "baby": {
       "label": {
-        "pregnancyWeek": "Weeks Pregnant",
+        "pregnancyWeek": "{{v1}} weeks and {{v2}} days",
+        "left": "Due in {{v1}} days",
         "weight": "Baby’s Estimated Weight",
         "weightImage": "About the Size of",
         "content": "How Your Baby is Growing"
