@@ -905,7 +905,8 @@
     "result": {
       "callNow": "That's all for the questions.\nPlease contact the hospital.",
       "watchAndWait": "That's all for the questions.\nLet's wait and see for a while."
-    }
+    },
+    "callHospital": "When you call the hospital, please provide your patient ID number and mention that you have completed the labor symptoms questionnaire (Zintsu Shindan・じんつうしんだん)."
   },
   "translationApp": {
     "desc": "A list of apps you can use for translation. If the app is not installed, you will be taken to the store or website.",

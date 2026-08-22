@@ -60,15 +60,23 @@
   },
   "button": {
     "ok": "OK",
+    "yes": "はい",
+    "no": "いいえ",
     "cancel": "キャンセル",
     "back": "もどる",
-    "clear": "<ruby>入力<rt>にゅうりょく</rt></ruby>したものを <ruby>消<rt>け</rt></ruby>す",
-    "delete": "<ruby>消<rt>け</rt></ruby>す",
-    "no": "いいえ",
-    "reset": "リセット",
     "save": "<ruby>保存<rt>ほぞん</rt></ruby>",
-    "yes": "はい",
-    "other": "そのほか"
+    "clear": "<ruby>入力<rt>にゅうりょく</rt></ruby>したものを <ruby>消<rt>け</rt></ruby>す",
+    "reset": "リセット",
+    "delete": "<ruby>消<rt>け</rt></ruby>す",
+    "other": "そのほか",
+    "call": "<ruby>電話<rt>でんわ</rt></ruby>する",
+    "map": "<ruby>地図<rt>ちず</rt></ruby>を <ruby>見<rt>み</rt></ruby>る",
+    "callHospital1": "<ruby>代表電話番号<rt>だいひょうでんわばんごう</rt></ruby>に <ruby>電話<rt>でんわ</rt></ruby>する",
+    "callHospital2": "<ruby>産科外来電話番号<rt>さんかがいらいでんわばんごう</rt></ruby>に <ruby>電話<rt>でんわ</rt></ruby>する",
+    "callHospital3": "<ruby>夜間電話番号<rt>やかんでんわばんごう</rt></ruby>に <ruby>電話<rt>でんわ</rt></ruby>する",
+    "registerHospital": "<ruby>病院情報<rt>びょういんじょうほう</rt></ruby>を <ruby>登録<rt>とうろく</rt></ruby>する",
+    "GeneralUser": "<ruby>一般<rt>いっぱん</rt></ruby>ユーザー",
+    "HospitalStaff": "<ruby>病院<rt>びょういん</rt></ruby>スタッフ"
   },
   "placeholder": {
     "free": "じゆうにかいてください"
@@ -87,6 +95,18 @@
     "delete": "<ruby>消<rt>け</rt></ruby>しました。",
     "save": "<ruby>保存<rt>ほぞん</rt></ruby>しました。",
     "register": "<ruby>登録<rt>とうろく</rt></ruby>しました。"
+  },
+  "error": {
+    "error": "エラーが <ruby>起<rt>お</rt></ruby>きました。",
+    "noData": "まだデータが <ruby>登録<rt>とうろく</rt></ruby>されていません。",
+    "unknown": "すみません。<ruby>理解<rt>りかい</rt></ruby>できませんでした。"
+  },
+  "line": {
+    "follow": "<ruby>友<rt>とも</rt></ruby>だち<ruby>追加<rt>ついか</rt></ruby>、ありがとうございます。\nこのアカウントでは、<ruby>妊娠<rt>にんしん</rt></ruby>してから <ruby>出産<rt>しゅっさん</rt></ruby>するまで、<ruby>病院<rt>びょういん</rt></ruby>スタッフとの やりとりを サポートします。\n\nまずは、<ruby>下<rt>した</rt></ruby>のボタンから、あなたの<ruby>情報<rt>じょうほう</rt></ruby>や <ruby>病院<rt>びょういん</rt></ruby>の<ruby>情報<rt>じょうほう</rt></ruby>を <ruby>登録<rt>とうろく</rt></ruby>してください。\n\n*ひとりひとりの メッセージには <ruby>返事<rt>へんじ</rt></ruby>が できません。",
+    "register": "ここから プロフィールを <ruby>登録<rt>とうろく</rt></ruby>してください。",
+    "registerStaff": "ここから <ruby>病院情報<rt>びょういんじょうほう</rt></ruby>を <ruby>登録<rt>とうろく</rt></ruby>してください。",
+    "howto": "<ruby>使<rt>つか</rt></ruby>い<ruby>方<rt>かた</rt></ruby>はこちら",
+    "UserOrStaff": "あなたは <ruby>一般<rt>いっぱん</rt></ruby>ユーザーですか？ それとも <ruby>病院<rt>びょういん</rt></ruby>スタッフですか？"
   },
   "link": {
     "desc": "あなたの<ruby>基本情報<rt>きほんじょうほう</rt></ruby>、<ruby>病院<rt>びょういん</rt></ruby>、<ruby>必要<rt>ひつよう</rt></ruby>な<ruby>連絡先<rt>れんらくさき</rt></ruby>を<ruby>登録<rt>とうろく</rt></ruby>できます。",
@@ -594,7 +614,8 @@
   "today": {
     "baby": {
       "label": {
-        "pregnancyWeek": "<ruby>妊娠週数<rt>妊娠週数</rt></ruby>",
+        "pregnancyWeek": "{{v1}}<ruby>週<rt>しゅう</rt></ruby>{{v2}}<ruby>日<rt>にち</rt></ruby>",
+        "left": "<ruby>予定日<rt>よていび</rt></ruby>まであと{{v1}}<ruby>日<rt>にち</rt></ruby>",
         "weight": "あかちゃんの <ruby>体重<rt>たいじゅう</rt></ruby>の <ruby>目安<rt>めやす</rt></ruby>",
         "weightImage": "<ruby>重<rt>おも</rt></ruby>さの イメージ",
         "content": "<ruby>成長<rt>せいちょう</rt></ruby>の ようす"
@@ -884,7 +905,8 @@
     "result": {
       "callNow": "<ruby>質問<rt>しつもん</rt></ruby>は<ruby>以上<rt>いじょう</rt></ruby>です。\n<ruby>病院<rt>びょういん</rt></ruby>へ<ruby>連絡<rt>れんらく</rt></ruby>しましょう。",
       "watchAndWait": "<ruby>質問<rt>しつもん</rt></ruby>は<ruby>以上<rt>いじょう</rt></ruby>です。\nもう少し<ruby>様子<rt>ようす</rt></ruby>をみましょう。"
-    }
+    },
+    "callHospital": "<ruby>病院<rt>びょういん</rt></ruby>に <ruby>電話<rt>でんわ</rt></ruby>するときは、<ruby>診察券番号<rt>しんさつけんばんごう</rt></ruby>と、「<ruby>陣痛診断<rt>じんつうしんだん</rt></ruby>に <ruby>答<rt>こた</rt></ruby>えました」と <ruby>伝<rt>つた</rt></ruby>えましょう。"
   },
   "translationApp": {
     "desc": "<ruby>翻訳<rt>ほんやく</rt></ruby>に<ruby>使<rt>つか</rt></ruby>えるアプリの<ruby>一覧<rt>いちらん</rt></ruby>です。アプリが<ruby>入<rt>はい</rt></ruby>っていないときは、ストアまたはWebページに<ruby>移動<rt>いどう</rt></ruby>します。",
