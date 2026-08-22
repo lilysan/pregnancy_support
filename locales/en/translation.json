@@ -68,7 +68,15 @@
     "clear": "Clear input",
     "reset": "Reset",
     "delete": "Delete",
-    "other": "Other"
+    "other": "Other",
+    "call": "Call",
+    "map": "View on Google Maps",
+    "callHospital1": "Call Main Line",
+    "callHospital2": "Call Obstetrics Outpatient",
+    "callHospital3": "Call After-Hours Line",
+    "registerHospital": "Hospital Registration",
+    "GeneralUser": "General User",
+    "HospitalStaff": "Hospital Staff"
   },
   "placeholder": {
     "free": "Free text"
@@ -87,6 +95,18 @@
     "save": "Saved successfully.",
     "delete": "Deleted successfully.",
     "register": "Registered successfully."
+  },
+  "error": {
+    "error": "An error has occurred.",
+    "noData": "No data is available.",
+    "unknown": "Sorry, I cannot understand."
+  },
+  "line": {
+    "follow": "Thank you for adding us as a friend. \nThis account offers features to help you communicate with hospital staff throughout your pregnancy and up through childbirth. \n\nFirst, please use the button below to register your information and link your account to the hospital. \n\n*We are unable to reply to individual messages.",
+    "register": "Click the button below to register your profile.",
+    "registerStaff": "Click the button below to register your hospital information.",
+    "howto": "Click here to learn how to use the app.",
+    "UserOrStaff": "Are you a general user or a hospital staff member?"
   },
   "link": {
     "desc": "Register your basic information, hospitals you visit or plan to deliver at, and important contacts.",
