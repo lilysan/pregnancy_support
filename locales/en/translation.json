@@ -383,19 +383,6 @@
         "o3": "No explanation needed",
         "o4": "Depending on the situation"
       },
-      "a020": {
-        "label": "How much explanation would you like before medical procedures?",
-        "o1": "Please explain in detail",
-        "o2": "Minimal explanation is fine",
-        "o3": "Prioritize treatment",
-        "o4": "Depending on the situation"
-      },
-      "a021": {
-        "label": "How much explanation would you like in emergencies?",
-        "o1": "Please explain briefly",
-        "o2": "Prioritize treatment",
-        "o3": "Depending on the situation"
-      },
       "b001": {
         "label": "Would you like to hold your baby immediately after birth?",
         "o1": "Yes",
@@ -428,20 +415,6 @@
         "o1": "Yes",
         "o2": "No",
         "o3": "Depending on the situation"
-      },
-      "b005": {
-        "label": "How much explanation would you like about procedures for your body after birth?",
-        "o1": "Please explain in detail",
-        "o2": "Minimal explanation is fine",
-        "o3": "Prioritize treatment",
-        "o4": "Depending on the situation"
-      },
-      "b006": {
-        "label": "How much explanation would you like before procedures/tests for your baby?",
-        "o1": "Please explain in detail",
-        "o2": "Minimal explanation is fine",
-        "o3": "Prioritize treatment",
-        "o4": "Depending on the situation"
       },
       "b007": {
         "label": "Do you have any religious or belief-related requests?",
@@ -484,12 +457,6 @@
       },
       "b013": {
         "label": "Would you like to take the umbilical cord home?",
-        "o1": "Yes",
-        "o2": "No",
-        "o3": "Depending on the situation"
-      },
-      "b014": {
-        "label": "Would you like to take the placenta home?",
         "o1": "Yes",
         "o2": "No",
         "o3": "Depending on the situation"
@@ -569,24 +536,6 @@
       },
       "c010": {
         "label": "Would you like support for pumping or breast care?",
-        "o1": "Yes",
-        "o2": "No",
-        "o3": "Depending on the situation"
-      },
-      "c011": {
-        "label": "Would you like thorough breastfeeding guidance?",
-        "o1": "Yes",
-        "o2": "No",
-        "o3": "Depending on the situation"
-      },
-      "c012": {
-        "label": "Would you like thorough baby-bathing guidance?",
-        "o1": "Yes",
-        "o2": "No",
-        "o3": "Depending on the situation"
-      },
-      "c013": {
-        "label": "Would you like thorough discharge guidance?",
         "o1": "Yes",
         "o2": "No",
         "o3": "Depending on the situation"
