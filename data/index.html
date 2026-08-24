@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>患者データ | Pregnancy Support</title>
+    <title>共有データ | Pregnancy Support</title>
     <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
@@ -582,8 +582,8 @@
 
 <main>
     <article class="main-container">
-        <h1>患者データ</h1>
-        <p class="desc">診察券番号を入力すると、自院に共有されている妊婦さんの情報を確認できます。</p>
+        <h1>共有データ</h1>
+        <p class="desc">診察券番号を入力すると、貴院に共有されている妊婦さんの情報を確認できます。</p>
 
         <section class="card" id="hospital-account-card">
             <p id="hospitalAccountName">病院情報を確認中</p>
@@ -618,7 +618,7 @@
 
         <section id="sharedDataSection" hidden>
             <div id="dataTabsSentinel" aria-hidden="true"></div>
-            <div class="tabs-grid data-tabs" id="dataTabs" role="tablist" aria-label="患者共有データ"></div>
+            <div class="tabs-grid data-tabs" id="dataTabs" role="tablist" aria-label="共有データ"></div>
             <div id="data-tab-content">
                 <div id="data-panel-toolbar">
                     <h2 id="dataPanelHeading"></h2>
@@ -643,8 +643,8 @@
         <button type="button" class="modal-close" id="closePatientSelectionBtn" aria-label="閉じる">
             <iconify-icon icon="material-symbols:close-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
         </button>
-        <h2 id="patientSelectionTitle" class="modal-title">表示する患者データを選択してください</h2>
-        <p class="modal-message small">同じ診察券番号で複数の患者データが見つかりました。</p>
+        <h2 id="patientSelectionTitle" class="modal-title">表示する共有データを選択してください</h2>
+        <p class="modal-message small">同じ診察券番号で複数の共有データが見つかりました。</p>
         <div class="patient-choice-list" id="patientChoiceList"></div>
     </div>
 </div>
@@ -864,7 +864,7 @@
             const patients = normalizePatientResponseData(response.data);
             if (response.statusCode !== 200 || patients.length === 0) {
                 console.error(response.message);
-                showStatus(response.message || "患者情報を取得できませんでした。");
+                showStatus(response.message || "共有データを取得できませんでした。");
                 return;
             }
 
@@ -899,7 +899,7 @@
         updateDataTabActiveState();
 
         if (!dataState.currentPatientUserId) {
-            renderDataPanelMessage("患者情報を選択してください。");
+            renderDataPanelMessage("閲覧したい対象を選択してください。");
             return;
         }
 

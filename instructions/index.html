@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>How to Use | Pregnancy Support</title>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="../common/js/config.js"></script>
+    <link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+<div id="header-container" class="header-wrapper"></div>
+
+<main>
+    <article id="instructionsContent" class="main-container" aria-live="polite">
+        <h1>使い方</h1>
+    </article>
+</main>
+
+<div class="overlay is-open" id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
+
+<script>
+    const currentPage = "instructions";
+    const DEFAULT_MARKDOWN_URL = "content.md";
+    const AUDIENCE_USER = "user";
+    const AUDIENCE_STAFF = "staff";
+    let instructionsLoadRequestId = 0;
+    let selectedAudience = AUDIENCE_USER;
+
+    /** @type {import('@line/liff').Liff} */
+    const liff = window.liff;
+
+    $(function () {
+        document.addEventListener("language-changed", function (event) {
+            const languageCode = getSelectedLanguageCode(event.detail && event.detail.langId);
+            if (!shouldShowAudienceSelector(languageCode)) {
+                selectedAudience = AUDIENCE_USER;
+            }
+
+            loadInstructions(event.detail && event.detail.langId)
+                .then(setLocalizedDocumentTitle)
+                .catch((err) => {
+                    console.error("Failed to switch instructions language:", err);
+                    renderMarkdownError();
+                });
+        });
+
+        $("#instructionsContent").on("click", ".accordion-trigger", function () {
+            const $trigger = $(this);
+            const $accordion = $trigger.closest(".accordion");
+            const $body = $accordion.children(".accordion-body");
+            const isOpen = $accordion.hasClass("is-open");
+
+            $accordion.toggleClass("is-open", !isOpen);
+            $trigger.toggleClass("active", !isOpen);
+            $trigger.attr("aria-expanded", String(!isOpen));
+            $body.css("max-height", isOpen ? "" : $body.prop("scrollHeight") + 32 + "px");
+        });
+
+        $("#instructionsContent").on("click", 'a[href^="#"]', function (event) {
+            const targetId = decodeURIComponent(this.hash.slice(1));
+            const target = document.getElementById(targetId);
+            if (!target) {
+                return;
+            }
+
+            event.preventDefault();
+            openTargetAccordion(target);
+            scrollToAnchorTarget(target, "smooth");
+            history.pushState(null, "", `#${encodeURIComponent(targetId)}`);
+        });
+
+        const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+
+        liff.init({
+            liffId: LIFF_ID,
+            withLoginOnExternalBrowser: !isDev,
+        }).then(() => {
+            return loadHeader();
+        }).then(() => {
+            return loadInstructions(getSelectedLanguageCode());
+        }).then(() => {
+            setLocalizedDocumentTitle();
+            $("#loadingOverlay").removeClass("is-open");
+        }).catch((err) => {
+            console.error("Instructions page init failed:", err);
+            renderMarkdownError();
+            $("#loadingOverlay").removeClass("is-open");
+        });
+    });
+
+    function loadInstructions(languageCode) {
+        const requestId = ++instructionsLoadRequestId;
+        const selectedLanguageCode = getSelectedLanguageCode(languageCode);
+        const audience = shouldShowAudienceSelector(selectedLanguageCode) ? selectedAudience : AUDIENCE_USER;
+
+        return fetchMarkdownForLanguage(selectedLanguageCode, audience)
+            .then((markdown) => {
+                if (requestId !== instructionsLoadRequestId) {
+                    return;
+                }
+
+                marked.setOptions({
+                    breaks: true,
+                    gfm: true
+                });
+                $("#instructionsContent").html(marked.parse(markdown));
+                applyHeadingIds();
+                applyCommonTextClasses();
+                applyCardLayout();
+                renderAudienceSelector(selectedLanguageCode, audience);
+                scrollToCurrentHashTarget();
+            });
+    }
+
+    function fetchMarkdownForLanguage(languageCode, audience) {
+        const urls = [];
+
+        if (audience === AUDIENCE_STAFF && shouldShowAudienceSelector(languageCode)) {
+            urls.push("content.staff.md");
+        }
+
+        if (languageCode === "ja") {
+            urls.push(DEFAULT_MARKDOWN_URL);
+            return fetchFirstAvailableMarkdown(urls);
+        }
+
+        if (languageCode && languageCode !== "ja") {
+            urls.push(`content.${languageCode}.md`);
+        }
+        if (languageCode !== "en") {
+            urls.push("content.en.md");
+        }
+        urls.push(DEFAULT_MARKDOWN_URL);
+
+        return fetchFirstAvailableMarkdown(urls);
+    }
+
+    function shouldShowAudienceSelector(languageCode) {
+        const selectedLanguageCode = getSelectedLanguageCode(languageCode);
+        return selectedLanguageCode === "ja";
+    }
+
+    function fetchFirstAvailableMarkdown(urls) {
+        const [url, ...remainingUrls] = urls;
+        if (!url) {
+            throw new Error("Failed to load instructions markdown.");
+        }
+
+        return fetch(url, {cache: "no-cache"})
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`Markdown not found: ${url}`);
+                }
+                return response.text();
+            })
+            .catch((error) => {
+                if (remainingUrls.length === 0) {
+                    throw error;
+                }
+                return fetchFirstAvailableMarkdown(remainingUrls);
+            });
+    }
+
+    function getSelectedLanguageCode(languageCode) {
+        return languageCode || window.normalizedLanguageCode || "ja";
+    }
+
+    function applyHeadingIds() {
+        const content = document.getElementById("instructionsContent");
+        const usedIds = new Set();
+        const headings = Array.from(content.querySelectorAll("h1, h2, h3, h4"));
+
+        headings.forEach((heading) => {
+            const baseId = createHeadingId(heading.textContent);
+            let id = baseId;
+            let suffix = 2;
+
+            while (usedIds.has(id)) {
+                id = `${baseId}-${suffix}`;
+                suffix += 1;
+            }
+
+            heading.id = id;
+            usedIds.add(id);
+        });
+    }
+
+    function createHeadingId(text) {
+        return String(text || "")
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, "-")
+            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~、。，．【】「」『』（）]/g, "")
+            .replace(/-+/g, "-")
+            .replace(/^-|-$/g, "") || "section";
+    }
+
+    function applyCommonTextClasses() {
+        const content = document.getElementById("instructionsContent");
+        const paragraphs = Array.from(content.querySelectorAll("p"));
+
+        paragraphs.forEach((paragraph, index) => {
+            paragraph.classList.add(index === 0 ? "desc" : "body-text");
+        });
+    }
+
+    function applyCardLayout() {
+        const content = document.getElementById("instructionsContent");
+        const nodes = Array.from(content.children);
+        const nextNodes = [];
+        let index = 0;
+
+        while (index < nodes.length) {
+            const node = nodes[index];
+
+            if (node.tagName === "H1") {
+                nextNodes.push(node);
+                index += 1;
+                continue;
+            }
+
+            if (node.tagName === "P" && nextNodes.length === 1) {
+                nextNodes.push(node);
+                index += 1;
+                continue;
+            }
+
+            if (node.tagName === "BLOCKQUOTE") {
+                nextNodes.push(convertBlockquoteToCard(node));
+                index += 1;
+                continue;
+            }
+
+            if (node.tagName === "H2") {
+                const section = document.createElement("section");
+                section.appendChild(node);
+                index += 1;
+
+                while (index < nodes.length && nodes[index].tagName !== "H2") {
+                    if (nodes[index].tagName === "H3") {
+                        appendAccordionToSection(section, nodes, index);
+                        index += countAccordionNodes(nodes, index);
+                        continue;
+                    }
+
+                    if (nodes[index].tagName === "BLOCKQUOTE") {
+                        section.appendChild(convertBlockquoteToCard(nodes[index]));
+                    } else {
+                        section.appendChild(nodes[index]);
+                    }
+                    index += 1;
+                }
+
+                nextNodes.push(section);
+                continue;
+            }
+
+            nextNodes.push(node);
+            index += 1;
+        }
+
+        content.replaceChildren(...nextNodes);
+    }
+
+    function renderAudienceSelector(languageCode, audience) {
+        if (!shouldShowAudienceSelector(languageCode)) {
+            return;
+        }
+
+        const content = document.getElementById("instructionsContent");
+        const selector = document.createElement("div");
+
+        const tabs = document.createElement("div");
+        tabs.className = "tabs-grid";
+        tabs.setAttribute("role", "tablist");
+        [
+            {value: AUDIENCE_USER, label: "一般ユーザ用", icon: "material-symbols:pregnant-woman-rounded"},
+            {value: AUDIENCE_STAFF, label: "医療スタッフ用", icon: "material-symbols:medical-services-rounded"}
+        ].forEach((option) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = `tab${option.value === audience ? " active" : ""}`;
+            button.setAttribute("role", "tab");
+            button.setAttribute("aria-selected", option.value === audience ? "true" : "false");
+            const icon = document.createElement("iconify-icon");
+            icon.setAttribute("icon", option.icon);
+            icon.setAttribute("width", "20");
+            icon.setAttribute("height", "20");
+            icon.setAttribute("aria-hidden", "true");
+            button.appendChild(icon);
+            button.appendChild(
+                $("<span>")
+                    .addClass("tab-label")
+                    .text(option.label)
+                    .get(0)
+            );
+            button.addEventListener("click", function () {
+                if (selectedAudience === option.value) {
+                    return;
+                }
+                selectedAudience = option.value;
+                loadInstructions(getSelectedLanguageCode())
+                    .catch((err) => {
+                        console.error("Failed to switch instructions audience:", err);
+                        renderMarkdownError();
+                    });
+            });
+            tabs.appendChild(button);
+        });
+        selector.appendChild(tabs);
+
+        const lead = content.querySelector("h1");
+        if (lead) {
+            lead.after(selector);
+            return;
+        }
+
+        content.prepend(selector);
+    }
+
+    function appendAccordionToSection(section, nodes, startIndex) {
+        let accordionList = Array.from(section.children).find((child) => child.classList.contains("accordion-list"));
+        if (!accordionList) {
+            accordionList = document.createElement("div");
+            accordionList.className = "accordion-list";
+            section.appendChild(accordionList);
+        }
+
+        const accordion = document.createElement("div");
+        accordion.className = "accordion";
+        accordion.id = nodes[startIndex].id;
+
+        const trigger = document.createElement("button");
+        trigger.type = "button";
+        trigger.className = "accordion-trigger";
+        trigger.setAttribute("aria-expanded", "false");
+
+        const heading = document.createElement("span");
+        heading.className = "bp-accordion-heading";
+        const headingText = document.createElement("span");
+        headingText.className = "h3-sample";
+        headingText.innerHTML = nodes[startIndex].innerHTML;
+        heading.appendChild(headingText);
+
+        const icon = document.createElement("iconify-icon");
+        icon.setAttribute("icon", "material-symbols:expand-more-rounded");
+        icon.setAttribute("width", "24");
+        icon.setAttribute("height", "24");
+        icon.setAttribute("aria-hidden", "true");
+
+        trigger.append(heading, icon);
+
+        const body = document.createElement("div");
+        body.className = "accordion-body row-list";
+
+        let index = startIndex + 1;
+        while (index < nodes.length && nodes[index].tagName !== "H2" && nodes[index].tagName !== "H3") {
+            if (nodes[index].tagName === "BLOCKQUOTE") {
+                body.appendChild(convertBlockquoteToCard(nodes[index]));
+            } else if (nodes[index].tagName === "H4") {
+                appendMiniCardToBody(body, nodes, index);
+                index += countMiniCardNodes(nodes, index);
+                continue;
+            } else {
+                body.appendChild(nodes[index]);
+            }
+            index += 1;
+        }
+
+        accordion.append(trigger, body);
+        accordionList.appendChild(accordion);
+    }
+
+    function countAccordionNodes(nodes, startIndex) {
+        let index = startIndex + 1;
+        while (index < nodes.length && nodes[index].tagName !== "H2" && nodes[index].tagName !== "H3") {
+            index += 1;
+        }
+        return index - startIndex;
+    }
+
+    function appendMiniCardToBody(body, nodes, startIndex) {
+        const miniCard = document.createElement("div");
+        miniCard.className = "card";
+        miniCard.id = nodes[startIndex].id;
+        miniCard.appendChild(nodes[startIndex]);
+
+        let index = startIndex + 1;
+        while (index < nodes.length && nodes[index].tagName !== "H2" && nodes[index].tagName !== "H3" && nodes[index].tagName !== "H4") {
+            if (nodes[index].tagName === "BLOCKQUOTE") {
+                miniCard.appendChild(convertBlockquoteToCard(nodes[index]));
+            } else {
+                miniCard.appendChild(nodes[index]);
+            }
+            index += 1;
+        }
+
+        body.appendChild(miniCard);
+    }
+
+    function countMiniCardNodes(nodes, startIndex) {
+        let index = startIndex + 1;
+        while (index < nodes.length && nodes[index].tagName !== "H2" && nodes[index].tagName !== "H3" && nodes[index].tagName !== "H4") {
+            index += 1;
+        }
+        return index - startIndex;
+    }
+
+    function convertBlockquoteToCard(blockquote) {
+        const infoCard = document.createElement("div");
+        infoCard.className = "card card-info";
+        while (blockquote.firstChild) {
+            infoCard.appendChild(blockquote.firstChild);
+        }
+        return infoCard;
+    }
+
+    function openTargetAccordion(target) {
+        const accordion = target.classList.contains("accordion")
+            ? target
+            : target.closest(".accordion");
+        if (!accordion) {
+            return;
+        }
+
+        const trigger = accordion.querySelector(".accordion-trigger");
+        const body = accordion.querySelector(".accordion-body");
+        if (!trigger || !body) {
+            return;
+        }
+
+        accordion.classList.add("is-open");
+        trigger.classList.add("active");
+        trigger.setAttribute("aria-expanded", "true");
+        body.style.maxHeight = body.scrollHeight + 32 + "px";
+    }
+
+    function scrollToCurrentHashTarget() {
+        if (!window.location.hash) {
+            return;
+        }
+
+        const targetId = decodeURIComponent(window.location.hash.slice(1));
+        const target = document.getElementById(targetId);
+        if (!target) {
+            return;
+        }
+
+        openTargetAccordion(target);
+        window.setTimeout(() => scrollToAnchorTarget(target, "auto"), 0);
+    }
+
+    function scrollToAnchorTarget(target, behavior) {
+        const header = document.querySelector(".header-wrapper");
+        const headerHeight = header ? header.getBoundingClientRect().height : 0;
+        const top = window.scrollY + target.getBoundingClientRect().top - headerHeight - 12;
+        window.scrollTo({
+            top: Math.max(0, top),
+            behavior: behavior
+        });
+    }
+
+    function loadHeader() {
+        return new Promise((resolve, reject) => {
+            $("#header-container").load("../common/header.html", function (responseText, status) {
+                if (status === "error") {
+                    reject(new Error("Failed to load header.html"));
+                    return;
+                }
+
+                document.addEventListener("i18n-initialized", function () {
+                    resolve();
+                }, {once: true});
+
+                $.getScript("../common/js/header.js")
+                    .fail(function () {
+                        reject(new Error("Failed to load header.js"));
+                    });
+            });
+        });
+    }
+
+    function renderMarkdownError() {
+        $("#instructionsContent").html(`
+            <h1>${getI18nText("title.usage", "使い方")}</h1>
+            <div class="card card-error">
+                <div class="state-card-inner">
+                    <iconify-icon icon="material-symbols:error-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
+                    <p class="small">使い方の説明を読み込めませんでした。時間をおいて再度お試しください。</p>
+                </div>
+            </div>
+        `);
+    }
+
+    function getI18nText(key, fallback) {
+        return window.i18next && i18next.isInitialized ? i18next.t(key, {defaultValue: fallback}) : fallback;
+    }
+
+    function setLocalizedDocumentTitle() {
+        const title = getI18nText("title.usage", "使い方").replace(/<[^>]*>/g, "");
+        document.title = `${title} | Pregnancy Support`;
+    }
+</script>
+</body>
+</html>

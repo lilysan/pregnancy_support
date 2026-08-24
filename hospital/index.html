@@ -559,22 +559,6 @@
         <div id="hospital-start-options" class="row-list">
             <div class="card">
                 <h2>
-                    <iconify-icon icon="material-symbols:qr-code-scanner-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
-                    <span>登録済みの病院情報を利用する</span>
-                </h2>
-                <p class="small">登録済みの端末から発行したスタッフ招待コードを読み取ると、この端末でも同じ病院情報を管理できます。</p>
-                <div class="btn-column">
-                    <button type="button" class="btn btn_hospital_account_scan">
-                        <iconify-icon icon="material-symbols:qr-code-scanner-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
-                        <span>スタッフ招待コードを読み取る</span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="both-lines">または</div>
-
-            <div class="card">
-                <h2>
                     <iconify-icon icon="material-symbols:add-business-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
                     <span>新しい病院情報を登録する</span>
                 </h2>
@@ -583,6 +567,22 @@
                     <button type="button" class="btn btn_hospital_new_registration">
                         <iconify-icon icon="material-symbols:edit-document-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
                         <span>基本情報を入力する</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="both-lines">または</div>
+
+            <div class="card">
+                <h2>
+                    <iconify-icon icon="material-symbols:qr-code-scanner-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
+                    <span>登録済みの病院情報を利用する</span>
+                </h2>
+                <p class="small">登録済みの端末から発行したスタッフ招待コードを読み取ると、この端末でも同じ病院情報を管理できます。</p>
+                <div class="btn-column">
+                    <button type="button" class="btn btn_hospital_account_scan">
+                        <iconify-icon icon="material-symbols:qr-code-scanner-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                        <span>スタッフ招待コードを読み取る</span>
                     </button>
                 </div>
             </div>
@@ -1654,7 +1654,7 @@
     function showHospitalAccountUserDeleteConfirmModal(userId) {
         return hospitalIntroModalManager.show({
             title: "スタッフ端末を解除しますか？",
-            messageHtml: `スタッフ端末（${userId}）の利用を解除しますか？<br><strong>ほかに利用中のスタッフ端末がない場合、この病院情報の管理や患者情報の取得ができなくなります。</strong><br>必要に応じて、先に別のスタッフ端末を招待してください。`,
+            messageHtml: `スタッフ端末（${userId}）の利用を解除しますか？<br><strong>ほかに利用中のスタッフ端末がない場合、この病院情報の管理や妊婦さんからの共有データの取得ができなくなります。</strong><br>必要に応じて、先に別のスタッフ端末を招待してください。`,
             negativeText: "キャンセル",
             deleteText: "解除する"
         });
