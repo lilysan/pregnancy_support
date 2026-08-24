@@ -906,7 +906,7 @@
       "callNow": "<ruby>質問<rt>しつもん</rt></ruby>は<ruby>以上<rt>いじょう</rt></ruby>です。\n<ruby>病院<rt>びょういん</rt></ruby>へ<ruby>連絡<rt>れんらく</rt></ruby>しましょう。",
       "watchAndWait": "<ruby>質問<rt>しつもん</rt></ruby>は<ruby>以上<rt>いじょう</rt></ruby>です。\nもう少し<ruby>様子<rt>ようす</rt></ruby>をみましょう。"
     },
-    "callHospital": "<ruby>病院<rt>びょういん</rt></ruby>に <ruby>電話<rt>でんわ</rt></ruby>するときは、<ruby>診察券番号<rt>しんさつけんばんごう</rt></ruby>と、「<ruby>陣痛診断<rt>じんつうしんだん</rt></ruby>に <ruby>答<rt>こた</rt></ruby>えました」と <ruby>伝<rt>つた</rt></ruby>えましょう。"
+    "callHospital": "<ruby>病院<rt>びょういん</rt></ruby>に <ruby>電話<rt>でんわ</rt></ruby>するときは、<ruby>診察券番号<rt>しんさつけんばんごう</rt></ruby>と、「<ruby>陣痛<rt>じんつう</rt></ruby>チェックに <ruby>答<rt>こた</rt></ruby>えました」と <ruby>伝<rt>つた</rt></ruby>えましょう。"
   },
   "translationApp": {
     "desc": "<ruby>翻訳<rt>ほんやく</rt></ruby>に<ruby>使<rt>つか</rt></ruby>えるアプリの<ruby>一覧<rt>いちらん</rt></ruby>です。アプリが<ruby>入<rt>はい</rt></ruby>っていないときは、ストアまたはWebページに<ruby>移動<rt>いどう</rt></ruby>します。",
