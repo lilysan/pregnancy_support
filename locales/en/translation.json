@@ -623,18 +623,18 @@
       "week": {
         "8": {
           "weightGuide": "Approx. 1–7g",
-          "weightImage": "1 small bean",
-          "development": "The heart starts beating, and the buds of the limbs are formed."
+          "weightImage": "1 bean",
+          "development": "The heart begins to beat, and the early arms and legs start to form."
         },
         "9": {
           "weightGuide": "Approx. 2–8g",
-          "weightImage": "2 small beans",
-          "development": "The body shape gradually begins to differentiate."
+          "weightImage": "2 beans",
+          "development": "The shape of the body gradually becomes more defined."
         },
         "10": {
           "weightGuide": "Approx. 5–10g",
           "weightImage": "1 cherry",
-          "development": "Fingers are formed, and the baby begins to look more human."
+          "development": "Fingers form, and the baby starts to look more like a baby."
         },
         "11": {
           "weightGuide": "Approx. 10g",
@@ -643,48 +643,48 @@
         },
         "12": {
           "weightGuide": "Approx. 20g",
-          "weightImage": "1 strawberry",
+          "weightImage": "1 medium strawberry",
           "development": "The basic structure of the body is almost complete."
         },
         "13": {
           "weightGuide": "Approx. 25g",
-          "weightImage": "Large strawberry",
-          "development": "Begins practicing swallowing amniotic fluid."
+          "weightImage": "1 large strawberry",
+          "development": "The baby begins practicing swallowing amniotic fluid."
         },
         "14": {
           "weightGuide": "Approx. 50g",
           "weightImage": "1 egg",
-          "development": "Begins to move the body slightly."
+          "development": "The baby begins to move the body a little."
         },
         "15": {
           "weightGuide": "Approx. 70g",
-          "weightImage": "Small mandarin orange",
+          "weightImage": "1 kiwi",
           "development": "Mouth movements can be observed."
         },
         "16": {
           "weightGuide": "Approx. 100g",
-          "weightImage": "Half an apple",
-          "development": "The face becomes clearly defined."
+          "weightImage": "1 mandarin orange",
+          "development": "The face becomes more distinct."
         },
         "17": {
           "weightGuide": "Approx. 150g",
-          "weightImage": "1 apple",
-          "development": "Gradually becomes more plump."
+          "weightImage": "1 banana",
+          "development": "The baby gradually becomes plumper."
         },
         "18": {
           "weightGuide": "Approx. 200g",
-          "weightImage": "Large apple",
-          "development": "Begins to react to sounds."
+          "weightImage": "1 carrot",
+          "development": "The baby begins to respond to sounds."
         },
         "19": {
           "weightGuide": "Approx. 250g",
-          "weightImage": "1 banana",
-          "development": "A protective layer (vernix) forms on the skin."
+          "weightImage": "1 apple",
+          "development": "A protective coating forms on the skin."
         },
         "20": {
           "weightGuide": "Approx. 300g",
-          "weightImage": "Half a grapefruit",
-          "development": "Fetal movements begin to be felt."
+          "weightImage": "1 head of lettuce",
+          "development": "You may begin to feel the baby move."
         },
         "21": {
           "weightGuide": "Approx. 400g",
@@ -693,33 +693,33 @@
         },
         "22": {
           "weightGuide": "Approx. 450g",
-          "weightImage": "2 small eggplants",
+          "weightImage": "1 large Japanese pear",
           "development": "Body functions are developing."
         },
         "23": {
           "weightGuide": "Approx. 500g",
-          "weightImage": "1/4 cabbage",
-          "development": "Makes breathing-like movements."
+          "weightImage": "2 apples",
+          "development": "The baby makes breathing-like movements."
         },
         "24": {
           "weightGuide": "Approx. 600g",
-          "weightImage": "Small melon",
+          "weightImage": "1/2 cabbage",
           "development": "The lungs begin to develop."
         },
         "25": {
           "weightGuide": "Approx. 700g",
-          "weightImage": "3 ears of corn",
-          "development": "Reacts to stimuli."
+          "weightImage": "2 ears of corn",
+          "development": "The baby responds to stimulation."
         },
         "26": {
           "weightGuide": "Approx. 800g",
-          "weightImage": "1/4 pumpkin",
-          "development": "Begins to open their eyes."
+          "weightImage": "2 grapefruits",
+          "development": "The baby begins to open the eyes."
         },
         "27": {
           "weightGuide": "Approx. 900g",
-          "weightImage": "1/3 pumpkin",
-          "development": "Movements become more robust."
+          "weightImage": "2 large Japanese pears",
+          "development": "The baby's movements become stronger."
         },
         "28": {
           "weightGuide": "Approx. 1000g",
@@ -728,22 +728,22 @@
         },
         "29": {
           "weightGuide": "Approx. 1200g",
-          "weightImage": "Small pineapple",
+          "weightImage": "1 cabbage",
           "development": "Body fat increases."
         },
         "30": {
           "weightGuide": "Approx. 1300g",
-          "weightImage": "1/4 Chinese cabbage",
-          "development": "Begins to move forcefully."
+          "weightImage": "1 pumpkin",
+          "development": "The baby begins to move more powerfully."
         },
         "31": {
           "weightGuide": "Approx. 1500g",
-          "weightImage": "1 melon",
-          "development": "A sleep-wake rhythm emerges."
+          "weightImage": "1 medium melon",
+          "development": "A rhythm of sleeping and waking begins to appear."
         },
         "32": {
           "weightGuide": "Approx. 1800g",
-          "weightImage": "1 pineapple",
+          "weightImage": "1 large pineapple",
           "development": "The head is more often positioned downwards."
         },
         "33": {
@@ -754,7 +754,7 @@
         "34": {
           "weightGuide": "Approx. 2200g",
           "weightImage": "1 large melon",
-          "development": "Ready to practice breastfeeding."
+          "development": "The baby is getting ready to drink breast milk."
         },
         "35": {
           "weightGuide": "Approx. 2400g",
@@ -764,27 +764,27 @@
         "36": {
           "weightGuide": "Approx. 2500g",
           "weightImage": "1 Chinese cabbage",
-          "development": "Body functions are fully developed."
+          "development": "The body's functions are becoming ready."
         },
         "37": {
           "weightGuide": "Approx. 2700g",
           "weightImage": "2 pumpkins",
-          "development": "Considered full-term; ready to be born at any time."
+          "development": "This is the time when the baby may be born at any point."
         },
         "38": {
           "weightGuide": "Approx. 2900g",
           "weightImage": "2 medium melons",
-          "development": "Almost fully developed."
+          "development": "The baby is almost fully developed."
         },
         "39": {
           "weightGuide": "Approx. 3000g",
           "weightImage": "1 watermelon",
-          "development": "Preparations for birth are complete."
+          "development": "The baby is ready for birth."
         },
         "40": {
           "weightGuide": "Approx. 3000–3500g",
           "weightImage": "2 large pineapples",
-          "development": "The time for the baby to be born."
+          "development": "This is the time when the baby is born."
         }
       }
     }
