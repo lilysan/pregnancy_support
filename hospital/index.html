@@ -80,6 +80,7 @@
 
         .btn_birthplan_settings_save,
         .btn_hospital_cancel,
+        .btn_save,
         .btn_birthplan_settings_cancel {
             display: none;
         }
@@ -551,16 +552,16 @@
 
 <main>
     <article class="main-container">
-        <h1>病院情報</h1>
+        <h1>病院情報の管理</h1>
         <p class="desc">
-            病院情報を登録・編集し、バースプラン設定や妊婦さんに案内するQRコード、スタッフ端末を管理できます。
+            基本情報の編集や、バースプラン設定、病院QRコードの発行、スタッフ端末の管理などができます。
         </p>
 
         <div id="hospital-start-options" class="row-list">
             <div class="card">
                 <h2>
                     <iconify-icon icon="material-symbols:add-business-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
-                    <span>新しい病院情報を登録する</span>
+                    <span>新しい病院アカウントを作成する</span>
                 </h2>
                 <p class="small">病院名・住所・電話番号を登録し、通院する妊婦さんに案内するQRコードを発行します。</p>
                 <div class="btn-column">
@@ -576,9 +577,9 @@
             <div class="card">
                 <h2>
                     <iconify-icon icon="material-symbols:qr-code-scanner-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
-                    <span>登録済みの病院情報を利用する</span>
+                    <span>作成済みの病院アカウントと連携する</span>
                 </h2>
-                <p class="small">登録済みの端末から発行したスタッフ招待コードを読み取ると、この端末でも同じ病院情報を管理できます。</p>
+                <p class="small">スタッフ端末登録済みの端末から発行したスタッフ招待コードを読み取ると、この端末でも同じ病院情報を管理できます。</p>
                 <div class="btn-column">
                     <button type="button" class="btn btn_hospital_account_scan">
                         <iconify-icon icon="material-symbols:qr-code-scanner-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
@@ -626,7 +627,7 @@
                     <button type="button" class="hospital-form-modal-close btn_hospital_form_modal_close" aria-label="閉じる">
                         <iconify-icon icon="material-symbols:close-rounded" width="28" height="28" aria-hidden="true"></iconify-icon>
                     </button>
-                    <p class="hospital-form-modal-title">基本情報を編集</p>
+                    <p class="hospital-form-modal-title">病院アカウントを作成</p>
                     <span class="hospital-form-modal-spacer" aria-hidden="true"></span>
                 </div>
             </header>
@@ -766,14 +767,18 @@
                                 <iconify-icon icon="material-symbols:close-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
                                 <span>キャンセル</span>
                             </button>
-                            <button type="button" class="btn btn_register">
+                            <button type="button" class="btn btn_save">
                                 <iconify-icon icon="material-symbols:save-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
-                                <span>登録</span>
+                                <span>保存</span>
                             </button>
                         </div>
                         <button type="button" class="btn btn_edit">
                             <iconify-icon icon="material-symbols:edit" width="22" height="22" aria-hidden="true"></iconify-icon>
                             <span>編集</span>
+                        </button>
+                        <button type="button" class="btn btn_register">
+                            <iconify-icon icon="material-symbols:add-business-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                            <span>病院アカウントを作成する</span>
                         </button>
                     </div>
                 </div>
@@ -927,6 +932,13 @@
         });
 
         $(".btn_register").on("click", function(e){
+            if (!$('form[name="form_hospital"]')[0].reportValidity()) {
+                return false;
+            } else {
+                setHospital(liff.getIDToken());
+            }
+        });
+        $(".btn_save").on("click", function(e){
             if (!$('form[name="form_hospital"]')[0].reportValidity()) {
                 return false;
             } else {
@@ -1533,7 +1545,7 @@
                     <div class="hospital-intro-step">
                         <span class="hospital-intro-step-number">Step 1</span>
                         <div>
-                            <p class="hospital-intro-step-title">基本情報を登録</p>
+                            <p class="hospital-intro-step-title">基本情報を入力</p>
                             <p class="hospital-intro-step-text">病院名、住所、電話番号を入力して保存します。</p>
                         </div>
                     </div>
@@ -1565,7 +1577,7 @@
 
     function showHospitalRegisteredModal() {
         hospitalIntroModalManager.show({
-            title: "基本情報を登録しました",
+            title: "病院アカウントを作成しました",
             messageHtml: `
                 <div class="hospital-intro-steps">
                     <div class="hospital-intro-step">
@@ -1695,6 +1707,7 @@
 
     function updateRegisterButtonState() {
         $(".btn_register").prop("disabled", hasRequiredEmptyField() || hasInvalidHalfwidthNumberField());
+        $(".btn_save").prop("disabled", hasRequiredEmptyField() || hasInvalidHalfwidthNumberField());
         $(".btn_edit").prop("disabled", hasRequiredEmptyField() || hasInvalidHalfwidthNumberField());
     }
 
@@ -1725,6 +1738,7 @@
         }
         setButtonVisible($(".btn_edit"), hasHospital);
         setButtonVisible($(".btn_register"), !hasHospital);
+        setButtonVisible($(".btn_save"), false);
         setButtonVisible($(".btn_hospital_cancel"), false);
         $("#birthplanSettingsTab, #hospitalQrCodeTab, #hospitalAccountManagementTab")
             .prop("disabled", !hasHospital)
@@ -2262,7 +2276,8 @@
 
     function editHospital(){
         setButtonVisible($(".btn_edit"), false);
-        setButtonVisible($(".btn_register"), true);
+        setButtonVisible($(".btn_register"), !Boolean(hospitalState.hospitalId));
+        setButtonVisible($(".btn_save"), Boolean(hospitalState.hospitalId));
         setButtonVisible($(".btn_hospital_cancel"), Boolean(hospitalState.hospitalId));
         setHospitalFormReadonly(false);
         updateRegisterButtonState();
@@ -2274,6 +2289,7 @@
         setHospitalFormReadonly(true);
         setButtonVisible($(".btn_edit"), true);
         setButtonVisible($(".btn_register"), false);
+        setButtonVisible($(".btn_save"), false);
         setButtonVisible($(".btn_hospital_cancel"), false);
     }
 

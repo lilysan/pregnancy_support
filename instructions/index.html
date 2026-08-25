@@ -78,7 +78,6 @@
             event.preventDefault();
             openTargetAccordion(target);
             scrollToAnchorTarget(target, "smooth");
-            history.pushState(null, "", `#${encodeURIComponent(targetId)}`);
         });
 
         const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
@@ -120,7 +119,6 @@
                 applyCommonTextClasses();
                 applyCardLayout();
                 renderAudienceSelector(selectedLanguageCode, audience);
-                scrollToCurrentHashTarget();
             });
     }
 
@@ -445,21 +443,6 @@
         trigger.classList.add("active");
         trigger.setAttribute("aria-expanded", "true");
         body.style.maxHeight = body.scrollHeight + 32 + "px";
-    }
-
-    function scrollToCurrentHashTarget() {
-        if (!window.location.hash) {
-            return;
-        }
-
-        const targetId = decodeURIComponent(window.location.hash.slice(1));
-        const target = document.getElementById(targetId);
-        if (!target) {
-            return;
-        }
-
-        openTargetAccordion(target);
-        window.setTimeout(() => scrollToAnchorTarget(target, "auto"), 0);
     }
 
     function scrollToAnchorTarget(target, behavior) {
