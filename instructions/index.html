@@ -30,6 +30,16 @@
     <div class="spinner"></div>
 </div>
 
+<div class="overlay image-preview-overlay" id="imagePreviewOverlay" aria-hidden="true">
+    <div class="image-preview-dialog" role="dialog" aria-modal="true" aria-label="画像の拡大表示">
+        <button type="button" class="image-preview-close" id="imagePreviewClose" aria-label="閉じる">
+            <iconify-icon icon="material-symbols:close-rounded" width="28" height="28" aria-hidden="true"></iconify-icon>
+        </button>
+        <img id="imagePreviewImage" class="image-preview-image" alt="">
+        <p id="imagePreviewCaption" class="image-preview-caption" hidden></p>
+    </div>
+</div>
+
 <script>
     const currentPage = "instructions";
     const DEFAULT_MARKDOWN_URL = "content.md";
@@ -80,6 +90,33 @@
             scrollToAnchorTarget(target, "smooth");
         });
 
+        $("#instructionsContent").on("click", "img.instruction-image", function () {
+            openImagePreview(this);
+        });
+
+        $("#instructionsContent").on("keydown", "img.instruction-image", function (event) {
+            if (event.key !== "Enter" && event.key !== " ") {
+                return;
+            }
+
+            event.preventDefault();
+            openImagePreview(this);
+        });
+
+        $("#imagePreviewOverlay").on("click", function (event) {
+            if (event.target === this) {
+                closeImagePreview();
+            }
+        });
+
+        $("#imagePreviewClose").on("click", closeImagePreview);
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" && $("#imagePreviewOverlay").hasClass("is-open")) {
+                closeImagePreview();
+            }
+        });
+
         const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
 
         liff.init({
@@ -117,6 +154,7 @@
                 $("#instructionsContent").html(marked.parse(markdown));
                 applyHeadingIds();
                 applyCommonTextClasses();
+                enhanceInstructionImages();
                 applyCardLayout();
                 renderAudienceSelector(selectedLanguageCode, audience);
             });
@@ -212,6 +250,53 @@
         paragraphs.forEach((paragraph, index) => {
             paragraph.classList.add(index === 0 ? "desc" : "body-text");
         });
+    }
+
+    function enhanceInstructionImages() {
+        const content = document.getElementById("instructionsContent");
+        const images = Array.from(content.querySelectorAll("img"));
+
+        images.forEach((image) => {
+            if (image.closest("a")) {
+                return;
+            }
+
+            image.classList.add("instruction-image");
+            image.setAttribute("role", "button");
+            image.setAttribute("tabindex", "0");
+            image.setAttribute("aria-label", `${image.alt || "画像"}を拡大表示`);
+        });
+    }
+
+    function openImagePreview(image) {
+        const overlay = document.getElementById("imagePreviewOverlay");
+        const previewImage = document.getElementById("imagePreviewImage");
+        const caption = document.getElementById("imagePreviewCaption");
+        if (!overlay || !previewImage || !caption) {
+            return;
+        }
+
+        previewImage.src = image.currentSrc || image.src;
+        previewImage.alt = image.alt || "";
+        caption.textContent = image.alt || "";
+        caption.hidden = !image.alt;
+        overlay.classList.add("is-open");
+        overlay.setAttribute("aria-hidden", "false");
+        document.body.classList.add("no-scroll");
+        document.getElementById("imagePreviewClose").focus();
+    }
+
+    function closeImagePreview() {
+        const overlay = document.getElementById("imagePreviewOverlay");
+        const previewImage = document.getElementById("imagePreviewImage");
+        if (!overlay || !previewImage) {
+            return;
+        }
+
+        overlay.classList.remove("is-open");
+        overlay.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("no-scroll");
+        previewImage.removeAttribute("src");
     }
 
     function applyCardLayout() {
