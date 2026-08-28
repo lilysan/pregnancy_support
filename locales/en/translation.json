@@ -903,8 +903,9 @@
       }
     },
     "result": {
-      "callNow": "That's all for the questions.\nPlease contact the hospital.",
-      "watchAndWait": "That's all for the questions.\nLet's wait and see for a while."
+      "over": "That's all for the questions.",
+      "callNow": "Please contact the hospital.",
+      "watchAndWait": "Let's wait and see for a while."
     },
     "callHospital": "When calling the hospital, please provide your patient ID number and let them know that you have completed the Labor Check. e.g., 「じんつうが はじまりました。しんさつけんばんごうは 〇〇 です。じんつうちぇっくに こたえました。」"
   },
