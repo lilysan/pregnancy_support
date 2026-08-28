@@ -39,7 +39,7 @@ This lets hospital staff view the data you enter through this service.
 From `Registered Hospitals`, tap `Scan Hospital QR Code` and scan the hospital QR code with your camera.
 After scanning, enter your `Patient ID Card No.`, `Travel Time to Hospital (minutes)`, and whether you plan to deliver at this hospital, then tap `Register`.
 
-![Hospital QR code linking workflow](images/diagram-flow.png)
+![Hospital QR code linking workflow](images/diagram-flow-en.png)
 
 > The following data is shared with the hospital. Please be careful if it contains information you do not want to share.
 >
