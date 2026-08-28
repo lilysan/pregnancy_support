@@ -42,7 +42,7 @@ $(function () {
                 {label: "出産・育児にかかわる制度", path: "systeminformation"},
                 {label: "日本の出産スタンダード", path: "aruaru"},
                 {label: "よくある質問", path: "qanda"},
-                {label: "使い方", path: "usage"},
+                {label: "使い方", path: "instructions"},
             ]
         },
         {

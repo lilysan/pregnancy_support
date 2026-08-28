@@ -313,10 +313,12 @@ body[dir="rtl"] .dropdown.language {
 .menu-option.is-disabled {
     opacity: 0.8;
     cursor: not-allowed;
-    background: var(--primary);
-    color: var(--white);
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    border: 2px solid var(--primary);
     border-radius: 12px;
     font-weight: bold;
+    box-shadow: none;
 }
 main {
     max-width: 600px;
@@ -822,7 +824,6 @@ textarea { min-height: 96px; resize: vertical; }
 .radio-row.single-select .radio-chip.active {
     border: 2px solid var(--primary);
     background: var(--primary-light);
-    border-color: var(--primary);
     color: var(--primary-dark);
     box-shadow: none;
 }
@@ -848,7 +849,6 @@ textarea { min-height: 96px; resize: vertical; }
 .radio-row.multi-select .radio-chip.active {
     border: 2px solid var(--primary);
     background: var(--primary-light);
-    border-color: var(--primary);
     color: var(--primary-dark);
     box-shadow: none;
 }
