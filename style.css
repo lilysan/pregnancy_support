@@ -61,7 +61,7 @@ body.no-scroll {
 .header-wrapper {
     position: sticky;
     top: 0;
-    z-index: 40;
+    z-index: 100;
     background: var(--background);
 }
 .header {
@@ -384,13 +384,7 @@ hr {
     font-size: 17px;
     line-height: 1.6;
 }
-.main-container img {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    margin: 16px 0;
-}
+
 .instruction-image {
     cursor: zoom-in;
 }
