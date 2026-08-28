@@ -819,9 +819,11 @@ textarea { min-height: 96px; resize: vertical; }
 }
 
 .radio-row.single-select .radio-chip.active {
-    background: var(--primary);
+    border: 2px solid var(--primary);
+    background: var(--primary-light);
     border-color: var(--primary);
-    color: var(--white);
+    color: var(--primary-dark);
+    box-shadow: none;
 }
 
 .radio-row.multi-select .radio-chip {
@@ -843,9 +845,11 @@ textarea { min-height: 96px; resize: vertical; }
 }
 
 .radio-row.multi-select .radio-chip.active {
-    color: var(--white);
+    border: 2px solid var(--primary);
+    background: var(--primary-light);
     border-color: var(--primary);
-    background: var(--primary);
+    color: var(--primary-dark);
+    box-shadow: none;
 }
 
 .radio-row.multi-select .radio-chip.active::before {
@@ -1118,7 +1122,9 @@ textarea { min-height: 96px; resize: vertical; }
 .tab.active {
     border: 2px solid var(--primary);
     background: var(--primary-light);
-    box-shadow: none; }
+    color: var(--primary-dark);
+    box-shadow: none;
+}
 .tab-label {
     font-size: 15px;
     font-weight: 600;
