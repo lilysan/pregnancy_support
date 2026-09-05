@@ -33,7 +33,8 @@
     "data": "患者データ＜スタッフ専用＞",
     "systemInformation": "Childbirth and Childcare Systems",
     "standard": "Japanese Childbirth Standards",
-    "sex": "Sex During Pregnancy"
+    "sex": "Sex During Pregnancy",
+    "privacy": "Privacy Policy, Data Security and Protection"
   },
   "header": {
     "selectLanguage": "Select Language",

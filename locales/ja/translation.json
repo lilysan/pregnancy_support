@@ -33,7 +33,8 @@
     "movementCounter": "胎動カウンター",
     "translation": "翻訳アプリ",
     "hospital": "病院情報＜スタッフ専用＞",
-    "data": "患者データ＜スタッフ専用＞"
+    "data": "患者データ＜スタッフ専用＞",
+    "privacy": "プライバシーポリシー・データセキュリティと保護"
   },
   "header": {
     "selectLanguage": "言語を選択",

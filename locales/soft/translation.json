@@ -33,7 +33,8 @@
     "data": "患者データ＜スタッフ専用＞",
     "systemInformation": "<ruby>出産<rt>しゅっさん</rt></ruby>・<ruby>育児<rt>いくじ</rt></ruby>にかかわる<ruby>制度<rt>せいど</rt></ruby>",
     "standard": "<ruby>日本<rt>にほん</rt></ruby>の<ruby>出産<rt>しゅっさん</rt></ruby>スタンダード",
-    "sex": "<ruby>妊娠中<rt>にんしんちゅう</rt></ruby>の<ruby>性交渉<rt>せいこうしょう</rt></ruby>について"
+    "sex": "<ruby>妊娠中<rt>にんしんちゅう</rt></ruby>の<ruby>性交渉<rt>せいこうしょう</rt></ruby>について",
+    "privacy": "プライバシーポリシー・データセキュリティと保護"
   },
   "header": {
     "selectLanguage": "<ruby>言語<rt>げんご</rt></ruby>を <ruby>選択<rt>せんたく</rt></ruby>",

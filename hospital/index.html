@@ -567,7 +567,7 @@
                     <iconify-icon icon="material-symbols:add-business-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
                     <span>新しい病院アカウントを作成する</span>
                 </h2>
-                <p class="small">病院名・住所・電話番号を登録し、通院する妊婦さんに案内するQRコードを発行します。</p>
+                <p>病院名・住所・電話番号を登録し、通院する妊婦さんに案内するQRコードを発行します。</p>
                 <div class="btn-column">
                     <button type="button" class="btn btn_hospital_new_registration">
                         <iconify-icon icon="material-symbols:edit-document-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
@@ -583,7 +583,7 @@
                     <iconify-icon icon="material-symbols:qr-code-scanner-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
                     <span>作成済みの病院アカウントと連携する</span>
                 </h2>
-                <p class="small">スタッフ端末登録済みの端末から発行したスタッフ招待コードを読み取ると、この端末でも同じ病院情報を管理できます。</p>
+                <p>スタッフ端末登録済みの端末から発行したスタッフ招待コードを読み取ると、この端末でも同じ病院情報を管理できます。</p>
                 <div class="btn-column">
                     <button type="button" class="btn btn_hospital_account_scan">
                         <iconify-icon icon="material-symbols:qr-code-scanner-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
@@ -796,7 +796,7 @@
             <div class="card card-info">
                 <div class="state-card-inner">
                     <iconify-icon icon="material-symbols:tune-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
-                    <p class="small">質問をオフにすると、その質問全体が非対応として扱われます。</p>
+                    <p>質問をオフにすると、その質問全体が非対応として扱われます。</p>
                 </div>
             </div>
             <div id="birthplanSettingsForm" class="accordion-list"></div>
@@ -830,7 +830,7 @@
                     <div class="state-card-inner">
                         <iconify-icon icon="material-symbols:info-rounded" width="24" height="24" style="color:var(--info-state)"></iconify-icon>
                         <div>
-                            <p class="small">このQRコードは固定なので、基本情報やバースプラン設定を編集しても、QRコードや案内シートを差し替える必要はありません。</p>
+                            <p>このQRコードは固定なので、基本情報やバースプラン設定を編集しても、QRコードや案内シートを差し替える必要はありません。</p>
                         </div>
                     </div>
                 </div>
@@ -855,7 +855,7 @@
                 <div class="state-card-inner">
                     <iconify-icon icon="material-symbols:info-rounded" width="24" height="24" style="color:var(--info-state)"></iconify-icon>
                     <div>
-                        <p class="small">この端末が故障した場合や、LINEアカウントが消えてしまった場合などのバックアップ対策にもなります。</p>
+                        <p>この端末が故障した場合や、LINEアカウントが消えてしまった場合などのバックアップ対策にもなります。</p>
                     </div>
                 </div>
             </div>
@@ -863,7 +863,7 @@
                     <h3>
                         <span>スタッフ招待コード</span>
                     </h3>
-                    <p class="small">招待コードは短時間だけ有効です。追加するスタッフ端末で読み取る直前に発行してください。</p>
+                    <p>招待コードは短時間だけ有効です。追加するスタッフ端末で読み取る直前に発行してください。</p>
                     <div class="btn-column">
                         <button type="button" class="btn btn_hospital_invite_code_create">
                             <iconify-icon icon="material-symbols:qr-code-2-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
@@ -1238,11 +1238,6 @@
             alert("Network error!");
             return false;
         }
-        if (response.statusCode === 401) {
-            liff.logout();
-            window.location.reload();
-            return false;
-        }
         if (response.statusCode !== 200) {
             console.error(response.message);
             showHospitalInviteCodeInvalidModal();
@@ -1305,12 +1300,7 @@
     }
 
     function handleHospitalResponse(response) {
-        if(response.statusCode === 401){
-            liff.logout();
-            window.location.reload();
-            return;
-        }
-        else if(response.statusCode !== 200){
+        if(response.statusCode !== 200){
             console.error(response.message);
             alert(response.message);
             return;
@@ -1349,11 +1339,6 @@
             renderHospitalAccountUsers();
             return;
         }
-        if(response.statusCode === 401){
-            liff.logout();
-            window.location.reload();
-            return;
-        }
         if(response.statusCode !== 200){
             hospitalAccountState.users = [];
             renderHospitalAccountUsers();
@@ -1381,11 +1366,6 @@
         }
         $("#loadingOverlay").removeClass('is-open');
 
-        if (response.statusCode === 401) {
-            liff.logout();
-            window.location.reload();
-            return;
-        }
         if (response.statusCode !== 200) {
             console.error(response.message);
             alert(response.message);
@@ -1409,7 +1389,7 @@
             title: "スタッフ招待コード",
             messageHtml: `
                 <div class="hospital-invite-code-modal">
-                    <p class="small">追加するスタッフ端末でこの招待コードを読み取ってください。</p>
+                    <p>追加するスタッフ端末でこの招待コードを読み取ってください。</p>
                     <div id="hospitalInviteCodeQr" class="hospital-qrcode" role="img" aria-label="スタッフ招待コード"></div>
                     <p class="hospital-invite-code-countdown">残り <span id="hospitalInviteCodeSeconds">${expiresIn}</span> 秒</p>
                 </div>`,
@@ -1454,11 +1434,11 @@
         const usersEl = $(".hospital-account-users");
         usersEl.empty();
         if (!hospitalState.hospitalId) {
-            usersEl.append($("<p>").addClass("small").text("病院データ登録後に連携中の端末を確認できます。"));
+            usersEl.append($("<p>").text("病院データ登録後に連携中の端末を確認できます。"));
             return;
         }
         if (hospitalAccountState.users.length === 0) {
-            usersEl.append($("<p>").addClass("small").text("連携中のスタッフ端末を取得できませんでした。"));
+            usersEl.append($("<p>").text("連携中のスタッフ端末を取得できませんでした。"));
             return;
         }
 
@@ -1837,11 +1817,6 @@
                 idToken: idToken
             })
         ).then(function (response) {
-            if (response.statusCode === 401) {
-                liff.logout();
-                window.location.reload();
-                return {};
-            }
             if (response.statusCode !== 200) {
                 console.error(response.message);
                 alert(response.message);
@@ -2161,11 +2136,7 @@
                 }
             })
         ).done(function(response) {
-            if(response.statusCode === 401){
-                liff.logout();
-                window.location.reload();
-            }
-            else if(response.statusCode !== 200){
+            if(response.statusCode !== 200){
                 console.error(response.message);
                 alert(response.message);
             }
@@ -2199,11 +2170,7 @@
         $("#loadingOverlay").addClass('is-open');
         deleteHospitalAccountUserRequest(idToken, userId)
             .done(async function(response) {
-                if(response.statusCode === 401){
-                    liff.logout();
-                    window.location.reload();
-                }
-                else if(response.statusCode !== 200){
+                if(response.statusCode !== 200){
                     console.error(response.message);
                     alert(response.message);
                 }
@@ -2241,11 +2208,7 @@
                 postData: getHospitalPostData()
             })
         ).done(async function(response) {
-            if(response.statusCode === 401){
-                liff.logout();
-                window.location.reload();
-            }
-            else if(response.statusCode !== 200){
+            if(response.statusCode !== 200){
                 console.error(response.message);
                 alert(response.message);
             }
@@ -2310,11 +2273,7 @@
                 }
             })
         ).done(function(response) {
-            if(response.statusCode === 401){
-                liff.logout();
-                window.location.reload();
-            }
-            else if(response.statusCode !== 200){
+            if(response.statusCode !== 200){
                 console.error(response.message);
                 alert(response.message);
             }
