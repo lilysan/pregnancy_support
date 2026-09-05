@@ -43,6 +43,7 @@ $(function () {
                 {label: "日本の出産スタンダード", path: "aruaru"},
                 {label: "よくある質問", path: "qanda"},
                 {label: "使い方", path: "instructions"},
+                {label: "プライバシーポリシー・データセキュリティと保護", path: "privacy"},
             ]
         },
         {

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>プライバシーポリシー・データセキュリティと保護 | Pregnancy Support</title>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="../common/js/config.js"></script>
+    <link rel="stylesheet" href="../style.css"/>
+    <style>
+        .privacy-hero {
+            display: grid;
+            gap: 12px;
+            padding: 20px;
+            border: 1px solid var(--primary-light);
+            border-radius: 12px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .privacy-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            width: fit-content;
+            margin: 0;
+            color: var(--primary-dark);
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.45;
+        }
+
+        .privacy-hero h1 {
+            margin-bottom: 0;
+            color: var(--primary-dark);
+        }
+
+        .privacy-hero p {
+            margin: 0;
+            color: var(--sub-text);
+        }
+
+        .privacy-summary {
+            display: grid;
+            gap: 10px;
+        }
+
+        .privacy-summary-item {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px;
+            align-items: start;
+            padding: 12px;
+            border: 1px solid var(--primary-light);
+            border-radius: 8px;
+            background: var(--surface);
+        }
+
+        .privacy-summary-item iconify-icon {
+            margin-top: 2px;
+            color: var(--primary-dark);
+        }
+
+        .privacy-summary-item p {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.55;
+        }
+
+        .privacy-section {
+            display: grid;
+            gap: 12px;
+        }
+
+        .privacy-section p {
+            margin: 0;
+        }
+
+        .privacy-list {
+            display: grid;
+            gap: 10px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .privacy-list li {
+            padding: 12px;
+            border: 1px solid var(--divider);
+            border-radius: 8px;
+            background: var(--white);
+        }
+
+        .privacy-list strong {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--primary-dark);
+        }
+
+        .privacy-note {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            padding: 14px;
+            border: 1px dashed var(--primary-border);
+            border-radius: 10px;
+            background: var(--primary-light);
+        }
+
+        .privacy-note iconify-icon {
+            flex: 0 0 auto;
+            margin-top: 2px;
+            color: var(--primary-dark);
+        }
+
+        .privacy-note p {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.55;
+        }
+
+        .privacy-updated {
+            margin: 0;
+            color: var(--sub-text);
+            font-size: 13px;
+            line-height: 1.45;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<div id="header-container" class="header-wrapper"></div>
+
+<main>
+    <article class="main-container" aria-labelledby="privacyTitle">
+        <section class="privacy-hero">
+            <p class="privacy-eyebrow">
+                <iconify-icon icon="material-symbols:shield-lock-rounded" width="18" height="18" aria-hidden="true"></iconify-icon>
+                安心して利用するために
+            </p>
+            <h1 id="privacyTitle">プライバシーポリシー・データセキュリティと保護</h1>
+            <p>Pregnancy Supportでは、妊娠・出産・育児に関わる大切な情報を扱います。このページでは、利用者の情報をどのように扱い、守るかを説明します。</p>
+        </section>
+
+        <section class="privacy-summary" aria-label="大切なポイント">
+            <div class="privacy-summary-item">
+                <iconify-icon icon="material-symbols:lock-person-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                <p>入力された情報は、妊娠期から出産までのコミュニケーションと支援のために使用します。</p>
+            </div>
+            <div class="privacy-summary-item">
+                <iconify-icon icon="material-symbols:medical-information-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                <p>病院QRコードを読み取って登録した場合、登録した病院スタッフが必要な範囲で共有データを確認できます。</p>
+            </div>
+            <div class="privacy-summary-item">
+                <iconify-icon icon="material-symbols:manage-accounts-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                <p>利用者は、登録情報の確認、修正、削除をアプリ内から行えます。</p>
+            </div>
+        </section>
+
+        <section class="privacy-section">
+            <h2>取得する情報</h2>
+            <p>本アプリでは、機能の提供に必要な範囲で次の情報を取得・保存することがあります。</p>
+            <ul class="privacy-list">
+                <li>
+                    <strong>プロフィール情報</strong>
+                    名前、年齢、国籍、母語、出産予定日、日本語レベルなど、利用者が入力した基本情報。
+                </li>
+                <li>
+                    <strong>病院・連絡先情報</strong>
+                    通院中または分娩予定の病院、診察券番号、病院までの所要時間、家族やタクシーなどの連絡先。
+                </li>
+                <li>
+                    <strong>妊娠・出産に関する記録</strong>
+                    バースプラン、ワクチン接種、体重、血圧、血糖値、メモなど、利用者が登録した内容。
+                </li>
+                <li>
+                    <strong>利用環境に関する情報</strong>
+                    LINEログインやLIFFの利用に必要な識別情報、表示言語、エラー調査に必要な技術情報。
+                </li>
+            </ul>
+        </section>
+
+        <section class="privacy-section">
+            <h2>利用目的</h2>
+            <ul class="privacy-list">
+                <li>妊婦健診、保健指導、出産準備、育児期の支援を円滑に行うため。</li>
+                <li>利用者と病院スタッフのコミュニケーションを補助するため。</li>
+                <li>利用者が登録したデータを本人が確認・編集できるようにするため。</li>
+                <li>アプリの不具合調査、セキュリティ維持、サービス改善を行うため。</li>
+            </ul>
+        </section>
+
+        <section class="privacy-section">
+            <h2>病院スタッフとのデータ共有</h2>
+            <p>病院QRコードを読み取って病院を登録すると、利用者が登録した一部のデータが、その病院のスタッフ専用画面から確認できる状態になります。共有は、妊娠・出産に関する支援や診療時の確認に必要な範囲で行われます。</p>
+            <div class="privacy-note">
+                <iconify-icon icon="material-symbols:info-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                <p>共有をやめたい場合は、登録済みの病院情報を削除してください。削除後、その病院から利用者の共有データを確認できなくなります。</p>
+            </div>
+        </section>
+
+        <section class="privacy-section">
+            <h2>第三者提供について</h2>
+            <p>法令に基づく場合、人の生命・身体の保護に必要な場合、または利用者の同意がある場合を除き、取得した個人情報を目的外に第三者へ提供しません。</p>
+        </section>
+
+        <section class="privacy-section">
+            <h2>データセキュリティと保護</h2>
+            <ul class="privacy-list">
+                <li>
+                    <strong>アクセス制御</strong>
+                    利用者本人、登録された病院スタッフなど、必要な人だけが必要な範囲で情報を確認できるようにします。
+                </li>
+                <li>
+                    <strong>通信と保存の保護</strong>
+                    通信経路や保存先での保護を行い、外部からの不正アクセス、紛失、改ざん、漏えいの防止に努めます。
+                </li>
+                <li>
+                    <strong>運用管理</strong>
+                    アクセス権限の管理、システムの更新、不具合や異常の確認を行い、安全な運用に努めます。
+                </li>
+            </ul>
+        </section>
+
+        <section class="privacy-section">
+            <h2>データの確認・修正・削除</h2>
+            <p>利用者は、アプリ内の各機能から登録内容を確認・修正できます。不要になった病院情報、連絡先、各種記録は、各画面の削除機能から削除できます。</p>
+        </section>
+
+        <section class="privacy-section">
+            <h2>医学的免責事項</h2>
+            <p>本アプリは、妊娠・出産・育児に関する情報の記録、確認、医療者とのコミュニケーションを補助するためのものです。医師、助産師、看護師その他の医療専門職による診断、治療、助言の代わりになるものではありません。</p>
+            <p>体調の変化、出血、強い痛み、発熱、胎動の減少、破水の可能性、強い不安などがある場合は、アプリの表示や記録だけで判断せず、速やかに医療機関または救急窓口へ連絡してください。</p>
+        </section>
+
+        <section class="privacy-section">
+            <h2>お問い合わせ</h2>
+            <p>個人情報の取り扱い、共有範囲、削除に関する相談は、このアプリケーションの提供者へお問い合わせください。</p>
+            <p>メール: <a href="mailto:support@example.com">support@example.com</a></p>
+        </section>
+
+        <p class="privacy-updated">最終更新日: 2026年9月1日</p>
+    </article>
+</main>
+
+<div class="overlay is-open" id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
+
+<script>
+    const currentPage = "privacy";
+    /** @type {import('@line/liff').Liff} */
+    const liff = window.liff;
+
+    $(function () {
+        const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+
+        liff.init({
+            liffId: LIFF_ID,
+            withLoginOnExternalBrowser: !isDev,
+        }).then(() => {
+            loadHeader();
+        }).catch((err) => {
+            console.error("Privacy page init failed:", err);
+            $("#loadingOverlay").removeClass("is-open");
+        });
+
+        function loadHeader() {
+            $("#header-container").load("../common/header.html", function() {
+                document.addEventListener("i18n-initialized", function() {
+                    $("#loadingOverlay").removeClass("is-open");
+                }, { once: true });
+
+                $.getScript("../common/js/header.js");
+            });
+        }
+    });
+</script>
+</body>
+</html>
