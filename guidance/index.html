@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="../common/js/config.js"></script>
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <link rel="stylesheet" type="text/css" href="../examination/style.css" />
+    <title>保健指導コミュニケーションボード</title>
+</head>
+
+<body>
+    <div id="header-container" class="header-wrapper"></div>
+
+    <header class="app-header">
+        <h1 id="pageTitle" class="h3-sample">保健指導コミュニケーションボード</h1>
+        <p id="pageLead" class="small-sample">保健指導に必要なやり取りと資料を、テキストと音でお手伝いします。</p>
+    </header>
+    <nav class="app-switcher" aria-label="アプリ切替">
+        <a id="switchReceptionLabel" class="app-switch-link" href="../reception/index.html">受付</a>
+        <a id="switchExamLabel" class="app-switch-link" href="../examination/index.html">診察</a>
+        <a id="switchGuidanceLabel" class="app-switch-link is-current" href="./index.html" aria-current="page">保健指導</a>
+    </nav>
+    <button type="button" id="languageSettingBtn" class="language-setting-btn">設定</button>
+    <div id="languageDialog" style="display:none;">
+        <div id="languageDialogPanel">
+            <h2 id="languageDialogTitle" class="h4-sample">設定</h2>
+            <p id="languageSectionTitle" class="settings-label caption-sample">言語設定</p>
+            <div id="languageOptionList" class="language-option-list"></div>
+            <button type="button" id="closeLanguageBtn">閉じる</button>
+        </div>
+    </div>
+
+    <main class="app-shell">
+        <nav id="categoryTabs" class="category-tabs" aria-label="カテゴリ"></nav>
+        <section id="accordionList" class="accordion-list" aria-live="polite"></section>
+    </main>
+    <button id="freeTranslateBtn" class="free-translate-btn" type="button" aria-label="翻訳アプリ">翻訳アプリ</button>
+    <div id="translationAppDialog" class="translation-app-dialog" aria-hidden="true">
+        <div id="translationAppPanel" class="translation-app-panel">
+            <div class="translation-app-head">
+                <p id="translationAppTitle" class="translation-app-title h4-sample">翻訳アプリ</p>
+                <button id="translationAppCloseBtn" class="translation-app-close" type="button" aria-label="閉じる">閉じる</button>
+            </div>
+            <p id="translationAppLead" class="translation-app-lead small-sample">使うアプリを選んでください。</p>
+            <div class="translation-app-actions">
+                <button id="openGoogleTranslateBtn" class="translation-app-option" type="button">Google 翻訳</button>
+                <button id="openDeepLBtn" class="translation-app-option" type="button">DeepL</button>
+            </div>
+        </div>
+    </div>
+    <button id="scrollTopBtn" class="scroll-top-btn" type="button" aria-label="ページトップへ戻る">▲</button>
+
+    <script>
+        const languageConfig = [{
+                code: "ja",
+                label: "やさしい日本語",
+                i18nFile: "../examination/i18n/ja.json",
+                speech: "ja-JP"
+            },
+            {
+                code: "en-US",
+                label: "英語編(English)",
+                i18nFile: "../examination/i18n/en-US.json",
+                speech: "en-US"
+            },
+            {
+                code: "zh",
+                label: "中国語編(中文版)",
+                i18nFile: "../examination/i18n/zh.json",
+                speech: "zh-CN"
+            },
+            {
+                code: "fr",
+                label: "フランス語編(French)",
+                i18nFile: "../examination/i18n/fr.json",
+                speech: "fr-FR"
+            },
+            {
+                code: "ko",
+                label: "韓国語編(Korean)",
+                i18nFile: "../examination/i18n/ko.json",
+                speech: "ko-KR"
+            },
+            {
+                code: "pr",
+                label: "ポルトガル語編(Portugues)",
+                i18nFile: "../examination/i18n/pr.json",
+                speech: "pt-PT"
+            },
+            {
+                code: "tl",
+                label: "タガログ語編(TAGALOG)",
+                i18nFile: "../examination/i18n/tl.json",
+                speech: "tl-PH"
+            },
+            {
+                code: "ve",
+                label: "ベトナム語編(Vietnam)",
+                i18nFile: "../examination/i18n/ve.json",
+                speech: "vi-VN"
+            },
+            {
+                code: "th",
+                label: "タイ語編(Thai)",
+                i18nFile: "../examination/i18n/th.json",
+                speech: "th-TH"
+            },
+            {
+                code: "de",
+                label: "ドイツ語編(German)",
+                i18nFile: "../examination/i18n/de.json",
+                speech: "de-DE"
+            },
+            {
+                code: "id",
+                label: "インドネシア語(Indonesia)",
+                i18nFile: "../examination/i18n/id.json",
+                speech: "id-ID"
+            },
+            {
+                code: "ru",
+                label: "ロシア語(Russian)",
+                i18nFile: "../examination/i18n/ru.json",
+                speech: "ru-RU"
+            },
+            {
+                code: "ne",
+                label: "ネパール語(Nepali)",
+                i18nFile: "../examination/i18n/ne.json",
+                speech: "ne-NP"
+            },
+            {
+                code: "lo",
+                label: "ラオス語(Laotian)",
+                i18nFile: "../examination/i18n/lo.json",
+                speech: "lo-LA"
+            },
+            {
+                code: "uk",
+                label: "ウクライナ語(Ukrainian)",
+                i18nFile: "../examination/i18n/uk.json",
+                speech: "uk-UA"
+            },
+            {
+                code: "fa-AF",
+                label: "ダリ語(Dari)",
+                i18nFile: "../examination/i18n/fa-AF.json",
+                speech: "fa-AF"
+            },
+            {
+                code: "si",
+                label: "シンハラ語(Sinhala)",
+                i18nFile: "../examination/i18n/si.json",
+                speech: "si-LK"
+            },
+            {
+                code: "ms",
+                label: "マレー語(Malay)",
+                i18nFile: "../examination/i18n/ms.json",
+                speech: "ms-MY"
+            },
+            {
+                code: "my",
+                label: "ミャンマー語(Myanmar)",
+                i18nFile: "../examination/i18n/my.json",
+                speech: "my-MM"
+            },
+            {
+                code: "bn",
+                label: "ベンガル語(Bengali)",
+                i18nFile: "../examination/i18n/bn.json",
+                speech: "bn-BD"
+            },
+            {
+                code: "ur",
+                label: "ウルドゥー語(Urdu)",
+                i18nFile: "../examination/i18n/ur.json",
+                speech: "ur-PK"
+            }
+        ];
+
+        const DIALOG_TEXT = {
+            "en-US": {
+                settings: "Settings",
+                language: "Language",
+                close: "Close"
+            },
+            "zh": {
+                settings: "设置",
+                language: "语言",
+                close: "关闭"
+            },
+            "fr": {
+                settings: "Parametres",
+                language: "Langue",
+                close: "Fermer"
+            },
+            "ko": {
+                settings: "설정",
+                language: "언어",
+                close: "닫기"
+            },
+            "pr": {
+                settings: "Configuracoes",
+                language: "Idioma",
+                close: "Fechar"
+            },
+            "tl": {
+                settings: "Mga Setting",
+                language: "Wika",
+                close: "Isara"
+            },
+            "ve": {
+                settings: "Cai dat",
+                language: "Ngon ngu",
+                close: "Dong"
+            },
+            "th": {
+                settings: "การตั้งค่า",
+                language: "ภาษา",
+                close: "ปิด"
+            },
+            "de": {
+                settings: "Einstellungen",
+                language: "Sprache",
+                close: "Schliessen"
+            },
+            "id": {
+                settings: "Pengaturan",
+                language: "Bahasa",
+                close: "Tutup"
+            },
+            "ru": {
+                settings: "Настройки",
+                language: "Язык",
+                close: "Закрыть"
+            },
+            "ne": {
+                settings: "सेटिङ",
+                language: "भाषा",
+                close: "बन्द"
+            },
+            "lo": {
+                settings: "ການຕັ້ງຄ່າ",
+                language: "ພາສາ",
+                close: "ປິດ"
+            },
+            "uk": {
+                settings: "Налаштування",
+                language: "Мова",
+                close: "Закрити"
+            },
+            "fa-AF": {
+                settings: "تنظیمات",
+                language: "زبان",
+                close: "بستن"
+            },
+            "si": {
+                settings: "සැකසුම්",
+                language: "භාෂාව",
+                close: "වසන්න"
+            },
+            "ms": {
+                settings: "Tetapan",
+                language: "Bahasa",
+                close: "Tutup"
+            },
+            "my": {
+                settings: "ဆက်တင်များ",
+                language: "ဘာသာစကား",
+                close: "ပိတ်ရန်"
+            },
+            "bn": {
+                settings: "সেটিংস",
+                language: "ভাষা",
+                close: "বন্ধ"
+            },
+            "ur": {
+                settings: "ترتیبات",
+                language: "زبان",
+                close: "بند کریں"
+            }
+        };
+
+        const LANGUAGE_STORAGE_KEY = "examinationSelectedLanguage";
+        const currentPage = "guidance";
+        const GUIDANCE_TYPES = new Set(["保健指導", "EPDS", "ママと赤ちゃんのサポートシリーズ", "性生活"]);
+        const DIAGNOSIS_TYPE_TRANSLATIONS = {
+            "en-US": "Diagnosis",
+            zh: "诊断",
+            fr: "Diagnostic",
+            ko: "진단",
+            pr: "Diagnostico",
+            tl: "Diagnosis",
+            ve: "Chan doan",
+            th: "การวินิจฉัย",
+            de: "Diagnose",
+            id: "Diagnosis",
+            ru: "Диагноз",
+            ne: "निदान",
+            lo: "ການວິນິດໄສ",
+            uk: "Діагноз",
+            "fa-AF": "تشخیص",
+            si: "රෝග විනිශ්චය",
+            ms: "Diagnosis",
+            my: "ရောဂါရှာဖွေမှု",
+            bn: "রোগনির্ণয়",
+            ur: "تشخیص"
+        };
+        const EPDS_API_URL =
+            typeof API_URL !== "undefined" ? API_URL :
+            "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
+        let localData = [];
+        let translatedByLanguage = {};
+        let epdsDataByLanguage = {};
+        let specialItemsByLanguage = {};
+        let drugTypeTreeByLanguage = {};
+        let selectedLanguage = "en-US";
+        let keepIndexes = [];
+        let selectedType = "";
+        let scrollTopBtn = null;
+        const pharmacySelections = new Set();
+        const answerSelections = new Set();
+        const epdsSelections = new Map();
+        const epdsSubmissionState = new Map();
+        let liffInitPromise = null;
+        let epdsUserId = "";
+
+        window.addEventListener("load", init);
+
+        async function init() {
+            loadCommonHeader();
+            setupScrollTopButton();
+            setupTranslationAppDialog();
+            document.getElementById("languageSettingBtn").addEventListener("click", () => {
+                document.getElementById("languageDialog").style.display = "block";
+            });
+            document.getElementById("closeLanguageBtn").addEventListener("click", () => {
+                document.getElementById("languageDialog").style.display = "none";
+            });
+            selectedLanguage = loadInitialLanguage();
+            await initI18n(selectedLanguage);
+            applyStaticTranslations();
+            renderLanguagePicker();
+            setLoading(tr("loading_data", "データを読み込んでいます..."));
+
+            await fetchLocalData();
+            await ensureLanguageLoaded(selectedLanguage, true);
+
+            const types = [...new Set(localData.map(item => item.type || "その他"))];
+            selectedType = types[0] || "";
+            renderAll();
+        }
+
+        function loadCommonHeader() {
+            if (!window.jQuery) return;
+            $("#header-container").load("../common/header.html", function (_responseText, status) {
+                if (status === "error") {
+                    console.error("Failed to load header.html");
+                    return;
+                }
+                $.getScript("../common/js/header2.js").fail(function () {
+                    console.error("Failed to load header2.js");
+                });
+            });
+        }
+
+        function loadInitialLanguage() {
+            const saved = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+            if (saved && languageConfig.some(item => item.code === saved)) return saved;
+            return detectInitialLanguage();
+        }
+
+        function getI18nLanguage(langCode) {
+            const supported = new Set(languageConfig.map(item => item.code));
+            if (langCode === "ja-JP") return "ja";
+            if (supported.has(langCode)) return langCode;
+            return "en-US";
+        }
+
+        async function initI18n(langCode) {
+            if (!window.i18next) return;
+            const target = getI18nLanguage(langCode);
+            if (!i18next.isInitialized) {
+                await i18next
+                    .use(i18nextHttpBackend)
+                    .init({
+                        lng: target,
+                        fallbackLng: "en-US",
+                        backend: {
+                        loadPath: "../examination/i18n/{{lng}}.json"
+                        }
+                    });
+                return;
+            }
+            await i18next.changeLanguage(target);
+        }
+
+        function tr(key, fallback, options) {
+            if (!window.i18next || !i18next.isInitialized) return fallback || "";
+            const value = i18next.t(key, options || {});
+            return value === key ? (fallback || "") : value;
+        }
+
+        function applyStaticTranslations() {
+            document.getElementById("pageTitle").textContent = buildBilingualLabel("保健指導コミュニケーションボード", "guidance_page_title");
+            document.getElementById("pageLead").textContent = tr("guidance_page_lead", "保健指導に必要なやり取りと資料を、テキストと音でお手伝いします。");
+            document.getElementById("switchExamLabel").textContent = buildBilingualLabel("診察", "switch_exam");
+            document.getElementById("switchReceptionLabel").textContent = buildBilingualLabel("受付",
+                "switch_reception");
+            document.getElementById("switchGuidanceLabel").textContent = buildBilingualLabel("保健指導", "switch_guidance");
+            document.getElementById("categoryTabs").setAttribute("aria-label", tr("category_aria", "カテゴリ"));
+            document.getElementById("freeTranslateBtn").textContent = tr("translation_app_btn", "翻訳アプリ");
+            document.getElementById("freeTranslateBtn").setAttribute("aria-label", tr("translation_app_btn", "翻訳アプリ"));
+            document.getElementById("translationAppDialog").setAttribute("aria-label", tr("translation_app_dialog_aria",
+                "翻訳アプリ選択"));
+            document.getElementById("translationAppTitle").textContent = tr("translation_app_title", "翻訳アプリ");
+            document.getElementById("translationAppCloseBtn").textContent = tr("close", "閉じる");
+            document.getElementById("translationAppCloseBtn").setAttribute("aria-label", tr("close", "閉じる"));
+            document.getElementById("translationAppLead").textContent = tr("translation_app_lead", "使うアプリを選んでください。");
+            document.getElementById("openGoogleTranslateBtn").textContent = tr("translation_app_google", "Google 翻訳");
+            document.getElementById("openDeepLBtn").textContent = tr("translation_app_deepl", "DeepL");
+            document.getElementById("scrollTopBtn").setAttribute("aria-label", tr("scroll_top_aria", "ページトップへ戻る"));
+        }
+
+        function buildBilingualLabel(jaText, key) {
+            const translated = tr(key, jaText);
+            if (getI18nLanguage(selectedLanguage) === "ja" || translated === jaText) return jaText;
+            return `${jaText} / ${translated}`;
+        }
+
+        function detectInitialLanguage() {
+            const raw = String((navigator.language || "en-US")).toLowerCase();
+            if (raw.startsWith("zh")) return "zh";
+            if (raw.startsWith("fr")) return "fr";
+            if (raw.startsWith("ko")) return "ko";
+            if (raw.startsWith("pt")) return "pr";
+            if (raw.startsWith("tl")) return "tl";
+            if (raw.startsWith("vi")) return "ve";
+            if (raw.startsWith("th")) return "th";
+            if (raw.startsWith("de")) return "de";
+            if (raw.startsWith("id")) return "id";
+            if (raw.startsWith("ru")) return "ru";
+            if (raw.startsWith("ne")) return "ne";
+            if (raw.startsWith("lo")) return "lo";
+            if (raw.startsWith("uk")) return "uk";
+            if (raw.startsWith("fa") || raw.startsWith("prs")) return "fa-AF";
+            if (raw.startsWith("si")) return "si";
+            if (raw.startsWith("ms")) return "ms";
+            if (raw.startsWith("my")) return "my";
+            if (raw.startsWith("bn")) return "bn";
+            if (raw.startsWith("ur")) return "ur";
+            return "en-US";
+        }
+
+        function setupTranslationAppDialog() {
+            const trigger = document.getElementById("freeTranslateBtn");
+            const dialog = document.getElementById("translationAppDialog");
+            const panel = document.getElementById("translationAppPanel");
+            const closeBtn = document.getElementById("translationAppCloseBtn");
+            const googleBtn = document.getElementById("openGoogleTranslateBtn");
+            const deeplBtn = document.getElementById("openDeepLBtn");
+            if (!trigger || !dialog || !panel || !closeBtn || !googleBtn || !deeplBtn) return;
+
+            trigger.addEventListener("click", () => {
+                dialog.classList.add("open");
+                dialog.setAttribute("aria-hidden", "false");
+            });
+            closeBtn.addEventListener("click", () => {
+                dialog.classList.remove("open");
+                dialog.setAttribute("aria-hidden", "true");
+            });
+            dialog.addEventListener("click", (event) => {
+                if (event.target === dialog) {
+                    dialog.classList.remove("open");
+                    dialog.setAttribute("aria-hidden", "true");
+                }
+            });
+            googleBtn.addEventListener("click", () => launchTranslationApp("google"));
+            deeplBtn.addEventListener("click", () => launchTranslationApp("deepl"));
+        }
+
+        function getSelectedLanguageDisplayName() {
+            const lang = languageConfig.find(item => item.code === selectedLanguage);
+            if (!lang) return "English";
+            const label = String(lang.label || "").trim();
+            const match = label.match(/\(([^)]+)\)/);
+            if (match && match[1]) return match[1].trim();
+            return label;
+        }
+
+        function getGoogleTranslateTargetCode(langCode) {
+            const map = {
+                "en-US": "en",
+                "zh": "zh-CN",
+                "de": "de",
+                "fr": "fr",
+                "ve": "vi",
+                "pr": "pt",
+                "ko": "ko",
+                "tl": "tl",
+                "th": "th",
+                "id": "id",
+                "ru": "ru",
+                "ne": "ne",
+                "lo": "lo",
+                "uk": "uk",
+                "fa-AF": "fa",
+                "si": "si",
+                "ms": "ms",
+                "my": "my",
+                "bn": "bn",
+                "ur": "ur"
+            };
+            return map[langCode] || "en";
+        }
+
+        function getDeepLTargetCode(langCode) {
+            const map = {
+                "en-US": "en",
+                "zh": "zh",
+                "de": "de",
+                "fr": "fr",
+                "pr": "pt",
+                "ko": "ko",
+                "ve": "en",
+                "tl": "en",
+                "th": "en",
+                "id": "en",
+                "ru": "ru",
+                "ne": "en",
+                "lo": "en",
+                "uk": "uk",
+                "fa-AF": "en",
+                "si": "en",
+                "ms": "en",
+                "my": "en",
+                "bn": "en",
+                "ur": "en",
+                "ja": "en"
+            };
+            return map[langCode] || "en";
+        }
+
+        function launchTranslationApp(appName) {
+            const dialog = document.getElementById("translationAppDialog");
+            if (dialog) {
+                dialog.classList.remove("open");
+                dialog.setAttribute("aria-hidden", "true");
+            }
+            const googleTarget = getGoogleTranslateTargetCode(selectedLanguage);
+            const deeplTarget = getDeepLTargetCode(selectedLanguage);
+            const url = appName === "deepl" ?
+                `https://www.deepl.com/translator#ja/${encodeURIComponent(deeplTarget)}/` :
+                `https://translate.google.com/?sl=ja&tl=${encodeURIComponent(googleTarget)}&op=translate`;
+            window.location.href = url;
+        }
+
+        function setupScrollTopButton() {
+            scrollTopBtn = document.getElementById("scrollTopBtn");
+            if (!scrollTopBtn) return;
+
+            scrollTopBtn.addEventListener("click", () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            });
+
+            window.addEventListener("scroll", updateScrollTopButtonVisibility, {
+                passive: true
+            });
+            updateScrollTopButtonVisibility();
+        }
+
+        function updateScrollTopButtonVisibility() {
+            if (!scrollTopBtn) return;
+            if (window.scrollY > 200) {
+                scrollTopBtn.classList.add("visible");
+            } else {
+                scrollTopBtn.classList.remove("visible");
+            }
+        }
+
+        function normalizeDataRow(item) {
+            return {
+                type: String((item && item.type) || "その他").trim() || "その他",
+                category: String((item && item.category) || "").trim(),
+                data: [
+                    item && item.data1,
+                    item && item.data2,
+                    item && item.data3,
+                    item && item.data4,
+                    item && item.data5,
+                    item && item.data6,
+                    item && item.data7,
+                    item && item.data8,
+                    item && item.data9,
+                    item && item.data10,
+                    item && item.data11,
+                    item && item.data12,
+                    item && item.data13,
+                    item && item.data14,
+                    item && item.data15,
+                    item && item.data16,
+                    item && item.data17,
+                    item && item.data18,
+                    item && item.data19,
+                    item && item.data20,
+                    item && item.data21
+                ].map(function (v) {
+                    return String(v || "").trim();
+                })
+            };
+        }
+
+        function isPregnancyScope(row) {
+            const text = `${row.type} ${row.category}`.toLowerCase();
+            return !/産後|postpartum|postnatal|puerper/i.test(text) && GUIDANCE_TYPES.has((row.type || "").trim());
+        }
+
+        function normalizeGuidanceType(row, langCode) {
+            if (!row || (row.type || "").trim() !== "保健指導") return row;
+            return Object.assign({}, row, {
+                type: langCode === "ja" ? "診断" : (DIAGNOSIS_TYPE_TRANSLATIONS[langCode] || "Diagnosis")
+            });
+        }
+
+        function getGuidanceTypeOrder(type) {
+            const order = {
+                "保健指導": 0,
+                EPDS: 1,
+                "ママと赤ちゃんのサポートシリーズ": 2,
+                "性生活": 3
+            };
+            return Object.prototype.hasOwnProperty.call(order, type) ? order[type] : 99;
+        }
+
+        async function fetchLocalData() {
+            const localRaw = await getBoardData("ja");
+            keepIndexes = [];
+            localRaw.forEach((row, idx) => {
+                if (isPregnancyScope(row)) keepIndexes.push(idx);
+            });
+            keepIndexes.sort((a, b) => getGuidanceTypeOrder(localRaw[a].type) - getGuidanceTypeOrder(localRaw[b].type));
+
+            localData = keepIndexes.map(idx => normalizeGuidanceType(localRaw[idx], "ja"));
+        }
+
+        async function ensureLanguageLoaded(langCode, forceReload = false) {
+            if (!forceReload && translatedByLanguage[langCode]) return;
+            const lang = languageConfig.find(item => item.code === langCode) || languageConfig[0];
+            setLoading(`${tr("loading_data", "データを読み込んでいます...")} (${lang.label})`);
+            const translatedRaw = await getBoardData(lang.code);
+            translatedByLanguage[lang.code] = keepIndexes.map(idx => normalizeGuidanceType(translatedRaw[idx] || emptyTranslatedRow(), lang.code));
+        }
+
+        function emptyTranslatedRow() {
+            return {
+                type: "",
+                category: "",
+                data: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+            };
+        }
+
+        async function getBoardData(langCode) {
+            try {
+                const lang = languageConfig.find(item => item.code === langCode) || languageConfig[0];
+                const response = await fetch(lang.i18nFile);
+                if (!response.ok) throw new Error(`Failed to fetch ${lang.i18nFile}`);
+                const bundle = await response.json();
+                if (bundle && bundle.epdsData) {
+                    epdsDataByLanguage[lang.code] = bundle.epdsData;
+                }
+                if (bundle && bundle.specialItems) {
+                    specialItemsByLanguage[lang.code] = bundle.specialItems;
+                }
+                if (bundle && bundle.drugTypeTree) {
+                    drugTypeTreeByLanguage[lang.code] = bundle.drugTypeTree;
+                }
+                const rows = Array.isArray(bundle && bundle.boardData) ? bundle.boardData : [];
+                if (!Array.isArray(rows)) return [];
+                return rows.map(normalizeDataRow).filter(row => row.category || row.data.some(v => v));
+            } catch (error) {
+                console.error(error);
+                return [];
+            }
+        }
+
+        function renderLanguagePicker() {
+            syncHeaderLanguageLabel();
+            const picker = document.getElementById("languageOptionList");
+            picker.innerHTML = "";
+
+            languageConfig.forEach(lang => {
+                const btn = document.createElement("button");
+                btn.className = "language-option-btn" + (lang.code === selectedLanguage ? " active" : "");
+                btn.type = "button";
+                btn.textContent = lang.label;
+                btn.addEventListener("click", async () => {
+                    selectedLanguage = lang.code;
+                    localStorage.setItem(LANGUAGE_STORAGE_KEY, selectedLanguage);
+                    document.getElementById("languageDialog").style.display = "none";
+                    await initI18n(selectedLanguage);
+                    applyStaticTranslations();
+                    await ensureLanguageLoaded(selectedLanguage, true);
+                    renderAll();
+                });
+                picker.appendChild(btn);
+            });
+            renderLanguageDialogText();
+        }
+
+        function syncHeaderLanguageLabel() {
+            const currentLanguageLabel = document.getElementById("currentLanguage");
+            if (!currentLanguageLabel) return;
+            const shortLabels = {
+                ja: "やさしい",
+                "en-US": "English",
+                zh: "中文",
+                fr: "Français",
+                ko: "한국어",
+                pr: "Português",
+                tl: "Tagalog",
+                ve: "Tiếng Việt",
+                th: "ภาษาไทย",
+                de: "Deutsch",
+                id: "Indonesia",
+                ru: "Русский",
+                ne: "नेपाली",
+                lo: "ລາວ",
+                uk: "Українська",
+                "fa-AF": "دری",
+                si: "සිංහල",
+                ms: "Melayu",
+                my: "မြန်မာ",
+                bn: "বাংলা",
+                ur: "اردو",
+            };
+            currentLanguageLabel.textContent = shortLabels[selectedLanguage] || "Language";
+        }
+
+        function renderLanguageDialogText() {
+            document.getElementById("languageSettingBtn").textContent = tr("settings", "設定");
+            document.getElementById("languageDialogTitle").textContent = tr("settings", "設定");
+            document.getElementById("languageSectionTitle").textContent = tr("language", "言語設定");
+            document.getElementById("closeLanguageBtn").textContent = tr("close", "閉じる");
+        }
+
+        function renderCategoryTabs() {
+            const tabs = document.getElementById("categoryTabs");
+            tabs.innerHTML = "";
+
+            const types = [...new Set(localData.map(item => item.type || "その他"))];
+            types.forEach(type => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "tab-btn" + (type === selectedType ? " active" : "");
+                const translatedType = getTranslatedTypeLabel(type);
+                const externalIcon = type === "性生活" ? `
+                    <iconify-icon class="tab-link-icon" icon="material-symbols:open-in-new-rounded" width="17" height="17" aria-hidden="true"></iconify-icon>
+                ` : "";
+                btn.innerHTML = `
+                    <span class="tab-label-wrap">
+                        <span>
+                            <span class="tab-ja">${escapeHtml(type)}</span>
+                            <span class="tab-tr">${escapeHtml(translatedType)}</span>
+                        </span>
+                        ${externalIcon}
+                    </span>
+                `;
+                btn.addEventListener("click", () => {
+                    if (type === "性生活") {
+                        window.location.href = "../aboutsex/";
+                        return;
+                    }
+                    selectedType = type;
+                    renderAccordion();
+                    renderCategoryTabs();
+                });
+                tabs.appendChild(btn);
+            });
+        }
+
+        function getTranslatedTypeLabel(localType) {
+            if (selectedLanguage === "ja" || selectedLanguage === "ja-JP") return "";
+            const translated = translatedByLanguage[selectedLanguage] || [];
+            for (let i = 0; i < localData.length; i++) {
+                const row = localData[i];
+                if ((row.type || "その他") !== localType) continue;
+                const tRow = translated[i];
+                const tType = tRow && tRow.type ? String(tRow.type).trim() : "";
+                if (tType && tType !== localType) return tType;
+            }
+            return "";
+        }
+
+        function renderAccordion() {
+            const container = document.getElementById("accordionList");
+            container.innerHTML = "";
+
+            const translated = translatedByLanguage[selectedLanguage] || [];
+            const rows = [];
+
+            localData.forEach((row, index) => {
+                if ((row.type || "その他") === selectedType) rows.push({
+                    row,
+                    index
+                });
+            });
+
+            if (!rows.length) {
+                setLoading(tr("loading_empty", "このカテゴリには表示できるやり取りがありません。"));
+                return;
+            }
+
+            rows.forEach((item, orderIndex) => {
+                const row = item.row;
+                const rowIndex = item.index;
+                const isPharmacyCategory = ((row.type || "").trim() === "薬局");
+                const isSupportSeriesCategory = ((row.type || "").trim() === "ママと赤ちゃんのサポートシリーズ");
+                const isEpdsCategory = ((row.type || "").trim() === "EPDS");
+                const tRow = translated[rowIndex] || {
+                    category: "",
+                    data: []
+                };
+
+                const details = document.createElement("details");
+                details.className = "talk-card";
+                if (isSupportSeriesCategory || isEpdsCategory) {
+                    details.open = true;
+                }
+
+                const summary = document.createElement("summary");
+                summary.className = "talk-summary";
+                summary.innerHTML = `
+                    <div class="summary-texts">
+                        <p class="talk-title">やり取り ${orderIndex + 1}</p>
+                        <p class="ja-text">${escapeHtml(row.category)}</p>
+                        <p class="translated-text">${escapeHtml(tRow.category || "")}</p>
+                    </div>
+                    <button type="button" class="summary-play-btn" aria-label="質問を再生">▶</button>
+                `;
+                const summaryPlayBtn = summary.querySelector(".summary-play-btn");
+                if (summaryPlayBtn) {
+                    const handleSummaryPlay = (ev) => {
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                    };
+                    summaryPlayBtn.addEventListener("pointerdown", handleSummaryPlay);
+                    summaryPlayBtn.addEventListener("mousedown", handleSummaryPlay);
+                    summaryPlayBtn.addEventListener("click", (ev) => {
+                        handleSummaryPlay(ev);
+                        speakPair(row.category, tRow.category || "");
+                    });
+                }
+
+                const panel = document.createElement("div");
+                panel.className = "talk-panel";
+
+                const answerGrid = document.createElement("div");
+                answerGrid.className = "answer-grid";
+
+                const isDrugTypeRow = ((row.type || "").trim() === "薬") && ((row.category || "").trim() ===
+                    "薬の種類");
+                if (isDrugTypeRow) {
+                    const drugTree = buildDrugTypeTree(selectedLanguage);
+                    const treeWrap = document.createElement("div");
+                    treeWrap.className = "drug-tree";
+                    drugTree.forEach((group, gIndex) => {
+                        const groupDetails = document.createElement("details");
+                        groupDetails.className = "drug-group";
+
+                        const groupSummary = document.createElement("summary");
+                        groupSummary.className = "drug-group-summary";
+                        groupSummary.innerHTML = `
+                            <span class="answer-ja">${escapeHtml(group.ja)}</span>
+                            <span class="answer-tr">${escapeHtml(group.tr)}</span>
+                        `;
+
+                        const subGrid = document.createElement("div");
+                        subGrid.className = "drug-detail-grid";
+                        group.items.forEach((item) => {
+                            const btn = document.createElement("button");
+                            btn.type = "button";
+                            btn.className = "answer-btn large-btn";
+                            const answerKey = `drug-${rowIndex}-${gIndex}-${item.ja}`;
+                            if (answerSelections.has(answerKey)) {
+                                btn.classList.add("is-selected");
+                            }
+                            btn.innerHTML = `
+                                <span class="answer-main">
+                                    <span class="answer-ja">${escapeHtml(item.ja)}</span>
+                                    <span class="answer-tr">${escapeHtml(item.tr)}</span>
+                                </span>
+                                <span class="play-icon-btn" role="button" aria-label="再生">▶</span>
+                            `;
+                            btn.addEventListener("click", (ev) => {
+                                if (ev.target.closest(".play-icon-btn")) {
+                                    ev.preventDefault();
+                                    speakPair(item.ja, item.tr);
+                                    return;
+                                }
+                                toggleAnswerSelection(btn, answerKey);
+                            });
+                            subGrid.appendChild(btn);
+                        });
+
+                        groupDetails.appendChild(groupSummary);
+                        groupDetails.appendChild(subGrid);
+                        treeWrap.appendChild(groupDetails);
+                    });
+                    panel.appendChild(treeWrap);
+                    details.appendChild(summary);
+                    details.appendChild(panel);
+                    container.appendChild(details);
+                    return;
+                }
+
+                if (isEpdsCategory) {
+                    renderEpdsPanel(panel, rowIndex, row, tRow);
+                    details.appendChild(summary);
+                    details.appendChild(panel);
+                    container.appendChild(details);
+                    return;
+                }
+
+                row.data.forEach((jaText, answerIndex) => {
+                    if (!jaText) return;
+                    const translatedText = (tRow.data && tRow.data[answerIndex]) ? tRow.data[
+                        answerIndex] : "";
+                    const jaParsed = parseLinkText(jaText);
+                    const trParsed = parseLinkText(translatedText);
+                    const specialItems = buildSpecialItems(jaText);
+
+                    if (specialItems) {
+                        const tokenWrap = document.createElement("div");
+                        tokenWrap.className = "token-wrap";
+
+                        const showTokenTitle = jaText !== "onakagaharukaisuu";
+                        let tokenTitle = null;
+                        let tokenHint = null;
+                        if (showTokenTitle) {
+                            tokenTitle = document.createElement("p");
+                            tokenTitle.className = "token-title";
+                            tokenTitle.textContent = specialItems.titleJa;
+
+                            tokenHint = document.createElement("p");
+                            tokenHint.className = "token-hint";
+                            tokenHint.textContent = specialItems.titleTr;
+                        }
+
+                        const tokenGrid = document.createElement("div");
+                        tokenGrid.className = "token-grid";
+
+                        specialItems.options.forEach(option => {
+                            const isQuantityUnitInput = option && option.mode ===
+                                "quantity_unit";
+                            const isAppointmentInput = option && option.mode && option.mode
+                                .startsWith("appointment_");
+                            const isCounterInput = isQuantityUnitInput || isAppointmentInput ||
+                                String(option.ja || "").includes("__");
+                            const optionBtn = document.createElement(isCounterInput ? "div" :
+                                "button");
+                            if (!isCounterInput) optionBtn.type = "button";
+                            optionBtn.className = "answer-btn large-btn token-btn" + (
+                                isCounterInput ? " counter-kara-option" : "");
+                            const pharmacyKey =
+                                `pharmacy-token-${rowIndex}-${answerIndex}-${option.ja}`;
+                            const answerKey = `token-${rowIndex}-${answerIndex}-${option.ja}`;
+                            if (isPharmacyCategory && pharmacySelections.has(pharmacyKey)) {
+                                optionBtn.classList.add("selected-highlight");
+                            }
+                            if (!isPharmacyCategory && answerSelections.has(answerKey)) {
+                                optionBtn.classList.add("is-selected");
+                            }
+                            if (isAppointmentInput) {
+                                optionBtn.classList.add("appointment-option");
+                                if (option.mode === "appointment_after") {
+                                    optionBtn.innerHTML = `
+                                        <span class="answer-main counter-kara-main">
+                                            <label class="counter-kara-line appointment-line">
+                                                <span class="counter-kara-unit-ja">次は</span>
+                                                <input type="number" min="0" step="1" class="counter-kara-input appointment-month-input" inputmode="numeric" placeholder="0" />
+                                                <span class="counter-kara-unit-ja">ヶ月後</span>
+                                                <input type="number" min="0" step="1" class="counter-kara-input appointment-week-input" inputmode="numeric" placeholder="0" />
+                                                <span class="counter-kara-unit-ja">週間後です</span>
+                                            </label>
+                                            <span class="counter-kara-unit-tr">${escapeHtml(option.tr)}</span>
+                                        </span>
+                                        <button type="button" class="play-icon-btn" aria-label="再生">▶</button>
+                                    `;
+                                } else if (option.mode === "appointment_time") {
+                                    optionBtn.innerHTML = `
+                                        <span class="answer-main counter-kara-main">
+                                            <label class="counter-kara-line appointment-line">
+                                                <input type="number" min="0" max="23" step="1" class="counter-kara-input appointment-hour-input" inputmode="numeric" placeholder="0" />
+                                                <span class="counter-kara-unit-ja">時</span>
+                                                <input type="number" min="0" max="59" step="1" class="counter-kara-input appointment-minute-input" inputmode="numeric" placeholder="0" />
+                                                <span class="counter-kara-unit-ja">分はどうですか</span>
+                                            </label>
+                                            <span class="counter-kara-unit-tr">${escapeHtml(option.tr)}</span>
+                                        </span>
+                                        <button type="button" class="play-icon-btn" aria-label="再生">▶</button>
+                                    `;
+                                } else if (option.mode === "appointment_weekday") {
+                                    const weekdayOptions = (option.days || []).map(day => `
+                                        <option value="${escapeHtml(day.ja)}" data-tr="${escapeHtml(day.tr)}">
+                                            ${escapeHtml(day.ja)} / ${escapeHtml(day.tr)}
+                                        </option>
+                                    `).join("");
+                                    optionBtn.innerHTML = `
+                                        <span class="answer-main counter-kara-main">
+                                            <label class="counter-kara-line appointment-line">
+                                                <select class="counter-kara-select appointment-weekday-select" aria-label="曜日">
+                                                    ${weekdayOptions}
+                                                </select>
+                                                <span class="counter-kara-unit-ja">が良いです</span>
+                                            </label>
+                                            <span class="counter-kara-unit-tr">${escapeHtml(option.tr)}</span>
+                                        </span>
+                                        <button type="button" class="play-icon-btn" aria-label="再生">▶</button>
+                                    `;
+                                } else if (option.mode === "appointment_checklist") {
+                                    const checklist = (option.items || []).map(item => `
+                                        <label class="appointment-check-item">
+                                            <input type="checkbox" class="appointment-check-input" data-ja="${escapeHtml(item.ja)}" data-tr="${escapeHtml(item.tr)}" />
+                                            <span>${escapeHtml(item.ja)}<br><small>${escapeHtml(item.tr)}</small></span>
+                                        </label>
+                                    `).join("");
+                                    optionBtn.innerHTML = `
+                                        <span class="answer-main counter-kara-main">
+                                            <span class="counter-kara-line appointment-checklist">
+                                                ${checklist}
+                                            </span>
+                                            <span class="counter-kara-unit-tr">${escapeHtml(option.tr)}</span>
+                                        </span>
+                                        <button type="button" class="play-icon-btn" aria-label="再生">▶</button>
+                                    `;
+                                }
+                            } else if (isQuantityUnitInput) {
+                                const unitOptions = (option.units || []).map(unit => `
+                                    <option value="${escapeHtml(unit.ja)}" data-tr="${escapeHtml(unit.tr)}">
+                                        ${escapeHtml(unit.ja)} / ${escapeHtml(unit.tr)}
+                                    </option>
+                                `).join("");
+                                optionBtn.innerHTML = `
+                                    <span class="answer-main counter-kara-main">
+                                        <label class="counter-kara-line quantity-unit-line">
+                                            <span class="counter-kara-unit-ja">一回につき</span>
+                                            <input type="number" min="0" step="1" class="counter-kara-input" inputmode="numeric" placeholder="0" />
+                                            <select class="counter-kara-select" aria-label="単位">
+                                                ${unitOptions}
+                                            </select>
+                                        </label>
+                                        <span class="counter-kara-unit-tr">${escapeHtml(option.tr)}</span>
+                                    </span>
+                                    <button type="button" class="play-icon-btn" aria-label="再生">▶</button>
+                                `;
+                            } else if (isCounterInput) {
+                                optionBtn.innerHTML = `
+                                    <span class="answer-main counter-kara-main">
+                                        <label class="counter-kara-line">
+                                            <input type="number" min="0" step="1" class="counter-kara-input" inputmode="numeric" placeholder="0" />
+                                            <span class="counter-kara-unit-ja">${escapeHtml(String(option.ja).replace("__", ""))}</span>
+                                        </label>
+                                        <span class="counter-kara-unit-tr">${escapeHtml(String(option.tr).replace("__", ""))}</span>
+                                    </span>
+                                    <button type="button" class="play-icon-btn" aria-label="再生">▶</button>
+                                `;
+                            } else {
+                                optionBtn.innerHTML = `
+                                    <span class="answer-main">
+                                        <span class="answer-ja">${escapeHtml(option.ja)}</span>
+                                        <span class="answer-tr">${escapeHtml(option.tr)}</span>
+                                    </span>
+                                    ${isSupportSeriesCategory ? "" : '<span class="play-icon-btn" role="button" aria-label="再生">▶</span>'}
+                                `;
+                            }
+                            optionBtn.addEventListener("click", (ev) => {
+                                if (isSupportSeriesCategory) {
+                                    if (isPharmacyCategory) {
+                                        togglePharmacySelection(optionBtn, pharmacyKey);
+                                    } else {
+                                        toggleAnswerSelection(optionBtn, answerKey);
+                                    }
+                                    return;
+                                }
+                                if (ev.target.closest(".play-icon-btn")) {
+                                    ev.preventDefault();
+                                    if (isAppointmentInput) {
+                                        if (option.mode === "appointment_after") {
+                                            const monthInput = optionBtn.querySelector(
+                                                ".appointment-month-input");
+                                            const weekInput = optionBtn.querySelector(
+                                                ".appointment-week-input");
+                                            speakPair(
+                                                composeAppointmentAfterText(
+                                                    monthInput ? monthInput.value :
+                                                    "", weekInput ? weekInput
+                                                    .value : "", "ja"),
+                                                composeAppointmentAfterText(
+                                                    monthInput ? monthInput.value :
+                                                    "", weekInput ? weekInput
+                                                    .value : "", selectedLanguage)
+                                            );
+                                        } else if (option.mode === "appointment_time") {
+                                            const hourInput = optionBtn.querySelector(
+                                                ".appointment-hour-input");
+                                            const minuteInput = optionBtn.querySelector(
+                                                ".appointment-minute-input");
+                                            speakPair(
+                                                composeAppointmentTimeText(
+                                                    hourInput ? hourInput.value :
+                                                    "", minuteInput ? minuteInput
+                                                    .value : "", "ja"),
+                                                composeAppointmentTimeText(
+                                                    hourInput ? hourInput.value :
+                                                    "", minuteInput ? minuteInput
+                                                    .value : "", selectedLanguage)
+                                            );
+                                        } else if (option.mode ===
+                                            "appointment_weekday") {
+                                            const select = optionBtn.querySelector(
+                                                ".appointment-weekday-select");
+                                            const selectedOption = select && select
+                                                .options[select.selectedIndex];
+                                            const jaTxt =
+                                                `${selectedOption ? selectedOption.value : ""}が良いです`;
+                                            const trTxt =
+                                                `${selectedOption ? selectedOption.dataset.tr : ""} ${option.tr}`
+                                                .trim();
+                                            speakPair(jaTxt, trTxt);
+                                        } else if (option.mode ===
+                                            "appointment_checklist") {
+                                            const checked = Array.from(optionBtn
+                                                .querySelectorAll(
+                                                    ".appointment-check-input:checked"
+                                                    ));
+                                            const jaTxt = checked.map(item => item
+                                                .dataset.ja).join("。");
+                                            const trTxt = checked.map(item => item
+                                                .dataset.tr).join(". ");
+                                            speakPair(jaTxt, trTxt);
+                                        }
+                                    } else if (isQuantityUnitInput) {
+                                        const jInput = optionBtn.querySelector(
+                                            ".counter-kara-input");
+                                        const unitSelect = optionBtn.querySelector(
+                                            ".counter-kara-select");
+                                        const selectedOption = unitSelect && unitSelect
+                                            .options[
+                                                unitSelect.selectedIndex];
+                                        const jaUnit = selectedOption ? selectedOption
+                                            .value : "";
+                                        const trUnit = selectedOption ? selectedOption
+                                            .dataset.tr : "";
+                                        const amount = jInput ? jInput.value : "";
+                                        const jaTxt = composeQuantityUnitText(amount,
+                                            jaUnit);
+                                        const trTxt = composeQuantityUnitText(amount,
+                                            trUnit);
+                                        speakPair(jaTxt, trTxt);
+                                    } else if (isCounterInput) {
+                                        const jInput = optionBtn.querySelector(
+                                            ".counter-kara-input");
+                                        const jaTxt = composeCounterKaraText(option.ja,
+                                            jInput ? jInput.value : "");
+                                        const trTxt = composeCounterKaraText(option.tr,
+                                            jInput ? jInput.value : "");
+                                        speakPair(jaTxt, trTxt);
+                                    } else {
+                                        speakPair(option.ja, option.tr);
+                                    }
+                                    return;
+                                }
+                                if (isCounterInput && ev.target.closest(
+                                    "input, select"))
+                                    return;
+                                if (isPharmacyCategory) {
+                                    togglePharmacySelection(optionBtn, pharmacyKey);
+                                } else {
+                                    toggleAnswerSelection(optionBtn, answerKey);
+                                }
+                            });
+                            tokenGrid.appendChild(optionBtn);
+                        });
+
+                        if (tokenTitle) tokenWrap.appendChild(tokenTitle);
+                        if (tokenHint) tokenWrap.appendChild(tokenHint);
+                        tokenWrap.appendChild(tokenGrid);
+                        answerGrid.appendChild(tokenWrap);
+                        return;
+                    }
+
+                    const answerBtn = document.createElement("button");
+                    answerBtn.type = "button";
+                    answerBtn.className = "answer-btn large-btn";
+                    const pharmacyKey = `pharmacy-${rowIndex}-${answerIndex}`;
+                    const answerKey = `answer-${rowIndex}-${answerIndex}`;
+                    if (isPharmacyCategory && pharmacySelections.has(pharmacyKey)) {
+                        answerBtn.classList.add("selected-highlight");
+                    }
+                    if (!isPharmacyCategory && answerSelections.has(answerKey)) {
+                        answerBtn.classList.add("is-selected");
+                    }
+                    answerBtn.innerHTML = `
+                        <span class="answer-main">
+                            <span class="answer-ja">${escapeHtml(jaParsed.label)}</span>
+                            <span class="answer-tr">${escapeHtml(trParsed.label)}</span>
+                        </span>
+                        ${isSupportSeriesCategory ? "" : '<span class="play-icon-btn" role="button" aria-label="再生">▶</span>'}
+                    `;
+                    answerBtn.addEventListener("click", (ev) => {
+                        if (isSupportSeriesCategory) {
+                            const url = jaParsed.url || trParsed.url;
+                            if (url) {
+                                openLink(url);
+                                return;
+                            }
+                            if (isPharmacyCategory) {
+                                togglePharmacySelection(answerBtn, pharmacyKey);
+                            } else {
+                                toggleAnswerSelection(answerBtn, answerKey);
+                            }
+                            return;
+                        }
+                        if (ev.target.closest(".play-icon-btn")) {
+                            ev.preventDefault();
+                            speakPair(jaText, translatedText);
+                            return;
+                        }
+                        if (isPharmacyCategory) {
+                            togglePharmacySelection(answerBtn, pharmacyKey);
+                        } else {
+                            toggleAnswerSelection(answerBtn, answerKey);
+                        }
+                        const url = trParsed.url || jaParsed.url;
+                        if (url) {
+                            openLink(url);
+                        }
+                    });
+                    answerGrid.appendChild(answerBtn);
+                });
+
+                panel.appendChild(answerGrid);
+                details.appendChild(summary);
+                details.appendChild(panel);
+                container.appendChild(details);
+            });
+        }
+
+        function buildDrugTypeTree(langCode) {
+            return drugTypeTreeByLanguage[langCode] || drugTypeTreeByLanguage["en-US"] || drugTypeTreeByLanguage.ja || [];
+        }
+
+        function renderAll() {
+            renderLanguagePicker();
+            renderCategoryTabs();
+            renderAccordion();
+        }
+
+        function speakPair(localText, translatedText) {
+            if (!("speechSynthesis" in window)) {
+                alert("このブラウザは音声合成に対応していません。");
+                return;
+            }
+
+            speechSynthesis.cancel();
+
+            const localUttr = new SpeechSynthesisUtterance(localText);
+            localUttr.lang = "ja-JP";
+            speechSynthesis.speak(localUttr);
+
+            if (translatedText) {
+                const lang = languageConfig.find(item => item.code === selectedLanguage);
+                const translatedUttr = new SpeechSynthesisUtterance(translatedText);
+                translatedUttr.lang = lang ? lang.speech : selectedLanguage;
+                speechSynthesis.speak(translatedUttr);
+            }
+        }
+
+        function setLoading(text) {
+            const container = document.getElementById("accordionList");
+            container.innerHTML = `<p class="loading-text">${escapeHtml(text)}</p>`;
+        }
+
+        function getIllustrationSVG(type, index) {
+            const styleA =
+                `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="illustration"><rect width="120" height="120" rx="24" fill="#fde4d6"/><circle cx="60" cy="42" r="20" fill="#f7b799"/><ellipse cx="60" cy="84" rx="32" ry="24" fill="#ef8f72"/><circle cx="47" cy="40" r="3" fill="#673b2a"/><circle cx="73" cy="40" r="3" fill="#673b2a"/><path d="M50 50 Q60 58 70 50" stroke="#673b2a" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`;
+            const styleB =
+                `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="illustration"><rect width="120" height="120" rx="24" fill="#dbf1ff"/><rect x="28" y="22" width="64" height="76" rx="10" fill="#ffffff" stroke="#4f8dc9" stroke-width="4"/><circle cx="60" cy="48" r="9" fill="#4f8dc9"/><path d="M43 74h34M43 84h24" stroke="#4f8dc9" stroke-width="5" stroke-linecap="round"/></svg>`;
+            const styleC =
+                `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="illustration"><rect width="120" height="120" rx="24" fill="#e7f9e9"/><circle cx="60" cy="60" r="35" fill="#8ccf95"/><path d="M45 62l10 10 20-22" stroke="#ffffff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+            const set = [styleA, styleB, styleC];
+
+            if (/痛み|症状|体調/.test(type)) return styleA;
+            if (/検査|診察|受付|予約/.test(type)) return styleB;
+            return set[index % set.length];
+        }
+
+        function buildSpecialItems(token) {
+            const localized = getTokenLocalizedOptions(selectedLanguage);
+            if (localized[token]) return localized[token];
+            if (token === "kusurinokaisuu" && localized.kusurikaisuu) return localized.kusurikaisuu;
+            if (token === "onakagaharukaisuu" && localized.counter_kai) return localized.counter_kai;
+            return null;
+        }
+
+        function parseLinkText(value) {
+            const text = String(value || "").trim();
+            const marker = "||";
+            if (!text.includes(marker)) {
+                return {
+                    label: text,
+                    url: ""
+                };
+            }
+            const splitIndex = text.indexOf(marker);
+            const label = text.slice(0, splitIndex).trim();
+            const url = text.slice(splitIndex + marker.length).trim();
+            return {
+                label,
+                url
+            };
+        }
+
+        function openLink(url) {
+            if (typeof url !== "string") return;
+            if (!url.startsWith("http://") && !url.startsWith("https://")) return;
+
+            window.open(url, "_blank", "noopener,noreferrer");
+        }
+
+        function togglePharmacySelection(buttonEl, key) {
+            if (pharmacySelections.has(key)) {
+                pharmacySelections.delete(key);
+                buttonEl.classList.remove("selected-highlight");
+                return;
+            }
+            pharmacySelections.add(key);
+            buttonEl.classList.add("selected-highlight");
+        }
+
+        function toggleAnswerSelection(buttonEl, key) {
+            if (answerSelections.has(key)) {
+                answerSelections.delete(key);
+                buttonEl.classList.remove("is-selected");
+                return;
+            }
+            answerSelections.add(key);
+            buttonEl.classList.add("is-selected");
+        }
+
+        function getTokenLocalizedOptions(langCode) {
+            return specialItemsByLanguage[langCode] || specialItemsByLanguage["en-US"] || specialItemsByLanguage.ja || {};
+        }
+
+        function renderEpdsPanel(panel, rowIndex, row, tRow) {
+            const definition = buildEpdsDefinition(selectedLanguage);
+            const state = getEpdsState(rowIndex);
+
+            const wrap = document.createElement("section");
+            wrap.className = "epds-card";
+
+            const lead = document.createElement("div");
+            lead.className = "epds-lead";
+            lead.innerHTML = `
+                <p class="epds-title">${escapeHtml(tr("epds_section_title", "EPDS チェック / Edinburgh Check"))}</p>
+                <p class="epds-copy">${escapeHtml(row.category || tr("epds_lead", "過去7日間の気分にもっとも近いものを選んでください。"))}</p>
+                <p class="epds-copy epds-copy-sub">${escapeHtml((tRow && tRow.category) || tr("epds_lead_en", "Please select the answer that best matches how you felt during the past 7 days."))}</p>
+            `;
+            wrap.appendChild(lead);
+
+            const list = document.createElement("div");
+            list.className = "epds-question-list";
+            definition.questions.forEach((question, questionIndex) => {
+                const block = document.createElement("section");
+                block.className = "epds-question";
+
+                const heading = document.createElement("div");
+                heading.className = "epds-question-head";
+                heading.innerHTML = `
+                    <p class="epds-question-number">${escapeHtml(tr("epds_question_prefix", "質問"))} ${questionIndex + 1}</p>
+                    <p class="epds-question-ja">${escapeHtml(question.ja)}</p>
+                    <p class="epds-question-tr">${escapeHtml(question.tr)}</p>
+                `;
+                block.appendChild(heading);
+
+                const optionGrid = document.createElement("div");
+                optionGrid.className = "epds-option-grid";
+
+                question.options.forEach((option, optionIndex) => {
+                    const btn = document.createElement("button");
+                    btn.type = "button";
+                    btn.className = "epds-option-btn";
+                    if (state.answers[questionIndex] === option.score) {
+                        btn.classList.add("is-selected");
+                    }
+                    btn.innerHTML = `
+                        <span class="epds-option-ja">${escapeHtml(option.ja)}</span>
+                        <span class="epds-option-tr">${escapeHtml(option.tr)}</span>
+                    `;
+                    btn.addEventListener("click", () => {
+                        state.answers[questionIndex] = option.score;
+                        epdsSubmissionState.delete(rowIndex);
+                        updateEpdsSelection(rowIndex, wrap);
+                    });
+                    optionGrid.appendChild(btn);
+                });
+
+                block.appendChild(optionGrid);
+                list.appendChild(block);
+            });
+            wrap.appendChild(list);
+
+            const footer = document.createElement("div");
+            footer.className = "epds-footer";
+            footer.innerHTML = `
+                <div class="epds-score-box">
+                    <p class="epds-score-note">${escapeHtml(tr("epds_result_note", "10項目すべて選ぶと送信できます。"))}</p>
+                </div>
+                <div class="epds-actions">
+                    <button type="button" class="epds-reset-btn">${escapeHtml(tr("epds_reset", "回答をリセット"))}</button>
+                    <button type="button" class="epds-submit-btn">${escapeHtml(tr("epds_submit", "結果を登録"))}</button>
+                </div>
+                <p class="epds-status" aria-live="polite"></p>
+            `;
+            wrap.appendChild(footer);
+
+            const resetBtn = footer.querySelector(".epds-reset-btn");
+            const submitBtn = footer.querySelector(".epds-submit-btn");
+            if (resetBtn) {
+                resetBtn.addEventListener("click", () => {
+                    epdsSelections.set(rowIndex, {
+                        answers: new Array(definition.questions.length).fill(null)
+                    });
+                    epdsSubmissionState.delete(rowIndex);
+                    updateEpdsSelection(rowIndex, wrap);
+                });
+            }
+            if (submitBtn) {
+                submitBtn.addEventListener("click", async () => {
+                    await submitEpds(rowIndex, wrap, definition);
+                });
+            }
+
+            panel.appendChild(wrap);
+            updateEpdsSelection(rowIndex, wrap);
+        }
+
+        function getEpdsState(rowIndex) {
+            if (!epdsSelections.has(rowIndex)) {
+                epdsSelections.set(rowIndex, {
+                    answers: new Array(10).fill(null)
+                });
+            }
+            return epdsSelections.get(rowIndex);
+        }
+
+        function updateEpdsSelection(rowIndex, wrap) {
+            const definition = buildEpdsDefinition(selectedLanguage);
+            const state = getEpdsState(rowIndex);
+            const questionNodes = wrap.querySelectorAll(".epds-question");
+            questionNodes.forEach((questionNode, questionIndex) => {
+                const optionNodes = questionNode.querySelectorAll(".epds-option-btn");
+                optionNodes.forEach((optionNode, optionIndex) => {
+                    const option = definition.questions[questionIndex].options[optionIndex];
+                    optionNode.classList.toggle("is-selected", state.answers[questionIndex] === option.score);
+                });
+            });
+
+            const answered = state.answers.filter(value => Number.isFinite(value)).length;
+            const scoreNote = wrap.querySelector(".epds-score-note");
+            const status = wrap.querySelector(".epds-status");
+            const submitBtn = wrap.querySelector(".epds-submit-btn");
+
+            if (scoreNote) {
+                if (answered < definition.questions.length) {
+                    scoreNote.textContent = tr("epds_result_note", "10項目すべて選ぶと送信できます。");
+                } else if ((state.answers[9] || 0) > 0) {
+                    scoreNote.textContent = tr("epds_alert_q10", "最後の質問に該当がある場合は、医療者へ早めに共有してください。");
+                } else {
+                    scoreNote.textContent = tr("epds_ready_note", "回答を確認して登録できます。");
+                }
+            }
+
+            if (submitBtn) {
+                const isSubmitting = epdsSubmissionState.get(rowIndex) === "submitting";
+                submitBtn.disabled = answered < definition.questions.length || isSubmitting;
+                submitBtn.textContent = isSubmitting ? tr("epds_submitting", "登録中...") : tr("epds_submit", "結果を登録");
+            }
+            if (status && epdsSubmissionState.get(rowIndex) !== "saved") {
+                status.textContent = answered < definition.questions.length ? tr("epds_incomplete", "未回答の項目があります。") : "";
+            }
+            wrap.classList.toggle("epds-alert", answered === definition.questions.length && (state.answers[9] || 0) > 0);
+        }
+
+        async function submitEpds(rowIndex, wrap, definition) {
+            const state = getEpdsState(rowIndex);
+            const answered = state.answers.filter(value => Number.isFinite(value)).length;
+            const status = wrap.querySelector(".epds-status");
+            if (answered < definition.questions.length) {
+                if (status) status.textContent = tr("epds_incomplete", "未回答の項目があります。");
+                updateEpdsSelection(rowIndex, wrap);
+                return;
+            }
+
+            epdsSubmissionState.set(rowIndex, "submitting");
+            updateEpdsSelection(rowIndex, wrap);
+
+            const payload = buildEpdsPostData(state, definition);
+
+            try {
+                await postEpdsResult(payload);
+                epdsSubmissionState.set(rowIndex, "saved");
+                if (status) status.textContent = tr("epds_saved", "EPDS の結果を登録しました。");
+            } catch (error) {
+                console.error("EPDS save failed", error);
+                epdsSubmissionState.set(rowIndex, "error");
+                if (status) status.textContent = tr("epds_save_failed", "登録に失敗しました。通信状態を確認してください。");
+            }
+            updateEpdsSelection(rowIndex, wrap);
+        }
+
+        function buildEpdsPostData(state, definition) {
+            return definition.questions.reduce((postData, question, questionIndex) => {
+                const selectedScore = state.answers[questionIndex];
+                const optionIndex = question.options.findIndex(option => option.score === selectedScore);
+                postData[`q${questionIndex + 1}`] = optionIndex >= 0 ? `o${optionIndex + 1}` : "";
+                return postData;
+            }, {});
+        }
+
+        function decodeEpdsIdTokenUserId(idToken) {
+            try {
+                const payload = String(idToken || "").split(".")[1];
+                if (!payload) return "";
+                const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
+                const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=");
+                const decoded = JSON.parse(decodeURIComponent(escape(atob(padded))));
+                return decoded.sub || decoded.userId || "";
+            } catch (error) {
+                console.warn("Failed to decode EPDS LIFF ID token:", error);
+                return "";
+            }
+        }
+
+        async function getEpdsAuth() {
+            if (!window.liff || typeof LIFF_ID === "undefined") {
+                throw new Error("LIFF is not available");
+            }
+            if (!liffInitPromise) {
+                liffInitPromise = window.liff.init({
+                    liffId: LIFF_ID,
+                    withLoginOnExternalBrowser: true
+                });
+            }
+            await liffInitPromise;
+
+            if (typeof window.liff.isLoggedIn === "function" && !window.liff.isLoggedIn()) {
+                if (typeof window.liff.login === "function") {
+                    window.liff.login({
+                        redirectUri: window.location.href
+                    });
+                }
+                throw new Error("LIFF login is required");
+            }
+
+            const idToken = typeof window.liff.getIDToken === "function" ? window.liff.getIDToken() : "";
+            if (!idToken) {
+                throw new Error("LIFF ID token is empty");
+            }
+            const profile = await Promise.resolve(typeof window.liff.getProfile === "function" ? window.liff.getProfile() : null)
+                .catch(() => null);
+            const decoded = typeof window.liff.getDecodedIDToken === "function" ? window.liff.getDecodedIDToken() : null;
+            epdsUserId = profile && profile.userId ? profile.userId : ((decoded && (decoded.sub || decoded.userId)) || decodeEpdsIdTokenUserId(idToken) || "");
+            window.userId = epdsUserId;
+            console.log("epds userId:", epdsUserId);
+            console.log("epds idToken exists:", Boolean(idToken));
+            return {
+                idToken,
+                userId: epdsUserId
+            };
+        }
+
+        async function postEpdsResult(postData) {
+            const auth = await getEpdsAuth();
+            const requestPostData = Object.assign({}, postData || {}, {
+                userId: auth.userId || ""
+            });
+            const requestPayload = {
+                path: "myEpds",
+                method: "post",
+                idToken: auth.idToken,
+                userId: auth.userId || "",
+                lang: selectedLanguage || "",
+                postData: requestPostData
+            };
+            console.log("epds request payload:", requestPayload);
+            const response = await fetch(EPDS_API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain;charset=UTF-8"
+                },
+                body: JSON.stringify(requestPayload)
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            const result = await response.json();
+            if (!result || result.statusCode !== 200 || result.data !== 0) {
+                throw new Error((result && result.message) || "EPDS API error");
+            }
+            return result;
+        }
+
+        function buildEpdsDefinition(langCode) {
+            const selectedDefinition = epdsDataByLanguage[langCode];
+            if (selectedDefinition && Array.isArray(selectedDefinition.questions)) {
+                return selectedDefinition;
+            }
+            const fallbackDefinition = epdsDataByLanguage.ja;
+            if (fallbackDefinition && Array.isArray(fallbackDefinition.questions)) {
+                return fallbackDefinition;
+            }
+            return {
+                questions: []
+            };
+        }
+
+        function composeCounterKaraText(template, value) {
+            const t = String(template || "");
+            const amount = String(value || "").trim();
+            const suffix = t.replace("__", "").trim();
+            if (!amount) return suffix;
+            if (/[\u3040-\u30ff\u4e00-\u9faf]/.test(t)) {
+                return `${amount}${suffix}`;
+            }
+            if (t.startsWith("vor __")) {
+                return `vor ${amount} ${suffix.replace(/^vor\\s+/, "")}`.trim();
+            }
+            if (t.startsWith("há __")) {
+                return `há ${amount} ${suffix.replace(/^há\\s+/, "")}`.trim();
+            }
+            return `${amount} ${suffix}`.trim();
+        }
+
+        function composeQuantityUnitText(value, unit) {
+            const amount = String(value || "").trim();
+            const unitText = String(unit || "").trim();
+            if (!amount && !unitText) return "";
+            if (!amount) return unitText;
+            if (!unitText) return amount;
+            return `${amount} ${unitText}`.trim();
+        }
+
+        function composeAppointmentAfterText(monthValue, weekValue, langCode) {
+            const month = String(monthValue || "").trim() || "0";
+            const week = String(weekValue || "").trim() || "0";
+            if (langCode === "ja") return `次は${month}ヶ月後 ${week}週間後です`;
+            if (langCode === "zh") return `下次是在${month}个月后 ${week}周后`;
+            if (langCode === "de") return `Der naechste Termin ist in ${month} Monaten und ${week} Wochen`;
+            if (langCode === "ve") return `Lan tiep theo la sau ${month} thang va ${week} tuan`;
+            if (langCode === "pr") return `A proxima consulta sera em ${month} meses e ${week} semanas`;
+            if (langCode === "ko") return `다음은 ${month}개월 후 ${week}주 후입니다`;
+            return `The next visit is after ${month} months and ${week} weeks`;
+        }
+
+        function composeAppointmentTimeText(hourValue, minuteValue, langCode) {
+            const hour = String(hourValue || "").trim() || "0";
+            const minute = String(minuteValue || "").trim() || "0";
+            if (langCode === "ja") return `${hour}時${minute}分はどうですか`;
+            if (langCode === "zh") return `${hour}点${minute}分怎么样`;
+            if (langCode === "de") return `Wie waere es um ${hour} Uhr ${minute}`;
+            if (langCode === "ve") return `${hour} gio ${minute} phut duoc khong`;
+            if (langCode === "pr") return `Que tal ${hour} horas e ${minute} minutos`;
+            if (langCode === "ko") return `${hour}시 ${minute}분은 어떠세요`;
+            return `How about ${hour}:${minute}?`;
+        }
+
+        function escapeHtml(str) {
+            return String(str || "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
+    </script>
+</body>
+
+</html>
