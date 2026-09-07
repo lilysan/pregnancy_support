@@ -1,8 +1,9 @@
 {
   "page_title": "Quadro de comunicação da consulta",
   "page_lead": "Ajudamos a comunicação necessária por categoria com texto e áudio.",
-  "switch_exam": "Quadro de consulta",
-  "switch_reception": "Ir para recepção",
+  "switch_exam": "Consulta",
+  "switch_reception": "Recepção",
+  "switch_guidance": "Orientação de saúde",
   "settings": "Configurações",
   "language": "Idioma",
   "close": "Fechar",

@@ -1,8 +1,9 @@
 {
   "page_title": "しんさつコミュニケーションボード",
   "page_lead": "ひつような やりとりを、もじと おとで てつだいます。",
-  "switch_exam": "しんさつボード",
-  "switch_reception": "うけつけボードへ",
+  "switch_exam": "診察",
+  "switch_reception": "受付",
+  "switch_guidance": "保健指導",
   "settings": "せってい",
   "language": "ことばの せってい",
   "close": "とじる",

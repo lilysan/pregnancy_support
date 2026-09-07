@@ -1,8 +1,9 @@
 {
   "page_title": "진찰 커뮤니케이션 보드",
   "page_lead": "카테고리별로 필요한 소통을 문자와 음성으로 돕습니다.",
-  "switch_exam": "진찰 보드",
-  "switch_reception": "접수 보드로",
+  "switch_exam": "진찰",
+  "switch_reception": "접수",
+  "switch_guidance": "보건 지도",
   "settings": "설정",
   "language": "언어 설정",
   "close": "닫기",

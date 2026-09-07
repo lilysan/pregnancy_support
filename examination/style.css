@@ -45,7 +45,7 @@ body {
   background: var(--background);
   box-shadow: var(--shadow);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
 }
 
@@ -60,6 +60,19 @@ body {
   text-decoration: none;
   display: grid;
   place-items: center;
+}
+
+@media (max-width: 420px) {
+  .app-switcher {
+    width: calc(100% - 24px);
+    gap: 6px;
+  }
+
+  .app-switch-link {
+    min-height: 44px;
+    padding: 6px;
+    font-size: 1rem;
+  }
 }
 
 .app-switch-link.is-current {
@@ -200,6 +213,22 @@ body {
   background: var(--primary);
   border-color: var(--primary);
   color: var(--white);
+}
+
+.tab-label-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.tab-label-wrap > span:first-child {
+  display: grid;
+  gap: 2px;
+}
+
+.tab-link-icon {
+  flex: 0 0 auto;
+  color: currentColor;
 }
 
 .tab-ja {

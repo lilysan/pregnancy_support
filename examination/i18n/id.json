@@ -1,8 +1,9 @@
 {
   "page_title": "Papan Komunikasi Pemeriksaan",
   "page_lead": "Kami membantu komunikasi yang diperlukan per kategori dengan teks dan suara.",
-  "switch_exam": "Papan pemeriksaan",
-  "switch_reception": "Ke papan resepsionis",
+  "switch_exam": "Pemeriksaan",
+  "switch_reception": "Penerimaan",
+  "switch_guidance": "Bimbingan kesehatan",
   "settings": "Pengaturan",
   "language": "Bahasa",
   "close": "Tutup",

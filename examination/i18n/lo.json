@@ -1,8 +1,9 @@
 {
   "page_title": "ກະດານສື່ສານສຳລັບການກວດ",
   "page_lead": "ຊ່ວຍການສື່ສານທີ່ຈຳເປັນຕາມໝວດດ້ວຍຂໍ້ຄວາມ ແລະ ສຽງ.",
-  "switch_exam": "ກະດານກວດ",
-  "switch_reception": "ໄປກະດານຕ້ອນຮັບ",
+  "switch_exam": "ກວດ",
+  "switch_reception": "ຕ້ອນຮັບ",
+  "switch_guidance": "ຄຳແນະນຳສຸຂະພາບ",
   "settings": "ຕັ້ງຄ່າ",
   "language": "ພາສາ",
   "close": "ປິດ",

@@ -27,9 +27,10 @@
         <p id="pageLead" class="small-sample">受付〜会計までの説明を、言語切替と音声で案内します。</p>
     </header>
     <nav class="app-switcher" aria-label="アプリ切替">
-        <a id="switchExamLabel" class="app-switch-link" href="../examination/index.html">診察ボードへ</a>
         <a id="switchReceptionLabel" class="app-switch-link is-current" href="./index.html"
-            aria-current="page">受付ボード</a>
+            aria-current="page">受付</a>
+        <a id="switchExamLabel" class="app-switch-link" href="../examination/index.html">診察</a>
+        <a id="switchGuidanceLabel" class="app-switch-link" href="../guidance/index.html">保健指導</a>
     </nav>
     <button type="button" id="languageSettingBtn" class="language-setting-btn">設定</button>
     <div id="languageDialog" style="display:none;">
@@ -614,9 +615,10 @@
         function applyStaticTranslations() {
             document.getElementById("pageTitle").textContent = buildBilingualLabel("受付コミュニケーションボード", "page_title");
             document.getElementById("pageLead").textContent = tr("page_lead", "受付〜会計までの説明を、言語切替と音声で案内します。");
-            document.getElementById("switchExamLabel").textContent = buildBilingualLabel("診察ボードへ", "switch_exam");
-            document.getElementById("switchReceptionLabel").textContent = buildBilingualLabel("受付ボード",
+            document.getElementById("switchExamLabel").textContent = buildBilingualLabel("診察", "switch_exam");
+            document.getElementById("switchReceptionLabel").textContent = buildBilingualLabel("受付",
                 "switch_reception");
+            document.getElementById("switchGuidanceLabel").textContent = buildBilingualLabel("保健指導", "switch_guidance");
             document.getElementById("categoryTabs").setAttribute("aria-label", tr("category_aria", "カテゴリ"));
             document.getElementById("freeTranslateBtn").textContent = tr("free_translate_btn", "自由入力/翻訳");
             document.getElementById("freeTranslateBtn").setAttribute("aria-label", tr("free_translate_btn", "自由入力/翻訳"));

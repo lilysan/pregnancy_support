@@ -1,8 +1,9 @@
 {
   "page_title": "تابلوی ارتباط معاینه",
   "page_lead": "برای هر دسته، ارتباط مورد نیاز را با متن و صدا پشتیبانی می‌کنیم.",
-  "switch_exam": "تابلوی معاینه",
-  "switch_reception": "رفتن به تابلوی پذیرش",
+  "switch_exam": "معاینه",
+  "switch_reception": "پذیرش",
+  "switch_guidance": "راهنمایی صحی",
   "settings": "تنظیمات",
   "language": "زبان",
   "close": "بستن",
