@@ -1,8 +1,9 @@
 {
   "page_title": "Bảng giao tiếp khi khám",
   "page_lead": "Hỗ trợ giao tiếp cần thiết theo từng mục bằng chữ và âm thanh.",
-  "switch_exam": "Bảng khám",
-  "switch_reception": "Đến bảng tiếp tân",
+  "switch_exam": "Khám",
+  "switch_reception": "Tiếp nhận",
+  "switch_guidance": "Hướng dẫn sức khỏe",
   "settings": "Cài đặt",
   "language": "Ngôn ngữ",
   "close": "Đóng",

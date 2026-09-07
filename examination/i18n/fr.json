@@ -1,8 +1,9 @@
 {
   "page_title": "Tableau de communication pour la consultation",
   "page_lead": "Pour chaque catégorie, nous aidons les échanges nécessaires par texte et audio.",
-  "switch_exam": "Tableau de consultation",
-  "switch_reception": "Aller au tableau d’accueil",
+  "switch_exam": "Consultation",
+  "switch_reception": "Accueil",
+  "switch_guidance": "Conseils de santé",
   "settings": "Paramètres",
   "language": "Langue",
   "close": "Fermer",

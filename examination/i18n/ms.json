@@ -1,8 +1,9 @@
 {
   "page_title": "Papan Komunikasi Pemeriksaan",
   "page_lead": "Membantu komunikasi yang diperlukan mengikut kategori dengan teks dan audio.",
-  "switch_exam": "Papan pemeriksaan",
-  "switch_reception": "Ke papan penerimaan",
+  "switch_exam": "Pemeriksaan",
+  "switch_reception": "Penerimaan",
+  "switch_guidance": "Panduan kesihatan",
   "settings": "Tetapan",
   "language": "Bahasa",
   "close": "Tutup",

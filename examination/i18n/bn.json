@@ -1,8 +1,9 @@
 {
   "page_title": "পরীক্ষার যোগাযোগ বোর্ড",
   "page_lead": "প্রতিটি বিভাগে দরকারি কথোপকথন লেখা ও শব্দে সহায়তা করে।",
-  "switch_exam": "পরীক্ষা বোর্ড",
-  "switch_reception": "রিসেপশন বোর্ডে যান",
+  "switch_exam": "পরীক্ষা",
+  "switch_reception": "রিসেপশন",
+  "switch_guidance": "স্বাস্থ্য নির্দেশনা",
   "settings": "সেটিংস",
   "language": "ভাষা",
   "close": "বন্ধ",

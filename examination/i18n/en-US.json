@@ -1,8 +1,9 @@
 {
   "page_title": "Examination Communication Board",
   "page_lead": "For each category, we support the needed communication with text and audio.",
-  "switch_exam": "Examination Board",
-  "switch_reception": "Go to Reception Board",
+  "switch_exam": "Examination",
+  "switch_reception": "Reception",
+  "switch_guidance": "Midwife Consultation",
   "settings": "Settings",
   "language": "Language",
   "close": "Close",
