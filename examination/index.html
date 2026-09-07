@@ -27,8 +27,9 @@
         <p id="pageLead" class="small-sample">カテゴリごとに、必要なやり取りだけテキストと音でお手伝いします。</p>
     </header>
     <nav class="app-switcher" aria-label="アプリ切替">
-        <a id="switchExamLabel" class="app-switch-link is-current" href="./index.html" aria-current="page">診察ボード</a>
-        <a id="switchReceptionLabel" class="app-switch-link" href="../reception/index.html">受付ボードへ</a>
+        <a id="switchReceptionLabel" class="app-switch-link" href="../reception/index.html">受付</a>
+        <a id="switchExamLabel" class="app-switch-link is-current" href="./index.html" aria-current="page">診察</a>
+        <a id="switchGuidanceLabel" class="app-switch-link" href="../guidance/index.html">保健指導</a>
     </nav>
     <button type="button" id="languageSettingBtn" class="language-setting-btn">設定</button>
     <div id="languageDialog" style="display:none;">
@@ -294,6 +295,29 @@
 
         const LANGUAGE_STORAGE_KEY = "examinationSelectedLanguage";
         const currentPage = "examination";
+        const MOVED_TO_GUIDANCE_TYPES = new Set(["EPDS", "ママと赤ちゃんのサポートシリーズ", "性生活"]);
+        const DIAGNOSIS_TYPE_TRANSLATIONS = {
+            "en-US": "Diagnosis",
+            zh: "诊断",
+            fr: "Diagnostic",
+            ko: "진단",
+            pr: "Diagnostico",
+            tl: "Diagnosis",
+            ve: "Chan doan",
+            th: "การวินิจฉัย",
+            de: "Diagnose",
+            id: "Diagnosis",
+            ru: "Диагноз",
+            ne: "निदान",
+            lo: "ການວິນິດໄສ",
+            uk: "Діагноз",
+            "fa-AF": "تشخیص",
+            si: "රෝග විනිශ්චය",
+            ms: "Diagnosis",
+            my: "ရောဂါရှာဖွေမှု",
+            bn: "রোগনির্ণয়",
+            ur: "تشخیص"
+        };
         const EPDS_API_URL =
             typeof API_URL !== "undefined" ? API_URL :
             "https://script.google.com/macros/s/AKfycbyUUS9qijnORQTAxUzVXLlsDigodcNn-uANaFjQpiRXqS5mQcIFlNRWYerSkzELOc5d/exec";
@@ -359,8 +383,9 @@
         }
 
         function getI18nLanguage(langCode) {
-            if (langCode === "zh") return "zh";
-            if (langCode === "ja" || langCode === "ja-JP") return "ja";
+            const supported = new Set(languageConfig.map(item => item.code));
+            if (langCode === "ja-JP") return "ja";
+            if (supported.has(langCode)) return langCode;
             return "en-US";
         }
 
@@ -391,9 +416,10 @@
         function applyStaticTranslations() {
             document.getElementById("pageTitle").textContent = buildBilingualLabel("しんさつコミュニケーションボード", "page_title");
             document.getElementById("pageLead").textContent = tr("page_lead", "カテゴリごとに、必要なやり取りだけテキストと音でお手伝いします。");
-            document.getElementById("switchExamLabel").textContent = buildBilingualLabel("診察ボード", "switch_exam");
-            document.getElementById("switchReceptionLabel").textContent = buildBilingualLabel("受付ボードへ",
+            document.getElementById("switchExamLabel").textContent = buildBilingualLabel("診察", "switch_exam");
+            document.getElementById("switchReceptionLabel").textContent = buildBilingualLabel("受付",
                 "switch_reception");
+            document.getElementById("switchGuidanceLabel").textContent = buildBilingualLabel("保健指導", "switch_guidance");
             document.getElementById("categoryTabs").setAttribute("aria-label", tr("category_aria", "カテゴリ"));
             document.getElementById("freeTranslateBtn").textContent = tr("translation_app_btn", "翻訳アプリ");
             document.getElementById("freeTranslateBtn").setAttribute("aria-label", tr("translation_app_btn", "翻訳アプリ"));
@@ -601,7 +627,14 @@
 
         function isPregnancyScope(row) {
             const text = `${row.type} ${row.category}`.toLowerCase();
-            return !/産後|postpartum|postnatal|puerper/i.test(text);
+            return !/産後|postpartum|postnatal|puerper/i.test(text) && !MOVED_TO_GUIDANCE_TYPES.has((row.type || "").trim());
+        }
+
+        function normalizeGuidanceType(row, langCode) {
+            if (!row || (row.type || "").trim() !== "保健指導") return row;
+            return Object.assign({}, row, {
+                type: langCode === "ja" ? "診断" : (DIAGNOSIS_TYPE_TRANSLATIONS[langCode] || "Diagnosis")
+            });
         }
 
         async function fetchLocalData() {
@@ -611,7 +644,7 @@
                 if (isPregnancyScope(row)) keepIndexes.push(idx);
             });
 
-            localData = keepIndexes.map(idx => localRaw[idx]);
+            localData = keepIndexes.map(idx => normalizeGuidanceType(localRaw[idx], "ja"));
         }
 
         async function ensureLanguageLoaded(langCode, forceReload = false) {
@@ -619,7 +652,7 @@
             const lang = languageConfig.find(item => item.code === langCode) || languageConfig[0];
             setLoading(`${tr("loading_data", "データを読み込んでいます...")} (${lang.label})`);
             const translatedRaw = await getBoardData(lang.code);
-            translatedByLanguage[lang.code] = keepIndexes.map(idx => translatedRaw[idx] || emptyTranslatedRow());
+            translatedByLanguage[lang.code] = keepIndexes.map(idx => normalizeGuidanceType(translatedRaw[idx] || emptyTranslatedRow(), lang.code));
         }
 
         function emptyTranslatedRow() {
@@ -729,10 +762,6 @@
                     <span class="tab-tr">${escapeHtml(translatedType)}</span>
                 `;
                 btn.addEventListener("click", () => {
-                    if (type === "性生活") {
-                        window.location.href = "../aboutsex/";
-                        return;
-                    }
                     selectedType = type;
                     renderAccordion();
                     renderCategoryTabs();
