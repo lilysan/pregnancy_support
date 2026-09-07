@@ -1,8 +1,9 @@
 {
   "page_title": "Kommunikationstafel für die Untersuchung",
   "page_lead": "Wir unterstützen die nötige Kommunikation je Kategorie mit Text und Ton.",
-  "switch_exam": "Untersuchungstafel",
-  "switch_reception": "Zur Empfangstafel",
+  "switch_exam": "Untersuchung",
+  "switch_reception": "Empfang",
+  "switch_guidance": "Gesundheitsberatung",
   "settings": "Einstellungen",
   "language": "Sprache",
   "close": "Schließen",

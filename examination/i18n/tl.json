@@ -1,8 +1,9 @@
 {
   "page_title": "Board ng komunikasyon sa pagsusuri",
   "page_lead": "Tumutulong sa kailangang pag-uusap ayon sa kategorya gamit ang teksto at audio.",
-  "switch_exam": "Board ng pagsusuri",
-  "switch_reception": "Pumunta sa reception board",
+  "switch_exam": "Pagsusuri",
+  "switch_reception": "Resepsyon",
+  "switch_guidance": "Patnubay sa kalusugan",
   "settings": "Mga setting",
   "language": "Wika",
   "close": "Isara",

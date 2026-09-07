@@ -1,8 +1,9 @@
 {
   "page_title": "诊察沟通板",
   "page_lead": "按类别用文字和语音帮助必要的沟通。",
-  "switch_exam": "诊察板",
-  "switch_reception": "前往接待板",
+  "switch_exam": "诊察",
+  "switch_reception": "接待",
+  "switch_guidance": "保健指导",
   "settings": "设置",
   "language": "语言设置",
   "close": "关闭",
