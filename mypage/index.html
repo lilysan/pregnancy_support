@@ -67,7 +67,31 @@
             overflow-wrap: anywhere;
         }
 
+        .link-detail-value.is-empty {
+            color: var(--sub-text);
+            font-weight: 500;
+        }
+
+        .profile-view-card {
+            display: grid;
+            gap: 16px;
+        }
+
+        .profile-view-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-start;
+        }
+
         .link-extra-form {
+            display: grid;
+            gap: 14px;
+            padding-top: 16px;
+            border-top: 1px solid var(--divider);
+        }
+
+        .link-extra-view {
             display: grid;
             gap: 14px;
             padding-top: 16px;
@@ -155,6 +179,10 @@
             gap: 14px;
         }
 
+        .is-hidden {
+            display: none !important;
+        }
+
         .user-level-grid {
             display: grid;
             gap: 12px;
@@ -185,7 +213,9 @@
                 </button>
             </span>
 
-            <form id="userForm" class="card user-form">
+            <div id="userView" class="card profile-view-card"></div>
+
+            <form id="userForm" class="card user-form is-hidden">
                 <label>
                     <span data-i18n="[html]link.label.name"></span>
                     <span class="badge required" data-i18n="[html]link.badge.required"></span>
@@ -245,6 +275,10 @@
                     <button type="button" id="saveUserBtn" class="btn primary btn-small form-save-btn">
                         <iconify-icon icon="material-symbols:save-rounded" width="18" height="18" aria-hidden="true"></iconify-icon>
                         <span data-i18n="[html]button.save"></span>
+                    </button>
+                    <button type="button" id="cancelUserEditBtn" class="btn tertiary btn-small">
+                        <iconify-icon icon="material-symbols:close-rounded" width="18" height="18" aria-hidden="true"></iconify-icon>
+                        <span data-i18n="[html]button.cancel"></span>
                     </button>
                     <button type="button" id="resetUserBtn" class="btn tertiary btn-small">
                         <iconify-icon icon="material-symbols:restart-alt-rounded" width="18" height="18" aria-hidden="true"></iconify-icon>
@@ -600,6 +634,7 @@
         idToken: null,
         pendingQrToken: "",
         user: {},
+        userEditMode: false,
         hospitals: [],
         contacts: []
     };
@@ -629,6 +664,10 @@
         $("#scanHospitalBtn").on("click", handleScanHospital);
         $("#addContactFormBtn").on("click", addContactDraftForm);
         $("#saveUserBtn").on("click", handleSaveUser);
+        $("#cancelUserEditBtn").on("click", function () {
+            renderUserForm();
+            setUserEditMode(false);
+        });
         initSharedDataInfoModal();
         $("#resetUserBtn").on("click", handleResetUser);
         $("#submitHospitalRegistrationBtn").on("click", handleSubmitHospitalRegistration);
@@ -707,6 +746,7 @@
         }, "user");
 
         state.user = response && response.data ? response.data : {};
+        state.userEditMode = !hasUserProfileData(state.user);
         renderUserForm();
     }
 
@@ -765,8 +805,53 @@
         $("#userLevelWInput").val(level.w != null ? String(level.w) : "");
         $("#userLevelRInput").val(level.r != null ? String(level.r) : "");
 
+        renderUserView();
+        setUserEditMode(state.userEditMode);
         localizeLinkPage();
         updateUserSaveButtonState();
+    }
+
+    function renderUserView() {
+        const user = state.user || {};
+        const level = user.level || {};
+        const view = $("#userView");
+        view.empty();
+
+        view.append(
+            $("<div>")
+                .addClass("link-detail-list")
+                .append(renderDetail("link.label.name", user.name, true))
+                .append(renderDetail("link.label.nameFurigana", user.nameFurigana, true))
+                .append(renderDetail("link.label.age", user.age != null ? String(user.age) : "", true))
+                .append(renderDetail("link.label.nationality", user.nationality, true))
+                .append(renderDetail("link.label.native", user.native, true))
+                .append(renderDetail("link.label.dueDate", formatDisplayDate(user.dueDate), true))
+                .append(renderDetail("link.label.levelSpeaking", formatLevelValue("s", level.s), true))
+                .append(renderDetail("link.label.levelListening", formatLevelValue("l", level.l), true))
+                .append(renderDetail("link.label.levelWriting", formatLevelValue("w", level.w), true))
+                .append(renderDetail("link.label.levelReading", formatLevelValue("r", level.r), true))
+        );
+
+        view.append(
+            $("<div>")
+                .addClass("profile-view-actions")
+                .append(
+                    $("<button>")
+                        .attr("type", "button")
+                        .addClass("btn primary btn-small")
+                        .append($("<iconify-icon>").attr("icon", "material-symbols:edit-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                        .append($("<span>").attr("data-i18n", "[html]button.edit"))
+                        .on("click", function () {
+                            setUserEditMode(true);
+                        })
+                )
+        );
+    }
+
+    function setUserEditMode(isEditing) {
+        state.userEditMode = Boolean(isEditing);
+        $("#userView").toggleClass("is-hidden", state.userEditMode);
+        $("#userForm").toggleClass("is-hidden", !state.userEditMode);
     }
 
     function renderContacts() {
@@ -774,7 +859,7 @@
         list.empty();
 
         state.contacts.forEach((contact) => {
-            list.append(renderContactCard(contact));
+            list.append(renderContactViewCard(contact));
         });
 
         updateContactsEmptyState();
@@ -820,19 +905,62 @@
                 .append(renderDetail("link.label.phone3", hospital.phoneNumber3))
         );
 
-        card.append(renderExtraInfoForm(hospital));
+        card.append(renderExtraInfoView(hospital));
         return card;
     }
 
-    function renderDetail(labelKey, value) {
-        if (!value) {
+    function renderExtraInfoView(hospital) {
+        const container = $("<div>").addClass("link-extra-view");
+        container.append(
+            $("<div>")
+                .addClass("link-detail-list")
+                .append(renderDetail("link.label.cardNo", hospital.cardNo, true))
+                .append(renderDetail("link.label.travelTime", formatTravelTime(hospital.travelTime), true))
+                .append(renderDetail("link.label.isLaborPatient", formatLaborPatient(hospital.isLaborPatient), true))
+        );
+        container.append(
+            $("<div>")
+                .addClass("link-extra-actions")
+                .append(
+                    $("<button>")
+                        .attr("type", "button")
+                        .addClass("btn primary btn-small")
+                        .append($("<iconify-icon>").attr("icon", "material-symbols:edit-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                        .append($("<span>").attr("data-i18n", "[html]button.edit"))
+                        .on("click", function () {
+                            container.replaceWith(renderExtraInfoForm(hospital));
+                            localizeLinkPage();
+                        })
+                )
+                .append(
+                    $("<button>")
+                        .attr("type", "button")
+                        .addClass("btn danger btn-small")
+                        .append($("<iconify-icon>").attr("icon", "material-symbols:link-off-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                        .append($("<span>").attr("data-i18n", "[html]link.button.unlink"))
+                        .on("click", function () {
+                            handleUnlinkHospital(hospital);
+                        })
+                )
+        );
+        return container;
+    }
+
+    function renderDetail(labelKey, value, showEmpty) {
+        if (!value && !showEmpty) {
             return $();
         }
 
+        const displayValue = value || tText("link.option.notSet", "未設定");
         return $("<div>")
             .addClass("link-detail")
             .append($("<span>").addClass("link-detail-label").attr("data-i18n", `[html]${labelKey}`))
-            .append($("<p>").addClass("link-detail-value").text(value));
+            .append(
+                $("<p>")
+                    .addClass("link-detail-value")
+                    .toggleClass("is-empty", !value)
+                    .text(displayValue)
+            );
     }
 
     function renderExtraInfoForm(hospital) {
@@ -919,11 +1047,12 @@
                 .append(
                     $("<button>")
                         .attr("type", "button")
-                        .addClass("btn danger btn-small")
-                        .append($("<iconify-icon>").attr("icon", "material-symbols:link-off-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
-                        .append($("<span>").attr("data-i18n", "[html]link.button.unlink"))
+                        .addClass("btn tertiary btn-small")
+                        .append($("<iconify-icon>").attr("icon", "material-symbols:close-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                        .append($("<span>").attr("data-i18n", "[html]button.cancel"))
                         .on("click", function () {
-                            handleUnlinkHospital(hospital);
+                            form.replaceWith(renderExtraInfoView(hospital));
+                            localizeLinkPage();
                         })
                 )
         );
@@ -935,7 +1064,46 @@
         return form;
     }
 
-    function renderContactCard(contact) {
+    function renderContactViewCard(contact) {
+        const card = $("<article>")
+            .addClass("card contact-card")
+            .attr("data-contact-id", contact.contactId);
+
+        card.append(
+            $("<div>")
+                .addClass("link-detail-list")
+                .append(renderDetail("link.label.contactName", contact.contactName, true))
+                .append(renderDetail("link.label.phoneNumber", contact.phoneNumber, true))
+        );
+        card.append(
+            $("<div>")
+                .addClass("contact-actions")
+                .append(
+                    $("<button>")
+                        .attr("type", "button")
+                        .addClass("btn primary btn-small")
+                        .append($("<iconify-icon>").attr("icon", "material-symbols:edit-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                        .append($("<span>").attr("data-i18n", "[html]button.edit"))
+                        .on("click", function () {
+                            card.replaceWith(renderContactEditForm(contact));
+                            localizeLinkPage();
+                        })
+                )
+                .append(
+                    $("<button>")
+                        .attr("type", "button")
+                        .addClass("btn danger btn-small")
+                        .append($("<iconify-icon>").attr("icon", "material-symbols:delete-outline-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                        .append($("<span>").attr("data-i18n", "[html]button.delete"))
+                        .on("click", function () {
+                            handleDeleteContact(contact);
+                        })
+                )
+        );
+        return card;
+    }
+
+    function renderContactEditForm(contact) {
         const form = $("<form>")
             .addClass("card contact-card")
             .attr("novalidate", true)
@@ -959,11 +1127,12 @@
                 .append(
                     $("<button>")
                         .attr("type", "button")
-                        .addClass("btn danger btn-small")
-                        .append($("<iconify-icon>").attr("icon", "material-symbols:delete-outline-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
-                        .append($("<span>").attr("data-i18n", "[html]button.delete"))
+                        .addClass("btn tertiary btn-small")
+                        .append($("<iconify-icon>").attr("icon", "material-symbols:close-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                        .append($("<span>").attr("data-i18n", "[html]button.cancel"))
                         .on("click", function () {
-                            handleDeleteContact(contact);
+                            form.replaceWith(renderContactViewCard(contact));
+                            localizeLinkPage();
                         })
                 )
         );
@@ -1370,6 +1539,54 @@
             hospital.hospitalAddress3,
             hospital.hospitalAddress4
         ].filter(Boolean).join(" ");
+    }
+
+    function formatTravelTime(value) {
+        if (value === "" || value == null) {
+            return "";
+        }
+        return `${value}${tText("link.unit.minutes", "分")}`;
+    }
+
+    function formatLaborPatient(value) {
+        const normalizedValue = normalizeLaborPatientValue(value);
+        if (normalizedValue === "1") {
+            return tText("link.option.yes", "はい");
+        }
+        if (normalizedValue === "0") {
+            return tText("link.option.no", "いいえ");
+        }
+        if (normalizedValue === "2") {
+            return tText("link.option.undecided", "未定");
+        }
+        return "";
+    }
+
+    function formatDisplayDate(value) {
+        const normalized = toDateInputValue(value);
+        return normalized || String(value || "").trim();
+    }
+
+    function formatLevelValue(levelKey, value) {
+        if (value === "" || value == null) {
+            return "";
+        }
+        const level = Number(value);
+        if (![1, 2, 3, 4].includes(level)) {
+            return String(value);
+        }
+        return `${level}：${tText(`link.levelTable.rows.${level}.${levelKey}`, `Lv.${level}`)}`;
+    }
+
+    function hasUserProfileData(user) {
+        if (!user) {
+            return false;
+        }
+        const level = user.level || {};
+        return Boolean(
+            user.name || user.nameFurigana || user.age || user.nationality || user.native || user.dueDate
+            || level.s || level.l || level.w || level.r
+        );
     }
 
     function normalizeLaborPatientValue(value) {

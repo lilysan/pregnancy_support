@@ -65,6 +65,7 @@
     "no": "いいえ",
     "cancel": "キャンセル",
     "back": "もどる",
+    "edit": "<ruby>編集<rt>へんしゅう</rt></ruby>",
     "save": "<ruby>保存<rt>ほぞん</rt></ruby>",
     "clear": "<ruby>入力<rt>にゅうりょく</rt></ruby>したものを <ruby>消<rt>け</rt></ruby>す",
     "reset": "リセット",
@@ -169,6 +170,9 @@
       "yes": "はい",
       "no": "いいえ",
       "undecided": "<ruby>未定<rt>みてい</rt></ruby>"
+    },
+    "unit": {
+      "minutes": "<ruby>分<rt>ふん</rt></ruby>"
     },
     "confirm": {
       "unlink": "この<ruby>病院<rt>びょういん</rt></ruby>の<ruby>登録<rt>とうろく</rt></ruby>を<ruby>消<rt>け</rt></ruby>しますか？",
