@@ -52,9 +52,9 @@ LINEチャット<ruby>画面<rt>がめん</rt></ruby>のメニューで `A-4 マ
 
 <ruby>診察券番号<rt>しんさつけんばんごう</rt></ruby>、<ruby>病院<rt>びょういん</rt></ruby>までの <ruby>時間<rt>じかん</rt></ruby>、この <ruby>病院<rt>びょういん</rt></ruby>で お<ruby>産<rt>さん</rt></ruby>をするかどうかを <ruby>変<rt>か</rt></ruby>えたいときは、<ruby>登録済<rt>とうろくず</rt></ruby>みの <ruby>病院<rt>びょういん</rt></ruby>カードの <ruby>中<rt>なか</rt></ruby>を <ruby>直<rt>なお</rt></ruby>して、`保存` を <ruby>押<rt>お</rt></ruby>してください。
 
-#### <ruby>病院<rt>びょういん</rt></ruby>の <ruby>登録<rt>とうろく</rt></ruby>を <ruby>消<rt>け</rt></ruby>す
+#### <ruby>病院<rt>びょういん</rt></ruby>の <ruby>登録<rt>とうろく</rt></ruby>を <ruby>解除<rt>かいじょ</rt></ruby>する
 
-<ruby>病院<rt>びょういん</rt></ruby>を <ruby>変<rt>か</rt></ruby>えたときなど、<ruby>連携<rt>れんけい</rt></ruby>を やめたい <ruby>病院<rt>びょういん</rt></ruby>は `登録を削除` から <ruby>消<rt>け</rt></ruby>すことができます。
+<ruby>病院<rt>びょういん</rt></ruby>を <ruby>変<rt>か</rt></ruby>えたときなど、<ruby>連携<rt>れんけい</rt></ruby>を やめたい <ruby>病院<rt>びょういん</rt></ruby>は `登録を解除` から <ruby>解除<rt>かいじょ</rt></ruby>できます。
 <ruby>消<rt>け</rt></ruby>すと、その <ruby>病院<rt>びょういん</rt></ruby>スタッフは あなたの <ruby>共有<rt>きょうゆう</rt></ruby>データを <ruby>見<rt>み</rt></ruby>ることができなくなります。
 
 ### 3. <ruby>連絡先<rt>れんらくさき</rt></ruby>を <ruby>登録<rt>とうろく</rt></ruby>する

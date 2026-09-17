@@ -22,6 +22,7 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
+            position: relative;
         }
 
         .link-card-head {
@@ -29,6 +30,7 @@
             align-items: flex-start;
             justify-content: space-between;
             gap: 12px;
+            padding-right: 46px;
         }
 
         .link-hospital-title {
@@ -75,13 +77,78 @@
         .profile-view-card {
             display: grid;
             gap: 16px;
+            position: relative;
+            padding-right: 58px;
         }
 
-        .profile-view-actions {
+        .card-edit-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 36px;
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            border-radius: 999px;
+        }
+
+        .link-card.is-editing > .card-edit-btn {
+            display: none;
+        }
+
+        .level-view-detail {
+            gap: 6px;
+        }
+
+        .level-view-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 8px;
+        }
+
+        .level-segments {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            width: 100%;
+            max-width: 360px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--white);
+        }
+
+        .level-segment {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: flex-start;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+            padding: 6px 8px;
+            border-right: 1px solid var(--border);
+            color: var(--sub-text);
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .level-segment:last-child {
+            border-right: 0;
+        }
+
+        .level-segment.is-active {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+        .level-view-text {
+            margin: 0;
+            color: var(--text);
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.45;
+            overflow-wrap: anywhere;
         }
 
         .link-extra-form {
@@ -105,9 +172,38 @@
             justify-content: flex-start;
         }
 
+        .edit-danger-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .edit-submit-actions {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+            gap: 10px;
+        }
+
         .link-labor-toggle {
             display: grid;
             gap: 6px;
+        }
+
+        .labor-switch-button {
+            box-shadow: none;
+        }
+
+        .labor-switch-status {
+            margin-right: auto;
+            color: var(--sub-text);
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .labor-switch-button.active .labor-switch-status {
+            color: var(--primary-dark);
         }
 
         .link-empty {
@@ -126,6 +222,10 @@
             display: grid;
             gap: 14px;
             position: relative;
+        }
+
+        .contact-view-card {
+            padding-right: 58px;
         }
 
         .contact-draft-close {
@@ -271,18 +371,20 @@
                         </label>
                     </div>
                 </div>
-                <div class="contact-actions">
-                    <button type="button" id="saveUserBtn" class="btn primary btn-small form-save-btn">
-                        <iconify-icon icon="material-symbols:save-rounded" width="18" height="18" aria-hidden="true"></iconify-icon>
-                        <span data-i18n="[html]button.save"></span>
+                <div class="edit-danger-actions">
+                    <button type="button" id="resetUserBtn" class="btn danger btn-small">
+                        <iconify-icon icon="material-symbols:restart-alt-rounded" width="18" height="18" aria-hidden="true"></iconify-icon>
+                        <span data-i18n="[html]button.reset"></span>
                     </button>
+                </div>
+                <div class="edit-submit-actions">
                     <button type="button" id="cancelUserEditBtn" class="btn tertiary btn-small">
                         <iconify-icon icon="material-symbols:close-rounded" width="18" height="18" aria-hidden="true"></iconify-icon>
                         <span data-i18n="[html]button.cancel"></span>
                     </button>
-                    <button type="button" id="resetUserBtn" class="btn tertiary btn-small">
-                        <iconify-icon icon="material-symbols:restart-alt-rounded" width="18" height="18" aria-hidden="true"></iconify-icon>
-                        <span data-i18n="[html]button.reset"></span>
+                    <button type="button" id="saveUserBtn" class="btn primary btn-small form-save-btn">
+                        <iconify-icon icon="material-symbols:save-rounded" width="18" height="18" aria-hidden="true"></iconify-icon>
+                        <span data-i18n="[html]button.save"></span>
                     </button>
                 </div>
             </form>
@@ -369,13 +471,11 @@
             <div class="link-labor-toggle">
                 <span class="field-label">
                     <span data-i18n="[html]link.label.isLaborPatient"></span>
-                    <span class="badge required" data-i18n="[html]link.badge.required"></span>
                 </span>
-                <div id="hospitalRegistrationLaborButtons" class="radio-row single-select">
-                    <button type="button" class="radio-chip" data-value="1" data-i18n="[html]link.option.yes"></button>
-                    <button type="button" class="radio-chip" data-value="0" data-i18n="[html]link.option.no"></button>
-                    <button type="button" class="radio-chip" data-value="2" data-i18n="[html]link.option.undecided"></button>
-                </div>
+                <button type="button" id="hospitalRegistrationLaborSwitch" class="toggle-card labor-switch-button" aria-pressed="false" data-value="0">
+                    <span class="labor-switch-status"></span>
+                    <span class="toggle-ui" aria-hidden="true"></span>
+                </button>
             </div>
             <div class="modal-actions">
                 <button type="button" id="cancelHospitalRegistrationBtn" class="btn tertiary btn-small" data-i18n="[html]button.cancel"></button>
@@ -678,11 +778,14 @@
         bindSearchableProfileInput($("#userNationalityInput"));
         bindSearchableProfileInput($("#userNativeInput"));
         $("#hospitalRegistrationForm").on("input change", updateHospitalRegistrationButtonState);
-        $("#hospitalRegistrationLaborButtons .radio-chip").on("click", function () {
-            $("#hospitalRegistrationLaborButtons .radio-chip").removeClass("active");
-            $(this).addClass("active");
+        $("#hospitalRegistrationLaborSwitch").on("click", function () {
+            setLaborSwitchState($(this), !isLaborSwitchOn($(this)));
+            if (isLaborSwitchOn($(this))) {
+                turnOffOtherLaborSwitches($(this));
+            }
             updateHospitalRegistrationButtonState();
         });
+        setLaborSwitchState($("#hospitalRegistrationLaborSwitch"), false);
         renderLocalizedSelectOptions();
         updateUserSaveButtonState();
         updateHospitalRegistrationButtonState();
@@ -826,26 +929,69 @@
                 .append(renderDetail("link.label.nationality", user.nationality, true))
                 .append(renderDetail("link.label.native", user.native, true))
                 .append(renderDetail("link.label.dueDate", formatDisplayDate(user.dueDate), true))
-                .append(renderDetail("link.label.levelSpeaking", formatLevelValue("s", level.s), true))
-                .append(renderDetail("link.label.levelListening", formatLevelValue("l", level.l), true))
-                .append(renderDetail("link.label.levelWriting", formatLevelValue("w", level.w), true))
-                .append(renderDetail("link.label.levelReading", formatLevelValue("r", level.r), true))
+                .append(renderUserLevelViewLabel())
+                .append(renderLevelDetail("link.label.levelSpeaking", "s", level.s))
+                .append(renderLevelDetail("link.label.levelListening", "l", level.l))
+                .append(renderLevelDetail("link.label.levelWriting", "w", level.w))
+                .append(renderLevelDetail("link.label.levelReading", "r", level.r))
         );
 
-        view.append(
-            $("<div>")
-                .addClass("profile-view-actions")
-                .append(
-                    $("<button>")
-                        .attr("type", "button")
-                        .addClass("btn primary btn-small")
-                        .append($("<iconify-icon>").attr("icon", "material-symbols:edit-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
-                        .append($("<span>").attr("data-i18n", "[html]button.edit"))
-                        .on("click", function () {
-                            setUserEditMode(true);
-                        })
-                )
-        );
+        view.append(renderCardEditButton(function () {
+            setUserEditMode(true);
+        }));
+    }
+
+    function renderCardEditButton(onClick) {
+        return $("<button>")
+            .attr("type", "button")
+            .attr("aria-label", tText("button.edit", "編集"))
+            .attr("title", tText("button.edit", "編集"))
+            .addClass("btn tertiary btn-small card-edit-btn")
+            .append($("<iconify-icon>").attr("icon", "material-symbols:edit-rounded").attr("width", "20").attr("height", "20").attr("aria-hidden", "true"))
+            .on("click", onClick);
+    }
+
+    function renderUserLevelViewLabel() {
+        return $("<div>")
+            .addClass("link-detail")
+            .append(
+                $("<span>")
+                    .addClass("field-label user-level-label")
+                    .attr("data-i18n", "[html]link.label.level")
+            );
+    }
+
+    function renderLevelDetail(labelKey, levelKey, value) {
+        const level = Number(value);
+        const hasLevel = [1, 2, 3, 4].includes(level);
+        const description = hasLevel
+            ? tText(`link.levelTable.rows.${level}.${levelKey}`, `Lv.${level}`)
+            : tText("link.option.notSet", "未設定");
+        const segments = $("<div>").addClass("level-segments");
+
+        [1, 2, 3, 4].forEach((levelNumber) => {
+            segments.append(
+                $("<span>")
+                    .addClass("level-segment")
+                    .toggleClass("is-active", level === levelNumber)
+                    .text(`Lv.${levelNumber}`)
+            );
+        });
+
+        return $("<div>")
+            .addClass("link-detail level-view-detail")
+            .append($("<span>").addClass("link-detail-label").attr("data-i18n", `[html]${labelKey}`))
+            .append(
+                $("<div>")
+                    .addClass("level-view-row")
+                    .append(segments)
+                    .append(
+                        $("<p>")
+                            .addClass("level-view-text")
+                            .toggleClass("is-empty", !hasLevel)
+                            .text(description)
+                    )
+            );
     }
 
     function setUserEditMode(isEditing) {
@@ -886,6 +1032,12 @@
             .addClass("card link-card")
             .attr("data-hospital-id", hospital.hospitalId || "");
 
+        card.append(renderCardEditButton(function () {
+            card.addClass("is-editing");
+            card.find(".link-extra-view").replaceWith(renderExtraInfoForm(hospital));
+            localizeLinkPage();
+        }));
+
         card.append(
             $("<div>")
                 .addClass("link-card-head")
@@ -917,31 +1069,6 @@
                 .append(renderDetail("link.label.cardNo", hospital.cardNo, true))
                 .append(renderDetail("link.label.travelTime", formatTravelTime(hospital.travelTime), true))
                 .append(renderDetail("link.label.isLaborPatient", formatLaborPatient(hospital.isLaborPatient), true))
-        );
-        container.append(
-            $("<div>")
-                .addClass("link-extra-actions")
-                .append(
-                    $("<button>")
-                        .attr("type", "button")
-                        .addClass("btn primary btn-small")
-                        .append($("<iconify-icon>").attr("icon", "material-symbols:edit-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
-                        .append($("<span>").attr("data-i18n", "[html]button.edit"))
-                        .on("click", function () {
-                            container.replaceWith(renderExtraInfoForm(hospital));
-                            localizeLinkPage();
-                        })
-                )
-                .append(
-                    $("<button>")
-                        .attr("type", "button")
-                        .addClass("btn danger btn-small")
-                        .append($("<iconify-icon>").attr("icon", "material-symbols:link-off-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
-                        .append($("<span>").attr("data-i18n", "[html]link.button.unlink"))
-                        .on("click", function () {
-                            handleUnlinkHospital(hospital);
-                        })
-                )
         );
         return container;
     }
@@ -985,26 +1112,12 @@
             .attr("data-i18n", "[placeholder]link.placeholder.travelTime")
             .val(hospital.travelTime != null ? hospital.travelTime : "");
 
-        const laborPatientValue = normalizeLaborPatientValue(hospital.isLaborPatient);
-        const laborButtons = $("<div>").addClass("radio-row single-select");
-        [
-            {value: "1", key: "link.option.yes"},
-            {value: "0", key: "link.option.no"},
-            {value: "2", key: "link.option.undecided"}
-        ].forEach((option) => {
-            laborButtons.append(
-                $("<button>")
-                    .attr("type", "button")
-                    .addClass("radio-chip")
-                    .toggleClass("active", laborPatientValue === option.value)
-                    .attr("data-value", option.value)
-                    .attr("data-i18n", `[html]${option.key}`)
-                    .on("click", function () {
-                        laborButtons.find(".radio-chip").removeClass("active");
-                        $(this).addClass("active");
-                        updateExtraInfoSaveButtonState(form);
-                    })
-            );
+        const laborSwitch = renderLaborSwitch(normalizeLaborPatientValue(hospital.isLaborPatient) === "1", function (button) {
+            setLaborSwitchState(button, !isLaborSwitchOn(button));
+            if (isLaborSwitchOn(button)) {
+                turnOffOtherLaborSwitches(button);
+            }
+            updateExtraInfoSaveButtonState(form);
         });
 
         form.append(
@@ -1026,13 +1139,38 @@
                     $("<span>")
                         .addClass("field-label")
                         .append($("<span>").attr("data-i18n", "[html]link.label.isLaborPatient"))
-                        .append(renderRequiredBadge())
                 )
-                .append(laborButtons)
+                .append(laborSwitch)
         );
         form.append(
             $("<div>")
-                .addClass("link-extra-actions")
+                .addClass("edit-danger-actions")
+                .append(
+                    $("<button>")
+                        .attr("type", "button")
+                        .addClass("btn danger btn-small")
+                        .append($("<iconify-icon>").attr("icon", "material-symbols:link-off-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                        .append($("<span>").attr("data-i18n", "[html]link.button.unlink"))
+                        .on("click", function () {
+                            handleUnlinkHospital(hospital);
+                        })
+                )
+        );
+        form.append(
+            $("<div>")
+                .addClass("edit-submit-actions")
+                .append(
+                    $("<button>")
+                        .attr("type", "button")
+                        .addClass("btn tertiary btn-small")
+                        .append($("<iconify-icon>").attr("icon", "material-symbols:close-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                        .append($("<span>").attr("data-i18n", "[html]button.cancel"))
+                        .on("click", function () {
+                            form.closest(".link-card").removeClass("is-editing");
+                            form.replaceWith(renderExtraInfoView(hospital));
+                            localizeLinkPage();
+                        })
+                )
                 .append(
                     $("<button>")
                         .attr("type", "button")
@@ -1042,17 +1180,6 @@
                         .append($("<span>").attr("data-i18n", "[html]button.save"))
                         .on("click", function () {
                             handleSaveExtraInfo(hospital, form);
-                        })
-                )
-                .append(
-                    $("<button>")
-                        .attr("type", "button")
-                        .addClass("btn tertiary btn-small")
-                        .append($("<iconify-icon>").attr("icon", "material-symbols:close-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
-                        .append($("<span>").attr("data-i18n", "[html]button.cancel"))
-                        .on("click", function () {
-                            form.replaceWith(renderExtraInfoView(hospital));
-                            localizeLinkPage();
                         })
                 )
         );
@@ -1066,39 +1193,19 @@
 
     function renderContactViewCard(contact) {
         const card = $("<article>")
-            .addClass("card contact-card")
+            .addClass("card contact-card contact-view-card")
             .attr("data-contact-id", contact.contactId);
+
+        card.append(renderCardEditButton(function () {
+            card.replaceWith(renderContactEditForm(contact));
+            localizeLinkPage();
+        }));
 
         card.append(
             $("<div>")
                 .addClass("link-detail-list")
                 .append(renderDetail("link.label.contactName", contact.contactName, true))
                 .append(renderDetail("link.label.phoneNumber", contact.phoneNumber, true))
-        );
-        card.append(
-            $("<div>")
-                .addClass("contact-actions")
-                .append(
-                    $("<button>")
-                        .attr("type", "button")
-                        .addClass("btn primary btn-small")
-                        .append($("<iconify-icon>").attr("icon", "material-symbols:edit-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
-                        .append($("<span>").attr("data-i18n", "[html]button.edit"))
-                        .on("click", function () {
-                            card.replaceWith(renderContactEditForm(contact));
-                            localizeLinkPage();
-                        })
-                )
-                .append(
-                    $("<button>")
-                        .attr("type", "button")
-                        .addClass("btn danger btn-small")
-                        .append($("<iconify-icon>").attr("icon", "material-symbols:delete-outline-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
-                        .append($("<span>").attr("data-i18n", "[html]button.delete"))
-                        .on("click", function () {
-                            handleDeleteContact(contact);
-                        })
-                )
         );
         return card;
     }
@@ -1112,18 +1219,21 @@
         appendContactFields(form, contact);
         form.append(
             $("<div>")
-                .addClass("contact-actions")
+                .addClass("edit-danger-actions")
                 .append(
                     $("<button>")
                         .attr("type", "button")
-                        .addClass("btn primary btn-small form-save-btn")
-                        .addClass("contact-save-btn")
-                        .append($("<iconify-icon>").attr("icon", "material-symbols:save-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
-                        .append($("<span>").attr("data-i18n", "[html]button.save"))
+                        .addClass("btn danger btn-small")
+                        .append($("<iconify-icon>").attr("icon", "material-symbols:delete-outline-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                        .append($("<span>").attr("data-i18n", "[html]button.delete"))
                         .on("click", function () {
-                            handleSaveContact(contact, form);
+                            handleDeleteContact(contact);
                         })
                 )
+        );
+        form.append(
+            $("<div>")
+                .addClass("edit-submit-actions")
                 .append(
                     $("<button>")
                         .attr("type", "button")
@@ -1133,6 +1243,17 @@
                         .on("click", function () {
                             form.replaceWith(renderContactViewCard(contact));
                             localizeLinkPage();
+                        })
+                )
+                .append(
+                    $("<button>")
+                        .attr("type", "button")
+                        .addClass("btn primary btn-small form-save-btn")
+                        .addClass("contact-save-btn")
+                        .append($("<iconify-icon>").attr("icon", "material-symbols:save-rounded").attr("width", "18").attr("height", "18").attr("aria-hidden", "true"))
+                        .append($("<span>").attr("data-i18n", "[html]button.save"))
+                        .on("click", function () {
+                            handleSaveContact(contact, form);
                         })
                 )
         );
@@ -1224,6 +1345,40 @@
             .attr("data-i18n", "[html]link.badge.required");
     }
 
+    function renderLaborSwitch(isActive, onClick) {
+        const button = $("<button>")
+            .attr("type", "button")
+            .addClass("toggle-card labor-switch-button")
+            .append($("<span>").addClass("labor-switch-status"))
+            .append($("<span>").addClass("toggle-ui").attr("aria-hidden", "true"))
+            .on("click", function () {
+                onClick($(this));
+            });
+        setLaborSwitchState(button, isActive);
+        return button;
+    }
+
+    function setLaborSwitchState(button, isActive) {
+        const switchButton = $(button);
+        switchButton
+            .toggleClass("active", Boolean(isActive))
+            .attr("aria-pressed", String(Boolean(isActive)))
+            .attr("data-value", isActive ? "1" : "0");
+        switchButton.find(".labor-switch-status")
+            .attr("data-i18n", isActive ? "[html]link.option.yes" : "[html]link.option.no")
+            .html(isActive ? tHtml("link.option.yes", "はい") : tHtml("link.option.no", "いいえ"));
+    }
+
+    function isLaborSwitchOn(button) {
+        return String($(button).attr("data-value")) === "1";
+    }
+
+    function turnOffOtherLaborSwitches(activeButton) {
+        $(".labor-switch-button").not(activeButton).each(function () {
+            setLaborSwitchState($(this), false);
+        });
+    }
+
     async function handleScanHospital() {
         if (!liff.scanCodeV2) {
             alert(tText("link.error.scanUnavailable", "QR code scanning is not available."));
@@ -1253,17 +1408,18 @@
 
     async function handleSubmitHospitalRegistration() {
         const form = $("#hospitalRegistrationForm");
-        if (!state.pendingQrToken || !form[0].reportValidity() || !validateLaborPatientSelection(form)) {
+        if (!state.pendingQrToken || !form[0].reportValidity()) {
             return;
         }
 
+        const postData = getHospitalRegistrationFormData();
         $("#loadingOverlay").addClass("is-open");
         try {
             await apiRequest({
                 path: "link",
                 method: "post",
                 idToken: state.idToken,
-                postData: getHospitalRegistrationFormData()
+                postData: postData
             }, "linkPost");
             closeHospitalRegistrationModal();
             await reloadHospitals();
@@ -1281,7 +1437,7 @@
         }
         const action = await showDeleteConfirmModal({
             messageKey: "link.confirm.unlink",
-            fallbackMessage: "Do you want to delete this hospital registration?"
+            fallbackMessage: "Do you want to unlink this hospital registration?"
         });
         if (action !== "positive") {
             return;
@@ -1310,17 +1466,17 @@
         if (!hospital || !hospital.hospitalId) {
             return;
         }
-        if (!form[0].reportValidity() || !validateLaborPatientSelection(form)) {
+        if (!form[0].reportValidity()) {
             return;
         }
 
         const travelTime = form.find('input[type="number"]').val();
-        const selectedLaborPatient = form.find(".radio-chip.active").data("value");
+        const selectedLaborPatient = getLaborSwitchValue(form.find(".labor-switch-button"));
         const postData = {
             hospitalId: hospital.hospitalId,
             cardNo: String(form.find('input[type="text"]').val() || "").trim(),
             travelTime: Number(travelTime),
-            isLaborPatient: Number(selectedLaborPatient)
+            isLaborPatient: selectedLaborPatient
         };
 
         $("#loadingOverlay").addClass("is-open");
@@ -1612,7 +1768,7 @@
     function openHospitalRegistrationModal(qrToken) {
         state.pendingQrToken = qrToken;
         $("#hospitalRegistrationForm")[0].reset();
-        $("#hospitalRegistrationLaborButtons .radio-chip").removeClass("active");
+        setLaborSwitchState($("#hospitalRegistrationLaborSwitch"), false);
         $("#hospitalRegistrationOverlay").addClass("is-open");
         $("#hospitalRegistrationCardNoInput").trigger("focus");
         updateHospitalRegistrationButtonState();
@@ -1623,28 +1779,22 @@
         state.pendingQrToken = "";
         $("#hospitalRegistrationOverlay").removeClass("is-open");
         $("#hospitalRegistrationForm")[0].reset();
-        $("#hospitalRegistrationLaborButtons .radio-chip").removeClass("active");
+        setLaborSwitchState($("#hospitalRegistrationLaborSwitch"), false);
         updateHospitalRegistrationButtonState();
     }
 
     function getHospitalRegistrationFormData() {
         const travelTime = $("#hospitalRegistrationTravelTimeInput").val();
-        const selectedLaborPatient = $("#hospitalRegistrationLaborButtons .radio-chip.active").data("value");
         return {
             qrToken: state.pendingQrToken,
             cardNo: String($("#hospitalRegistrationCardNoInput").val() || "").trim(),
             travelTime: Number(travelTime),
-            isLaborPatient: Number(selectedLaborPatient)
+            isLaborPatient: getLaborSwitchValue($("#hospitalRegistrationLaborSwitch"))
         };
     }
 
-    function validateLaborPatientSelection(form) {
-        if (form.find(".radio-chip.active").length > 0) {
-            return true;
-        }
-        alert(tText("link.error.isLaborPatientRequired", "Please select whether this is your delivery hospital."));
-        form.find(".radio-chip").first().trigger("focus");
-        return false;
+    function getLaborSwitchValue(button) {
+        return isLaborSwitchOn(button) ? 1 : 0;
     }
 
     function updateUserSaveButtonState() {
@@ -1655,12 +1805,12 @@
 
     function updateHospitalRegistrationButtonState() {
         const form = $("#hospitalRegistrationForm");
-        const isComplete = Boolean(state.pendingQrToken) && isFormComplete(form) && hasLaborPatientSelection(form);
+        const isComplete = Boolean(state.pendingQrToken) && isFormComplete(form);
         $("#submitHospitalRegistrationBtn").prop("disabled", !isComplete);
     }
 
     function updateExtraInfoSaveButtonState(form) {
-        form.find(".extra-info-save-btn").prop("disabled", !(isFormComplete(form) && hasLaborPatientSelection(form)));
+        form.find(".extra-info-save-btn").prop("disabled", !isFormComplete(form));
     }
 
     function updateContactFormSaveButtonState(form) {
@@ -1669,10 +1819,6 @@
 
     function isFormComplete(form) {
         return form.length > 0 && form[0].checkValidity();
-    }
-
-    function hasLaborPatientSelection(form) {
-        return form.find(".radio-chip.active").length > 0;
     }
 
     function validateSearchableProfileInputs() {
@@ -1946,6 +2092,13 @@
             return fallback;
         }
         return $("<span>").html(i18next.t(key, fallback)).text();
+    }
+
+    function tHtml(key, fallback) {
+        if (!window.i18next || !i18next.isInitialized) {
+            return fallback;
+        }
+        return i18next.t(key, fallback);
     }
 
     function showSuccessToast(messageKey) {

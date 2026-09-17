@@ -113,7 +113,7 @@
   "link": {
     "desc": "あなたの<ruby>基本情報<rt>きほんじょうほう</rt></ruby>、<ruby>病院<rt>びょういん</rt></ruby>、<ruby>必要<rt>ひつよう</rt></ruby>な<ruby>連絡先<rt>れんらくさき</rt></ruby>を<ruby>登録<rt>とうろく</rt></ruby>できます。",
     "info": "<ruby>病院<rt>びょういん</rt></ruby>で<ruby>見<rt>み</rt></ruby>せられた<ruby>病院<rt>びょういん</rt></ruby>QRコードを<ruby>読<rt>よ</rt></ruby>み<ruby>取<rt>と</rt></ruby>ると、<ruby>病院情報<rt>びょういんじょうほう</rt></ruby>が<ruby>追加<rt>ついか</rt></ruby>されます。バースプランやワクチン<ruby>接種記録<rt>せっしゅきろく</rt></ruby>など、あなたが<ruby>登録<rt>とうろく</rt></ruby>したデータが<ruby>病院<rt>びょういん</rt></ruby>に<ruby>共有<rt>きょうゆう</rt></ruby>されるようになります。",
-    "userDesc": "あなたの<ruby>基本情報<rt>きほんじょうほう</rt></ruby>を<ruby>登録<rt>とうろく</rt></ruby>できます。",
+    "userDesc": "<ruby>病院<rt>びょういん</rt></ruby>スタッフが あなたの<ruby>状況<rt>じょうきょう</rt></ruby>を <ruby>確認<rt>かくにん</rt></ruby>しやすいように、<ruby>基本情報<rt>きほんじょうほう</rt></ruby>を<ruby>登録<rt>とうろく</rt></ruby>しておきましょう。",
     "contactDesc": "<ruby>陣痛<rt>じんつう</rt></ruby>タクシーや<ruby>家族<rt>かぞく</rt></ruby>など、<ruby>必要<rt>ひつよう</rt></ruby>な<ruby>連絡先<rt>れんらくさき</rt></ruby>を<ruby>登録<rt>とうろく</rt></ruby>できます。",
     "empty": "<ruby>登録<rt>とうろく</rt></ruby>している<ruby>病院<rt>びょういん</rt></ruby>はありません。",
     "emptyContacts": "<ruby>登録<rt>とうろく</rt></ruby>している<ruby>連絡先<rt>れんらくさき</rt></ruby>はありません。",
@@ -124,7 +124,7 @@
     },
     "button": {
       "scan": "<ruby>病院<rt>びょういん</rt></ruby>QRコードを<ruby>読<rt>よ</rt></ruby>み<ruby>取<rt>と</rt></ruby>る",
-      "unlink": "<ruby>登録<rt>とうろく</rt></ruby>を<ruby>消<rt>け</rt></ruby>す",
+      "unlink": "<ruby>登録<rt>とうろく</rt></ruby>を<ruby>解除<rt>かいじょ</rt></ruby>する",
       "addContact": "<ruby>連絡先<rt>れんらくさき</rt></ruby>を<ruby>追加<rt>ついか</rt></ruby>",
       "registerHospital": "<ruby>登録<rt>とうろく</rt></ruby>"
     },
@@ -175,7 +175,7 @@
       "minutes": "<ruby>分<rt>ふん</rt></ruby>"
     },
     "confirm": {
-      "unlink": "この<ruby>病院<rt>びょういん</rt></ruby>の<ruby>登録<rt>とうろく</rt></ruby>を<ruby>消<rt>け</rt></ruby>しますか？",
+      "unlink": "この<ruby>病院<rt>びょういん</rt></ruby>の<ruby>登録<rt>とうろく</rt></ruby>を<ruby>解除<rt>かいじょ</rt></ruby>しますか？",
       "resetExtra": "この<ruby>病院<rt>びょういん</rt></ruby>の<ruby>追加情報<rt>ついかじょうほう</rt></ruby>をリセットしますか？",
       "deleteContact": "この<ruby>連絡先<rt>れんらくさき</rt></ruby>を<ruby>消<rt>け</rt></ruby>しますか？"
     },

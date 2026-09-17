@@ -51,7 +51,7 @@ To change your patient ID card number, travel time to the hospital, or whether y
 
 #### Delete a Hospital Registration
 
-If you change hospitals or no longer want to share data with a hospital, you can unlink it from `Delete Registration`.
+If you change hospitals or no longer want to share data with a hospital, you can unlink it from `Unlink Registration`.
 After deletion, that hospital's staff devices will no longer be able to view your shared data.
 
 

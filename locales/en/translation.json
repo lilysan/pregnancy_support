@@ -113,7 +113,7 @@
   "link": {
     "desc": "Register your basic information, hospitals you visit or plan to deliver at, and important contacts.",
     "info": "Scan the hospital QR code shown at the hospital to add its information. Data you register, such as your birth plan and vaccination records, will be shared with the hospital.",
-    "userDesc": "Register or edit your basic profile information.",
+    "userDesc": "Register your basic information so hospital staff can better understand your situation.",
     "contactDesc": "Register important contacts such as labor taxi services or family members.",
     "empty": "No hospitals are registered.",
     "emptyContacts": "No contacts are registered.",
@@ -124,7 +124,7 @@
     },
     "button": {
       "scan": "Scan Hospital QR Code",
-      "unlink": "Delete Registration",
+      "unlink": "Unlink Registration",
       "addContact": "Add Contact",
       "registerHospital": "Register"
     },
@@ -175,7 +175,7 @@
       "minutes": " min"
     },
     "confirm": {
-      "unlink": "Do you want to delete this hospital registration?",
+      "unlink": "Do you want to unlink this hospital registration?",
       "resetExtra": "Do you want to reset this hospital's extra information?",
       "deleteContact": "Do you want to delete this contact?"
     },

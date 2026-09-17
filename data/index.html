@@ -92,6 +92,67 @@
             overflow-wrap: anywhere;
         }
 
+        .data-level-summary {
+            grid-column: 1 / -1;
+        }
+
+        .data-level-list {
+            display: grid;
+            gap: 14px;
+            margin-top: 8px;
+        }
+
+        .data-level-detail {
+            display: grid;
+            gap: 6px;
+        }
+
+        .data-level-segments {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            width: 100%;
+            max-width: 360px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--white);
+        }
+
+        .data-level-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+            padding: 6px 8px;
+            border-right: 1px solid var(--border);
+            color: var(--sub-text);
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .data-level-segment:last-child {
+            border-right: 0;
+        }
+
+        .data-level-segment.is-active {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+        .data-level-text {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.45;
+            overflow-wrap: anywhere;
+        }
+
+        .data-level-text.is-empty {
+            color: var(--sub-text);
+            font-weight: 500;
+        }
+
         .data-tabs {
             position: sticky;
             top: var(--data-tabs-sticky-top, 0px);
@@ -1021,7 +1082,7 @@
     function renderPatientProfile(patient) {
         const items = [
             ["診察券番号", patient.cardNo || dataState.currentCardNo],
-            ["名前", patient.name],
+            ["名前", formatPatientName(patient)],
             ["年齢", patient.age ? `${patient.age}歳` : ""],
             ["国籍", patient.nationality],
             ["母語", patient.native || patient.lang],
@@ -1038,7 +1099,55 @@
                     .append($("<p>").addClass("data-info-value").text(formatValue(value)))
             );
         });
+        grid.append(renderPatientLevelSummary(patient.level || {}));
         return grid;
+    }
+
+    function renderPatientLevelSummary(level) {
+        const card = $("<div>").addClass("data-info-item card data-level-summary");
+        const list = $("<div>").addClass("data-level-list");
+        [
+            ["link.label.levelSpeaking", "s"],
+            ["link.label.levelListening", "l"],
+            ["link.label.levelWriting", "w"],
+            ["link.label.levelReading", "r"]
+        ].forEach(([labelKey, levelKey]) => {
+            list.append(renderPatientLevelDetail(labelKey, levelKey, level && level[levelKey]));
+        });
+
+        card
+            .append($("<p>").addClass("data-info-label").text(translateDataKey("link.label.level")))
+            .append(list);
+        return card;
+    }
+
+    function renderPatientLevelDetail(labelKey, levelKey, value) {
+        const level = Number(value);
+        const hasLevel = [1, 2, 3, 4].includes(level);
+        const segments = $("<div>").addClass("data-level-segments");
+        const description = hasLevel
+            ? translateLevelDescription(levelKey, level)
+            : translateDataKey("link.option.notSet");
+
+        [1, 2, 3, 4].forEach((levelNumber) => {
+            segments.append(
+                $("<span>")
+                    .addClass("data-level-segment")
+                    .toggleClass("is-active", level === levelNumber)
+                    .text(`Lv.${levelNumber}`)
+            );
+        });
+
+        return $("<div>")
+            .addClass("data-level-detail")
+            .append($("<p>").addClass("data-info-label").text(translateDataKey(labelKey)))
+            .append(segments)
+            .append(
+                $("<p>")
+                    .addClass("data-level-text")
+                    .toggleClass("is-empty", !hasLevel)
+                    .text(description)
+            );
     }
 
     function renderDataTabs() {
@@ -2113,6 +2222,21 @@
             return "なし";
         }
         return "";
+    }
+
+    function formatPatientName(patient) {
+        const name = String(patient && patient.name ? patient.name : "").trim();
+        const furigana = String(patient && patient.nameFurigana ? patient.nameFurigana : "").trim();
+        if (name && furigana) {
+            return `${name}（${furigana}）`;
+        }
+        return name || furigana;
+    }
+
+    function translateLevelDescription(levelKey, level) {
+        const key = `link.levelTable.rows.${level}.${levelKey}`;
+        const translated = translateDataKey(key);
+        return translated === key ? `Lv.${level}` : translated;
     }
 
     function formatValue(value) {
