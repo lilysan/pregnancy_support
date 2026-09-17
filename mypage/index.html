@@ -1633,6 +1633,7 @@
             url: API_URL,
             type: "POST",
             dataType: "json",
+            contentType: "application/json; charset=utf-8",
             data: JSON.stringify(payload),
             timeout: 30000,
         }).then(function (response) {
@@ -1642,10 +1643,16 @@
                 return null;
             }
             if (response.statusCode !== 200) {
-                console.error(response.message);
+                console.error("API error", {
+                    label,
+                    message: response.message,
+                    detail: response.detail,
+                    response,
+                });
                 alert(response.message);
                 const error = new Error(response.message || `${label} failed`);
                 error.isApiError = true;
+                error.apiResponse = response;
                 throw error;
             }
             return response;
