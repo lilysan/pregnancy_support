@@ -1630,7 +1630,7 @@
 
     function apiRequest(payload, label) {
         return $.ajax({
-            url: API_URL,
+            url: (payload.path === "user" && payload.method === "get") ? API_URL_V2 : API_URL,
             type: "POST",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
