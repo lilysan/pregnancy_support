@@ -1665,8 +1665,8 @@
                 responseText: jqXHR.responseText,
             });
 
-            alert(`Network error! ${label}: ${textStatus}`);
-            const error = new Error(`Network error: ${label}: ${textStatus}`);
+            alert(`Network error! ${label}: ${textStatus}(${jqXHR.status})`);
+            const error = new Error(`Network error: ${label}: ${textStatus}(${jqXHR.status})`);
             error.isApiError = true;
             throw error;
         });
