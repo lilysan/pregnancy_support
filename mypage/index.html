@@ -103,6 +103,18 @@
             gap: 6px;
         }
 
+        .level-view-label {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 700;
+            line-height: 1.35;
+        }
+
         .level-view-row {
             display: grid;
             grid-template-columns: minmax(0, 1fr);
@@ -204,6 +216,13 @@
 
         .labor-switch-button.active .labor-switch-status {
             color: var(--primary-dark);
+        }
+
+        .labor-switch-note {
+            margin: 0;
+            color: var(--sub-text);
+            font-size: 13px;
+            line-height: 1.45;
         }
 
         .link-empty {
@@ -476,6 +495,7 @@
                     <span class="labor-switch-status"></span>
                     <span class="toggle-ui" aria-hidden="true"></span>
                 </button>
+                <p class="labor-switch-note" data-i18n="[html]link.note.singleLaborHospital"></p>
             </div>
             <div class="modal-actions">
                 <button type="button" id="cancelHospitalRegistrationBtn" class="btn tertiary btn-small" data-i18n="[html]button.cancel"></button>
@@ -956,7 +976,7 @@
             .addClass("link-detail")
             .append(
                 $("<span>")
-                    .addClass("field-label user-level-label")
+                    .addClass("link-detail-label")
                     .attr("data-i18n", "[html]link.label.level")
             );
     }
@@ -980,7 +1000,7 @@
 
         return $("<div>")
             .addClass("link-detail level-view-detail")
-            .append($("<span>").addClass("link-detail-label").attr("data-i18n", `[html]${labelKey}`))
+            .append($("<span>").addClass("level-view-label").attr("data-i18n", `[html]${labelKey}`))
             .append(
                 $("<div>")
                     .addClass("level-view-row")
@@ -1141,6 +1161,7 @@
                         .append($("<span>").attr("data-i18n", "[html]link.label.isLaborPatient"))
                 )
                 .append(laborSwitch)
+                .append($("<p>").addClass("labor-switch-note").attr("data-i18n", "[html]link.note.singleLaborHospital"))
         );
         form.append(
             $("<div>")

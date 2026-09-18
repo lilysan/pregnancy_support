@@ -174,6 +174,9 @@
     "unit": {
       "minutes": "<ruby>分<rt>ふん</rt></ruby>"
     },
+    "note": {
+      "singleLaborHospital": "<ruby>出産<rt>しゅっさん</rt></ruby>する<ruby>予定<rt>よてい</rt></ruby>の<ruby>病院<rt>びょういん</rt></ruby>として<ruby>登録<rt>とうろく</rt></ruby>できるのは、1つだけです。"
+    },
     "confirm": {
       "unlink": "この<ruby>病院<rt>びょういん</rt></ruby>の<ruby>登録<rt>とうろく</rt></ruby>を<ruby>解除<rt>かいじょ</rt></ruby>しますか？",
       "resetExtra": "この<ruby>病院<rt>びょういん</rt></ruby>の<ruby>追加情報<rt>ついかじょうほう</rt></ruby>をリセットしますか？",

@@ -2,7 +2,7 @@
 :root {
     --primary: #61a5a6;
     --primary-light: #E4EFF1;
-    --surface: #f1f5f6;
+    --surface: #eff7f9;
     --primary-dark: #4F7C8A;
     --primary-border: #b8cdd5;
     --accent: #e46f47;
@@ -328,8 +328,23 @@ main {
     padding: 24px;
     margin: 0 auto;
 }
-.main-container section {
-    margin-top: 60px;
+.main-container > section:not(.card) {
+    position: relative;
+    z-index: 0;
+    padding-block: 40px;
+}
+.main-container > section:not(.card)::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    z-index: -1;
+    width: 100vw;
+    transform: translateX(-50%);
+}
+.main-container > section:not(.card):nth-of-type(even)::before {
+    background: var(--surface);
 }
 .main-container section section {
     margin-top: 32px;
