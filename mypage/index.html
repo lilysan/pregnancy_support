@@ -1652,7 +1652,7 @@
 
     function apiRequest(payload, label) {
         return $.ajax({
-            url: ((payload.path === "user" || payload.path === "link" || payload.path === "contact") && payload.method === "get")  ? API_URL_V2 : API_URL,
+            url: API_URL_V2,
             type: "POST",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
@@ -1687,7 +1687,7 @@
                 responseText: jqXHR.responseText,
             });
 
-            alert(`Network error! ${label}: ${jqXHR.responseText}(${jqXHR.status})`);
+            alert(`Network error! ${label}: ${textStatus}(${jqXHR.status})`);
             const error = new Error(`Network error: ${label}: ${textStatus}(${jqXHR.status})`);
             error.isApiError = true;
             throw error;
