@@ -979,6 +979,86 @@
       ]
     }
   },
+  "privacy": {
+    "desc": "Pregnancy Support handles important information related to pregnancy, childbirth, and childcare. This page explains how we use and protect user information.",
+    "info1": "Information you enter is used for communication and support from pregnancy through childbirth.",
+    "info2": "If you register by scanning a hospital QR code, staff at the registered hospital can view shared data within the necessary scope.",
+    "info3": "Users can review, correct, and delete registered information in the app.",
+    "note": "To stop sharing, unlink the registered hospital information. After unlinking, that hospital will no longer be able to view the user's shared data.",
+    "updated": "Last updated: September 1, 2026",
+    "sections": {
+      "collect": {
+        "title": "Information We Collect",
+        "body": "This app may collect and store the following information to the extent necessary to provide its features."
+      },
+      "purpose": {
+        "title": "Purpose of Use"
+      },
+      "sharing": {
+        "title": "Data Sharing With Hospital Staff",
+        "body": "When you scan a hospital QR code and register a hospital, some of the data you registered becomes available from that hospital's staff-only screen. Sharing is limited to what is necessary for pregnancy and childbirth support and for confirmation during care."
+      },
+      "thirdParty": {
+        "title": "Third-Party Disclosure",
+        "body": "We do not provide collected personal information to third parties for purposes outside those described here, except when required by law, necessary to protect life or physical safety, or with the user's consent."
+      },
+      "security": {
+        "title": "Data Security and Protection"
+      },
+      "manage": {
+        "title": "Reviewing, Correcting, and Deleting Data",
+        "body": "Users can review and correct registered information from each app feature. Hospital information, contacts, and records that are no longer needed can be deleted from the relevant screens."
+      },
+      "disclaimer": {
+        "title": "Medical Disclaimer",
+        "body1": "This app helps users record and review information related to pregnancy, childbirth, and childcare, and supports communication with medical professionals. It is not a substitute for diagnosis, treatment, or advice from doctors, midwives, nurses, or other medical professionals.",
+        "body2": "If you experience changes in condition, bleeding, severe pain, fever, decreased fetal movement, possible rupture of membranes, strong anxiety, or other concerns, do not rely only on the app's display or records. Contact a medical institution or emergency service promptly."
+      },
+      "contact": {
+        "title": "Contact",
+        "body": "For questions about personal information handling, sharing scope, or deletion, please contact the provider of this application.",
+        "emailLabel": "Email"
+      }
+    },
+    "collect": {
+      "profile": {
+        "title": "Profile Information",
+        "body": "Basic information entered by users, such as name, age, nationality, native language, due date, and Japanese level."
+      },
+      "hospital": {
+        "title": "Hospital and Contact Information",
+        "body": "Hospitals currently visited or planned for delivery, patient ID card number, travel time to the hospital, and contacts such as family members or taxi services."
+      },
+      "records": {
+        "title": "Pregnancy and Childbirth Records",
+        "body": "Information registered by users, such as birth plans, vaccinations, weight, blood pressure, blood sugar, and memos."
+      },
+      "environment": {
+        "title": "Usage Environment Information",
+        "body": "Identifiers needed for LINE login and LIFF use, display language, and technical information needed for error investigation."
+      }
+    },
+    "purpose": {
+      "checkup": "To support prenatal checkups, health guidance, childbirth preparation, and childcare support.",
+      "communication": "To support communication between users and hospital staff.",
+      "selfManage": "To allow users to review and edit their registered data.",
+      "improvement": "To investigate app issues, maintain security, and improve the service."
+    },
+    "security": {
+      "access": {
+        "title": "Access Control",
+        "body": "We limit access so that only necessary people, such as the user and registered hospital staff, can view information within the necessary scope."
+      },
+      "storage": {
+        "title": "Protection in Transit and Storage",
+        "body": "We protect communication routes and storage locations and work to prevent unauthorized access, loss, tampering, and leakage."
+      },
+      "operation": {
+        "title": "Operational Management",
+        "body": "We manage access permissions, update systems, and check for issues or abnormalities to maintain safe operation."
+      }
+    }
+  },
   "sharedData": {
     "badge": "Shared with hospital",
     "infoButtonLabel": "About hospital sharing",

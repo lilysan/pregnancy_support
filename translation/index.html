@@ -16,13 +16,6 @@
     <script src="../common/js/config.js"></script>
     <link rel="stylesheet" href="../style.css"/>
     <style>
-        .translation-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-top: 20px;
-        }
-
         .translation-card {
             display: flex;
             flex-direction: column;
@@ -129,8 +122,8 @@
             </div>
         </div>
 
-        <div class="translation-list">
-            <section class="card translation-card" aria-labelledby="deeplTitle">
+        <section class="row-list">
+            <div class="card translation-card" aria-labelledby="deeplTitle">
                 <div class="translation-card-head">
                     <h2 id="deeplTitle" class="translation-title">DeepL</h2>
                     <div class="translation-badges" aria-label="DeepL supported features">
@@ -145,9 +138,9 @@
                     <a href="https://deepl.com" class="btn primary app-deepl">App</a>
                     <a href="https://deepl.com" class="btn secondary web-deepl">Web</a>
                 </div>
-            </section>
+            </div>
 
-            <section class="card translation-card" aria-labelledby="googleTitle">
+            <div class="card translation-card" aria-labelledby="googleTitle">
                 <div class="translation-card-head">
                     <h2 id="googleTitle" class="translation-title">Google Translate</h2>
                     <div class="translation-badges" aria-label="Google Translate supported features">
@@ -162,9 +155,9 @@
                     <a href="https://translate.google.com" class="btn primary app-google">App</a>
                     <a href="https://translate.google.com" class="btn secondary web-google">Web</a>
                 </div>
-            </section>
+            </div>
 
-            <section class="card translation-card" aria-labelledby="itranslateTitle">
+            <div class="card translation-card" aria-labelledby="itranslateTitle">
                 <div class="translation-card-head">
                     <h2 id="itranslateTitle" class="translation-title">iTranslate Translator</h2>
                     <div class="translation-badges" aria-label="iTranslate Translator supported features">
@@ -179,9 +172,9 @@
                     <a href="https://whfs.app.link" class="btn primary app-iTranslate">App</a>
                     <span class="btn secondary is-empty" aria-hidden="true">Web</span>
                 </div>
-            </section>
+            </div>
 
-            <section class="card translation-card" aria-labelledby="microsoftTitle">
+            <div class="card translation-card" aria-labelledby="microsoftTitle">
                 <div class="translation-card-head">
                     <h2 id="microsoftTitle" class="translation-title">Microsoft Translator</h2>
                     <div class="translation-badges" aria-label="Microsoft Translator supported features">
@@ -196,9 +189,9 @@
                     <a href="https://translate.it" class="btn primary app-microsoft">App</a>
                     <a href="https://translate.it" class="btn secondary web-microsoft">Web</a>
                 </div>
-            </section>
+            </div>
 
-            <section class="card translation-card" aria-labelledby="papagoTitle">
+            <div class="card translation-card" aria-labelledby="papagoTitle">
                 <div class="translation-card-head">
                     <h2 id="papagoTitle" class="translation-title">Papago</h2>
                     <div class="translation-badges" aria-label="Papago supported features">
@@ -213,9 +206,9 @@
                     <a href="https://papago.naver.com/" class="btn primary app-papago">App</a>
                     <a href="https://papago.naver.com/" class="btn secondary web-papago">Web</a>
                 </div>
-            </section>
+            </div>
 
-            <section class="card translation-card" aria-labelledby="voicetraTitle">
+            <div class="card translation-card" aria-labelledby="voicetraTitle">
                 <div class="translation-card-head">
                     <h2 id="voicetraTitle" class="translation-title">VoiceTra</h2>
                     <div class="translation-badges" aria-label="VoiceTra supported features">
@@ -230,8 +223,8 @@
                     <a href="https://voicetra.nict.go.jp/" class="btn primary app-voicetra">App</a>
                     <span class="btn secondary is-empty" aria-hidden="true">Web</span>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </article>
 </main>
 

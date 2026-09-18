@@ -111,7 +111,6 @@
         }
 
         .vac-form-footer {
-            margin-top: 20px;
             display: flex;
             justify-content: flex-start;
         }
@@ -144,7 +143,7 @@
             padding: 16px 12px;
             border: 1px solid var(--primary-light);
             border-radius: 12px;
-            background: var(--background);
+            background: var(--white);
             box-shadow: var(--shadow);
         }
 
@@ -238,7 +237,10 @@
         <div class="sticky-actions">
             <div class="fixed-container">
                 <div class="btn-column">
-                    <button type="button" id="saveDraftBtn" class="btn btn-primary" data-i18n="[html]button.save"></button>
+                    <button type="button" id="saveDraftBtn" class="btn btn-primary">
+                        <iconify-icon icon="material-symbols:save-rounded" width="22" height="22" aria-hidden="true"></iconify-icon>
+                        <span data-i18n="[html]button.save"></span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -397,16 +399,18 @@
             </div>
         `);
 
+        const wrap = $("<section>").addClass("row-list");
         getAllQuestions().forEach((question, index) => {
-            form.append(renderQuestion(question, String(index + 1)));
+            wrap.append(renderQuestion(question, String(index + 1)));
         });
+        form.append(wrap);
 
         updateProgressIndicators();
     }
 
     function renderQuestion(question, questionNumber) {
-        const wrap = $("<article>")
-            .addClass("vac-question card")
+        const wrap = $("<div>")
+            .addClass("card")
             .toggleClass("is-custom", Boolean(question.isCustom))
             .attr("data-question-id", question.id);
 

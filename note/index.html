@@ -68,7 +68,6 @@
         }
 
         .note-form-footer {
-            margin-top: 20px;
             display: flex;
             justify-content: flex-start;
         }
@@ -76,7 +75,7 @@
         .note-editor {
             position: fixed;
             inset: 0;
-            z-index: 90;
+            z-index: 110;
             display: none;
             background: var(--background);
         }
@@ -186,9 +185,14 @@
     <article class="main-container">
         <h1 data-i18n="[html]title.memo">メモ</h1>
         <p class="desc" data-i18n="[html]note.desc">気になること、診察で聞きたいこと、日々の体調などを自由に記録できます。</p>
-        <div class="private-data-note">
-            <iconify-icon icon="material-symbols:lock-outline-rounded" width="20" height="20" aria-hidden="true"></iconify-icon>
-            <p data-i18n="[html]note.privateInfo">このメモは病院には共有されません。自分用の記録として保存されます。</p>
+
+        <div class="card card-info">
+            <div class="state-card-inner">
+                <iconify-icon icon="material-symbols:info-rounded" width="24" height="24" aria-hidden="true"></iconify-icon>
+                <div>
+                    <p class="small" data-i18n="[html]note.privateInfo">このメモは病院には共有されません。自分用の記録として保存されます。</p>
+                </div>
+            </div>
         </div>
 
         <section class="note-list" id="noteList" aria-label="メモ一覧" data-i18n="[aria-label]note.listLabel"></section>

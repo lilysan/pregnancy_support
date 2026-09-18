@@ -1220,29 +1220,23 @@
         }
         tabs.dataset.stickyInitialized = "1";
 
-        let isStuck = false;
-        let stickyStartY = 0;
-        const recalculateStickyStart = () => {
+        const updateStickyTop = () => {
             const headerHeight = header ? header.offsetHeight : 0;
             document.documentElement.style.setProperty("--data-tabs-sticky-top", `${headerHeight}px`);
-            stickyStartY = window.scrollY + sentinel.getBoundingClientRect().top - headerHeight;
+            return headerHeight;
         };
         const updateStickyTabs = () => {
-            if (!isStuck && window.scrollY >= stickyStartY) {
-                isStuck = true;
-            } else if (isStuck && window.scrollY < stickyStartY - 32) {
-                isStuck = false;
-            }
-            tabs.classList.toggle("is-stuck", isStuck);
+            const headerHeight = updateStickyTop();
+            const section = document.getElementById("sharedDataSection");
+            const shouldStick = Boolean(
+                section && !section.hidden && sentinel.getBoundingClientRect().top <= headerHeight + 1
+            );
+            tabs.classList.toggle("is-stuck", shouldStick);
         };
 
-        recalculateStickyStart();
         updateStickyTabs();
         window.addEventListener("scroll", updateStickyTabs, {passive: true});
-        window.addEventListener("resize", () => {
-            recalculateStickyStart();
-            updateStickyTabs();
-        });
+        window.addEventListener("resize", updateStickyTabs);
     }
 
     function scrollToDataTabPanelTop() {

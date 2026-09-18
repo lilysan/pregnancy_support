@@ -61,7 +61,7 @@ body.no-scroll {
 .header-wrapper {
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 110;
     background: var(--background);
 }
 .header {
@@ -165,7 +165,7 @@ body[dir="rtl"] .dropdown.language {
     width: 100%;
     height: 100%;
     background: var(--background); /* Or a semi-transparent background */
-    z-index: 70; /* Higher than header, lower than modals */
+    z-index: 110; /* Higher than header, lower than modals */
     display: flex;
     flex-direction: column;
     visibility: hidden;
@@ -328,12 +328,18 @@ main {
     padding: 24px;
     margin: 0 auto;
 }
-.main-container > section:not(.card) {
+.main-container section:not(.card,.timer-panel,.records-section) {
     position: relative;
     z-index: 0;
     padding-block: 40px;
 }
-.main-container > section:not(.card)::before {
+.main-container section.card {
+    position: relative;
+    z-index: 0;
+    margin-block: 40px;
+}
+
+.main-container section:not(.card,.timer-panel,.records-section)::before {
     content: "";
     position: absolute;
     top: 0;
@@ -343,7 +349,7 @@ main {
     width: 100vw;
     transform: translateX(-50%);
 }
-.main-container > section:not(.card):nth-of-type(even)::before {
+.main-container section:not(.card):nth-of-type(even)::before {
     background: var(--surface);
 }
 .main-container section section {
@@ -1010,7 +1016,7 @@ textarea { min-height: 96px; resize: vertical; }
     justify-content: center;
     padding: 24px;
     background: var(--text-a32);
-    z-index: 100;
+    z-index: 130;
 }
 .overlay.is-open { display: flex; }
 .image-preview-overlay {
@@ -1106,7 +1112,7 @@ textarea { min-height: 96px; resize: vertical; }
 .toast {
     position: sticky;
     top: 80px;
-    z-index: 30;
+    z-index: 120;
     display: none;
 }
 .toast.is-open { display: block; }

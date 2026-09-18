@@ -979,6 +979,86 @@
       ]
     }
   },
+  "privacy": {
+    "desc": "Pregnancy Supportでは、<ruby>妊娠<rt>にんしん</rt></ruby>・<ruby>出産<rt>しゅっさん</rt></ruby>・<ruby>育児<rt>いくじ</rt></ruby>にかかわる<ruby>大切<rt>たいせつ</rt></ruby>な<ruby>情報<rt>じょうほう</rt></ruby>を<ruby>扱<rt>あつか</rt></ruby>います。このページでは、あなたの<ruby>情報<rt>じょうほう</rt></ruby>を どのように<ruby>使<rt>つか</rt></ruby>い、<ruby>守<rt>まも</rt></ruby>るかを<ruby>説明<rt>せつめい</rt></ruby>します。",
+    "info1": "<ruby>入力<rt>にゅうりょく</rt></ruby>された<ruby>情報<rt>じょうほう</rt></ruby>は、<ruby>妊娠中<rt>にんしんちゅう</rt></ruby>から<ruby>出産<rt>しゅっさん</rt></ruby>までの やりとりとサポートのために<ruby>使<rt>つか</rt></ruby>います。",
+    "info2": "<ruby>病院<rt>びょういん</rt></ruby>QRコードを<ruby>読<rt>よ</rt></ruby>み<ruby>取<rt>と</rt></ruby>って<ruby>登録<rt>とうろく</rt></ruby>したときは、<ruby>登録<rt>とうろく</rt></ruby>した<ruby>病院<rt>びょういん</rt></ruby>スタッフが<ruby>必要<rt>ひつよう</rt></ruby>な<ruby>範囲<rt>はんい</rt></ruby>で<ruby>共有<rt>きょうゆう</rt></ruby>データを<ruby>確認<rt>かくにん</rt></ruby>できます。",
+    "info3": "<ruby>登録<rt>とうろく</rt></ruby>した<ruby>情報<rt>じょうほう</rt></ruby>は、アプリの<ruby>中<rt>なか</rt></ruby>で<ruby>確認<rt>かくにん</rt></ruby>・<ruby>修正<rt>しゅうせい</rt></ruby>・<ruby>削除<rt>さくじょ</rt></ruby>できます。",
+    "note": "<ruby>共有<rt>きょうゆう</rt></ruby>をやめたいときは、<ruby>登録<rt>とうろく</rt></ruby>している<ruby>病院情報<rt>びょういんじょうほう</rt></ruby>を<ruby>解除<rt>かいじょ</rt></ruby>してください。<ruby>解除<rt>かいじょ</rt></ruby>すると、その<ruby>病院<rt>びょういん</rt></ruby>は あなたの<ruby>共有<rt>きょうゆう</rt></ruby>データを<ruby>確認<rt>かくにん</rt></ruby>できなくなります。",
+    "updated": "<ruby>最終更新日<rt>さいしゅうこうしんび</rt></ruby>: 2026<ruby>年<rt>ねん</rt></ruby>9<ruby>月<rt>がつ</rt></ruby>1<ruby>日<rt>にち</rt></ruby>",
+    "sections": {
+      "collect": {
+        "title": "<ruby>取得<rt>しゅとく</rt></ruby>する<ruby>情報<rt>じょうほう</rt></ruby>",
+        "body": "このアプリでは、<ruby>機能<rt>きのう</rt></ruby>を<ruby>使<rt>つか</rt></ruby>うために<ruby>必要<rt>ひつよう</rt></ruby>な<ruby>範囲<rt>はんい</rt></ruby>で、つぎの<ruby>情報<rt>じょうほう</rt></ruby>を<ruby>保存<rt>ほぞん</rt></ruby>することがあります。"
+      },
+      "purpose": {
+        "title": "<ruby>利用目的<rt>りようもくてき</rt></ruby>"
+      },
+      "sharing": {
+        "title": "<ruby>病院<rt>びょういん</rt></ruby>スタッフとのデータ<ruby>共有<rt>きょうゆう</rt></ruby>",
+        "body": "<ruby>病院<rt>びょういん</rt></ruby>QRコードを<ruby>読<rt>よ</rt></ruby>み<ruby>取<rt>と</rt></ruby>って<ruby>病院<rt>びょういん</rt></ruby>を<ruby>登録<rt>とうろく</rt></ruby>すると、あなたが<ruby>登録<rt>とうろく</rt></ruby>したデータの<ruby>一部<rt>いちぶ</rt></ruby>を、その<ruby>病院<rt>びょういん</rt></ruby>スタッフが<ruby>確認<rt>かくにん</rt></ruby>できるようになります。<ruby>共有<rt>きょうゆう</rt></ruby>は、<ruby>妊娠<rt>にんしん</rt></ruby>・<ruby>出産<rt>しゅっさん</rt></ruby>のサポートや<ruby>診療<rt>しんりょう</rt></ruby>で<ruby>必要<rt>ひつよう</rt></ruby>な<ruby>範囲<rt>はんい</rt></ruby>で<ruby>行<rt>おこな</rt></ruby>います。"
+      },
+      "thirdParty": {
+        "title": "<ruby>第三者提供<rt>だいさんしゃていきょう</rt></ruby>について",
+        "body": "<ruby>法律<rt>ほうりつ</rt></ruby>で<ruby>必要<rt>ひつよう</rt></ruby>なとき、<ruby>命<rt>いのち</rt></ruby>や<ruby>体<rt>からだ</rt></ruby>を<ruby>守<rt>まも</rt></ruby>るために<ruby>必要<rt>ひつよう</rt></ruby>なとき、またはあなたが<ruby>同意<rt>どうい</rt></ruby>したときを<ruby>除<rt>のぞ</rt></ruby>き、<ruby>目的<rt>もくてき</rt></ruby>の<ruby>外<rt>そと</rt></ruby>で<ruby>個人情報<rt>こじんじょうほう</rt></ruby>を<ruby>第三者<rt>だいさんしゃ</rt></ruby>に<ruby>渡<rt>わた</rt></ruby>しません。"
+      },
+      "security": {
+        "title": "データセキュリティと<ruby>保護<rt>ほご</rt></ruby>"
+      },
+      "manage": {
+        "title": "データの<ruby>確認<rt>かくにん</rt></ruby>・<ruby>修正<rt>しゅうせい</rt></ruby>・<ruby>削除<rt>さくじょ</rt></ruby>",
+        "body": "あなたは、アプリの<ruby>各機能<rt>かくきのう</rt></ruby>から<ruby>登録<rt>とうろく</rt></ruby>した<ruby>内容<rt>ないよう</rt></ruby>を<ruby>確認<rt>かくにん</rt></ruby>・<ruby>修正<rt>しゅうせい</rt></ruby>できます。いらなくなった<ruby>病院情報<rt>びょういんじょうほう</rt></ruby>、<ruby>連絡先<rt>れんらくさき</rt></ruby>、<ruby>記録<rt>きろく</rt></ruby>は、<ruby>各画面<rt>かくがめん</rt></ruby>から<ruby>削除<rt>さくじょ</rt></ruby>できます。"
+      },
+      "disclaimer": {
+        "title": "<ruby>医学的<rt>いがくてき</rt></ruby><ruby>免責事項<rt>めんせきじこう</rt></ruby>",
+        "body1": "このアプリは、<ruby>妊娠<rt>にんしん</rt></ruby>・<ruby>出産<rt>しゅっさん</rt></ruby>・<ruby>育児<rt>いくじ</rt></ruby>にかかわる<ruby>情報<rt>じょうほう</rt></ruby>を<ruby>記録<rt>きろく</rt></ruby>・<ruby>確認<rt>かくにん</rt></ruby>し、<ruby>医療者<rt>いりょうしゃ</rt></ruby>とのやりとりを<ruby>助<rt>たす</rt></ruby>けるものです。<ruby>医師<rt>いし</rt></ruby>、<ruby>助産師<rt>じょさんし</rt></ruby>、<ruby>看護師<rt>かんごし</rt></ruby>などの<ruby>診断<rt>しんだん</rt></ruby>、<ruby>治療<rt>ちりょう</rt></ruby>、<ruby>助言<rt>じょげん</rt></ruby>の<ruby>代<rt>か</rt></ruby>わりにはなりません。",
+        "body2": "<ruby>体調<rt>たいちょう</rt></ruby>の<ruby>変化<rt>へんか</rt></ruby>、<ruby>出血<rt>しゅっけつ</rt></ruby>、<ruby>強<rt>つよ</rt></ruby>い<ruby>痛<rt>いた</rt></ruby>み、<ruby>発熱<rt>はつねつ</rt></ruby>、<ruby>胎動<rt>たいどう</rt></ruby>が<ruby>少<rt>すく</rt></ruby>ない、<ruby>破水<rt>はすい</rt></ruby>かもしれない、<ruby>強<rt>つよ</rt></ruby>い<ruby>不安<rt>ふあん</rt></ruby>などがあるときは、アプリだけで<ruby>判断<rt>はんだん</rt></ruby>せず、すぐに<ruby>医療機関<rt>いりょうきかん</rt></ruby>や<ruby>救急窓口<rt>きゅうきゅうまどぐち</rt></ruby>へ<ruby>連絡<rt>れんらく</rt></ruby>してください。"
+      },
+      "contact": {
+        "title": "<ruby>問<rt>と</rt></ruby>い<ruby>合<rt>あ</rt></ruby>わせ",
+        "body": "<ruby>個人情報<rt>こじんじょうほう</rt></ruby>の<ruby>扱<rt>あつか</rt></ruby>い、<ruby>共有範囲<rt>きょうゆうはんい</rt></ruby>、<ruby>削除<rt>さくじょ</rt></ruby>について<ruby>相談<rt>そうだん</rt></ruby>したいときは、このアプリの<ruby>提供者<rt>ていきょうしゃ</rt></ruby>へ<ruby>連絡<rt>れんらく</rt></ruby>してください。",
+        "emailLabel": "メール"
+      }
+    },
+    "collect": {
+      "profile": {
+        "title": "プロフィール<ruby>情報<rt>じょうほう</rt></ruby>",
+        "body": "<ruby>名前<rt>なまえ</rt></ruby>、<ruby>年齢<rt>ねんれい</rt></ruby>、<ruby>国籍<rt>こくせき</rt></ruby>、<ruby>母語<rt>ぼご</rt></ruby>、<ruby>出産予定日<rt>しゅっさんよていび</rt></ruby>、<ruby>日本語<rt>にほんご</rt></ruby>レベルなど、あなたが<ruby>入力<rt>にゅうりょく</rt></ruby>した<ruby>基本情報<rt>きほんじょうほう</rt></ruby>。"
+      },
+      "hospital": {
+        "title": "<ruby>病院<rt>びょういん</rt></ruby>・<ruby>連絡先情報<rt>れんらくさきじょうほう</rt></ruby>",
+        "body": "<ruby>通<rt>かよ</rt></ruby>っている、または<ruby>出産<rt>しゅっさん</rt></ruby>する<ruby>予定<rt>よてい</rt></ruby>の<ruby>病院<rt>びょういん</rt></ruby>、<ruby>診察券番号<rt>しんさつけんばんごう</rt></ruby>、<ruby>病院<rt>びょういん</rt></ruby>までの<ruby>時間<rt>じかん</rt></ruby>、<ruby>家族<rt>かぞく</rt></ruby>やタクシーなどの<ruby>連絡先<rt>れんらくさき</rt></ruby>。"
+      },
+      "records": {
+        "title": "<ruby>妊娠<rt>にんしん</rt></ruby>・<ruby>出産<rt>しゅっさん</rt></ruby>に<ruby>関<rt>かん</rt></ruby>する<ruby>記録<rt>きろく</rt></ruby>",
+        "body": "バースプラン、ワクチン<ruby>接種<rt>せっしゅ</rt></ruby>、<ruby>体重<rt>たいじゅう</rt></ruby>、<ruby>血圧<rt>けつあつ</rt></ruby>、<ruby>血糖値<rt>けっとうち</rt></ruby>、メモなど、あなたが<ruby>登録<rt>とうろく</rt></ruby>した<ruby>内容<rt>ないよう</rt></ruby>。"
+      },
+      "environment": {
+        "title": "<ruby>利用環境<rt>りようかんきょう</rt></ruby>に<ruby>関<rt>かん</rt></ruby>する<ruby>情報<rt>じょうほう</rt></ruby>",
+        "body": "LINEログインやLIFFを<ruby>使<rt>つか</rt></ruby>うために<ruby>必要<rt>ひつよう</rt></ruby>な<ruby>識別情報<rt>しきべつじょうほう</rt></ruby>、<ruby>表示言語<rt>ひょうじげんご</rt></ruby>、エラーを<ruby>調<rt>しら</rt></ruby>べるための<ruby>技術情報<rt>ぎじゅつじょうほう</rt></ruby>。"
+      }
+    },
+    "purpose": {
+      "checkup": "<ruby>妊婦健診<rt>にんぷけんしん</rt></ruby>、<ruby>保健指導<rt>ほけんしどう</rt></ruby>、<ruby>出産準備<rt>しゅっさんじゅんび</rt></ruby>、<ruby>育児<rt>いくじ</rt></ruby>のサポートをしやすくするため。",
+      "communication": "あなたと<ruby>病院<rt>びょういん</rt></ruby>スタッフのやりとりを<ruby>助<rt>たす</rt></ruby>けるため。",
+      "selfManage": "あなたが<ruby>登録<rt>とうろく</rt></ruby>したデータを<ruby>自分<rt>じぶん</rt></ruby>で<ruby>確認<rt>かくにん</rt></ruby>・<ruby>編集<rt>へんしゅう</rt></ruby>できるようにするため。",
+      "improvement": "アプリの<ruby>不具合<rt>ふぐあい</rt></ruby>を<ruby>調<rt>しら</rt></ruby>べ、セキュリティを<ruby>守<rt>まも</rt></ruby>り、サービスをよくするため。"
+    },
+    "security": {
+      "access": {
+        "title": "アクセス<ruby>制御<rt>せいぎょ</rt></ruby>",
+        "body": "あなた<ruby>本人<rt>ほんにん</rt></ruby>、<ruby>登録<rt>とうろく</rt></ruby>された<ruby>病院<rt>びょういん</rt></ruby>スタッフなど、<ruby>必要<rt>ひつよう</rt></ruby>な<ruby>人<rt>ひと</rt></ruby>だけが<ruby>必要<rt>ひつよう</rt></ruby>な<ruby>範囲<rt>はんい</rt></ruby>で<ruby>情報<rt>じょうほう</rt></ruby>を<ruby>確認<rt>かくにん</rt></ruby>できるようにします。"
+      },
+      "storage": {
+        "title": "<ruby>通信<rt>つうしん</rt></ruby>と<ruby>保存<rt>ほぞん</rt></ruby>の<ruby>保護<rt>ほご</rt></ruby>",
+        "body": "<ruby>通信経路<rt>つうしんけいろ</rt></ruby>や<ruby>保存先<rt>ほぞんさき</rt></ruby>を<ruby>守<rt>まも</rt></ruby>り、<ruby>不正<rt>ふせい</rt></ruby>アクセス、<ruby>紛失<rt>ふんしつ</rt></ruby>、<ruby>改ざん<rt>かいざん</rt></ruby>、<ruby>漏<rt>も</rt></ruby>れを<ruby>防<rt>ふせ</rt></ruby>ぐようにします。"
+      },
+      "operation": {
+        "title": "<ruby>運用管理<rt>うんようかんり</rt></ruby>",
+        "body": "アクセス<ruby>権限<rt>けんげん</rt></ruby>の<ruby>管理<rt>かんり</rt></ruby>、システムの<ruby>更新<rt>こうしん</rt></ruby>、<ruby>不具合<rt>ふぐあい</rt></ruby>や<ruby>異常<rt>いじょう</rt></ruby>の<ruby>確認<rt>かくにん</rt></ruby>を<ruby>行<rt>おこな</rt></ruby>い、<ruby>安全<rt>あんぜん</rt></ruby>に<ruby>運用<rt>うんよう</rt></ruby>します。"
+      }
+    }
+  },
   "sharedData": {
     "badge": "<ruby>病院<rt>びょういん</rt></ruby><ruby>共有<rt>きょうゆう</rt></ruby><ruby>対象<rt>たいしょう</rt></ruby>",
     "infoButtonLabel": "<ruby>病院共有対象<rt>びょういんきょうゆうたいしょう</rt></ruby>について",
