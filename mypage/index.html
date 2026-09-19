@@ -1101,27 +1101,33 @@
             $("<div>")
                 .addClass("link-detail-list")
                 .append(renderDetail("link.label.cardNo", hospital.cardNo, true))
-                .append(renderDetail("link.label.travelTime", formatTravelTime(hospital.travelTime), true))
+                .append(renderDetail("link.label.travelTime", formatTravelTime(hospital.travelTime), true, {isHtml: true}))
                 .append(renderDetail("link.label.isLaborPatient", formatLaborPatient(hospital.isLaborPatient), true))
         );
         return container;
     }
 
-    function renderDetail(labelKey, value, showEmpty) {
+    function renderDetail(labelKey, value, showEmpty, options) {
         if (!value && !showEmpty) {
             return $();
         }
 
-        const displayValue = value || tText("link.option.notSet", "未設定");
+        const renderOptions = options || {};
+        const displayValue = value || (renderOptions.isHtml ? tHtml("link.option.notSet", "未設定") : tText("link.option.notSet", "未設定"));
+        const valueElement = $("<p>")
+            .addClass("link-detail-value")
+            .toggleClass("is-empty", !value);
+
+        if (renderOptions.isHtml) {
+            valueElement.html(displayValue);
+        } else {
+            valueElement.text(displayValue);
+        }
+
         return $("<div>")
             .addClass("link-detail")
             .append($("<span>").addClass("link-detail-label").attr("data-i18n", `[html]${labelKey}`))
-            .append(
-                $("<p>")
-                    .addClass("link-detail-value")
-                    .toggleClass("is-empty", !value)
-                    .text(displayValue)
-            );
+            .append(valueElement);
     }
 
     function renderExtraInfoForm(hospital) {
@@ -1743,7 +1749,7 @@
         if (value === "" || value == null) {
             return "";
         }
-        return `${value}${tText("link.unit.minutes", "分")}`;
+        return `${value}${tHtml("link.unit.minutes", "分")}`;
     }
 
     function formatLaborPatient(value) {
