@@ -158,18 +158,18 @@
     "placeholder": {
       "cardNo": "例（れい）：1234567",
       "travelTime": "分（ふん）",
-      "contactName": "例（れい）：陣痛タクシー",
+      "contactName": "例（れい）：じんつうタクシー",
       "phoneNumber": "例（れい）：0312345678",
       "name": "例（れい）：Maria Santos",
       "nameFurigana": "例（れい）：まりあ さんとす",
       "age": "例（れい）：30",
-      "nativeOther": "例：イタリア語"
+      "nativeOther": "例（れい）：イタリア語（ご）"
     },
     "option": {
-      "notSet": "--えらんでください--",
+      "notSet": "--まだ えらんでいません--",
       "yes": "はい",
       "no": "いいえ",
-      "undecided": "<ruby>未定<rt>みてい</rt></ruby>"
+      "undecided": "まだ わからない"
     },
     "unit": {
       "minutes": "<ruby>分<rt>ふん</rt></ruby>"

@@ -858,8 +858,21 @@
         if (formOptionLanguageListenerBound || !window.i18next) {
             return;
         }
-        i18next.on("languageChanged", renderLocalizedSelectOptions);
+        i18next.on("languageChanged", handleLinkPageLanguageChanged);
         formOptionLanguageListenerBound = true;
+    }
+
+    function handleLinkPageLanguageChanged() {
+        renderLocalizedSelectOptions();
+        renderUserView();
+        setUserEditMode(state.userEditMode);
+
+        if ($("#hospitalList").find(".link-card.is-editing").length === 0) {
+            renderHospitals();
+        }
+        if ($("#contactList").find("form.contact-card").length === 0) {
+            renderContacts();
+        }
     }
 
     async function reloadUser() {
@@ -947,8 +960,8 @@
                 .append(renderDetail("link.label.name", user.name, true))
                 .append(renderDetail("link.label.nameFurigana", user.nameFurigana, true))
                 .append(renderDetail("link.label.age", user.age != null ? String(user.age) : "", true))
-                .append(renderDetail("link.label.nationality", user.nationality, true))
-                .append(renderDetail("link.label.native", user.native, true))
+                .append(renderDetail("link.label.nationality", getNationalityDisplayValue(user.nationality), true))
+                .append(renderDetail("link.label.native", getNativeLanguageDisplayValue(user.native), true))
                 .append(renderDetail("link.label.dueDate", formatDisplayDate(user.dueDate), true))
                 .append(renderUserLevelViewLabel())
                 .append(renderLevelDetail("link.label.levelSpeaking", "s", level.s))
@@ -986,8 +999,8 @@
         const level = Number(value);
         const hasLevel = [1, 2, 3, 4].includes(level);
         const description = hasLevel
-            ? tText(`link.levelTable.rows.${level}.${levelKey}`, `Lv.${level}`)
-            : tText("link.option.notSet", "未設定");
+            ? tHtml(`link.levelTable.rows.${level}.${levelKey}`, `Lv.${level}`)
+            : tHtml("link.option.notSet", "未設定");
         const segments = $("<div>").addClass("level-segments");
 
         [1, 2, 3, 4].forEach((levelNumber) => {
@@ -1010,7 +1023,7 @@
                         $("<p>")
                             .addClass("level-view-text")
                             .toggleClass("is-empty", !hasLevel)
-                            .text(description)
+                            .html(description)
                     )
             );
     }
@@ -2037,6 +2050,23 @@
         return option ? option.label : "";
     }
 
+    function getNationalityDisplayValue(value) {
+        const raw = String(value || "").trim();
+        const normalizedValue = normalizeNationalityToJapanese(raw);
+        return normalizedValue ? getNationalityLabelByValue(normalizedValue) : raw;
+    }
+
+    function getNativeLanguageDisplayValue(value) {
+        const raw = String(value || "").trim();
+        const normalizedValue = normalizeNativeLanguageToJapanese(raw);
+        if (!normalizedValue) {
+            return raw;
+        }
+        return normalizedValue === "その他"
+            ? getOtherOptionLabel()
+            : getNativeLanguageLabelByValue(normalizedValue);
+    }
+
     function normalizeNationalityToJapanese(value) {
         const raw = String(value || "").trim();
         if (!raw) {
@@ -2084,9 +2114,9 @@
             const currentValue = select.val();
             const levelKey = levelKeysByInputId[this.id];
             select.empty();
-            select.append($("<option>").attr("value", "").text(tText("link.option.notSet", "未設定")));
+            select.append($("<option>").attr("value", "").text(tOptionText("link.option.notSet", "未設定")));
             [1, 2, 3, 4].forEach((level) => {
-                const label = tText(`link.levelTable.rows.${level}.${levelKey}`, `Lv.${level}`);
+                const label = tOptionText(`link.levelTable.rows.${level}.${levelKey}`, `Lv.${level}`);
                 select.append(
                     $("<option>")
                         .attr("value", String(level))
@@ -2128,6 +2158,25 @@
             return fallback;
         }
         return i18next.t(key, fallback);
+    }
+
+    function tOptionText(key, fallback) {
+        return rubyHtmlToOptionText(tHtml(key, fallback));
+    }
+
+    function rubyHtmlToOptionText(html) {
+        const container = $("<span>").html(html || "");
+        container.find("ruby").each(function () {
+            const ruby = $(this);
+            const rtText = ruby.find("rt").map(function () {
+                return $(this).text();
+            }).get().join("");
+            const baseRuby = ruby.clone();
+            baseRuby.find("rt, rp").remove();
+            const baseText = baseRuby.text();
+            ruby.replaceWith(rtText ? `${baseText}（${rtText}）` : baseText);
+        });
+        return container.text();
     }
 
     function showSuccessToast(messageKey) {

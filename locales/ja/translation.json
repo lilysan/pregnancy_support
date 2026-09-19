@@ -166,7 +166,7 @@
       "nativeOther": "例：イタリア語"
     },
     "option": {
-      "notSet": "--選択してください--",
+      "notSet": "--未選択--",
       "yes": "はい",
       "no": "いいえ",
       "undecided": "未定"
