@@ -104,7 +104,6 @@
         }
 
         .level-view-label {
-            display: inline-flex;
             align-items: center;
             width: fit-content;
             padding: 2px 8px;
@@ -370,8 +369,10 @@
                     <input id="userDueDateInput" type="date" required>
                 </label>
                 <div>
-                    <span class="field-label user-level-label" data-i18n="[html]link.label.level"></span>
-                    <span class="badge optional" data-i18n="[html]link.badge.optional"></span>
+                    <div class="user-level-label">
+                        <span class="field-label" data-i18n="[html]link.label.level"></span>
+                        <span class="badge optional" data-i18n="[html]link.badge.optional"></span>
+                    </div>
                     <div class="user-level-grid">
                         <label>
                             <span data-i18n="[html]link.label.levelSpeaking"></span>
