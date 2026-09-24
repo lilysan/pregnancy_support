@@ -363,28 +363,37 @@
     });
 
     async function main(idToken) {
+        state.idToken = idToken;
+        const schema = await fetchBirthPlanSchema();
+        if (!schema) {
+            return;
+        }
+
+        const [birthPlanSettings, birthPlanItems] = await Promise.all([
+            fetchBirthPlanSettings(idToken),
+            fetchBirthPlanAnswers(idToken)
+        ]);
+        state.schema = schema;
+        state.birthPlanSettings = birthPlanSettings;
+        $("#unsupportedNotice").prop("hidden", !hasBirthPlanSettings(birthPlanSettings));
+        state.answers = buildAnswersFromBirthPlanItems(state.schema, birthPlanItems);
+        clearDisabledAnswersFromSchema(state.schema);
+        state.initialized = true;
+        renderForm();
+    }
+
+    async function fetchBirthPlanSchema() {
         try {
-            state.idToken = idToken;
             const schemaResponse = await fetch(FORM_SCHEMA_URL, {cache: "no-cache"});
-            const [birthPlanSettings, birthPlanItems] = await Promise.all([
-                    fetchBirthPlanSettings(idToken),
-                    fetchBirthPlanAnswers(idToken)
-                ]);
-            state.schema = await schemaResponse.json();
-            state.birthPlanSettings = birthPlanSettings;
-            $("#unsupportedNotice").prop("hidden", !hasBirthPlanSettings(birthPlanSettings));
-            state.answers = buildAnswersFromBirthPlanItems(state.schema, birthPlanItems);
-            clearDisabledAnswersFromSchema(state.schema);
-            state.initialized = true;
-            renderForm();
+            return await schemaResponse.json();
         } catch (error) {
-            console.error("main failed:", error);
+            console.error("birth plan schema load failed:", error);
             showReloadErrorModal({
                 title: "Error",
                 message: "Failed to load birth plan schema."
             });
+            return null;
         }
-
     }
 
     function fetchBirthPlanSettings(idToken) {
