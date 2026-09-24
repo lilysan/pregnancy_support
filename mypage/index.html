@@ -780,7 +780,11 @@
             $("#loadingOverlay").removeClass("is-open");
         }).catch((err) => {
             console.error("LIFF init failed:", err);
-            alert("LIFF init failed.");
+            $("#loadingOverlay").removeClass("is-open");
+            showReloadErrorModal({
+                title: "Error",
+                message: "LIFF init failed."
+            });
         });
 
         $("#scanHospitalBtn").on("click", handleScanHospital);
@@ -815,16 +819,11 @@
 
     async function main(idToken) {
         state.idToken = idToken;
-        const results = await Promise.allSettled([
+        await Promise.allSettled([
             reloadUser(),
             reloadHospitals(),
             reloadContacts()
         ]);
-        results.forEach((result) => {
-            if (result.status === "rejected") {
-                console.error("initial data load failed:", result.reason);
-            }
-        });
     }
 
     function loadHeader() {
@@ -1691,7 +1690,10 @@
                     detail: response.detail,
                     response,
                 });
-                alert(response.message);
+                showReloadErrorModal({
+                    title: "Error",
+                    message: response.message || `${label} failed`
+                });
                 const error = new Error(response.message || `${label} failed`);
                 error.isApiError = true;
                 error.apiResponse = response;
@@ -1707,11 +1709,33 @@
                 responseText: jqXHR.responseText,
             });
 
-            alert(`Network error! ${label}: ${textStatus}(${jqXHR.status})`);
-            const error = new Error(`Network error: ${label}: ${textStatus}(${jqXHR.status})`);
+            const message = `Network error: ${label}: ${textStatus}(${jqXHR.status})`;
+            showReloadErrorModal({
+                title: "Error",
+                message: message
+            });
+            const error = new Error(message);
             error.isApiError = true;
             throw error;
         });
+    }
+
+    function showReloadErrorModal({title, message}) {
+        return modalManager.show({
+            title: title,
+            message: message,
+            positiveText: getModalText("button.reload", "リロード"),
+            negativeText: getModalText("button.cancel", "キャンセル"),
+            onPositive: function () {
+                window.location.reload();
+            }
+        });
+    }
+
+    function getModalText(key, fallback) {
+        return window.i18next && i18next.isInitialized
+            ? i18next.t(key, {defaultValue: fallback})
+            : fallback;
     }
 
     function extractQrToken(value) {
