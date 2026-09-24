@@ -61,6 +61,7 @@
   "button": {
     "ok": "OK",
     "cancel": "취소",
+    "reload": "다시 로드",
     "back": "뒤로",
     "other": "기타"
   },

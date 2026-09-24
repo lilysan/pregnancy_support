@@ -61,6 +61,7 @@
   "button": {
     "ok": "OK",
     "cancel": "Kanselahin",
+    "reload": "I-reload",
     "back": "Bumalik",
     "other": "Iba pa"
   },

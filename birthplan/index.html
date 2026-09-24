@@ -316,6 +316,7 @@
         birthPlanSettings: {},
         idToken: null
     };
+    const modalManager = createModalManager();
 
     $(function () {
         const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
@@ -333,7 +334,11 @@
             $("#loadingOverlay").removeClass('is-open');
         }).catch((err) => {
             console.error("LIFF init failed:", err);
-            alert("LIFF init failed.");
+            $("#loadingOverlay").removeClass('is-open');
+            showReloadErrorModal({
+                title: "Error",
+                message: "LIFF init failed."
+            });
         });
 
         $("#saveDraftBtn").on("click", handleSaveDraft);
@@ -374,67 +379,42 @@
             renderForm();
         } catch (error) {
             console.error("main failed:", error);
-            alert("Failed to load birth plan schema.");
+            showReloadErrorModal({
+                title: "Error",
+                message: "Failed to load birth plan schema."
+            });
         }
 
     }
 
     function fetchBirthPlanSettings(idToken) {
-        return $.ajax({
-            url: API_URL,
-            type: "POST",
-            dataType: "json",
-            data: JSON.stringify({
-                path: "myBirthplanSettings",
-                method: "get",
-                idToken: idToken
-            }),
-            timeout: 30000,
-        }).then(function (response) {
-            if (response.statusCode === 401) {
-                liff.logout();
-                window.location.reload();
+        return apiRequest({
+            path: "myBirthplanSettings",
+            method: "get",
+            idToken: idToken
+        }, "birthplanSettings")
+            .then(function (response) {
+                return response ? normalizeBirthPlanSettings(response.data && response.data.items) : {};
+            })
+            .catch(function (error) {
+                console.error("fetch birth plan settings failed:", error);
                 return {};
-            }
-            if (response.statusCode !== 200) {
-                console.error(response.message);
-                alert(response.message);
-                return {};
-            }
-            return normalizeBirthPlanSettings(response.data && response.data.items);
-        }, function () {
-            alert("Network error!birthplanSettings");
-            return {};
-        });
+            });
     }
 
     function fetchBirthPlanAnswers(idToken) {
-        return $.ajax({
-            url: API_URL,
-            type: "POST",
-            dataType: "json",
-            data: JSON.stringify({
-                path: "myBirthplan",
-                method: "get",
-                idToken: idToken
-            }),
-            timeout: 30000,
-        }).then(function (response) {
-            if (response.statusCode === 401) {
-                liff.logout();
-                window.location.reload();
+        return apiRequest({
+            path: "myBirthplan",
+            method: "get",
+            idToken: idToken
+        }, "myBirthplan")
+            .then(function (response) {
+                return response && response.data && Array.isArray(response.data.items) ? response.data.items : [];
+            })
+            .catch(function (error) {
+                console.error("fetch birth plan answers failed:", error);
                 return [];
-            }
-            if (response.statusCode !== 200) {
-                console.error(response.message);
-                alert(response.message);
-                return [];
-            }
-            return response.data && Array.isArray(response.data.items) ? response.data.items : [];
-        }, function () {
-            alert("Network error!myBirthplan");
-            return [];
-        });
+            });
     }
 
     /**
@@ -1279,35 +1259,90 @@
     }
 
     function saveBirthPlanAnswers(idToken, items) {
+        return apiRequest({
+            path: "myBirthplan",
+            method: "post",
+            idToken: idToken,
+            postData: {
+                items: items
+            }
+        }, "saveBirthplan")
+            .then(function (response) {
+                return !!response;
+            })
+            .catch(function (error) {
+                console.error("save birth plan answers failed:", error);
+                return false;
+            });
+    }
+
+    function apiRequest(payload, label) {
         return $.ajax({
-            url: API_URL,
+            url: API_URL_V2,
             type: "POST",
             dataType: "json",
-            data: JSON.stringify({
-                path: "myBirthplan",
-                method: "post",
-                idToken: idToken,
-                postData: {
-                    items: items
-                }
-            }),
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(payload),
             timeout: 30000,
         }).then(function (response) {
             if (response.statusCode === 401) {
                 liff.logout();
                 window.location.reload();
-                return false;
+                return null;
             }
             if (response.statusCode !== 200) {
-                console.error(response.message);
-                alert(response.message);
-                return false;
+                console.error("API error", {
+                    label,
+                    message: response.message,
+                    detail: response.detail,
+                    response,
+                });
+                showReloadErrorModal({
+                    title: "Error",
+                    message: response.message || `${label} failed`
+                });
+                const error = new Error(response.message || `${label} failed`);
+                error.isApiError = true;
+                error.apiResponse = response;
+                throw error;
             }
-            return true;
-        }, function () {
-            alert("Network error!saveBirthplan");
-            return false;
+            return response;
+        }, function (jqXHR, textStatus, errorThrown) {
+            console.error("API failed", {
+                label,
+                textStatus,
+                errorThrown,
+                httpStatus: jqXHR.status,
+                responseText: jqXHR.responseText,
+            });
+
+            const message = `Network error: ${label}: ${textStatus}(${jqXHR.status})`;
+            showReloadErrorModal({
+                title: "Error",
+                message: message
+            });
+            const error = new Error(message);
+            error.isApiError = true;
+            throw error;
         });
+    }
+
+    function showReloadErrorModal({title, message}) {
+        return modalManager.show({
+            title: title,
+            message: message,
+            positiveText: getModalText("button.reload", "リロード"),
+            negativeText: getModalText("button.cancel", "キャンセル"),
+            onPositive: function () {
+                window.location.reload();
+            }
+        });
+    }
+
+    function getModalText(key, fallback) {
+        return window.i18next && i18next.isInitialized
+            ? i18next.t(key, {defaultValue: fallback})
+            : fallback;
     }
 
     function buildBirthPlanPostItems(schema) {

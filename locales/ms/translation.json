@@ -61,6 +61,7 @@
   "button": {
     "ok": "OK",
     "cancel": "Batal",
+    "reload": "Muat semula",
     "back": "Kembali",
     "other": "Lain-lain"
   },

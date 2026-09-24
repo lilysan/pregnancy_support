@@ -61,6 +61,7 @@
   "button": {
     "ok": "OK",
     "cancel": "取消",
+    "reload": "重新加载",
     "back": "返回",
     "other": "其他"
   },

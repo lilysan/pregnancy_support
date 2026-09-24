@@ -61,6 +61,7 @@
   "button": {
     "ok": "OK",
     "cancel": "Cancelar",
+    "reload": "Recarregar",
     "back": "Voltar",
     "other": "Outros"
   },
