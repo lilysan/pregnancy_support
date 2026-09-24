@@ -775,7 +775,6 @@
     };
 
     const dataState = {
-        hospitalAccount: null,
         patient: null,
         currentPatientUserId: "",
         activeTabKey: "profile",
@@ -788,8 +787,10 @@
             epds: null,
             sos: null
         },
-        birthPlanSettings: {}
+        birthPlanSettings: {},
+        birthPlanSettingsLoaded: false
     };
+    const modalManager = createModalManager();
     let patientSelectionResolve = null;
 
     $(function () {
@@ -807,12 +808,14 @@
                 loadReferenceSchemas()
             ]);
         }).then(() => {
-            setupDataStickyTabs();
             $("#loadingOverlay").removeClass("is-open");
         }).catch((err) => {
             console.error("LIFF init failed:", err);
-            alert("LIFF init failed.");
             $("#loadingOverlay").removeClass("is-open");
+            showReloadErrorModal({
+                title: "Error",
+                message: "LIFF init failed."
+            });
         });
 
         $("#getDataBtn").on("click", function () {
@@ -863,47 +866,35 @@
     });
 
     async function main(idToken) {
-        const hospitalAccountResponse = await requestApi({
-            path: "hospitalAccount",
-            method: "get",
-            idToken: idToken
-        });
-        if (!handleAuthResponse(hospitalAccountResponse)) {
+        let hospitalResponse;
+        try {
+            hospitalResponse = await apiRequest({
+                path: "hospital",
+                method: "get",
+                idToken: idToken
+            }, "hospital");
+        } catch (error) {
+            console.error("initial hospital data load failed:", error);
+            return;
+        }
+        if (!hospitalResponse) {
+            return;
+        }
+        if (hospitalResponse.statusCode !== 200) {
+            showReloadErrorModal({
+                title: "Error",
+                message: hospitalResponse.message || "hospital failed"
+            });
             return;
         }
 
-        renderDataTabs();
-
-        const hospitalAccount = hospitalAccountResponse.data || {};
-        if (!hospitalAccount.hospitalId) {
+        const hospital = hospitalResponse.data || {};
+        if (!hospital.hospitalId) {
             redirectToHospitalPage();
             return;
         }
 
-        dataState.hospitalAccount = hospitalAccount;
-        const [hospitalResponse, birthPlanSettingsResponse] = await Promise.all([
-            requestApi({
-                path: "hospital",
-                method: "get",
-                idToken: idToken
-            }),
-            requestApi({
-                path: "birthplanSettings",
-                method: "get",
-                idToken: idToken
-            })
-        ]);
-        if (!handleAuthResponse(hospitalResponse) || !handleAuthResponse(birthPlanSettingsResponse)) {
-            return;
-        }
-        if (birthPlanSettingsResponse.statusCode === 200) {
-            dataState.birthPlanSettings = normalizeBirthPlanSettings(birthPlanSettingsResponse.data && birthPlanSettingsResponse.data.items);
-        } else {
-            console.warn(birthPlanSettingsResponse.message || "birthplanSettingsを取得できませんでした。");
-            dataState.birthPlanSettings = {};
-        }
-        renderHospitalAccount(Object.assign({}, hospitalAccount, hospitalResponse.statusCode === 200 ? hospitalResponse.data : {}));
-        renderDataTabs();
+        renderHospitalAccount(hospital);
     }
 
     async function searchPatientData(idToken) {
@@ -916,18 +907,17 @@
         $("#loadingOverlay").addClass("is-open");
         hideStatus();
         try {
-            const response = await requestApi({
+            const response = await apiRequest({
                 path: "patient",
                 method: "get",
                 idToken: idToken,
                 postData: {cardNo: cardNo}
-            });
-            if (!handleAuthResponse(response)) {
+            }, "patient");
+            if (!response) {
                 return;
             }
             const patients = normalizePatientResponseData(response.data);
             if (response.statusCode !== 200 || patients.length === 0) {
-                console.error(response.message);
                 showStatus(response.message || "共有データを取得できませんでした。");
                 return;
             }
@@ -976,7 +966,7 @@
         if (shouldFetch || !dataState.recordsByTab[tabKey]) {
             $("#loadingOverlay").addClass("is-open");
             try {
-                const response = await requestApi({
+                const response = await apiRequest({
                     path: tab.path,
                     method: "get",
                     idToken: liff.getIDToken(),
@@ -986,8 +976,8 @@
                         limit: 1,
                         page: 1
                     }
-                });
-                if (!handleAuthResponse(response)) {
+                }, tab.path);
+                if (!response) {
                     return;
                 }
                 dataState.recordsByTab[tabKey] = response;
@@ -1002,8 +992,45 @@
             }
         }
 
+        if (tab.key === "birthplan" && !dataState.birthPlanSettingsLoaded) {
+            $("#loadingOverlay").addClass("is-open");
+            try {
+                const settingsLoaded = await loadBirthPlanSettings(liff.getIDToken());
+                if (!settingsLoaded) {
+                    return;
+                }
+            } finally {
+                $("#loadingOverlay").removeClass("is-open");
+            }
+        }
+
         renderDataPanel(tabKey);
         requestAnimationFrame(scrollToDataTabPanelTop);
+    }
+
+    async function loadBirthPlanSettings(idToken) {
+        let response;
+        try {
+            response = await apiRequest({
+                path: "birthplanSettings",
+                method: "get",
+                idToken: idToken
+            }, "birthplanSettings");
+        } catch (error) {
+            console.error("birth plan settings load failed:", error);
+            return false;
+        }
+        if (!response) {
+            return false;
+        }
+        if (response.statusCode === 200) {
+            dataState.birthPlanSettings = normalizeBirthPlanSettings(response.data && response.data.items);
+        } else {
+            console.warn(response.message || "birthplanSettingsを取得できませんでした。");
+            dataState.birthPlanSettings = {};
+        }
+        dataState.birthPlanSettingsLoaded = true;
+        return true;
     }
 
     async function applySelectedPatient(patient, cardNo) {
@@ -1511,7 +1538,6 @@
     function renderBirthplanQuestion(question, responseMap, questionNumber) {
         const questionEnabled = isBirthPlanItemEnabled(question.labelKey);
         const questionOptions = question.options || [];
-        const selectedOptions = questionOptions.filter((option) => responseMap[toBirthPlanSettingKey(option.labelKey)]);
         const textAnswer = getBirthplanQuestionTextAnswer(question, responseMap);
         const isAnswered = isBirthplanQuestionAnswered(question, responseMap);
         const block = $("<div>").addClass("bp-question-block");
@@ -2111,27 +2137,65 @@
         $("#data-status-card").removeClass("is-visible");
     }
 
-    function requestApi(data) {
-        return $.ajax(getAccessObj(data));
-    }
-
-    function getAccessObj(data) {
-        return {
-            url: API_URL,
+    function apiRequest(payload, label) {
+        return $.ajax({
+            url: API_URL_V2,
             type: "POST",
             dataType: "json",
-            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(payload),
             timeout: 30000
-        };
+        }).then(function (response) {
+            if (response && response.statusCode === 401) {
+                liff.logout();
+                window.location.reload();
+                return null;
+            }
+            if (response && response.statusCode !== 200) {
+                console.error("API error", {
+                    label,
+                    message: response.message,
+                    detail: response.detail,
+                    response,
+                });
+            }
+            return response;
+        }, function (jqXHR, textStatus, errorThrown) {
+            console.error("API failed", {
+                label,
+                textStatus,
+                errorThrown,
+                httpStatus: jqXHR.status,
+                responseText: jqXHR.responseText,
+            });
+
+            const message = `Network error: ${label}: ${textStatus}(${jqXHR.status})`;
+            showReloadErrorModal({
+                title: "Error",
+                message: message
+            });
+            const error = new Error(message);
+            error.isApiError = true;
+            throw error;
+        });
     }
 
-    function handleAuthResponse(response) {
-        if (response && response.statusCode === 401) {
-            liff.logout();
-            window.location.reload();
-            return false;
-        }
-        return true;
+    function showReloadErrorModal({title, message}) {
+        return modalManager.show({
+            title: title,
+            message: message,
+            positiveText: getModalText("button.reload", "リロード"),
+            negativeText: getModalText("button.cancel", "キャンセル"),
+            onPositive: function () {
+                window.location.reload();
+            }
+        });
+    }
+
+    function getModalText(key, fallback) {
+        return window.i18next && i18next.isInitialized
+            ? i18next.t(key, {defaultValue: fallback})
+            : fallback;
     }
 
     function redirectToHospitalPage() {
