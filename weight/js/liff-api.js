@@ -18,18 +18,13 @@ function hideAppLoader() {
 
 function getAccessObj(data) {
     const requestData = Object.assign({}, data);
-    if (requestData.userId && requestData.postData && typeof requestData.postData === "object") {
-        requestData.postData = Object.assign({}, requestData.postData, {
-            userId: requestData.userId
-        });
-    }
-    requestData.lang = window.normalizedLanguageCode || "";
     return {
         url: API_URL_V2,
         type: "POST",
         dataType: "json",
         data: JSON.stringify(requestData),
-        timeout: 30000
+        timeout: 30000,
+        contentType: "application/json; charset=utf-8"
     };
 }
 
@@ -80,7 +75,6 @@ function requestWeightApi(method, postData) {
         path: "myWeight",
         method: method,
         idToken: token,
-        userId: userId,
         postData: safePostData
     });
     access.timeout = 12000;
@@ -271,16 +265,11 @@ function bootWeightApp() {
             selectedUiLang = normalizeLangToUi(lang);
             localStorage.setItem(LANG_STORAGE_KEY, selectedUiLang);
         }
-        return Promise.resolve(typeof liff.getProfile === "function" ? liff.getProfile() : null)
-            .catch(() => null)
-            .then((profile) => {
-                const decoded = typeof liff.getDecodedIDToken === "function" ? liff.getDecodedIDToken() : null;
-                userId = profile && profile.userId ? profile.userId : ((decoded && (decoded.sub || decoded.userId)) || "");
-                return Promise.all([
-                    startWeightApp(idToken),
-                    loadHeader()
-                ]);
-            });
+
+        return Promise.all([
+            startWeightApp(idToken),
+            loadHeader()
+        ]);
     }).then(() => {
         finishBootLoader();
     }).catch((err) => {

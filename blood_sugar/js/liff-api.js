@@ -210,7 +210,6 @@ function deleteData(data, type) {
 
 const sugarState = {
   idToken: "",
-  appLanguage: ""
 };
 
 
