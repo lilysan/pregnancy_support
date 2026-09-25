@@ -152,12 +152,6 @@
             <p data-i18n="[html]privacy.sections.disclaimer.body2">体調の変化、出血、強い痛み、発熱、胎動の減少、破水の可能性、強い不安などがある場合は、アプリの表示や記録だけで判断せず、速やかに医療機関または救急窓口へ連絡してください。</p>
         </section>
 
-        <section class="privacy-section">
-            <h2 data-i18n="[html]privacy.sections.contact.title">お問い合わせ</h2>
-            <p data-i18n="[html]privacy.sections.contact.body">個人情報の取り扱い、共有範囲、削除に関する相談は、このアプリケーションの提供者へお問い合わせください。</p>
-            <p><span data-i18n="[html]privacy.sections.contact.emailLabel">メール</span>: <a href="mailto:support@example.com">support@example.com</a></p>
-        </section>
-
         <p class="privacy-updated" data-i18n="[html]privacy.updated">最終更新日: 2026年9月1日</p>
     </article>
 </main>
@@ -172,11 +166,11 @@
     const liff = window.liff;
 
     $(function () {
-        const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+        // const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
 
         liff.init({
             liffId: LIFF_ID,
-            withLoginOnExternalBrowser: !isDev,
+            withLoginOnExternalBrowser: false,
         }).then(() => {
             loadHeader();
         }).catch((err) => {

@@ -586,11 +586,11 @@
             setLocalizedDocumentTitle();
         });
 
-        const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+        // const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
         const bootPromise = window.liff && typeof liff.init === "function"
             ? liff.init({
                 liffId: LIFF_ID,
-                withLoginOnExternalBrowser: !isDev,
+                withLoginOnExternalBrowser: false,
             }).then(loadHeader)
             : loadHeader();
 

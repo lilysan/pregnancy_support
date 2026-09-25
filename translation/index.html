@@ -307,7 +307,7 @@
     };
 
     $(function () {
-        const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+        // const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
         const appList = Object.keys(APP_URL);
         for (let i = 0; i < appList.length; i += 1) {
             $(`.app-${appList[i]}`).on("click", function (e) {
@@ -320,7 +320,7 @@
 
         liff.init({
             liffId: LIFF_ID,
-            withLoginOnExternalBrowser: !isDev,
+            withLoginOnExternalBrowser: false,
         }).then(function () {
             return loadHeader();
         }).catch(function (error) {
