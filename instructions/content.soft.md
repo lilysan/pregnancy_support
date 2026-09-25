@@ -6,6 +6,10 @@
 <ruby>妊娠中<rt>にんしんちゅう</rt></ruby>から お<ruby>産<rt>さん</rt></ruby>まで、<ruby>病院<rt>びょういん</rt></ruby>スタッフと <ruby>話<rt>はな</rt></ruby>すことを <ruby>手伝<rt>てつだ</rt></ruby>います。
 <ruby>日本語<rt>にほんご</rt></ruby>のほかに 20の <ruby>言語<rt>げんご</rt></ruby>で <ruby>表示<rt>ひょうじ</rt></ruby>できます。<ruby>外国人<rt>がいこくじん</rt></ruby>の <ruby>妊婦<rt>にんぷ</rt></ruby>さんも、<ruby>自分<rt>じぶん</rt></ruby>が わかりやすい <ruby>言語<rt>げんご</rt></ruby>で <ruby>使<rt>つか</rt></ruby>えます。
 
+#### LINE<ruby>公式<rt>こうしき</rt></ruby>アカウント
+
+[こちら](https://lin.ee/Tv8Yncq)から <ruby>友<rt>とも</rt></ruby>だち<ruby>追加<rt>ついか</rt></ruby>してください。
+
 #### Point-1
 
 <ruby>病院<rt>びょういん</rt></ruby>スタッフと <ruby>話<rt>はな</rt></ruby>すときに <ruby>指<rt>ゆび</rt></ruby>で <ruby>選<rt>えら</rt></ruby>べる <ruby>会話<rt>かいわ</rt></ruby>フレーズ、ワクチン<ruby>接種<rt>せっしゅ</rt></ruby>の <ruby>記録<rt>きろく</rt></ruby>、バースプラン、<ruby>体重<rt>たいじゅう</rt></ruby>、<ruby>血圧<rt>けつあつ</rt></ruby>、<ruby>血糖値<rt>けっとうち</rt></ruby>、<ruby>陣痛<rt>じんつう</rt></ruby>カウンター、<ruby>胎動<rt>たいどう</rt></ruby>カウンター、<ruby>陣痛<rt>じんつう</rt></ruby>チェックなどが あります。
@@ -19,6 +23,10 @@
 
 
 ## <ruby>準備<rt>じゅんび</rt></ruby>
+
+### LINE<ruby>公式<rt>こうしき</rt></ruby>アカウントを <ruby>追加<rt>ついか</rt></ruby>する
+
+[こちら](https://lin.ee/Tv8Yncq)から <ruby>友<rt>とも</rt></ruby>だち<ruby>追加<rt>ついか</rt></ruby>してください。
 
 ### プロフィール<ruby>登録<rt>とうろく</rt></ruby>を <ruby>開<rt>ひら</rt></ruby>く
 
@@ -68,7 +76,7 @@ LINEチャット<ruby>画面<rt>がめん</rt></ruby>のメニューで `A-4 マ
 
 ### <ruby>会話<rt>かいわ</rt></ruby>フレーズ
 
-<ruby>会話<rt>かいわ</rt></ruby>フレーズ（コミュニケーションボード）では、<ruby>妊婦健診<rt>にんぷけんしん</rt></ruby>の `受付`、`診察`、`保健指導` で よく <ruby>使<rt>つか</rt></ruby>う フレーズを <ruby>見<rt>み</rt></ruby>ることができます。
+<ruby>会話<rt>かいわ</rt></ruby>フレーズでは、<ruby>妊婦健診<rt>にんぷけんしん</rt></ruby>の `受付`、`診察`、`保健指導` で よく <ruby>使<rt>つか</rt></ruby>う フレーズを <ruby>見<rt>み</rt></ruby>ることができます。
 <ruby>伝<rt>つた</rt></ruby>えたい <ruby>内容<rt>ないよう</rt></ruby>を <ruby>選<rt>えら</rt></ruby>んで、<ruby>病院<rt>びょういん</rt></ruby>スタッフと <ruby>話<rt>はな</rt></ruby>すときに <ruby>使<rt>つか</rt></ruby>ってください。
 
 #### <ruby>受付<rt>うけつけ</rt></ruby>

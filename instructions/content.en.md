@@ -5,6 +5,10 @@
 This service is a LINE official account made up of a LINE chat bot and web apps. It supports communication with hospital staff from pregnancy through childbirth.
 It supports multilingual display in 20 languages other than Japanese, so foreign pregnant women can use it in their native language or in a language they understand easily.
 
+#### LINE Official Account
+
+Add the account as a friend from [here](https://lin.ee/Tv8Yncq).
+
 #### Point 1
 
 The main features include conversation phrase tools for pointing to phrases when communicating with hospital staff, vaccination record management, Birth Plan support, records for Weight, Blood Pressure, and Blood Sugar measurements, Contraction Timer, Kick Counter, and a labor check tool.
@@ -17,6 +21,10 @@ If your hospital uses this service, you can scan the hospital QR code in advance
 
 
 ## Preparation
+
+### Add the LINE Official Account
+
+Add the account as a friend from [here](https://lin.ee/Tv8Yncq).
 
 ### Open Profile Registration
 
@@ -64,9 +72,9 @@ Registered contacts can be accessed quickly from `C-2 Contacts` in the LINE chat
 
 ## Basic Features
 
-### Conversation Phrases
+### Communication Board
 
-The conversation phrase tools, also called the Communication Board, include phrases often used at Reception, Examination, and Midwife Consultation during prenatal checkups.
+The Communication Board, include phrases often used at Reception, Examination, and Midwife Consultation during prenatal checkups.
 Use them by selecting what you want to say to support communication with hospital staff.
 
 #### Reception
