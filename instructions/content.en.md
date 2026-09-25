@@ -1,5 +1,3 @@
-# How to Use This App
-
 ## Introduction
 
 ### What You Can Do With This App

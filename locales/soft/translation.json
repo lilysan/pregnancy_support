@@ -6,7 +6,7 @@
     "other": "そのほか"
   },
   "subgroupTitle": {
-    "board": "コミュニケーションボード",
+    "board": "<ruby>会話<rt>かいわ</rt></ruby>フレーズ",
     "mydata": "マイデータ",
     "other": "そのほか"
   },
@@ -25,7 +25,7 @@
     "memo": "メモ",
     "guidebook": "ガイドブック",
     "faq": "よくある<ruby>質問<rt>しつもん</rt></ruby>",
-    "usage": "<ruby>使<rt>つか</rt></ruby>い<ruby>方<rt>かた</rt></ruby>",
+    "usage": "このアプリの<ruby>使<rt>つか</rt></ruby>い<ruby>方<rt>かた</rt></ruby>",
     "laborCounter": "<ruby>陣痛<rt>じんつう</rt></ruby>カウンター",
     "movementCounter": "<ruby>胎動<rt>たいどう</rt></ruby>カウンター",
     "translation": "<ruby>翻訳<rt>ほんやく</rt></ruby>アプリ",
