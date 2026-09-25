@@ -34,6 +34,7 @@ const getAccessObj = (data) => {
     dataType: "json",
     data: JSON.stringify(requestData),
     timeout: 30000,
+    contentType: "application/json; charset=utf-8",
   };
 };
 
