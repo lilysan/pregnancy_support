@@ -895,7 +895,7 @@
         console.log("movement_counter request payload:", requestPayload);
         if (!silent) showAppBusy();
         return $.ajax({
-          url: API_URL,
+          url: API_URL_V2,
           type: "POST",
           dataType: "json",
           timeout: 30000,

@@ -25,7 +25,7 @@ function getAccessObj(data) {
     }
     requestData.lang = window.normalizedLanguageCode || "";
     return {
-        url: API_URL,
+        url: API_URL_V2,
         type: "POST",
         dataType: "json",
         data: JSON.stringify(requestData),

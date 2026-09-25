@@ -78,7 +78,7 @@
         const currentUserId = typeof userId !== "undefined" ? userId : window.userId;
         if (currentUserId) requestData.userId = currentUserId;
         return {
-            url: API_URL,
+            url: API_URL_V2,
             type: "POST",
             dataType: "json",
             data: JSON.stringify(requestData),

@@ -72,7 +72,7 @@
 
     const getAccessObj = (data) => {
         return {
-            url: API_URL,
+            url: API_URL_V2,
             type: "POST",
             dataType: "json",
             data: JSON.stringify(data),

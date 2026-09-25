@@ -29,7 +29,7 @@ const getAccessObj = (data) => {
   requestData.lang = window.normalizedLanguageCode || state.appLanguage || "";
   console.log("blood_pressure request payload:", requestData);
   return {
-    url: API_URL,
+    url: API_URL_V2,
     type: "POST",
     dataType: "json",
     data: JSON.stringify(requestData),

@@ -33,7 +33,7 @@ function getAccessObj(data) {
   requestData.lang = window.normalizedLanguageCode || sugarState.appLanguage || "";
   console.log("blood_sugar request payload:", requestData);
   return {
-    url: API_URL,
+    url: API_URL_V2,
     type: "POST",
     dataType: "json",
     data: JSON.stringify(requestData),
