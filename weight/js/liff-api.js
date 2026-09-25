@@ -48,22 +48,23 @@ function weightPayload(method, data) {
     const value = data || {};
     if (method === "get") {
         return {
-            unit: value.unit || value.Lunit || "month",
-            limit: Number(value.limit || value.Llimit || 1),
-            page: Number(value.page || value.Lpage || 1)
+            unit: value.unit || "month",
+            limit: Number(value.limit || 1),
+            page: Number(value.page || 1)
         };
     }
     if (method === "delete") {
         return {
-            datetime: value.datetime || value.Ldatetime || ""
+            itemId: value.itemId || ""
         };
     }
     const mapped = {
-        datetime: value.datetime || value.Ldatetime || "",
-        weight: Number(value.weight != null ? value.weight : (value.Lweight != null ? value.Lweight : 0))
+        date: value.date || "",
+        period: value.period || "",
+        weight: Number(value.weight != null ? value.weight : 0)
     };
     if (method === "put") {
-        mapped.itemId = value.itemId || value.LitemId || value.id || "";
+        mapped.itemId = value.itemId || "";
     }
     return mapped;
 }
