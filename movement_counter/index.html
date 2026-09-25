@@ -102,12 +102,10 @@
 
       const state = {
         idToken: "",
-        userId: "",
         activeRecord: null,
         timerId: null,
         records: [],
         lang: "ja",
-        appLanguage: "",
       };
 
       const MOVEMENT_TEXT = {
@@ -782,41 +780,6 @@
         return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
       }
 
-      function decodeIdTokenUserId(idToken) {
-        try {
-          const payload = String(idToken || "").split(".")[1];
-          if (!payload) return "";
-          const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
-          const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=");
-          const decoded = JSON.parse(decodeURIComponent(escape(atob(padded))));
-          return decoded.sub || decoded.userId || "";
-        } catch (error) {
-          console.warn("Failed to decode LIFF ID token:", error);
-          return "";
-        }
-      }
-
-      function resolveLiffUserId() {
-        const decoded =
-          typeof liff.getDecodedIDToken === "function"
-            ? liff.getDecodedIDToken()
-            : null;
-        return Promise.resolve(
-          typeof liff.getProfile === "function" ? liff.getProfile() : null,
-        )
-          .catch(() => null)
-          .then((profile) => {
-            state.userId =
-              profile && profile.userId
-                ? profile.userId
-                : (decoded && (decoded.sub || decoded.userId)) ||
-                  decodeIdTokenUserId(state.idToken) ||
-                  "";
-            window.userId = state.userId;
-            return state.userId;
-          });
-      }
-
       function ensureLiffLogin(isDev) {
         if (
           !isDev &&
@@ -877,19 +840,11 @@
 
       function requestMovementApi(method, postData, options) {
         const silent = options && options.silent;
-        if (!state.userId) {
-          console.warn("movement_counter API skipped: missing userId");
-          return Promise.resolve(null);
-        }
-        const requestPostData = Object.assign({}, postData || {}, {
-          userId: state.userId || "",
-        });
+        const requestPostData = Object.assign({}, postData || {});
         const requestPayload = {
           path: "myMovement",
           method: method,
           idToken: state.idToken,
-          userId: state.userId || "",
-          lang: window.normalizedLanguageCode || state.lang || "",
           postData: requestPostData,
         };
         console.log("movement_counter request payload:", requestPayload);
@@ -900,6 +855,7 @@
           dataType: "json",
           timeout: 30000,
           data: JSON.stringify(requestPayload),
+          contentType: "application/json; charset=utf-8",
         }).then(
           function (response) {
             if (response.statusCode === 401) {
@@ -1224,16 +1180,8 @@
           .then(() => {
             if (!ensureLiffLogin(isDev)) return null;
             state.idToken = liff.getIDToken();
-            state.appLanguage =
-              typeof liff.getAppLanguage === "function"
-                ? liff.getAppLanguage()
-                : "";
-            return resolveLiffUserId();
           })
-          .then((resolvedUserId) => {
-            if (resolvedUserId === null) return null;
-            console.log("movement userId:", state.userId);
-            console.log("movement idToken exists:", Boolean(state.idToken));
+          .then(() => {
             loadLocalRecords();
             bindEvents();
             applyMovementLanguage(
