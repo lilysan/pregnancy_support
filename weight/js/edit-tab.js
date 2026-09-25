@@ -115,13 +115,14 @@ async function addWeightRecord() {
     const nextRecord = {
         itemId: "",
         periodId: currentPeriod.periodId || "",
-        datetime: formatDateTime(date, period),
+        date: date,
+        period: period,
         weight: Number(weight.toFixed(1))
     };
     const result = await requestWeightApi("post", {
         type: "record",
-        periodId: nextRecord.periodId,
-        datetime: nextRecord.datetime,
+        period: nextRecord.period,
+        date: nextRecord.datetime,
         weight: nextRecord.weight
     });
     if (!result) {
@@ -154,7 +155,8 @@ async function saveEditedRecord() {
         type: "record",
         itemId: editingItemId,
         periodId: currentPeriod ? currentPeriod.periodId : "",
-        datetime: formatDateTime(date, period),
+        date: date,
+        period: period,
         weight: Number(weight.toFixed(1))
     });
     if (!result) return;
@@ -167,8 +169,7 @@ async function deleteEditedRecord() {
     if (!editingItemId) return;
     const result = await requestWeightApi("delete", {
         type: "record",
-        itemId: editingItemId,
-        datetime: editingDatetime
+        itemId: editingItemId
     });
     if (!result) return;
     closeEditDialog();
