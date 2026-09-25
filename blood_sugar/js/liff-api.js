@@ -17,27 +17,16 @@ function hideAppLoader() {
   loader.setAttribute("aria-hidden", "true");
 }
 
-function getEffectiveSugarUserId() {
-  return userId || window.userId || "";
-}
-
 function getAccessObj(data) {
   const requestData = Object.assign({}, data);
-  const effectiveUserId = getEffectiveSugarUserId();
-  requestData.userId = effectiveUserId;
-  if (requestData.postData && typeof requestData.postData === "object") {
-    requestData.postData = Object.assign({}, requestData.postData, {
-      userId: effectiveUserId
-    });
-  }
-  requestData.lang = window.normalizedLanguageCode || sugarState.appLanguage || "";
   console.log("blood_sugar request payload:", requestData);
   return {
     url: API_URL_V2,
     type: "POST",
     dataType: "json",
     data: JSON.stringify(requestData),
-    timeout: 30000
+    timeout: 30000,
+    contentType: "application/json; charset=utf-8"
   };
 }
 
@@ -87,20 +76,6 @@ function extractSugarItems(response) {
   const data = response && response.data ? response.data : {};
   const rawItems = data.items || data.Litems || [];
   return Array.isArray(rawItems) ? rawItems.map(normalizeSugarItem).filter(Boolean) : [];
-}
-
-function decodeSugarIdTokenUserId(idToken) {
-  try {
-    const payload = String(idToken || "").split(".")[1];
-    if (!payload) return "";
-    const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
-    const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=");
-    const decoded = JSON.parse(decodeURIComponent(escape(atob(padded))));
-    return decoded.sub || decoded.userId || "";
-  } catch (error) {
-    console.warn("Failed to decode LIFF ID token:", error);
-    return "";
-  }
 }
 
 function loadData(idToken, type, postData, mergeMode) {
@@ -311,8 +286,6 @@ function startSugarApp(idToken) {
     .then(() => {
       const idToken = liff.getIDToken();
       sugarState.idToken = idToken;
-      sugarState.appLanguage =
-        typeof liff.getAppLanguage === "function" ? liff.getAppLanguage() : "";
       const lang = liff.getAppLanguage();
       if (!isSupportedLang(localStorage.getItem(LANG_STORAGE_KEY))) {
         selectedUiLang = normalizeLangToUi(lang);
@@ -323,25 +296,8 @@ function startSugarApp(idToken) {
         .catch((error) =>
           console.error("blood sugar language apply failed:", error),
         );
-      return Promise.resolve(
-        typeof liff.getProfile === "function" ? liff.getProfile() : null,
-      )
-        .catch(() => null)
-        .then((profile) => {
-          const decoded =
-            typeof liff.getDecodedIDToken === "function"
-              ? liff.getDecodedIDToken()
-              : null;
-          userId =
-            profile && profile.userId
-              ? profile.userId
-              : (decoded && (decoded.sub || decoded.userId)) ||
-                decodeSugarIdTokenUserId(idToken) ||
-                "";
-          window.userId = userId;
-          console.log("blood_sugar resolved userId:", userId);
-          return Promise.all([startSugarApp(idToken), loadHeader()]);
-        });
+
+      return Promise.all([startSugarApp(idToken), loadHeader()]);
     })
     .then(() => {
       if (typeof hideAppLoader === "function") {
