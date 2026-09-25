@@ -19,14 +19,6 @@ function hideAppLoader() {
 
 const getAccessObj = (data) => {
   const requestData = Object.assign({}, data);
-  const effectiveUserId = state.userId || window.userId || "";
-  requestData.userId = effectiveUserId;
-  if (requestData.postData && typeof requestData.postData === "object") {
-    requestData.postData = Object.assign({}, requestData.postData, {
-      userId: effectiveUserId
-    });
-  }
-  requestData.lang = window.normalizedLanguageCode || state.appLanguage || "";
   console.log("blood_pressure request payload:", requestData);
   return {
     url: API_URL_V2,
@@ -92,20 +84,6 @@ function extractPressureItems(response) {
   return Array.isArray(rawItems)
     ? rawItems.map(normalizePressureItem).filter(Boolean)
     : [];
-}
-
-function decodeIdTokenUserId(idToken) {
-  try {
-    const payload = String(idToken || "").split(".")[1];
-    if (!payload) return "";
-    const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
-    const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=");
-    const decoded = JSON.parse(decodeURIComponent(escape(atob(padded))));
-    return decoded.sub || decoded.userId || "";
-  } catch (error) {
-    console.warn("Failed to decode LIFF ID token:", error);
-    return "";
-  }
 }
 
 function loadData(idToken, type, postData, mergeMode) {
@@ -416,9 +394,7 @@ function loadHeader() {
 const liff = window.liff;
 
 const state = {
-    idToken: null,
-    appLanguage: "",
-    userId:null
+    idToken: null
 };
 
 function bootPressureApp() {
@@ -433,29 +409,7 @@ function bootPressureApp() {
     })
     .then(() => {
       state.idToken = liff.getIDToken();
-      state.appLanguage =
-        typeof liff.getAppLanguage === "function" ? liff.getAppLanguage() : "";
-      return Promise.resolve(
-        typeof liff.getProfile === "function" ? liff.getProfile() : null,
-      )
-        .catch(() => null)
-        .then((profile) => {
-          const decoded =
-            typeof liff.getDecodedIDToken === "function"
-              ? liff.getDecodedIDToken()
-              : null;
-          state.userId =
-            profile && profile.userId
-              ? profile.userId
-              : (decoded && (decoded.sub || decoded.userId)) ||
-                decodeIdTokenUserId(state.idToken) ||
-              "";
-          console.log(state.userId)
-          window.userId = state.userId;
-          console.log(window.userId)
-          console.log("blood_pressure resolved userId:", state.userId);
-          return Promise.all([startPressureApp(state.idToken), loadHeader()]);
-        });
+      return Promise.all([startPressureApp(state.idToken), loadHeader()]);
     })
     .then(() => {
       hideAppLoader();
