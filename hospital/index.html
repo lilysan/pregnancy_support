@@ -889,7 +889,6 @@
 <script>
     const currentPage = "hospital";
     const BIRTHPLAN_SCHEMA_URL = "../common/json/birthplan.json";
-    const BIRTHPLAN_TRANSLATION_URL = "../locales/ja/translation.json";
     const HOSPITAL_INVITE_TOKEN_PREFIX = "hspinv_";
 
     /** @type {import('@line/liff').Liff} */
@@ -897,7 +896,6 @@
 
     const birthPlanSettingsState = {
         schema: null,
-        translations: {},
         settings: {},
         keys: [],
         isEditMode: false
@@ -932,7 +930,13 @@
             $("#loadingOverlay").removeClass('is-open');
         }).catch((err) => {
             console.error("LIFF init failed:", err);
-            alert("LIFF init failed.");
+            $("#loadingOverlay").removeClass('is-open');
+            if (!err || !err.isApiError) {
+                showReloadErrorModal({
+                    title: "Error",
+                    message: "LIFF init failed."
+                });
+            }
         });
 
         $(".btn_register").on("click", function(e){
@@ -1037,18 +1041,19 @@
 
     async function main(idToken) {
         try {
-            const [hospitalResponse, schemaResponse, translationResponse, birthPlanSettings, hospitalAccountResponse] = await Promise.all([
+            const [hospitalResponse, schemaResponse, birthPlanSettings, hospitalAccountResponse] = await Promise.all([
                 fetchHospital(idToken),
                 fetchJson(BIRTHPLAN_SCHEMA_URL),
-                fetchJson(BIRTHPLAN_TRANSLATION_URL),
                 fetchBirthPlanSettings(idToken),
                 fetchHospitalAccount(idToken)
             ]);
 
+            if (!hospitalResponse) {
+                return;
+            }
             handleHospitalResponse(hospitalResponse);
             handleHospitalAccountResponse(hospitalAccountResponse);
             birthPlanSettingsState.schema = schemaResponse;
-            birthPlanSettingsState.translations = translationResponse;
             birthPlanSettingsState.settings = birthPlanSettings;
             birthPlanSettingsState.savedSettings = Object.assign({}, birthPlanSettings);
             birthPlanSettingsState.keys = collectBirthPlanSettingKeys(birthPlanSettingsState.schema);
@@ -1057,7 +1062,12 @@
             updateBirthPlanSettingsActionState();
         } catch (error) {
             console.error("main failed:", error);
-            alert("Network error!");
+            if (!error || !error.isApiError) {
+                showReloadErrorModal({
+                    title: "Error",
+                    message: "Network error!"
+                });
+            }
         }
     }
 
@@ -1078,16 +1088,6 @@
                     });
             });
         });
-    }
-
-    const getAccessObj = (data) => {
-        return {
-            url: API_URL,
-            type: "POST",
-            dataType: "json",
-            data: JSON.stringify(data),
-            timeout: 30000,
-        }
     }
 
     function switchHospitalTab(targetPanelId, shouldScroll = false) {
@@ -1161,41 +1161,37 @@
     }
 
     function fetchHospital(idToken) {
-        return $.ajax(
-            getAccessObj({
-                path: "hospital",
-                method : "get",
-                idToken: idToken
-            })
-        );
+        return apiRequest({
+            path: "hospital",
+            method: "get",
+            idToken: idToken
+        }, "hospital");
     }
 
     function fetchHospitalAccount(idToken) {
-        return $.ajax(
-            getAccessObj({
-                path: "hospitalAccount",
-                method: "get",
-                idToken: idToken
-            })
-        ).then(null, function () {
-            return {
-                statusCode: 0,
-                data: {
-                    hospitalId: "",
-                    users: []
-                }
-            };
-        });
+        return apiRequest({
+            path: "hospitalAccount",
+            method: "get",
+            idToken: idToken
+        }, "hospitalAccount")
+            .catch(function (error) {
+                console.error("fetch hospital account failed:", error);
+                return {
+                    statusCode: 0,
+                    data: {
+                        hospitalId: "",
+                        users: []
+                    }
+                };
+            });
     }
 
     function fetchHospitalAccountInvite(idToken) {
-        return $.ajax(
-            getAccessObj({
-                path: "hospitalAccountInvite",
-                method: "post",
-                idToken: idToken
-            })
-        );
+        return apiRequest({
+            path: "hospitalAccountInvite",
+            method: "post",
+            idToken: idToken
+        }, "hospitalAccountInvite");
     }
 
     function registerHospitalAccount(idToken, inviteToken, deviceLabel = "") {
@@ -1206,27 +1202,25 @@
             postData.deviceLabel = deviceLabel;
         }
 
-        return $.ajax(
-            getAccessObj({
-                path: "hospitalAccount",
-                method: "post",
-                idToken: idToken,
-                postData: postData
-            })
-        );
+        return apiRequest({
+            path: "hospitalAccount",
+            method: "post",
+            idToken: idToken,
+            postData: postData
+        }, "hospitalAccountPost", {
+            handleApiError: false
+        });
     }
 
     function deleteHospitalAccountUserRequest(idToken, userId) {
-        return $.ajax(
-            getAccessObj({
-                path: "hospitalAccount",
-                method: "delete",
-                idToken: idToken,
-                postData: {
-                    userId: userId
-                }
-            })
-        );
+        return apiRequest({
+            path: "hospitalAccount",
+            method: "delete",
+            idToken: idToken,
+            postData: {
+                userId: userId
+            }
+        }, "hospitalAccountDelete");
     }
 
     async function linkHospitalAccount(idToken, inviteToken, deviceLabel = "") {
@@ -1235,11 +1229,12 @@
             response = await registerHospitalAccount(idToken, inviteToken, deviceLabel);
         } catch (error) {
             console.error("hospitalAccount invite failed:", error);
-            alert("Network error!");
+            return false;
+        }
+        if (!response) {
             return false;
         }
         if (response.statusCode !== 200) {
-            console.error(response.message);
             showHospitalInviteCodeInvalidModal();
             return false;
         }
@@ -1299,13 +1294,79 @@
         return response.json();
     }
 
-    function handleHospitalResponse(response) {
-        if(response.statusCode !== 200){
-            console.error(response.message);
-            alert(response.message);
-            return;
-        }
+    function apiRequest(payload, label, options = {}) {
+        return $.ajax({
+            url: API_URL_V2,
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(payload),
+            timeout: 30000,
+        }).then(function (response) {
+            if (response && response.statusCode === 401) {
+                liff.logout();
+                window.location.reload();
+                return null;
+            }
+            if (response && response.statusCode !== 200) {
+                console.error("API error", {
+                    label,
+                    message: response.message,
+                    detail: response.detail,
+                    response,
+                });
+                if (options.handleApiError === false) {
+                    return response;
+                }
+                showReloadErrorModal({
+                    title: "Error",
+                    message: response.message || `${label} failed`
+                });
+                const error = new Error(response.message || `${label} failed`);
+                error.isApiError = true;
+                error.apiResponse = response;
+                throw error;
+            }
+            return response;
+        }, function (jqXHR, textStatus, errorThrown) {
+            console.error("API failed", {
+                label,
+                textStatus,
+                errorThrown,
+                httpStatus: jqXHR.status,
+                responseText: jqXHR.responseText,
+            });
 
+            const message = `Network error: ${label}: ${textStatus}(${jqXHR.status})`;
+            showReloadErrorModal({
+                title: "Error",
+                message: message
+            });
+            const error = new Error(message);
+            error.isApiError = true;
+            throw error;
+        });
+    }
+
+    function showReloadErrorModal({title, message}) {
+        return hospitalIntroModalManager.show({
+            title: title,
+            message: message,
+            positiveText: getModalText("button.reload", "リロード"),
+            negativeText: getModalText("button.cancel", "キャンセル"),
+            onPositive: function () {
+                window.location.reload();
+            }
+        });
+    }
+
+    function getModalText(key, fallback) {
+        return window.i18next && i18next.isInitialized
+            ? i18next.t(key, {defaultValue: fallback})
+            : fallback;
+    }
+
+    function handleHospitalResponse(response) {
         const data = response.data || {};
         hospitalState.data = Object.assign({}, data);
         hospitalState.hospitalId = data.hospitalId || "";
@@ -1361,14 +1422,10 @@
         } catch (error) {
             console.error("hospitalAccountInvite failed:", error);
             $("#loadingOverlay").removeClass('is-open');
-            alert("Network error!");
             return;
         }
         $("#loadingOverlay").removeClass('is-open');
-
-        if (response.statusCode !== 200) {
-            console.error(response.message);
-            alert(response.message);
+        if (!response) {
             return;
         }
 
@@ -1376,7 +1433,10 @@
         const inviteToken = data.inviteToken || "";
         const expiresIn = Number(data.expiresIn) || 0;
         if (!inviteToken || expiresIn <= 0) {
-            alert("スタッフ招待コードを発行できませんでした。");
+            showReloadErrorModal({
+                title: "Error",
+                message: "スタッフ招待コードを発行できませんでした。"
+            });
             return;
         }
 
@@ -1810,20 +1870,18 @@
     }
 
     function fetchBirthPlanSettings(idToken) {
-        return $.ajax(
-            getAccessObj({
-                path: "birthplanSettings",
-                method: "get",
-                idToken: idToken
+        return apiRequest({
+            path: "birthplanSettings",
+            method: "get",
+            idToken: idToken
+        }, "birthplanSettings")
+            .then(function (response) {
+                return response ? normalizeBirthPlanSettings(response.data && response.data.items) : {};
             })
-        ).then(function (response) {
-            if (response.statusCode !== 200) {
-                console.error(response.message);
-                alert(response.message);
+            .catch(function (error) {
+                console.error("fetch birth plan settings failed:", error);
                 return {};
-            }
-            return normalizeBirthPlanSettings(response.data && response.data.items);
-        });
+            });
     }
 
     function normalizeBirthPlanSettings(items) {
@@ -1885,14 +1943,16 @@
     }
 
     function translateBirthPlan(labelKey) {
-        const value = getNestedValue(birthPlanSettingsState.translations, labelKey);
-        return value || labelKey;
-    }
-
-    function getNestedValue(source, path) {
-        return String(path)
-            .split(".")
-            .reduce((current, key) => current && current[key], source);
+        if (!labelKey) {
+            return "";
+        }
+        if (window.i18next && typeof i18next.t === "function") {
+            const translated = i18next.t(labelKey);
+            if (translated && translated !== labelKey) {
+                return translated;
+            }
+        }
+        return labelKey;
     }
 
     function renderBirthPlanSettings() {
@@ -2122,43 +2182,38 @@
             .replace(/\.label$/, "");
     }
 
-    function saveBirthPlanSettings(idToken) {
+    async function saveBirthPlanSettings(idToken) {
         const saveButton = $(".btn_birthplan_settings_save");
         saveButton.prop("disabled", true);
         $("#loadingOverlay").addClass('is-open');
-        $.ajax(
-            getAccessObj({
+        try {
+            const response = await apiRequest({
                 path: "birthplanSettings",
                 method: "post",
                 idToken: idToken,
                 postData: {
                     items: buildBirthPlanSettingsPostItems()
                 }
-            })
-        ).done(function(response) {
-            if(response.statusCode !== 200){
-                console.error(response.message);
-                alert(response.message);
+            }, "birthplanSettingsPost");
+            if (!response) {
+                return;
             }
-            else {
-                birthPlanSettingsState.savedSettings = Object.assign({}, birthPlanSettingsState.settings);
-                setBirthPlanSettingsEditMode(false);
-                const toastManager = createToastManager();
-                toastManager.show({
-                    title: "成功",
-                    message: "バースプラン設定を保存しました",
-                    color: 'var(--success)',
-                    bg: 'var(--toast-bg-success)',
-                    icon: 'material-symbols:check-circle-rounded'
-                });
-            }
+            birthPlanSettingsState.savedSettings = Object.assign({}, birthPlanSettingsState.settings);
+            setBirthPlanSettingsEditMode(false);
+            const toastManager = createToastManager();
+            toastManager.show({
+                title: "成功",
+                message: "バースプラン設定を保存しました",
+                color: 'var(--success)',
+                bg: 'var(--toast-bg-success)',
+                icon: 'material-symbols:check-circle-rounded'
+            });
+        } catch (error) {
+            console.error("save birth plan settings failed:", error);
+        } finally {
             $("#loadingOverlay").removeClass('is-open');
             saveButton.prop("disabled", !birthPlanSettingsState.isEditMode);
-        }).fail(function() {
-            $("#loadingOverlay").removeClass('is-open');
-            saveButton.prop("disabled", false);
-            alert("Network error!birthplanSettings");
-        });
+        }
     }
 
     async function refreshHospitalAccountUsers(idToken) {
@@ -2166,79 +2221,73 @@
         handleHospitalAccountResponse(response);
     }
 
-    function deleteHospitalAccountUser(idToken, userId, isCurrentUser = false) {
+    async function deleteHospitalAccountUser(idToken, userId, isCurrentUser = false) {
         $("#loadingOverlay").addClass('is-open');
-        deleteHospitalAccountUserRequest(idToken, userId)
-            .done(async function(response) {
-                if(response.statusCode !== 200){
-                    console.error(response.message);
-                    alert(response.message);
-                }
-                else {
-                    if (isCurrentUser) {
-                        resetHospitalToInitialScreen();
-                    } else {
-                        await refreshHospitalAccountUsers(idToken);
-                    }
-                    const toastManager = createToastManager();
-                    toastManager.show({
-                        title: "成功",
-                        message: "スタッフ端末の連携を解除しました",
-                        color: 'var(--success)',
-                        bg: 'var(--toast-bg-success)',
-                        icon: 'material-symbols:check-circle-rounded'
-                    });
-                }
-                $("#loadingOverlay").removeClass('is-open');
-            })
-            .fail(function() {
-                $("#loadingOverlay").removeClass('is-open');
-                alert("Network error!");
+        try {
+            const response = await deleteHospitalAccountUserRequest(idToken, userId);
+            if (!response) {
+                return;
+            }
+            if (isCurrentUser) {
+                resetHospitalToInitialScreen();
+            } else {
+                await refreshHospitalAccountUsers(idToken);
+            }
+            const toastManager = createToastManager();
+            toastManager.show({
+                title: "成功",
+                message: "スタッフ端末の連携を解除しました",
+                color: 'var(--success)',
+                bg: 'var(--toast-bg-success)',
+                icon: 'material-symbols:check-circle-rounded'
             });
+        } catch (error) {
+            console.error("delete hospital account user failed:", error);
+        } finally {
+            $("#loadingOverlay").removeClass('is-open');
+        }
     }
 
-    function setHospital(idToken){
+    async function setHospital(idToken){
         const isNewRegistration = !hospitalState.hospitalId;
         $("#loadingOverlay").addClass('is-open');
-        $.ajax(
-            getAccessObj({
+        let shouldShowRegisteredModal = false;
+        try {
+            const response = await apiRequest({
                 path: "hospital",
-                method : "post",
+                method: "post",
                 idToken: idToken,
                 postData: getHospitalPostData()
-            })
-        ).done(async function(response) {
-            if(response.statusCode !== 200){
-                console.error(response.message);
-                alert(response.message);
+            }, "hospitalPost");
+            if (!response) {
+                return;
             }
-            else {
-                const data = response.data || {};
-                hospitalState.hospitalId = data.hospitalId || hospitalState.hospitalId;
-                hospitalState.data = Object.assign({}, hospitalState.data, getHospitalPostData(), data);
-                hospitalViewState.isNewRegistrationStarted = false;
-                setQrCodeData(data);
+            const data = response.data || {};
+            hospitalState.hospitalId = data.hospitalId || hospitalState.hospitalId;
+            hospitalState.data = Object.assign({}, hospitalState.data, getHospitalPostData(), data);
+            hospitalViewState.isNewRegistrationStarted = false;
+            setQrCodeData(data);
 
-                setHospitalMode(true);
-                await refreshHospitalAccountUsers(idToken);
+            setHospitalMode(true);
+            await refreshHospitalAccountUsers(idToken);
 
-                const toastManager = createToastManager();
-                toastManager.show({
-                    title: "成功",
-                    message: "保存しました",
-                    color: 'var(--success)',
-                    bg: 'var(--toast-bg-success)',
-                    icon: 'material-symbols:check-circle-rounded'
-                });
-            }
+            const toastManager = createToastManager();
+            toastManager.show({
+                title: "成功",
+                message: "保存しました",
+                color: 'var(--success)',
+                bg: 'var(--toast-bg-success)',
+                icon: 'material-symbols:check-circle-rounded'
+            });
+            shouldShowRegisteredModal = isNewRegistration;
+        } catch (error) {
+            console.error("save hospital failed:", error);
+        } finally {
             $("#loadingOverlay").removeClass('is-open');
-            if (response.statusCode === 200 && isNewRegistration) {
-                showHospitalRegisteredModal();
-            }
-        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            $("#loadingOverlay").removeClass('is-open');
-            alert("Network error!");
-        });
+        }
+        if (shouldShowRegisteredModal) {
+            showHospitalRegisteredModal();
+        }
     }
 
     function editHospital(){
@@ -2260,34 +2309,30 @@
         setButtonVisible($(".btn_hospital_cancel"), false);
     }
 
-    function downloadSheet(idToken){
+    async function downloadSheet(idToken){
         $("#loadingOverlay").addClass('is-open');
-        $.ajax(
-            getAccessObj({
+        try {
+            const response = await apiRequest({
                 path: "qrsheet",
-                method : "post",
+                method: "post",
                 idToken: idToken,
                 postData: {
                     qrcodeId: $(".btn_sheet").data("qrcode"),
                     qrSheetId: $(".btn_sheet").data("qrsheet"),
                 }
-            })
-        ).done(function(response) {
-            if(response.statusCode !== 200){
-                console.error(response.message);
-                alert(response.message);
+            }, "qrsheetPost");
+            if (!response) {
+                return;
             }
-            else {
-                liff.openWindow({
-                    url: response.data.qrSheetDownloadUrl,
-                    external: true,
-                });
-            }
+            liff.openWindow({
+                url: response.data.qrSheetDownloadUrl,
+                external: true,
+            });
+        } catch (error) {
+            console.error("download QR sheet failed:", error);
+        } finally {
             $("#loadingOverlay").removeClass('is-open');
-        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            alert("Network error!");
-            $("#loadingOverlay").removeClass('is-open');
-        });
+        }
     }
 
 </script>
