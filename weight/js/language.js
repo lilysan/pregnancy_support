@@ -372,11 +372,22 @@ function applyI18n() {
 
 
 function formatDateTime(date, period) {
-    return date + " " + (PERIOD_TIME[String(period)] || "06:00");
+    return normalizeDateOnly(date) + " " + (PERIOD_TIME[String(period)] || "06:00");
+}
+
+function normalizeDateOnly(value) {
+    const text = String(value || "").trim();
+    const compact = text.match(/^(\d{4})(\d{2})(\d{2})$/);
+    if (compact) return `${compact[1]}-${compact[2]}-${compact[3]}`;
+    const separated = text.match(/^(\d{4})[/-](\d{1,2})[/-](\d{1,2})/);
+    if (separated) {
+        return `${separated[1]}-${String(separated[2]).padStart(2, "0")}-${String(separated[3]).padStart(2, "0")}`;
+    }
+    return text;
 }
 
 function parseDateOnly(value) {
-    return new Date(String(value) + "T00:00:00");
+    return new Date(normalizeDateOnly(value) + "T00:00:00");
 }
 
 function formatDateJP(value) {
@@ -397,7 +408,9 @@ function formatSignedKg(value) {
 
 function sortWeightData(items) {
     return (items || []).slice().sort(function (a, b) {
-        return new Date(String(a.datetime || "")).getTime() - new Date(String(b.datetime || ""))
-            .getTime();
+        const dateA = parseDateOnly(a.date).getTime();
+        const dateB = parseDateOnly(b.date).getTime();
+        if (dateA !== dateB) return dateA - dateB;
+        return Number(a.period || 0) - Number(b.period || 0);
     });
 }

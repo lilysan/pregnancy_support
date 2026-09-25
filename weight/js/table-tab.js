@@ -49,9 +49,8 @@ function renderTable() {
 
         empty.style.display = "none";
         records.forEach(function (item) {
-            const datePart = String(item.datetime).split(" ")[0];
-            const timePart = String(item.datetime).split(" ")[1] || "06:00";
-            const period = timePart === "12:00" ? "2" : (timePart === "18:00" ? "3" : "1");
+            const datePart = item.date;
+            const period = String(item.period || "1");
             const gain = Number.isFinite(startWeight) ? Number(item.weight) - startWeight : null;
             const row = document.createElement("tr");
             const itemId = resolveItemId(item);
@@ -60,14 +59,14 @@ function renderTable() {
                 <td>${period === "1" ? bt("morning") : period === "2" ? bt("noon") : bt("evening")}</td>
                 <td class="strong-num">${Number(item.weight).toFixed(1)}</td>
                 <td class="strong-num">${Number.isFinite(gain) ? (gain >= 0 ? "+" : "") + gain.toFixed(1) + " kg" : "-"}</td>
-                ${includeEdit ? `<td><button type="button" class="edit-btn" data-item-id="${itemId}" data-datetime="${item.datetime}">${bt("editBtn")}</button></td>` : ""}
+                ${includeEdit ? `<td><button type="button" class="edit-btn" data-item-id="${itemId}">${bt("editBtn")}</button></td>` : ""}
             `;
             body.appendChild(row);
         });
 
         body.querySelectorAll(".edit-btn").forEach(function (button) {
             button.addEventListener("click", function () {
-                openEditDialog(this.dataset.itemId, this.dataset.datetime);
+                openEditDialog(this.dataset.itemId);
             });
         });
     };

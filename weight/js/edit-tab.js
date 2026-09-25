@@ -1,19 +1,18 @@
 // Form, edit dialog, and page boot for weight. Loaded as a classic script.
 
-function openEditDialog(itemId, datetime) {
+function openEditDialog(itemId) {
     const item = allData.find(function (entry) {
         const entryItemId = resolveItemId(entry);
-        return (itemId && String(entryItemId) === String(itemId)) || String(entry.datetime) === String(datetime);
+        return itemId && String(entryItemId) === String(itemId);
     });
     if (!item) return;
 
     editingItemId = resolveItemId(item);
-    editingDatetime = datetime;
-    const datePart = String(item.datetime).split(" ")[0];
-    const timePart = String(item.datetime).split(" ")[1] || "06:00";
-    const period = timePart === "12:00" ? "2" : (timePart === "18:00" ? "3" : "1");
+    editingDatetime = formatDateTime(item.date, item.period);
+    const datePart = item.date;
+    const periodValue = String(item.period || "1");
     document.getElementById("editWeightDate").value = datePart;
-    document.getElementById("editWeightPeriod").value = period;
+    document.getElementById("editWeightPeriod").value = periodValue;
     document.getElementById("editWeightValue").value = Number(item.weight).toFixed(1);
     document.getElementById("editDialog").style.display = "flex";
 }

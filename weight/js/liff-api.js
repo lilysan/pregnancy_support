@@ -78,6 +78,7 @@ function requestWeightApi(method, postData) {
         idToken: token,
         postData: safePostData
     });
+    console.log(access);
     access.timeout = 12000;
     return $.ajax(access).then(function (response) {
         if (response.statusCode === 401) {
@@ -116,10 +117,13 @@ function normalizePeriod(period) {
 }
 
 function normalizeWeightItem(item) {
+    const date = normalizeDateOnly(item.date || item.Ldate || "");
+    const periodNumber = Number(item.period || item.Lperiod);
     return {
         itemId: resolveItemId(item),
         periodId: item.periodId || item.LperiodId || "",
-        datetime: item.datetime || item.Ldatetime || "",
+        date: date,
+        period: periodNumber,
         weight: Number(item.weight != null ? item.weight : item.Lweight)
     };
 }
@@ -140,12 +144,12 @@ function applyWeightMonthPayload(payload, page, mode) {
     }
     const items = Array.isArray(data.items) ? data.items : (Array.isArray(data) ? data : []);
     const normalizedItems = items.map(normalizeWeightItem).filter(function (item) {
-        return item.datetime && Number.isFinite(item.weight);
+        return item.date && Number.isFinite(item.period) && item.period > 0 && Number.isFinite(item.weight);
     });
     if (mode === "append") {
         const map = new Map();
         allData.concat(normalizedItems).forEach(function (item) {
-            map.set(String(item.itemId || item.datetime), item);
+            map.set(String(item.itemId || item.date + "-" + item.period), item);
         });
         allData = sortWeightData(Array.from(map.values()));
     } else {

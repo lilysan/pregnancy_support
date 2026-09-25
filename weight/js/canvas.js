@@ -82,7 +82,7 @@ function getFilteredRecords() {
 
     return sortWeightData(allData).filter(function (item) {
         if (!Number.isFinite(start) || !Number.isFinite(end)) return true;
-        const datePart = String(item.datetime || "").split(" ")[0];
+        const datePart = item.date;
         const time = parseDateOnly(datePart).getTime();
         return start <= time && time <= end;
     });
@@ -108,7 +108,7 @@ function updateChart() {
 
     chart.data.datasets[0].data = records.map(function (item) {
         return {
-            x: new Date(item.datetime),
+            x: new Date(formatDateTime(item.date, item.period)),
             y: Number(item.weight)
         };
     });
