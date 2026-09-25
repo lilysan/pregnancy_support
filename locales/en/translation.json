@@ -3,7 +3,7 @@
     "checkup": "Prenatal Checkup",
     "info": "Information",
     "check": "Check",
-    "other": "Other"
+    "staff": "スタッフ専用"
   },
   "subgroupTitle": {
     "board": "Communication Board",
@@ -29,8 +29,8 @@
     "laborCounter": "Contraction Timer",
     "movementCounter": "Kick Counter",
     "translation": "Translation Apps",
-    "hospital": "病院情報＜スタッフ専用＞",
-    "data": "患者データ＜スタッフ専用＞",
+    "hospital": "病院情報の管理",
+    "data": "共有データ",
     "systemInformation": "Childbirth and Childcare Systems",
     "standard": "Japanese Childbirth Standards",
     "sex": "Sex During Pregnancy",

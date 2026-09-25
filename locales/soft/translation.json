@@ -3,7 +3,7 @@
     "checkup": "<ruby>妊婦健診<rt>にんぷけんしん</rt></ruby>",
     "info": "<ruby>案内<rt>あんない</rt></ruby>",
     "check": "チェック",
-    "other": "そのほか"
+    "staff": "スタッフ専用"
   },
   "subgroupTitle": {
     "board": "<ruby>会話<rt>かいわ</rt></ruby>フレーズ",
@@ -29,8 +29,8 @@
     "laborCounter": "<ruby>陣痛<rt>じんつう</rt></ruby>カウンター",
     "movementCounter": "<ruby>胎動<rt>たいどう</rt></ruby>カウンター",
     "translation": "<ruby>翻訳<rt>ほんやく</rt></ruby>アプリ",
-    "hospital": "病院情報＜スタッフ専用＞",
-    "data": "患者データ＜スタッフ専用＞",
+    "hospital": "病院情報の管理",
+    "data": "共有データ",
     "systemInformation": "<ruby>出産<rt>しゅっさん</rt></ruby>・<ruby>育児<rt>いくじ</rt></ruby>にかかわる<ruby>制度<rt>せいど</rt></ruby>",
     "standard": "<ruby>日本<rt>にほん</rt></ruby>の<ruby>出産<rt>しゅっさん</rt></ruby>スタンダード",
     "sex": "<ruby>妊娠中<rt>にんしんちゅう</rt></ruby>の<ruby>性交渉<rt>せいこうしょう</rt></ruby>について",

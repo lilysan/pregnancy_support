@@ -3,7 +3,7 @@
     "checkup": "妊婦健診",
     "info": "案内",
     "check": "チェック",
-    "other": "その他"
+    "staff": "スタッフ専用"
   },
   "subgroupTitle": {
     "board": "会話フレーズ",
@@ -32,8 +32,8 @@
     "laborCounter": "陣痛カウンター",
     "movementCounter": "胎動カウンター",
     "translation": "翻訳アプリ",
-    "hospital": "病院情報＜スタッフ専用＞",
-    "data": "患者データ＜スタッフ専用＞",
+    "hospital": "病院情報の管理",
+    "data": "共有データ",
     "privacy": "プライバシーポリシー・データセキュリティと保護",
     "contact": "お問い合わせ"
   },

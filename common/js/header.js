@@ -61,6 +61,7 @@ $(function () {
                     type: "subgroup",
                     items: [
                         { label: "メモ", path: "note", i18n: "title.memo" },
+                        { label: "翻訳アプリ", path: "translation", i18n: "title.translation" },
                     ]
                 }
             ]
@@ -89,14 +90,12 @@ $(function () {
             ]
         },
         {
-            label: "その他",
-            i18n: "groupTitle.other",
+            label: "スタッフ専用",
+            i18n: "groupTitle.staff",
             type: "group",
             children: [
-                { label: "翻訳アプリ", path: "translation", i18n: "title.translation" },
-                { label: "病院情報＜スタッフ専用＞", path: "hospital", i18n: "title.hospital" },
-                { label: "患者データ＜スタッフ専用＞", path: "data", i18n: "title.data" },
-
+                { label: "病院情報の管理", path: "hospital", i18n: "title.hospital" },
+                { label: "共有データ", path: "data", i18n: "title.data" },
             ]
         }
     ];
@@ -180,7 +179,8 @@ $(function () {
 
         $.each(MENU_DATA, (index, group) => {
             // 大カテゴリ (Group)
-            const $groupTitle = $('<div>').attr('data-i18n', "[html]" + group.i18n).addClass('menu-category-title').text(group.label);
+            const isStaffOnly = group.label === 'スタッフ専用';
+            const $groupTitle = $('<div>').attr('data-i18n', "[html]" + group.i18n).addClass('menu-category-title' + (isStaffOnly ? " staff-only" : "")).text(group.label);
             $menuDropdown.append($groupTitle);
 
             $.each(group.children, (childIndex, child) => {
