@@ -34,7 +34,8 @@
     "systemInformation": "<ruby>出産<rt>しゅっさん</rt></ruby>・<ruby>育児<rt>いくじ</rt></ruby>にかかわる<ruby>制度<rt>せいど</rt></ruby>",
     "standard": "<ruby>日本<rt>にほん</rt></ruby>の<ruby>出産<rt>しゅっさん</rt></ruby>スタンダード",
     "sex": "<ruby>妊娠中<rt>にんしんちゅう</rt></ruby>の<ruby>性交渉<rt>せいこうしょう</rt></ruby>について",
-    "privacy": "プライバシーポリシー・データセキュリティと保護"
+    "privacy": "プライバシーポリシー・データセキュリティと保護",
+    "contact": "<ruby>問<rt>と</rt></ruby>い<ruby>合<rt>あ</rt></ruby>わせ"
   },
   "header": {
     "selectLanguage": "<ruby>言語<rt>げんご</rt></ruby>を <ruby>選択<rt>せんたく</rt></ruby>",
@@ -1014,11 +1015,6 @@
         "title": "<ruby>医学的<rt>いがくてき</rt></ruby><ruby>免責事項<rt>めんせきじこう</rt></ruby>",
         "body1": "このアプリは、<ruby>妊娠<rt>にんしん</rt></ruby>・<ruby>出産<rt>しゅっさん</rt></ruby>・<ruby>育児<rt>いくじ</rt></ruby>にかかわる<ruby>情報<rt>じょうほう</rt></ruby>を<ruby>記録<rt>きろく</rt></ruby>・<ruby>確認<rt>かくにん</rt></ruby>し、<ruby>医療者<rt>いりょうしゃ</rt></ruby>とのやりとりを<ruby>助<rt>たす</rt></ruby>けるものです。<ruby>医師<rt>いし</rt></ruby>、<ruby>助産師<rt>じょさんし</rt></ruby>、<ruby>看護師<rt>かんごし</rt></ruby>などの<ruby>診断<rt>しんだん</rt></ruby>、<ruby>治療<rt>ちりょう</rt></ruby>、<ruby>助言<rt>じょげん</rt></ruby>の<ruby>代<rt>か</rt></ruby>わりにはなりません。",
         "body2": "<ruby>体調<rt>たいちょう</rt></ruby>の<ruby>変化<rt>へんか</rt></ruby>、<ruby>出血<rt>しゅっけつ</rt></ruby>、<ruby>強<rt>つよ</rt></ruby>い<ruby>痛<rt>いた</rt></ruby>み、<ruby>発熱<rt>はつねつ</rt></ruby>、<ruby>胎動<rt>たいどう</rt></ruby>が<ruby>少<rt>すく</rt></ruby>ない、<ruby>破水<rt>はすい</rt></ruby>かもしれない、<ruby>強<rt>つよ</rt></ruby>い<ruby>不安<rt>ふあん</rt></ruby>などがあるときは、アプリだけで<ruby>判断<rt>はんだん</rt></ruby>せず、すぐに<ruby>医療機関<rt>いりょうきかん</rt></ruby>や<ruby>救急窓口<rt>きゅうきゅうまどぐち</rt></ruby>へ<ruby>連絡<rt>れんらく</rt></ruby>してください。"
-      },
-      "contact": {
-        "title": "<ruby>問<rt>と</rt></ruby>い<ruby>合<rt>あ</rt></ruby>わせ",
-        "body": "<ruby>個人情報<rt>こじんじょうほう</rt></ruby>の<ruby>扱<rt>あつか</rt></ruby>い、<ruby>共有範囲<rt>きょうゆうはんい</rt></ruby>、<ruby>削除<rt>さくじょ</rt></ruby>について<ruby>相談<rt>そうだん</rt></ruby>したいときは、このアプリの<ruby>提供者<rt>ていきょうしゃ</rt></ruby>へ<ruby>連絡<rt>れんらく</rt></ruby>してください。",
-        "emailLabel": "メール"
       }
     },
     "collect": {
@@ -1064,5 +1060,32 @@
     "badge": "<ruby>病院<rt>びょういん</rt></ruby><ruby>共有<rt>きょうゆう</rt></ruby><ruby>対象<rt>たいしょう</rt></ruby>",
     "infoButtonLabel": "<ruby>病院共有対象<rt>びょういんきょうゆうたいしょう</rt></ruby>について",
     "description": "<ruby>保存<rt>ほぞん</rt></ruby>した<ruby>内容<rt>ないよう</rt></ruby>は、<ruby>連携<rt>れんけい</rt></ruby>している<ruby>病院<rt>びょういん</rt></ruby>のスタッフが<ruby>確認<rt>かくにん</rt></ruby>できます。"
+  },
+  "contact": {
+    "desc": "このサービスについて <ruby>聞<rt>き</rt></ruby>きたいことがあるときは、<ruby>内容<rt>ないよう</rt></ruby>を <ruby>確認<rt>かくにん</rt></ruby>してから、<ruby>下<rt>した</rt></ruby>のメールに <ruby>送<rt>おく</rt></ruby>ってください。",
+    "sections": {
+      "before": {
+        "title": "<ruby>問<rt>と</rt></ruby>い<ruby>合<rt>あ</rt></ruby>わせる<ruby>前<rt>まえ</rt></ruby>に"
+      },
+      "email": {
+        "title": "メールで <ruby>問<rt>と</rt></ruby>い<ruby>合<rt>あ</rt></ruby>わせる"
+      },
+      "response": {
+        "title": "<ruby>返事<rt>へんじ</rt></ruby>について"
+      }
+    },
+    "before": {
+      "medical1": "<ruby>医療<rt>いりょう</rt></ruby>の<ruby>判断<rt>はんだん</rt></ruby>が <ruby>必要<rt>ひつよう</rt></ruby>なことには、<ruby>答<rt>こた</rt></ruby>えることができません。",
+      "medical2": "<ruby>体<rt>からだ</rt></ruby>のことや <ruby>急<rt>いそ</rt></ruby>ぎの<ruby>相談<rt>そうだん</rt></ruby>は、この<ruby>問<rt>と</rt></ruby>い<ruby>合<rt>あ</rt></ruby>わせではなく、いつもの<ruby>病院<rt>びょういん</rt></ruby>や <ruby>救急<rt>きゅうきゅう</rt></ruby>に <ruby>連絡<rt>れんらく</rt></ruby>してください。"
+    },
+    "email": {
+      "body": "<ruby>問<rt>と</rt></ruby>い<ruby>合<rt>あ</rt></ruby>わせたいこと、<ruby>使<rt>つか</rt></ruby>っている<ruby>画面<rt>がめん</rt></ruby>、こまっていることを メールに <ruby>書<rt>か</rt></ruby>いてください。",
+      "button": "メールを <ruby>送<rt>おく</rt></ruby>る",
+      "label": "メールアドレス",
+      "autoInputNote": "メールの <ruby>本文<rt>ほんぶん</rt></ruby>に <ruby>自動<rt>じどう</rt></ruby>で <ruby>入<rt>はい</rt></ruby>った <ruby>内容<rt>ないよう</rt></ruby>は <ruby>変<rt>か</rt></ruby>えないでください。"
+    },
+    "response": {
+      "body": "<ruby>内容<rt>ないよう</rt></ruby>によっては、<ruby>返事<rt>へんじ</rt></ruby>に <ruby>時間<rt>じかん</rt></ruby>がかかることがあります。"
+    }
   }
 }

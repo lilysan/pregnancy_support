@@ -76,6 +76,7 @@ $(function () {
                 { label: "よくある質問", path: "qanda", i18n: "title.faq" },
                 { label: "使い方", path: "instructions", i18n: "title.usage" },
                 { label: "プライバシーポリシー・データセキュリティと保護", path: "privacy", i18n: "title.privacy" },
+                { label: "お問い合わせ", path: "contact", i18n: "title.contact" },
             ]
         },
         {

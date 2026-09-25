@@ -34,7 +34,8 @@
     "systemInformation": "Childbirth and Childcare Systems",
     "standard": "Japanese Childbirth Standards",
     "sex": "Sex During Pregnancy",
-    "privacy": "Privacy Policy, Data Security and Protection"
+    "privacy": "Privacy Policy, Data Security and Protection",
+    "contact": "Contact"
   },
   "header": {
     "selectLanguage": "Select Language",
@@ -1014,11 +1015,6 @@
         "title": "Medical Disclaimer",
         "body1": "This app helps users record and review information related to pregnancy, childbirth, and childcare, and supports communication with medical professionals. It is not a substitute for diagnosis, treatment, or advice from doctors, midwives, nurses, or other medical professionals.",
         "body2": "If you experience changes in condition, bleeding, severe pain, fever, decreased fetal movement, possible rupture of membranes, strong anxiety, or other concerns, do not rely only on the app's display or records. Contact a medical institution or emergency service promptly."
-      },
-      "contact": {
-        "title": "Contact",
-        "body": "For questions about personal information handling, sharing scope, or deletion, please contact the provider of this application.",
-        "emailLabel": "Email"
       }
     },
     "collect": {
@@ -1064,5 +1060,32 @@
     "badge": "Shared with hospital",
     "infoButtonLabel": "About hospital sharing",
     "description": "Saved information can be viewed by staff at linked hospitals."
+  },
+  "contact": {
+    "desc": "For inquiries about this service, please review the information below and contact us by email.",
+    "sections": {
+      "before": {
+        "title": "Before Contacting Us"
+      },
+      "email": {
+        "title": "Contact by Email"
+      },
+      "response": {
+        "title": "About Replies"
+      }
+    },
+    "before": {
+      "medical1": "We cannot answer questions that require medical judgment.",
+      "medical2": "For changes in your condition or urgent concerns, contact your medical institution or emergency service instead of this contact address."
+    },
+    "email": {
+      "body": "Please include your inquiry, the screen you are using, and the situation if you are experiencing a problem.",
+      "button": "Send email",
+      "label": "Email address",
+      "autoInputNote": "Please do not change the automatically inserted content in the email body."
+    },
+    "response": {
+      "body": "Depending on the content of your inquiry, it may take time to reply."
+    }
   }
 }

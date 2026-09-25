@@ -33,7 +33,8 @@
     "systemInformation": "ລະບົບທີ່ກ່ຽວກັບການເກີດລູກ ແລະ ການລ້ຽງເດັກ",
     "standard": "ມາດຕະຖານການຄອດລູກໃນຍີ່ປຸ່ນ",
     "sex": "ເລື່ອງເພດສຳພັນໃນຂະນະຖືພາ",
-    "privacy": "ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ ຄວາມປອດໄພ ແລະ ການປົກປ້ອງຂໍ້ມູນ"
+    "privacy": "ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ ຄວາມປອດໄພ ແລະ ການປົກປ້ອງຂໍ້ມູນ",
+    "contact": "Contact"
   },
   "header": {
     "selectLanguage": "ເລືອກພາສາ",
@@ -849,5 +850,39 @@
     "badge": "ແບ່ງປັນກັບໂຮງໝໍ",
     "infoButtonLabel": "ກ່ຽວກັບການແບ່ງປັນກັບໂຮງໝໍ",
     "description": "ຂໍ້ມູນທີ່ບັນທຶກໄວ້ ພະນັກງານໂຮງໝໍທີ່ເຊື່ອມຕໍ່ສາມາດເບິ່ງໄດ້."
+  },
+  "privacy": {
+    "sections": {
+      "contact": {
+        "link": "Go to contact page"
+      }
+    }
+  },
+  "contact": {
+    "desc": "For inquiries about this service, please review the information below and contact us by email.",
+    "sections": {
+      "before": {
+        "title": "Before Contacting Us"
+      },
+      "email": {
+        "title": "Contact by Email"
+      },
+      "response": {
+        "title": "About Replies"
+      }
+    },
+    "before": {
+      "medical1": "We cannot answer questions that require medical judgment.",
+      "medical2": "For changes in your condition or urgent concerns, contact your medical institution or emergency service instead of this contact address."
+    },
+    "email": {
+      "body": "Please include your inquiry, the screen you are using, and the situation if you are experiencing a problem.",
+      "button": "Send email",
+      "label": "Email address",
+      "autoInputNote": "Please do not change the automatically inserted content in the email body."
+    },
+    "response": {
+      "body": "Depending on the content of your inquiry, it may take time to reply."
+    }
   }
 }

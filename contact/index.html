@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>お問い合わせ | Pregnancy Support</title>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@7/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="../common/js/config.js"></script>
+    <link rel="stylesheet" href="../style.css"/>
+    <style>
+        .contact-actions {
+            margin-top: 20px;
+        }
+
+        .contact-note {
+            margin: 12px 0 0;
+            color: var(--sub-text);
+            font-size: 13px;
+            line-height: 1.45;
+        }
+
+        #contactEmailLink {
+            flex-direction: column;
+            gap: 6px;
+            line-height: 1.35;
+        }
+
+        .contact-button-mail {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .contact-button-note {
+            font-size: 12px;
+            font-weight: 600;
+            display: block;
+            line-height: 1.35;
+            text-align: center;
+        }
+
+        #contactEmailLink,
+        #contactEmailLink:hover,
+        #contactEmailLink:focus {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div id="header-container" class="header-wrapper"></div>
+
+<main>
+    <article class="main-container" aria-labelledby="contactTitle">
+        <h1 id="contactTitle" data-i18n="[html]title.contact">お問い合わせ</h1>
+        <p class="desc" data-i18n="[html]contact.desc">本サービスに関するお問い合わせは、内容を確認のうえ、下記の連絡先までお送りください。</p>
+
+        <section class="privacy-section">
+            <h2 data-i18n="[html]contact.sections.before.title">お問い合わせの前に</h2>
+            <p data-i18n="[html]contact.before.medical1">医療上の判断が必要な内容には、回答することができません。</p>
+            <p data-i18n="[html]contact.before.medical2">体調の変化や緊急の相談は、このお問い合わせ先ではなく、かかりつけの医療機関または救急窓口へ連絡してください。</p>
+        </section>
+
+        <section class="privacy-section">
+            <h2 data-i18n="[html]contact.sections.email.title">メールでのお問い合わせ</h2>
+            <p data-i18n="[html]contact.email.body">お問い合わせ内容、利用中の画面、発生している問題があればその状況をメールに記載してください。</p>
+            <div class="contact-actions">
+                <a class="btn primary btn-row" id="contactEmailLink" href="mailto:support@example.com">
+                    <div class="contact-button-mail">
+                        <iconify-icon icon="material-symbols:mail-rounded" width="20" height="20" aria-hidden="true"></iconify-icon>
+                        <span data-i18n="[html]contact.email.button">メールを送る</span>
+                    </div>
+                    <span class="contact-button-note" data-i18n="[html]contact.email.autoInputNote">メール本文に自動入力された内容は変更しないでください。</span>
+                </a>
+            </div>
+            <p class="contact-note"><span data-i18n="[html]contact.email.label">メールアドレス</span>: support@example.com</p>
+        </section>
+
+        <section class="privacy-section">
+            <h2 data-i18n="[html]contact.sections.response.title">返信について</h2>
+            <p data-i18n="[html]contact.response.body">お問い合わせの内容により、返信まで時間がかかる場合があります。</p>
+        </section>
+    </article>
+</main>
+
+<div class="overlay is-open" id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
+
+<script>
+    const currentPage = "contact";
+    /** @type {import('@line/liff').Liff} */
+    const liff = window.liff;
+    const state = {
+        idToken: "",
+        userId: ""
+    };
+
+    $(function () {
+        // const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+
+        liff.init({
+            liffId: LIFF_ID,
+            withLoginOnExternalBrowser: false,
+        }).then(() => {
+            state.idToken = liff.getIDToken();
+            updateContactEmailLink();
+            loadContactUser();
+            loadHeader();
+        }).catch((err) => {
+            console.error("Contact page init failed:", err);
+            $("#loadingOverlay").removeClass("is-open");
+        });
+
+        function loadHeader() {
+            $("#header-container").load("../common/header.html", function() {
+                document.addEventListener("i18n-initialized", function() {
+                    syncDocumentTitle();
+                    $("#loadingOverlay").removeClass("is-open");
+                }, { once: true });
+                document.addEventListener("language-changed", syncDocumentTitle);
+
+                $.getScript("../common/js/header.js");
+            });
+        }
+
+        function syncDocumentTitle() {
+            if (window.i18next && i18next.isInitialized) {
+                document.title = `${i18next.t("title.contact")} | Pregnancy Support`;
+                updateContactEmailLink();
+            }
+        }
+
+        function loadContactUser() {
+            if (!state.idToken) {
+                return;
+            }
+
+            apiRequest({
+                path: "user",
+                method: "get",
+                idToken: state.idToken
+            }, "contactUser").then((response) => {
+                state.userId = response && response.data && response.data.userId
+                    ? String(response.data.userId)
+                    : "";
+                updateContactEmailLink();
+            }).catch((err) => {
+                console.error("Contact user load failed:", err);
+            });
+        }
+
+        function updateContactEmailLink() {
+            const subject = "お問い合わせ";
+            const body = createContactEmailBody();
+            $("#contactEmailLink").attr(
+                "href",
+                `mailto:support@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+            );
+        }
+
+        function createContactEmailBody() {
+            const lines = [
+                "Message:",
+                "",
+                "",
+                "----",
+                "Auto-filled information (Please do not change the following)",
+                `管理ID: ${state.userId || "未取得"}`,
+                "利用環境:",
+                `- Language: ${navigator.language || ""}`,
+                `- Platform: ${navigator.platform || ""}`,
+                `- UserAgent: ${navigator.userAgent || ""}`,
+                `- LIFF OS: ${getLiffValue("getOS")}`,
+                `- LIFF Language: ${getLiffValue("getLanguage")}`,
+                `- LIFF LineVersion: ${getLiffValue("getLineVersion")}`,
+                `- LIFF InClient: ${typeof liff.isInClient === "function" ? String(liff.isInClient()) : ""}`,
+            ];
+            return lines.join("\n");
+        }
+
+        function getLiffValue(methodName) {
+            try {
+                return typeof liff[methodName] === "function" ? (liff[methodName]() || "") : "";
+            } catch (err) {
+                console.warn(`LIFF ${methodName} failed:`, err);
+                return "";
+            }
+        }
+
+        function getPlainText(key, fallback) {
+            if (!window.i18next || !i18next.isInitialized) {
+                return fallback;
+            }
+            return $("<span>").html(i18next.t(key, fallback)).text();
+        }
+
+        function apiRequest(payload, label) {
+            return $.ajax({
+                url: API_URL_V2,
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(payload),
+                timeout: 30000,
+            }).then(function (response) {
+                if (response && response.statusCode === 401) {
+                    liff.logout();
+                    window.location.reload();
+                    return null;
+                }
+                if (!response || response.statusCode !== 200) {
+                    console.error("API error", {
+                        label,
+                        message: response && response.message,
+                        detail: response && response.detail,
+                        response,
+                    });
+                    throw new Error((response && response.message) || `${label} failed`);
+                }
+                return response;
+            }, function (jqXHR, textStatus, errorThrown) {
+                console.error("API failed", {
+                    label,
+                    textStatus,
+                    errorThrown,
+                    httpStatus: jqXHR.status,
+                    responseText: jqXHR.responseText,
+                });
+                throw new Error(`Network error: ${label}: ${textStatus}(${jqXHR.status})`);
+            });
+        }
+    });
+</script>
+</body>
+</html>
