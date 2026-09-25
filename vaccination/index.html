@@ -268,6 +268,7 @@
         idToken: null,
         nextCustomTempId: 1
     };
+    const modalManager = createModalManager();
 
     const VACCINATION_STATUS = {
         yes: 1,
@@ -297,7 +298,10 @@
             $("#loadingOverlay").removeClass("is-open");
         }).catch((err) => {
             console.error("LIFF init failed:", err);
-            alert("LIFF init failed.");
+            showReloadErrorModal({
+                title: "Error",
+                message: "LIFF init failed."
+            });
         });
 
         $("#saveDraftBtn").on("click", handleSaveDraft);
@@ -319,37 +323,26 @@
             renderForm();
         } catch (error) {
             console.error("main failed:", error);
-            alert("Failed to load vaccination form.");
+            showReloadErrorModal({
+                title: "Error",
+                message: "Failed to load vaccination form."
+            });
         }
     }
 
     function fetchVaccinationAnswers(idToken) {
-        return $.ajax({
-            url: API_URL,
-            type: "POST",
-            dataType: "json",
-            data: JSON.stringify({
-                path: "myVaccination",
-                method: "get",
-                idToken: idToken
-            }),
-            timeout: 30000,
-        }).then(function (response) {
-            if (response.statusCode === 401) {
-                liff.logout();
-                window.location.reload();
+        return apiRequest({
+            path: "myVaccination",
+            method: "get",
+            idToken: idToken
+        }, "myVaccination")
+            .then(function (response) {
+                return response && response.data && Array.isArray(response.data.items) ? response.data.items : [];
+            })
+            .catch(function (error) {
+                console.error("fetch vaccination answers failed:", error);
                 return [];
-            }
-            if (response.statusCode !== 200) {
-                console.error(response.message);
-                alert(response.message);
-                return [];
-            }
-            return response.data && Array.isArray(response.data.items) ? response.data.items : [];
-        }, function () {
-            alert("Network error!myVaccination");
-            return [];
-        });
+            });
     }
 
     function loadHeader() {
@@ -637,17 +630,11 @@
                 vaccinationKey: "customize",
                 customizeId: item.customizeId,
                 vaccinationName: item.vaccinationName || "",
-                originalVaccinationName: item.vaccinationName || "",
                 isCustom: true,
                 labelKey: null,
-                inputType: "single",
                 options: getVaccinationOptions(),
                 sourceItem: item
             }));
-    }
-
-    function collectQuestionIdsFromSchema(schema) {
-        return getAllQuestions(schema).map((question) => question.id);
     }
 
     function getAllQuestions(schema = state.schema) {
@@ -656,7 +643,7 @@
     }
 
     function updateQuestionCollection() {
-        state.allQuestionIds = collectQuestionIdsFromSchema(state.schema);
+        state.allQuestionIds = getAllQuestions(state.schema).map((question) => question.id);
         state.totalQuestions = state.allQuestionIds.length;
     }
 
@@ -714,35 +701,98 @@
     }
 
     function saveVaccinationAnswers(idToken, items) {
+        return apiRequest({
+            path: "myVaccination",
+            method: "post",
+            idToken: idToken,
+            postData: {
+                items: items
+            }
+        }, "saveVaccination")
+            .then(function (response) {
+                return !!response;
+            })
+            .catch(function (error) {
+                console.error("save vaccination answers failed:", error);
+                return false;
+            });
+    }
+
+    function apiRequest(payload, label) {
         return $.ajax({
-            url: API_URL,
+            url: API_URL_V2,
             type: "POST",
             dataType: "json",
-            data: JSON.stringify({
-                path: "myVaccination",
-                method: "post",
-                idToken: idToken,
-                postData: {
-                    items: items
-                }
-            }),
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(payload),
             timeout: 30000,
         }).then(function (response) {
             if (response.statusCode === 401) {
                 liff.logout();
                 window.location.reload();
-                return false;
+                return null;
             }
             if (response.statusCode !== 200) {
-                console.error(response.message);
-                alert(response.message);
-                return false;
+                console.error("API error", {
+                    label,
+                    message: response.message,
+                    detail: response.detail,
+                    response,
+                });
+                showReloadErrorModal({
+                    title: "Error",
+                    message: response.message || `${label} failed`
+                });
+                const error = new Error(response.message || `${label} failed`);
+                error.isApiError = true;
+                error.apiResponse = response;
+                throw error;
             }
-            return true;
-        }, function () {
-            alert("Network error!saveVaccination");
-            return false;
+            return response;
+        }, function (jqXHR, textStatus, errorThrown) {
+            console.error("API failed", {
+                label,
+                textStatus,
+                errorThrown,
+                httpStatus: jqXHR.status,
+                responseText: jqXHR.responseText,
+            });
+
+            const message = `Network error: ${label}: ${textStatus}(${jqXHR.status})`;
+            showReloadErrorModal({
+                title: "Error",
+                message: message
+            });
+            const error = new Error(message);
+            error.isApiError = true;
+            throw error;
         });
+    }
+
+    function showReloadErrorModal({title, message}) {
+        return modalManager.show({
+            title: title,
+            message: message,
+            positiveText: getModalText("button.reload", "リロード"),
+            negativeText: getModalText("button.cancel", "キャンセル"),
+            onPositive: function () {
+                window.location.reload();
+            }
+        });
+    }
+
+    function showAlertModal({title, message}) {
+        return modalManager.show({
+            title: title,
+            message: message,
+            positiveText: getModalText("button.ok", "OK")
+        });
+    }
+
+    function getModalText(key, fallback) {
+        return window.i18next && i18next.isInitialized
+            ? i18next.t(key, {defaultValue: fallback})
+            : fallback;
     }
 
     function buildVaccinationPostItems(schema) {
@@ -757,10 +807,9 @@
             const answer = state.answers[question.id];
             const hasSelectedStatus = answer && answer.selected != null;
             const customName = question.isCustom ? (question.vaccinationName || "").trim() : "";
-            if (!hasSelectedStatus && !customName) {
-                if (question.isCustom) {
-                    continue;
-                }
+
+            if (question.isCustom && !hasSelectedStatus && !customName) {
+                continue;
             }
 
             const item = {
@@ -773,7 +822,10 @@
 
             if (question.isCustom) {
                 if (!customName) {
-                    alert(i18next.t("vac.error.customNameRequired"));
+                    showAlertModal({
+                        title: "Error",
+                        message: i18next.t("vac.error.customNameRequired")
+                    });
                     return null;
                 }
                 item.vaccinationName = customName;
@@ -823,10 +875,8 @@
             vaccinationKey: "customize",
             customizeId: null,
             vaccinationName: "",
-            originalVaccinationName: "",
             isCustom: true,
             labelKey: null,
-            inputType: "single",
             options: getVaccinationOptions()
         };
         state.nextCustomTempId += 1;
