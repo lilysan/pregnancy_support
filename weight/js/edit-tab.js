@@ -122,7 +122,7 @@ async function addWeightRecord() {
     const result = await requestWeightApi("post", {
         type: "record",
         period: nextRecord.period,
-        date: nextRecord.datetime,
+        date: nextRecord.date,
         weight: nextRecord.weight
     });
     if (!result) {
