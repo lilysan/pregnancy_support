@@ -14,6 +14,7 @@
     <script src="https://unpkg.com/jquery-i18next@1/jquery-i18next.min.js"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="../common/js/config.js"></script>
+    <script src="../common/js/modal.js"></script>
     <script src="../common/js/toast.js"></script>
     <link rel="stylesheet" href="../style.css"/>
     <style>
@@ -245,6 +246,7 @@
         idToken: null,
         nextDraftId: 1
     };
+    const modalManager = createModalManager();
 
     $(function () {
         bindEvents();
@@ -277,7 +279,12 @@
             renderNotes();
         }).catch((error) => {
             console.error("note init failed:", error);
-            alert(getI18nText("note.error.load", "メモの読み込みに失敗しました。"));
+            if (!error || !error.isApiError) {
+                showReloadErrorModal({
+                    title: "Error",
+                    message: getI18nText("note.error.load", "メモの読み込みに失敗しました。")
+                });
+            }
             ensureAtLeastOneNote();
             renderNotes();
         }).finally(() => {
@@ -459,6 +466,9 @@
         try {
             const memoText = $("#noteText").val();
             const response = await saveNoteToApi(note, memoText);
+            if (!response) {
+                return;
+            }
             if (!note.memoId && response && response.data && response.data.memoId != null) {
                 note.memoId = Number(response.data.memoId);
                 note.id = `memo-${note.memoId}`;
@@ -495,7 +505,13 @@
         if (!note) {
             return;
         }
-        if (!window.confirm(getI18nText("note.confirmDelete", "本当に削除しますか？"))) {
+        const action = await modalManager.show({
+            title: getI18nText("toast.confirm", "確認"),
+            message: getI18nText("note.confirmDelete", "本当に削除しますか？"),
+            negativeText: getI18nText("button.cancel", "キャンセル"),
+            deleteText: getI18nText("note.button.delete", "削除")
+        });
+        if (action !== "positive") {
             return;
         }
 
@@ -504,7 +520,10 @@
         $("#loadingOverlay").addClass("is-open");
         try {
             if (note.memoId != null) {
-                await deleteNoteFromApi(note.memoId);
+                const response = await deleteNoteFromApi(note.memoId);
+                if (!response) {
+                    return;
+                }
             }
             state.notes = state.notes.filter((item) => item.id !== note.id);
             ensureAtLeastOneNote();
@@ -530,9 +549,10 @@
 
     function apiRequest(payload, label) {
         return $.ajax({
-            url: API_URL,
+            url: API_URL_V2,
             type: "POST",
             dataType: "json",
+            contentType: "application/json; charset=utf-8",
             data: JSON.stringify(payload),
             timeout: 30000,
         }).then(function (response) {
@@ -542,14 +562,51 @@
                 return null;
             }
             if (response.statusCode !== 200) {
-                console.error(response.message);
-                alert(response.message || `${label} failed`);
-                throw new Error(response.message || `${label} failed`);
+                console.error("API error", {
+                    label,
+                    message: response.message,
+                    detail: response.detail,
+                    response,
+                });
+                showReloadErrorModal({
+                    title: "Error",
+                    message: response.message || `${label} failed`
+                });
+                const error = new Error(response.message || `${label} failed`);
+                error.isApiError = true;
+                error.apiResponse = response;
+                throw error;
             }
             return response;
-        }, function () {
-            alert(`Network error!${label}`);
-            throw new Error(`Network error!${label}`);
+        }, function (jqXHR, textStatus, errorThrown) {
+            console.error("API failed", {
+                label,
+                textStatus,
+                errorThrown,
+                httpStatus: jqXHR.status,
+                responseText: jqXHR.responseText,
+            });
+
+            const message = `Network error: ${label}: ${textStatus}(${jqXHR.status})`;
+            showReloadErrorModal({
+                title: "Error",
+                message: message
+            });
+            const error = new Error(message);
+            error.isApiError = true;
+            throw error;
+        });
+    }
+
+    function showReloadErrorModal({title, message}) {
+        return modalManager.show({
+            title: title,
+            message: message,
+            positiveText: getI18nText("button.reload", "リロード"),
+            negativeText: getI18nText("button.cancel", "キャンセル"),
+            onPositive: function () {
+                window.location.reload();
+            }
         });
     }
 
