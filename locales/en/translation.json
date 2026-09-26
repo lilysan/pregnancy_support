@@ -918,7 +918,7 @@
       "callNow": "Please contact the hospital.",
       "watchAndWait": "Let's wait and see for a while."
     },
-    "callHospital": "When calling the hospital, please provide your patient ID number and let them know that you have completed the Labor Check. e.g., 「じんつうが はじまりました。しんさつけんばんごうは 〇〇 です。じんつうちぇっくに こたえました。」"
+    "callHospital": "When calling the hospital, please provide your patient ID number and let them know that you have completed the Labor Check."
   },
   "translationApp": {
     "desc": "A list of apps you can use for translation. If the app is not installed, you will be taken to the store or website.",
