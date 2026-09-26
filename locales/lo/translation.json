@@ -51,8 +51,8 @@
     "content": "ເມື່ອຂຽນແບບນີ້ ຂໍ້ຄວາມໃນແທັກຈະຖືກແທນເປັນ template.content ໃນ translation.json ໂດຍອັດຕະໂນມັດ",
     "content1": "ບໍ່ໃຊ່ພຽງແຕ່ຂໍ້ຄວາມໃນແທັກ ແຕ່ placeholder ກໍແປໄດ້",
     "content-sample1": "",
-    "content-sample2": "{{name}}",
-    "content-sample3": "<b>{{name}}</b>",
+    "content-sample2": "{name}",
+    "content-sample3": "<b>{name}</b>",
     "placeholder": "ຊື່"
   },
   "style": {
@@ -801,7 +801,7 @@
     "editorTitle": "ແກ້ໄຂບັນທຶກ",
     "placeholder": "ປ້ອນບັນທຶກ",
     "empty": "ບັນທຶກວ່າງ",
-    "cardAria": "ແກ້ໄຂບັນທຶກ {{count}}",
+    "cardAria": "ແກ້ໄຂບັນທຶກ {count}",
     "confirmDelete": "ທ່ານຕ້ອງການລຶບບັນທຶກນີ້ແທ້ບໍ?",
     "button": {
       "add": "ເພີ່ມບັນທຶກ",

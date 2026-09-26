@@ -52,8 +52,8 @@
     "content": "このように書くと、タグ内が自動的にtranslation.json内のtemplate.contentの文字に置き換わります。",
     "content1": "タグ内だけでなくplaceholderも翻訳可能です。",
     "content-sample1": "",
-    "content-sample2": "{{name}}",
-    "content-sample3": "<b>{{name}}</b>",
+    "content-sample2": "{name}",
+    "content-sample3": "<b>{name}</b>",
     "placeholder": "名前"
   },
   "style": {
@@ -83,7 +83,8 @@
     "HospitalStaff": "病院スタッフ"
   },
   "placeholder": {
-    "free": "自由記述"
+    "free": "自由記述",
+    "example": "例）"
   },
   "toast": {
     "success": "成功",
@@ -624,8 +625,8 @@
   "today": {
     "baby": {
       "label": {
-        "pregnancyWeek": "{{v1}}週{{v2}}日",
-        "left": "予定日まであと{{v1}}日",
+        "pregnancyWeek": "{v1}週{v2}日",
+        "left": "予定日まであと{v1}日",
         "weight": "推定体重の目安",
         "weightImage": "重さのイメージ",
         "content": "成長の様子"
@@ -936,7 +937,7 @@
     "editorTitle": "メモを編集",
     "placeholder": "メモを入力してください",
     "empty": "未入力のメモ",
-    "cardAria": "メモ{{count}}を編集",
+    "cardAria": "メモ{count}を編集",
     "confirmDelete": "本当に削除しますか？",
     "button": {
       "add": "メモを追加",

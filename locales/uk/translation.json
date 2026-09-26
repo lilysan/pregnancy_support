@@ -51,8 +51,8 @@
     "content": "Якщо написати так, текст у тегі автоматично заміниться на template.content з translation.json.",
     "content1": "Можна перекладати не лише текст у тегі, а й placeholder.",
     "content-sample1": "",
-    "content-sample2": "{{name}}",
-    "content-sample3": "<b>{{name}}</b>",
+    "content-sample2": "{name}",
+    "content-sample3": "<b>{name}</b>",
     "placeholder": "Ім'я"
   },
   "style": {
@@ -801,7 +801,7 @@
     "editorTitle": "Редагувати нотатку",
     "placeholder": "Введіть нотатку",
     "empty": "Порожня нотатка",
-    "cardAria": "Редагувати нотатку {{count}}",
+    "cardAria": "Редагувати нотатку {count}",
     "confirmDelete": "Ви справді хочете видалити цю нотатку?",
     "button": {
       "add": "Додати нотатку",

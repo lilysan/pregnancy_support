@@ -51,8 +51,8 @@
     "content": "Если написать так, текст внутри тега автоматически заменится на template.content из translation.json.",
     "content1": "Можно переводить не только текст внутри тега, но и placeholder.",
     "content-sample1": "",
-    "content-sample2": "{{name}}",
-    "content-sample3": "<b>{{name}}</b>",
+    "content-sample2": "{name}",
+    "content-sample3": "<b>{name}</b>",
     "placeholder": "Имя"
   },
   "style": {
@@ -801,7 +801,7 @@
     "editorTitle": "Редактировать заметку",
     "placeholder": "Введите заметку",
     "empty": "Пустая заметка",
-    "cardAria": "Редактировать заметку {{count}}",
+    "cardAria": "Редактировать заметку {count}",
     "confirmDelete": "Вы действительно хотите удалить эту заметку?",
     "button": {
       "add": "Добавить заметку",

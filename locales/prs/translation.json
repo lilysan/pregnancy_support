@@ -51,8 +51,8 @@
     "content": "اگر به این شکل بنویسید، متن داخل تگ به صورت خودکار با template.content در translation.json جایگزین می‌شود.",
     "content1": "نه تنها متن داخل تگ، بلکه placeholder نیز قابل ترجمه است.",
     "content-sample1": "",
-    "content-sample2": "{{name}}",
-    "content-sample3": "<b>{{name}}</b>",
+    "content-sample2": "{name}",
+    "content-sample3": "<b>{name}</b>",
     "placeholder": "نام"
   },
   "style": {
@@ -801,7 +801,7 @@
     "editorTitle": "ویرایش یادداشت",
     "placeholder": "یادداشت را وارد کنید",
     "empty": "یادداشت خالی",
-    "cardAria": "ویرایش یادداشت {{count}}",
+    "cardAria": "ویرایش یادداشت {count}",
     "confirmDelete": "آیا واقعاً می‌خواهید این یادداشت را حذف کنید؟",
     "button": {
       "add": "افزودن یادداشت",

@@ -51,8 +51,8 @@
     "content": "Nếu viết như thế này, văn bản trong thẻ sẽ tự động được thay bằng template.content trong translation.json.",
     "content1": "Không chỉ văn bản trong thẻ mà cả placeholder cũng có thể dịch.",
     "content-sample1": "",
-    "content-sample2": "{{name}}",
-    "content-sample3": "<b>{{name}}</b>",
+    "content-sample2": "{name}",
+    "content-sample3": "<b>{name}</b>",
     "placeholder": "Tên"
   },
   "style": {
@@ -801,7 +801,7 @@
     "editorTitle": "Chỉnh sửa ghi chú",
     "placeholder": "Nhập ghi chú",
     "empty": "Ghi chú trống",
-    "cardAria": "Chỉnh sửa ghi chú {{count}}",
+    "cardAria": "Chỉnh sửa ghi chú {count}",
     "confirmDelete": "Bạn có thật sự muốn xóa ghi chú này không?",
     "button": {
       "add": "Thêm ghi chú",

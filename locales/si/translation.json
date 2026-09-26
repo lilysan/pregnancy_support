@@ -51,8 +51,8 @@
     "content": "මේ ආකාරයෙන් ලිවූ විට, ටැග් ඇතුළත පෙළ translation.json හි template.content වෙත ස්වයංක්‍රීයව මාරුවේ.",
     "content1": "ටැග් ඇතුළත පෙළ පමණක් නොව placeholder ද පරිවර්තනය කළ හැක.",
     "content-sample1": "",
-    "content-sample2": "{{name}}",
-    "content-sample3": "<b>{{name}}</b>",
+    "content-sample2": "{name}",
+    "content-sample3": "<b>{name}</b>",
     "placeholder": "නම"
   },
   "style": {
@@ -801,7 +801,7 @@
     "editorTitle": "සටහන සංස්කරණය කරන්න",
     "placeholder": "සටහන ඇතුළත් කරන්න",
     "empty": "හිස් සටහන",
-    "cardAria": "සටහන {{count}} සංස්කරණය කරන්න",
+    "cardAria": "සටහන {count} සංස්කරණය කරන්න",
     "confirmDelete": "ඔබට මෙම සටහන ඇත්තටම මකා දැමීමට අවශ්‍යද?",
     "button": {
       "add": "සටහනක් එක් කරන්න",

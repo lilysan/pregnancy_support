@@ -51,8 +51,8 @@
     "content": "Kapag ganito ang pagkakasulat, awtomatikong papalitan ang teksto sa loob ng tag ng template.content mula sa translation.json.",
     "content1": "Hindi lang teksto sa loob ng tag, pati placeholder ay puwedeng isalin.",
     "content-sample1": "",
-    "content-sample2": "{{name}}",
-    "content-sample3": "<b>{{name}}</b>",
+    "content-sample2": "{name}",
+    "content-sample3": "<b>{name}</b>",
     "placeholder": "Pangalan"
   },
   "style": {
@@ -801,7 +801,7 @@
     "editorTitle": "I-edit ang memo",
     "placeholder": "Ilagay ang memo",
     "empty": "Walang laman na memo",
-    "cardAria": "I-edit ang memo {{count}}",
+    "cardAria": "I-edit ang memo {count}",
     "confirmDelete": "Sigurado ka bang burahin ang memo na ito?",
     "button": {
       "add": "Magdagdag ng memo",

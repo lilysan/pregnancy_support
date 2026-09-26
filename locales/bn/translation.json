@@ -51,8 +51,8 @@
     "content": "এভাবে লিখলে ট্যাগের ভেতরের লেখা স্বয়ংক্রিয়ভাবে translation.json এর template.content এ প্রতিস্থাপিত হবে।",
     "content1": "শুধু ট্যাগের ভেতরের লেখা নয়, placeholder-ও অনুবাদ করা যায়।",
     "content-sample1": "",
-    "content-sample2": "{{name}}",
-    "content-sample3": "<b>{{name}}</b>",
+    "content-sample2": "{name}",
+    "content-sample3": "<b>{name}</b>",
     "placeholder": "নাম"
   },
   "style": {
@@ -801,7 +801,7 @@
     "editorTitle": "মেমো সম্পাদনা করুন",
     "placeholder": "মেমো লিখুন",
     "empty": "খালি মেমো",
-    "cardAria": "মেমো {{count}} সম্পাদনা করুন",
+    "cardAria": "মেমো {count} সম্পাদনা করুন",
     "confirmDelete": "আপনি কি সত্যিই এই মেমোটি মুছতে চান?",
     "button": {
       "add": "মেমো যোগ করুন",

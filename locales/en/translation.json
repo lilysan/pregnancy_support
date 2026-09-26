@@ -52,8 +52,8 @@
     "content": "If you write like this, the text inside the tag is automatically replaced with template.content from translation.json.",
     "content1": "Not only text nodes but also placeholders can be translated.",
     "content-sample1": "",
-    "content-sample2": "{{name}}",
-    "content-sample3": "<b>{{name}}</b>",
+    "content-sample2": "{name}",
+    "content-sample3": "<b>{name}</b>",
     "placeholder": "Name"
   },
   "style": {
@@ -83,7 +83,8 @@
     "HospitalStaff": "Hospital Staff"
   },
   "placeholder": {
-    "free": "Free text"
+    "free": "Free text",
+    "example": "e.g.,"
   },
   "toast": {
     "success": "Success",
@@ -624,8 +625,8 @@
   "today": {
     "baby": {
       "label": {
-        "pregnancyWeek": "{{v1}} weeks and {{v2}} days",
-        "left": "Due in {{v1}} days",
+        "pregnancyWeek": "{v1} weeks and {v2} days",
+        "left": "Due in {v1} days",
         "weight": "Baby’s Estimated Weight",
         "weightImage": "About the Size of",
         "content": "How Your Baby is Growing"
@@ -936,7 +937,7 @@
     "editorTitle": "Edit memo",
     "placeholder": "Enter your memo",
     "empty": "Empty memo",
-    "cardAria": "Edit memo {{count}}",
+    "cardAria": "Edit memo {count}",
     "confirmDelete": "Do you really want to delete this memo?",
     "button": {
       "add": "Add memo",

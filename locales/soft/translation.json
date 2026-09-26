@@ -52,8 +52,8 @@
     "content": "このように <ruby>書<rt>か</rt></ruby>くと、タグの <ruby>中<rt>なか</rt></ruby>が <ruby>自動的<rt>じどうてき</rt></ruby>にtranslation.json<ruby>内<rt>ない</rt></ruby>のtemplate.contentの <ruby>文字<rt>もじ</rt></ruby>に <ruby>置<rt>お</rt></ruby>き<ruby>換<rt>か</rt></ruby>わります。",
     "content1": "タグの <ruby>中<rt>なか</rt></ruby>だけでなくplaceholderも <ruby>翻訳<rt>ほんやく</rt></ruby>できます。",
     "content-sample1": "",
-    "content-sample2": "{{name}}",
-    "content-sample3": "<b>{{name}}</b>",
+    "content-sample2": "{name}",
+    "content-sample3": "<b>{name}</b>",
     "placeholder": "なまえ"
   },
   "style": {
@@ -83,7 +83,8 @@
     "HospitalStaff": "<ruby>病院<rt>びょういん</rt></ruby>スタッフ"
   },
   "placeholder": {
-    "free": "じゆうにかいてください"
+    "free": "じゆうにかいてください",
+    "example": "れい）"
   },
   "toast": {
     "alert": "<ruby>警告<rt>けいこく</rt></ruby>",
@@ -624,8 +625,8 @@
   "today": {
     "baby": {
       "label": {
-        "pregnancyWeek": "{{v1}}<ruby>週<rt>しゅう</rt></ruby>{{v2}}<ruby>日<rt>にち</rt></ruby>",
-        "left": "<ruby>予定日<rt>よていび</rt></ruby>まであと{{v1}}<ruby>日<rt>にち</rt></ruby>",
+        "pregnancyWeek": "{v1}<ruby>週<rt>しゅう</rt></ruby>{v2}<ruby>日<rt>にち</rt></ruby>",
+        "left": "<ruby>予定日<rt>よていび</rt></ruby>まであと{v1}<ruby>日<rt>にち</rt></ruby>",
         "weight": "あかちゃんの <ruby>体重<rt>たいじゅう</rt></ruby>の <ruby>目安<rt>めやす</rt></ruby>",
         "weightImage": "<ruby>重<rt>おも</rt></ruby>さの イメージ",
         "content": "<ruby>成長<rt>せいちょう</rt></ruby>の ようす"
@@ -936,7 +937,7 @@
     "editorTitle": "メモを <ruby>編集<rt>へんしゅう</rt></ruby>",
     "placeholder": "メモを 入力（にゅうりょく）してください",
     "empty": "空（から）のメモ",
-    "cardAria": "メモ{{count}}を 編集",
+    "cardAria": "メモ{count}を 編集",
     "confirmDelete": "本当に 消しますか？",
     "button": {
       "add": "メモを <ruby>追加<rt>ついか</rt></ruby>",

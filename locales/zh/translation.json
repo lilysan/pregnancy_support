@@ -51,8 +51,8 @@
     "content": "像这样书写后，标签内的文字会自动替换为 translation.json 中 template.content 的内容。",
     "content1": "不仅标签内文本，placeholder 也可以翻译。",
     "content-sample1": "",
-    "content-sample2": "{{name}}",
-    "content-sample3": "<b>{{name}}</b>",
+    "content-sample2": "{name}",
+    "content-sample3": "<b>{name}</b>",
     "placeholder": "姓名"
   },
   "style": {
@@ -801,7 +801,7 @@
     "editorTitle": "编辑备忘录",
     "placeholder": "请输入备忘录",
     "empty": "未输入的备忘录",
-    "cardAria": "编辑备忘录{{count}}",
+    "cardAria": "编辑备忘录{count}",
     "confirmDelete": "确定要删除此备忘录吗？",
     "button": {
       "add": "添加备忘录",

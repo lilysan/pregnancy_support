@@ -51,8 +51,8 @@
     "content": "Se escrever assim, o texto dentro da tag será substituído automaticamente pelo template.content de translation.json.",
     "content1": "Não apenas o texto da tag, mas também o placeholder pode ser traduzido.",
     "content-sample1": "",
-    "content-sample2": "{{name}}",
-    "content-sample3": "<b>{{name}}</b>",
+    "content-sample2": "{name}",
+    "content-sample3": "<b>{name}</b>",
     "placeholder": "Nome"
   },
   "style": {
@@ -801,7 +801,7 @@
     "editorTitle": "Editar memo",
     "placeholder": "Digite seu memo",
     "empty": "Memo vazio",
-    "cardAria": "Editar memo {{count}}",
+    "cardAria": "Editar memo {count}",
     "confirmDelete": "Deseja realmente excluir este memo?",
     "button": {
       "add": "Adicionar memo",
