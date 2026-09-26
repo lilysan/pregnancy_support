@@ -918,7 +918,10 @@
       "callNow": "<ruby>病院<rt>びょういん</rt></ruby>へ<ruby>連絡<rt>れんらく</rt></ruby>しましょう。",
       "watchAndWait": "もう少し<ruby>様子<rt>ようす</rt></ruby>をみましょう。"
     },
-    "callHospital": "<ruby>病院<rt>びょういん</rt></ruby>に <ruby>電話<rt>でんわ</rt></ruby>するときは、<ruby>診察券番号<rt>しんさつけんばんごう</rt></ruby>と、「<ruby>陣痛<rt>じんつう</rt></ruby>チェックに <ruby>答<rt>こた</rt></ruby>えました」と <ruby>伝<rt>つた</rt></ruby>えましょう。"
+    "callHospital": "<ruby>病院<rt>びょういん</rt></ruby>に <ruby>電話<rt>でんわ</rt></ruby>するときは、<ruby>診察券番号<rt>しんさつけんばんごう</rt></ruby>と、「<ruby>陣痛<rt>じんつう</rt></ruby>チェックに <ruby>答<rt>こた</rt></ruby>えました」と <ruby>伝<rt>つた</rt></ruby>えましょう。",
+    "instruction1": "<ruby>陣痛<rt>じんつう</rt></ruby>が <ruby>始<rt>はじ</rt></ruby>まって、<ruby>病院<rt>びょういん</rt></ruby>に <ruby>連絡<rt>れんらく</rt></ruby>したほうがいいか <ruby>迷<rt>まよ</rt></ruby>ったときや、<ruby>病院<rt>びょういん</rt></ruby>に <ruby>連絡<rt>れんらく</rt></ruby>する<ruby>前<rt>まえ</rt></ruby>に、<ruby>陣痛<rt>じんつう</rt></ruby>チェックに <ruby>答<rt>こた</rt></ruby>えましょう。<ruby>質問<rt>しつもん</rt></ruby>は <ruby>最大<rt>さいだい</rt></ruby>6<ruby>問<rt>もん</rt></ruby>です。",
+    "instruction2": "<ruby>答<rt>こた</rt></ruby>えた<ruby>内容<rt>ないよう</rt></ruby>は <ruby>病院<rt>びょういん</rt></ruby>に <ruby>共有<rt>きょうゆう</rt></ruby>されます。<ruby>今<rt>いま</rt></ruby>の<ruby>状況<rt>じょうきょう</rt></ruby>を <ruby>伝<rt>つた</rt></ruby>える<ruby>手助<rt>てだす</rt></ruby>けになります。",
+    "instruction3": "<ruby>答<rt>こた</rt></ruby>えたあとに <ruby>結果<rt>けっか</rt></ruby>が <ruby>表示<rt>ひょうじ</rt></ruby>されます。<ruby>病院<rt>びょういん</rt></ruby>に <ruby>連絡<rt>れんらく</rt></ruby>するかどうかの <ruby>目安<rt>めやす</rt></ruby>にしてください。"
   },
   "translationApp": {
     "desc": "<ruby>翻訳<rt>ほんやく</rt></ruby>に<ruby>使<rt>つか</rt></ruby>えるアプリの<ruby>一覧<rt>いちらん</rt></ruby>です。アプリが<ruby>入<rt>はい</rt></ruby>っていないときは、ストアまたはWebページに<ruby>移動<rt>いどう</rt></ruby>します。",
