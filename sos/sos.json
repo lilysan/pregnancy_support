@@ -3,6 +3,7 @@
     {
       "id": "q.01",
       "labelKey": "sos.q.01.text",
+      "type": "options",
       "options": [
         {
           "id": "o1",
@@ -21,24 +22,25 @@
     {
       "id": "q.02",
       "labelKey": "sos.q.02.text",
+      "type": "options",
       "options": [
         {
           "id": "o1",
           "labelKey": "sos.q.02.o1",
           "alert": true,
-          "next": "q.03"
+          "next": "q.07"
         },
         {
           "id": "o2",
           "labelKey": "sos.q.02.o2",
           "alert": true,
-          "next": "q.03"
+          "next": "q.07"
         },
         {
           "id": "o3",
           "labelKey": "sos.q.02.o3",
           "alert": true,
-          "next": "q.03"
+          "next": "q.07"
         },
         {
           "id": "o4",
@@ -55,8 +57,17 @@
       ]
     },
     {
+      "id": "q.07",
+      "labelKey": "sos.q.07.text",
+      "type": "time",
+      "alert": false,
+      "next": "q.03",
+      "button": "sos.q.07.button"
+    },
+    {
       "id": "q.03",
       "labelKey": "sos.q.03.text",
+      "type": "options",
       "options": [
         {
           "id": "o1",
@@ -75,6 +86,7 @@
     {
       "id": "q.04",
       "labelKey": "sos.q.04.text",
+      "type": "options",
       "options": [
         {
           "id": "o1",
@@ -99,6 +111,7 @@
     {
       "id": "q.05",
       "labelKey": "sos.q.05.text",
+      "type": "options",
       "options": [
         {
           "id": "o1",
@@ -123,6 +136,7 @@
     {
       "id": "q.06",
       "labelKey": "sos.q.06.text",
+      "type": "options",
       "options": [
         {
           "id": "o1",

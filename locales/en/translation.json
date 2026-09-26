@@ -911,6 +911,10 @@
         "o1": "0–1 hour ago",
         "o2": "1–24 hours ago",
         "o3": "More than 24 hours ago"
+      },
+      "07": {
+        "text": "Around what time did your contractions become 10 minutes apart or less?",
+        "button": "Select time"
       }
     },
     "result": {
@@ -919,7 +923,7 @@
       "watchAndWait": "Let's wait and see for a while."
     },
     "callHospital": "When calling the hospital, please provide your patient ID number and let them know that you have completed the Labor Check.",
-    "instruction1": "If labor pains have started and you are not sure whether to contact the hospital, or before contacting the hospital, please answer the Labor Check. There are up to 6 questions.",
+    "instruction1": "If labor pains have started and you are not sure whether to contact the hospital, or before contacting the hospital, please answer the Labor Check. There are up to 7 questions.",
     "instruction2": "Your answers will be shared with the hospital, which will help explain your situation.",
     "instruction3": "After you answer, the result will be shown. Please use it as a guide for whether to contact the hospital."
   },
