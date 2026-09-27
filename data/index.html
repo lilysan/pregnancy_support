@@ -158,6 +158,7 @@
             top: var(--data-tabs-sticky-top, 0px);
             z-index: 15;
             padding: 8px 0;
+            background: var(--surface);
             overflow-anchor: none;
             transition: padding 0.18s ease;
         }
@@ -1708,7 +1709,7 @@
             const answerList = $("<div>").addClass("data-question-list");
             answers.forEach((answer, answerIndex) => {
                 const questionText = translateDataKey(answer.questionLabelKey || answer.questionId);
-                const choiceText = answer.answerLabelKey ? translateDataKey(answer.answerLabelKey) : "未回答";
+                const choiceText = formatQuestionAnswerChoice(answer);
                 answerList.append(
                     $("<div>").addClass("data-question-item")
                         .append(
@@ -1727,6 +1728,16 @@
             list.append(record);
         });
         return list;
+    }
+
+    function formatQuestionAnswerChoice(answer) {
+        if (!answer || !answer.answerId) {
+            return "未回答";
+        }
+        if (answer.questionType === "time") {
+            return answer.answerId;
+        }
+        return answer.answerLabelKey ? translateDataKey(answer.answerLabelKey) : "未回答";
     }
 
     function groupQuestionAnswerRecords(items, questionPrefix) {
@@ -1765,12 +1776,14 @@
             if (answer) {
                 return Object.assign({}, answer, {
                     questionLabelKey: question.labelKey || answer.questionLabelKey,
+                    questionType: question.type || "",
                     answerLabelKey: selectedOption ? selectedOption.labelKey : ""
                 });
             }
             return {
                 questionId: questionId,
                 questionLabelKey: question.labelKey,
+                questionType: question.type || "",
                 answerId: "",
                 answerLabelKey: ""
             };
@@ -1785,6 +1798,7 @@
                 return {
                     questionId: question.id || "",
                     labelKey: question.labelKey || "",
+                    type: question.type || "",
                     options: (question.options || []).map((option) => ({
                         id: option.id || "",
                         labelKey: option.labelKey || ""
@@ -1798,6 +1812,7 @@
                 definitions.push({
                     questionId: key,
                     labelKey: `${questionPrefix}.${key}.text`,
+                    type: "",
                     options: []
                 });
             }
@@ -2057,14 +2072,10 @@
                 6: "夕食後",
                 7: "就寝前"
             },
-            "": {
+            weight: {
                 1: "朝",
                 2: "昼",
-                3: "夜",
-                4: "昼食後",
-                5: "夕食前",
-                6: "夕食後",
-                7: "就寝前"
+                3: "夜"
             }
         };
         return labels[tabKey] && labels[tabKey][value] ? labels[tabKey][value] : (value ? `区分 ${value}` : "");
