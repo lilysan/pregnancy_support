@@ -579,6 +579,22 @@
             background: linear-gradient(transparent 58%, var(--accent-soft) 58%);
         }
 
+        .data-translate-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 8px;
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            vertical-align: baseline;
+        }
+
+        .data-translate-link:hover {
+            text-decoration: underline;
+        }
+
         .patient-choice-list {
             display: grid;
             gap: 10px;
@@ -1576,7 +1592,9 @@
         }
 
         if (textAnswer) {
-            card.append($("<p>").addClass("data-answer-text").text(textAnswer));
+            const textAnswerLine = $("<p>").addClass("data-answer-text").text(textAnswer);
+            appendGoogleTranslateLink(textAnswerLine, textAnswer);
+            card.append(textAnswerLine);
         } else if (!isAnswered) {
             card.append($("<p>").addClass("data-unanswered-text").text("未回答"));
         }
@@ -1710,6 +1728,10 @@
             answers.forEach((answer, answerIndex) => {
                 const questionText = translateDataKey(answer.questionLabelKey || answer.questionId);
                 const choiceText = formatQuestionAnswerChoice(answer);
+                const choiceLine = $("<p>").addClass("data-choice-text")
+                    .append(document.createTextNode("回答："))
+                    .append($("<span>").addClass("data-choice-marker").text(choiceText));
+                appendGoogleTranslateLink(choiceLine, answer && answer.other);
                 answerList.append(
                     $("<div>").addClass("data-question-item")
                         .append(
@@ -1717,11 +1739,7 @@
                                 .append($("<span>").addClass("badge badge-primary").text(answerIndex + 1))
                                 .append(document.createTextNode(questionText || formatValue(answer.questionId)))
                         )
-                        .append(
-                            $("<p>").addClass("data-choice-text")
-                                .append(document.createTextNode("回答："))
-                                .append($("<span>").addClass("data-choice-marker").text(choiceText))
-                        )
+                        .append(choiceLine)
                 );
             });
             record.append(answerList);
@@ -1731,13 +1749,65 @@
     }
 
     function formatQuestionAnswerChoice(answer) {
-        if (!answer || !answer.answerId) {
+        if (!answer) {
+            return "未回答";
+        }
+        if (typeof answer.other === "string" && answer.other.trim()) {
+            return answer.other.trim();
+        }
+        if (!answer.answerId) {
             return "未回答";
         }
         if (answer.questionType === "time") {
             return answer.answerId;
         }
         return answer.answerLabelKey ? translateDataKey(answer.answerLabelKey) : "未回答";
+    }
+
+    function appendGoogleTranslateLink(container, text) {
+        const sourceText = typeof text === "string" ? text.trim() : "";
+        if (!sourceText) {
+            return container;
+        }
+        return container.append(
+            $("<a>")
+                .addClass("data-translate-link")
+                .attr({
+                    href: buildGoogleTranslateUrl(sourceText),
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                    "aria-label": "Google翻訳で開く"
+                })
+                .on("click", openExternalBrowserLink)
+                .append($("<iconify-icon>").attr({
+                    icon: "material-symbols:translate-rounded",
+                    width: 16,
+                    height: 16,
+                    "aria-hidden": "true"
+                }))
+                .append($("<span>").text("翻訳"))
+        );
+    }
+
+    function buildGoogleTranslateUrl(text) {
+        const url = new URL("https://translate.google.com/");
+        url.searchParams.set("sl", "auto");
+        url.searchParams.set("tl", "ja");
+        url.searchParams.set("text", text);
+        url.searchParams.set("op", "translate");
+        return url.toString();
+    }
+
+    function openExternalBrowserLink(event) {
+        const url = event.currentTarget && event.currentTarget.href;
+        if (!url || !window.liff || typeof liff.openWindow !== "function") {
+            return;
+        }
+        event.preventDefault();
+        liff.openWindow({
+            url: url,
+            external: true
+        });
     }
 
     function groupQuestionAnswerRecords(items, questionPrefix) {
@@ -1939,14 +2009,15 @@
 
     function normalizeAnswerEntries(answers) {
         const entries = [];
-        const pushEntry = (questionKey, answerKey, score) => {
+        const pushEntry = (questionKey, answerKey, score, other) => {
             if (!questionKey && !answerKey) {
                 return;
             }
             entries.push({
                 questionId: String(questionKey || ""),
                 answerId: String(answerKey || ""),
-                score: score
+                score: score,
+                other: typeof other === "string" ? other : ""
             });
         };
 
@@ -1965,11 +2036,21 @@
                 }
                 const explicitQuestion = answer.questionKey || answer.question || answer.key || answer.q;
                 const explicitAnswer = answer.answerKey || answer.answer || answer.value || answer.selected || answer.a;
+                const explicitOther = typeof answer.other === "string" ? answer.other : "";
                 if (explicitQuestion || explicitAnswer) {
-                    pushEntry(explicitQuestion, explicitAnswer, answer.score);
+                    pushEntry(explicitQuestion, explicitAnswer, answer.score, explicitOther);
                     return;
                 }
                 Object.entries(answer).forEach(([questionKey, answerKey]) => {
+                    if (answerKey && typeof answerKey === "object") {
+                        pushEntry(
+                            questionKey,
+                            answerKey.answerKey || answerKey.answer || answerKey.value || answerKey.selected || answerKey.a,
+                            answerKey.score,
+                            answerKey.other
+                        );
+                        return;
+                    }
                     pushEntry(questionKey, answerKey);
                 });
             });
@@ -1978,6 +2059,15 @@
 
         if (answers && typeof answers === "object") {
             Object.entries(answers).forEach(([questionKey, answerKey]) => {
+                if (answerKey && typeof answerKey === "object") {
+                    pushEntry(
+                        questionKey,
+                        answerKey.answerKey || answerKey.answer || answerKey.value || answerKey.selected || answerKey.a,
+                        answerKey.score,
+                        answerKey.other
+                    );
+                    return;
+                }
                 pushEntry(questionKey, answerKey);
             });
         }
