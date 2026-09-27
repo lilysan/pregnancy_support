@@ -73,7 +73,7 @@
             <h2 data-i18n="[html]contact.sections.email.title">メールでのお問い合わせ</h2>
             <p data-i18n="[html]contact.email.body">お問い合わせ内容、利用中の画面、発生している問題があればその状況をメールに記載してください。</p>
             <div class="contact-actions">
-                <a class="btn primary btn-row" id="contactEmailLink" href="mailto:support@example.com">
+                <a class="btn primary btn-row disabled" id="contactEmailLink" aria-disabled="true">
                     <div class="contact-button-mail">
                         <iconify-icon icon="material-symbols:mail-rounded" width="20" height="20" aria-hidden="true"></iconify-icon>
                         <span data-i18n="[html]contact.email.button">メールを送る</span>
@@ -101,7 +101,9 @@
     const liff = window.liff;
     const state = {
         idToken: "",
-        userId: ""
+        userId: "",
+        isHeaderReady: false,
+        isContactUserLoading: false
     };
 
     $(function () {
@@ -112,11 +114,12 @@
             withLoginOnExternalBrowser: false,
         }).then(() => {
             state.idToken = liff.getIDToken();
-            updateContactEmailLink();
+            state.isContactUserLoading = Boolean(state.idToken);
             loadContactUser();
             loadHeader();
         }).catch((err) => {
             console.error("Contact page init failed:", err);
+            updateContactEmailLink();
             $("#loadingOverlay").removeClass("is-open");
         });
 
@@ -124,7 +127,8 @@
             $("#header-container").load("../common/header.html", function() {
                 document.addEventListener("i18n-initialized", function() {
                     syncDocumentTitle();
-                    $("#loadingOverlay").removeClass("is-open");
+                    state.isHeaderReady = true;
+                    closeLoadingOverlayIfReady();
                 }, { once: true });
                 document.addEventListener("language-changed", syncDocumentTitle);
 
@@ -135,12 +139,19 @@
         function syncDocumentTitle() {
             if (window.i18next && i18next.isInitialized) {
                 document.title = `${i18next.t("title.contact")} | Pregnancy Support`;
-                updateContactEmailLink();
             }
         }
 
+        $("#contactEmailLink").on("click", function (event) {
+            if (state.isContactUserLoading) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+        });
+
         function loadContactUser() {
             if (!state.idToken) {
+                updateContactEmailLink();
                 return;
             }
 
@@ -152,28 +163,43 @@
                 state.userId = response && response.data && response.data.userId
                     ? String(response.data.userId)
                     : "";
-                updateContactEmailLink();
             }).catch((err) => {
                 console.error("Contact user load failed:", err);
+            }).then(() => {
+                state.isContactUserLoading = false;
+                updateContactEmailLink();
+                closeLoadingOverlayIfReady();
             });
         }
 
+        function closeLoadingOverlayIfReady() {
+            if (state.isHeaderReady && !state.isContactUserLoading) {
+                $("#loadingOverlay").removeClass("is-open");
+            }
+        }
+
         function updateContactEmailLink() {
+            const $contactEmailLink = $("#contactEmailLink");
+            if (state.isContactUserLoading) {
+                $contactEmailLink
+                    .removeAttr("href")
+                    .addClass("disabled")
+                    .attr("aria-disabled", "true");
+                return;
+            }
+
             const subject = "お問い合わせ";
             const body = createContactEmailBody();
-            $("#contactEmailLink").attr(
-                "href",
-                `mailto:support@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-            );
+            $contactEmailLink
+                .attr("href", `mailto:${CONTACT_MAIL_ADDRESS}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
+                .removeClass("disabled")
+                .attr("aria-disabled", "false");
         }
 
         function createContactEmailBody() {
             const lines = [
-                "Message:",
+                "System-generated: Please do not edit below this line",
                 "",
-                "",
-                "----",
-                "Auto-filled information (Please do not change the following)",
                 `管理ID: ${state.userId || "未取得"}`,
                 "利用環境:",
                 `- Language: ${navigator.language || ""}`,
@@ -183,6 +209,13 @@
                 `- LIFF Language: ${getLiffValue("getLanguage")}`,
                 `- LIFF LineVersion: ${getLiffValue("getLineVersion")}`,
                 `- LIFF InClient: ${typeof liff.isInClient === "function" ? String(liff.isInClient()) : ""}`,
+                "",
+                "----------",
+                "",
+                "Message:",
+                "[Type your message here]",
+                "",
+                "",
             ];
             return lines.join("\n");
         }
