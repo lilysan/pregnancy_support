@@ -37,13 +37,13 @@
         class="app-switch-link is-current"
         href="./index.html"
         aria-current="page"
-        >診察ボード</a
+        >診察</a
       >
       <a
         id="switchReceptionLabel"
         class="app-switch-link"
         href="../reception/index.html"
-        >受付ボードへ</a
+        >受付</a
       >
       <a
         id="switchGuidanceLabel"
@@ -479,9 +479,11 @@
           "カテゴリごとに、必要なやり取りだけテキストと音でお手伝いします。",
         );
         document.getElementById("switchExamLabel").textContent =
-          buildBilingualLabel("診察ボード", "switch_exam");
+          buildBilingualLabel("診察", "switch_exam");
         document.getElementById("switchReceptionLabel").textContent =
-          buildBilingualLabel("受付ボードへ", "switch_reception");
+          buildBilingualLabel("受付", "switch_reception");
+        document.getElementById("switchGuidanceLabel").textContent =
+          buildBilingualLabel("保健指導", "switch_guidance");
         document
           .getElementById("categoryTabs")
           .setAttribute("aria-label", tr("category_aria", "カテゴリ"));

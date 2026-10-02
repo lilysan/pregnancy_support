@@ -1,788 +1,944 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>受付コミュニケーションボード</title>
     <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
     <script
-        src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-        crossorigin="anonymous"></script>
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
     <script src="https://unpkg.com/i18next@23/i18next.min.js"></script>
     <script src="https://unpkg.com/i18next-http-backend@2/i18nextHttpBackend.min.js"></script>
     <script src="../common/js/config.js"></script>
     <script src="language.js"></script>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
 
-</head>
-
-<body>
+  <body>
     <div id="header-container" class="header-wrapper"></div>
 
     <header class="app-header">
-        <h1 id="pageTitle" class="h3-sample">受付コミュニケーションボード</h1>
-        <p id="pageLead" class="small-sample">受付〜会計までの説明を、言語切替と音声で案内します。</p>
+      <h1 id="pageTitle" class="h3-sample">受付コミュニケーションボード</h1>
+      <p id="pageLead" class="small-sample">
+        受付〜会計までの説明を、言語切替と音声で案内します。
+      </p>
     </header>
     <nav class="app-switcher" aria-label="アプリ切替">
-        <a id="switchExamLabel" class="app-switch-link" href="../examination/index.html">診察ボードへ</a>
-        <a id="switchReceptionLabel" class="app-switch-link is-current" href="./index.html"
-            aria-current="page">受付ボード</a>
+      <a
+        id="switchExamLabel"
+        class="app-switch-link"
+        href="../examination/index.html"
+        >診察</a
+      >
+      <a
+        id="switchReceptionLabel"
+        class="app-switch-link is-current"
+        href="./index.html"
+        aria-current="page"
+        >受付</a
+      >
     </nav>
-    <button type="button" id="languageSettingBtn" class="language-setting-btn">設定</button>
-    <div id="languageDialog" style="display:none;">
-        <div id="languageDialogPanel">
-            <h2 id="languageDialogTitle" class="h4-sample">設定</h2>
-            <p id="languageSectionTitle" class="settings-label caption-sample">言語設定</p>
-            <div id="languageOptionList" class="language-option-list"></div>
-            <button type="button" id="closeLanguageBtn">閉じる</button>
-        </div>
+    <button type="button" id="languageSettingBtn" class="language-setting-btn">
+      設定
+    </button>
+    <div id="languageDialog" style="display: none">
+      <div id="languageDialogPanel">
+        <h2 id="languageDialogTitle" class="h4-sample">設定</h2>
+        <p id="languageSectionTitle" class="settings-label caption-sample">
+          言語設定
+        </p>
+        <div id="languageOptionList" class="language-option-list"></div>
+        <button type="button" id="closeLanguageBtn">閉じる</button>
+      </div>
     </div>
 
     <main class="main">
-        <nav id="categoryTabs" class="category-tabs" aria-label="カテゴリ"></nav>
-        <section id="accordionList" class="accordion-list" aria-live="polite"></section>
+      <nav id="categoryTabs" class="category-tabs" aria-label="カテゴリ"></nav>
+      <section
+        id="accordionList"
+        class="accordion-list"
+        aria-live="polite"
+      ></section>
     </main>
 
-    <button id="freeTranslateBtn" class="free-translate-btn" type="button" aria-label="翻訳アプリ">翻訳アプリ</button>
-    <div id="translationAppDialog" class="translation-app-dialog" aria-hidden="true">
-        <div id="translationAppPanel" class="translation-app-panel">
-            <div class="translation-app-head">
-                <p id="translationAppTitle" class="translation-app-title h4-sample">翻訳アプリ</p>
-                <button id="translationAppCloseBtn" class="translation-app-close" type="button" aria-label="閉じる">閉じる</button>
-            </div>
-            <p id="translationAppLead" class="translation-app-lead small-sample">使うアプリを選んでください。</p>
-            <div class="translation-app-actions">
-                <button id="openGoogleTranslateBtn" class="translation-app-option" type="button">Google 翻訳</button>
-                <button id="openDeepLBtn" class="translation-app-option" type="button">DeepL</button>
-            </div>
+    <button
+      id="freeTranslateBtn"
+      class="free-translate-btn"
+      type="button"
+      aria-label="翻訳アプリ"
+    >
+      翻訳アプリ
+    </button>
+    <div
+      id="translationAppDialog"
+      class="translation-app-dialog"
+      aria-hidden="true"
+    >
+      <div id="translationAppPanel" class="translation-app-panel">
+        <div class="translation-app-head">
+          <p id="translationAppTitle" class="translation-app-title h4-sample">
+            翻訳アプリ
+          </p>
+          <button
+            id="translationAppCloseBtn"
+            class="translation-app-close"
+            type="button"
+            aria-label="閉じる"
+          >
+            閉じる
+          </button>
         </div>
+        <p id="translationAppLead" class="translation-app-lead small-sample">
+          使うアプリを選んでください。
+        </p>
+        <div class="translation-app-actions">
+          <button
+            id="openGoogleTranslateBtn"
+            class="translation-app-option"
+            type="button"
+          >
+            Google 翻訳
+          </button>
+          <button
+            id="openDeepLBtn"
+            class="translation-app-option"
+            type="button"
+          >
+            DeepL
+          </button>
+        </div>
+      </div>
     </div>
 
-    <button id="scrollTopBtn" class="scroll-top-btn" type="button" aria-label="ページトップへ戻る">▲</button>
+    <button
+      id="scrollTopBtn"
+      class="scroll-top-btn"
+      type="button"
+      aria-label="ページトップへ戻る"
+    >
+      ▲
+    </button>
 
     <script>
-        const languageOptions = [{
-                code: "ja",
-                label: "やさしい日本語",
-                speech: "ja-JP",
-                translateTarget: "ja",
-                questionnairePdf: null
-            },
-            {
-                code: "en-US",
-                label: "英語編(English)",
-                speech: "en-US",
-                translateTarget: "en",
-                questionnairePdf: "./questionnaire/english.pdf"
-            },
-            {
-                code: "zh",
-                label: "中国語編(中文版)",
-                speech: "zh-CN",
-                translateTarget: "zh-CN",
-                questionnairePdf: "./questionnaire/chinese.pdf"
-            },
-            {
-                code: "fr",
-                label: "フランス語編(French)",
-                speech: "fr-FR",
-                translateTarget: "fr",
-                questionnairePdf: null
-            },
-            {
-                code: "ko",
-                label: "韓国語編(Korean)",
-                speech: "ko-KR",
-                translateTarget: "ko",
-                questionnairePdf: "./questionnaire/korean.pdf"
-            },
-            {
-                code: "pr",
-                label: "ポルトガル語編(Portugues)",
-                speech: "pt-PT",
-                translateTarget: "pt",
-                questionnairePdf: "./questionnaire/portuguese.pdf"
-            },
-            {
-                code: "tl",
-                label: "タガログ語編(TAGALOG)",
-                speech: "tl-PH",
-                translateTarget: "tl",
-                questionnairePdf: "./questionnaire/filipino.pdf"
-            },
-            {
-                code: "ve",
-                label: "ベトナム語編(Vietnam)",
-                speech: "vi-VN",
-                translateTarget: "vi",
-                questionnairePdf: null
-            },
-            {
-                code: "th",
-                label: "タイ語編(Thai)",
-                speech: "th-TH",
-                translateTarget: "th",
-                questionnairePdf: null
-            },
-            {
-                code: "de",
-                label: "ドイツ語編(German)",
-                speech: "de-DE",
-                translateTarget: "de",
-                questionnairePdf: null
-            },
-            {
-                code: "id",
-                label: "インドネシア語(Indonesia)",
-                speech: "id-ID",
-                translateTarget: "id",
-                questionnairePdf: "./questionnaire/indonesian.pdf"
-            },
-            {
-                code: "ru",
-                label: "ロシア語(Russian)",
-                speech: "ru-RU",
-                translateTarget: "ru",
-                questionnairePdf: null
-            },
-            {
-                code: "ne",
-                label: "ネパール語(Nepali)",
-                speech: "ne-NP",
-                translateTarget: "ne",
-                questionnairePdf: null
-            },
-            {
-                code: "lo",
-                label: "ラオス語(Laotian)",
-                speech: "lo-LA",
-                translateTarget: "lo",
-                questionnairePdf: null
-            },
-            {
-                code: "uk",
-                label: "ウクライナ語(Ukrainian)",
-                speech: "uk-UA",
-                translateTarget: "uk",
-                questionnairePdf: null
-            },
-            {
-                code: "fa-AF",
-                label: "ダリ語(Dari)",
-                speech: "fa-AF",
-                translateTarget: "fa",
-                questionnairePdf: null
-            },
-            {
-                code: "si",
-                label: "シンハラ語(Sinhala)",
-                speech: "si-LK",
-                translateTarget: "si",
-                questionnairePdf: null
-            },
-            {
-                code: "ms",
-                label: "マレー語(Malay)",
-                speech: "ms-MY",
-                translateTarget: "ms",
-                questionnairePdf: null
-            },
-            {
-                code: "my",
-                label: "ミャンマー語(Myanmar)",
-                speech: "my-MM",
-                translateTarget: "my",
-                questionnairePdf: null
-            },
-            {
-                code: "bn",
-                label: "ベンガル語(Bengali)",
-                speech: "bn-BD",
-                translateTarget: "bn",
-                questionnairePdf: null
-            },
-            {
-                code: "ur",
-                label: "ウルドゥー語(Urdu)",
-                speech: "ur-PK",
-                translateTarget: "ur",
-                questionnairePdf: null
-            }
-        ];
+      const languageOptions = [
+        {
+          code: "ja",
+          label: "やさしい日本語",
+          speech: "ja-JP",
+          translateTarget: "ja",
+          questionnairePdf: null,
+        },
+        {
+          code: "en-US",
+          label: "英語編(English)",
+          speech: "en-US",
+          translateTarget: "en",
+          questionnairePdf: "./questionnaire/english.pdf",
+        },
+        {
+          code: "zh",
+          label: "中国語編(中文版)",
+          speech: "zh-CN",
+          translateTarget: "zh-CN",
+          questionnairePdf: "./questionnaire/chinese.pdf",
+        },
+        {
+          code: "fr",
+          label: "フランス語編(French)",
+          speech: "fr-FR",
+          translateTarget: "fr",
+          questionnairePdf: null,
+        },
+        {
+          code: "ko",
+          label: "韓国語編(Korean)",
+          speech: "ko-KR",
+          translateTarget: "ko",
+          questionnairePdf: "./questionnaire/korean.pdf",
+        },
+        {
+          code: "pr",
+          label: "ポルトガル語編(Portugues)",
+          speech: "pt-PT",
+          translateTarget: "pt",
+          questionnairePdf: "./questionnaire/portuguese.pdf",
+        },
+        {
+          code: "tl",
+          label: "タガログ語編(TAGALOG)",
+          speech: "tl-PH",
+          translateTarget: "tl",
+          questionnairePdf: "./questionnaire/filipino.pdf",
+        },
+        {
+          code: "ve",
+          label: "ベトナム語編(Vietnam)",
+          speech: "vi-VN",
+          translateTarget: "vi",
+          questionnairePdf: null,
+        },
+        {
+          code: "th",
+          label: "タイ語編(Thai)",
+          speech: "th-TH",
+          translateTarget: "th",
+          questionnairePdf: null,
+        },
+        {
+          code: "de",
+          label: "ドイツ語編(German)",
+          speech: "de-DE",
+          translateTarget: "de",
+          questionnairePdf: null,
+        },
+        {
+          code: "id",
+          label: "インドネシア語(Indonesia)",
+          speech: "id-ID",
+          translateTarget: "id",
+          questionnairePdf: "./questionnaire/indonesian.pdf",
+        },
+        {
+          code: "ru",
+          label: "ロシア語(Russian)",
+          speech: "ru-RU",
+          translateTarget: "ru",
+          questionnairePdf: null,
+        },
+        {
+          code: "ne",
+          label: "ネパール語(Nepali)",
+          speech: "ne-NP",
+          translateTarget: "ne",
+          questionnairePdf: null,
+        },
+        {
+          code: "lo",
+          label: "ラオス語(Laotian)",
+          speech: "lo-LA",
+          translateTarget: "lo",
+          questionnairePdf: null,
+        },
+        {
+          code: "uk",
+          label: "ウクライナ語(Ukrainian)",
+          speech: "uk-UA",
+          translateTarget: "uk",
+          questionnairePdf: null,
+        },
+        {
+          code: "fa-AF",
+          label: "ダリ語(Dari)",
+          speech: "fa-AF",
+          translateTarget: "fa",
+          questionnairePdf: null,
+        },
+        {
+          code: "si",
+          label: "シンハラ語(Sinhala)",
+          speech: "si-LK",
+          translateTarget: "si",
+          questionnairePdf: null,
+        },
+        {
+          code: "ms",
+          label: "マレー語(Malay)",
+          speech: "ms-MY",
+          translateTarget: "ms",
+          questionnairePdf: null,
+        },
+        {
+          code: "my",
+          label: "ミャンマー語(Myanmar)",
+          speech: "my-MM",
+          translateTarget: "my",
+          questionnairePdf: null,
+        },
+        {
+          code: "bn",
+          label: "ベンガル語(Bengali)",
+          speech: "bn-BD",
+          translateTarget: "bn",
+          questionnairePdf: null,
+        },
+        {
+          code: "ur",
+          label: "ウルドゥー語(Urdu)",
+          speech: "ur-PK",
+          translateTarget: "ur",
+          questionnairePdf: null,
+        },
+      ];
 
-        const DIALOG_TEXT = {
-            "en-US": {
-                settings: "Settings",
-                language: "Language",
-                close: "Close"
+      const DIALOG_TEXT = {
+        "en-US": {
+          settings: "Settings",
+          language: "Language",
+          close: "Close",
+        },
+        zh: {
+          settings: "设置",
+          language: "语言",
+          close: "关闭",
+        },
+        fr: {
+          settings: "Parametres",
+          language: "Langue",
+          close: "Fermer",
+        },
+        ko: {
+          settings: "설정",
+          language: "언어",
+          close: "닫기",
+        },
+        pr: {
+          settings: "Configuracoes",
+          language: "Idioma",
+          close: "Fechar",
+        },
+        tl: {
+          settings: "Mga Setting",
+          language: "Wika",
+          close: "Isara",
+        },
+        ve: {
+          settings: "Cai dat",
+          language: "Ngon ngu",
+          close: "Dong",
+        },
+        th: {
+          settings: "การตั้งค่า",
+          language: "ภาษา",
+          close: "ปิด",
+        },
+        de: {
+          settings: "Einstellungen",
+          language: "Sprache",
+          close: "Schliessen",
+        },
+        id: {
+          settings: "Pengaturan",
+          language: "Bahasa",
+          close: "Tutup",
+        },
+        ru: {
+          settings: "Настройки",
+          language: "Язык",
+          close: "Закрыть",
+        },
+        ne: {
+          settings: "सेटिङ",
+          language: "भाषा",
+          close: "बन्द",
+        },
+        lo: {
+          settings: "ການຕັ້ງຄ່າ",
+          language: "ພາສາ",
+          close: "ປິດ",
+        },
+        uk: {
+          settings: "Налаштування",
+          language: "Мова",
+          close: "Закрити",
+        },
+        "fa-AF": {
+          settings: "تنظیمات",
+          language: "زبان",
+          close: "بستن",
+        },
+        si: {
+          settings: "සැකසුම්",
+          language: "භාෂාව",
+          close: "වසන්න",
+        },
+        ms: {
+          settings: "Tetapan",
+          language: "Bahasa",
+          close: "Tutup",
+        },
+        my: {
+          settings: "ဆက်တင်များ",
+          language: "ဘာသာစကား",
+          close: "ပိတ်ရန်",
+        },
+        bn: {
+          settings: "সেটিংস",
+          language: "ভাষা",
+          close: "বন্ধ",
+        },
+        ur: {
+          settings: "ترتیبات",
+          language: "زبان",
+          close: "بند کریں",
+        },
+        ja: {
+          settings: "設定",
+          language: "言語設定",
+          close: "閉じる",
+        },
+      };
+
+      const sections = [
+        {
+          id: "reception",
+          titleJa: "受付",
+          titleFallback: "Reception",
+          cards: [
+            {
+              key: "first_time",
+              ja: "初めてですか？",
+              options: [
+                {
+                  key: "yes",
+                  ja: "はい",
+                },
+                {
+                  key: "no",
+                  ja: "いいえ",
+                },
+              ],
+              multi: false,
             },
-            "zh": {
-                settings: "设置",
-                language: "语言",
-                close: "关闭"
+            {
+              key: "visit_reason",
+              ja: "今日の受診理由を選んでください",
+              options: [
+                {
+                  key: "absence_period",
+                  ja: "生理がとまった",
+                },
+                {
+                  key: "nausea",
+                  ja: "吐き気",
+                },
+                {
+                  key: "possible_pregnancy",
+                  ja: "妊娠かもしれない",
+                },
+                {
+                  key: "inconsistent_period",
+                  ja: "生理が規則的にこない",
+                },
+                {
+                  key: "period_pain",
+                  ja: "生理のときお腹が痛い",
+                },
+                {
+                  key: "itching",
+                  ja: "外陰部がかゆい",
+                },
+                {
+                  key: "stomach_pain",
+                  ja: "お腹が痛い",
+                },
+                {
+                  key: "infertility_question",
+                  ja: "不妊について聞きたい",
+                },
+                {
+                  key: "other",
+                  ja: "その他",
+                },
+              ],
+              multi: true,
             },
-            "fr": {
-                settings: "Parametres",
-                language: "Langue",
-                close: "Fermer"
+          ],
+        },
+        {
+          id: "waiting",
+          titleJa: "問診と待機",
+          titleFallback: "Waiting Flow",
+          cards: [
+            {
+              key: "fill_form_waiting_room",
+              ja: "待合室で問診票をご記入ください。",
             },
-            "ko": {
-                settings: "설정",
-                language: "언어",
-                close: "닫기"
+            {
+              key: "question",
+              ja: "選択している言語の問診票PDFを開く",
+              questionnaire: true,
             },
-            "pr": {
-                settings: "Configuracoes",
-                language: "Idioma",
-                close: "Fechar"
+            {
+              key: "finished_filling_form",
+              ja: "記入が終わったら持ってきてください。",
             },
-            "tl": {
-                settings: "Mga Setting",
-                language: "Wika",
-                close: "Isara"
+            {
+              key: "take_weight",
+              ja: "診察まで、体重・血圧・尿検査をお願いします。",
             },
-            "ve": {
-                settings: "Cai dat",
-                language: "Ngon ngu",
-                close: "Dong"
+            {
+              key: "weit_here",
+              ja: "診察まで、指定の場所でお待ちください。",
             },
-            "th": {
-                settings: "การตั้งค่า",
-                language: "ภาษา",
-                close: "ปิด"
+            {
+              key: "staff_notification",
+              ja: "どこへ行くかは職員が案内します。",
             },
-            "de": {
-                settings: "Einstellungen",
-                language: "Sprache",
-                close: "Schliessen"
+            {
+              key: "call_order",
+              ja: "名前（番号）の早い方からお呼びします。",
             },
-            "id": {
-                settings: "Pengaturan",
-                language: "Bahasa",
-                close: "Tutup"
+            {
+              key: "call_order2",
+              ja: "状況により順番が前後する場合があります。",
             },
-            "ru": {
-                settings: "Настройки",
-                language: "Язык",
-                close: "Закрыть"
+            {
+              key: "card",
+              ja: "診察券をお渡しします。次回から提示してください。",
             },
-            "ne": {
-                settings: "सेटिङ",
-                language: "भाषा",
-                close: "बन्द"
+          ],
+        },
+        {
+          id: "medicine",
+          titleJa: "薬と会計",
+          titleFallback: "Medicine & Payment",
+          cards: [
+            {
+              key: "give_medicines_in_hospital",
+              ja: "薬は診察後に病院内でお渡しします。",
             },
-            "lo": {
-                settings: "ການຕັ້ງຄ່າ",
-                language: "ພາສາ",
-                close: "ປິດ"
+            {
+              key: "give_medicines_out_of_hospital",
+              ja: "院外薬局で購入いただく場合があります。",
             },
-            "uk": {
-                settings: "Налаштування",
-                language: "Мова",
-                close: "Закрити"
+            {
+              key: "prescription_validity",
+              ja: "処方箋には発行日を含めて4日間の有効期限があります。",
             },
-            "fa-AF": {
-                settings: "تنظیمات",
-                language: "زبان",
-                close: "بستن"
+            {
+              key: "payment_instructions_machine",
+              ja: "会計は自動精算機で行ってください。",
             },
-            "si": {
-                settings: "සැකසුම්",
-                language: "භාෂාව",
-                close: "වසන්න"
+            {
+              key: "payment_instructions_cashier",
+              ja: "会計は会計窓口で行ってください。",
             },
-            "ms": {
-                settings: "Tetapan",
-                language: "Bahasa",
-                close: "Tutup"
+          ],
+        },
+        {
+          id: "system",
+          titleJa: "制度・システム",
+          titleFallback: "Systems & Support",
+          cards: [
+            {
+              key: "system_information_detail",
+              ja: "制度情報の詳細",
+              titleFallback: "Detailed system information",
+              externalLink: "../systeminformation/index.html",
+              externalLinkLabelJa: "制度情報の詳細を見る",
+              externalLinkLabelFallback: "Open detailed system information",
             },
-            "my": {
-                settings: "ဆက်တင်များ",
-                language: "ဘာသာစကား",
-                close: "ပိတ်ရန်"
+            {
+              key: "notify_pregnancy_office",
+              ja: "住んでいる自治体で妊娠の届出を確認してください。",
+              titleFallback:
+                "Please confirm pregnancy notification procedures at your local city office.",
             },
-            "bn": {
-                settings: "সেটিংস",
-                language: "ভাষা",
-                close: "বন্ধ"
+            {
+              key: "mother_child_handbook",
+              ja: "母子健康手帳を受け取りましょう。",
+              titleFallback:
+                "Please receive your Maternal and Child Health Handbook.",
             },
-            "ur": {
-                settings: "ترتیبات",
-                language: "زبان",
-                close: "بند کریں"
+            {
+              key: "checkup_tickets",
+              ja: "妊婦健診の受診票・補助券の使い方を確認してください。",
+              titleFallback:
+                "Please confirm how to use your prenatal checkup tickets and subsidy coupons.",
             },
-            "ja": {
-                settings: "設定",
-                language: "言語設定",
-                close: "閉じる"
+            {
+              key: "hospital_reservation",
+              ja: "出産する病院やクリニックは早めに決めて予約してください。",
+              titleFallback:
+                "Please decide on your delivery hospital or clinic early and make a reservation.",
+            },
+            {
+              key: "insurance_payment",
+              ja: "健康保険や出産費用の支払い方法を確認してください。",
+              titleFallback:
+                "Please confirm your health insurance and how delivery costs will be paid.",
+            },
+            {
+              key: "financial_support",
+              ja: "出産育児一時金などの費用支援制度を確認してください。",
+              titleFallback:
+                "Please confirm financial support systems such as childbirth allowances.",
+            },
+            {
+              key: "municipal_support",
+              ja: "自治体の相談窓口や支援制度を利用できます。",
+              titleFallback:
+                "You may be able to use municipal consultation services and support programs.",
+            },
+            {
+              key: "interpreter_support",
+              ja: "通訳や多言語相談が必要なときは相談してください。",
+              titleFallback:
+                "Please ask if you need an interpreter or multilingual support.",
+            },
+            {
+              key: "emergency_contact_info",
+              ja: "夜間・休日の連絡先を確認しておきましょう。",
+              titleFallback:
+                "Please make sure you know the contact number for nights and holidays.",
+            },
+            {
+              key: "bring_documents",
+              ja: "受診時に必要な書類や持ち物を確認してください。",
+              titleFallback:
+                "Please confirm the documents and items you need to bring for visits.",
+            },
+          ],
+        },
+      ];
+
+      const LANGUAGE_STORAGE_KEY = "receptionSelectedLanguage";
+      let selectedLanguage = "en-US";
+      let selectedSection = sections[0].id;
+      const selectedOptions = new Set();
+      const currentPage = "reception";
+
+      window.addEventListener("load", init);
+
+      async function init() {
+        loadCommonHeader();
+        setupScrollTopButton();
+        setupTranslationAppDialog();
+        document
+          .getElementById("languageSettingBtn")
+          .addEventListener("click", () => {
+            document.getElementById("languageDialog").style.display = "block";
+          });
+        document
+          .getElementById("closeLanguageBtn")
+          .addEventListener("click", () => {
+            document.getElementById("languageDialog").style.display = "none";
+          });
+        selectedLanguage = loadInitialLanguage();
+        await initI18n(selectedLanguage);
+        applyStaticTranslations();
+        renderLanguageButtons();
+        renderSectionTabs();
+        renderCards();
+      }
+
+      function loadCommonHeader() {
+        if (!window.jQuery) return;
+        $("#header-container").load(
+          "../common/header.html",
+          function (_responseText, status) {
+            if (status === "error") {
+              console.error("Failed to load header.html");
+              return;
             }
+            $.getScript("../common/js/header2.js").fail(function () {
+              console.error("Failed to load header2.js");
+            });
+          },
+        );
+      }
+
+      function loadInitialLanguage() {
+        const saved = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+        if (saved && languageOptions.some((item) => item.code === saved))
+          return saved;
+        const raw = String(navigator.language || "en-US").toLowerCase();
+        if (raw.startsWith("ja")) return "ja";
+        if (raw.startsWith("zh")) return "zh";
+        if (raw.startsWith("fr")) return "fr";
+        if (raw.startsWith("ko")) return "ko";
+        if (raw.startsWith("pt")) return "pr";
+        if (raw.startsWith("tl") || raw.startsWith("fil")) return "tl";
+        if (raw.startsWith("vi")) return "ve";
+        if (raw.startsWith("th")) return "th";
+        if (raw.startsWith("de")) return "de";
+        if (raw.startsWith("id")) return "id";
+        if (raw.startsWith("ru")) return "ru";
+        if (raw.startsWith("ne")) return "ne";
+        if (raw.startsWith("lo")) return "lo";
+        if (raw.startsWith("uk")) return "uk";
+        if (raw.startsWith("fa")) return "fa-AF";
+        if (raw.startsWith("si")) return "si";
+        if (raw.startsWith("ms")) return "ms";
+        if (raw.startsWith("my")) return "my";
+        if (raw.startsWith("bn")) return "bn";
+        if (raw.startsWith("ur")) return "ur";
+        return "en-US";
+      }
+
+      function getI18nLanguage(langCode) {
+        const supported = new Set(languageOptions.map((item) => item.code));
+        if (langCode === "ja-JP") return "ja";
+        if (supported.has(langCode)) return langCode;
+        return "en-US";
+      }
+
+      async function initI18n(langCode) {
+        if (!window.i18next) return;
+        const target = getI18nLanguage(langCode);
+        if (!i18next.isInitialized) {
+          await i18next.use(i18nextHttpBackend).init({
+            lng: target,
+            fallbackLng: "en-US",
+            backend: {
+              loadPath: "./i18n/{{lng}}.json",
+            },
+          });
+          return;
+        }
+        await i18next.changeLanguage(target);
+      }
+
+      function tr(key, fallback, options) {
+        if (!window.i18next || !i18next.isInitialized) return fallback || "";
+        const value = i18next.t(key, options || {});
+        return value === key ? fallback || "" : value;
+      }
+
+      function applyStaticTranslations() {
+        document.getElementById("pageTitle").textContent = buildBilingualLabel(
+          "受付コミュニケーションボード",
+          "page_title",
+        );
+        document.getElementById("pageLead").textContent = tr(
+          "page_lead",
+          "受付〜会計までの説明を、言語切替と音声で案内します。",
+        );
+        document.getElementById("switchExamLabel").textContent =
+          buildBilingualLabel("診察", "switch_exam");
+        document.getElementById("switchReceptionLabel").textContent =
+          buildBilingualLabel("受付", "switch_reception");
+        document
+          .getElementById("categoryTabs")
+          .setAttribute("aria-label", tr("category_aria", "カテゴリ"));
+        document.getElementById("freeTranslateBtn").textContent = tr(
+          "free_translate_btn",
+          "自由入力/翻訳",
+        );
+        document
+          .getElementById("freeTranslateBtn")
+          .setAttribute(
+            "aria-label",
+            tr("free_translate_btn", "自由入力/翻訳"),
+          );
+        document.getElementById("freeTranslateBtn").textContent = tr(
+          "translation_app_btn",
+          "翻訳アプリ",
+        );
+        document
+          .getElementById("freeTranslateBtn")
+          .setAttribute("aria-label", tr("translation_app_btn", "翻訳アプリ"));
+        document
+          .getElementById("translationAppDialog")
+          .setAttribute(
+            "aria-label",
+            tr("translation_app_dialog_aria", "翻訳アプリ選択"),
+          );
+        document.getElementById("translationAppTitle").textContent = tr(
+          "translation_app_title",
+          "翻訳アプリ",
+        );
+        document.getElementById("translationAppCloseBtn").textContent = tr(
+          "close",
+          "閉じる",
+        );
+        document
+          .getElementById("translationAppCloseBtn")
+          .setAttribute("aria-label", tr("close", "閉じる"));
+        document.getElementById("translationAppLead").textContent = tr(
+          "translation_app_lead",
+          "使うアプリを選んでください。",
+        );
+        document.getElementById("openGoogleTranslateBtn").textContent = tr(
+          "translation_app_google",
+          "Google 翻訳",
+        );
+        document.getElementById("openDeepLBtn").textContent = tr(
+          "translation_app_deepl",
+          "DeepL",
+        );
+        document
+          .getElementById("scrollTopBtn")
+          .setAttribute(
+            "aria-label",
+            tr("scroll_top_aria", "ページトップへ戻る"),
+          );
+      }
+
+      function buildBilingualLabel(jaText, key) {
+        const translated = tr(key, jaText);
+        if (getI18nLanguage(selectedLanguage) === "ja" || translated === jaText)
+          return jaText;
+        return `${jaText} / ${translated}`;
+      }
+
+      function t(key, fallback) {
+        const dataKey = getDataLangKey(selectedLanguage);
+        const data = window.languagedata && window.languagedata[dataKey];
+        if (!data) return fallback || "";
+        return data[key] || fallback || "";
+      }
+
+      function getDataLangKey(code) {
+        const map = {
+          "en-US": "english",
+          zh: "chinese",
+          fr: "french",
+          ko: "korean",
+          pr: "portuguese",
+          tl: "filipino",
+          ve: "vietnamese",
+          th: "thai",
+          de: "german",
+          id: "indonesian",
+          ru: "russian",
+          ne: "nepali",
+          lo: "laotian",
+          uk: "ukrainian",
+          "fa-AF": "dari",
+          si: "sinhala",
+          ms: "malay",
+          my: "myanmar",
+          bn: "bengali",
+          ur: "urdu",
+          ja: "japanese",
         };
+        return map[code] || "english";
+      }
 
-        const sections = [{
-                id: "reception",
-                titleJa: "受付",
-                titleFallback: "Reception",
-                cards: [{
-                        key: "first_time",
-                        ja: "初めてですか？",
-                        options: [{
-                            key: "yes",
-                            ja: "はい"
-                        }, {
-                            key: "no",
-                            ja: "いいえ"
-                        }],
-                        multi: false
-                    },
-                    {
-                        key: "visit_reason",
-                        ja: "今日の受診理由を選んでください",
-                        options: [{
-                                key: "absence_period",
-                                ja: "生理がとまった"
-                            },
-                            {
-                                key: "nausea",
-                                ja: "吐き気"
-                            },
-                            {
-                                key: "possible_pregnancy",
-                                ja: "妊娠かもしれない"
-                            },
-                            {
-                                key: "inconsistent_period",
-                                ja: "生理が規則的にこない"
-                            },
-                            {
-                                key: "period_pain",
-                                ja: "生理のときお腹が痛い"
-                            },
-                            {
-                                key: "itching",
-                                ja: "外陰部がかゆい"
-                            },
-                            {
-                                key: "stomach_pain",
-                                ja: "お腹が痛い"
-                            },
-                            {
-                                key: "infertility_question",
-                                ja: "不妊について聞きたい"
-                            },
-                            {
-                                key: "other",
-                                ja: "その他"
-                            }
-                        ],
-                        multi: true
-                    }
-                ]
-            },
-            {
-                id: "waiting",
-                titleJa: "問診と待機",
-                titleFallback: "Waiting Flow",
-                cards: [{
-                        key: "fill_form_waiting_room",
-                        ja: "待合室で問診票をご記入ください。"
-                    },
-                    {
-                        key: "question",
-                        ja: "選択している言語の問診票PDFを開く",
-                        questionnaire: true
-                    },
-                    {
-                        key: "finished_filling_form",
-                        ja: "記入が終わったら持ってきてください。"
-                    },
-                    {
-                        key: "take_weight",
-                        ja: "診察まで、体重・血圧・尿検査をお願いします。"
-                    },
-                    {
-                        key: "weit_here",
-                        ja: "診察まで、指定の場所でお待ちください。"
-                    },
-                    {
-                        key: "staff_notification",
-                        ja: "どこへ行くかは職員が案内します。"
-                    },
-                    {
-                        key: "call_order",
-                        ja: "名前（番号）の早い方からお呼びします。"
-                    },
-                    {
-                        key: "call_order2",
-                        ja: "状況により順番が前後する場合があります。"
-                    },
-                    {
-                        key: "card",
-                        ja: "診察券をお渡しします。次回から提示してください。"
-                    }
-                ]
-            },
-            {
-                id: "medicine",
-                titleJa: "薬と会計",
-                titleFallback: "Medicine & Payment",
-                cards: [{
-                        key: "give_medicines_in_hospital",
-                        ja: "薬は診察後に病院内でお渡しします。"
-                    },
-                    {
-                        key: "give_medicines_out_of_hospital",
-                        ja: "院外薬局で購入いただく場合があります。"
-                    },
-                    {
-                        key: "prescription_validity",
-                        ja: "処方箋には発行日を含めて4日間の有効期限があります。"
-                    },
-                    {
-                        key: "payment_instructions_machine",
-                        ja: "会計は自動精算機で行ってください。"
-                    },
-                    {
-                        key: "payment_instructions_cashier",
-                        ja: "会計は会計窓口で行ってください。"
-                    }
-                ]
-            },
-            {
-                id: "system",
-                titleJa: "制度・システム",
-                titleFallback: "Systems & Support",
-                cards: [{
-                        key: "system_information_detail",
-                        ja: "制度情報の詳細",
-                        titleFallback: "Detailed system information",
-                        externalLink: "../systeminformation/index.html",
-                        externalLinkLabelJa: "制度情報の詳細を見る",
-                        externalLinkLabelFallback: "Open detailed system information"
-                    },
-                    {
-                        key: "notify_pregnancy_office",
-                        ja: "住んでいる自治体で妊娠の届出を確認してください。",
-                        titleFallback: "Please confirm pregnancy notification procedures at your local city office."
-                    },
-                    {
-                        key: "mother_child_handbook",
-                        ja: "母子健康手帳を受け取りましょう。",
-                        titleFallback: "Please receive your Maternal and Child Health Handbook."
-                    },
-                    {
-                        key: "checkup_tickets",
-                        ja: "妊婦健診の受診票・補助券の使い方を確認してください。",
-                        titleFallback: "Please confirm how to use your prenatal checkup tickets and subsidy coupons."
-                    },
-                    {
-                        key: "hospital_reservation",
-                        ja: "出産する病院やクリニックは早めに決めて予約してください。",
-                        titleFallback: "Please decide on your delivery hospital or clinic early and make a reservation."
-                    },
-                    {
-                        key: "insurance_payment",
-                        ja: "健康保険や出産費用の支払い方法を確認してください。",
-                        titleFallback: "Please confirm your health insurance and how delivery costs will be paid."
-                    },
-                    {
-                        key: "financial_support",
-                        ja: "出産育児一時金などの費用支援制度を確認してください。",
-                        titleFallback: "Please confirm financial support systems such as childbirth allowances."
-                    },
-                    {
-                        key: "municipal_support",
-                        ja: "自治体の相談窓口や支援制度を利用できます。",
-                        titleFallback: "You may be able to use municipal consultation services and support programs."
-                    },
-                    {
-                        key: "interpreter_support",
-                        ja: "通訳や多言語相談が必要なときは相談してください。",
-                        titleFallback: "Please ask if you need an interpreter or multilingual support."
-                    },
-                    {
-                        key: "emergency_contact_info",
-                        ja: "夜間・休日の連絡先を確認しておきましょう。",
-                        titleFallback: "Please make sure you know the contact number for nights and holidays."
-                    },
-                    {
-                        key: "bring_documents",
-                        ja: "受診時に必要な書類や持ち物を確認してください。",
-                        titleFallback: "Please confirm the documents and items you need to bring for visits."
-                    }
-                ]
-            }
-        ];
+      function getSelectedLang() {
+        return (
+          languageOptions.find((item) => item.code === selectedLanguage) ||
+          languageOptions[0]
+        );
+      }
 
-        const LANGUAGE_STORAGE_KEY = "receptionSelectedLanguage";
-        let selectedLanguage = "en-US";
-        let selectedSection = sections[0].id;
-        const selectedOptions = new Set();
-        const currentPage = "reception";
-
-        window.addEventListener("load", init);
-
-        async function init() {
-            loadCommonHeader();
-            setupScrollTopButton();
-            setupTranslationAppDialog();
-            document.getElementById("languageSettingBtn").addEventListener("click", () => {
-                document.getElementById("languageDialog").style.display = "block";
-            });
-            document.getElementById("closeLanguageBtn").addEventListener("click", () => {
-                document.getElementById("languageDialog").style.display = "none";
-            });
-            selectedLanguage = loadInitialLanguage();
+      function renderLanguageButtons() {
+        syncHeaderLanguageLabel();
+        const picker = document.getElementById("languageOptionList");
+        picker.innerHTML = "";
+        languageOptions.forEach((lang) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className =
+            "language-option-btn" +
+            (selectedLanguage === lang.code ? " active" : "");
+          btn.textContent = lang.label;
+          btn.addEventListener("click", async () => {
+            selectedLanguage = lang.code;
+            localStorage.setItem(LANGUAGE_STORAGE_KEY, selectedLanguage);
+            document.getElementById("languageDialog").style.display = "none";
             await initI18n(selectedLanguage);
             applyStaticTranslations();
             renderLanguageButtons();
             renderSectionTabs();
             renderCards();
-        }
+          });
+          picker.appendChild(btn);
+        });
+        renderLanguageDialogText();
+      }
 
-        function loadCommonHeader() {
-            if (!window.jQuery) return;
-            $("#header-container").load("../common/header.html", function (_responseText, status) {
-                if (status === "error") {
-                    console.error("Failed to load header.html");
-                    return;
-                }
-                $.getScript("../common/js/header2.js").fail(function () {
-                    console.error("Failed to load header2.js");
-                });
-            });
-        }
+      function syncHeaderLanguageLabel() {
+        const currentLanguageLabel = document.getElementById("currentLanguage");
+        if (!currentLanguageLabel) return;
+        const shortLabels = {
+          ja: "やさしい",
+          "en-US": "English",
+          zh: "中文",
+          fr: "Français",
+          ko: "한국어",
+          pr: "Português",
+          tl: "Tagalog",
+          ve: "Tiếng Việt",
+          th: "ภาษาไทย",
+          de: "Deutsch",
+          id: "Indonesia",
+          ru: "Русский",
+          ne: "नेपाली",
+          lo: "ລາວ",
+          uk: "Українська",
+          "fa-AF": "دری",
+          si: "සිංහල",
+          ms: "Melayu",
+          my: "မြန်မာ",
+          bn: "বাংলা",
+          ur: "اردو",
+        };
+        currentLanguageLabel.textContent =
+          shortLabels[selectedLanguage] || "Language";
+      }
 
-        function loadInitialLanguage() {
-            const saved = localStorage.getItem(LANGUAGE_STORAGE_KEY);
-            if (saved && languageOptions.some(item => item.code === saved)) return saved;
-            const raw = String(navigator.language || "en-US").toLowerCase();
-            if (raw.startsWith("ja")) return "ja";
-            if (raw.startsWith("zh")) return "zh";
-            if (raw.startsWith("fr")) return "fr";
-            if (raw.startsWith("ko")) return "ko";
-            if (raw.startsWith("pt")) return "pr";
-            if (raw.startsWith("tl") || raw.startsWith("fil")) return "tl";
-            if (raw.startsWith("vi")) return "ve";
-            if (raw.startsWith("th")) return "th";
-            if (raw.startsWith("de")) return "de";
-            if (raw.startsWith("id")) return "id";
-            if (raw.startsWith("ru")) return "ru";
-            if (raw.startsWith("ne")) return "ne";
-            if (raw.startsWith("lo")) return "lo";
-            if (raw.startsWith("uk")) return "uk";
-            if (raw.startsWith("fa")) return "fa-AF";
-            if (raw.startsWith("si")) return "si";
-            if (raw.startsWith("ms")) return "ms";
-            if (raw.startsWith("my")) return "my";
-            if (raw.startsWith("bn")) return "bn";
-            if (raw.startsWith("ur")) return "ur";
-            return "en-US";
-        }
+      function renderLanguageDialogText() {
+        document.getElementById("languageSettingBtn").textContent = tr(
+          "settings",
+          "設定",
+        );
+        document.getElementById("languageDialogTitle").textContent = tr(
+          "settings",
+          "設定",
+        );
+        document.getElementById("languageSectionTitle").textContent = tr(
+          "language",
+          "言語設定",
+        );
+        document.getElementById("closeLanguageBtn").textContent = tr(
+          "close",
+          "閉じる",
+        );
+      }
 
-        function getI18nLanguage(langCode) {
-            const supported = new Set(languageOptions.map(item => item.code));
-            if (langCode === "ja-JP") return "ja";
-            if (supported.has(langCode)) return langCode;
-            return "en-US";
-        }
-
-        async function initI18n(langCode) {
-            if (!window.i18next) return;
-            const target = getI18nLanguage(langCode);
-            if (!i18next.isInitialized) {
-                await i18next.use(i18nextHttpBackend).init({
-                    lng: target,
-                    fallbackLng: "en-US",
-                    backend: {
-                        loadPath: "./i18n/{{lng}}.json"
-                    }
-                });
-                return;
-            }
-            await i18next.changeLanguage(target);
-        }
-
-        function tr(key, fallback, options) {
-            if (!window.i18next || !i18next.isInitialized) return fallback || "";
-            const value = i18next.t(key, options || {});
-            return value === key ? (fallback || "") : value;
-        }
-
-        function applyStaticTranslations() {
-            document.getElementById("pageTitle").textContent = buildBilingualLabel("受付コミュニケーションボード", "page_title");
-            document.getElementById("pageLead").textContent = tr("page_lead", "受付〜会計までの説明を、言語切替と音声で案内します。");
-            document.getElementById("switchExamLabel").textContent = buildBilingualLabel("診察ボードへ", "switch_exam");
-            document.getElementById("switchReceptionLabel").textContent = buildBilingualLabel("受付ボード",
-                "switch_reception");
-            document.getElementById("categoryTabs").setAttribute("aria-label", tr("category_aria", "カテゴリ"));
-            document.getElementById("freeTranslateBtn").textContent = tr("free_translate_btn", "自由入力/翻訳");
-            document.getElementById("freeTranslateBtn").setAttribute("aria-label", tr("free_translate_btn", "自由入力/翻訳"));
-            document.getElementById("freeTranslateBtn").textContent = tr("translation_app_btn", "翻訳アプリ");
-            document.getElementById("freeTranslateBtn").setAttribute("aria-label", tr("translation_app_btn", "翻訳アプリ"));
-            document.getElementById("translationAppDialog").setAttribute("aria-label", tr("translation_app_dialog_aria",
-                "翻訳アプリ選択"));
-            document.getElementById("translationAppTitle").textContent = tr("translation_app_title", "翻訳アプリ");
-            document.getElementById("translationAppCloseBtn").textContent = tr("close", "閉じる");
-            document.getElementById("translationAppCloseBtn").setAttribute("aria-label", tr("close", "閉じる"));
-            document.getElementById("translationAppLead").textContent = tr("translation_app_lead", "使うアプリを選んでください。");
-            document.getElementById("openGoogleTranslateBtn").textContent = tr("translation_app_google", "Google 翻訳");
-            document.getElementById("openDeepLBtn").textContent = tr("translation_app_deepl", "DeepL");
-            document.getElementById("scrollTopBtn").setAttribute("aria-label", tr("scroll_top_aria", "ページトップへ戻る"));
-        }
-
-        function buildBilingualLabel(jaText, key) {
-            const translated = tr(key, jaText);
-            if (getI18nLanguage(selectedLanguage) === "ja" || translated === jaText) return jaText;
-            return `${jaText} / ${translated}`;
-        }
-
-        function t(key, fallback) {
-            const dataKey = getDataLangKey(selectedLanguage);
-            const data = window.languagedata && window.languagedata[dataKey];
-            if (!data) return fallback || "";
-            return data[key] || fallback || "";
-        }
-
-        function getDataLangKey(code) {
-            const map = {
-                "en-US": "english",
-                "zh": "chinese",
-                "fr": "french",
-                "ko": "korean",
-                "pr": "portuguese",
-                "tl": "filipino",
-                "ve": "vietnamese",
-                "th": "thai",
-                "de": "german",
-                "id": "indonesian",
-                "ru": "russian",
-                "ne": "nepali",
-                "lo": "laotian",
-                "uk": "ukrainian",
-                "fa-AF": "dari",
-                "si": "sinhala",
-                "ms": "malay",
-                "my": "myanmar",
-                "bn": "bengali",
-                "ur": "urdu",
-                "ja": "japanese"
-            };
-            return map[code] || "english";
-        }
-
-        function getSelectedLang() {
-            return languageOptions.find(item => item.code === selectedLanguage) || languageOptions[0];
-        }
-
-        function renderLanguageButtons() {
-            syncHeaderLanguageLabel();
-            const picker = document.getElementById("languageOptionList");
-            picker.innerHTML = "";
-            languageOptions.forEach(lang => {
-                const btn = document.createElement("button");
-                btn.type = "button";
-                btn.className = "language-option-btn" + (selectedLanguage === lang.code ? " active" : "");
-                btn.textContent = lang.label;
-                btn.addEventListener("click", async () => {
-                    selectedLanguage = lang.code;
-                    localStorage.setItem(LANGUAGE_STORAGE_KEY, selectedLanguage);
-                    document.getElementById("languageDialog").style.display = "none";
-                    await initI18n(selectedLanguage);
-                    applyStaticTranslations();
-                    renderLanguageButtons();
-                    renderSectionTabs();
-                    renderCards();
-                });
-                picker.appendChild(btn);
-            });
-            renderLanguageDialogText();
-        }
-
-        function syncHeaderLanguageLabel() {
-            const currentLanguageLabel = document.getElementById("currentLanguage");
-            if (!currentLanguageLabel) return;
-            const shortLabels = {
-                ja: "やさしい",
-                "en-US": "English",
-                zh: "中文",
-                fr: "Français",
-                ko: "한국어",
-                pr: "Português",
-                tl: "Tagalog",
-                ve: "Tiếng Việt",
-                th: "ภาษาไทย",
-                de: "Deutsch",
-                id: "Indonesia",
-                ru: "Русский",
-                ne: "नेपाली",
-                lo: "ລາວ",
-                uk: "Українська",
-                "fa-AF": "دری",
-                si: "සිංහල",
-                ms: "Melayu",
-                my: "မြန်မာ",
-                bn: "বাংলা",
-                ur: "اردو",
-            };
-            currentLanguageLabel.textContent = shortLabels[selectedLanguage] || "Language";
-        }
-
-        function renderLanguageDialogText() {
-            document.getElementById("languageSettingBtn").textContent = tr("settings", "設定");
-            document.getElementById("languageDialogTitle").textContent = tr("settings", "設定");
-            document.getElementById("languageSectionTitle").textContent = tr("language", "言語設定");
-            document.getElementById("closeLanguageBtn").textContent = tr("close", "閉じる");
-        }
-
-        function renderSectionTabs() {
-            const tabs = document.getElementById("categoryTabs");
-            tabs.innerHTML = "";
-            sections.forEach(section => {
-                const btn = document.createElement("button");
-                btn.type = "button";
-                btn.className = "tab-btn" + (selectedSection === section.id ? " active" : "");
-                const translatedTitle = getTranslatedSectionLabel(section);
-                btn.innerHTML = `
+      function renderSectionTabs() {
+        const tabs = document.getElementById("categoryTabs");
+        tabs.innerHTML = "";
+        sections.forEach((section) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className =
+            "tab-btn" + (selectedSection === section.id ? " active" : "");
+          const translatedTitle = getTranslatedSectionLabel(section);
+          btn.innerHTML = `
                     <span class="tab-ja">${escapeHtml(section.titleJa)}</span>
                     <span class="tab-tr">${escapeHtml(translatedTitle)}</span>
                 `;
-                btn.addEventListener("click", () => {
-                    selectedSection = section.id;
-                    renderSectionTabs();
-                    renderCards();
-                });
-                tabs.appendChild(btn);
-            });
-        }
+          btn.addEventListener("click", () => {
+            selectedSection = section.id;
+            renderSectionTabs();
+            renderCards();
+          });
+          tabs.appendChild(btn);
+        });
+      }
 
-        function getTranslatedSectionLabel(section) {
-            const keyMap = {
-                reception: "tab_reception",
-                waiting: "tab_waiting",
-                medicine: "tab_medicine",
-                system: "tab_system"
-            };
-            const key = keyMap[section.id];
-            if (!key) return section.titleFallback || "";
-            return tr(key, section.titleFallback || "");
-        }
+      function getTranslatedSectionLabel(section) {
+        const keyMap = {
+          reception: "tab_reception",
+          waiting: "tab_waiting",
+          medicine: "tab_medicine",
+          system: "tab_system",
+        };
+        const key = keyMap[section.id];
+        if (!key) return section.titleFallback || "";
+        return tr(key, section.titleFallback || "");
+      }
 
-        function renderCards() {
-            const list = document.getElementById("accordionList");
-            list.innerHTML = "";
-            const section = sections.find(s => s.id === selectedSection);
-            if (!section) return;
+      function renderCards() {
+        const list = document.getElementById("accordionList");
+        list.innerHTML = "";
+        const section = sections.find((s) => s.id === selectedSection);
+        if (!section) return;
 
-            section.cards.forEach((card, index) => {
-                const itemNumber = section.id === "system" ? index : index + 1;
-                const details = document.createElement("details");
-                details.className = "talk-card";
-                const summary = document.createElement("summary");
-                summary.className = "talk-summary";
-                summary.innerHTML = `
+        section.cards.forEach((card, index) => {
+          const itemNumber = section.id === "system" ? index : index + 1;
+          const details = document.createElement("details");
+          details.className = "talk-card";
+          const summary = document.createElement("summary");
+          summary.className = "talk-summary";
+          summary.innerHTML = `
                     <div class="summary-texts">
                         <p class="talk-title">項目 ${itemNumber}</p>
                         <p class="talk-ja">${escapeHtml(card.ja)}</p>
@@ -790,221 +946,249 @@
                     </div>
                     <button type="button" class="summary-play-btn" aria-label="項目を再生">▶</button>
                 `;
-                const summaryPlayBtn = summary.querySelector(".summary-play-btn");
-                const handleSummaryPlay = (event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                };
-                summaryPlayBtn.addEventListener("pointerdown", handleSummaryPlay);
-                summaryPlayBtn.addEventListener("mousedown", handleSummaryPlay);
-                summaryPlayBtn.addEventListener("click", (event) => {
-                    handleSummaryPlay(event);
-                    speakPair(card.ja, t(card.key, ""));
-                });
+          const summaryPlayBtn = summary.querySelector(".summary-play-btn");
+          const handleSummaryPlay = (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+          };
+          summaryPlayBtn.addEventListener("pointerdown", handleSummaryPlay);
+          summaryPlayBtn.addEventListener("mousedown", handleSummaryPlay);
+          summaryPlayBtn.addEventListener("click", (event) => {
+            handleSummaryPlay(event);
+            speakPair(card.ja, t(card.key, ""));
+          });
 
-                const panel = document.createElement("div");
-                panel.className = "talk-panel";
+          const panel = document.createElement("div");
+          panel.className = "talk-panel";
 
-                if (card.externalLink) {
-                    const wrap = document.createElement("div");
-                    wrap.className = "questionnaire-wrap";
-                    const btn = document.createElement("button");
-                    btn.type = "button";
-                    btn.className = "large-btn";
-                    btn.innerHTML = `
+          if (card.externalLink) {
+            const wrap = document.createElement("div");
+            wrap.className = "questionnaire-wrap";
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "large-btn";
+            btn.innerHTML = `
                         <span class="option-ja">${escapeHtml(card.externalLinkLabelJa || card.ja)}</span>
                         <span class="option-tr">${escapeHtml(t(card.key + "_link", card.externalLinkLabelFallback || ""))}</span>
                     `;
-                    btn.addEventListener("click", () => {
-                        window.open(card.externalLink, "_blank", "noopener,noreferrer");
-                    });
-                    wrap.appendChild(btn);
-                    panel.appendChild(wrap);
-                }
+            btn.addEventListener("click", () => {
+              window.open(card.externalLink, "_blank", "noopener,noreferrer");
+            });
+            wrap.appendChild(btn);
+            panel.appendChild(wrap);
+          }
 
-                if (card.questionnaire) {
-                    const wrap = document.createElement("div");
-                    wrap.className = "questionnaire-wrap";
-                    const note = document.createElement("p");
-                    note.className = "questionnaire-note";
-                    note.textContent = tr("questionnaire_pdf_open", "{{label}}の問診票PDFを開く", {
-                        label: getSelectedLanguageNameForNote()
-                    });
-                    const qBtn = document.createElement("button");
-                    qBtn.type = "button";
-                    qBtn.className = "large-btn";
-                    qBtn.textContent = t("question", "medical questionnaire");
-                    qBtn.addEventListener("click", () => {
-                        const lang = getSelectedLang();
-                        if (!lang.questionnairePdf) {
-                            alert(tr("questionnaire_not_ready", "この言語の問診票PDFは未設定です。"));
-                            return;
-                        }
-                        window.open(lang.questionnairePdf, "_blank", "noopener,noreferrer");
-                    });
-                    wrap.appendChild(note);
-                    wrap.appendChild(qBtn);
-                    panel.appendChild(wrap);
-                }
+          if (card.questionnaire) {
+            const wrap = document.createElement("div");
+            wrap.className = "questionnaire-wrap";
+            const note = document.createElement("p");
+            note.className = "questionnaire-note";
+            note.textContent = tr(
+              "questionnaire_pdf_open",
+              "{{label}}の問診票PDFを開く",
+              {
+                label: getSelectedLanguageNameForNote(),
+              },
+            );
+            const qBtn = document.createElement("button");
+            qBtn.type = "button";
+            qBtn.className = "large-btn";
+            qBtn.textContent = t("question", "medical questionnaire");
+            qBtn.addEventListener("click", () => {
+              const lang = getSelectedLang();
+              if (!lang.questionnairePdf) {
+                alert(
+                  tr(
+                    "questionnaire_not_ready",
+                    "この言語の問診票PDFは未設定です。",
+                  ),
+                );
+                return;
+              }
+              window.open(
+                lang.questionnairePdf,
+                "_blank",
+                "noopener,noreferrer",
+              );
+            });
+            wrap.appendChild(note);
+            wrap.appendChild(qBtn);
+            panel.appendChild(wrap);
+          }
 
-                if (Array.isArray(card.options) && card.options.length) {
-                    const grid = document.createElement("div");
-                    grid.className = "option-grid";
-                    card.options.forEach(opt => {
-                        const btn = document.createElement("button");
-                        btn.type = "button";
-                        btn.className = "large-btn option-btn";
-                        const key = `${section.id}-${card.key}-${opt.key}`;
-                        if (selectedOptions.has(key)) btn.classList.add("selected");
+          if (Array.isArray(card.options) && card.options.length) {
+            const grid = document.createElement("div");
+            grid.className = "option-grid";
+            card.options.forEach((opt) => {
+              const btn = document.createElement("button");
+              btn.type = "button";
+              btn.className = "large-btn option-btn";
+              const key = `${section.id}-${card.key}-${opt.key}`;
+              if (selectedOptions.has(key)) btn.classList.add("selected");
 
-                        const tr = t(opt.key, "");
-                        btn.innerHTML = `
+              const tr = t(opt.key, "");
+              btn.innerHTML = `
                             <span class="option-ja">${escapeHtml(opt.ja)}</span>
                             <span class="option-tr">${escapeHtml(tr)}</span>
                         `;
-                        btn.addEventListener("click", () => {
-                            if (!card.multi) {
-                                Array.from(selectedOptions).forEach(k => {
-                                    if (k.startsWith(`${section.id}-${card.key}-`))
-                                        selectedOptions.delete(k);
-                                });
-                                grid.querySelectorAll(".option-btn").forEach(el => el.classList
-                                    .remove("selected"));
-                            }
-                            if (selectedOptions.has(key)) {
-                                selectedOptions.delete(key);
-                                btn.classList.remove("selected");
-                            } else {
-                                selectedOptions.add(key);
-                                btn.classList.add("selected");
-                            }
-                            speakPair(opt.ja, tr);
-                        });
-                        grid.appendChild(btn);
-                    });
-                    panel.appendChild(grid);
+              btn.addEventListener("click", () => {
+                if (!card.multi) {
+                  Array.from(selectedOptions).forEach((k) => {
+                    if (k.startsWith(`${section.id}-${card.key}-`))
+                      selectedOptions.delete(k);
+                  });
+                  grid
+                    .querySelectorAll(".option-btn")
+                    .forEach((el) => el.classList.remove("selected"));
                 }
-
-                details.appendChild(summary);
-                details.appendChild(panel);
-                list.appendChild(details);
-            });
-        }
-
-        function getSelectedLanguageNameForNote() {
-            const lang = getSelectedLang();
-            const parts = String(lang.label || "").split("/");
-            return (parts[0] || String(lang.label || "選択中の言語")).trim();
-        }
-
-        function speakPair(jaText, trText) {
-            if (!("speechSynthesis" in window)) {
-                alert("このブラウザは音声合成に対応していません。");
-                return;
-            }
-            speechSynthesis.cancel();
-
-            const ja = new SpeechSynthesisUtterance(String(jaText || ""));
-            ja.lang = "ja-JP";
-            speechSynthesis.speak(ja);
-
-            if (trText) {
-                const tr = new SpeechSynthesisUtterance(String(trText));
-                tr.lang = getSelectedLang().speech;
-                speechSynthesis.speak(tr);
-            }
-        }
-
-        function setupTranslationAppDialog() {
-            const trigger = document.getElementById("freeTranslateBtn");
-            const dialog = document.getElementById("translationAppDialog");
-            const panel = document.getElementById("translationAppPanel");
-            const closeBtn = document.getElementById("translationAppCloseBtn");
-            const googleBtn = document.getElementById("openGoogleTranslateBtn");
-            const deeplBtn = document.getElementById("openDeepLBtn");
-            if (!trigger || !dialog || !panel || !closeBtn || !googleBtn || !deeplBtn) return;
-
-            trigger.addEventListener("click", () => {
-                dialog.classList.add("open");
-                dialog.setAttribute("aria-hidden", "false");
-            });
-            closeBtn.addEventListener("click", () => {
-                dialog.classList.remove("open");
-                dialog.setAttribute("aria-hidden", "true");
-            });
-            dialog.addEventListener("click", (event) => {
-                if (event.target === dialog) {
-                    dialog.classList.remove("open");
-                    dialog.setAttribute("aria-hidden", "true");
+                if (selectedOptions.has(key)) {
+                  selectedOptions.delete(key);
+                  btn.classList.remove("selected");
+                } else {
+                  selectedOptions.add(key);
+                  btn.classList.add("selected");
                 }
+                speakPair(opt.ja, tr);
+              });
+              grid.appendChild(btn);
             });
-            googleBtn.addEventListener("click", () => launchTranslationApp("google"));
-            deeplBtn.addEventListener("click", () => launchTranslationApp("deepl"));
-        }
+            panel.appendChild(grid);
+          }
 
-        function getSelectedLanguageDisplayName() {
-            const lang = getSelectedLang();
-            const label = String((lang && lang.label) || "").trim();
-            const match = label.match(/\(([^)]+)\)/);
-            if (match && match[1]) return match[1].trim();
-            return label || tr("selected_language", "選択言語");
-        }
+          details.appendChild(summary);
+          details.appendChild(panel);
+          list.appendChild(details);
+        });
+      }
 
-        function getDeepLTargetCode(langCode) {
-            const map = {
-                "ja": "en",
-                "en-US": "en",
-                "zh": "zh",
-                "fr": "fr",
-                "ko": "ko",
-                "pr": "pt",
-                "de": "de",
-                "ru": "ru",
-                "uk": "uk"
-            };
-            return map[langCode] || "en";
-        }
+      function getSelectedLanguageNameForNote() {
+        const lang = getSelectedLang();
+        const parts = String(lang.label || "").split("/");
+        return (parts[0] || String(lang.label || "選択中の言語")).trim();
+      }
 
-        function launchTranslationApp(appName) {
-            const dialog = document.getElementById("translationAppDialog");
-            if (dialog) {
-                dialog.classList.remove("open");
-                dialog.setAttribute("aria-hidden", "true");
-            }
-            const googleTarget = getSelectedLang().translateTarget || "en";
-            const deeplTarget = getDeepLTargetCode(selectedLanguage);
-            const url = appName === "deepl" ?
-                `https://www.deepl.com/translator#ja/${encodeURIComponent(deeplTarget)}/` :
-                `https://translate.google.com/?sl=ja&tl=${encodeURIComponent(googleTarget)}&op=translate`;
-            window.location.href = url;
+      function speakPair(jaText, trText) {
+        if (!("speechSynthesis" in window)) {
+          alert("このブラウザは音声合成に対応していません。");
+          return;
         }
+        speechSynthesis.cancel();
 
-        function setupScrollTopButton() {
-            const btn = document.getElementById("scrollTopBtn");
-            if (!btn) return;
-            btn.addEventListener("click", () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-            });
-            window.addEventListener("scroll", () => {
-                if (window.scrollY > 200) btn.classList.add("visible");
-                else btn.classList.remove("visible");
-            }, {
-                passive: true
-            });
-        }
+        const ja = new SpeechSynthesisUtterance(String(jaText || ""));
+        ja.lang = "ja-JP";
+        speechSynthesis.speak(ja);
 
-        function escapeHtml(str) {
-            return String(str || "")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/\"/g, "&quot;")
-                .replace(/'/g, "&#39;");
+        if (trText) {
+          const tr = new SpeechSynthesisUtterance(String(trText));
+          tr.lang = getSelectedLang().speech;
+          speechSynthesis.speak(tr);
         }
+      }
+
+      function setupTranslationAppDialog() {
+        const trigger = document.getElementById("freeTranslateBtn");
+        const dialog = document.getElementById("translationAppDialog");
+        const panel = document.getElementById("translationAppPanel");
+        const closeBtn = document.getElementById("translationAppCloseBtn");
+        const googleBtn = document.getElementById("openGoogleTranslateBtn");
+        const deeplBtn = document.getElementById("openDeepLBtn");
+        if (
+          !trigger ||
+          !dialog ||
+          !panel ||
+          !closeBtn ||
+          !googleBtn ||
+          !deeplBtn
+        )
+          return;
+
+        trigger.addEventListener("click", () => {
+          dialog.classList.add("open");
+          dialog.setAttribute("aria-hidden", "false");
+        });
+        closeBtn.addEventListener("click", () => {
+          dialog.classList.remove("open");
+          dialog.setAttribute("aria-hidden", "true");
+        });
+        dialog.addEventListener("click", (event) => {
+          if (event.target === dialog) {
+            dialog.classList.remove("open");
+            dialog.setAttribute("aria-hidden", "true");
+          }
+        });
+        googleBtn.addEventListener("click", () =>
+          launchTranslationApp("google"),
+        );
+        deeplBtn.addEventListener("click", () => launchTranslationApp("deepl"));
+      }
+
+      function getSelectedLanguageDisplayName() {
+        const lang = getSelectedLang();
+        const label = String((lang && lang.label) || "").trim();
+        const match = label.match(/\(([^)]+)\)/);
+        if (match && match[1]) return match[1].trim();
+        return label || tr("selected_language", "選択言語");
+      }
+
+      function getDeepLTargetCode(langCode) {
+        const map = {
+          ja: "en",
+          "en-US": "en",
+          zh: "zh",
+          fr: "fr",
+          ko: "ko",
+          pr: "pt",
+          de: "de",
+          ru: "ru",
+          uk: "uk",
+        };
+        return map[langCode] || "en";
+      }
+
+      function launchTranslationApp(appName) {
+        const dialog = document.getElementById("translationAppDialog");
+        if (dialog) {
+          dialog.classList.remove("open");
+          dialog.setAttribute("aria-hidden", "true");
+        }
+        const googleTarget = getSelectedLang().translateTarget || "en";
+        const deeplTarget = getDeepLTargetCode(selectedLanguage);
+        const url =
+          appName === "deepl"
+            ? `https://www.deepl.com/translator#ja/${encodeURIComponent(deeplTarget)}/`
+            : `https://translate.google.com/?sl=ja&tl=${encodeURIComponent(googleTarget)}&op=translate`;
+        window.location.href = url;
+      }
+
+      function setupScrollTopButton() {
+        const btn = document.getElementById("scrollTopBtn");
+        if (!btn) return;
+        btn.addEventListener("click", () => {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (window.scrollY > 200) btn.classList.add("visible");
+            else btn.classList.remove("visible");
+          },
+          {
+            passive: true,
+          },
+        );
+      }
+
+      function escapeHtml(str) {
+        return String(str || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/\"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
     </script>
-</body>
-
+  </body>
 </html>
