@@ -1401,6 +1401,39 @@
         )}`;
       }
 
+      function parseApiDateTime(value) {
+        const text = String(value || "").trim();
+        if (!text) return "";
+        const compact = text.match(
+          /^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})?$/,
+        );
+        if (compact) {
+          return new Date(
+            Number(compact[1]),
+            Number(compact[2]) - 1,
+            Number(compact[3]),
+            Number(compact[4]),
+            Number(compact[5]),
+            Number(compact[6] || 0),
+          ).toISOString();
+        }
+        const separated = text.match(
+          /^(\d{4})[/-](\d{1,2})[/-](\d{1,2})[ T](\d{1,2}):(\d{1,2})(?::(\d{1,2}))?$/,
+        );
+        if (separated) {
+          return new Date(
+            Number(separated[1]),
+            Number(separated[2]) - 1,
+            Number(separated[3]),
+            Number(separated[4]),
+            Number(separated[5]),
+            Number(separated[6] || 0),
+          ).toISOString();
+        }
+        const date = new Date(text);
+        return Number.isNaN(date.getTime()) ? "" : date.toISOString();
+      }
+
       function formatRecordDate(dateString) {
         const date = new Date(dateString);
         if (Number.isNaN(date.getTime())) return "";
@@ -1449,6 +1482,8 @@
             normalized.contractions = normalized.contractions.map((record) =>
               Object.assign({}, record, {
                 localId: record.localId || createLocalId("contraction"),
+                startedAt: parseApiDateTime(record.startedAt || ""),
+                endedAt: parseApiDateTime(record.endedAt || ""),
                 durationSeconds: normalizeOptionalSeconds(
                   record.durationSeconds,
                 ),
@@ -1458,11 +1493,14 @@
                 restSeconds: normalizeOptionalSeconds(record.restSeconds),
               }),
             );
+            normalized.startedAt = parseApiDateTime(normalized.startedAt || "");
+            normalized.endedAt =
+              parseApiDateTime(normalized.endedAt || "") || normalized.startedAt;
             normalized.contractionCount = normalized.contractions.length;
             return normalized;
           }
-          const startedAt = item.startedAt || "";
-          const endedAt = item.endedAt || startedAt;
+          const startedAt = parseApiDateTime(item.startedAt || "");
+          const endedAt = parseApiDateTime(item.endedAt || "") || startedAt;
           return {
             localId: item.localId || createLocalId("session"),
             itemId: item.itemId || "",
@@ -1894,7 +1932,9 @@
                 if (!silent) alert(response.message || t("saveFailed"));
                 return null;
               }
-              return response.data || {};
+              return response.data === undefined || response.data === null
+                ? {}
+                : response.data;
             },
             function (_xhr, textStatus, errorThrown) {
               console.warn(
@@ -2000,7 +2040,7 @@
               { silent: true },
             ).then((data) => ({
               session,
-              ok: Boolean(data),
+              ok: data === 0 || data === "0",
             }));
           }),
         );
