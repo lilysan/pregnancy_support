@@ -335,7 +335,6 @@
         const epdsSelections = new Map();
         const epdsSubmissionState = new Map();
         let liffInitPromise = null;
-        let epdsUserId = "";
 
         window.addEventListener("load", init);
 
@@ -1543,20 +1542,6 @@
             }, {});
         }
 
-        function decodeEpdsIdTokenUserId(idToken) {
-            try {
-                const payload = String(idToken || "").split(".")[1];
-                if (!payload) return "";
-                const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
-                const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=");
-                const decoded = JSON.parse(decodeURIComponent(escape(atob(padded))));
-                return decoded.sub || decoded.userId || "";
-            } catch (error) {
-                console.warn("Failed to decode EPDS LIFF ID token:", error);
-                return "";
-            }
-        }
-
         async function getEpdsAuth() {
             if (!window.liff || typeof LIFF_ID === "undefined") {
                 throw new Error("LIFF is not available");
@@ -1582,37 +1567,25 @@
             if (!idToken) {
                 throw new Error("LIFF ID token is empty");
             }
-            const profile = await Promise.resolve(typeof window.liff.getProfile === "function" ? window.liff.getProfile() : null)
-                .catch(() => null);
-            const decoded = typeof window.liff.getDecodedIDToken === "function" ? window.liff.getDecodedIDToken() : null;
-            epdsUserId = profile && profile.userId ? profile.userId : ((decoded && (decoded.sub || decoded.userId)) || decodeEpdsIdTokenUserId(idToken) || "");
-            window.userId = epdsUserId;
-            console.log("epds userId:", epdsUserId);
             console.log("epds idToken exists:", Boolean(idToken));
             return {
-                idToken,
-                userId: epdsUserId
+                idToken
             };
         }
 
         async function postEpdsResult(postData) {
             const auth = await getEpdsAuth();
-            const requestPostData = Object.assign({}, postData || {}, {
-                userId: auth.userId || ""
-            });
             const requestPayload = {
                 path: "myEpds",
                 method: "post",
                 idToken: auth.idToken,
-                userId: auth.userId || "",
-                lang: selectedLanguage || "",
-                postData: requestPostData
+                postData: postData || {}
             };
             console.log("epds request payload:", requestPayload);
             const response = await fetch(EPDS_API_URL, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "text/plain;charset=UTF-8"
+                    "Content-Type": "application/json; charset=utf-8"
                 },
                 body: JSON.stringify(requestPayload)
             });
