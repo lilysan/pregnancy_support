@@ -766,6 +766,39 @@
         )}`;
       }
 
+      function parseApiDateTime(value) {
+        const text = String(value || "").trim();
+        if (!text) return "";
+        const compact = text.match(
+          /^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})?$/,
+        );
+        if (compact) {
+          return new Date(
+            Number(compact[1]),
+            Number(compact[2]) - 1,
+            Number(compact[3]),
+            Number(compact[4]),
+            Number(compact[5]),
+            Number(compact[6] || 0),
+          ).toISOString();
+        }
+        const separated = text.match(
+          /^(\d{4})[/-](\d{1,2})[/-](\d{1,2})[ T](\d{1,2}):(\d{1,2})(?::(\d{1,2}))?$/,
+        );
+        if (separated) {
+          return new Date(
+            Number(separated[1]),
+            Number(separated[2]) - 1,
+            Number(separated[3]),
+            Number(separated[4]),
+            Number(separated[5]),
+            Number(separated[6] || 0),
+          ).toISOString();
+        }
+        const date = new Date(text);
+        return Number.isNaN(date.getTime()) ? "" : date.toISOString();
+      }
+
       function formatRecordDate(dateString) {
         const date = new Date(dateString);
         if (Number.isNaN(date.getTime())) return "";
@@ -795,12 +828,14 @@
       }
 
       function normalizeRecord(item) {
-        const startedAt = item && item.startedAt ? item.startedAt : "";
+        const startedAt = parseApiDateTime(item && item.startedAt ? item.startedAt : "");
         const sourceMovements = item && (item.movements || item.movementsJson);
-        const movements = Array.isArray(sourceMovements) ? sourceMovements : [];
+        const movements = Array.isArray(sourceMovements)
+          ? sourceMovements.map(parseApiDateTime).filter(Boolean)
+          : [];
         const endedAt =
           item && item.endedAt
-            ? item.endedAt
+            ? parseApiDateTime(item.endedAt)
             : movements[movements.length - 1] || startedAt;
         return {
           localId: (item && item.localId) || createLocalId("movement"),
@@ -840,6 +875,10 @@
 
       function requestMovementApi(method, postData, options) {
         const silent = options && options.silent;
+        if (!state.idToken) {
+          console.warn("movement_counter API skipped: missing idToken");
+          return Promise.resolve(null);
+        }
         const requestPostData = Object.assign({}, postData || {});
         const requestPayload = {
           path: "myMovement",
@@ -865,13 +904,15 @@
             }
             if (response.statusCode !== 200) {
               const message = response.message || "";
-              if (!(silent && method === "get" && message === "Hospital account is not linked")) {
+              if (!(silent && method === "get" && (message === "Hospital account is not linked" || message === "Invalid database"))) {
                 console.warn("movement API rejected the request:", message || response);
               }
               if (!silent) alert(message || t("saveFailed"));
               return null;
             }
-            return response.data || {};
+            return response.data === undefined || response.data === null
+              ? {}
+              : response.data;
           },
           function (_xhr, textStatus, errorThrown) {
             console.warn("movement API is not ready or network failed.", textStatus, errorThrown);
@@ -1136,7 +1177,7 @@
           if (!record.itemId) return Promise.resolve({ record, ok: true });
           return requestMovementApi("delete", { itemId: record.itemId }, { silent: true }).then((data) => ({
             record,
-            ok: Boolean(data),
+            ok: data === 0 || data === "0",
           }));
         }));
         const deletableIds = deleteResults.filter((result) => result.ok).map((result) => result.record.localId);
@@ -1179,9 +1220,12 @@
           })
           .then(() => {
             if (!ensureLiffLogin(isDev)) return null;
-            state.idToken = liff.getIDToken();
+            state.idToken =
+              typeof liff.getIDToken === "function" ? liff.getIDToken() : "";
+            console.log("movement idToken exists:", Boolean(state.idToken));
+            return state.idToken ? true : null;
           })
-          .then(() => {
+          .then((ready) => {
             loadLocalRecords();
             bindEvents();
             applyMovementLanguage(
@@ -1190,7 +1234,7 @@
                   ? liff.getAppLanguage()
                   : navigator.language),
             );
-            loadMovementRecordsFromApi();
+            if (ready) loadMovementRecordsFromApi();
             return loadHeader();
           })
           .then((result) => {
