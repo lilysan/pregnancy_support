@@ -4,7 +4,6 @@ const currentPage = "weight";
 
 const weightI18n = i18next.createInstance();
 const LANG_STORAGE_KEY = "weight2_ui_lang";
-const PERIOD_PLAN_STORAGE_KEY = "weight_period_plan";
 const PERIOD_TIME = {
     1: "06:00",
     2: "12:00",
@@ -103,7 +102,6 @@ const LANGUAGE_OPTIONS = [{
 ];
 
 let token = "";
-let userId = "";
 let allData = [];
 let currentPeriod = null;
 let weightMonthPage = 1;
@@ -120,29 +118,10 @@ function getMeta() {
 
 function saveMeta(meta) {
     currentPeriod = meta || null;
-    if (currentPeriod) {
-        localStorage.setItem(PERIOD_PLAN_STORAGE_KEY, JSON.stringify(currentPeriod));
-    } else {
-        localStorage.removeItem(PERIOD_PLAN_STORAGE_KEY);
-    }
 }
 
 function loadSavedMeta() {
-    try {
-        const saved = JSON.parse(localStorage.getItem(PERIOD_PLAN_STORAGE_KEY) || "null");
-        const normalized = normalizePeriod(saved);
-        if (
-            normalized &&
-            normalized.startDate &&
-            normalized.endDate &&
-            Number.isFinite(normalized.startWeightKg) &&
-            Number.isFinite(normalized.targetGainKg)
-        ) {
-            currentPeriod = normalized;
-        }
-    } catch (error) {
-        console.warn("Failed to load local weight period plan:", error);
-    }
+    return currentPeriod;
 }
 
 function tx(key, langCode) {

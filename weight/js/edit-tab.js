@@ -33,25 +33,6 @@ function loadMetaToForm() {
     document.getElementById("targetGainKg").value = Number.isFinite(meta.targetGainKg) ? meta.targetGainKg : "";
 }
 
-function savePlanLocallyFromForm() {
-    const startDate = document.getElementById("periodStartDate").value;
-    const startWeightKg = parseFloat(document.getElementById("startWeightKg").value);
-    const endDate = document.getElementById("targetEndDate").value;
-    const targetGainKg = parseFloat(document.getElementById("targetGainKg").value);
-    if (!startDate || !endDate || !Number.isFinite(startWeightKg) || !Number.isFinite(targetGainKg)) return false;
-    if (parseDateOnly(endDate).getTime() < parseDateOnly(startDate).getTime()) return false;
-    saveMeta({
-        periodId: currentPeriod && currentPeriod.periodId ? currentPeriod.periodId : "",
-        startDate: startDate,
-        startWeightKg: Number(startWeightKg.toFixed(1)),
-        endDate: endDate,
-        targetGainKg: Number(targetGainKg.toFixed(1))
-    });
-    renderSummary();
-    updateChart();
-    return true;
-}
-
 async function savePlan() {
     const startDate = document.getElementById("periodStartDate").value;
     const startWeightKg = parseFloat(document.getElementById("startWeightKg").value);
@@ -67,24 +48,15 @@ async function savePlan() {
         return;
     }
 
-    const isExistingPeriod = currentPeriod && currentPeriod.periodId !== "";
     const payload = {
-        type: "period",
         startDate: startDate,
-        startWeightKg: Number(startWeightKg.toFixed(1)),
+        startWeight: Number(startWeightKg.toFixed(1)),
         endDate: endDate,
-        targetGainKg: Number(targetGainKg.toFixed(1))
+        endWeight: Number((startWeightKg + targetGainKg).toFixed(1))
     };
-    if (isExistingPeriod) {
-        payload.periodId = currentPeriod.periodId;
-    }
-    saveMeta({
-        periodId: payload.periodId || (currentPeriod && currentPeriod.periodId) || "",
-        startDate: payload.startDate,
-        startWeightKg: payload.startWeightKg,
-        endDate: payload.endDate,
-        targetGainKg: payload.targetGainKg
-    });
+    const result = await requestWeightGainApi("post", payload);
+    if (!result) return;
+    await fetchWeightGain();
     loadMetaToForm();
     renderSummary();
     updateChart();
@@ -210,11 +182,6 @@ function bindEvents() {
     document.getElementById("loadOlderChartBtn").addEventListener("click", loadOlderWeightMonth);
     document.getElementById("loadOlderTableBtn").addEventListener("click", loadOlderWeightMonth);
     document.getElementById("loadOlderEditBtn").addEventListener("click", loadOlderWeightMonth);
-    ["periodStartDate", "startWeightKg", "targetEndDate", "targetGainKg"].forEach(function (id) {
-        const el = document.getElementById(id);
-        el.addEventListener("change", savePlanLocallyFromForm);
-        el.addEventListener("blur", savePlanLocallyFromForm);
-    });
     document.getElementById("editDialog").addEventListener("click", function (event) {
         if (event.target.id === "editDialog") closeEditDialog();
     });
@@ -229,7 +196,6 @@ window.addEventListener("load", async function () {
     await initI18n(selectedUiLang);
     renderLanguageOptions();
     applyI18n();
-    loadSavedMeta();
     loadMetaToForm();
     renderSummary();
     initPickers();

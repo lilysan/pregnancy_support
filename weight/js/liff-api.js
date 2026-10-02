@@ -100,6 +100,50 @@ function requestWeightApi(method, postData) {
     });
 }
 
+function weightGainPayload(method, data) {
+    const value = data || {};
+    if (method === "get") return {};
+    return {
+        startDate: value.startDate || "",
+        startWeight: Number(value.startWeight != null ? value.startWeight : 0),
+        endDate: value.endDate || "",
+        endWeight: Number(value.endWeight != null ? value.endWeight : 0)
+    };
+}
+
+function requestWeightGainApi(method, postData) {
+    showLoader();
+    const payload = {
+        path: "myWeightGain",
+        method: method,
+        idToken: token
+    };
+    const safePostData = weightGainPayload(method, postData);
+    if (method !== "get") {
+        payload.postData = safePostData;
+    }
+    const access = getAccessObj(payload);
+    access.timeout = 12000;
+    return $.ajax(access).then(function (response) {
+        if (response.statusCode === 401) {
+            liff.logout();
+            window.location.reload();
+            return null;
+        }
+        if (response.statusCode !== 200) {
+            console.error(response.message);
+            alert(response.message || "API error");
+            return null;
+        }
+        return response.data || {};
+    }, function () {
+        alert(bt("networkError"));
+        return null;
+    }).always(function () {
+        hideLoader();
+    });
+}
+
 function resolveItemId(item) {
     if (!item) return "";
     return item.itemId || item.LitemId || item.Litemid || item.litemId || item.id || "";
@@ -107,12 +151,18 @@ function resolveItemId(item) {
 
 function normalizePeriod(period) {
     if (!period) return null;
+    const startWeight = Number(period.startWeight != null ? period.startWeight : (period.startWeightKg != null ? period.startWeightKg : period.LstartWeightKg));
+    const endWeight = Number(period.endWeight != null ? period.endWeight : period.LendWeight);
+    const rawTargetGain = Number.isFinite(endWeight) && Number.isFinite(startWeight) ?
+        endWeight - startWeight :
+        Number(period.targetGainKg != null ? period.targetGainKg : period.LtargetGainKg);
+    const targetGain = Number.isFinite(rawTargetGain) ? Number(rawTargetGain.toFixed(1)) : rawTargetGain;
     return {
         periodId: period.periodId || period.LperiodId || period.id || "",
         startDate: period.startDate || period.LstartDate || "",
-        startWeightKg: Number(period.startWeightKg != null ? period.startWeightKg : period.LstartWeightKg),
+        startWeightKg: startWeight,
         endDate: period.endDate || period.targetEndDate || period.LendDate || "",
-        targetGainKg: Number(period.targetGainKg != null ? period.targetGainKg : period.LtargetGainKg)
+        targetGainKg: targetGain
     };
 }
 
@@ -192,6 +242,33 @@ function fetchWeightMonthPage(page, mode) {
     });
 }
 
+function applyWeightGainPayload(payload) {
+    const normalized = normalizePeriod(payload);
+    if (
+        normalized &&
+        normalized.startDate &&
+        normalized.endDate &&
+        Number.isFinite(normalized.startWeightKg) &&
+        Number.isFinite(normalized.targetGainKg)
+    ) {
+        saveMeta(normalized);
+        loadMetaToForm();
+    } else {
+        saveMeta(null);
+        loadMetaToForm();
+    }
+    renderSummary();
+    updateChart();
+}
+
+function fetchWeightGain() {
+    return requestWeightGainApi("get").then(function (payload) {
+        applyWeightGainPayload(payload || {});
+    }).catch(function (error) {
+        console.error("weight gain load error:", error);
+    });
+}
+
 function loadOlderWeightMonth() {
     if (loadingWeightMonth || !hasOlderWeightMonth) return;
     fetchWeightMonthPage(weightMonthPage + 1, "append");
@@ -205,7 +282,9 @@ async function reloadWeightData() {
 
 function startWeightApp(idToken) {
     token = idToken;
-    return reloadWeightData().catch(function (error) {
+    return fetchWeightGain().then(function () {
+        return reloadWeightData();
+    }).catch(function (error) {
         console.error("initial weight load error:", error);
     });
 }
